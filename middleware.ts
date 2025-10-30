@@ -1,16 +1,16 @@
-// in middleware.ts
-import { NextResponse, type NextRequest } from 'next/server'
-import { createClient } from '@/utils/supabase/server'
+// in middleware.ts (your root file)
+import { type NextRequest } from 'next/server'
+import { createClient } from '@/utils/supabase/middleware' // <-- Import from the NEW file
 
 export async function middleware(request: NextRequest) {
-  // Create the client (this is the *only* thing you get from server.ts)
-  const supabase = createClient()
+  // createClient will now return supabase and a response
+  const { supabase, response } = createClient(request)
 
-  // Refresh session if expired - THIS IS THE IMPORTANT PART
+  // Refresh the user's session
   await supabase.auth.getSession()
 
-  // Just return the standard response
-  return NextResponse.next()
+  // Return the response (which now has the updated cookie)
+  return response
 }
 
 export const config = {
