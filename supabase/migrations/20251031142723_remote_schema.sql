@@ -63,51 +63,111 @@ CREATE OR REPLACE FUNCTION "public"."create_new_report"("title" "text", "subject
     LANGUAGE "plpgsql"
     AS $$
 DECLARE
-  submitter_supervisor_group_id uuid;
+  submitter_level INTEGER := public.get_my_role_level(); -- Use the STABLE function!
+  subject_level INTEGER;
+  submitter_group_id uuid;
+  first_approver_group_id uuid;
   new_report_id uuid;
 BEGIN
-  -- Step 1: Find the submitter's supervisor group (the first approver)
-  SELECT supervisor_group_id
-  INTO submitter_supervisor_group_id
+  -- 0. HIERARCHICAL CHECK (New Step)
+  SELECT role_level INTO subject_level
+  FROM public.profiles
+  WHERE id = subject_cadet_id;
+
+  IF submitter_level <= subject_level THEN
+      RAISE EXCEPTION 'Permission denied: Cannot report on a peer or superior.'
+      USING HINT = 'Reports must be submitted by a user with a strictly higher role_level than the subject.';
+  END IF;
+
+  -- Step 1: Find the submitter's "home" group
+  SELECT group_id INTO submitter_group_id
   FROM public.profiles
   WHERE id = auth.uid();
 
-  -- Step 2: Check if they have a supervisor
-  IF submitter_supervisor_group_id IS NULL THEN
-    RAISE EXCEPTION 'Cannot submit: You have no supervisor assigned.';
+  IF submitter_group_id IS NULL THEN
+    RAISE EXCEPTION 'Cannot submit: You are not assigned to a group.';
+  END IF;
+
+  -- Step 2: Find the *next* group in the chain
+  SELECT next_approver_group_id INTO first_approver_group_id
+  FROM public.approval_groups
+  WHERE id = submitter_group_id;
+
+  IF first_approver_group_id IS NULL THEN
+    RAISE EXCEPTION 'Cannot submit: Your group has no approval chain defined.';
   END IF;
 
   -- Step 3: Create the new report
-  INSERT INTO public.demerit_reports (
-    title,
-    subject_cadet_id,
-    content,
-    submitted_by,
-    status,
-    current_approver_group_id
-  )
-  VALUES (
-    title,
-    subject_cadet_id,
-    content,
-    auth.uid(), -- The person calling this function
-    'pending_approval',
-    submitter_supervisor_group_id -- The supervisor group we just found
-  )
-  RETURNING id INTO new_report_id; -- Get the ID of the report we just made
+  INSERT INTO public.demerit_reports (title, subject_cadet_id, content, submitted_by, status, current_approver_group_id)
+  VALUES (title, subject_cadet_id, content, auth.uid(), 'pending_approval', first_approver_group_id)
+  RETURNING id INTO new_report_id;
 
   -- Step 4: Log this submission
   INSERT INTO public.approval_log (report_id, actor_id, action, comment)
   VALUES (new_report_id, auth.uid(), 'submitted', 'Report created');
 
-  -- Step 5: Return the new report's ID to the website
   RETURN new_report_id;
-
 END;
 $$;
 
 
 ALTER FUNCTION "public"."create_new_report"("title" "text", "subject_cadet_id" "uuid", "content" "jsonb") OWNER TO "postgres";
+
+
+CREATE OR REPLACE FUNCTION "public"."get_my_role_level"() RETURNS integer
+    LANGUAGE "sql" STABLE SECURITY DEFINER
+    AS $$
+  -- RLS is effectively bypassed for this internal query because 
+  -- the function is running as the definer (e.g., postgres), not the invoker (the authenticated user).
+  SELECT role_level
+  FROM public.profiles
+  WHERE id = auth.uid()
+  LIMIT 1;
+$$;
+
+
+ALTER FUNCTION "public"."get_my_role_level"() OWNER TO "postgres";
+
+
+CREATE OR REPLACE FUNCTION "public"."handle_approval"("report_id_to_approve" "uuid", "approval_comment" "text") RETURNS "void"
+    LANGUAGE "plpgsql" SECURITY DEFINER
+    AS $$
+DECLARE
+  current_report record;
+  current_group_chain record;
+BEGIN
+  -- Security Check
+  SELECT * INTO current_report FROM public.demerit_reports WHERE id = report_id_to_approve;
+  IF NOT public.is_member_of_approver_group(current_report.current_approver_group_id) THEN
+    RAISE EXCEPTION 'You do not have permission to approve this report.';
+  END IF;
+
+  -- Logic: Find the *next* group from the current one
+  SELECT next_approver_group_id INTO current_group_chain
+  FROM public.approval_groups
+  WHERE id = current_report.current_approver_group_id;
+
+  -- Update the report based on the chain
+  IF current_group_chain.next_approver_group_id IS NULL THEN
+    -- This is the FINAL approver.
+    UPDATE public.demerit_reports
+    SET status = 'approved', current_approver_group_id = NULL
+    WHERE id = report_id_to_approve;
+  ELSE
+    -- This is NOT the final approver. Pass it up the chain.
+    UPDATE public.demerit_reports
+    SET status = 'pending_approval', current_approver_group_id = current_group_chain.next_approver_group_id
+    WHERE id = report_id_to_approve;
+  END IF;
+
+  -- Log this action
+  INSERT INTO public.approval_log (report_id, actor_id, action, comment)
+  VALUES (report_id_to_approve, auth.uid(), 'approved', approval_comment);
+END;
+$$;
+
+
+ALTER FUNCTION "public"."handle_approval"("report_id_to_approve" "uuid", "approval_comment" "text") OWNER TO "postgres";
 
 
 CREATE OR REPLACE FUNCTION "public"."is_member_of_approver_group"("p_group_id" "uuid") RETURNS boolean
@@ -131,7 +191,8 @@ SET default_table_access_method = "heap";
 
 CREATE TABLE IF NOT EXISTS "public"."approval_groups" (
     "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
-    "group_name" "text" NOT NULL
+    "group_name" "text" NOT NULL,
+    "next_approver_group_id" "uuid"
 );
 
 
@@ -168,7 +229,8 @@ CREATE TABLE IF NOT EXISTS "public"."demerit_reports" (
     "created_at" timestamp with time zone DEFAULT "now"() NOT NULL,
     "status" "text",
     "current_approver_group_id" "uuid",
-    "deleted_at" timestamp with time zone
+    "deleted_at" timestamp with time zone,
+    CONSTRAINT "check_content_structure" CHECK ((("content" ? 'category'::"text") AND ("content" ? 'demerit_count'::"text") AND ("content" ? 'notes'::"text")))
 );
 
 
@@ -196,7 +258,8 @@ CREATE TABLE IF NOT EXISTS "public"."profiles" (
     "id" "uuid" DEFAULT "gen_random_uuid"() NOT NULL,
     "full_name" "text" NOT NULL,
     "role" "text",
-    "supervisor_group_id" "uuid"
+    "group_id" "uuid",
+    "role_level" integer DEFAULT 0 NOT NULL
 );
 
 
@@ -253,6 +316,11 @@ CREATE INDEX "idx_demerit_reports_submitted_by" ON "public"."demerit_reports" US
 
 
 
+ALTER TABLE ONLY "public"."approval_groups"
+    ADD CONSTRAINT "approval_groups_next_approver_group_id_fkey" FOREIGN KEY ("next_approver_group_id") REFERENCES "public"."approval_groups"("id");
+
+
+
 ALTER TABLE ONLY "public"."approval_log"
     ADD CONSTRAINT "approval_log_actor_id_fkey" FOREIGN KEY ("actor_id") REFERENCES "public"."profiles"("id");
 
@@ -289,12 +357,69 @@ ALTER TABLE ONLY "public"."group_members"
 
 
 ALTER TABLE ONLY "public"."profiles"
-    ADD CONSTRAINT "profiles_id_fkey" FOREIGN KEY ("id") REFERENCES "auth"."users"("id");
+    ADD CONSTRAINT "profiles_group_id_fkey" FOREIGN KEY ("group_id") REFERENCES "public"."approval_groups"("id");
 
 
 
 ALTER TABLE ONLY "public"."profiles"
-    ADD CONSTRAINT "profiles_supervisor_group_id_fkey" FOREIGN KEY ("supervisor_group_id") REFERENCES "public"."approval_groups"("id");
+    ADD CONSTRAINT "profiles_id_fkey" FOREIGN KEY ("id") REFERENCES "auth"."users"("id");
+
+
+
+CREATE POLICY "Allow access to involved parties" ON "public"."demerit_reports" FOR SELECT TO "authenticated" USING ((( SELECT "auth"."uid"() AS "uid") = "subject_cadet_id"));
+
+
+
+CREATE POLICY "Authenticated users can see all group memberships" ON "public"."group_members" FOR SELECT TO "authenticated" USING (true);
+
+
+
+CREATE POLICY "Authenticated users can see all groups" ON "public"."approval_groups" FOR SELECT TO "authenticated" USING (true);
+
+
+
+CREATE POLICY "Hierarchical view policy" ON "public"."profiles" FOR SELECT TO "authenticated" USING ((("id" = "auth"."uid"()) OR ("public"."get_my_role_level"() > "role_level")));
+
+
+
+CREATE POLICY "Involved parties can edit report" ON "public"."demerit_reports" FOR UPDATE TO "authenticated" USING ((("auth"."uid"() = "submitted_by") OR "public"."is_member_of_approver_group"("current_approver_group_id") OR (EXISTS ( SELECT 1
+   FROM "public"."approval_log"
+  WHERE (("approval_log"."report_id" = "approval_log"."id") AND ("approval_log"."actor_id" = "auth"."uid"()))))));
+
+
+
+CREATE POLICY "Users Can Update Their Own Profile" ON "public"."profiles" FOR UPDATE TO "authenticated" USING ((( SELECT "auth"."uid"() AS "uid") = "id")) WITH CHECK ((( SELECT "auth"."uid"() AS "uid") = "id"));
+
+
+
+CREATE POLICY "Users can add log entries for relevant reports" ON "public"."approval_log" FOR INSERT TO "authenticated" WITH CHECK (((( SELECT "auth"."uid"() AS "uid") = "actor_id") AND (EXISTS ( SELECT 1
+   FROM "public"."demerit_reports"
+  WHERE ("demerit_reports"."id" = "approval_log"."report_id")))));
+
+
+
+CREATE POLICY "Users can create reports" ON "public"."demerit_reports" FOR INSERT TO "authenticated" WITH CHECK ((("auth"."uid"() = "submitted_by") AND ("public"."get_my_role_level"() > ( SELECT "profiles"."role_level"
+   FROM "public"."profiles"
+  WHERE ("profiles"."id" = "demerit_reports"."subject_cadet_id")
+ LIMIT 1))));
+
+
+
+CREATE POLICY "Users can create reports on visible profiles" ON "public"."demerit_reports" FOR INSERT TO "authenticated" WITH CHECK ((("auth"."uid"() = "submitted_by") AND (EXISTS ( SELECT 1
+   FROM "public"."profiles"
+  WHERE ("profiles"."id" = "demerit_reports"."subject_cadet_id")))));
+
+
+
+CREATE POLICY "Users can see logs for relevant reports" ON "public"."approval_log" FOR SELECT TO "authenticated" USING ((EXISTS ( SELECT 1
+   FROM "public"."demerit_reports"
+  WHERE ("demerit_reports"."id" = "approval_log"."report_id"))));
+
+
+
+CREATE POLICY "Users can see relevant reports (Group Model)" ON "public"."demerit_reports" FOR SELECT TO "authenticated" USING ((("auth"."uid"() = "submitted_by") OR (EXISTS ( SELECT 1
+   FROM "public"."group_members"
+  WHERE (("group_members"."group_id" = "demerit_reports"."current_approver_group_id") AND ("group_members"."user_id" = "auth"."uid"()))))));
 
 
 
@@ -312,36 +437,8 @@ ALTER TABLE "public"."group_members" ENABLE ROW LEVEL SECURITY;
 
 ALTER TABLE "public"."profiles" ENABLE ROW LEVEL SECURITY;
 
--- POLICIES FOR demerit_reports
-CREATE POLICY "Users can see relevant reports (Group Model)" ON "public"."demerit_reports" FOR SELECT TO "authenticated" USING ((("auth"."uid"() = "submitted_by") OR (EXISTS ( SELECT 1
-   FROM "public"."group_members"
-  WHERE (("group_members"."group_id" = "demerit_reports"."current_approver_group_id") AND ("group_members"."user_id" = "auth"."uid"()))))));
-
-CREATE POLICY "Approvers can update reports (Group Model)" ON "public"."demerit_reports" FOR UPDATE TO "authenticated" USING ((EXISTS ( SELECT 1
-   FROM "public"."group_members"
-  WHERE (("group_members"."group_id" = "demerit_reports"."current_approver_group_id") AND ("group_members"."user_id" = "auth"."uid"()))))) WITH CHECK ((EXISTS ( SELECT 1
-   FROM "public"."group_members"
-  WHERE (("group_members"."group_id" = "demerit_reports"."current_approver_group_id") AND ("group_members"."user_id" = "auth"."uid"())))));
-
-CREATE POLICY "Submitter can edit their own report if it needs revision" ON "public"."demerit_reports" FOR UPDATE TO "authenticated" USING ((("auth"."uid"() = "submitted_by") AND ("status" = 'needs_revision'::"text"))) WITH CHECK (("auth"."uid"() = "submitted_by"));
-
-CREATE POLICY "Users can Create Reports" ON "public"."demerit_reports" FOR INSERT TO "authenticated" WITH CHECK ((( SELECT "auth"."uid"() AS "uid") = "submitted_by"));
 
 
--- POLICIES FOR other tables
-CREATE POLICY "Authenticated users can see all group memberships" ON "public"."group_members" FOR SELECT TO "authenticated" USING (true);
-CREATE POLICY "Authenticated users can see all groups" ON "public"."approval_groups" FOR SELECT TO "authenticated" USING (true);
-CREATE POLICY "Enable read access for all users" ON "public"."profiles" FOR SELECT TO "authenticated" USING (true);
-CREATE POLICY "Users Can Update Their Own Profile" ON "public"."profiles" FOR UPDATE TO "authenticated" USING ((( SELECT "auth"."uid"() AS "uid") = "id")) WITH CHECK ((( SELECT "auth"."uid"() AS "uid") = "id"));
-CREATE POLICY "Users can add log entries for relevant reports" ON "public"."approval_log" FOR INSERT TO "authenticated" WITH CHECK (((( SELECT "auth"."uid"() AS "uid") = "actor_id") AND (EXISTS ( SELECT 1
-   FROM "public"."demerit_reports"
-  WHERE ("demerit_reports"."id" = "approval_log"."report_id")))));
-CREATE POLICY "Users can see logs for relevant reports" ON "public"."approval_log" FOR SELECT TO "authenticated" USING ((EXISTS ( SELECT 1
-   FROM "public"."demerit_reports"
-  WHERE ("demerit_reports"."id" = "approval_log"."report_id"))));
-
--- CREATE POLICY "Users can see reports they submitted" on "public"."demerit_reports" FOR SELECT TO "authenticated" USING ("submitted_by" = (SELECT "auth"."uid"()));
-CREATE POLICY "Allow access to involved parties" ON public.demerit_reports FOR SELECT TO authenticated USING ((SELECT auth.uid()) = subject_cadet_id);
 
 ALTER PUBLICATION "supabase_realtime" OWNER TO "postgres";
 
@@ -3725,12 +3822,26 @@ GRANT USAGE ON SCHEMA "public" TO "service_role";
 
 
 
--- GRANT ALL ON FUNCTION "public"."create_new_report"("title" "text", "subject_cadet_id" "uuid", "content" "jsonb") TO "anon";
+GRANT ALL ON FUNCTION "public"."create_new_report"("title" "text", "subject_cadet_id" "uuid", "content" "jsonb") TO "anon";
 GRANT ALL ON FUNCTION "public"."create_new_report"("title" "text", "subject_cadet_id" "uuid", "content" "jsonb") TO "authenticated";
 GRANT ALL ON FUNCTION "public"."create_new_report"("title" "text", "subject_cadet_id" "uuid", "content" "jsonb") TO "service_role";
 
 
 
+GRANT ALL ON FUNCTION "public"."get_my_role_level"() TO "anon";
+GRANT ALL ON FUNCTION "public"."get_my_role_level"() TO "authenticated";
+GRANT ALL ON FUNCTION "public"."get_my_role_level"() TO "service_role";
+
+
+
+GRANT ALL ON FUNCTION "public"."handle_approval"("report_id_to_approve" "uuid", "approval_comment" "text") TO "anon";
+GRANT ALL ON FUNCTION "public"."handle_approval"("report_id_to_approve" "uuid", "approval_comment" "text") TO "authenticated";
+GRANT ALL ON FUNCTION "public"."handle_approval"("report_id_to_approve" "uuid", "approval_comment" "text") TO "service_role";
+
+
+
+GRANT ALL ON FUNCTION "public"."is_member_of_approver_group"("p_group_id" "uuid") TO "anon";
+GRANT ALL ON FUNCTION "public"."is_member_of_approver_group"("p_group_id" "uuid") TO "authenticated";
 GRANT ALL ON FUNCTION "public"."is_member_of_approver_group"("p_group_id" "uuid") TO "service_role";
 
 
@@ -3750,22 +3861,32 @@ GRANT ALL ON FUNCTION "public"."is_member_of_approver_group"("p_group_id" "uuid"
 
 
 
+GRANT ALL ON TABLE "public"."approval_groups" TO "anon";
+GRANT ALL ON TABLE "public"."approval_groups" TO "authenticated";
 GRANT ALL ON TABLE "public"."approval_groups" TO "service_role";
 
 
 
+GRANT ALL ON TABLE "public"."approval_log" TO "anon";
+GRANT ALL ON TABLE "public"."approval_log" TO "authenticated";
 GRANT ALL ON TABLE "public"."approval_log" TO "service_role";
 
 
 
+GRANT ALL ON TABLE "public"."demerit_reports" TO "anon";
+GRANT ALL ON TABLE "public"."demerit_reports" TO "authenticated";
 GRANT ALL ON TABLE "public"."demerit_reports" TO "service_role";
 
 
 
+GRANT ALL ON TABLE "public"."group_members" TO "anon";
+GRANT ALL ON TABLE "public"."group_members" TO "authenticated";
 GRANT ALL ON TABLE "public"."group_members" TO "service_role";
 
 
 
+GRANT ALL ON TABLE "public"."profiles" TO "anon";
+GRANT ALL ON TABLE "public"."profiles" TO "authenticated";
 GRANT ALL ON TABLE "public"."profiles" TO "service_role";
 
 
@@ -3776,6 +3897,30 @@ GRANT ALL ON TABLE "public"."profiles" TO "service_role";
 
 
 
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON SEQUENCES TO "postgres";
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON SEQUENCES TO "anon";
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON SEQUENCES TO "authenticated";
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON SEQUENCES TO "service_role";
+
+
+
+
+
+
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON FUNCTIONS TO "postgres";
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON FUNCTIONS TO "anon";
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON FUNCTIONS TO "authenticated";
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON FUNCTIONS TO "service_role";
+
+
+
+
+
+
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON TABLES TO "postgres";
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON TABLES TO "anon";
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON TABLES TO "authenticated";
+ALTER DEFAULT PRIVILEGES FOR ROLE "postgres" IN SCHEMA "public" GRANT ALL ON TABLES TO "service_role";
 
 
 
@@ -3793,5 +3938,20 @@ GRANT ALL ON TABLE "public"."profiles" TO "service_role";
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+drop extension if exists "pg_net";
 
 

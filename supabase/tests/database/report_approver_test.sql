@@ -17,14 +17,15 @@ VALUES ('33333333-3333-3333-3333-333333333333', '22222222-2222-2222-2222-2222222
 -- "Log in" as Cadet A (Submitter)
 SELECT set_config('request.jwt.claims', '{"role":"authenticated", "sub":"11111111-1111-1111-1111-111111111111"}', true);
 
--- Create a report (adding 'subject_cadet_id')
-INSERT INTO public.demerit_reports (id, title, submitted_by, current_approver_group_id, subject_cadet_id) 
+-- Create a report (adding 'subject_cadet_id' and 'date_of_offense')
+INSERT INTO public.demerit_reports (id, title, submitted_by, current_approver_group_id, subject_cadet_id, date_of_offense) 
 VALUES (
     '44444444-4444-4444-4444-444444444444', 
     'Test Report', 
     '11111111-1111-1111-1111-111111111111', 
     '33333333-3333-3333-3333-333333333333',
-    '11111111-1111-1111-1111-111111111111' -- Cadet A is the subject
+    '11111111-1111-1111-1111-111111111111', -- Cadet A is the subject
+    now()::date -- *** FIX: Added date_of_offense ***
 );
 
 -- "Log in" as Cadet B (the Approver)

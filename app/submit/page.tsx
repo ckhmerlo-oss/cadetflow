@@ -1,14 +1,15 @@
 // in app/submit/page.tsx
-'use client' // This is an interactive form, so it runs in the browser
+'use client' 
 
 import { createClient } from '@/utils/supabase/client'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 
-// Define a type for our cadet profile
+// *** UPDATED TYPE ***
 type CadetProfile = {
   id: string;
-  full_name: string;
+  first_name: string;
+  last_name: string;
 }
 
 export default function SubmitReport() {
@@ -17,44 +18,49 @@ export default function SubmitReport() {
   
   // State for your form fields
   const [title, setTitle] = useState('')
-  const [content, setContent] = useState('')
   const [subjectCadetId, setSubjectCadetId] = useState('')
+  const [dateOfOffense, setDateOfOffense] = useState(new Date().toISOString().split('T')[0]) // Default to today
+  const [category, setCategory] = useState('')
+  const [demeritCount, setDemeritCount] = useState(1)
+  const [notes, setNotes] = useState('')
 
-  // State for your dropdown
   const [cadets, setCadets] = useState<CadetProfile[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  // 1. Fetch all cadets for the dropdown when the page loads
+  // 1. Fetch cadets for the dropdown
   useEffect(() => {
     async function getCadets() {
-      // Your RLS policy allows any 'authenticated' user to read profiles
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('id, full_name') // Only get what we need
+      // *** UPDATED: Call the get_subordinates function ***
+      const { data, error } = await supabase.rpc('get_subordinates')
       
       if (error) {
         setError('Could not fetch cadets: ' + error.message)
       } else if (data) {
+        // Sort by last name
+        data.sort((a, b) => a.last_name.localeCompare(b.last_name))
         setCadets(data)
       }
     }
     getCadets()
-  }, [supabase]) // The empty array means this runs once on load
+  }, [supabase]) 
 
   // 2. Handle the form submission
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault() // Stop the page from refreshing
+    e.preventDefault() 
     setLoading(true)
     setError(null)
 
     // 3. Call your 'create_new_report' SQL function
     const { error: rpcError } = await supabase.rpc('create_new_report', {
-      title: title,
-      subject_cadet_id: subjectCadetId,
-      // Make sure your jsonb structure matches what you want.
-      // For example, if you just have one text field:
-      content: { "details": content } 
+      p_title: title,
+      p_subject_cadet_id: subjectCadetId,
+      p_date_of_offense: dateOfOffense,
+      p_content: { // Match the JSON structure
+        category: category, 
+        demerit_count: demeritCount,
+        notes: notes 
+      } 
     })
 
     setLoading(false)
@@ -62,17 +68,20 @@ export default function SubmitReport() {
     if (rpcError) {
       setError('Error submitting report: ' + rpcError.message)
     } else {
-      alert('Report submitted successfully!')
-      router.push('/') // Redirect to the dashboard
-      router.refresh() // Tell the dashboard to reload its data
+      router.push('/') 
+      router.refresh() 
     }
   }
 
+  // --- Form Categories ---
+  const reportCategories = [
+    "Uniform", "Barracks", "Discipline", "Punctuality", "Knowledge", "Other"
+  ];
+
   return (
     <div className="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
-      <div className="bg-white p-6 rounded-lg shadow">
+      <div className="bg-white p-6 rounded-lg shadow-md">
         
-        {/* This is your existing form. It fits right inside the card. */}
         <form onSubmit={handleSubmit} className="space-y-6">
           <h2 className="text-2xl font-semibold text-gray-900">
             Submit New Report
@@ -90,6 +99,7 @@ export default function SubmitReport() {
               onChange={(e) => setTitle(e.target.value)} 
               required 
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              placeholder="e.g., 'Uniform Infraction in Formation'"
             />
           </div>
 
@@ -105,27 +115,82 @@ export default function SubmitReport() {
               required
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             >
-              <option value="">Select a cadet</option>
+              <option value="">Select a cadet...</option>
               {cadets.map((cadet) => (
+                // *** UPDATED: Format as "Last, First" ***
                 <option key={cadet.id} value={cadet.id}>
-                  {cadet.full_name}
+                  {cadet.last_name}, {cadet.first_name}
                 </option>
               ))}
             </select>
           </div>
 
-          {/* Content Field */}
+          {/* Date of Offense */}
           <div>
-            <label htmlFor="content" className="block text-sm font-medium text-gray-700">
-              Report Details
+            <label htmlFor="date" className="block text-sm font-medium text-gray-700">
+              Date of Offense
+            </label>
+            <input 
+              id="date"
+              type="date"
+              value={dateOfOffense} 
+              onChange={(e) => setDateOfOffense(e.target.value)} 
+              required 
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            />
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Category */}
+            <div>
+              <label htmlFor="category" className="block text-sm font-medium text-gray-700">
+                Category
+              </label>
+              <select 
+                id="category"
+                value={category} 
+                onChange={(e) => setCategory(e.target.value)} 
+                required
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              >
+                <option value="">Select a category...</option>
+                {reportCategories.map((cat) => (
+                  <option key={cat} value={cat}>
+                    {cat}
+                  </option>
+                ))}
+              </select>
+            </div>
+            {/* Demerit Count */}
+            <div>
+              <label htmlFor="demerits" className="block text-sm font-medium text-gray-700">
+                Demerit Count
+              </label>
+              <input 
+                id="demerits"
+                type="number"
+                value={demeritCount} 
+                onChange={(e) => setDemeritCount(parseInt(e.target.value))} 
+                required 
+                min="0"
+                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              />
+            </div>
+          </div>
+
+          {/* Notes Field */}
+          <div>
+            <label htmlFor="notes" className="block text-sm font-medium text-gray-700">
+              Notes
             </label>
             <textarea 
-              id="content"
-              value={content} 
-              onChange={(e) => setContent(e.target.value)} 
+              id="notes"
+              value={notes} 
+              onChange={(e) => setNotes(e.target.value)} 
               required 
-              rows={5}
+              rows={4}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              placeholder="Provide a detailed description of the incident..."
             />
           </div>
 
@@ -146,3 +211,4 @@ export default function SubmitReport() {
     </div>
   )
 }
+

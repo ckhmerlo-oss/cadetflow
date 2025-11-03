@@ -2,46 +2,114 @@
 import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
+import { Database } from '@/utils/supabase/types' // Assuming you have a types file
+
+// Define type for our joined report
+type ReportWithNames = Database['public']['Tables']['demerit_reports']['Row'] & {
+  subject: { first_name: string, last_name: string } | null
+  submitter: { first_name: string, last_name: string } | null
+  group: { group_name: string } | null
+}
+
+// *** NEW: Define type for our new stats RPC ***
+type CadetStats = {
+  term_demerits: number;
+  year_demerits: number;
+  total_tours: number;
+}
 
 export default async function Dashboard() {
   const supabase = createClient()
 
   // 1. Get the current user
   const { data: { user } } = await supabase.auth.getUser()
-
-  // 2. If no user, redirect them to the login page
   if (!user) {
     return redirect('/login')
   }
 
-  // 3. Fetch reports awaiting YOUR approval
-  // RLS does all the magic here! You don't need a complex query.
-  const { data: actionItems } = await supabase
-    .from('reports') // Your table might be named 'demerit_reports'
-    .select('*')
-    // RLS automatically filters this to reports where you're in the group!
+  // 2. Get user's profile for name and role_level
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('first_name, last_name, role_level') 
+    .eq('id', user.id)
+    .single()
 
-  // 4. Fetch reports YOU submitted
-  const { data: mySubmittedReports } = await supabase
-    .from('reports') // Your table might be named 'demerit_reports'
-    .select('*')
-    .eq('submitted_by', user.id)
+  // *** UPDATED: Use role_level < 50 for cadets ***
+  const isFaculty = (profile?.role_level || 0) >= 50;
+
+  // 3. Fetch all reports user is involved with
+  const { data: allInvolvedReports, error } = await supabase
+    .from('demerit_reports')
+    .select(`
+      *,
+      subject:subject_cadet_id ( first_name, last_name ), 
+      submitter:submitted_by ( first_name, last_name ), 
+      group:current_approver_group_id ( group_name )
+    `) 
+    .returns<ReportWithNames[]>() 
+    
+  if (error) {
+    console.error("Error fetching reports:", error.message)
+  }
+
+  // 4. *** Conditionally fetch data ***
+  let individualItems: ReportWithNames[] = [];
+  let allPendingReports: ReportWithNames[] = [];
+  let cadetStats: CadetStats | null = null; // *** NEW: Variable for cadet stats ***
+
+  if (isFaculty) {
+    // Faculty sees ALL pending reports
+    const { data: facultyData, error: rpcError } = await supabase
+      .rpc('get_all_pending_reports_for_faculty')
+    
+    if (rpcError) console.error("Error fetching faculty reports:", rpcError.message)
+    allPendingReports = facultyData as ReportWithNames[] || [];
+
+  } else {
+    // Cadets see "Individual Items"
+    individualItems = allInvolvedReports?.filter(report => 
+      report.subject_cadet_id === user.id
+    ) || []
+
+    // *** NEW: Cadets also fetch their dashboard stats ***
+    const { data: statsData, error: statsError } = await supabase
+      .rpc('get_cadet_dashboard_stats')
+      .single()
+    
+    if (statsError) console.error("Error fetching cadet stats:", statsError.message)
+    if (statsData) cadetStats = statsData;
+  }
+    
+  // 5. Filter the other reports
+  
+  // Box 1: Action Items
+  const actionItems = allInvolvedReports?.filter(report => 
+    (report.status === 'pending_approval' && report.current_approver_group_id !== null) || // RLS handles approver check
+    (report.status === 'needs_revision' && report.submitted_by === user.id)
+  ) || []
+
+  // Box 3: My Submitted Reports (By me)
+  const mySubmittedReports = allInvolvedReports?.filter(report => 
+    report.submitted_by === user.id
+  ) || []
+
+  // Box 4: Completed Archive
+  const allInvolvedArchive = allInvolvedReports?.filter(report => report.status === 'completed' || report.status === 'rejected')
+  const completedReports = Array.from(new Map(allInvolvedArchive.map(item => [item.id, item])).values())
+    .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()) 
 
   return (
-    <div className="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8">
-      {/* Page Header */}
+    <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
       {/* Page Header */}
       <div className="flex justify-between items-center mb-8">
-        {/* Left side (title) */}
         <div>
           <h1 className="text-3xl font-bold text-gray-900">
-            Welcome, {user.email?.split('@')[0]}
+            Welcome, {profile?.first_name || user.email}
           </h1>
           <p className="mt-2 text-lg text-gray-600">
-            Here's a summary of your reports.
+            Here's your personal dashboard.
           </p>
         </div>
-        {/* Right side (button) */}
         <div>
           <Link 
             href="/submit" 
@@ -52,77 +120,156 @@ export default async function Dashboard() {
         </div>
       </div>
 
-      {/* Grid for the two columns */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        
-        {/* Column 1: My Action Items */}
-        <div className="space-y-4">
-          <h2 className="text-2xl font-semibold text-gray-800">
-            My Action Items ({actionItems?.length || 0})
-          </h2>
-          <div className="bg-white p-4 rounded-lg shadow space-y-3">
-            {actionItems && actionItems.length > 0 ? (
-              actionItems.map(report => (
-                <Link 
-                  href={`/report/${report.id}`} 
-                  key={report.id}
-                  className="block p-4 border rounded-md hover:bg-gray-50"
-                >
-                  <div className="flex justify-between items-center">
-                    <span className="font-medium text-indigo-600">{report.title}</span>
-                    <span className="text-sm font-medium text-white bg-yellow-500 px-2 py-0.5 rounded-full">
-                      {report.status}
-                    </span>
-                  </div>
-                </Link>
-              ))
-            ) : (
-              <p className="text-gray-500">No action items in your queue. Great job!</p>
-            )}
-          </div>
-        </div>
+      {/* *** NEW: Conditional Cadet Stats Header *** */}
+      {!isFaculty && cadetStats && (
+        <CadetStatsHeader stats={cadetStats} />
+      )}
 
-        {/* Column 2: My Submitted Reports */}
-        <div className="space-y-4">
-          <h2 className="text-2xl font-semibold text-gray-800">
-            My Submitted Reports ({mySubmittedReports?.length || 0})
-          </h2>
-          <div className="bg-white p-4 rounded-lg shadow space-y-3">
-            {mySubmittedReports && mySubmittedReports.length > 0 ? (
-              mySubmittedReports.map(report => (
-                <Link 
-                  href={`/report/${report.id}`} 
-                  key={report.id}
-                  className="block p-4 border rounded-md hover:bg-gray-50"
-                >
-                  <div className="flex justify-between items-center">
-                    <span className="font-medium text-gray-700">{report.title}</span>
-                    {/* Dynamic "badge" for status */}
-                    <span 
-                      className={`text-sm font-medium px-2 py-0.5 rounded-full ${
-                        report.status === 'approved' ? 'bg-green-100 text-green-800' :
-                        report.status === 'rejected' ? 'bg-red-100 text-red-800' :
-                        'bg-gray-100 text-gray-800'
-                      }`}
-                    >
-                      {report.status}
-                    </span>
-                  </div>
-                  {/* Here's the transparency part you wanted! */}
-                  {report.status === 'pending_approval' && (
-                    <p className="text-sm text-gray-500 mt-2">
-                      Waiting for: {report.current_group.name}
-                    </p>
-                  )}
-                </Link>
-              ))
-            ) : (
-              <p className="text-gray-500">You haven't submitted any reports yet.</p>
-            )}
-          </div>
-        </div>
+      {/* Grid for the four columns */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+        
+        {/* Column 1: Action Items */}
+        <DashboardSection 
+          title="Action Items" 
+          items={actionItems} 
+          emptyMessage="No action items in your queue. Great job!" 
+          showSubject 
+        />
+        
+        {/* *** CONDITIONAL Column 2 *** */}
+        {isFaculty ? (
+          <DashboardSection 
+            title="All In-Progress Reports" 
+            items={allPendingReports} 
+            emptyMessage="There are no reports pending approval." 
+            showSubject 
+          />
+        ) : (
+          <DashboardSection 
+            title="Individual Items" 
+            items={individualItems} 
+            emptyMessage="You have no reports filed about you." 
+            showSubmitter 
+          />
+        )}
+
+        {/* Column 3: My Submitted Reports */}
+        <DashboardSection 
+          title="My Submitted Reports" 
+          items={mySubmittedReports} 
+          emptyMessage="You haven't submitted any reports yet." 
+          showSubject 
+        />
+
+        {/* Column 4: Completed Archive */}
+        <DashboardSection 
+          title="Completed Archive" 
+          items={completedReports} 
+          emptyMessage="No completed reports found." 
+          showSubject 
+        />
         
       </div>
     </div>
   )
 }
+
+// --- Helper Components ---
+
+{/* *** NEW: Header for Cadet Stats *** */}
+function CadetStatsHeader({ stats }: { stats: CadetStats }) {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <StatCard title="Current Term Demerits" value={stats.term_demerits} />
+      <StatCard title="Academic Year Demerits" value={stats.year_demerits} />
+      <StatCard title="Current Tours" value={stats.total_tours} isPlaceholder />
+    </div>
+  )
+}
+
+function StatCard({ title, value, isPlaceholder = false }: { title: string, value: string | number, isPlaceholder?: boolean }) {
+  return (
+    <div className="bg-white p-6 rounded-lg shadow-sm">
+      <h3 className="text-sm font-medium text-gray-500">{title}</h3>
+      <p className={`text-3xl font-bold mt-2 ${isPlaceholder ? 'text-gray-400' : 'text-gray-900'}`}>
+        {value}
+      </p>
+      {isPlaceholder && <p className="text-xs text-gray-400">(Future Implementation)</p>}
+    </div>
+  )
+}
+
+function DashboardSection({ title, items, emptyMessage, showSubject = false, showSubmitter = false }: {
+  title: string;
+  items: ReportWithNames[];
+  emptyMessage: string;
+  showSubject?: boolean;
+  showSubmitter?: boolean;
+}) {
+  return (
+    <div className="space-y-4">
+      <h2 className="text-2xl font-semibold text-gray-800">
+        {title} ({items?.length || 0})
+      </h2>
+      <div className="bg-white p-4 rounded-lg shadow-sm space-y-3 h-96 overflow-y-auto">
+        {items && items.length > 0 ? (
+          items.map(report => (
+            <ReportCard key={report.id} report={report} showSubject={showSubject} showSubmitter={showSubmitter} />
+          ))
+        ) : (
+          <p className="text-gray-500 p-4">{emptyMessage}</p>
+        )}
+      </div>
+    </div>
+  )
+}
+
+function ReportCard({ report, showSubject, showSubmitter }: { report: ReportWithNames; showSubject?: boolean; showSubmitter?: boolean }) {
+  
+  const getStatusColor = () => {
+    switch (report.status) {
+      case 'completed':
+        return 'bg-green-100 text-green-800'
+      case 'rejected':
+        return 'bg-red-100 text-red-800'
+      case 'pending_approval':
+        return 'bg-yellow-100 text-yellow-800'
+      case 'needs_revision':
+        return 'bg-blue-100 text-blue-800'
+      default:
+        return 'bg-gray-100 text-gray-800'
+    }
+  }
+
+  const formatName = (person: { first_name: string, last_name: string } | null) => {
+    if (!person) return 'N/A';
+    const firstInitial = person.first_name ? `${person.first_name[0]}.` : '';
+    return `${person.last_name}, ${firstInitial}`;
+  }
+
+  return (
+    <Link 
+      href={`/report/${report.id}`} 
+      className="block p-4 border rounded-md hover:bg-gray-50 transition-colors"
+    >
+      <div className="flex justify-between items-center">
+        <span className="font-medium text-indigo-600 truncate">{report.title}</span>
+        <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${getStatusColor()}`}>
+          {report.status}
+        </span>
+      </div>
+      <div className="mt-2 text-sm text-gray-500">
+        {showSubject && (
+          <p>Subject: <span className="font-medium text-gray-700">{formatName(report.subject)}</span></p>
+        )}
+        {showSubmitter && (
+          <p>Submitter: <span className="font-medium text-gray-700">{formatName(report.submitter)}</span></p>
+        )}
+        {report.status === 'pending_approval' && (
+          <p>Waiting for: <span className="font-medium text-gray-700">{report.group?.group_name || 'N/A'}</span></p>
+        )}
+      </div>
+    </Link>
+  )
+}
+
