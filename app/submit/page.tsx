@@ -4,12 +4,20 @@
 import { createClient } from '@/utils/supabase/client'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
+import CloseButton from '@/app/components/CloseButton'
 
-// *** UPDATED TYPE ***
 type CadetProfile = {
   id: string;
   first_name: string;
   last_name: string;
+}
+
+// *** NEW: Type for the offense_types table ***
+type OffenseType = {
+  id: string;
+  offense_group: string;
+  offense_name: string;
+  demerits: number;
 }
 
 export default function SubmitReport() {
@@ -17,32 +25,44 @@ export default function SubmitReport() {
   const router = useRouter()
   
   // State for your form fields
-  const [title, setTitle] = useState('')
   const [subjectCadetId, setSubjectCadetId] = useState('')
-  const [dateOfOffense, setDateOfOffense] = useState(new Date().toISOString().split('T')[0]) // Default to today
-  const [category, setCategory] = useState('')
-  const [demeritCount, setDemeritCount] = useState(1)
-  const [notes, setNotes] = useState('')
+  const [offenseTypeId, setOffenseTypeId] = useState('') // *** NEW ***
+  const [notes, setNotes] = useState('') // *** NEW ***
+  const [dateOfOffense, setDateOfOffense] = useState(new Date().toISOString().split('T')[0])
 
+  // Data for dropdowns
   const [cadets, setCadets] = useState<CadetProfile[]>([])
+  const [offenses, setOffenses] = useState<OffenseType[]>([])
+  
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  // 1. Fetch cadets for the dropdown
+  // 1. Fetch cadets AND offense types for the dropdowns
   useEffect(() => {
-    async function getCadets() {
-      // *** UPDATED: Call the get_subordinates function ***
-      const { data, error } = await supabase.rpc('get_subordinates')
-      
-      if (error) {
-        setError('Could not fetch cadets: ' + error.message)
-      } else if (data) {
-        // Sort by last name
-        data.sort((a, b) => a.last_name.localeCompare(b.last_name))
-        setCadets(data)
+    async function getFormData() {
+      // Fetch cadets
+      const { data: cadetsData, error: cadetsError } = await supabase.rpc('get_subordinates')
+      if (cadetsError) {
+        setError('Could not fetch cadets: ' + cadetsError.message)
+      } else if (cadetsData) {
+        cadetsData.sort((a, b) => a.last_name.localeCompare(b.last_name))
+        setCadets(cadetsData)
+      }
+
+      // Fetch all offense types
+      const { data: offensesData, error: offensesError } = await supabase
+        .from('offense_types')
+        .select('id, offense_group, offense_name, demerits')
+        .order('offense_group')
+        .order('offense_name')
+        
+      if (offensesError) {
+        setError('Could not fetch offense types: ' + offensesError.message)
+      } else if (offensesData) {
+        setOffenses(offensesData)
       }
     }
-    getCadets()
+    getFormData()
   }, [supabase]) 
 
   // 2. Handle the form submission
@@ -51,16 +71,12 @@ export default function SubmitReport() {
     setLoading(true)
     setError(null)
 
-    // 3. Call your 'create_new_report' SQL function
+    // 3. Call your REFACTORED 'create_new_report' SQL function
     const { error: rpcError } = await supabase.rpc('create_new_report', {
-      p_title: title,
       p_subject_cadet_id: subjectCadetId,
-      p_date_of_offense: dateOfOffense,
-      p_content: { // Match the JSON structure
-        category: category, 
-        demerit_count: demeritCount,
-        notes: notes 
-      } 
+      p_offense_type_id: offenseTypeId, // *** CHANGED ***
+      p_notes: notes, // *** CHANGED ***
+      p_date_of_offense: dateOfOffense
     })
 
     setLoading(false)
@@ -72,36 +88,25 @@ export default function SubmitReport() {
       router.refresh() 
     }
   }
-
-  // --- Form Categories ---
-  const reportCategories = [
-    "Uniform", "Barracks", "Discipline", "Punctuality", "Knowledge", "Other"
-  ];
+  
+  // Group offenses by their 'offense_group' for the <optgroup>
+  const groupedOffenses = offenses.reduce((acc, offense) => {
+    const group = offense.offense_group;
+    if (!acc[group]) {
+      acc[group] = [];
+    }
+    acc[group].push(offense);
+    return acc;
+  }, {} as Record<string, OffenseType[]>);
 
   return (
-    <div className="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
+    <div className="relative max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
       <div className="bg-white p-6 rounded-lg shadow-md">
         
         <form onSubmit={handleSubmit} className="space-y-6">
           <h2 className="text-2xl font-semibold text-gray-900">
             Submit New Report
           </h2>
-
-          {/* Title Field */}
-          <div>
-            <label htmlFor="title" className="block text-sm font-medium text-gray-700">
-              Title
-            </label>
-            <input 
-              id="title" 
-              type="text" 
-              value={title} 
-              onChange={(e) => setTitle(e.target.value)} 
-              required 
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-              placeholder="e.g., 'Uniform Infraction in Formation'"
-            />
-          </div>
 
           {/* Subject Cadet Field */}
           <div>
@@ -117,7 +122,6 @@ export default function SubmitReport() {
             >
               <option value="">Select a cadet...</option>
               {cadets.map((cadet) => (
-                // *** UPDATED: Format as "Last, First" ***
                 <option key={cadet.id} value={cadet.id}>
                   {cadet.last_name}, {cadet.first_name}
                 </option>
@@ -140,57 +144,43 @@ export default function SubmitReport() {
             />
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Category */}
-            <div>
-              <label htmlFor="category" className="block text-sm font-medium text-gray-700">
-                Category
-              </label>
-              <select 
-                id="category"
-                value={category} 
-                onChange={(e) => setCategory(e.target.value)} 
-                required
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-              >
-                <option value="">Select a category...</option>
-                {reportCategories.map((cat) => (
-                  <option key={cat} value={cat}>
-                    {cat}
-                  </option>
-                ))}
-              </select>
-            </div>
-            {/* Demerit Count */}
-            <div>
-              <label htmlFor="demerits" className="block text-sm font-medium text-gray-700">
-                Demerit Count
-              </label>
-              <input 
-                id="demerits"
-                type="number"
-                value={demeritCount} 
-                onChange={(e) => setDemeritCount(parseInt(e.target.value))} 
-                required 
-                min="0"
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-              />
-            </div>
+          {/* *** NEW: Offense Type Dropdown *** */}
+          <div>
+            <label htmlFor="offense_type" className="block text-sm font-medium text-gray-700">
+              Offense
+            </label>
+            <select 
+              id="offense_type"
+              value={offenseTypeId} 
+              onChange={(e) => setOffenseTypeId(e.target.value)} 
+              required
+              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+            >
+              <option value="">Select an offense...</option>
+              {Object.entries(groupedOffenses).map(([groupName, groupOffenses]) => (
+                <optgroup label={groupName} key={groupName}>
+                  {groupOffenses.map((offense) => (
+                    <option key={offense.id} value={offense.id}>
+                      ({offense.demerits} demerits) {offense.offense_name}
+                    </option>
+                  ))}
+                </optgroup>
+              ))}
+            </select>
           </div>
 
           {/* Notes Field */}
           <div>
             <label htmlFor="notes" className="block text-sm font-medium text-gray-700">
-              Notes
+              Notes (Optional)
             </label>
             <textarea 
               id="notes"
               value={notes} 
               onChange={(e) => setNotes(e.target.value)} 
-              required 
               rows={4}
               className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-              placeholder="Provide a detailed description of the incident..."
+              placeholder="Provide specific details of the incident..."
             />
           </div>
 
@@ -211,4 +201,3 @@ export default function SubmitReport() {
     </div>
   )
 }
-

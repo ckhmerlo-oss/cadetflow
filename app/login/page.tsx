@@ -19,6 +19,7 @@ export default function LoginPage() {
       if (session) {
         // User is already logged in, redirect to home
         router.push('/')
+        router.refresh()
       } else {
         // User is not logged in, show the login form
         setLoading(false)
@@ -35,6 +36,7 @@ export default function LoginPage() {
         // If the event is SIGNED_IN, redirect to the homepage
         if (event === 'SIGNED_IN' && session) {
           router.push('/')
+          router.refresh()
         }
       }
     )

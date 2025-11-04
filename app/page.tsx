@@ -1,17 +1,30 @@
 // in app/page.tsx (This is your main dashboard)
+
+// Built by 2LT CK Merlo, US Army, with significant technical assistance from Google Gemini, for Fork Union Military Academy
+// Fork Union men, we stand as one, for our Academy... All cadets both past and present, FUMA MEN ARE WE
+
 import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { Database } from '@/utils/supabase/types' // Assuming you have a types file
 
-// Define type for our joined report
-type ReportWithNames = Database['public']['Tables']['demerit_reports']['Row'] & {
-  subject: { first_name: string, last_name: string } | null
-  submitter: { first_name: string, last_name: string } | null
-  group: { group_name: string } | null
+// *** REFACTORED: This type now matches the JSON from our RPC ***
+type ReportWithNames = {
+  id: string;
+  status: string;
+  created_at: string;
+  current_approver_group_id: string | null;
+  subject_cadet_id: string;
+  submitted_by: string;
+  subject: { first_name: string, last_name: string } | null;
+  submitter: { first_name: string, last_name: string } | null;
+  group: { group_name: string } | null;
+  offense_type: {
+    offense_name: string;
+  } | null;
 }
 
-// *** NEW: Define type for our new stats RPC ***
+// Type for our new stats RPC
 type CadetStats = {
   term_demerits: number;
   year_demerits: number;
@@ -27,35 +40,56 @@ export default async function Dashboard() {
     return redirect('/login')
   }
 
-  // 2. Get user's profile for name and role_level
+// 2. Get user's profile for name and role_level
   const { data: profile } = await supabase
     .from('profiles')
-    .select('first_name, last_name, role_level') 
+    .select('first_name, last_name, role_level')
     .eq('id', user.id)
     .single()
 
-  // *** UPDATED: Use role_level < 50 for cadets ***
   const isFaculty = (profile?.role_level || 0) >= 50;
 
-  // 3. Fetch all reports user is involved with
-  const { data: allInvolvedReports, error } = await supabase
-    .from('demerit_reports')
-    .select(`
-      *,
-      subject:subject_cadet_id ( first_name, last_name ), 
-      submitter:submitted_by ( first_name, last_name ), 
-      group:current_approver_group_id ( group_name )
-    `) 
-    .returns<ReportWithNames[]>() 
+  // *** NEW: Get the user's specific management permissions ***
+  const { data: permsData, error: permsError } = await supabase
+    .rpc('get_my_manage_permissions')
+    .single()
+
+  if (permsError) {
+    console.error("Error fetching permissions:", permsError.message)
+  }
+  
+  // Default to false if error or no data
+  const canManageAll = permsData?.can_manage_all || false;
+
+  // *** NEW: Fetch user's groups for the subtitle ***
+  const { data: groupsData } = await supabase
+    .from('group_members')
+    .select('approval_groups(group_name)')
+    .eq('user_id', user.id)
+
+  // Format the group names into a string
+  const groupNames = groupsData
+    ?.map(item => item.approval_groups?.group_name)
+    .filter(Boolean) // Remove any null/undefined
+    .join(', ') || 'Personal Dashboard';
+
+  // 3. *** FIX: Call our new RPC function to get all data ***
+  // This avoids RLS recursion and solves the "N/A" name problem.
+  const { data: rpcData, error } = await supabase
+    .rpc('get_my_dashboard_reports')
+    
+  // *** FIX: Ensure allInvolvedReports is ALWAYS an array ***
+  const allInvolvedReports: ReportWithNames[] = rpcData || [];
     
   if (error) {
     console.error("Error fetching reports:", error.message)
   }
 
-  // 4. *** Conditionally fetch data ***
+  // 4. Conditionally fetch data
   let individualItems: ReportWithNames[] = [];
   let allPendingReports: ReportWithNames[] = [];
-  let cadetStats: CadetStats | null = null; // *** NEW: Variable for cadet stats ***
+  let cadetStats: CadetStats | null = null; 
+  let allCompletedReports: ReportWithNames[] = [];
 
   if (isFaculty) {
     // Faculty sees ALL pending reports
@@ -63,17 +97,38 @@ export default async function Dashboard() {
       .rpc('get_all_pending_reports_for_faculty')
     
     if (rpcError) console.error("Error fetching faculty reports:", rpcError.message)
-    allPendingReports = facultyData as ReportWithNames[] || [];
+    // Cast the JSON from RPC to match our type
+    allPendingReports = facultyData?.map(item => ({
+      ...item,
+      subject: item.subject,
+      submitter: item.submitter,
+      group: item.group,
+      offense_type: { offense_name: item.title } // 'title' from RPC is offense_name
+    })) as ReportWithNames[] || [];
+    
+    // *** NEW: Faculty also sees ALL completed reports ***
+    const { data: completedData, error: completedError } = await supabase
+      .rpc('get_all_completed_reports_for_faculty')
+
+    if (completedError) console.error("Error fetching all completed reports:", completedError.message)
+    
+    allCompletedReports = completedData?.map(item => ({
+      ...item,
+      subject: item.subject,
+      submitter: item.submitter,
+      group: item.group,
+      offense_type: { offense_name: item.title }
+    })) as ReportWithNames[] || [];
 
   } else {
     // Cadets see "Individual Items"
-    individualItems = allInvolvedReports?.filter(report => 
+    individualItems = allInvolvedReports.filter(report => 
       report.subject_cadet_id === user.id
     ) || []
 
-    // *** NEW: Cadets also fetch their dashboard stats ***
+// Cadets also fetch their dashboard stats
     const { data: statsData, error: statsError } = await supabase
-      .rpc('get_cadet_dashboard_stats')
+      .rpc('get_my_tour_and_demerit_stats')
       .single()
     
     if (statsError) console.error("Error fetching cadet stats:", statsError.message)
@@ -83,21 +138,18 @@ export default async function Dashboard() {
   // 5. Filter the other reports
   
   // Box 1: Action Items
-  const actionItems = allInvolvedReports?.filter(report => 
+  const actionItems = allInvolvedReports.filter(report => 
     (report.status === 'pending_approval' && report.current_approver_group_id !== null) || // RLS handles approver check
     (report.status === 'needs_revision' && report.submitted_by === user.id)
   ) || []
 
   // Box 3: My Submitted Reports (By me)
-  const mySubmittedReports = allInvolvedReports?.filter(report => 
+  const mySubmittedReports = allInvolvedReports.filter(report => 
     report.submitted_by === user.id
   ) || []
 
   // Box 4: Completed Archive
-  const allInvolvedArchive = allInvolvedReports?.filter(report => report.status === 'completed' || report.status === 'rejected')
-  const completedReports = Array.from(new Map(allInvolvedArchive.map(item => [item.id, item])).values())
-    .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()) 
-
+  
   return (
     <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
       {/* Page Header */}
@@ -106,38 +158,44 @@ export default async function Dashboard() {
           <h1 className="text-3xl font-bold text-gray-900">
             Welcome, {profile?.first_name || user.email}
           </h1>
+          {/* *** CHANGED: Use the new groupNames string *** */}
           <p className="mt-2 text-lg text-gray-600">
-            Here's your personal dashboard.
+            {groupNames}
           </p>
         </div>
         <div>
-          <Link 
-            href="/submit" 
-            className="py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-          >
-            Submit New Report
-          </Link>
+          {/* *** NEW: Conditionally show button based on role_level *** */}
+          {(profile?.role_level || 0) >= 15 && (
+            <Link 
+              href="/submit" 
+              className="py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700"
+            >
+              Submit New Report
+            </Link>
+          )}
         </div>
       </div>
 
-      {/* *** NEW: Conditional Cadet Stats Header *** */}
+      {/* Conditional Cadet Stats Header */}
       {!isFaculty && cadetStats && (
         <CadetStatsHeader stats={cadetStats} />
       )}
 
-      {/* Grid for the four columns */}
+{/* Grid for the four columns */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
         
-        {/* Column 1: Action Items */}
-        <DashboardSection 
-          title="Action Items" 
-          items={actionItems} 
-          emptyMessage="No action items in your queue. Great job!" 
-          showSubject 
-        />
+        {/* *** NEW: Conditionally show Action Items *** */}
+        {(profile?.role_level || 0) >= 15 && (
+          <DashboardSection 
+            title="Action Items" 
+            items={actionItems} 
+            emptyMessage="No action items in your queue. Great job!" 
+            showSubject 
+          />
+        )}
         
-        {/* *** CONDITIONAL Column 2 *** */}
-        {isFaculty ? (
+        {/* *** UPDATED: Only faculty AND those with 'all' perms can see this *** */}
+        {isFaculty && canManageAll ? (
           <DashboardSection 
             title="All In-Progress Reports" 
             items={allPendingReports} 
@@ -146,28 +204,34 @@ export default async function Dashboard() {
           />
         ) : (
           <DashboardSection 
-            title="Individual Items" 
+            // *** CHANGED: Title updated ***
+            title="My Demerit Reports" 
             items={individualItems} 
             emptyMessage="You have no reports filed about you." 
             showSubmitter 
           />
         )}
 
-        {/* Column 3: My Submitted Reports */}
-        <DashboardSection 
-          title="My Submitted Reports" 
-          items={mySubmittedReports} 
-          emptyMessage="You haven't submitted any reports yet." 
-          showSubject 
-        />
+        {/* *** NEW: Conditionally show Submitted Reports *** */}
+        {(profile?.role_level || 0) >= 15 && (
+          <DashboardSection 
+            // *** CHANGED: Title updated ***
+            title="Submitted Reports" 
+            items={mySubmittedReports} 
+            emptyMessage="You haven't submitted any reports yet." 
+            showSubject 
+          />
+        )}
 
-        {/* Column 4: Completed Archive */}
-        <DashboardSection 
-          title="Completed Archive" 
-          items={completedReports} 
-          emptyMessage="No completed reports found." 
-          showSubject 
-        />
+        {/* *** CHANGED: This section only shows for faculty *** */}
+        {isFaculty && (
+          <DashboardSection 
+            title="Completed Archive" 
+            items={allCompletedReports} 
+            emptyMessage="No completed reports found." 
+            showSubject 
+          />
+        )}
         
       </div>
     </div>
@@ -176,13 +240,12 @@ export default async function Dashboard() {
 
 // --- Helper Components ---
 
-{/* *** NEW: Header for Cadet Stats *** */}
 function CadetStatsHeader({ stats }: { stats: CadetStats }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       <StatCard title="Current Term Demerits" value={stats.term_demerits} />
       <StatCard title="Academic Year Demerits" value={stats.year_demerits} />
-      <StatCard title="Current Tours" value={stats.total_tours} isPlaceholder />
+      <StatCard title="Total Tours" value={stats.total_tours} />
     </div>
   )
 }
@@ -247,15 +310,32 @@ function ReportCard({ report, showSubject, showSubmitter }: { report: ReportWith
     return `${person.last_name}, ${firstInitial}`;
   }
 
+  const formatStatus = (status: string) => {
+    switch (status) {
+      case 'completed':
+        return 'Approved'
+      case 'rejected':
+        return 'Rejected'
+      case 'needs_revision':
+        return 'Awaiting Revision'
+      case 'pending_approval':
+        return 'Pending Approval'
+      default:
+        return status
+    }
+  }
+
+  const title = report.offense_type?.offense_name || 'Untitled Report';
+
   return (
     <Link 
       href={`/report/${report.id}`} 
       className="block p-4 border rounded-md hover:bg-gray-50 transition-colors"
     >
       <div className="flex justify-between items-center">
-        <span className="font-medium text-indigo-600 truncate">{report.title}</span>
+        <span className="font-medium text-indigo-600 truncate">{title}</span>
         <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${getStatusColor()}`}>
-          {report.status}
+          {formatStatus(report.status)}
         </span>
       </div>
       <div className="mt-2 text-sm text-gray-500">
@@ -272,4 +352,3 @@ function ReportCard({ report, showSubject, showSubmitter }: { report: ReportWith
     </Link>
   )
 }
-
