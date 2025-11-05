@@ -1,12 +1,9 @@
 // in app/page.tsx (This is your main dashboard)
-
-// Built by 2LT CK Merlo, US Army, with significant technical assistance from Google Gemini, for Fork Union Military Academy
-// Fork Union men, we stand as one, for our Academy... All cadets both past and present, FUMA MEN ARE WE
-
 import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-import { Database } from '@/utils/supabase/types' // Assuming you have a types file
+// *** FIX: Removed this unused import ***
+// import { Database } from '@/utils/supabase/types' 
 
 // *** REFACTORED: This type now matches the JSON from our RPC ***
 type ReportWithNames = {
@@ -31,6 +28,12 @@ type CadetStats = {
   total_tours: number;
 }
 
+// *** FIX: Added type for the permissions RPC ***
+type ManagePermissions = {
+  can_manage_own: boolean;
+  can_manage_all: boolean;
+}
+
 export default async function Dashboard() {
   const supabase = createClient()
 
@@ -40,10 +43,10 @@ export default async function Dashboard() {
     return redirect('/login')
   }
 
-// 2. Get user's profile for name and role_level
+  // 2. Get user's profile for name and role_level
   const { data: profile } = await supabase
     .from('profiles')
-    .select('first_name, last_name, role_level')
+    .select('first_name, last_name, role_level') 
     .eq('id', user.id)
     .single()
 
@@ -52,8 +55,8 @@ export default async function Dashboard() {
   // *** NEW: Get the user's specific management permissions ***
   const { data: permsData, error: permsError } = await supabase
     .rpc('get_my_manage_permissions')
-    .single()
-
+    .single<ManagePermissions>() // <-- FIX: Added type
+    
   if (permsError) {
     console.error("Error fetching permissions:", permsError.message)
   }
@@ -69,7 +72,8 @@ export default async function Dashboard() {
 
   // Format the group names into a string
   const groupNames = groupsData
-    ?.map(item => item.approval_groups?.group_name)
+    // *** FIX: Added (item: any) to resolve implicit 'any' error ***
+    ?.map((item: any) => item.approval_groups?.group_name)
     .filter(Boolean) // Remove any null/undefined
     .join(', ') || 'Personal Dashboard';
 
@@ -89,7 +93,7 @@ export default async function Dashboard() {
   let individualItems: ReportWithNames[] = [];
   let allPendingReports: ReportWithNames[] = [];
   let cadetStats: CadetStats | null = null; 
-  let allCompletedReports: ReportWithNames[] = [];
+  let allCompletedReports: ReportWithNames[] = []; 
 
   if (isFaculty) {
     // Faculty sees ALL pending reports
@@ -98,21 +102,23 @@ export default async function Dashboard() {
     
     if (rpcError) console.error("Error fetching faculty reports:", rpcError.message)
     // Cast the JSON from RPC to match our type
-    allPendingReports = facultyData?.map(item => ({
+    // *** FIX: Added (item: any) to resolve implicit 'any' error ***
+    allPendingReports = facultyData?.map((item: any) => ({
       ...item,
       subject: item.subject,
       submitter: item.submitter,
       group: item.group,
       offense_type: { offense_name: item.title } // 'title' from RPC is offense_name
     })) as ReportWithNames[] || [];
-    
+
     // *** NEW: Faculty also sees ALL completed reports ***
     const { data: completedData, error: completedError } = await supabase
       .rpc('get_all_completed_reports_for_faculty')
 
     if (completedError) console.error("Error fetching all completed reports:", completedError.message)
     
-    allCompletedReports = completedData?.map(item => ({
+    // *** FIX: Added (item: any) to resolve implicit 'any' error ***
+    allCompletedReports = completedData?.map((item: any) => ({
       ...item,
       subject: item.subject,
       submitter: item.submitter,
@@ -126,10 +132,10 @@ export default async function Dashboard() {
       report.subject_cadet_id === user.id
     ) || []
 
-// Cadets also fetch their dashboard stats
+    // Cadets also fetch their dashboard stats
     const { data: statsData, error: statsError } = await supabase
       .rpc('get_my_tour_and_demerit_stats')
-      .single()
+      .single<CadetStats>() // <-- FIX: Added type
     
     if (statsError) console.error("Error fetching cadet stats:", statsError.message)
     if (statsData) cadetStats = statsData;
@@ -147,9 +153,9 @@ export default async function Dashboard() {
   const mySubmittedReports = allInvolvedReports.filter(report => 
     report.submitted_by === user.id
   ) || []
-
-  // Box 4: Completed Archive
   
+  // (No Box 4 logic needed here anymore, it's inside the isFaculty check)
+
   return (
     <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
       {/* Page Header */}
@@ -181,7 +187,7 @@ export default async function Dashboard() {
         <CadetStatsHeader stats={cadetStats} />
       )}
 
-{/* Grid for the four columns */}
+      {/* Grid for the four columns */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
         
         {/* *** NEW: Conditionally show Action Items *** */}
@@ -309,7 +315,8 @@ function ReportCard({ report, showSubject, showSubmitter }: { report: ReportWith
     const firstInitial = person.first_name ? `${person.first_name[0]}.` : '';
     return `${person.last_name}, ${firstInitial}`;
   }
-
+  
+  // *** NEW: Helper function to format status names ***
   const formatStatus = (status: string) => {
     switch (status) {
       case 'completed':
@@ -324,7 +331,7 @@ function ReportCard({ report, showSubject, showSubmitter }: { report: ReportWith
         return status
     }
   }
-
+  
   const title = report.offense_type?.offense_name || 'Untitled Report';
 
   return (
@@ -334,6 +341,7 @@ function ReportCard({ report, showSubject, showSubmitter }: { report: ReportWith
     >
       <div className="flex justify-between items-center">
         <span className="font-medium text-indigo-600 truncate">{title}</span>
+        {/* *** UPDATED: Using the formatStatus function *** */}
         <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${getStatusColor()}`}>
           {formatStatus(report.status)}
         </span>

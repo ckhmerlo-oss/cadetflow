@@ -5,7 +5,9 @@ import { createClient } from '@/utils/supabase/client'
 import { useState, useEffect } from 'react'
 
 // --- Data Types ---
+// *** FIX: This type now matches the RPC function 'get_all_companies_list' ***
 type Company = { id: string; company_name: string }
+
 type Role = { id: string; role_name: string; default_role_level: number }
 type RosterUser = {
   user_id: string;
@@ -29,6 +31,7 @@ type SearchUser = {
   role_name: string | null;
 }
 type Permissions = { can_manage_own: boolean; can_manage_all: boolean }
+type CompanyData = { roster: RosterUser[]; roles: Role[] }
 type View = 'company' | 'unassigned' | 'search'
 type ModalMode = 'assignCompany' | 'assignRole' | 'setLevel'
 type ModalUser = RosterUser | UnassignedUser | SearchUser
@@ -57,8 +60,9 @@ export default function ManageRosterPage() {
   const [permissions, setPermissions] = useState<Permissions | null>(null)
   const [view, setView] = useState<View>('company')
   
+  // *** FIX: This type now matches the 'ManageableCompany' type below ***
   const [manageableCompanies, setManageableCompanies] = useState<Company[]>([])
-  const [allCompanies, setAllCompanies] = useState<Company[]>([]) // For assign modal
+  const [allCompanies, setAllCompanies] = useState<Company[]>([])
   
   const [selectedCompanyId, setSelectedCompanyId] = useState<string>('')
   const [companyRoster, setCompanyRoster] = useState<RosterUser[]>([])
@@ -86,34 +90,42 @@ export default function ManageRosterPage() {
 
   // --- Data Fetching ---
 
-  // 1. Initial page load: Get permissions and company lists
+  // 1. Initial page load
   useEffect(() => {
+    // *** FIX: This type is what the RPC returns ***
+    type ManageableCompany = { company_id: string, company_name: string }
+
     async function getInitialData() {
       setLoading(true)
+      // *** FIX: This RPC call *was* correct ***
       const { data: permsData, error: permsError } = await supabase
         .rpc('get_my_manage_permissions')
-        .single()
+        .single<Permissions>()
       
       if (permsError) return setError(permsError.message)
       setPermissions(permsData)
 
+      // *** FIX: Removed the broken generic <ManageableCompany[]> ***
       const { data: companiesData, error: companiesError } = await supabase
         .rpc('get_manageable_companies')
-      
+
       if (companiesError) return setError(companiesError.message)
 
       if (companiesData && companiesData.length > 0) {
-        setManageableCompanies(companiesData)
+        // *** FIX: Added explicit type (c: ManageableCompany) to fix implicit 'any' ***
+        const mappedCompanies = companiesData.map((c: ManageableCompany) => ({ id: c.company_id, company_name: c.company_name }))
+        setManageableCompanies(mappedCompanies)
         setSelectedCompanyId(companiesData[0].company_id)
       }
 
-      // If they have global perms, fetch other data
       if (permsData.can_manage_all) {
-        setView('unassigned') // Default to unassigned
+        setView('unassigned')
+        // *** FIX: Removed broken generic <UnassignedUser[]> ***
         const { data: unassignedData, error: unassignedError } = await supabase.rpc('get_unassigned_roster')
         if (unassignedError) return setError(unassignedError.message)
         setUnassignedList(unassignedData)
 
+        // *** FIX: Removed broken generic <Company[]> ***
         const { data: allCompaniesData, error: allCompaniesError } = await supabase.rpc('get_all_companies_list')
         if (allCompaniesError) return setError(allCompaniesError.message)
         setAllCompanies(allCompaniesData)
@@ -129,13 +141,17 @@ export default function ManageRosterPage() {
     async function getRoster() {
       setLoading(true)
       setError(null)
+      // *** FIX: Removed broken generic <CompanyData> ***
       const { data, error } = await supabase.rpc('get_roster_for_company', {
         p_company_id: selectedCompanyId
       })
+
       if (error) setError(error.message)
       else {
-        setCompanyRoster(data.roster || [])
-        setCompanyRoles(data.roles || [])
+        // We cast the types here instead
+        const companyData = data as CompanyData
+        setCompanyRoster(companyData.roster || [])
+        setCompanyRoles(companyData.roles || [])
       }
       setLoading(false)
     }
@@ -151,13 +167,14 @@ export default function ManageRosterPage() {
 
     const timer = setTimeout(async () => {
       setLoading(true)
+      // *** FIX: Removed broken generic <SearchUser[]> ***
       const { data, error } = await supabase.rpc('search_all_profiles', {
         p_search_term: searchQuery
       })
       if (error) setError(error.message)
       else setSearchResults(data || [])
       setLoading(false)
-    }, 300) // Debounce search
+    }, 300)
 
     return () => clearTimeout(timer)
   }, [searchQuery, view, supabase])
@@ -176,7 +193,6 @@ export default function ManageRosterPage() {
     setModalUser(user)
     setModalMode(mode)
     
-    // Pre-fill form
     if (mode === 'assignCompany') setNewCompanyId('')
     if (mode === 'assignRole' && 'role_id' in user) setNewRoleId(user.role_id || '')
     if (mode === 'setLevel' && 'role_level' in user) setNewRoleLevel(user.role_level)
@@ -197,10 +213,10 @@ export default function ManageRosterPage() {
       if (modalMode === 'assignCompany') {
         const { error } = await supabase.rpc('assign_user_company', {
           p_user_id: modalUser.user_id,
-          p_new_company_id: newCompanyId || null // Send null if empty
+          p_new_company_id: newCompanyId || null
         })
         rpcError = error
-        // Refresh unassigned list
+        // *** FIX: Removed broken generic <UnassignedUser[]> ***
         const { data, error: refetchError } = await supabase.rpc('get_unassigned_roster')
         if (refetchError) throw refetchError
         setUnassignedList(data)
@@ -221,12 +237,13 @@ export default function ManageRosterPage() {
 
       if (rpcError) throw rpcError
       
-      // Success: refetch company roster if we're on that view
       if (view === 'company') {
-        const { data, error } = await supabase.rpc('get_roster_for_company', { p_company_id: selectedCompanyId })
+        // *** FIX: Removed broken generic <CompanyData> ***
+        const { data, error } = await supabase.rpc('get_roster_for_company', { p_company_id: selectedCompanyId })        
         if (error) throw error
-        setCompanyRoster(data.roster || [])
-        setCompanyRoles(data.roles || [])
+        const companyData = data as CompanyData
+        setCompanyRoster(companyData.roster || [])
+        setCompanyRoles(companyData.roles || [])
       }
 
       closeModal()
@@ -237,6 +254,15 @@ export default function ManageRosterPage() {
   }
 
   // --- Render ---
+
+  if (loading) {
+    return <div className="p-8 text-center text-gray-500">Loading...</div>
+  }
+
+  if (error && !isSaving) {
+    // Show a general error if the whole page failed
+    return <div className="p-8 text-center text-red-600">{error}</div>
+  }
 
   if (!permissions) return <div className="p-8 text-center">Loading permissions...</div>
 
@@ -260,7 +286,8 @@ export default function ManageRosterPage() {
 
         {/* --- Main Content Area --- */}
         <div className="mt-6">
-          {error && <div className="p-4 mb-4 text-red-700 bg-red-100 rounded-md">{error}</div>}
+          {/* *** FIX: Show saving errors here *** */}
+          {error && isSaving && <div className="p-4 mb-4 text-red-700 bg-red-100 rounded-md">{error}</div>}
 
           {/* --- View: Unassigned Roster --- */}
           {view === 'unassigned' && (
@@ -293,9 +320,10 @@ export default function ManageRosterPage() {
                 value={selectedCompanyId}
                 onChange={e => setSelectedCompanyId(e.target.value)}
                 className="mt-1 block w-full max-w-xs rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                disabled={manageableCompanies.length === 0}
               >
                 {manageableCompanies.map(c => (
-                  <option key={c.company_id} value={c.company_id}>{c.company_name}</option>
+                  <option key={c.id} value={c.id}>{c.company_name}</option>
                 ))}
               </select>
               <RosterTable loading={loading}>
@@ -411,7 +439,8 @@ export default function ManageRosterPage() {
                         />
                       </div>
                     )}
-                    {error && <p className="text-sm text-red-600 mt-2">{error}</p>}
+                    {/* *** FIX: Show error here *** */}
+                    {error && isSaving && <p className="text-sm text-red-600 mt-2">{error}</p>}
                   </div>
                 </div>
 
@@ -442,7 +471,7 @@ function RosterTable({ loading, children }: { loading: boolean, children: React.
       <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
           <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-            <table className="min-w-full divide-y divide-gray-300">
+            <table className="min_w-full divide-y divide-gray-300">
               <thead className="bg-gray-50">
                 <tr>
                   <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Name</th>

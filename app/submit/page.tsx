@@ -4,7 +4,6 @@
 import { createClient } from '@/utils/supabase/client'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
-import CloseButton from '@/app/components/CloseButton'
 
 type CadetProfile = {
   id: string;
@@ -45,7 +44,7 @@ export default function SubmitReport() {
       if (cadetsError) {
         setError('Could not fetch cadets: ' + cadetsError.message)
       } else if (cadetsData) {
-        cadetsData.sort((a, b) => a.last_name.localeCompare(b.last_name))
+        cadetsData.sort((a: CadetProfile, b: CadetProfile) => a.last_name.localeCompare(b.last_name))
         setCadets(cadetsData)
       }
 
