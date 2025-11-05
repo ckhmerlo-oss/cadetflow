@@ -6,7 +6,6 @@ import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { User } from '@supabase/supabase-js'
 import React from 'react' 
-import CloseButton from '@/app/components/CloseButton'
 // *** NEW: Link is no longer needed for editing ***
 
 // *** REFACTORED TYPE ***
@@ -123,7 +122,7 @@ export default function ReportDetails({ params: paramsPromise }: { params: Promi
         return
       }
       
-      setReport(reportData as Report) 
+      setReport(reportData as unknown as Report) 
       setIsSubmitter(reportData.submitted_by === user.id)
 
       // *** NEW: Fetch offense types FOR THE DROPDOWN if user is submitter ***
