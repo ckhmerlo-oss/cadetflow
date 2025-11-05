@@ -5,9 +5,7 @@ import { createClient } from '@/utils/supabase/client'
 import { useState, useEffect } from 'react'
 
 // --- Data Types ---
-// *** FIX: This type now matches the RPC function 'get_all_companies_list' ***
 type Company = { id: string; company_name: string }
-
 type Role = { id: string; role_name: string; default_role_level: number }
 type RosterUser = {
   user_id: string;
@@ -33,7 +31,7 @@ type SearchUser = {
 type Permissions = { can_manage_own: boolean; can_manage_all: boolean }
 type CompanyData = { roster: RosterUser[]; roles: Role[] }
 type View = 'company' | 'unassigned' | 'search'
-type ModalMode = 'assignCompany' | 'assignRole' | 'setLevel'
+type ModalMode = 'assignCompany' | 'assignRole' | 'setLevel' | 'deleteUser' // <-- NEW
 type ModalUser = RosterUser | UnassignedUser | SearchUser
 
 // --- Helper: Tab Button Component ---
@@ -60,7 +58,6 @@ export default function ManageRosterPage() {
   const [permissions, setPermissions] = useState<Permissions | null>(null)
   const [view, setView] = useState<View>('company')
   
-  // *** FIX: This type now matches the 'ManageableCompany' type below ***
   const [manageableCompanies, setManageableCompanies] = useState<Company[]>([])
   const [allCompanies, setAllCompanies] = useState<Company[]>([])
   
@@ -88,16 +85,12 @@ export default function ManageRosterPage() {
   const [newRoleLevel, setNewRoleLevel] = useState(0)
 
 
-  // --- Data Fetching ---
-
-  // 1. Initial page load
+  // --- Data Fetching (No Changes) ---
   useEffect(() => {
-    // *** FIX: This type is what the RPC returns ***
     type ManageableCompany = { company_id: string, company_name: string }
 
     async function getInitialData() {
       setLoading(true)
-      // *** FIX: This RPC call *was* correct ***
       const { data: permsData, error: permsError } = await supabase
         .rpc('get_my_manage_permissions')
         .single<Permissions>()
@@ -105,14 +98,12 @@ export default function ManageRosterPage() {
       if (permsError) return setError(permsError.message)
       setPermissions(permsData)
 
-      // *** FIX: Removed the broken generic <ManageableCompany[]> ***
       const { data: companiesData, error: companiesError } = await supabase
         .rpc('get_manageable_companies')
 
       if (companiesError) return setError(companiesError.message)
 
       if (companiesData && companiesData.length > 0) {
-        // *** FIX: Added explicit type (c: ManageableCompany) to fix implicit 'any' ***
         const mappedCompanies = companiesData.map((c: ManageableCompany) => ({ id: c.company_id, company_name: c.company_name }))
         setManageableCompanies(mappedCompanies)
         setSelectedCompanyId(companiesData[0].company_id)
@@ -120,35 +111,30 @@ export default function ManageRosterPage() {
 
       if (permsData.can_manage_all) {
         setView('unassigned')
-        // *** FIX: Removed broken generic <UnassignedUser[]> ***
         const { data: unassignedData, error: unassignedError } = await supabase.rpc('get_unassigned_roster')
         if (unassignedError) return setError(unassignedError.message)
-        setUnassignedList(unassignedData)
+        setUnassignedList(unassignedData as UnassignedUser[])
 
-        // *** FIX: Removed broken generic <Company[]> ***
         const { data: allCompaniesData, error: allCompaniesError } = await supabase.rpc('get_all_companies_list')
         if (allCompaniesError) return setError(allCompaniesError.message)
-        setAllCompanies(allCompaniesData)
+        setAllCompanies(allCompaniesData as Company[])
       }
     }
     getInitialData().finally(() => setLoading(false))
   }, [supabase])
 
-  // 2. Fetch roster when selected company changes
   useEffect(() => {
     if (view !== 'company' || !selectedCompanyId) return
 
     async function getRoster() {
       setLoading(true)
       setError(null)
-      // *** FIX: Removed broken generic <CompanyData> ***
       const { data, error } = await supabase.rpc('get_roster_for_company', {
         p_company_id: selectedCompanyId
       })
 
       if (error) setError(error.message)
       else {
-        // We cast the types here instead
         const companyData = data as CompanyData
         setCompanyRoster(companyData.roster || [])
         setCompanyRoles(companyData.roles || [])
@@ -158,7 +144,6 @@ export default function ManageRosterPage() {
     getRoster()
   }, [selectedCompanyId, view, supabase])
 
-  // 3. Run search when query changes
   useEffect(() => {
     if (view !== 'search' || !searchQuery) {
       setSearchResults([])
@@ -167,7 +152,6 @@ export default function ManageRosterPage() {
 
     const timer = setTimeout(async () => {
       setLoading(true)
-      // *** FIX: Removed broken generic <SearchUser[]> ***
       const { data, error } = await supabase.rpc('search_all_profiles', {
         p_search_term: searchQuery
       })
@@ -180,7 +164,7 @@ export default function ManageRosterPage() {
   }, [searchQuery, view, supabase])
 
   
-  // --- Modal Control ---
+  // --- Modal Control (Updated) ---
 
   function closeModal() {
     setModalOpen(false)
@@ -193,14 +177,16 @@ export default function ManageRosterPage() {
     setModalUser(user)
     setModalMode(mode)
     
+    // Pre-fill form
     if (mode === 'assignCompany') setNewCompanyId('')
     if (mode === 'assignRole' && 'role_id' in user) setNewRoleId(user.role_id || '')
     if (mode === 'setLevel' && 'role_level' in user) setNewRoleLevel(user.role_level)
+    // No pre-fill needed for 'deleteUser'
 
     setModalOpen(true)
   }
   
-  // --- Save Handlers ---
+  // --- Save Handlers (Updated) ---
 
   async function onSave() {
     setIsSaving(true)
@@ -216,10 +202,10 @@ export default function ManageRosterPage() {
           p_new_company_id: newCompanyId || null
         })
         rpcError = error
-        // *** FIX: Removed broken generic <UnassignedUser[]> ***
+        // Refresh unassigned list
         const { data, error: refetchError } = await supabase.rpc('get_unassigned_roster')
         if (refetchError) throw refetchError
-        setUnassignedList(data)
+        setUnassignedList(data as UnassignedUser[])
 
       } else if (modalMode === 'assignRole') {
         const { error } = await supabase.rpc('update_user_role', {
@@ -233,13 +219,25 @@ export default function ManageRosterPage() {
           p_new_role_level: newRoleLevel
         })
         rpcError = error
+      
+      // *** NEW: Delete User Case ***
+      } else if (modalMode === 'deleteUser') {
+        const { error } = await supabase.rpc('delete_user_by_id', {
+          p_user_id: modalUser.user_id
+        })
+        rpcError = error
+        
+        // Refresh all lists after deletion
+        setUnassignedList(unassignedList.filter(u => u.user_id !== modalUser.user_id))
+        setCompanyRoster(companyRoster.filter(u => u.user_id !== modalUser.user_id))
+        setSearchResults(searchResults.filter(u => u.user_id !== modalUser.user_id))
       }
+      // *** END NEW SECTION ***
 
       if (rpcError) throw rpcError
       
-      if (view === 'company') {
-        // *** FIX: Removed broken generic <CompanyData> ***
-        const { data, error } = await supabase.rpc('get_roster_for_company', { p_company_id: selectedCompanyId })        
+      if (view === 'company' && (modalMode === 'assignRole' || modalMode === 'setLevel')) {
+        const { data, error } = await supabase.rpc('get_roster_for_company', { p_company_id: selectedCompanyId })
         if (error) throw error
         const companyData = data as CompanyData
         setCompanyRoster(companyData.roster || [])
@@ -253,14 +251,13 @@ export default function ManageRosterPage() {
     }
   }
 
-  // --- Render ---
+  // --- Render (Updated) ---
 
   if (loading) {
     return <div className="p-8 text-center text-gray-500">Loading...</div>
   }
 
   if (error && !isSaving) {
-    // Show a general error if the whole page failed
     return <div className="p-8 text-center text-red-600">{error}</div>
   }
 
@@ -286,10 +283,9 @@ export default function ManageRosterPage() {
 
         {/* --- Main Content Area --- */}
         <div className="mt-6">
-          {/* *** FIX: Show saving errors here *** */}
           {error && isSaving && <div className="p-4 mb-4 text-red-700 bg-red-100 rounded-md">{error}</div>}
 
-          {/* --- View: Unassigned Roster --- */}
+          {/* --- View: Unassigned Roster (Updated) --- */}
           {view === 'unassigned' && (
             <div>
               <h2 className="text-2xl font-semibold text-gray-800">Unassigned Personnel</h2>
@@ -300,9 +296,12 @@ export default function ManageRosterPage() {
                     <td className="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{user.last_name}, {user.first_name}</td>
                     <td className="px-3 py-4 text-sm text-gray-500 italic">Unassigned</td>
                     <td className="px-3 py-4 text-sm text-gray-500 italic">N/A</td>
-                    <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                    <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 space-x-4">
                       <button onClick={() => openModal(user, 'assignCompany')} className="text-indigo-600 hover:text-indigo-900">
                         Assign Company...
+                      </button>
+                      <button onClick={() => openModal(user, 'deleteUser')} className="text-red-600 hover:text-red-900">
+                        Delete
                       </button>
                     </td>
                   </tr>
@@ -311,7 +310,7 @@ export default function ManageRosterPage() {
             </div>
           )}
 
-          {/* --- View: Company Roster --- */}
+          {/* --- View: Company Roster (Updated) --- */}
           {view === 'company' && (
             <div>
               <label htmlFor="company" className="block text-sm font-medium text-gray-700">Select Company</label>
@@ -341,6 +340,11 @@ export default function ManageRosterPage() {
                       <button onClick={() => openModal(user, 'setLevel')} className="text-gray-600 hover:text-gray-900">
                         Set Level
                       </button>
+                      {permissions?.can_manage_all && (
+                        <button onClick={() => openModal(user, 'deleteUser')} className="text-red-600 hover:text-red-900">
+                          Delete
+                        </button>
+                      )}
                     </td>
                   </tr>
                 ))}
@@ -348,7 +352,7 @@ export default function ManageRosterPage() {
             </div>
           )}
 
-          {/* --- View: Search All --- */}
+          {/* --- View: Search All (Updated) --- */}
           {view === 'search' && (
             <div>
               <input 
@@ -364,9 +368,12 @@ export default function ManageRosterPage() {
                     <td className="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{user.last_name}, {user.first_name}</td>
                     <td className="px-3 py-4 text-sm text-gray-500">{user.company_name || <span className="text-red-500 italic">Unassigned</span>}</td>
                     <td className="px-3 py-4 text-sm text-gray-500">{user.role_name || 'N/A'}</td>
-                    <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
+                    <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 space-x-4">
                       <button onClick={() => openModal(user, 'assignCompany')} className="text-indigo-600 hover:text-indigo-900">
                         Assign Company...
+                      </button>
+                      <button onClick={() => openModal(user, 'deleteUser')} className="text-red-600 hover:text-red-900">
+                        Delete
                       </button>
                     </td>
                   </tr>
@@ -378,7 +385,7 @@ export default function ManageRosterPage() {
         </div>
       </div>
 
-      {/* --- Modal --- */}
+      {/* --- Modal (Updated) --- */}
       {modalOpen && modalUser && (
         <div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
@@ -387,13 +394,15 @@ export default function ManageRosterPage() {
               <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                 <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                   <h3 className="text-lg font-medium leading-6 text-gray-900" id="modal-title">
-                    Edit: {modalUser.last_name}, {modalUser.first_name}
+                    {/* *** NEW: Title logic for delete *** */}
+                    {modalMode === 'deleteUser' ? 'Delete User' : `Edit: ${modalUser.last_name}, ${modalUser.first_name}`}
                   </h3>
                   
                   {/* Modal Body */}
                   <div className="mt-4 space-y-4">
                     {modalMode === 'assignCompany' && (
                       <div>
+                        {/* ... assignCompany form ... */}
                         <label htmlFor="company" className="block text-sm font-medium text-gray-700">Assign to Company</label>
                         <select
                           id="company"
@@ -411,6 +420,7 @@ export default function ManageRosterPage() {
                     
                     {modalMode === 'assignRole' && (
                       <div>
+                        {/* ... assignRole form ... */}
                         <label htmlFor="role" className="block text-sm font-medium text-gray-700">Assign New Role</label>
                         <select
                           id="role"
@@ -428,6 +438,7 @@ export default function ManageRosterPage() {
 
                     {modalMode === 'setLevel' && (
                       <div>
+                        {/* ... setLevel form ... */}
                         <label htmlFor="level" className="block text-sm font-medium text-gray-700">Set Role Level</label>
                         <p className="text-xs text-gray-500">Current Role: {('role_name' in modalUser && modalUser.role_name) || 'N/A'}</p>
                         <input
@@ -439,19 +450,40 @@ export default function ManageRosterPage() {
                         />
                       </div>
                     )}
-                    {/* *** FIX: Show error here *** */}
+
+                    {/* *** NEW: Delete confirmation message *** */}
+                    {modalMode === 'deleteUser' && (
+                      <div className="text-sm text-red-700">
+                        <p>Are you sure you want to permanently delete this user?</p>
+                        <p className="font-medium">User: {modalUser.first_name} {modalUser.last_name}</p>
+                        <p className="mt-2">This action is irreversible and will delete all associated profiles, reports, and logs.</p>
+                      </div>
+                    )}
+                    
                     {error && isSaving && <p className="text-sm text-red-600 mt-2">{error}</p>}
                   </div>
                 </div>
 
-                {/* Modal Footer */}
+                {/* Modal Footer (Updated) */}
                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                  <button type="button" disabled={isSaving} onClick={onSave}
-                    className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm disabled:bg-gray-400">
-                    {isSaving ? 'Saving...' : 'Save Changes'}
+                  <button
+                    type="button"
+                    disabled={isSaving}
+                    onClick={onSave}
+                    // *** NEW: Dynamic button color and text for delete ***
+                    className={`inline-flex w-full justify-center rounded-md border border-transparent px-4 py-2 text-base font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm disabled:bg-gray-400 ${
+                      modalMode === 'deleteUser' 
+                        ? 'bg-red-600 hover:bg-red-700 focus:ring-red-500' 
+                        : 'bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500'
+                    }`}
+                  >
+                    {isSaving ? 'Saving...' : (modalMode === 'deleteUser' ? 'Delete User' : 'Save Changes')}
                   </button>
-                  <button type="button" onClick={closeModal}
-                    className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                  <button
+                    type="button"
+                    onClick={closeModal}
+                    className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                  >
                     Cancel
                   </button>
                 </div>
@@ -464,14 +496,14 @@ export default function ManageRosterPage() {
   )
 }
 
-// --- Helper: Table Component ---
+// --- Helper: Table Component (No Changes) ---
 function RosterTable({ loading, children }: { loading: boolean, children: React.ReactNode }) {
   return (
     <div className="mt-4 flow-root">
       <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
           <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-            <table className="min_w-full divide-y divide-gray-300">
+            <table className="min-w-full divide-y divide-gray-300">
               <thead className="bg-gray-50">
                 <tr>
                   <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Name</th>
