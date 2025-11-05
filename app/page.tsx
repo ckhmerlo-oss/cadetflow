@@ -59,20 +59,20 @@ export default async function Dashboard() {
   }
   // *** END NEW SECTION *** 
 
-  const isFaculty = (profile?.role_level || 0) >= 50;
-
   // *** NEW: Get the user's specific management permissions ***
   const { data: permsData, error: permsError } = await supabase
-    .rpc('get_my_manage_permissions')
-    .single<ManagePermissions>() // <-- FIX: Added type
-    
+  .rpc('get_my_manage_permissions')
+  .single<ManagePermissions>() // <-- FIX: Added type
+  
   if (permsError) {
     console.error("Error fetching permissions:", permsError.message)
   }
   
   // Default to false if error or no data
   const canManageAll = permsData?.can_manage_all || false;
-
+  
+  // *** FIX: A user is "Faculty" if their level is >= 50 OR they have global manage permissions ***
+    const isFaculty = (profile?.role_level || 0) >= 50 || canManageAll;
   // *** NEW: Fetch user's groups for the subtitle ***
   const { data: groupsData } = await supabase
     .from('group_members')
