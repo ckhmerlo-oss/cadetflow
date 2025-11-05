@@ -72,7 +72,7 @@ export default async function Dashboard() {
   const canManageAll = permsData?.can_manage_all || false;
   
   // *** FIX: A user is "Faculty" if their level is >= 50 OR they have global manage permissions ***
-    const isFaculty = (profile?.role_level || 0) >= 50 || canManageAll;
+  const isFaculty = (profile?.role_level || 0) >= 50 || canManageAll;
   // *** NEW: Fetch user's groups for the subtitle ***
   const { data: groupsData } = await supabase
     .from('group_members')
