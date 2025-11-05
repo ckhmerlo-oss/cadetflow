@@ -1,3 +1,5 @@
+// Text to make a new commit
+
 // in app/page.tsx (This is your main dashboard)
 import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
@@ -55,7 +57,7 @@ export default async function Dashboard() {
   if (profile && profile.company_id === null) {
     return redirect('/onboarding')
   }
-  // *** END NEW SECTION ***
+  // *** END NEW SECTION *** 
 
   const isFaculty = (profile?.role_level || 0) >= 50;
 
