@@ -48,7 +48,7 @@ export default async function Dashboard() {
   // 2. Get user's profile for name and role_level
   const { data: profile } = await supabase
     .from('profiles')
-    .select('first_name, last_name, role_level') 
+    .select('first_name, last_name, role_level, company_id') // <-- ADD company_id HERE
     .eq('id', user.id)
     .single()
 
