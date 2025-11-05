@@ -50,6 +50,13 @@ export default async function Dashboard() {
     .eq('id', user.id)
     .single()
 
+  // *** NEW: ONBOARDING CHECK ***
+  // If the user is logged in but has no company, force them to onboard.
+  if (profile && profile.company_id === null) {
+    return redirect('/onboarding')
+  }
+  // *** END NEW SECTION ***
+
   const isFaculty = (profile?.role_level || 0) >= 50;
 
   // *** NEW: Get the user's specific management permissions ***
