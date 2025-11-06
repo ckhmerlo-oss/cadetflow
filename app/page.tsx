@@ -1,13 +1,9 @@
-// Text to make a new commit
-
-// in app/page.tsx (This is your main dashboard)
+// in app/page.tsx
 import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
-// *** FIX: Removed this unused import ***
-// import { Database } from '@/utils/supabase/types' 
 
-// *** REFACTORED: This type now matches the JSON from our RPC ***
+// (All your Type definitions remain the same)
 type ReportWithNames = {
   id: string;
   status: string;
@@ -22,18 +18,10 @@ type ReportWithNames = {
     offense_name: string;
   } | null;
 }
-
-// Type for our new stats RPC
 type CadetStats = {
   term_demerits: number;
   year_demerits: number;
   total_tours: number;
-}
-
-// *** FIX: Added type for the permissions RPC ***
-type ManagePermissions = {
-  can_manage_own: boolean;
-  can_manage_all: boolean;
 }
 
 export default async function Dashboard() {
@@ -45,88 +33,70 @@ export default async function Dashboard() {
     return redirect('/login')
   }
 
-  // 2. Get user's profile for name and role_level
+  // 2. Get user's profile AND their associated role data
+  // *** THIS IS THE FIX ***
   const { data: profile } = await supabase
     .from('profiles')
-    .select('first_name, last_name, role_level, company_id') // <-- ADD company_id HERE
+    .select(`
+      first_name, 
+      last_name,
+      company_id,
+      role:role_id (
+        default_role_level,
+        can_manage_all_rosters,
+        approval_group:approval_group_id (group_name)
+      )
+    `)
     .eq('id', user.id)
     .single()
 
-  // *** NEW: ONBOARDING CHECK ***
-  // If the user is logged in but has no company, force them to onboard.
-  if (profile && profile.company_id === null) {
+  // 3. Check for onboarding
+  if (profile && profile.company_id === null && profile.first_name === 'New') {
     return redirect('/onboarding')
   }
-  // *** END NEW SECTION *** 
 
-  // *** NEW: Get the user's specific management permissions ***
-  const { data: permsData, error: permsError } = await supabase
-  .rpc('get_my_manage_permissions')
-  .single<ManagePermissions>() // <-- FIX: Added type
-  
-  if (permsError) {
-    console.error("Error fetching permissions:", permsError.message)
-  }
-  
-  // Default to false if error or no data
-  const canManageAll = permsData?.can_manage_all || false;
-  
-  // *** FIX: A user is "Faculty" if their level is >= 50 OR they have global manage permissions ***
-  const isFaculty = (profile?.role_level || 0) >= 50 || canManageAll;
-  // *** NEW: Fetch user's groups for the subtitle ***
-  const { data: groupsData } = await supabase
-    .from('group_members')
-    .select('approval_groups(group_name)')
-    .eq('user_id', user.id)
+  // 4. Define permissions based on the user's ROLE
+  const role = profile?.role as any
+  const role_level = role?.default_role_level || 0
+  const canManageAll = role?.can_manage_all_rosters || false
+  const isFaculty = role_level >= 50 || canManageAll
+  const groupName = role?.approval_group?.group_name || 'Personal Dashboard'
 
-  // Format the group names into a string
-  const groupNames = groupsData
-    // *** FIX: Added (item: any) to resolve implicit 'any' error ***
-    ?.map((item: any) => item.approval_groups?.group_name)
-    .filter(Boolean) // Remove any null/undefined
-    .join(', ') || 'Personal Dashboard';
 
-  // 3. *** FIX: Call our new RPC function to get all data ***
-  // This avoids RLS recursion and solves the "N/A" name problem.
+  // 5. Fetch dashboard reports
   const { data: rpcData, error } = await supabase
     .rpc('get_my_dashboard_reports')
     
-  // *** FIX: Ensure allInvolvedReports is ALWAYS an array ***
   const allInvolvedReports: ReportWithNames[] = rpcData || [];
     
   if (error) {
     console.error("Error fetching reports:", error.message)
   }
 
-  // 4. Conditionally fetch data
+  // 6. Conditionally fetch data
   let individualItems: ReportWithNames[] = [];
   let allPendingReports: ReportWithNames[] = [];
   let cadetStats: CadetStats | null = null; 
   let allCompletedReports: ReportWithNames[] = []; 
 
   if (isFaculty) {
-    // Faculty sees ALL pending reports
     const { data: facultyData, error: rpcError } = await supabase
       .rpc('get_all_pending_reports_for_faculty')
     
     if (rpcError) console.error("Error fetching faculty reports:", rpcError.message)
-    // Cast the JSON from RPC to match our type
-    // *** FIX: Added (item: any) to resolve implicit 'any' error ***
     allPendingReports = facultyData?.map((item: any) => ({
       ...item,
       subject: item.subject,
       submitter: item.submitter,
       group: item.group,
-      offense_type: { offense_name: item.title } // 'title' from RPC is offense_name
+      offense_type: { offense_name: item.title }
     })) as ReportWithNames[] || [];
 
-    // *** NEW: Faculty also sees ALL completed reports ***
     const { data: completedData, error: completedError } = await supabase
       .rpc('get_all_completed_reports_for_faculty')
 
     if (completedError) console.error("Error fetching all completed reports:", completedError.message)
     
-    // *** FIX: Added (item: any) to resolve implicit 'any' error ***
     allCompletedReports = completedData?.map((item: any) => ({
       ...item,
       subject: item.subject,
@@ -136,34 +106,27 @@ export default async function Dashboard() {
     })) as ReportWithNames[] || [];
 
   } else {
-    // Cadets see "Individual Items"
     individualItems = allInvolvedReports.filter(report => 
       report.subject_cadet_id === user.id
     ) || []
 
-    // Cadets also fetch their dashboard stats
     const { data: statsData, error: statsError } = await supabase
       .rpc('get_my_tour_and_demerit_stats')
-      .single<CadetStats>() // <-- FIX: Added type
+      .single<CadetStats>()
     
     if (statsError) console.error("Error fetching cadet stats:", statsError.message)
     if (statsData) cadetStats = statsData;
   }
     
-  // 5. Filter the other reports
-  
-  // Box 1: Action Items
+  // 7. Filter the other reports
   const actionItems = allInvolvedReports.filter(report => 
-    (report.status === 'pending_approval' && report.current_approver_group_id !== null) || // RLS handles approver check
+    (report.status === 'pending_approval' && report.current_approver_group_id !== null) ||
     (report.status === 'needs_revision' && report.submitted_by === user.id)
   ) || []
 
-  // Box 3: My Submitted Reports (By me)
   const mySubmittedReports = allInvolvedReports.filter(report => 
     report.submitted_by === user.id
   ) || []
-  
-  // (No Box 4 logic needed here anymore, it's inside the isFaculty check)
 
   return (
     <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
@@ -173,14 +136,13 @@ export default async function Dashboard() {
           <h1 className="text-3xl font-bold text-gray-900">
             Welcome, {profile?.first_name || user.email}
           </h1>
-          {/* *** CHANGED: Use the new groupNames string *** */}
           <p className="mt-2 text-lg text-gray-600">
-            {groupNames}
+            {groupName}
           </p>
         </div>
         <div>
-          {/* *** NEW: Conditionally show button based on role_level *** */}
-          {(profile?.role_level || 0) >= 15 && (
+          {/* *** FIX: Check the new 'role_level' variable *** */}
+          {(role_level >= 15) && (
             <Link 
               href="/submit" 
               className="py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700"
@@ -199,8 +161,8 @@ export default async function Dashboard() {
       {/* Grid for the four columns */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
         
-        {/* *** NEW: Conditionally show Action Items *** */}
-        {(profile?.role_level || 0) >= 15 && (
+        {/* *** FIX: Check the new 'role_level' variable *** */}
+        {(role_level >= 15) && (
           <DashboardSection 
             title="Action Items" 
             items={actionItems} 
@@ -209,7 +171,6 @@ export default async function Dashboard() {
           />
         )}
         
-        {/* *** UPDATED: Only faculty AND those with 'all' perms can see this *** */}
         {isFaculty && canManageAll ? (
           <DashboardSection 
             title="All In-Progress Reports" 
@@ -219,7 +180,6 @@ export default async function Dashboard() {
           />
         ) : (
           <DashboardSection 
-            // *** CHANGED: Title updated ***
             title="My Demerit Reports" 
             items={individualItems} 
             emptyMessage="You have no reports filed about you." 
@@ -227,10 +187,9 @@ export default async function Dashboard() {
           />
         )}
 
-        {/* *** NEW: Conditionally show Submitted Reports *** */}
-        {(profile?.role_level || 0) >= 15 && (
+        {/* *** FIX: Check the new 'role_level' variable *** */}
+        {(role_level >= 15) && (
           <DashboardSection 
-            // *** CHANGED: Title updated ***
             title="Submitted Reports" 
             items={mySubmittedReports} 
             emptyMessage="You haven't submitted any reports yet." 
@@ -238,7 +197,6 @@ export default async function Dashboard() {
           />
         )}
 
-        {/* *** CHANGED: This section only shows for faculty *** */}
         {isFaculty && (
           <DashboardSection 
             title="Completed Archive" 
@@ -254,7 +212,7 @@ export default async function Dashboard() {
 }
 
 // --- Helper Components ---
-
+// (No changes to helper components: CadetStatsHeader, StatCard, DashboardSection, ReportCard)
 function CadetStatsHeader({ stats }: { stats: CadetStats }) {
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -325,7 +283,6 @@ function ReportCard({ report, showSubject, showSubmitter }: { report: ReportWith
     return `${person.last_name}, ${firstInitial}`;
   }
   
-  // *** NEW: Helper function to format status names ***
   const formatStatus = (status: string) => {
     switch (status) {
       case 'completed':
@@ -350,7 +307,6 @@ function ReportCard({ report, showSubject, showSubmitter }: { report: ReportWith
     >
       <div className="flex justify-between items-center">
         <span className="font-medium text-indigo-600 truncate">{title}</span>
-        {/* *** UPDATED: Using the formatStatus function *** */}
         <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${getStatusColor()}`}>
           {formatStatus(report.status)}
         </span>
