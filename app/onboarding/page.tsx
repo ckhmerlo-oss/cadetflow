@@ -3,12 +3,7 @@
 
 import { createClient } from '@/utils/supabase/client'
 import { useRouter } from 'next/navigation'
-import { useState, useEffect } from 'react'
-
-type Company = {
-  id: string;
-  company_name: string;
-}
+import { useState } from 'react' // <-- Removed useEffect
 
 export default function OnboardingPage() {
   const supabase = createClient()
@@ -17,26 +12,11 @@ export default function OnboardingPage() {
   // Form state
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
-  const [companyId, setCompanyId] = useState('')
-  
-  // Data for dropdown
-  const [companies, setCompanies] = useState<Company[]>([])
   
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  // Fetch the list of companies for the dropdown
-  useEffect(() => {
-    async function getCompanies() {
-      const { data, error } = await supabase.rpc('get_cadet_companies')
-      if (error) {
-        setError(error.message)
-      } else {
-        setCompanies(data)
-      }
-    }
-    getCompanies()
-  }, [supabase])
+  // (Removed the useEffect that fetched companies)
 
   // Handle the form submission
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -44,10 +24,10 @@ export default function OnboardingPage() {
     setLoading(true)
     setError(null)
 
+    // *** UPDATED: Only sends name ***
     const { error: rpcError } = await supabase.rpc('update_my_onboarding_profile', {
       p_first_name: firstName,
-      p_last_name: lastName,
-      p_company_id: companyId
+      p_last_name: lastName
     })
 
     if (rpcError) {
@@ -105,26 +85,7 @@ export default function OnboardingPage() {
             />
           </div>
 
-          <div>
-            <label htmlFor="company" className="block text-sm font-medium text-gray-700">
-              Assign to Company
-            </label>
-            <select
-              id="company"
-              name="company"
-              required
-              value={companyId}
-              onChange={(e) => setCompanyId(e.target.value)}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            >
-              <option value="" disabled>Select your company...</option>
-              {companies.map((company) => (
-                <option key={company.id} value={company.id}>
-                  {company.company_name}
-                </option>
-              ))}
-            </select>
-          </div>
+          {/* --- Company Dropdown Removed --- */}
           
           {error && <p className="text-sm text-red-600">{error}</p>}
 

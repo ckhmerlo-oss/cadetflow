@@ -98,4 +98,4 @@ VALUES ('Faculty');
 UPDATE public.roles
 SET company_id = (SELECT id FROM public.companies WHERE company_name = 'Faculty')
 WHERE role_name = 'Teacher'
-  AND company_id = (SELECT id FROM public.companies WHERE company_name = 'Battalion Staff');
+  AND company_id = (SELECT id FROM public.companies WHERE company_name = 'Battalion Staff');  
