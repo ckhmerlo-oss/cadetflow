@@ -154,15 +154,16 @@ export default function ReportDetails({ params: paramsPromise }: { params: Promi
 
       // Check for approver status
       if (reportData.current_approver_group_id) {
-        const { data: groupMember, error: groupError } = await supabase
-          .from('group_members')
-          .select('user_id') 
-          .eq('group_id', reportData.current_approver_group_id)
-          .eq('user_id', user.id)
-          .maybeSingle() 
-        
-        if (groupMember) {
-          setIsApprover(true)
+        // Check if the user's OWN role is linked to this approval group
+        const { data: profile, error: profileError } = await supabase
+          .from('profiles')
+          .select('roles:role_id ( approval_group_id )') // Get the role and its approval_group_id
+          .eq('id', user.id)
+          .single();
+
+        // Check if the role's approval group matches the report's current group
+        if (profile && (profile.roles as any)?.approval_group_id === reportData.current_approver_group_id) {
+          setIsApprover(true);
         }
       }
       
