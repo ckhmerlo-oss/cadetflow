@@ -170,7 +170,8 @@ export default function DailyReportsPage() {
 
   // *** NEW: Permission variables ***
   const isCommandantStaff = userRole === 'Commandant' || userRole === 'Deputy Commandant'
-  const isTacOfficer = userRole === 'TAC Officer';  
+  const isTacOfficer = userRole === 'TAC Officer'; 
+  const canLogTours = isTacOfficer || isCommandantStaff;
   // --- Render ---
 
   if (loading) {
@@ -379,7 +380,7 @@ export default function DailyReportsPage() {
                           <td className="relative py-2 pl-2 pr-2 text-right text-sm font-medium no-print border border-gray-300  dark:border-gray-600">
                             
                             {/* *** MODIFIED: Conditional Button *** */}
-                            {isTacOfficer && (
+                            {canLogTours && (
                               <button
                                 onClick={() => openTourModal(c)}
                                 className="text-indigo-600 hover:text-indigo-900"
@@ -409,6 +410,13 @@ export default function DailyReportsPage() {
           <div className="fixed inset-0 z-10 overflow-y-auto">
             <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
               <div className="relative transform overflow-hidden rounded-lg bg-white dark:bg-gray-800 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                {/* MODAL FIX: 
+                  - Added dark:bg-gray-800 to modal body
+                  - Added dark:text-white to title
+                  - Added dark:text-gray-400 to subtitle
+                  - Added dark:text-gray-300 to labels
+                  - Added dark: styles to inputs
+                */}
                 <div className="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                   <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-white" id="modal-title">
                     Log Served Tours for: {selectedCadet.last_name}
@@ -417,24 +425,24 @@ export default function DailyReportsPage() {
                   
                   <div className="mt-4 space-y-4">
                     <div>
-                      <label htmlFor="tours" className="block text-sm font-medium text-gray-700">Tours Served</label>
+                      <label htmlFor="tours" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Tours Served</label>
                       <input
                         id="tours"
                         type="number"
                         value={toursToLog}
                         onChange={e => setToursToLog(Number(e.target.value))}
-                        className="mt-1 block w-full rounded-md border-gray-300  dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       />
                     </div>
                     <div>
-                      <label htmlFor="comment" className="block text-sm font-medium text-gray-700">Notes (Optional)</label>
+                      <label htmlFor="comment" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Notes (Optional)</label>
                       <input
                         id="comment"
                         type="text"
                         placeholder="e.g., 'Good behavior'"
                         value={logComment}
                         onChange={e => setLogComment(e.target.value)}
-                        className="mt-1 block w-full rounded-md border-gray-300  dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       />
                     </div>
                   </div>

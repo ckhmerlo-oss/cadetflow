@@ -6,6 +6,8 @@ import Link from 'next/link'
 import { createClient } from '@/utils/supabase/server'
 import { ThemeProvider } from '@/app/components/ThemeProvider'
 import ThemeToggleButton from '@/app/components/ThemeToggleButton'
+import FeedbackButton from '@/app/components/FeedbackButton'
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -67,17 +69,26 @@ export default async function RootLayout({
         <ThemeProvider defaultTheme="dark">
           <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
             <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+              
               <div className="flex justify-between items-center h-16">
                 
-                <div className="flex-shrink-0">
-                  <Link 
-                    href="/" 
-                    className={`text-2xl font-bold ${logoColor} transition-colors`}
-                  >
-                    {logoText}
-                  </Link>
-                </div>
+                {/* *** 1. Create a new flex container for the left side *** */}
+                <div className="flex items-center space-x-4">
+                  {/* Logo/Title */}
+                  <div className="flex-shrink-0">
+                    <Link 
+                      href="/" 
+                      className={`text-2xl font-bold ${logoColor} transition-colors`}
+                    >
+                      {logoText}
+                    </Link>
+                  </div>
 
+                  {/* *** 2. Move the FeedbackButton here *** */}
+                  {user && <FeedbackButton />}
+                </div>
+               
+                
                 <div className="flex items-center space-x-4">
                   {isCommandantStaff && (
                     <Link 
@@ -95,8 +106,7 @@ export default async function RootLayout({
                       Manage Roster
                     </Link>
                   )}
-                  
-                  {/* *** 4. ADD the toggle button *** */}
+                                  
                   <ThemeToggleButton />
                   
                   <SignOutButton />
