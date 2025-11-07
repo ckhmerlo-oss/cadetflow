@@ -44,17 +44,17 @@ export default function OnboardingPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div>
-          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900 dark:text-white">
             Welcome to CadetFlow
           </h2>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <p className="mt-2 text-center text-sm text-gray-600 dark:text-gray-400">
             Please complete your profile to continue.
           </p>
         </div>
-        <form className="mt-8 space-y-6 bg-white p-8 shadow-lg rounded-lg" onSubmit={handleSubmit}>
+        <form className="mt-8 space-y-6 bg-white dark:bg-gray-800 p-8 shadow-lg rounded-lg" onSubmit={handleSubmit}>
           
           <div>
-            <label htmlFor="first-name" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="first-name" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
               First Name
             </label>
             <input
@@ -64,13 +64,13 @@ export default function OnboardingPage() {
               required
               value={firstName}
               onChange={(e) => setFirstName(e.target.value)}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               placeholder="John"
             />
           </div>
 
           <div>
-            <label htmlFor="last-name" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="last-name" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
               Last Name
             </label>
             <input
@@ -80,7 +80,7 @@ export default function OnboardingPage() {
               required
               value={lastName}
               onChange={(e) => setLastName(e.target.value)}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               placeholder="Doe"
             />
           </div>

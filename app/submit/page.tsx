@@ -100,16 +100,16 @@ export default function SubmitReport() {
 
   return (
     <div className="relative max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
-      <div className="bg-white p-6 rounded-lg shadow-md">
+      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
         
         <form onSubmit={handleSubmit} className="space-y-6">
-          <h2 className="text-2xl font-semibold text-gray-900">
+          <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
             Submit New Report
           </h2>
 
           {/* Subject Cadet Field */}
           <div>
-            <label htmlFor="cadet" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="cadet" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
               Subject Cadet
             </label>
             <select 
@@ -117,7 +117,7 @@ export default function SubmitReport() {
               value={subjectCadetId} 
               onChange={(e) => setSubjectCadetId(e.target.value)} 
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             >
               <option value="">Select a cadet...</option>
               {cadets.map((cadet) => (
@@ -130,7 +130,7 @@ export default function SubmitReport() {
 
           {/* Date of Offense */}
           <div>
-            <label htmlFor="date" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="date" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
               Date of Offense
             </label>
             <input 
@@ -139,13 +139,13 @@ export default function SubmitReport() {
               value={dateOfOffense} 
               onChange={(e) => setDateOfOffense(e.target.value)} 
               required 
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             />
           </div>
           
           {/* *** NEW: Offense Type Dropdown *** */}
           <div>
-            <label htmlFor="offense_type" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="offense_type" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
               Offense
             </label>
             <select 
@@ -153,7 +153,7 @@ export default function SubmitReport() {
               value={offenseTypeId} 
               onChange={(e) => setOffenseTypeId(e.target.value)} 
               required
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
             >
               <option value="">Select an offense...</option>
               {Object.entries(groupedOffenses).map(([groupName, groupOffenses]) => (
@@ -170,7 +170,7 @@ export default function SubmitReport() {
 
           {/* Notes Field */}
           <div>
-            <label htmlFor="notes" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="notes" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
               Notes (Optional)
             </label>
             <textarea 
@@ -178,7 +178,7 @@ export default function SubmitReport() {
               value={notes} 
               onChange={(e) => setNotes(e.target.value)} 
               rows={4}
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               placeholder="Provide specific details of the incident..."
             />
           </div>

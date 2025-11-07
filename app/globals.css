@@ -2,3 +2,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  html.dark {
+    /* Use a lighter gray for better contrast */
+    @apply bg-gray-900 text-white;
+  }
+}

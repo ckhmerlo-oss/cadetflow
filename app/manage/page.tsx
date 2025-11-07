@@ -54,7 +54,7 @@ function TabButton({ text, active, onClick }: { text: string, active: boolean, o
       className={`-mb-px border-b-2 px-4 py-3 text-sm font-medium ${
         active
           ? 'border-indigo-600 text-indigo-600'
-          : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+          : 'border-transparent text-gray-500 dark:text-gray-400 hover:border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 hover:text-gray-700 dark:text-gray-200'
       }`}
     >
       {text}
@@ -310,7 +310,7 @@ export default function ManageRosterPage() {
   // --- Render ---
 
   if (loading) {
-    return <div className="p-8 text-center text-gray-500">Loading...</div>
+    return <div className="p-8 text-center text-gray-500 dark:text-gray-400">Loading...</div>
   }
   if (error && !isSaving) {
     return <div className="p-8 text-center text-red-600">{error}</div>
@@ -320,10 +320,10 @@ export default function ManageRosterPage() {
   return (
     <>
       <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-        <h1 className="text-3xl font-bold text-gray-900">Roster Management</h1>
+        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Roster Management</h1>
         
         {/* --- Tab Navigation --- */}
-        <div className="mt-4 border-b border-gray-200">
+        <div className="mt-4 border-b border-gray-200 dark:border-gray-700">
           <nav className="flex -mb-px space-x-6" aria-label="Tabs">
             {permissions.can_manage_all && (
               <TabButton text="Unassigned" active={view === 'unassigned'} onClick={() => setView('unassigned')} />
@@ -345,14 +345,14 @@ export default function ManageRosterPage() {
           {/* --- View: Unassigned Roster --- */}
           {view === 'unassigned' && (
             <div>
-              <h2 className="text-2xl font-semibold text-gray-800">Unassigned Personnel</h2>
-              <p className="text-gray-600">Users not assigned to any company.</p>
+              <h2 className="text-2xl font-semibold text-gray-800 dark: text-gray-100">Unassigned Personnel</h2>
+              <p className="text-gray-600 dark: text-gray-300">Users not assigned to any company.</p>
               <RosterTable loading={loading}>
                 {unassignedList.map(user => (
                   <tr key={user.user_id}>
-                    <td className="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{user.last_name}, {user.first_name}</td>
-                    <td className="px-3 py-4 text-sm text-gray-500 italic">Unassigned</td>
-                    <td className="px-3 py-4 text-sm text-gray-500 italic">N/A</td>
+                    <td className="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-gray-100 sm:pl-6">{user.last_name}, {user.first_name}</td>
+                    <td className="px-3 py-4 text-sm text-gray-500 dark:text-gray-400 italic">Unassigned</td>
+                    <td className="px-3 py-4 text-sm text-gray-500 dark:text-gray-400 italic">N/A</td>
                     <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 space-x-4">
                       <button onClick={() => openUserModal(user, 'assignCompany')} className="text-indigo-600 hover:text-indigo-900">
                         Assign Company...
@@ -370,12 +370,12 @@ export default function ManageRosterPage() {
           {/* --- View: Company Roster --- */}
           {view === 'company' && (
             <div>
-              <label htmlFor="company" className="block text-sm font-medium text-gray-700">Select Company</label>
+              <label htmlFor="company" className="block text-sm font-medium text-gray-700 dark:text-gray-200">Select Company</label>
               <select
                 id="company"
                 value={selectedCompanyId}
                 onChange={e => setSelectedCompanyId(e.target.value)}
-                className="mt-1 block w-full max-w-xs rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                className="mt-1 block w-full max-w-xs rounded-md border-gray-300 dark:border-gray-300 dark:bg-gray-800 dark:text-gray-200 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                 disabled={manageableCompanies.length === 0}
               >
                 {manageableCompanies.map(c => (
@@ -385,11 +385,11 @@ export default function ManageRosterPage() {
               <RosterTable loading={loading}>
                 {companyRoster.map(user => (
                   <tr key={user.user_id}>
-                    <td className="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{user.last_name}, {user.first_name}</td>
-                    <td className="px-3 py-4 text-sm text-gray-500">
+                    <td className="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-gray-100 sm:pl-6">{user.last_name}, {user.first_name}</td>
+                    <td className="px-3 py-4 text-sm text-gray-500 dark:text-gray-400">
                       {user.role_name || <span className="text-red-500 italic">Unassigned Role</span>}
                     </td>
-                    <td className="px-3 py-4 text-sm text-gray-500">{user.role_level}</td>
+                    <td className="px-3 py-4 text-sm text-gray-500 dark:text-gray-400">{user.role_level}</td>
                     <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 space-x-4">
                       <button onClick={() => openUserModal(user, 'assignRole')} className="text-indigo-600 hover:text-indigo-900">
                         Assign Role
@@ -418,15 +418,15 @@ export default function ManageRosterPage() {
                 placeholder="Search by first or last name..."
                 value={profileFilter}
                 onChange={e => setProfileFilter(e.target.value)}
-                className="block w-full max-w-sm rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="block w-full max-w-sm rounded-md border-gray-300 dark:border-gray-400 dark:bg-gray-800 dark:text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               />
               <RosterTable loading={loading}>
                 {/* *** UPDATED: Using 'filteredProfiles' list *** */}
                 {filteredProfiles.map(user => (
                   <tr key={user.user_id}>
-                    <td className="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{user.last_name}, {user.first_name}</td>
-                    <td className="px-3 py-4 text-sm text-gray-500">{user.company_name || <span className="text-red-500 italic">Unassigned</span>}</td>
-                    <td className="px-3 py-4 text-sm text-gray-500">{user.role_name || 'N/A'}</td>
+                    <td className="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-gray-100 sm:pl-6">{user.last_name}, {user.first_name}</td>
+                    <td className="px-3 py-4 text-sm text-gray-500 dark:text-gray-400">{user.company_name || <span className="text-red-500 italic">Unassigned</span>}</td>
+                    <td className="px-3 py-4 text-sm text-gray-500 dark:text-gray-400">{user.role_name || 'N/A'}</td>
                     <td className="py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 space-x-4">
                       <button onClick={() => openUserModal(user, 'assignCompany')} className="text-indigo-600 hover:text-indigo-900">
                         Assign Company...
@@ -446,8 +446,8 @@ export default function ManageRosterPage() {
             <div>
               <div className="flex justify-between items-center">
                 <div>
-                  <h2 className="text-2xl font-semibold text-gray-800">Manage Roles</h2>
-                  <p className="text-gray-600">Define all roles and their permissions.</p>
+                  <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-300">Manage Roles</h2>
+                  <p className="text-gray-600 dark:text-gray-400">Define all roles and their permissions.</p>
                 </div>
                 <button
                   onClick={() => openRoleModal('createRole')}
@@ -461,15 +461,15 @@ export default function ManageRosterPage() {
                 placeholder="Search by role or company..."
                 value={roleFilter}
                 onChange={e => setRoleFilter(e.target.value)}
-                className="mt-4 block w-full max-w-sm rounded-md border-gray-300 shadow-sm sm:text-sm"
+                className="mt-4 block w-full max-w-sm rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 shadow-sm sm:text-sm"
               />
               <RoleTable loading={loading}>
                 {filteredRoles.map(role => (
                   <tr key={role.role_id}>
-                    <td className="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6">{role.role_name}</td>
-                    <td className="px-3 py-4 text-sm text-gray-500">{role.company_name || 'N/A'}</td>
-                    <td className="px-3 py-4 text-sm text-gray-500">{role.approval_group_name || 'N/A'}</td>
-                    <td className="px-3 py-4 text-sm text-gray-500">{role.default_role_level}</td>
+                    <td className="py-4 pl-4 pr-3 text-sm font-medium text-gray-900 dark:text-gray-100 sm:pl-6">{role.role_name}</td>
+                    <td className="px-3 py-4 text-sm text-gray-500 dark:text-gray-400">{role.approval_group_name || 'N/A'}</td>
+                    <td className="px-3 py-4 text-sm text-gray-500 dark:text-gray-400">{role.company_name || 'N/A'}</td>
+                    <td className="px-3 py-4 text-sm text-gray-500 dark:text-gray-400">{role.default_role_level}</td>
                     <td className="relative py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6 space-x-4">
                       <button onClick={() => openRoleModal('editRole', role)} className="text-indigo-600 hover:text-indigo-900">Edit</button>
                       <button onClick={() => openRoleModal('deleteRole', role)} className="text-red-600 hover:text-red-900">Delete</button>
@@ -486,24 +486,24 @@ export default function ManageRosterPage() {
       {/* --- Modal --- */}
       {modalOpen && (
         <div className="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
-          <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
+          <div className="fixed inset-0 bg-gray-500 dark:text-gray-400 bg-opacity-75 transition-opacity"></div>
           <div className="fixed inset-0 z-10 overflow-y-auto">
             <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-              <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+              <div className="relative transform overflow-hidden rounded-lg bg-white dark:bg-gray-800 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                 
                 {/* --- Roster User Modals --- */}
                 {modalUser && (
                   <>
-                    <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                      <h3 className="text-lg font-medium leading-6 text-gray-900" id="modal-title">
+                    <div className="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                      <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-white" id="modal-title">
                         {modalMode === 'deleteUser' ? 'Delete User' : `Edit: ${modalUser.last_name}, ${modalUser.first_name}`}
                       </h3>
                       <div className="mt-4 space-y-4">
                         {modalMode === 'assignCompany' && (
                           <div>
-                            <label htmlFor="company" className="block text-sm font-medium text-gray-700">Assign to Company</label>
+                            <label htmlFor="company" className="block text-sm font-medium text-gray-700 dark:text-gray-200">Assign to Company</label>
                             <select id="company" value={newCompanyId} onChange={e => setNewCompanyId(e.target.value)}
-                              className="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                              className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                               <option value="">Unassign (move to Unassigned)</option>
                               {allCompanies.map(c => ( <option key={c.id} value={c.id}>{c.company_name}</option> ))}
                             </select>
@@ -511,9 +511,9 @@ export default function ManageRosterPage() {
                         )}
                         {modalMode === 'assignRole' && (
                           <div>
-                            <label htmlFor="role" className="block text-sm font-medium text-gray-700">Assign New Role</label>
+                            <label htmlFor="role" className="block text-sm font-medium text-gray-700 dark:text-gray-200">Assign New Role</label>
                             <select id="role" value={newRoleId} onChange={e => setNewRoleId(e.target.value)}
-                              className="mt-1 block w-full rounded-md border-gray-300 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
+                              className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:white py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
                               <option value="">Unassign Role</option>
                               {companyRoles.map(r => ( <option key={r.id} value={r.id}>{r.role_name} (lvl: {r.default_role_level})</option> ))}
                             </select>
@@ -521,10 +521,10 @@ export default function ManageRosterPage() {
                         )}
                         {modalMode === 'setLevel' && (
                           <div>
-                            <label htmlFor="level" className="block text-sm font-medium text-gray-700">Set Role Level</label>
-                            <p className="text-xs text-gray-500">Current Role: {('role_name' in modalUser && modalUser.role_name) || 'N/A'}</p>
+                            <label htmlFor="level" className="block text-sm font-medium text-gray-700 dark:text-gray-200">Set Role Level</label>
+                            <p className="text-xs text-gray-500 dark:text-gray-400">Current Role: {('role_name' in modalUser && modalUser.role_name) || 'N/A'}</p>
                             <input id="level" type="number" value={newRoleLevel} onChange={e => setNewRoleLevel(Number(e.target.value))}
-                              className="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                              className="mt-2 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                             />
                           </div>
                         )}
@@ -538,14 +538,14 @@ export default function ManageRosterPage() {
                         {error && isSaving && <p className="text-sm text-red-600 mt-2">{error}</p>}
                       </div>
                     </div>
-                    <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                    <div className="bg-gray-50 dark:bg-gray-800 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                       <button type="button" disabled={isSaving} onClick={onSave}
                         className={`inline-flex w-full justify-center rounded-md border border-transparent px-4 py-2 text-base font-medium text-white shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm disabled:bg-gray-400 ${
                           modalMode === 'deleteUser' ? 'bg-red-600 hover:bg-red-700 focus:ring-red-500' : 'bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-500'
                         }`}>
                         {isSaving ? 'Saving...' : (modalMode === 'deleteUser' ? 'Delete User' : 'Save Changes')}
                       </button>
-                      <button type="button" onClick={closeModal} className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                      <button type="button" onClick={closeModal} className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 bg-white dark:bg-gray-700 px-4 py-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
                         Cancel
                       </button>
                     </div>
@@ -557,8 +557,8 @@ export default function ManageRosterPage() {
                   <>
                     {modalMode === 'deleteRole' ? (
                       <>
-                        <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                          <h3 className="text-lg font-medium leading-6 text-gray-900">Delete Role</h3>
+                        <div className="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                          <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-white">Delete Role</h3>
                           <div className="mt-4 text-sm text-red-700">
                             <p>Are you sure you want to delete this role?</p>
                             <p className="font-medium">{modalRole?.role_name}</p>
@@ -566,83 +566,83 @@ export default function ManageRosterPage() {
                           </div>
                           {error && <p className="text-sm text-red-600 mt-2">{error}</p>}
                         </div>
-                        <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <div className="bg-gray-50 dark:bg-gray-800/50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                           <button type="button" disabled={isSaving} onClick={onSave}
                             className="inline-flex w-full justify-center rounded-md border border-transparent bg-red-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-red-700 sm:ml-3 sm:w-auto sm:text-sm disabled:bg-gray-400">
                             {isSaving ? 'Deleting...' : 'Delete Role'}
                           </button>
-                          <button type="button" onClick={closeModal} className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                          <button type="button" onClick={closeModal} className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 px-4 py-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
                             Cancel
                           </button>
                         </div>
                       </>
                     ) : (
                       <>
-                        <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                          <h3 className="text-lg font-medium leading-6 text-gray-900">
+                        <div className="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                          <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-white">
                             {modalMode === 'createRole' ? 'Create New Role' : 'Edit Role'}
                           </h3>
                           <div className="mt-4 space-y-4 max-h-[60vh] overflow-y-auto pr-2">
                             <div>
-                              <label htmlFor="role_name" className="block text-sm font-medium text-gray-700">Role Name</label>
+                              <label htmlFor="role_name" className="block text-sm font-medium text-gray-700 dark:text-gray-200">Role Name</label>
                               <input type="text" name="role_name" id="role_name" value={roleFormData.role_name || ''} onChange={handleRoleFormChange}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm"
+                                className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 shadow-sm sm:text-sm"
                               />
                             </div>
                             <div>
-                              <label htmlFor="company_id" className="block text-sm font-medium text-gray-700">Company</label>
+                              <label htmlFor="company_id" className="block text-sm font-medium text-gray-700 dark:text-gray-200">Company</label>
                               <select name="company_id" id="company_id" value={roleFormData.company_id || ''} onChange={handleRoleFormChange}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm">
+                                className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 shadow-sm sm:text-sm">
                                 <option value="">(None)</option>
                                 {allCompanies.map(c => <option key={c.id} value={c.id}>{c.company_name}</option>)}
                               </select>
                             </div>
                             <div>
-                              <label htmlFor="approval_group_id" className="block text-sm font-medium text-gray-700">Approval Group</label>
+                              <label htmlFor="approval_group_id" className="block text-sm font-medium text-gray-700 dark:text-gray-200">Approval Group</label>
                               <select name="approval_group_id" id="approval_group_id" value={roleFormData.approval_group_id || ''} onChange={handleRoleFormChange}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm">
+                                className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 shadow-sm sm:text-sm">
                                 <option value="">(None - No approval power)</option>
                                 {allGroups.map(g => <option key={g.id} value={g.id}>{g.group_name}</option>)}
                               </select>
                             </div>
                             <div>
-                              <label htmlFor="default_role_level" className="block text-sm font-medium text-gray-700">Default Role Level</label>
+                              <label htmlFor="default_role_level" className="block text-sm font-medium text-gray-700 dark:text-gray-200">Default Role Level</label>
                               <input type="number" name="default_role_level" id="default_role_level" value={roleFormData.default_role_level || 0} onChange={handleRoleFormChange}
-                                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm sm:text-sm"
+                                className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 shadow-sm sm:text-sm"
                               />
                             </div>
                             <fieldset className="space-y-2">
-                              <legend className="text-sm font-medium text-gray-700">Permissions</legend>
+                              <legend className="text-sm font-medium text-gray-700 dark:text-gray-200">Permissions</legend>
                               <div className="relative flex items-start">
                                 <div className="flex h-5 items-center">
                                   <input id="can_manage_own" name="can_manage_own_company_roster" type="checkbox" checked={roleFormData.can_manage_own_company_roster || false} onChange={handleRoleFormChange}
-                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600"
+                                    className="h-4 w-4 rounded border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 text-indigo-600"
                                   />
                                 </div>
                                 <div className="ml-3 text-sm">
-                                  <label htmlFor="can_manage_own" className="font-medium text-gray-700">Can Manage Own Company Roster</label>
+                                  <label htmlFor="can_manage_own" className="font-medium text-gray-700 dark:text-gray-200">Can Manage Own Company Roster</label>
                                 </div>
                               </div>
                               <div className="relative flex items-start">
                                 <div className="flex h-5 items-center">
                                   <input id="can_manage_all" name="can_manage_all_rosters" type="checkbox" checked={roleFormData.can_manage_all_rosters || false} onChange={handleRoleFormChange}
-                                    className="h-4 w-4 rounded border-gray-300 text-indigo-600"
+                                    className="h-4 w-4 rounded border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 text-indigo-600"
                                   />
                                 </div>
                                 <div className="ml-3 text-sm">
-                                  <label htmlFor="can_manage_all" className="font-medium text-gray-700">Can Manage ALL Rosters (Admin)</label>
+                                  <label htmlFor="can_manage_all" className="font-medium text-gray-700 dark:text-gray-200">Can Manage ALL Rosters (Admin)</label>
                                 </div>
                               </div>
                             </fieldset>
                             {error && isSaving && <p className="text-sm text-red-600 mt-2">{error}</p>}
                           </div>
                         </div>
-                        <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                        <div className="bg-gray-50 dark:bg-gray-800 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                           <button type="button" disabled={isSaving} onClick={onSave}
                             className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white sm:ml-3 sm:w-auto sm:text-sm disabled:bg-gray-400">
                             {isSaving ? 'Saving...' : 'Save Role'}
                           </button>
-                          <button type="button" onClick={closeModal} className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                          <button type="button" onClick={closeModal} className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800 px-4 py-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
                             Cancel
                           </button>
                         </div>
@@ -665,19 +665,19 @@ function RosterTable({ loading, children }: { loading: boolean, children: React.
     <div className="mt-4 flow-root">
       <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-          <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
+          <div className="overflow-hidden shadow ring-1  ring-black ring-opacity-5 dark:ring-white dark:ring-opacity-10 sm:rounded-lg">
             <table className="min-w-full divide-y divide-gray-300">
-              <thead className="bg-gray-50">
+              <thead className="bg-gray-50 dark:bg-gray-800">
                 <tr>
-                  <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Name</th>
-                  <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Affiliation</th>
-                  <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Role/Level</th>
+                  <th scope="col" className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-white sm:pl-6">Name</th>
+                  <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Affiliation</th>
+                  <th scope="col" className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Role/Level</th>
                   <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-6"><span className="sr-only">Actions</span></th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200 bg-white">
+              <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800/50">
                 {loading ? (
-                  <tr><td colSpan={4} className="p-8 text-center text-gray-500">Loading...</td></tr>
+                  <tr><td colSpan={4} className="p-8 text-center text-gray-500 dark:text-gray-400">Loading...</td></tr>
                 ) : children}
               </tbody>
             </table>
@@ -694,20 +694,20 @@ function RoleTable({ loading, children }: { loading: boolean, children: React.Re
     <div className="mt-4 flow-root">
       <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
         <div className="inline-block min-w-full py-2 align-middle sm:px-6 lg:px-8">
-          <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
-            <table className="min-w-full divide-y divide-gray-300">
-              <thead className="bg-gray-50">
+          <div className="overflow-hidden shadow ring-1 ring-black ring-opacity-5 dark:ring-white dark:ring-opacity-10 sm:rounded-lg">
+            <table className="min-w-full divide-y divide-gray-300 dark:divide-gray-700">
+              <thead className="bg-gray-50 dark:bg-gray-800">
                 <tr>
-                  <th className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 sm:pl-6">Role Name</th>
-                  <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Company</th>
-                  <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Approval Group</th>
-                  <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900">Level</th>
+                  <th className="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-900 dark:text-white sm:pl-6">Role Name</th>
+                  <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Company</th>
+                  <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Approval Group</th>
+                  <th className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900 dark:text-white">Level</th>
                   <th className="relative py-3.5 pl-3 pr-4 sm:pr-6"><span className="sr-only">Actions</span></th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-gray-200 bg-white">
+              <tbody className="divide-y divide-gray-200 bg-white dark:divide-gray-700 dark:bg-gray-800/50">
                 {loading ? (
-                  <tr><td colSpan={5} className="p-8 text-center text-gray-500">Loading...</td></tr>
+                  <tr><td colSpan={5} className="p-8 text-center text-gray-500 dark:text-gray-400">Loading...</td></tr>
                 ) : children}
               </tbody>
             </table>

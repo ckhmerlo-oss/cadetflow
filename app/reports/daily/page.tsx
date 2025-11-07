@@ -35,6 +35,9 @@ export default function DailyReportsPage() {
   
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+
+  // *** NEW: State for user's role ***
+  const [userRole, setUserRole] = useState<string | null>(null)
   
   // Action State
   const [isPosting, setIsPosting] = useState(false)
@@ -52,6 +55,21 @@ export default function DailyReportsPage() {
       setLoading(true)
       setError(null)
       
+      // *** NEW: Fetch the user's role ***
+      const { data: { user } } = await supabase.auth.getUser()
+      if (user) {
+        const { data: profile, error: profileError } = await supabase
+          .from('profiles')
+          .select('roles:role_id ( role_name )')
+          .eq('id', user.id)
+          .single()
+        
+        if (profile && (profile.roles as any)?.role_name) {
+          setUserRole((profile.roles as any).role_name)
+        }
+      }
+      // *** END NEW SECTION ***
+
       const [greenRes, tourRes] = await Promise.all([
         supabase.rpc('get_unposted_green_sheet'),
         supabase.rpc('get_tour_sheet')
@@ -74,7 +92,7 @@ export default function DailyReportsPage() {
     getReports()
   }, [supabase])
 
-  // --- Action Handlers (No Changes) ---
+  // --- Action Handlers ---
 
   async function handleMarkAsPosted() {
     if (greenSheet.length === 0) return
@@ -111,6 +129,14 @@ export default function DailyReportsPage() {
 
   async function handleLogTours() {
     if (!selectedCadet || toursToLog <= 0) return
+
+    // Client-side check from previous fix
+    if (toursToLog > selectedCadet.total_tours) {
+      alert(`Cannot log ${toursToLog} tours. Cadet only has ${selectedCadet.total_tours} remaining.`);
+      setIsLoggingTours(false);
+      return;
+    }
+
     setIsLoggingTours(true)
     
     const { error } = await supabase.rpc('log_served_tours', {
@@ -123,6 +149,7 @@ export default function DailyReportsPage() {
       alert("Error logging tours: " + error.message)
       setIsLoggingTours(false)
     } else {
+      // Optimistic update
       setTourSheet(
         tourSheet.map(c => 
           c.cadet_id === selectedCadet.cadet_id
@@ -141,10 +168,13 @@ export default function DailyReportsPage() {
     return localDate.toLocaleDateString('en-US', { month: '2-digit', day: '2-digit' });
   }
 
+  // *** NEW: Permission variables ***
+  const isCommandantStaff = userRole === 'Commandant' || userRole === 'Deputy Commandant'
+  const isTacOfficer = userRole === 'TAC Officer';  
   // --- Render ---
 
   if (loading) {
-    return <div className="p-4 text-center text-gray-500">Loading daily reports...</div>
+    return <div className="p-4 text-center text-gray-500 dark:text-gray-400">Loading daily reports...</div>
   }
 
   if (error) {
@@ -213,7 +243,7 @@ export default function DailyReportsPage() {
 
       <div className="max-w-7xl mx-auto p-2 sm:p-4 lg:p-6">
         <div className="flex justify-between items-center no-print">
-          <h1 className="text-3xl font-bold text-gray-900">Reports</h1> {/* <-- RENAMED */}
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Reports</h1>
           <button
             onClick={() => window.print()}
             className="py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700"
@@ -223,14 +253,14 @@ export default function DailyReportsPage() {
         </div>
 
         {/* --- TABS --- */}
-        <div className="mt-4 border-b border-gray-200 no-print">
+        <div className="mt-4 border-b border-gray-200 dark:border-gray-700 no-print">
           <nav className="-mb-px flex space-x-6" aria-label="Tabs">
             <button
               onClick={() => setActiveTab('green')}
               className={`border-b-2 px-3 py-2 text-sm font-medium ${
                 activeTab === 'green'
                   ? 'border-indigo-600 text-indigo-600'
-                  : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                  : 'border-transparent text-gray-500 dark:text-gray-400 hover:border-gray-300  dark:border-gray-600 hover:text-gray-700'
               }`}
             >
               Green Sheet
@@ -240,7 +270,7 @@ export default function DailyReportsPage() {
               className={`border-b-2 px-3 py-2 text-sm font-medium ${
                 activeTab === 'tour'
                   ? 'border-indigo-600 text-indigo-600'
-                  : 'border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700'
+                  : 'border-transparent text-gray-500 dark:text-gray-400 hover:border-gray-300  dark:border-gray-600 hover:text-gray-700'
               }`}
             >
               Tour Sheet
@@ -250,19 +280,24 @@ export default function DailyReportsPage() {
 
         {/* --- Green Sheet Section --- */}
         <section 
-          className={`mt-6 bg-white p-4 rounded-lg shadow printable-section ${activeTab === 'green' ? 'print-active' : 'hidden no-print'}`}
+          className={`mt-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow printable-section ${activeTab === 'green' ? 'print-active' : 'hidden no-print'}`}
         >
           <div className="flex justify-between items-center no-print">
-            <h2 className="text-2xl font-semibold text-gray-800">
+            <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
               Unposted Green Sheet ({greenSheet.length} reports)
             </h2>
-            <button
-              onClick={handleMarkAsPosted}
-              disabled={isPosting || greenSheet.length === 0}
-              className="py-2 px-3 rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 disabled:bg-gray-400"
-            >
-              {isPosting ? 'Posting...' : 'Mark All as Posted'}
-            </button>
+            
+            {/* *** MODIFIED: Conditional Button *** */}
+            {isCommandantStaff && (
+              <button
+                onClick={handleMarkAsPosted}
+                disabled={isPosting || greenSheet.length === 0}
+                className="py-2 px-3 rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 disabled:bg-gray-400"
+              >
+                {isPosting ? 'Posting...' : 'Mark All as Posted'}
+              </button>
+            )}
+            {/* *** END MODIFICATION *** */}
           </div>
           <h2 className="hidden print:block">
             Green Sheet - {new Date().toLocaleDateString()}
@@ -271,39 +306,35 @@ export default function DailyReportsPage() {
           <div className="mt-4 flow-root">
             <div className="-mx-2 -my-2 overflow-x-auto sm:-mx-4 lg:-mx-6">
               <div className="inline-block min-w-full py-2 align-middle sm:px-4 lg:px-6">
-                {/* *** UPDATED: Removed divide-y, added border-collapse *** */}
-                <table className="min-w-full printable-table border-collapse border border-gray-300">
-                  <thead className="bg-gray-50">
+                <table className="min-w-full printable-table border-collapse border border-gray-300  dark:border-gray-600">
+                  <thead className="bg-gray-50 dark:bg-gray-700">
                     <tr>
-                      {/* *** UPDATED: Added border class to all th *** */}
-                      <th className="py-2 pl-2 pr-2 text-left text-sm font-semibold text-gray-900 col-cadet border border-gray-300">Cadet</th>
-                      <th className="px-2 py-2 text-left text-sm font-semibold text-gray-900 col-co border border-gray-300">CO</th>
-                      <th className="px-2 py-2 text-left text-sm font-semibold text-gray-900 col-offense border border-gray-300">Offense</th>
-                      <th className="px-2 py-2 text-left text-sm font-semibold text-gray-900 col-cat border border-gray-300">Cat</th>
-                      <th className="px-2 py-2 text-left text-sm font-semibold text-gray-900 col-demerits border border-gray-300">Demerits</th>
-                      <th className="px-2 py-2 text-left text-sm font-semibold text-gray-900 col-submitter border border-gray-300">Submitted By</th>
-                      <th className="px-2 py-2 text-left text-sm font-semibold text-gray-900 col-notes border border-gray-300">Notes</th>
-                      <th className="px-2 py-2 text-left text-sm font-semibold text-gray-900 col-date border border-gray-300">Date</th>
+                      <th className="py-2 pl-2 pr-2 text-left text-sm font-semibold text-gray-900 dark:text-white col-cadet border border-gray-300  dark:border-gray-600">Cadet</th>
+                      <th className="px-2 py-2 text-left text-sm font-semibold text-gray-900 dark:text-white col-co border border-gray-300  dark:border-gray-600">CO</th>
+                      <th className="px-2 py-2 text-left text-sm font-semibold text-gray-900 dark:text-white col-offense border border-gray-300  dark:border-gray-600">Offense</th>
+                      <th className="px-2 py-2 text-left text-sm font-semibold text-gray-900 dark:text-white col-cat border border-gray-300  dark:border-gray-600">Cat</th>
+                      <th className="px-2 py-2 text-left text-sm font-semibold text-gray-900 dark:text-white col-demerits border border-gray-300  dark:border-gray-600">Demerits</th>
+                      <th className="px-2 py-2 text-left text-sm font-semibold text-gray-900 dark:text-white col-submitter border border-gray-300  dark:border-gray-600">Submitted By</th>
+                      <th className="px-2 py-2 text-left text-sm font-semibold text-gray-900 dark:text-white col-notes border border-gray-300  dark:border-gray-600">Notes</th>
+                      <th className="px-2 py-2 text-left text-sm font-semibold text-gray-900 dark:text-white col-date border border-gray-300  dark:border-gray-600">Date</th>
                     </tr>
                   </thead>
-                  {/* *** UPDATED: Removed divide-y *** */}
-                  <tbody className="bg-white">
+                  <tbody className="bg-white dark:bg-gray-800">
                     {greenSheet.length > 0 ? (
                       greenSheet.map((r) => (
                         <tr key={r.report_id}>
-                          {/* *** UPDATED: Added border class to all td, removed whitespace-pre-wrap *** */}
-                          <td className="py-2 pl-2 pr-2 text-sm font-medium text-gray-900 border border-gray-300">{r.subject_name}</td>
-                          <td className="px-2 py-2 text-sm text-gray-500 border border-gray-300">{r.company_name || 'N/A'}</td>
-                          <td className="px-2 py-2 text-sm text-gray-500 border border-gray-300">{r.offense_name}</td>
-                          <td className="px-2 py-2 text-sm text-gray-500 border border-gray-300">{r.policy_category}</td>
-                          <td className="px-2 py-2 text-sm text-gray-500 border border-gray-300">{r.demerits}</td>
-                          <td className="px-2 py-2 text-sm text-gray-500 border border-gray-300">{r.submitter_name}</td>
-                          <td className="px-2 py-2 text-sm text-gray-500 border border-gray-300">{r.notes}</td>
-                          <td className="px-2 py-2 text-sm text-gray-500 border border-gray-300">{formatDate(r.date_of_offense)}</td>
+                          <td className="py-2 pl-2 pr-2 text-sm font-medium text-gray-900 dark:text-white border border-gray-300  dark:border-gray-600">{r.subject_name}</td>
+                          <td className="px-2 py-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300  dark:border-gray-600">{r.company_name || 'N/A'}</td>
+                          <td className="px-2 py-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300  dark:border-gray-600">{r.offense_name}</td>
+                          <td className="px-2 py-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300  dark:border-gray-600">{r.policy_category}</td>
+                          <td className="px-2 py-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300  dark:border-gray-600">{r.demerits}</td>
+                          <td className="px-2 py-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300  dark:border-gray-600">{r.submitter_name}</td>
+                          <td className="px-2 py-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300  dark:border-gray-600">{r.notes}</td>
+                          <td className="px-2 py-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300  dark:border-gray-600">{formatDate(r.date_of_offense)}</td>
                         </tr>
                       ))
                     ) : (
-                      <tr className="no-print"><td colSpan={8} className="p-4 text-center text-gray-500 border border-gray-300">No unposted demerits.</td></tr>
+                      <tr className="no-print"><td colSpan={8} className="p-4 text-center text-gray-500 dark:text-gray-400 border border-gray-300  dark:border-gray-600">No unposted demerits.</td></tr>
                     )}
                   </tbody>
                 </table>
@@ -314,9 +345,9 @@ export default function DailyReportsPage() {
 
         {/* --- Tour Sheet Section --- */}
         <section 
-          className={`mt-6 bg-white p-4 rounded-lg shadow printable-section ${activeTab === 'tour' ? 'print-active' : 'hidden no-print'}`}
+          className={`mt-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow printable-section ${activeTab === 'tour' ? 'print-active' : 'hidden no-print'}`}
         >
-          <h2 className="text-2xl font-semibold text-gray-800 no-print">
+          <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 no-print">
             Tour Sheet ({tourSheet.length} cadets)
           </h2>
           <h2 className="hidden print:block">
@@ -325,42 +356,43 @@ export default function DailyReportsPage() {
           <div className="mt-4 flow-root">
             <div className="-mx-2 -my-2 overflow-x-auto sm:-mx-4 lg:-mx-6">
               <div className="inline-block min-w-full py-2 align-middle sm:px-4 lg:px-6">
-                {/* *** UPDATED: Removed divide-y, added border-collapse *** */}
-                <table className="min-w-full printable-table border-collapse border border-gray-300">
-                  <thead className="bg-gray-50">
+                <table className="min-w-full printable-table border-collapse border border-gray-300  dark:border-gray-600">
+                  <thead className="bg-gray-50 dark:bg-gray-700">
                     <tr>
-                      {/* *** UPDATED: Added border class to all th *** */}
-                      <th className="py-2 pl-2 pr-2 text-left text-sm font-semibold text-gray-900 col-tour-cadet border border-gray-300">Cadet</th>
-                      <th className="px-2 py-2 text-left text-sm font-semibold text-gray-900 col-tour-co border border-gray-300">Company</th>
-                      <th className="px-2 py-2 text-left text-sm font-semibold text-gray-900 col-tour-total border border-gray-300">Total Tours</th>
-                      <th className="px-2 py-2 text-left text-sm font-semibold text-gray-900 print:table-cell hidden col-tour-served border border-gray-300">Tours Served</th>
-                      <th className="px-2 py-2 text-left text-sm font-semibold text-gray-900 print:table-cell hidden col-tour-notes border border-gray-300">Notes</th>
-                      <th className="relative py-2 pl-2 pr-2 no-print border-l border-gray-300"><span className="sr-only">Actions</span></th>
+                      <th className="py-2 pl-2 pr-2 text-left text-sm font-semibold text-gray-900 dark:text-white col-tour-cadet border border-gray-300  dark:border-gray-600">Cadet</th>
+                      <th className="px-2 py-2 text-left text-sm font-semibold text-gray-900 dark:text-white col-tour-co border border-gray-300  dark:border-gray-600">Company</th>
+                      <th className="px-2 py-2 text-left text-sm font-semibold text-gray-900 dark:text-white col-tour-total border border-gray-300  dark:border-gray-600">Total Tours</th>
+                      <th className="px-2 py-2 text-left text-sm font-semibold text-gray-900 dark:text-white print:table-cell hidden col-tour-served border border-gray-300  dark:border-gray-600">Tours Served</th>
+                      <th className="px-2 py-2 text-left text-sm font-semibold text-gray-900 dark:text-white print:table-cell hidden col-tour-notes border border-gray-300  dark:border-gray-600">Notes</th>
+                      <th className="relative py-2 pl-2 pr-2 no-print border-l border-gray-300  dark:border-gray-600"><span className="sr-only">Actions</span></th>
                     </tr>
                   </thead>
-                  {/* *** UPDATED: Removed divide-y *** */}
-                  <tbody className="bg-white">
+                  <tbody className="bg-white dark:bg-gray-800">
                     {tourSheet.length > 0 ? (
                       tourSheet.map((c) => (
                         <tr key={c.cadet_id}>
-                          {/* *** UPDATED: Added border class to all visible td *** */}
-                          <td className="py-2 pl-2 pr-2 text-sm font-medium text-gray-900 border border-gray-300">{c.last_name}, {c.first_name}</td>
-                          <td className="px-2 py-2 text-sm text-gray-500 border border-gray-300">{c.company_name || 'N/A'}</td>
-                          <td className="px-2 py-2 text-sm font-medium text-red-600 border border-gray-300">{c.total_tours}</td>
-                          <td className="px-2 py-2 text-sm text-gray-500 print:table-cell hidden fill-in-box"></td>
-                          <td className="px-2 py-2 text-sm text-gray-500 print:table-cell hidden fill-in-box"></td>
-                          <td className="relative py-2 pl-2 pr-2 text-right text-sm font-medium no-print border border-gray-300">
-                            <button
-                              onClick={() => openTourModal(c)}
-                              className="text-indigo-600 hover:text-indigo-900"
-                            >
-                              Log Tours
-                            </button>
+                          <td className="py-2 pl-2 pr-2 text-sm font-medium text-gray-900 dark:text-white border border-gray-300  dark:border-gray-600">{c.last_name}, {c.first_name}</td>
+                          <td className="px-2 py-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300  dark:border-gray-600">{c.company_name || 'N/A'}</td>
+                          <td className="px-2 py-2 text-sm font-medium text-red-600 border border-gray-300  dark:border-gray-600">{c.total_tours}</td>
+                          <td className="px-2 py-2 text-sm text-gray-500 dark:text-gray-400 print:table-cell hidden fill-in-box"></td>
+                          <td className="px-2 py-2 text-sm text-gray-500 dark:text-gray-400 print:table-cell hidden fill-in-box"></td>
+                          <td className="relative py-2 pl-2 pr-2 text-right text-sm font-medium no-print border border-gray-300  dark:border-gray-600">
+                            
+                            {/* *** MODIFIED: Conditional Button *** */}
+                            {isTacOfficer && (
+                              <button
+                                onClick={() => openTourModal(c)}
+                                className="text-indigo-600 hover:text-indigo-900"
+                              >
+                                Log Tours
+                              </button>
+                            )}
+                            {/* *** END MODIFICATION *** */}
                           </td>
                         </tr>
                       ))
                     ) : (
-                      <tr className="no-print"><td colSpan={6} className="p-4 text-center text-gray-500 border border-gray-300">No cadets currently on tour.</td></tr>
+                      <tr className="no-print"><td colSpan={6} className="p-4 text-center text-gray-500 dark:text-gray-400 border border-gray-300  dark:border-gray-600">No cadets currently on tour.</td></tr>
                     )}
                   </tbody>
                 </table>
@@ -376,12 +408,12 @@ export default function DailyReportsPage() {
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"></div>
           <div className="fixed inset-0 z-10 overflow-y-auto">
             <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
-              <div className="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
-                <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
-                  <h3 className="text-lg font-medium leading-6 text-gray-900" id="modal-title">
+              <div className="relative transform overflow-hidden rounded-lg bg-white dark:bg-gray-800 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
+                <div className="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                  <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-white" id="modal-title">
                     Log Served Tours for: {selectedCadet.last_name}
                   </h3>
-                  <p className="text-sm text-gray-500">Current Balance: {selectedCadet.total_tours} tours</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Current Balance: {selectedCadet.total_tours} tours</p>
                   
                   <div className="mt-4 space-y-4">
                     <div>
@@ -391,7 +423,7 @@ export default function DailyReportsPage() {
                         type="number"
                         value={toursToLog}
                         onChange={e => setToursToLog(Number(e.target.value))}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="mt-1 block w-full rounded-md border-gray-300  dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       />
                     </div>
                     <div>
@@ -402,19 +434,19 @@ export default function DailyReportsPage() {
                         placeholder="e.g., 'Good behavior'"
                         value={logComment}
                         onChange={e => setLogComment(e.target.value)}
-                        className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                        className="mt-1 block w-full rounded-md border-gray-300  dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
                       />
                     </div>
                   </div>
                 </div>
 
-                <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                <div className="bg-gray-50 dark:bg-gray-700 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                   <button type="button" disabled={isLoggingTours} onClick={handleLogTours}
                     className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm disabled:bg-gray-400">
                     {isLoggingTours ? 'Logging...' : 'Log Tours'}
                   </button>
                   <button type="button" onClick={closeModal}
-                    className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                    className="mt-3 inline-flex w-full justify-center rounded-md border border-gray-300  dark:border-gray-600 bg-white dark:bg-gray-800 px-4 py-2 text-base font-medium text-gray-700 shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
                     Cancel
                   </button>
                 </div>

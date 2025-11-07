@@ -133,10 +133,10 @@ export default async function Dashboard() {
       {/* Page Header */}
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">
-            Welcome, {profile?.first_name || user.email}
+          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">
+            Welcome, {profile?.last_name || user.email}
           </h1>
-          <p className="mt-2 text-lg text-gray-600">
+          <p className="mt-2 text-lg text-gray-600 dark:text-gray-400">
             {groupName}
           </p>
         </div>
@@ -225,9 +225,9 @@ function CadetStatsHeader({ stats }: { stats: CadetStats }) {
 
 function StatCard({ title, value, isPlaceholder = false }: { title: string, value: string | number, isPlaceholder?: boolean }) {
   return (
-    <div className="bg-white p-6 rounded-lg shadow-sm">
-      <h3 className="text-sm font-medium text-gray-500">{title}</h3>
-      <p className={`text-3xl font-bold mt-2 ${isPlaceholder ? 'text-gray-400' : 'text-gray-900'}`}>
+    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
+      <h3 className="text-sm font-medium dark:text-gray-400 dark:text-white">{title}</h3>
+      <p className={`text-3xl font-bold mt-2 ${isPlaceholder ? 'text-gray-400' : 'text-gray-900 dark:text-white'}`}>
         {value}
       </p>
       {isPlaceholder && <p className="text-xs text-gray-400">(Future Implementation)</p>}
@@ -244,16 +244,16 @@ function DashboardSection({ title, items, emptyMessage, showSubject = false, sho
 }) {
   return (
     <div className="space-y-4">
-      <h2 className="text-2xl font-semibold text-gray-800">
+      <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
         {title} ({items?.length || 0})
       </h2>
-      <div className="bg-white p-4 rounded-lg shadow-sm space-y-3 h-96 overflow-y-auto">
+      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm space-y-3 h-96 overflow-y-auto">
         {items && items.length > 0 ? (
           items.map(report => (
             <ReportCard key={report.id} report={report} showSubject={showSubject} showSubmitter={showSubmitter} />
           ))
         ) : (
-          <p className="text-gray-500 p-4">{emptyMessage}</p>
+          <p className="text-gray-500 dark:text-gray-400 p-4">{emptyMessage}</p>
         )}
       </div>
     </div>
@@ -303,7 +303,7 @@ function ReportCard({ report, showSubject, showSubmitter }: { report: ReportWith
   return (
     <Link 
       href={`/report/${report.id}`} 
-      className="block p-4 border rounded-md hover:bg-gray-50 transition-colors"
+      className="block p-4 border dark:border-gray-700 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
     >
       <div className="flex justify-between items-center">
         <span className="font-medium text-indigo-600 truncate">{title}</span>
@@ -311,15 +311,15 @@ function ReportCard({ report, showSubject, showSubmitter }: { report: ReportWith
           {formatStatus(report.status)}
         </span>
       </div>
-      <div className="mt-2 text-sm text-gray-500">
+      <div className="mt-2 text-sm text-gray-500 dark:text-gray-300">
         {showSubject && (
-          <p>Subject: <span className="font-medium text-gray-700">{formatName(report.subject)}</span></p>
+          <p>Subject: <span className="font-medium text-gray-700 dark:text-gray-200">{formatName(report.subject)}</span></p>
         )}
         {showSubmitter && (
-          <p>Submitter: <span className="font-medium text-gray-700">{formatName(report.submitter)}</span></p>
+          <p>Submitter: <span className="font-medium text-gray-700 dark:text-gray-200">{formatName(report.submitter)}</span></p>
         )}
         {report.status === 'pending_approval' && (
-          <p>Waiting for: <span className="font-medium text-gray-700">{report.group?.group_name || 'N/A'}</span></p>
+          <p>Waiting for: <span className="font-medium text-gray-700 dark:text-gray-200">{report.group?.group_name || 'N/A'}</span></p>
         )}
       </div>
     </Link>

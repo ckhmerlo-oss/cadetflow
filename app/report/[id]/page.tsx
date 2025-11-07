@@ -299,9 +299,9 @@ export default function ReportDetails({ params: paramsPromise }: { params: Promi
       {isEditing ? (
         
         /* --- THE EDIT FORM (Card 1) --- */
-        <div className="bg-white p-6 rounded-lg shadow">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
           <form onSubmit={handleResubmit} className="space-y-6">
-            <h2 className="text-3xl font-bold text-gray-900">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
               Edit & Resubmit Report
             </h2>
             
@@ -401,9 +401,9 @@ export default function ReportDetails({ params: paramsPromise }: { params: Promi
       ) : (
 
         /* --- THE REPORT DETAILS VIEW (Card 1) --- */
-        <div className="bg-white p-6 rounded-lg shadow">
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
           <div className="flex justify-between items-start">
-            <h1 className="text-3xl font-bold text-gray-900">{report.offense_type.offense_name}</h1>
+            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{report.offense_type.offense_name}</h1>
             <span 
               className={`text-sm font-medium px-3 py-1 rounded-full ${
                 report.status === 'completed' ? 'bg-green-100 text-green-800' :
@@ -416,33 +416,33 @@ export default function ReportDetails({ params: paramsPromise }: { params: Promi
             </span>
           </div>
 
-          <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6 border-t pt-6">
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6 border-t dark:border-gray-700 pt-6">
             <div>
               <h3 className="text-sm font-medium text-gray-500">Subject</h3>
-              <p className="mt-1 text-lg text-gray-900">{formatName(report.subject)}</p>
+              <p className="mt-1 text-lg text-gray-900 dark:text-white">{formatName(report.subject)}</p>
             </div>
             <div>
               <h3 className="text-sm font-medium text-gray-500">Submitted By</h3>
-              <p className="mt-1 text-lg text-gray-900">{formatName(report.submitter)}</p>
+              <p className="mt-1 text-lg text-gray-900 dark:text-white">{formatName(report.submitter)}</p>
             </div>
             <div>
               <h3 className="text-sm font-medium text-gray-500">Date of Offense</h3>
-              <p className="mt-1 text-lg text-gray-900">{new Date(report.date_of_offense).toLocaleDateString()}</p>
+              <p className="mt-1 text-lg text-gray-900 dark:text-white">{new Date(report.date_of_offense).toLocaleDateString()}</p>
             </div>
             <div>
               <h3 className="text-sm font-medium text-gray-500">Category</h3>
-              <p className="mt-1 text-lg text-gray-900">
+              <p className="mt-1 text-lg text-gray-900 dark:text-white">
                 Category {report.offense_type.offense_code}
               </p>
             </div>
             <div>
-              <h3 className="text-sm font-medium text-gray-500">Demerits</h3>
+              <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Demerits</h3>
               <p className="mt-1 text-lg font-bold text-red-600">{report.offense_type.demerits}</p>
             </div>
           </div>
 
-          <h3 className="text-lg font-medium text-gray-700 mt-6">Notes:</h3>
-          <p className="mt-2 text-sm text-gray-800 bg-gray-50 p-4 rounded-md whitespace-pre-wrap">
+          <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200 mt-6">Notes:</h3>
+          <p className="mt-2 text-sm gray-800 dark:text-gray-100 bg-gray-50 dark:bg-gray-700 p-4 rounded-md whitespace-pre-wrap">
             {report.notes || "No additional notes provided."}
           </p>
         </div>
@@ -453,10 +453,10 @@ export default function ReportDetails({ params: paramsPromise }: { params: Promi
       {/* Card 2: Action Box (if you're an approver) */}
       {/* This box is now hidden if editing: showApprovalBox */}
       {showApprovalBox && (
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h3 className="text-lg font-medium text-gray-900">Actions</h3>
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+          <h3 className="text-lg font-medium text-gray-900 dark:text-white">Actions</h3>
           <div className="mt-4">
-            <label htmlFor="comment" className="block text-sm font-medium text-gray-700">
+            <label htmlFor="comment" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
               Add a Comment (Required for Reject/Kick-back)
             </label>
             <textarea 
@@ -464,7 +464,7 @@ export default function ReportDetails({ params: paramsPromise }: { params: Promi
               placeholder="Your comments will be logged..." 
               value={comment} 
               onChange={(e) => setComment(e.target.value)} 
-              className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               rows={3}
               disabled={isActionLoading}
             />
@@ -498,9 +498,9 @@ export default function ReportDetails({ params: paramsPromise }: { params: Promi
       {/* Card 3: Revision Box (if you're the submitter) */}
       {/* This box is now hidden if editing: showEditButton */}
       {showEditButton && (
-        <div className="bg-yellow-50 border border-yellow-300 p-6 rounded-lg shadow-sm">
-          <h3 className="text-lg font-medium text-yellow-800">This report needs your revision.</h3>
-          <p className="mt-2 text-sm text-yellow-700">Please review the comments in the history log, then edit and re-submit the report.</p>
+        <div className="bg-yellow-50 border-yellow-300 dark:bg-yellow-900/20 dark:border-yellow-700 p-6 rounded-lg shadow-sm">
+          <h3 className="text-lg font-medium text-yellow-800 dark:text-yellow-300">This report needs your revision.</h3>
+          <p className="mt-2 text-sm text-yellow-700 dark:text-yellow-400">Please review the comments in the history log, then edit and re-submit the report.</p>
           
           {/* *** NEW: This button now toggles edit mode *** */}
           <button 
@@ -515,22 +515,22 @@ export default function ReportDetails({ params: paramsPromise }: { params: Promi
       {/* Card 4: History Log */}
       {/* *** NEW: This card is now hidden if editing *** */}
       {showHistory && (
-        <div className="bg-white p-6 rounded-lg shadow">
-          <h3 className="text-lg font-medium text-gray-900">History</h3>
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+          <h3 className="text-lg font-medium text-gray-900 dark:text-white">History</h3>
           <ul className="mt-4 space-y-4">
             {logs.length > 0 ? logs.map(log => (
-              <li key={log.id} className="border-b border-gray-200 pb-4 last:border-b-0">
+              <li key={log.id} className="border-b border-gray-200 dark:border-gray-700  pb-4 last:border-b-0">
                 <div className="flex justify-between items-center">
-                  <span className="text-sm font-medium text-gray-800">
+                  <span className="text-sm font-medium text-gray-800 dark:text-gray-100">
                     <strong>{formatName(log.actor)}</strong>: 
                     <span className="font-semibold text-indigo-600 ml-1">{log.action}</span>
                   </span>
-                  <span className="text-xs text-gray-500">
+                  <span className="text-xs text-gray-500 dark:text-gray-400">
                     {new Date(log.created_at).toLocaleString()}
                   </span>
                 </div>
                 {log.comment && (
-                  <p className="mt-2 text-sm text-gray-600 bg-gray-50 p-3 rounded-md">
+                  <p className="mt-2 text-sm text-gray-600 bg-gray-50 dark:text-gray-200 dark:bg-gray-700 p-3 rounded-md">
                     "{log.comment}"
                   </p>
                 )}
