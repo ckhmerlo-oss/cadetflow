@@ -103,7 +103,7 @@ export default async function RootLayout({
                       href="/manage" 
                       className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-600"
                     >
-                      Manage Roster
+                      Cadet Rosters
                     </Link>
                   )}
                                   

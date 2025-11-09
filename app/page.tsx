@@ -17,11 +17,14 @@ type ReportWithNames = {
   offense_type: {
     offense_name: string;
   } | null;
+  appeal_status: string | null;
 }
+
+// *** UPDATED: Matched to the new get_cadet_ledger_stats function ***
 type CadetStats = {
   term_demerits: number;
   year_demerits: number;
-  total_tours: number;
+  current_tour_balance: number;
 }
 
 export default async function Dashboard() {
@@ -72,16 +75,38 @@ export default async function Dashboard() {
 
     const { data: completedData } = await supabase.rpc('get_all_completed_reports_for_faculty')
     allCompletedReports = completedData?.map((item: any) => ({ ...item, subject: item.subject, submitter: item.submitter, group: item.group, offense_type: { offense_name: item.title } })) as ReportWithNames[] || [];
-  } else {
-    // *** CHANGED: Only fetch stats for non-faculty now ***
-    const { data: statsData } = await supabase.rpc('get_my_tour_and_demerit_stats').single<CadetStats>()
+    } else {
+    // *** UPDATED: Use the new, robust stats function ***
+    // We pass p_cadet_id because this function is designed to be reusable for staff later.
+    const { data: statsData, error: statsError } = await supabase
+      .rpc('get_cadet_ledger_stats', { p_cadet_id: user.id })
+      .single<CadetStats>()
+    
+    if (statsError) console.error("Error fetching stats:", statsError.message)
     if (statsData) cadetStats = statsData;
   }
     
-  const actionItems = allInvolvedReports.filter(report => 
-    (report.status === 'pending_approval' && report.current_approver_group_id !== null) ||
-    (report.status === 'needs_revision' && report.submitted_by === user.id)
-  ) || []
+  // 5. Filter action items
+  const actionItems = allInvolvedReports.filter(report => {
+      // A. Standard reports waiting for approval
+      if (report.status === 'pending_approval' && report.current_approver_group_id !== null) return true;
+      
+      // B. Reports kicked back to me for revision
+      if (report.status === 'needs_revision' && report.submitted_by === user.id) return true;
+
+      // C. *** NEW: Active Appeals ***
+      if (report.appeal_status) {
+          // If I am the subject, it's an action item if I can ESCALATE it (it was rejected)
+          if (report.subject_cadet_id === user.id) {
+              return ['rejected_by_issuer', 'rejected_by_chain'].includes(report.appeal_status);
+          }
+          // If I am NOT the subject, it's an action item if it's PENDING (waiting for me/my group to review)
+          // (The backend already filters so we only see ones relevant to us)
+          return ['pending_issuer', 'pending_chain', 'pending_commandant'].includes(report.appeal_status);
+      }
+
+      return false;
+  }) || []
 
   const mySubmittedReports = allInvolvedReports.filter(report => report.submitted_by === user.id) || []
 
@@ -156,7 +181,7 @@ function CadetStatsHeader({ stats }: { stats: CadetStats }) {
     <>
       <StatCard title="Current Term Demerits" value={stats.term_demerits} />
       <StatCard title="Academic Year Demerits" value={stats.year_demerits} />
-      <StatCard title="Total Tours" value={stats.total_tours} />
+      <StatCard title="Total Tours" value={stats.current_tour_balance} />
     </>
   )
 }
@@ -244,11 +269,20 @@ function ReportCard({ report, showSubject, showSubmitter }: { report: ReportWith
       className="block p-4 border dark:border-gray-700 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
     >
       <div className="flex justify-between items-center">
-        <span className="font-medium text-indigo-600 truncate">{title}</span>
-        <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${getStatusColor()}`}>
+        <div className="truncate flex items-center">
+             <span className="font-medium text-indigo-600 dark:text-indigo-400 truncate mr-2">{title}</span>
+             {/* *** NEW: Appeal Badge *** */}
+             {report.appeal_status && (
+               <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">
+                 Appeal: {report.appeal_status.replace('_', ' ')}
+               </span>
+             )}
+        </div>
+        <span className={`text-xs font-medium px-2 py-0.5 rounded-full flex-shrink-0 ${getStatusColor()}`}>
           {formatStatus(report.status)}
         </span>
       </div>
+      
       <div className="mt-2 text-sm text-gray-500 dark:text-gray-300">
         {showSubject && (
           <p>Subject: <span className="font-medium text-gray-700 dark:text-gray-200">{formatName(report.subject)}</span></p>

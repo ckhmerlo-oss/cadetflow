@@ -6,18 +6,18 @@ import { useRouter } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import { User } from '@supabase/supabase-js'
 import React from 'react' 
-// *** NEW: Link is no longer needed for editing ***
 
-// *** REFACTORED TYPE ***
+// --- Types ---
 type Report = {
   id: string;
   status: string;
   notes: string | null;
   submitted_by: string;
-  current_approver_group_id: string | null; 
+  subject_cadet_id: string;
+  current_over_group_id: string | null; 
   date_of_offense: string;
-  // *** NEW: Added offense_type_id for the edit form ***
   offense_type_id: string;
+  demerits_effective: number;
   subject: { first_name: string, last_name: string }; 
   submitter: { first_name: string, last_name: string };
   offense_type: {
@@ -36,7 +36,6 @@ type Log = {
   actor: { first_name: string, last_name: string } | null; 
 };
 
-// *** NEW: Type for the offense dropdown ***
 type OffenseType = {
   id: string;
   offense_group: string;
@@ -44,501 +43,450 @@ type OffenseType = {
   demerits: number;
 }
 
+type Appeal = {
+  id: string;
+  status: string;
+  justification: string;
+  current_assignee_id: string | null;
+  current_group_id: string | null;
+  issuer_comment: string | null;
+  chain_comment: string | null;
+  final_comment: string | null;
+}
+
 export default function ReportDetails({ params: paramsPromise }: { params: Promise<{ id: string }> }) {
   
   const params = React.use(paramsPromise);
-  const reportId = params.id; // Get ID from params
+  const reportId = params.id;
 
   const supabase = createClient()
   const router = useRouter()
+
+  // --- STATE HOOKS ---
   const [report, setReport] = useState<Report | null>(null)
   const [logs, setLogs] = useState<Log[]>([])
-  const [comment, setComment] = useState('')
+  const [appeal, setAppeal] = useState<Appeal | null>(null)
   const [user, setUser] = useState<User | null>(null)
-  
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const [isActionLoading, setActionLoading] = useState(false)
+  // Permissions
   const [isSubmitter, setIsSubmitter] = useState(false)
   const [isApprover, setIsApprover] = useState(false)
-
-  // *** NEW: State for toggling edit mode ***
+  const [isSubject, setIsSubject] = useState(false)
+  const [canActOnAppeal, setCanActOnAppeal] = useState(false);
+  // Form Modes & Inputs
   const [isEditing, setIsEditing] = useState(false);
-
-  // *** NEW: State for the edit form fields ***
   const [offenses, setOffenses] = useState<OffenseType[]>([]);
   const [editableOffenseId, setEditableOffenseId] = useState('');
   const [editableNotes, setEditableNotes] = useState('');
   const [editableDate, setEditableDate] = useState('');
+  const [isAppealing, setIsAppealing] = useState(false);
+  const [isEscalating, setIsEscalating] = useState(false);
+  const [appealJustification, setAppealJustification] = useState('');
+  const [comment, setComment] = useState('') 
+  const [appealComment, setAppealComment] = useState('');
 
+  const [escalationTarget, setEscalationTarget] = useState('');
+
+  // --- Helpers ---
   const formatName = (person: { first_name: string, last_name: string } | null) => {
     if (!person) return 'N/A';
-    const firstInitial = person.first_name ? `${person.first_name[0]}.` : '';
-    return `${person.last_name}, ${firstInitial}`;
+    return `${person.last_name}, ${person.first_name.charAt(0)}.`;
   }
   const formatStatus = (status: string) => {
     switch (status) {
-      case 'completed':
-        return 'Approved'
-      case 'rejected':
-        return 'Rejected'
-      case 'needs_revision':
-        return 'Awaiting Revision'
-      case 'pending_approval':
-        return 'Pending Approval'
-      default:
-        return status
+      case 'completed': return 'Approved'; case 'rejected': return 'Rejected';
+      case 'needs_revision': return 'Revision Requested'; case 'pending_approval': return 'Pending Approval';
+      default: return status.replace('_', ' ');
     }
   }
+  const formatAppealStatus = (status: string) => {
+     switch (status) {
+       case 'pending_issuer': return 'Pending Initial Review';
+       case 'rejected_by_issuer': return 'Rejected by Issuer (Can Escalate)';
+       case 'pending_chain': return 'Pending Chain of Command';
+       case 'rejected_by_chain': return 'Rejected by Chain (Can Escalate)';
+       case 'pending_commandant': return 'Pending Commandant Review';
+       case 'approved': return 'Appeal Granted';
+       case 'rejected_final': return 'Appeal Denied (Final)';
+       default: return status.replace('_', ' ');
+     }
+  }
 
-  // 1. Fetch all report data and its approval log
+  // 1. Fetch Data
   useEffect(() => {
     async function getReportData() {
       setLoading(true)
-
       const { data: { user } } = await supabase.auth.getUser()
-      if (!user) {
-        router.push('/login')
-        return
-      }
+      if (!user) { router.push('/login'); return; }
       setUser(user)
 
-      // *** REFACTORED: Select joins all the new data ***
+      // A. Fetch Report
       const { data: reportData, error: reportError } = await supabase
         .from('demerit_reports') 
-        .select(`
-          id, status, notes, submitted_by, current_approver_group_id, date_of_offense,
-          offense_type_id,
-          subject:subject_cadet_id ( first_name, last_name ),
-          submitter:submitted_by ( first_name, last_name ),
-          offense_type:offense_type_id ( * )
-        `)
-        .eq('id', params.id)
+        .select(`*, subject:subject_cadet_id ( first_name, last_name ), submitter:submitted_by ( first_name, last_name ), offense_type:offense_type_id ( * )`)
+        .eq('id', reportId)
         .single() 
 
-      if (reportError) {
-        setError('Could not load report: ' + reportError.message)
-        setLoading(false)
-        return
-      }
-      
-      setReport(reportData as unknown as Report) 
+      if (reportError) { setError('Could not load report: ' + reportError.message); setLoading(false); return; }
+      setReport(reportData as unknown as Report)
       setIsSubmitter(reportData.submitted_by === user.id)
+      setIsSubject(reportData.subject_cadet_id === user.id)
 
-      // *** NEW: Fetch offense types FOR THE DROPDOWN if user is submitter ***
-      if (reportData.submitted_by === user.id) {
-        const { data: offensesData, error: offensesError } = await supabase
-          .from('offense_types')
-          .select('id, offense_group, offense_name, demerits')
-          .order('offense_group')
-          .order('offense_name')
-          
-        if (offensesError) {
-          console.error("Could not fetch offense types:", offensesError.message)
-        } else if (offensesData) {
-          setOffenses(offensesData)
-        }
+      // B. Fetch Appeal (if any)
+      const { data: appealData } = await supabase
+        .from('appeals')
+        .select('id, status, justification, current_assignee_id, current_group_id, issuer_comment, chain_comment, final_comment')
+        .eq('report_id', reportId)
+        .maybeSingle()
+      
+      if (appealData) setAppeal(appealData as Appeal)
+
+      if (appealData && ['rejected_by_issuer', 'rejected_by_chain'].includes(appealData.status)) {
+        const { data: targetName } = await supabase.rpc('get_next_escalation_target', { p_appeal_id: appealData.id });
+        if (targetName) setEscalationTarget(targetName)};
+
+      // C. Check Appeal Action Permission
+      if (appealData && user) {
+          if (appealData.status === 'pending_issuer' && appealData.current_assignee_id === user.id) {
+              setCanActOnAppeal(true);
+          } else if (['pending_chain', 'pending_commandant'].includes(appealData.status) && appealData.current_group_id) {
+               const { data: hasPerm } = await supabase.rpc('is_member_of_approver_group', { p_group_id: appealData.current_group_id });
+               if (hasPerm) setCanActOnAppeal(true);
+          }
       }
 
-      // Fetch logs
-      const { data: logData, error: logError } = await supabase
-        .from('approval_log')
-        .select(`
-          *,
-          actor:actor_id ( first_name, last_name )
-        `)
-        .eq('report_id', params.id) 
-        .order('created_at', { ascending: false })
-      
+      // D. Fetch Dropdown Data (only if needed for editing)
+      if (reportData.submitted_by === user.id && reportData.status === 'needs_revision') {
+        const { data: offensesData } = await supabase.from('offense_types').select('*').order('offense_group').order('offense_name')
+        if (offensesData) setOffenses(offensesData)
+      }
+
+      // E. Fetch Logs
+      const { data: logData } = await supabase.from('approval_log').select('*, actor:actor_id(first_name, last_name)').eq('report_id', reportId).order('created_at', { ascending: false })
       if (logData) setLogs(logData as Log[])
 
-      // Check for approver status
+      // F. Check Approver Status
       if (reportData.current_approver_group_id) {
-        // Check if the user's OWN role is linked to this approval group
-        const { data: profile, error: profileError } = await supabase
-          .from('profiles')
-          .select('roles:role_id ( approval_group_id )') // Get the role and its approval_group_id
-          .eq('id', user.id)
-          .single();
-
-        // Check if the role's approval group matches the report's current group
+        const { data: profile } = await supabase.from('profiles').select('roles:role_id(approval_group_id)').eq('id', user.id).single();
         if (profile && (profile.roles as any)?.approval_group_id === reportData.current_approver_group_id) {
-          setIsApprover(true);
+           setIsApprover(true);
         }
       }
-      
       setLoading(false)
     }
-    
     getReportData()
-  }, [supabase, params.id, router])
+  }, [supabase, reportId, router])
 
-  // --- RPC functions for approval (onApprove, onReject, onKickback) ---
-  // These remain the same as before
-    
-  async function onApprove() {
-    if (!report || !window.confirm('Are you sure you want to approve?')) return
-    setActionLoading(true)
-    const { error: rpcError } = await supabase.rpc('handle_approval', {
-      report_id_to_approve: report.id,
-      approval_comment: comment || 'Approved'
-    })
-    if (rpcError) {
-      alert(rpcError.message); setActionLoading(false);
-    } else {
-      router.push('/'); router.refresh();
-    }
+  // --- Actions ---
+  async function handleApprovalAction(action: 'approve' | 'reject' | 'kickback') {
+    if (!report) return;
+    let rpcName = '';
+    if (action === 'approve') rpcName = 'handle_approval';
+    else if (action === 'reject') rpcName = 'handle_rejection';
+    else rpcName = 'handle_kickback';
+
+    if (!window.confirm(`Are you sure you want to ${action}?`)) return;
+    if ((action === 'reject' || action === 'kickback') && !comment) { alert("Comment required."); return; }
+
+    setActionLoading(true);
+    const payload = action === 'approve' ? { report_id_to_approve: report.id, approval_comment: comment || 'Approved' } : { p_report_id: report.id, p_comment: comment };
+    const { error } = await supabase.rpc(rpcName, payload);
+
+    if (error) { alert(error.message); setActionLoading(false); }
+    else { router.push('/'); router.refresh(); }
   }
 
-  async function onReject() {
-    if (!report || !window.confirm('Are you sure you want to REJECT? This is final.')) return
-    if (!comment) { alert("A comment is required for rejection."); return; }
-    setActionLoading(true)
-    const { error: rpcError } = await supabase.rpc('handle_rejection', {
-      p_report_id: report.id, p_comment: comment
-    })
-    if (rpcError) {
-      alert(rpcError.message); setActionLoading(false);
-    } else {
-      router.push('/'); router.refresh();
-    }
-  }
-
-  async function onKickback() {
-    if (!report || !window.confirm('Are you sure you want to kick-back for revision?')) return
-    if (!comment) { alert("A comment is required for kick-back."); return; }
-    setActionLoading(true)
-    const { error: rpcError } = await supabase.rpc('handle_kickback', {
-      p_report_id: report.id, p_comment: comment
-    })
-    if (rpcError) {
-      alert(rpcError.message); setActionLoading(false);
-    } else {
-      router.push('/'); router.refresh();
-    }
-  }
-
-  // --- *** NEW: Functions for inline editing *** ---
-
-  // 4. Function to toggle "Edit Mode" on
+  // Edit Report Handlers
   function handleEditClick() {
     if (!report) return;
     setIsEditing(true);
-    // Pre-populate the editable state
     setEditableOffenseId(report.offense_type_id);
     setEditableNotes(report.notes || '');
     setEditableDate(new Date(report.date_of_offense).toISOString().split('T')[0]);
   }
 
-  // 5. Function to cancel editing
-  function handleCancelClick() {
-    setIsEditing(false);
-    // Clear any errors
-    setError(null);
-  }
-
-  // 6. Function to handle resubmission
-  async function handleResubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setActionLoading(true); // Use the same loading state
-    setError(null);
-
-    const { error: rpcError } = await supabase.rpc('resubmit_report', {
-      p_report_id: reportId,
-      p_new_offense_type_id: editableOffenseId,
-      p_new_notes: editableNotes,
-      p_new_date_of_offense: editableDate
+  async function handleResubmit(e: React.FormEvent) {
+    e.preventDefault(); setActionLoading(true);
+    const { error } = await supabase.rpc('resubmit_report', {
+      p_report_id: reportId, p_new_offense_type_id: editableOffenseId,
+      p_new_notes: editableNotes, p_new_date_of_offense: editableDate
     });
-
-    setActionLoading(false);
-
-    if (rpcError) {
-      setError('Error resubmitting report: ' + rpcError.message);
-    } else {
-      // Success!
-      setIsEditing(false); // Turn off edit mode
-      router.push('/'); // Go to dashboard
-      router.refresh(); // Refresh dashboard data
-    }
+    if (error) { alert(error.message); setActionLoading(false); }
+    else { router.push('/'); router.refresh(); }
   }
 
-  // 7. Group offenses for the dropdown
-  const groupedOffenses = offenses.reduce((acc, offense) => {
-    const group = offense.offense_group;
-    if (!acc[group]) {
-      acc[group] = [];
-    }
-    acc[group].push(offense);
-    return acc;
-  }, {} as Record<string, OffenseType[]>);
-
-
-  // --- Render logic ---
-  if (loading) {
-    return <div className="p-8 text-center text-gray-500">Loading report...</div>
-  }
-  
-  if (error && !isActionLoading) {
-    return <div className="p-8 text-center text-red-600">{error}</div>
-  }
-  
-  if (!report) {
-    return <div className="p-8 text-center text-gray-500">Report not found or you do not have permission.</div>
+  // Appeal Handlers
+  async function handleSubmitAppeal(e: React.FormEvent) {
+      e.preventDefault();
+      if (!appealJustification.trim()) return;
+      setActionLoading(true);
+      const { error } = await supabase.from('appeals').insert({ report_id: reportId, appealing_cadet_id: user?.id, justification: appealJustification });
+      if (error) { alert(error.message); setActionLoading(false); }
+      else { alert("Appeal submitted."); router.refresh(); setIsAppealing(false); }
   }
 
-  const showApprovalBox = isApprover && report.status === 'pending_approval' && !isEditing;
-  const showEditButton = isSubmitter && report.status === 'needs_revision' && !isEditing;
-  const showHistory = !isEditing; // Don't show history log when editing
+  async function handleAppealAction(action: 'grant' | 'reject') {
+      if (!appeal) return;
+      if (!appealComment.trim()) { alert("Please provide a comment."); return; }
+      setActionLoading(true);
+      let rpcName = '';
+      if (appeal.status === 'pending_issuer') rpcName = 'appeal_issuer_action';
+      else if (appeal.status === 'pending_chain') rpcName = 'appeal_chain_action';
+      else if (appeal.status === 'pending_commandant') rpcName = 'appeal_commandant_action';
+
+      if (rpcName) {
+          const { error } = await supabase.rpc(rpcName, { p_appeal_id: appeal.id, p_action: action, p_comment: appealComment });
+          if (error) alert(error.message);
+          else {
+              alert(action === 'grant' ? "Appeal granted/forwarded." : "Appeal rejected.");
+              router.refresh();
+          }
+      }
+      setActionLoading(false);
+  }
+
+  // *** FIX: Moved handleEscalate OUTSIDE of handleAppealAction ***
+  async function handleEscalate(e: React.FormEvent) {
+      e.preventDefault();
+      if (!appeal || !appealJustification.trim()) return;
+      setActionLoading(true);
+      const { error } = await supabase.rpc('escalate_appeal', {
+          p_appeal_id: appeal.id,
+          p_justification: appealJustification
+      });
+      if (error) { alert(error.message); setActionLoading(false); }
+      else {
+          alert("Appeal escalated.");
+          setIsEscalating(false);
+          router.refresh();
+      }
+  }
+
+  // Group offenses for dropdown
+  const groupedOffenses = offenses.reduce((acc, o) => { (acc[o.offense_group] = acc[o.offense_group] || []).push(o); return acc; }, {} as Record<string, OffenseType[]>);
+
+  // --- Render States ---
+  if (loading) return <div className="p-8 text-center text-gray-500 dark:text-gray-400">Loading report...</div>
+  if (error) return <div className="p-8 text-center text-red-600 dark:text-red-400">{error}</div>
+  if (!report) return <div className="p-8 text-center text-gray-500 dark:text-gray-400">Report not found.</div>
+
+  const showActionBox = isApprover && report.status === 'pending_approval' && !isEditing && !isAppealing;
+  const showRevisionBox = isSubmitter && report.status === 'needs_revision' && !isEditing;
+  const canAppeal = isSubject && report.status === 'completed' && !appeal && !isAppealing;
+  const canEscalate = isSubject && appeal && ['rejected_by_issuer', 'rejected_by_chain'].includes(appeal.status) && !isEscalating;
 
   return (
     <div className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
 
-      {/* --- Card 1: Conditional View/Edit Card --- */}
-      
-      {/* *** NEW: If editing, show the form. If not, show details. *** */}
+      {/* --- MODE 1: EDIT REPORT (Submitter) --- */}
       {isEditing ? (
-        
-        /* --- THE EDIT FORM (Card 1) --- */
         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
           <form onSubmit={handleResubmit} className="space-y-6">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white">
-              Edit & Resubmit Report
-            </h2>
-            
-            {/* Subject Cadet Field (Read-only) */}
-            <div>
-              <label htmlFor="cadet" className="block text-sm font-medium text-gray-700">
-                Subject Cadet (Cannot be changed)
-              </label>
-              <input 
-                type="text"
-                id="cadet"
-                value={formatName(report.subject)}
-                readOnly
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm bg-gray-100 text-gray-500 sm:text-sm"
-              />
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Edit Report</h2>
+             <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Date of Offense</label>
+              <input type="date" value={editableDate} onChange={e => setEditableDate(e.target.value)} required className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm" />
             </div>
-
-            {/* Date of Offense */}
             <div>
-              <label htmlFor="date" className="block text-sm font-medium text-gray-700">
-                Date of Offense
-              </label>
-              <input 
-                id="date"
-                type="date"
-                value={editableDate} 
-                onChange={(e) => setEditableDate(e.target.value)} 
-                required 
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-              />
+               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Offense</label>
+               <select value={editableOffenseId} onChange={e => setEditableOffenseId(e.target.value)} required className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm">
+                 {Object.entries(groupedOffenses).map(([group, opts]) => (
+                   <optgroup label={group} key={group}>{opts.map(o => <option key={o.id} value={o.id}>({o.demerits}) {o.offense_name}</option>)}</optgroup>
+                 ))}
+               </select>
             </div>
-            
-            {/* Offense Type Dropdown */}
             <div>
-              <label htmlFor="offense_type" className="block text-sm font-medium text-gray-700">
-                Offense
-              </label>
-              <select 
-                id="offense_type"
-                value={editableOffenseId} 
-                onChange={(e) => setEditableOffenseId(e.target.value)} 
-                required
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-              >
-                <option value="">Select an offense...</option>
-                {Object.entries(groupedOffenses).map(([groupName, groupOffenses]) => (
-                  <optgroup label={groupName} key={groupName}>
-                    {groupOffenses.map((offense) => (
-                      <option key={offense.id} value={offense.id}>
-                        ({offense.demerits} demerits) {offense.offense_name}
-                      </option>
-                    ))}
-                  </optgroup>
-                ))}
-              </select>
+               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Notes</label>
+               <textarea value={editableNotes} onChange={e => setEditableNotes(e.target.value)} rows={4} className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm" />
             </div>
-
-            {/* Notes Field */}
-            <div>
-              <label htmlFor="notes" className="block text-sm font-medium text-gray-700">
-                Notes
-              </label>
-              <textarea 
-                id="notes"
-                value={editableNotes} 
-                onChange={(e) => setEditableNotes(e.target.value)} 
-                rows={4}
-                className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-                placeholder="Provide specific details of the incident..."
-              />
-            </div>
-
-            {/* Action Buttons */}
             <div className="flex gap-4">
-              <button 
-                type="button" // Important: type=button to not submit form
-                onClick={handleCancelClick}
-                disabled={isActionLoading}
-                className="w-1/2 flex justify-center py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-              >
-                Cancel
-              </button>
-              <button 
-                type="submit" 
-                disabled={isActionLoading}
-                className="w-1/2 flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-400"
-              >
-                {isActionLoading ? 'Resubmitting...' : 'Resubmit Report'}
-              </button>
+              <button type="button" onClick={() => setIsEditing(false)} disabled={isActionLoading} className="w-1/2 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">Cancel</button>
+              <button type="submit" disabled={isActionLoading} className="w-1/2 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 disabled:bg-gray-400">{isActionLoading ? 'Saving...' : 'Resubmit'}</button>
             </div>
-            
-            {/* Show resubmit errors here */}
-            {error && <p className="text-sm text-red-600">{error}</p>}
           </form>
         </div>
+      ) 
 
-      ) : (
+      /* --- MODE 2a: CREATE APPEAL (Subject) --- */
+      : isAppealing ? (
+         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow border-2 border-indigo-500">
+             <form onSubmit={handleSubmitAppeal} className="space-y-6">
+                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Appeal this Report</h2>
+                 <p className="text-sm text-gray-500 dark:text-gray-400">
+                     State your case clearly. This will be sent first to <strong>{formatName(report.submitter)}</strong> for review.
+                 </p>
+                 <div>
+                     <label htmlFor="justification" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Justification / Defense</label>
+                     <textarea id="justification" rows={6} required value={appealJustification} onChange={(e) => setAppealJustification(e.target.value)} className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm" placeholder="I respectfully appeal this report because..." />
+                 </div>
+                 <div className="flex gap-4">
+                     <button type="button" onClick={() => setIsAppealing(false)} disabled={isActionLoading} className="w-1/2 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">Cancel</button>
+                     <button type="submit" disabled={isActionLoading} className="w-1/2 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 disabled:bg-gray-400">{isActionLoading ? 'Submitting...' : 'Submit Appeal'}</button>
+                 </div>
+             </form>
+         </div>
+      )
 
-        /* --- THE REPORT DETAILS VIEW (Card 1) --- */
+      /* --- MODE 2b: ESCALATE APPEAL (Subject) --- */
+      : isEscalating && appeal ? (
+         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow border-2 border-yellow-500">
+             <form onSubmit={handleEscalate} className="space-y-6">
+                 <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Escalate Appeal</h2>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                      You are escalating this appeal to the next level in the chain of command:
+                      <br />
+                      <strong className="text-lg text-gray-900 dark:text-white block mt-2">
+                        {escalationTarget || 'Loading next step...'}
+                      </strong>
+                    </p>                 
+                 {appeal.issuer_comment && appeal.status === 'rejected_by_issuer' && (
+                    <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded border-l-4 border-red-500">
+                        <p className="text-sm font-medium text-red-800 dark:text-red-300">Issuer's Reason for Rejection:</p>
+                        <p className="text-sm text-red-700 dark:text-red-200 italic">"{appeal.issuer_comment}"</p>
+                    </div>
+                 )}
+                 {appeal.chain_comment && appeal.status === 'rejected_by_chain' && (
+                    <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded border-l-4 border-red-500">
+                        <p className="text-sm font-medium text-red-800 dark:text-red-300">Chain of Command's Reason for Rejection:</p>
+                        <p className="text-sm text-red-700 dark:text-red-200 italic">"{appeal.chain_comment}"</p>
+                    </div>
+                 )}
+
+                 <div>
+                     <label htmlFor="justification_esc" className="block text-sm font-medium text-gray-700 dark:text-gray-300">Update Justification (Optional)</label>
+                     <textarea id="justification_esc" rows={6} required value={appealJustification} onChange={(e) => setAppealJustification(e.target.value)} className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm" />
+                 </div>
+                 <div className="flex gap-4">
+                     <button type="button" onClick={() => setIsEscalating(false)} disabled={isActionLoading} className="w-1/2 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">Cancel</button>
+                     <button type="submit" disabled={isActionLoading} className="w-1/2 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700 disabled:bg-gray-400">{isActionLoading ? 'Escalating...' : 'Confirm Escalation'}</button>
+                 </div>
+             </form>
+         </div>
+      )
+
+      /* --- MODE 3: VIEW REPORT (Default) --- */
+      : (
         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-          <div className="flex justify-between items-start">
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{report.offense_type.offense_name}</h1>
-            <span 
-              className={`text-sm font-medium px-3 py-1 rounded-full ${
-                report.status === 'completed' ? 'bg-green-100 text-green-800' :
-                report.status === 'rejected' ? 'bg-red-100 text-red-800' :
-                report.status === 'pending_approval' ? 'bg-yellow-100 text-yellow-800' :
-                'bg-blue-100 text-blue-800' // needs_revision
-              }`}
-            >
+          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">{report.offense_type.offense_name}</h1>
+            <span className={`px-3 py-1 rounded-full text-sm font-medium ${
+                report.status === 'completed' ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100' :
+                report.status === 'rejected' ? 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100' :
+                report.status === 'pending_approval' ? 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100' :
+                'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100'
+            }`}>
               {formatStatus(report.status)}
             </span>
           </div>
 
+          {/* --- APPEAL STATUS BANNER --- */}
+          {appeal && (
+              <div className="mt-6 bg-indigo-50 dark:bg-indigo-900/30 border-l-4 border-indigo-500 p-4">
+                  <div className="flex justify-between items-center">
+                      <h3 className="text-lg font-medium text-indigo-800 dark:text-indigo-200">Appeal Status</h3>
+                      <span className="text-sm font-bold text-indigo-900 dark:text-indigo-100 uppercase tracking-wider">
+                          {formatAppealStatus(appeal.status)}
+                      </span>
+                  </div>
+              </div>
+          )}
+
           <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6 border-t dark:border-gray-700 pt-6">
+            <div><h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Subject</h3><p className="mt-1 text-lg text-gray-900 dark:text-white">{formatName(report.subject)}</p></div>
+            <div><h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Submitted By</h3><p className="mt-1 text-lg text-gray-900 dark:text-white">{formatName(report.submitter)}</p></div>
+            <div><h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Date of Offense</h3><p className="mt-1 text-lg text-gray-900 dark:text-white">{new Date(report.date_of_offense).toLocaleDateString()}</p></div>
+            <div><h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Category</h3><p className="mt-1 text-lg text-gray-900 dark:text-white">Cat {report.offense_type.offense_code}</p></div>
             <div>
-              <h3 className="text-sm font-medium text-gray-500">Subject</h3>
-              <p className="mt-1 text-lg text-gray-900 dark:text-white">{formatName(report.subject)}</p>
-            </div>
-            <div>
-              <h3 className="text-sm font-medium text-gray-500">Submitted By</h3>
-              <p className="mt-1 text-lg text-gray-900 dark:text-white">{formatName(report.submitter)}</p>
-            </div>
-            <div>
-              <h3 className="text-sm font-medium text-gray-500">Date of Offense</h3>
-              <p className="mt-1 text-lg text-gray-900 dark:text-white">{new Date(report.date_of_offense).toLocaleDateString()}</p>
-            </div>
-            <div>
-              <h3 className="text-sm font-medium text-gray-500">Category</h3>
-              <p className="mt-1 text-lg text-gray-900 dark:text-white">
-                Category {report.offense_type.offense_code}
-              </p>
-            </div>
-            <div>
-              <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Demerits</h3>
-              <p className="mt-1 text-lg font-bold text-red-600">{report.offense_type.demerits}</p>
+                <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Demerits</h3>
+                <p className="mt-1 text-lg font-bold text-red-600 dark:text-red-400">
+                    {report.demerits_effective !== report.offense_type.demerits ? (
+                        <><span className="line-through text-gray-400 mr-2">{report.offense_type.demerits}</span>{report.demerits_effective}</>
+                    ) : (report.demerits_effective)}
+                </p>
             </div>
           </div>
 
-          <h3 className="text-lg font-medium text-gray-700 dark:text-gray-200 mt-6">Notes:</h3>
-          <p className="mt-2 text-sm gray-800 dark:text-gray-100 bg-gray-50 dark:bg-gray-700 p-4 rounded-md whitespace-pre-wrap">
-            {report.notes || "No additional notes provided."}
+          <h3 className="text-lg font-medium text-gray-700 dark:text-gray-300 mt-6">Notes:</h3>
+          <p className="mt-2 text-sm text-gray-800 dark:text-gray-200 bg-gray-50 dark:bg-gray-700/50 p-4 rounded-md whitespace-pre-wrap">
+            {report.notes || "No notes provided."}
           </p>
+
+          {/* --- APPEAL ACTION BOX --- */}
+          {canActOnAppeal && !isEditing && (
+              <div className="mt-6 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-700 p-6 rounded-lg shadow-sm">
+                  <h3 className="text-lg font-medium text-purple-900 dark:text-purple-100 mb-4">Appeal Action Required</h3>
+                  <p className="text-sm text-purple-800 dark:text-purple-200 mb-4"><strong>Cadet's Justification:</strong> "{appeal?.justification}"</p>
+                  <textarea placeholder="Reason for your decision..." value={appealComment} onChange={e => setAppealComment(e.target.value)} className="w-full rounded-md border-purple-300 dark:border-purple-600 dark:bg-gray-900 dark:text-white mb-4" rows={3} />
+                  <div className="flex gap-4">
+                      <button onClick={() => handleAppealAction('grant')} disabled={isActionLoading} className="flex-1 py-2 bg-green-600 text-white rounded hover:bg-green-700 disabled:opacity-50">
+                        {appeal?.status === 'pending_commandant' ? 'Final Approval (Grant Appeal)' : 'Grant & Forward to Next Level'}                      </button>
+                      <button onClick={() => handleAppealAction('reject')} disabled={isActionLoading} className="flex-1 py-2 bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50">Reject Appeal</button>
+                  </div>
+              </div>
+          )}
+
+          {/* --- OPTIONS BUTTONS --- */}
+          {(canAppeal || canEscalate) && (
+              <div className="mt-8 border-t dark:border-gray-700 pt-6">
+                  <h3 className="text-lg font-medium text-gray-900 dark:text-white">Options</h3>
+                  {canAppeal && (
+                     <>
+                        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400 mb-4">If you believe this report was issued in error, you may submit an appeal.</p>
+                        <button onClick={() => setIsAppealing(true)} className="py-2 px-4 border border-indigo-600 text-indigo-600 dark:text-indigo-400 dark:border-indigo-400 rounded-md font-medium hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-colors">Appeal this Report</button>
+                     </>
+                  )}
+                  {canEscalate && (
+                      <>
+                        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400 mb-4">Your appeal was rejected. You may accept this decision or escalate it.</p>
+                        <button onClick={() => { setAppealJustification(appeal?.justification || ''); setIsEscalating(true); }} className="py-2 px-4 bg-yellow-600 text-white rounded-md font-medium hover:bg-yellow-700 transition-colors">Escalate Appeal</button>
+                      </>
+                  )}
+              </div>
+          )}
+
         </div>
+      )}
 
-      )} {/* --- End of Conditional Card 1 --- */}
-
-
-      {/* Card 2: Action Box (if you're an approver) */}
-      {/* This box is now hidden if editing: showApprovalBox */}
-      {showApprovalBox && (
+      {/* --- STANDARD ACTION BOX (Approver / Submitter Revision) --- */}
+      {showActionBox && (
         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
           <h3 className="text-lg font-medium text-gray-900 dark:text-white">Actions</h3>
-          <div className="mt-4">
-            <label htmlFor="comment" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-              Add a Comment (Required for Reject/Kick-back)
-            </label>
-            <textarea 
-              id="comment"
-              placeholder="Your comments will be logged..." 
-              value={comment} 
-              onChange={(e) => setComment(e.target.value)} 
-              className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-              rows={3}
-              disabled={isActionLoading}
-            />
+          <textarea placeholder="Add a comment..." value={comment} onChange={e => setComment(e.target.value)} className="mt-4 mb-4 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm" rows={3} />
+          <div className="flex flex-col sm:flex-row gap-3">
+            <button onClick={() => handleApprovalAction('approve')} disabled={isActionLoading} className="flex-1 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 disabled:bg-gray-400">Approve</button>
+            <button onClick={() => handleApprovalAction('kickback')} disabled={isActionLoading} className="flex-1 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700 disabled:bg-gray-400">Kick-back</button>
+            <button onClick={() => handleApprovalAction('reject')} disabled={isActionLoading} className="flex-1 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 disabled:bg-gray-400">Reject</button>
           </div>
-          <div className="flex flex-col sm:flex-row gap-3 mt-4">
-            <button 
-              onClick={onApprove} 
-              disabled={isActionLoading}
-              className="flex-1 justify-center py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:bg-gray-400"
-            >
-              Approve
-            </button>
-            <button 
-              onClick={onKickback} 
-              disabled={isActionLoading}
-              className="flex-1 justify-center py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500 disabled:bg-gray-400"
-            >
-              Kick-back for Revision
-            </button>
-            <button 
-              onClick={onReject} 
-              disabled={isActionLoading}
-              className="flex-1 justify-center py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:bg-gray-400"
-            >
-              Reject (Final)
-            </button>
-          </div>
-        </div>
-      )}
-      
-      {/* Card 3: Revision Box (if you're the submitter) */}
-      {/* This box is now hidden if editing: showEditButton */}
-      {showEditButton && (
-        <div className="bg-yellow-50 border-yellow-300 dark:bg-yellow-900/20 dark:border-yellow-700 p-6 rounded-lg shadow-sm">
-          <h3 className="text-lg font-medium text-yellow-800 dark:text-yellow-300">This report needs your revision.</h3>
-          <p className="mt-2 text-sm text-yellow-700 dark:text-yellow-400">Please review the comments in the history log, then edit and re-submit the report.</p>
-          
-          {/* *** NEW: This button now toggles edit mode *** */}
-          <button 
-            onClick={handleEditClick}
-            className="mt-4 py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-          >
-            Edit Report
-          </button>
         </div>
       )}
 
-      {/* Card 4: History Log */}
-      {/* *** NEW: This card is now hidden if editing *** */}
-      {showHistory && (
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-          <h3 className="text-lg font-medium text-gray-900 dark:text-white">History</h3>
-          <ul className="mt-4 space-y-4">
-            {logs.length > 0 ? logs.map(log => (
-              <li key={log.id} className="border-b border-gray-200 dark:border-gray-700  pb-4 last:border-b-0">
-                <div className="flex justify-between items-center">
-                  <span className="text-sm font-medium text-gray-800 dark:text-gray-100">
-                    <strong>{formatName(log.actor)}</strong>: 
-                    <span className="font-semibold text-indigo-600 ml-1">{log.action}</span>
-                  </span>
-                  <span className="text-xs text-gray-500 dark:text-gray-400">
-                    {new Date(log.created_at).toLocaleString()}
-                  </span>
-                </div>
-                {log.comment && (
-                  <p className="mt-2 text-sm text-gray-600 bg-gray-50 dark:text-gray-200 dark:bg-gray-700 p-3 rounded-md">
-                    "{log.comment}"
-                  </p>
-                )}
-              </li>
-            )) : <p className="text-sm text-gray-500">No history for this report yet.</p>}
-          </ul>
+      {showRevisionBox && (
+        <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-700 p-6 rounded-lg">
+          <h3 className="text-lg font-medium text-yellow-800 dark:text-yellow-200">Needs Revision</h3>
+          <button onClick={handleEditClick} className="mt-4 py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Edit Report</button>
         </div>
       )}
+
+      {/* --- HISTORY LOG --- */}
+      {!isEditing && !isAppealing && !isEscalating && (
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">History</h3>
+            <ul className="space-y-4">
+              {logs.length > 0 ? logs.map(log => (
+                <li key={log.id} className="border-b dark:border-gray-700 pb-4 last:border-0">
+                  <div className="flex justify-between">
+                    <span className="text-sm font-medium text-gray-900 dark:text-white"><strong>{formatName(log.actor)}</strong>: <span className="text-indigo-600 dark:text-indigo-400">{log.action}</span></span>
+                    <span className="text-xs text-gray-500 dark:text-gray-400">{new Date(log.created_at).toLocaleString()}</span>
+                  </div>
+                  {log.comment && <p className="mt-2 text-sm bg-gray-50 dark:bg-gray-700/50 p-2 rounded text-gray-600 dark:text-gray-300">"{log.comment}"</p>}
+                </li>
+              )) : <p className="text-gray-500 dark:text-gray-400">No history yet.</p>}
+            </ul>
+          </div>
+      )}
+
     </div>
   )
 }

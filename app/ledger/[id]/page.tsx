@@ -4,6 +4,7 @@
 import { createClient } from '@/utils/supabase/client'
 import { useState, useEffect, useMemo } from 'react'
 import React from 'react'
+import Link from 'next/link'
 
 // --- Types ---
 type AuditLogEvent = {
@@ -11,11 +12,13 @@ type AuditLogEvent = {
   event_type: 'demerit' | 'served'
   title: string
   details: string | null
-  demerits_issued: number // <-- NEW
-  tour_change: number     // <-- RENAMED from 'amount'
+  demerits_issued: number
+  tour_change: number | null // Can be null for reports now
   actor_name: string
   status: string
-  running_balance: number
+  report_id: string | null
+  appeal_status: string | null
+  // Removed running_balance
 }
 
 type LedgerStats = {
@@ -44,7 +47,7 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
 
   const supabase = createClient()
   const [fullLog, setFullLog] = useState<AuditLogEvent[]>([])
-  const [stats, setStats] = useState<LedgerStats | null>(null) // <-- NEW STATE
+  const [stats, setStats] = useState<LedgerStats | null>(null)
   const [terms, setTerms] = useState<AcademicTerm[]>([])
   const [cadetProfile, setCadetProfile] = useState<CadetProfile | null>(null)
   const [selectedTermId, setSelectedTermId] = useState<string>('all')
@@ -63,7 +66,7 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
       // Fetch everything in parallel
       const [logRes, statsRes, termsRes, profileRes] = await Promise.all([
         supabase.rpc('get_cadet_audit_log', { p_cadet_id: targetCadetId }),
-        supabase.rpc('get_cadet_ledger_stats', { p_cadet_id: targetCadetId }).single(), // <-- NEW RPC CALL
+        supabase.rpc('get_cadet_ledger_stats', { p_cadet_id: targetCadetId }).single(),
         supabase.from('academic_terms').select('*').order('start_date', { ascending: false }),
         supabase.from('profiles').select('first_name, last_name, role:roles(role_name)').eq('id', targetCadetId).single()
       ])
@@ -82,7 +85,7 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
     getData()
   }, [supabase, targetCadetId])
 
-  // --- Filtering Logic (Unchanged) ---
+  // --- Filtering Logic ---
   const displayedLog = useMemo(() => {
     if (selectedTermId === 'all') return fullLog
     const term = terms.find(t => t.id === selectedTermId)
@@ -92,19 +95,7 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
     )
   }, [fullLog, selectedTermId, terms])
 
-  // --- Starting Balance Logic (Unchanged) ---
-  const startingBalanceEvent = useMemo(() => {
-    if (selectedTermId === 'all') return null;
-    const term = terms.find(t => t.id === selectedTermId)
-    if (!term) return null;
-    const previousEvent = fullLog.find(event => event.event_date < term.start_date);
-    return {
-        balance: previousEvent ? previousEvent.running_balance : 0,
-        date: term.start_date
-    };
-  }, [fullLog, selectedTermId, terms])
-
-  // --- Helpers (Status Colors Unchanged) ---
+  // --- Helpers ---
   const formatStatus = (status: string) => {
     switch (status) {
       case 'completed': return 'Approved'; case 'rejected': return 'Rejected';
@@ -160,7 +151,7 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
 
         {!loading && !error && (
           <>
-            {/* --- NEW: Fast Facts Dashboard --- */}
+            {/* --- Fast Facts Dashboard --- */}
             {stats && (
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 print:mb-4">
                 <StatBox label="Term Demerits" value={stats.term_demerits} />
@@ -176,7 +167,8 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
                 {displayedLog.map((event, eventIdx) => (
                   <li key={eventIdx}>
                     <div className="relative pb-8 print:pb-4">
-                      {eventIdx !== displayedLog.length - 1 ? <span className="absolute left-5 top-5 -ml-px h-full w-0.5 bg-gray-300 dark:bg-gray-700" aria-hidden="true" /> : null}                      <div className="relative flex items-start space-x-3">
+                      {eventIdx !== displayedLog.length - 1 ? <span className="absolute left-5 top-5 -ml-px h-full w-0.5 bg-gray-300 dark:bg-gray-700" aria-hidden="true" /> : null}
+                      <div className="relative flex items-start space-x-3">
                         <div className="no-print">
                           <span className={`h-10 w-10 rounded-full flex items-center justify-center ring-8 ring-white dark:ring-gray-900 ${event.event_type === 'demerit' ? 'bg-red-600' : 'bg-green-500'}`}>
                             <span className="text-white font-bold">{event.event_type === 'demerit' ? 'D' : 'T'}</span>
@@ -184,39 +176,44 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
                         </div>
                         
                         <div className="min-w-0 flex-1 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border dark:border-gray-700 print-card">
-                          <div className="flex justify-between items-center">
-                            <h3 className="text-lg font-medium text-gray-900 dark:text-white">{event.title}</h3>
-                            <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${event.event_type === 'served' ? getStatusColor('completed') : getStatusColor(event.status)}`}>
-                              {formatStatus(event.status)}
-                            </span>
+                          <div className="flex justify-between items-start">
+                              <div>
+                                <h3 className="text-lg font-medium text-gray-900 dark:text-white flex items-center flex-wrap gap-2">
+                                  {event.event_type === 'demerit' && event.report_id ? (
+                                    <Link href={`/report/${event.report_id}`} className="hover:underline hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                                      {event.title}
+                                    </Link>
+                                  ) : (
+                                    event.title
+                                  )}
+                                  {event.appeal_status === 'approved' && <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Appeal Granted</span>}
+                                  {event.appeal_status === 'rejected_final' && <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Appeal Denied</span>}
+                                  {['pending_issuer', 'pending_chain', 'pending_commandant', 'rejected_by_issuer', 'rejected_by_chain'].includes(event.appeal_status || '') && (
+                                    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">Under Appeal</span>
+                                  )}
+                                </h3>
+                              </div>
+                              <span className={`text-xs font-medium px-2 py-0.5 rounded-full flex-shrink-0 ${event.event_type === 'served' ? getStatusColor('completed') : getStatusColor(event.status)}`}>
+                                {formatStatus(event.status)}
+                              </span>
                           </div>
                           <p className="text-sm text-gray-500 dark:text-gray-400">{new Date(event.event_date).toLocaleString()}</p>
                           
-                          {/* --- UPDATED GRID for Demerits vs Tours --- */}
-                          <div className="mt-3 grid grid-cols-3 gap-4">
-                             {/* Col 1: Demerits Issued (Only if it's a demerit report) */}
+                          {/* --- Simplified Grid: Just Demerits OR Tours Served --- */}
+                          <div className="mt-3 grid grid-cols-2 gap-4">
                              {event.event_type === 'demerit' ? (
                                <div>
-                                 <p className="text-xs uppercase font-semibold text-gray-500 dark:text-gray-400">Demerits</p>
-                                 <p className={`text-base font-medium ${event.status === 'rejected' ? 'line-through text-gray-400' : 'text-gray-900 dark:text-white'}`}>
+                                 <p className="text-xs uppercase font-semibold text-gray-500 dark:text-gray-400">Demerits Issued</p>
+                                 <p className={`text-base font-bold ${event.status === 'rejected' ? 'line-through text-gray-400' : 'text-red-600 dark:text-red-400'}`}>
                                    {event.demerits_issued}
                                  </p>
                                </div>
-                             ) : <div />} 
-
-                             {/* Col 2: Tour Change */}
-                             <div>
-                               <p className="text-xs uppercase font-semibold text-gray-500 dark:text-gray-400">Tour Change</p>
-                               <p className={`text-base font-bold ${event.status === 'rejected' ? 'line-through text-gray-400' : (event.tour_change > 0 ? 'text-red-600 dark:text-red-400' : (event.tour_change < 0 ? 'text-green-600 dark:text-green-400' : 'text-gray-500'))}`}>
-                                 {event.tour_change > 0 ? `+${event.tour_change}` : event.tour_change}
-                               </p>
-                             </div>
-
-                             {/* Col 3: Running Balance */}
-                             {event.status !== 'rejected' && (
-                               <div className="text-right">
-                                 <p className="text-xs uppercase font-semibold text-gray-500 dark:text-gray-400">Balance</p>
-                                 <p className="text-base font-bold text-gray-900 dark:text-white">{event.running_balance}</p>
+                             ) : (
+                               <div>
+                                 <p className="text-xs uppercase font-semibold text-gray-500 dark:text-gray-400">Tours Served</p>
+                                 <p className="text-base font-bold text-green-600 dark:text-green-400">
+                                   {Math.abs(event.tour_change || 0)}
+                                 </p>
                                </div>
                              )}
                           </div>
@@ -232,23 +229,6 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
                     </div>
                   </li>
                 ))}
-                {/* (Starting Balance Row remains the same) */}
-                {startingBalanceEvent && (
-                   <li>
-                     <div className="relative pb-8">
-                       <div className="relative flex items-start space-x-3">
-                         <div className="no-print"><span className="h-10 w-10 rounded-full flex items-center justify-center ring-8 ring-white dark:ring-gray-900 bg-gray-400"><span className="text-white font-bold">B</span></span></div>
-                         <div className="min-w-0 flex-1 bg-gray-50 dark:bg-gray-800/50 p-4 rounded-lg border-2 border-dashed border-gray-300 dark:border-gray-700">
-                           <div className="flex justify-between items-center">
-                             <h3 className="text-lg font-medium text-gray-700 dark:text-gray-300">Starting Balance</h3>
-                             <span className="text-lg font-bold text-gray-900 dark:text-white">{startingBalanceEvent.balance} Tours</span>
-                           </div>
-                           <p className="text-sm text-gray-500 dark:text-gray-400">Carried forward (as of {new Date(startingBalanceEvent.date).toLocaleDateString()})</p>
-                         </div>
-                       </div>
-                     </div>
-                   </li>
-                )}
               </ul>
             </div>
           </>
@@ -258,7 +238,6 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
   )
 }
 
-// --- NEW Helper Component ---
 function StatBox({ label, value, highlight = false }: { label: string, value: number, highlight?: boolean }) {
   return (
     <div className={`p-4 rounded-lg border ${highlight ? 'bg-indigo-50 border-indigo-200 dark:bg-indigo-900/20 dark:border-indigo-800' : 'bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700'}`}>

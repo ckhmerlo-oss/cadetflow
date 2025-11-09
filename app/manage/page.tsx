@@ -351,10 +351,10 @@ export default function ManageRosterPage() {
             <div>
               <input 
                 type="text"
-                placeholder="Search by first or last name..."
+                placeholder=" Search by first or last name..."
                 value={profileFilter}
                 onChange={e => setProfileFilter(e.target.value)}
-                className="block w-full max-w-sm rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                className="block w-full max-w-sm rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
               />
               <RosterTable loading={loading}>
                 {filteredProfiles.map(user => (
@@ -379,7 +379,7 @@ export default function ManageRosterPage() {
                           For now, let's assume admins can manage all returned by search.
                       */}
                       <button onClick={() => openUserModal(user, 'assignCompany')} className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300">
-                        Assign Company...
+                        Assign Company
                       </button>
                       <button onClick={() => openUserModal(user, 'deleteUser')} className="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300">
                         Delete
@@ -399,7 +399,7 @@ export default function ManageRosterPage() {
                 id="company"
                 value={selectedCompanyId}
                 onChange={e => setSelectedCompanyId(e.target.value)}
-                className="mt-1 block w-full max-w-xs rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
+                className="mt-1 block w-full max-w-xs rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 py-2 pl-3 pr-10 text-base focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm"
                 disabled={manageableCompanies.length === 0}
               >
                 {manageableCompanies.map(c => (
@@ -479,10 +479,10 @@ export default function ManageRosterPage() {
               </div>
               <input 
                 type="text"
-                placeholder="Search by role or company..."
+                placeholder=" Search by role or company..."
                 value={roleFilter}
                 onChange={e => setRoleFilter(e.target.value)}
-                className="mt-4 block w-full max-w-sm rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 shadow-sm sm:text-sm"
+                className="mt-4 block w-full max-w-sm rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 shadow-sm sm:text-sm"
               />
               <RoleTable loading={loading}>
                 {filteredRoles.map(role => (
