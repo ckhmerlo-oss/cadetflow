@@ -22,12 +22,13 @@ export default async function RootLayout({
   children: React.ReactNode
 }) {
 
-  // ... (all your user and logo logic remains the same) ...
   const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
+  
+  // --- Initialize all permission variables with defaults ---
   let canManage = false
   let isCommandantStaff = false
-  
+  let roleLevel = 0 // <--- FIX: Added this initialization
   let logoText = "CadetFlow";
   let logoColor = "text-indigo-600 hover:text-indigo-700";
 
@@ -35,7 +36,7 @@ export default async function RootLayout({
     const { data: profile } = await supabase
       .from('profiles')
       .select(`
-        roles(can_manage_own_company_roster, can_manage_all_rosters, role_name),
+        roles(can_manage_own_company_roster, can_manage_all_rosters, role_name, default_role_level),
         company:companies(company_name)
       `)
       .eq('id', user.id)
@@ -45,6 +46,9 @@ export default async function RootLayout({
     const company = (profile as any)?.company 
 
     if (roles) {
+      // --- FIX: Set the actual level here ---
+      roleLevel = roles.default_role_level || 0;
+
       if (roles.can_manage_own_company_roster || roles.can_manage_all_rosters) {
         canManage = true
       }
@@ -61,20 +65,16 @@ export default async function RootLayout({
   }
 
   return (
-    // 1. Add className="dark" here
-    <html lang="en" suppressHydrationWarning>
-      {/* 2. Remove bg-gray-50 and text-gray-900 from here */}
+    // *** FIX: Added className="dark" to prevent white flash on load ***
+    <html lang="en" className="dark" suppressHydrationWarning>
       <body className={`${inter.className}`}>
-        {/* *** 3. WRAP with ThemeProvider *** */}
         <ThemeProvider defaultTheme="dark">
           <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
             <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
               
               <div className="flex justify-between items-center h-16">
                 
-                {/* *** 1. Create a new flex container for the left side *** */}
                 <div className="flex items-center space-x-4">
-                  {/* Logo/Title */}
                   <div className="flex-shrink-0">
                     <Link 
                       href="/" 
@@ -83,14 +83,12 @@ export default async function RootLayout({
                       {logoText}
                     </Link>
                   </div>
-
-                  {/* *** 2. Move the FeedbackButton here *** */}
                   {user && <FeedbackButton />}
                 </div>
                
-                
                 <div className="flex items-center space-x-4">
-                  {isCommandantStaff && (
+                  {/* Use the now-defined roleLevel variable */}
+                  {roleLevel >= 50 && (
                     <Link 
                       href="/reports/daily" 
                       className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-600"
@@ -103,12 +101,11 @@ export default async function RootLayout({
                       href="/manage" 
                       className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-600"
                     >
-                      Cadet Rosters
+                      Manage Roster
                     </Link>
                   )}
                                   
                   <ThemeToggleButton />
-                  
                   <SignOutButton />
                 </div>
               </div>

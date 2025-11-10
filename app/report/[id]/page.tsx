@@ -14,7 +14,7 @@ type Report = {
   notes: string | null;
   submitted_by: string;
   subject_cadet_id: string;
-  current_over_group_id: string | null; 
+  current_approver_group_id: string | null; 
   date_of_offense: string;
   offense_type_id: string;
   demerits_effective: number;
@@ -81,12 +81,12 @@ export default function ReportDetails({ params: paramsPromise }: { params: Promi
   const [editableOffenseId, setEditableOffenseId] = useState('');
   const [editableNotes, setEditableNotes] = useState('');
   const [editableDate, setEditableDate] = useState('');
+  const [editableTime, setEditableTime] = useState('');
   const [isAppealing, setIsAppealing] = useState(false);
   const [isEscalating, setIsEscalating] = useState(false);
   const [appealJustification, setAppealJustification] = useState('');
   const [comment, setComment] = useState('') 
   const [appealComment, setAppealComment] = useState('');
-
   const [escalationTarget, setEscalationTarget] = useState('');
 
   // --- Helpers ---
@@ -118,6 +118,10 @@ export default function ReportDetails({ params: paramsPromise }: { params: Promi
   useEffect(() => {
     async function getReportData() {
       setLoading(true)
+      if (!reportId || reportId === 'undefined' || reportId === 'null') {
+          setError("Invalid Report ID."); setLoading(false); return;
+      }
+
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) { router.push('/login'); return; }
       setUser(user)
@@ -141,11 +145,16 @@ export default function ReportDetails({ params: paramsPromise }: { params: Promi
         .eq('report_id', reportId)
         .maybeSingle()
       
-      if (appealData) setAppeal(appealData as Appeal)
-
-      if (appealData && ['rejected_by_issuer', 'rejected_by_chain'].includes(appealData.status)) {
-        const { data: targetName } = await supabase.rpc('get_next_escalation_target', { p_appeal_id: appealData.id });
-        if (targetName) setEscalationTarget(targetName)};
+      if (appealData) {
+          setAppeal(appealData as Appeal)
+          if (appealData.status === 'pending_commandant') {
+              setAppealComment(appealData.chain_comment || appealData.issuer_comment || '');
+          }
+          if (['rejected_by_issuer', 'rejected_by_chain'].includes(appealData.status)) {
+             const { data: targetName } = await supabase.rpc('get_next_escalation_target', { p_appeal_id: appealData.id });
+             if (targetName) setEscalationTarget(targetName as string);
+          }
+      }
 
       // C. Check Appeal Action Permission
       if (appealData && user) {
@@ -204,14 +213,25 @@ export default function ReportDetails({ params: paramsPromise }: { params: Promi
     setIsEditing(true);
     setEditableOffenseId(report.offense_type_id);
     setEditableNotes(report.notes || '');
-    setEditableDate(new Date(report.date_of_offense).toISOString().split('T')[0]);
+    
+    const dt = new Date(report.date_of_offense);
+    
+    // *** FIX: Use local date parts instead of toISOString() ***
+    const year = dt.getFullYear();
+    const month = String(dt.getMonth() + 1).padStart(2, '0');
+    const day = String(dt.getDate()).padStart(2, '0');
+    setEditableDate(`${year}-${month}-${day}`);
+    
+    setEditableTime(dt.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false }));
   }
 
   async function handleResubmit(e: React.FormEvent) {
     e.preventDefault(); setActionLoading(true);
+    const localDateTime = new Date(`${editableDate}T${editableTime}:00`);
+    const fullTimestamp = localDateTime.toISOString();
     const { error } = await supabase.rpc('resubmit_report', {
       p_report_id: reportId, p_new_offense_type_id: editableOffenseId,
-      p_new_notes: editableNotes, p_new_date_of_offense: editableDate
+      p_new_notes: editableNotes, p_new_timestamp: fullTimestamp
     });
     if (error) { alert(error.message); setActionLoading(false); }
     else { router.push('/'); router.refresh(); }
@@ -241,13 +261,14 @@ export default function ReportDetails({ params: paramsPromise }: { params: Promi
           if (error) alert(error.message);
           else {
               alert(action === 'grant' ? "Appeal granted/forwarded." : "Appeal rejected.");
+              // *** FIX: Redirect to dashboard on success ***
+              router.push('/');
               router.refresh();
           }
       }
       setActionLoading(false);
   }
 
-  // *** FIX: Moved handleEscalate OUTSIDE of handleAppealAction ***
   async function handleEscalate(e: React.FormEvent) {
       e.preventDefault();
       if (!appeal || !appealJustification.trim()) return;
@@ -285,9 +306,15 @@ export default function ReportDetails({ params: paramsPromise }: { params: Promi
         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
           <form onSubmit={handleResubmit} className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Edit Report</h2>
-             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Date of Offense</label>
-              <input type="date" value={editableDate} onChange={e => setEditableDate(e.target.value)} required className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm" />
+             <div className="grid grid-cols-2 gap-4">
+               <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Date</label>
+                <input type="date" value={editableDate} onChange={e => setEditableDate(e.target.value)} required className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm" />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Time</label>
+                <input type="time" value={editableTime} onChange={e => setEditableTime(e.target.value)} required className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm" />
+              </div>
             </div>
             <div>
                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Offense</label>
@@ -334,13 +361,14 @@ export default function ReportDetails({ params: paramsPromise }: { params: Promi
          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow border-2 border-yellow-500">
              <form onSubmit={handleEscalate} className="space-y-6">
                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Escalate Appeal</h2>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">
-                      You are escalating this appeal to the next level in the chain of command:
-                      <br />
-                      <strong className="text-lg text-gray-900 dark:text-white block mt-2">
-                        {escalationTarget || 'Loading next step...'}
-                      </strong>
-                    </p>                 
+                 <p className="text-sm text-gray-500 dark:text-gray-400">
+                    You are escalating this appeal to the next level in the chain of command:
+                    <br />
+                    <strong className="text-lg text-gray-900 dark:text-white block mt-2">
+                       {escalationTarget || 'Loading next step...'}
+                    </strong>
+                 </p>
+                 
                  {appeal.issuer_comment && appeal.status === 'rejected_by_issuer' && (
                     <div className="bg-red-50 dark:bg-red-900/20 p-3 rounded border-l-4 border-red-500">
                         <p className="text-sm font-medium text-red-800 dark:text-red-300">Issuer's Reason for Rejection:</p>
@@ -381,14 +409,44 @@ export default function ReportDetails({ params: paramsPromise }: { params: Promi
             </span>
           </div>
 
-          {/* --- APPEAL STATUS BANNER --- */}
+          {/* --- APPEAL STATUS & HISTORY RECORD --- */}
           {appeal && (
-              <div className="mt-6 bg-indigo-50 dark:bg-indigo-900/30 border-l-4 border-indigo-500 p-4">
-                  <div className="flex justify-between items-center">
-                      <h3 className="text-lg font-medium text-indigo-800 dark:text-indigo-200">Appeal Status</h3>
-                      <span className="text-sm font-bold text-indigo-900 dark:text-indigo-100 uppercase tracking-wider">
-                          {formatAppealStatus(appeal.status)}
-                      </span>
+              <div className="mt-6 space-y-4">
+                  <div className="bg-indigo-50 dark:bg-indigo-900/30 border-l-4 border-indigo-500 p-4">
+                      <div className="flex justify-between items-center">
+                          <h3 className="text-lg font-medium text-indigo-800 dark:text-indigo-200">Appeal Status</h3>
+                          <span className="text-sm font-bold text-indigo-900 dark:text-indigo-100 uppercase tracking-wider">
+                              {formatAppealStatus(appeal.status)}
+                          </span>
+                      </div>
+                  </div>
+
+                  <div className="bg-gray-50 dark:bg-gray-900/50 p-4 rounded-lg border dark:border-gray-700 space-y-3">
+                      <h4 className="font-medium text-gray-900 dark:text-white mb-2">Appeal Record</h4>
+                      <div className="pl-4 border-l-2 border-gray-300 dark:border-gray-600">
+                          <p className="text-xs uppercase font-semibold text-gray-500 dark:text-gray-400">Cadet Justification</p>
+                          <p className="text-sm text-gray-800 dark:text-gray-200 whitespace-pre-wrap">{appeal.justification}</p>
+                      </div>
+                      {appeal.issuer_comment && (
+                          <div className="pl-4 border-l-2 border-blue-300 dark:border-blue-600">
+                              <p className="text-xs uppercase font-semibold text-blue-600 dark:text-blue-400">Issuer Note</p>
+                              <p className="text-sm text-gray-800 dark:text-gray-200">{appeal.issuer_comment}</p>
+                          </div>
+                      )}
+                      {appeal.chain_comment && (
+                          <div className="pl-4 border-l-2 border-purple-300 dark:border-purple-600">
+                              <p className="text-xs uppercase font-semibold text-purple-600 dark:text-purple-400">Chain of Command Note</p>
+                              <p className="text-sm text-gray-800 dark:text-gray-200">{appeal.chain_comment}</p>
+                          </div>
+                      )}
+                      {appeal.final_comment && (
+                          <div className={`pl-4 border-l-2 ${appeal.status === 'approved' ? 'border-green-500' : 'border-red-500'}`}>
+                              <p className={`text-xs uppercase font-semibold ${appeal.status === 'approved' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400'}`}>
+                                  Final Decision
+                              </p>
+                              <p className="text-sm text-gray-800 dark:text-gray-200">{appeal.final_comment}</p>
+                          </div>
+                      )}
                   </div>
               </div>
           )}
@@ -396,7 +454,7 @@ export default function ReportDetails({ params: paramsPromise }: { params: Promi
           <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6 border-t dark:border-gray-700 pt-6">
             <div><h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Subject</h3><p className="mt-1 text-lg text-gray-900 dark:text-white">{formatName(report.subject)}</p></div>
             <div><h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Submitted By</h3><p className="mt-1 text-lg text-gray-900 dark:text-white">{formatName(report.submitter)}</p></div>
-            <div><h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Date of Offense</h3><p className="mt-1 text-lg text-gray-900 dark:text-white">{new Date(report.date_of_offense).toLocaleDateString()}</p></div>
+            <div><h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Date & Time</h3><p className="mt-1 text-lg text-gray-900 dark:text-white">{new Date(report.date_of_offense).toLocaleString([], { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p></div>
             <div><h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Category</h3><p className="mt-1 text-lg text-gray-900 dark:text-white">Cat {report.offense_type.offense_code}</p></div>
             <div>
                 <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Demerits</h3>
@@ -417,11 +475,11 @@ export default function ReportDetails({ params: paramsPromise }: { params: Promi
           {canActOnAppeal && !isEditing && (
               <div className="mt-6 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-700 p-6 rounded-lg shadow-sm">
                   <h3 className="text-lg font-medium text-purple-900 dark:text-purple-100 mb-4">Appeal Action Required</h3>
-                  <p className="text-sm text-purple-800 dark:text-purple-200 mb-4"><strong>Cadet's Justification:</strong> "{appeal?.justification}"</p>
-                  <textarea placeholder="Reason for your decision..." value={appealComment} onChange={e => setAppealComment(e.target.value)} className="w-full rounded-md border-purple-300 dark:border-purple-600 dark:bg-gray-900 dark:text-white mb-4" rows={3} />
+                  <textarea placeholder="Reason for your decision (this will be visible in the appeal record)..." value={appealComment} onChange={e => setAppealComment(e.target.value)} className="w-full rounded-md border-purple-300 dark:border-purple-600 dark:bg-gray-900 dark:text-white mb-4" rows={3} />
                   <div className="flex gap-4">
                       <button onClick={() => handleAppealAction('grant')} disabled={isActionLoading} className="flex-1 py-2 bg-green-600 text-white rounded hover:bg-green-700 disabled:opacity-50">
-                        {appeal?.status === 'pending_commandant' ? 'Final Approval (Grant Appeal)' : 'Grant & Forward to Next Level'}                      </button>
+                          {appeal?.status === 'pending_commandant' ? 'Final Approval (Grant Appeal)' : 'Grant & Forward to Next Level'}
+                      </button>
                       <button onClick={() => handleAppealAction('reject')} disabled={isActionLoading} className="flex-1 py-2 bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50">Reject Appeal</button>
                   </div>
               </div>
@@ -477,7 +535,7 @@ export default function ReportDetails({ params: paramsPromise }: { params: Promi
               {logs.length > 0 ? logs.map(log => (
                 <li key={log.id} className="border-b dark:border-gray-700 pb-4 last:border-0">
                   <div className="flex justify-between">
-                    <span className="text-sm font-medium text-gray-900 dark:text-white"><strong>{formatName(log.actor)}</strong>: <span className="text-indigo-600 dark:text-indigo-400">{log.action}</span></span>
+                    <span className="text-sm font-medium text-gray-900 dark:text-white"><strong>{formatName(log.actor)}</strong>: {log.action}</span>
                     <span className="text-xs text-gray-500 dark:text-gray-400">{new Date(log.created_at).toLocaleString()}</span>
                   </div>
                   {log.comment && <p className="mt-2 text-sm bg-gray-50 dark:bg-gray-700/50 p-2 rounded text-gray-600 dark:text-gray-300">"{log.comment}"</p>}

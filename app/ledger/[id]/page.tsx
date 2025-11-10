@@ -6,19 +6,18 @@ import { useState, useEffect, useMemo } from 'react'
 import React from 'react'
 import Link from 'next/link'
 
-// --- Types ---
 type AuditLogEvent = {
   event_date: string
   event_type: 'demerit' | 'served'
   title: string
   details: string | null
   demerits_issued: number
-  tour_change: number | null // Can be null for reports now
+  tour_change: number | null
   actor_name: string
   status: string
   report_id: string | null
   appeal_status: string | null
-  // Removed running_balance
+  appeal_note: string | null
 }
 
 type LedgerStats = {
@@ -63,7 +62,6 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
         setLoading(false); setError("You must be logged in."); return;
       }
 
-      // Fetch everything in parallel
       const [logRes, statsRes, termsRes, profileRes] = await Promise.all([
         supabase.rpc('get_cadet_audit_log', { p_cadet_id: targetCadetId }),
         supabase.rpc('get_cadet_ledger_stats', { p_cadet_id: targetCadetId }).single(),
@@ -85,7 +83,6 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
     getData()
   }, [supabase, targetCadetId])
 
-  // --- Filtering Logic ---
   const displayedLog = useMemo(() => {
     if (selectedTermId === 'all') return fullLog
     const term = terms.find(t => t.id === selectedTermId)
@@ -95,7 +92,7 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
     )
   }, [fullLog, selectedTermId, terms])
 
-  // --- Helpers ---
+  // --- HELPERS ---
   const formatStatus = (status: string) => {
     switch (status) {
       case 'completed': return 'Approved'; case 'rejected': return 'Rejected';
@@ -111,6 +108,16 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
       default: return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100'
     }
   }
+  const getDisplayStatus = (event: AuditLogEvent) => {
+    // If appeal is granted, override the main status text
+    if (event.appeal_status === 'approved') return 'Appeal Granted';
+    return formatStatus(event.status);
+  }
+  const getDisplayStatusColor = (event: AuditLogEvent) => {
+     // If appeal is granted, override main status color to Purple
+     if (event.appeal_status === 'approved') return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200';
+     return getStatusColor(event.status);
+  }
 
   return (
     <>
@@ -124,7 +131,6 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
       `}</style>
 
       <div className="max-w-5xl mx-auto p-4 sm:p-6 lg:p-8 print-container">
-        {/* --- Header & Controls --- */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white">All Reports</h1>
@@ -151,7 +157,6 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
 
         {!loading && !error && (
           <>
-            {/* --- Fast Facts Dashboard --- */}
             {stats && (
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 print:mb-4">
                 <StatBox label="Term Demerits" value={stats.term_demerits} />
@@ -161,7 +166,6 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
               </div>
             )}
 
-            {/* --- Audit Log List --- */}
             <div className="flow-root">
               <ul role="list" className="-mb-8">
                 {displayedLog.map((event, eventIdx) => (
@@ -186,25 +190,38 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
                                   ) : (
                                     event.title
                                   )}
-                                  {event.appeal_status === 'approved' && <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200">Appeal Granted</span>}
-                                  {event.appeal_status === 'rejected_final' && <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Appeal Denied</span>}
-                                  {['pending_issuer', 'pending_chain', 'pending_commandant', 'rejected_by_issuer', 'rejected_by_chain'].includes(event.appeal_status || '') && (
-                                    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">Under Appeal</span>
+                                  
+                                  {/* --- UPDATED APPEAL BADGES --- */}
+                                  {/* Approved = Purple */}
+                                  {event.appeal_status === 'approved' && <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">Appeal Granted</span>}
+                                  
+                                  {/* Rejected Final = Orange */}
+                                  {event.appeal_status === 'rejected_final' && <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200">Appeal Denied</span>}
+                                  
+                                  {/* Pending = Blue */}
+                                  {['pending_issuer', 'pending_chain', 'pending_commandant'].includes(event.appeal_status || '') && (
+                                    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">Appeal Pending</span>
+                                  )}
+                                  
+                                  {/* Rejected but can escalate = Yellow */}
+                                  {['rejected_by_issuer', 'rejected_by_chain'].includes(event.appeal_status || '') && (
+                                    <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">Appeal Rejected - Can Escalate</span>
                                   )}
                                 </h3>
                               </div>
-                              <span className={`text-xs font-medium px-2 py-0.5 rounded-full flex-shrink-0 ${event.event_type === 'served' ? getStatusColor('completed') : getStatusColor(event.status)}`}>
-                                {formatStatus(event.status)}
+                              {/* Main Status Pill (overridden if appeal granted) */}
+                              <span className={`text-xs font-medium px-2 py-0.5 rounded-full flex-shrink-0 ${event.event_type === 'served' ? getStatusColor('completed') : getDisplayStatusColor(event)}`}>
+                                {getDisplayStatus(event)}
                               </span>
                           </div>
                           <p className="text-sm text-gray-500 dark:text-gray-400">{new Date(event.event_date).toLocaleString()}</p>
                           
-                          {/* --- Simplified Grid: Just Demerits OR Tours Served --- */}
                           <div className="mt-3 grid grid-cols-2 gap-4">
                              {event.event_type === 'demerit' ? (
                                <div>
                                  <p className="text-xs uppercase font-semibold text-gray-500 dark:text-gray-400">Demerits Issued</p>
-                                 <p className={`text-base font-bold ${event.status === 'rejected' ? 'line-through text-gray-400' : 'text-red-600 dark:text-red-400'}`}>
+                                 {/* Strike through demerits if rejected OR appeal granted */}
+                                 <p className={`text-base font-bold ${event.status === 'rejected' || event.appeal_status === 'approved' ? 'line-through text-gray-400' : 'text-red-600 dark:text-red-400'}`}>
                                    {event.demerits_issued}
                                  </p>
                                </div>
@@ -223,6 +240,18 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
                                <span className="font-medium">{event.event_type === 'demerit' ? 'Submitted by:' : 'Logged by:'}</span> {event.actor_name || 'System'}
                              </p>
                              {event.details && <p className="text-sm text-gray-600 dark:text-gray-400 italic mt-1">"{event.details}"</p>}
+                             
+                             {/* Final Appeal Note (e.g., from Commandant) */}
+                             {event.appeal_note && (
+                                <div className={`mt-2 p-2 border-l-4 rounded text-sm ${event.appeal_status === 'approved' ? 'bg-purple-50 dark:bg-purple-900/20 border-purple-500' : 'bg-orange-50 dark:bg-orange-900/20 border-orange-500'}`}>
+                                  <span className={`font-medium ${event.appeal_status === 'approved' ? 'text-purple-800 dark:text-purple-300' : 'text-orange-800 dark:text-orange-300'}`}>
+                                      Appeal Decision Note: 
+                                  </span>
+                                  <span className={event.appeal_status === 'approved' ? 'text-purple-900 dark:text-purple-100' : 'text-orange-900 dark:text-orange-100'}>
+                                      "{event.appeal_note}"
+                                  </span>
+                                </div>
+                             )}
                           </div>
                         </div>
                       </div>

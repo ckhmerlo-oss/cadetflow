@@ -3,7 +3,8 @@
 
 import { createClient } from '@/utils/supabase/client'
 import { useRouter } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
+import SearchableSelect, { SelectOption } from '@/app/components/SearchableSelect'
 
 type CadetProfile = {
   id: string;
@@ -11,32 +12,38 @@ type CadetProfile = {
   last_name: string;
 }
 
-// *** NEW: Type for the offense_types table ***
 type OffenseType = {
   id: string;
-  offense_group: string;
   offense_name: string;
   demerits: number;
+  policy_category: number;
+  offense_group: string;
+  offense_code: string;
+}
+
+const getLocalDate = () => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, '0');
+    const day = String(now.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
 }
 
 export default function SubmitReport() {
   const supabase = createClient()
   const router = useRouter()
   
-  // State for your form fields
   const [subjectCadetId, setSubjectCadetId] = useState('')
-  const [offenseTypeId, setOffenseTypeId] = useState('') // *** NEW ***
-  const [notes, setNotes] = useState('') // *** NEW ***
-  const [dateOfOffense, setDateOfOffense] = useState(new Date().toISOString().split('T')[0])
-
-  // Data for dropdowns
+  const [offenseTypeId, setOffenseTypeId] = useState('')
+  const [notes, setNotes] = useState('')
+  const [dateOfOffense, setDateOfOffense] = useState(getLocalDate())
+  const [timeOfOffense, setTimeOfOffense] = useState(new Date().toTimeString().slice(0, 5)) // Defaults to current HH:MM
   const [cadets, setCadets] = useState<CadetProfile[]>([])
   const [offenses, setOffenses] = useState<OffenseType[]>([])
   
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  // 1. Fetch cadets AND offense types for the dropdowns
   useEffect(() => {
     async function getFormData() {
       // Fetch cadets
@@ -48,12 +55,13 @@ export default function SubmitReport() {
         setCadets(cadetsData)
       }
 
-      // Fetch all offense types
+      // Fetch offenses
       const { data: offensesData, error: offensesError } = await supabase
         .from('offense_types')
-        .select('id, offense_group, offense_name, demerits')
-        .order('offense_group')
-        .order('offense_name')
+        .select('*')
+        .order('policy_category', { ascending: true })
+        .order('offense_group', { ascending: true })
+        .order('offense_code', { ascending: true })
         
       if (offensesError) {
         setError('Could not fetch offense types: ' + offensesError.message)
@@ -64,18 +72,47 @@ export default function SubmitReport() {
     getFormData()
   }, [supabase]) 
 
-  // 2. Handle the form submission
+  // Transform for SearchableSelect
+  const cadetOptions: SelectOption[] = useMemo(() => {
+    return cadets.map(c => ({
+        id: c.id,
+        label: `${c.last_name}, ${c.first_name}`
+    }))
+  }, [cadets])
+
+  const offenseOptions: SelectOption[] = useMemo(() => {
+    return offenses.map(o => ({
+        id: o.id,
+        // Format: [1a] Late to Formation (3)
+        label: `[${o.offense_code}] ${o.offense_name} (${o.demerits})`,
+        group: o.offense_group
+    }))
+  }, [offenses])
+
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault() 
+    
+    if (!subjectCadetId || !offenseTypeId) {
+        setError("Please select both a cadet and an infraction.");
+        return;
+    }
+    
     setLoading(true)
     setError(null)
 
-    // 3. Call your REFACTORED 'create_new_report' SQL function
+    // *** COMBINE DATE AND TIME ***
+    // Creates a full timestamp like "2025-11-07T14:30:00" which Supabase will interpret correctly in UTC
+    // *** FIX: Create a Date object first so it captures the local timezone ***
+    const localDateTime = new Date(`${dateOfOffense}T${timeOfOffense}:00`);
+    // Convert to UTC string for the database
+    const fullTimestamp = localDateTime.toISOString();
+
     const { error: rpcError } = await supabase.rpc('create_new_report', {
       p_subject_cadet_id: subjectCadetId,
-      p_offense_type_id: offenseTypeId, // *** CHANGED ***
-      p_notes: notes, // *** CHANGED ***
-      p_date_of_offense: dateOfOffense
+      p_offense_type_id: offenseTypeId,
+      p_notes: notes,
+      p_offense_timestamp: fullTimestamp // <-- Send the combined timestamp
     })
 
     setLoading(false)
@@ -87,16 +124,6 @@ export default function SubmitReport() {
       router.refresh() 
     }
   }
-  
-  // Group offenses by their 'offense_group' for the <optgroup>
-  const groupedOffenses = offenses.reduce((acc, offense) => {
-    const group = offense.offense_group;
-    if (!acc[group]) {
-      acc[group] = [];
-    }
-    acc[group].push(offense);
-    return acc;
-  }, {} as Record<string, OffenseType[]>);
 
   return (
     <div className="relative max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
@@ -107,70 +134,49 @@ export default function SubmitReport() {
             Submit New Report
           </h2>
 
-          {/* Subject Cadet Field */}
-          <div>
-            <label htmlFor="cadet" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
-              Subject Cadet
-            </label>
-            <select 
-              id="cadet"
-              value={subjectCadetId} 
-              onChange={(e) => setSubjectCadetId(e.target.value)} 
-              required
-              className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            >
-              <option value="">Select a cadet...</option>
-              {cadets.map((cadet) => (
-                <option key={cadet.id} value={cadet.id}>
-                  {cadet.last_name}, {cadet.first_name}
-                </option>
-              ))}
-            </select>
-          </div>
+          <SearchableSelect
+            label="Subject Cadet"
+            options={cadetOptions}
+            value={subjectCadetId}
+            onChange={setSubjectCadetId}
+            placeholder="Search for a cadet..."
+            required
+          />
 
-          {/* Date of Offense */}
-          <div>
-            <label htmlFor="date" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
-              Date of Offense
-            </label>
-            <input 
-              id="date"
-              type="date"
-              value={dateOfOffense} 
-              onChange={(e) => setDateOfOffense(e.target.value)} 
-              required 
-              className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            />
+          
+          {/* *** UPDATED DATE/TIME SECTION *** */}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label htmlFor="date" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                Date <span className="text-red-500">*</span>
+              </label>
+              <input 
+                id="date" type="date" value={dateOfOffense} onChange={(e) => setDateOfOffense(e.target.value)} required 
+                className="block w-full rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm py-2 px-3"
+              />
+            </div>
+            <div>
+              <label htmlFor="time" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
+                Time (approx) <span className="text-red-500">*</span>
+              </label>
+              <input 
+                id="time" type="time" value={timeOfOffense} onChange={(e) => setTimeOfOffense(e.target.value)} required 
+                className="block w-full rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm py-2 px-3"
+              />
+            </div>
           </div>
           
-          {/* *** NEW: Offense Type Dropdown *** */}
-          <div>
-            <label htmlFor="offense_type" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
-              Offense
-            </label>
-            <select 
-              id="offense_type"
-              value={offenseTypeId} 
-              onChange={(e) => setOffenseTypeId(e.target.value)} 
-              required
-              className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-            >
-              <option value="">Select an offense...</option>
-              {Object.entries(groupedOffenses).map(([groupName, groupOffenses]) => (
-                <optgroup label={groupName} key={groupName}>
-                  {groupOffenses.map((offense) => (
-                    <option key={offense.id} value={offense.id}>
-                      ({offense.demerits} demerits) {offense.offense_name}
-                    </option>
-                  ))}
-                </optgroup>
-              ))}
-            </select>
-          </div>
+          <SearchableSelect
+            label="Infraction"
+            options={offenseOptions}
+            value={offenseTypeId}
+            onChange={setOffenseTypeId}
+            placeholder="Search for an infraction..."
+            required
+          />
 
-          {/* Notes Field */}
           <div>
-            <label htmlFor="notes" className="block text-sm font-medium text-gray-700 dark:text-gray-200">
+            <label htmlFor="notes" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
               Notes (Optional)
             </label>
             <textarea 
@@ -178,23 +184,22 @@ export default function SubmitReport() {
               value={notes} 
               onChange={(e) => setNotes(e.target.value)} 
               rows={4}
-              className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              className="block w-full rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm py-2 px-3"
               placeholder="Provide specific details of the incident..."
             />
           </div>
 
-          {/* Submit Button */}
           <div>
             <button 
               type="submit" 
               disabled={loading}
-              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-400"
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none disabled:bg-gray-400"
             >
               {loading ? 'Submitting...' : 'Submit Report'}
             </button>
           </div>
 
-          {error && <p className="text-sm text-red-600">{error}</p>}
+          {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
         </form>
       </div>
     </div>
