@@ -10,15 +10,18 @@ export default function SignOutButton() {
 
   const handleSignOut = async () => {
     await supabase.auth.signOut()
-    // We don't need router.push('/login')
-    // The middleware will automatically redirect when it detects no user.
-    router.refresh()
+    
+    // *** FIX: Manually push to /login. ***
+    // This is now safe because we fixed the login page.
+    router.push('/login')
+    
+    router.refresh() // Keep this to ensure all server state is cleared
   }
 
   return (
     <button
       onClick={handleSignOut}
-      className="py-2 px-3 rounded-md text-sm font-medium text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+      className="py-2 px-3 rounded-md text-sm font-medium text-white bg-red-600 hover:bg-red-700 dark:hover:bg-red-800 transition-colors shadow-sm"
     >
       Sign Out
     </button>

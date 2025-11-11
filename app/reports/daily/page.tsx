@@ -238,7 +238,7 @@ export default function DailyReportsPage() {
                           )}
                         </td>
                       </tr>
-                    )) : <tr className="no-print"><td colSpan={6} className="p-4 text-center text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">No cadets on tour.</td></tr>}
+                    )) : <tr className="no-print"><td colSpan={6} className="p-4 text-center text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">No cadets on ED.</td></tr>}
                   </tbody>
                 </table>
             </div></div>
