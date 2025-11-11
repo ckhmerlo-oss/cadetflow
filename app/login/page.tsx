@@ -5,31 +5,16 @@ import { createClient } from '@/utils/supabase/client'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { useRouter } from 'next/navigation'
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react' // We still need useEffect for post-login
 import { useTheme } from '@/app/components/ThemeProvider'
 
 export default function LoginPage() {
   const supabase = createClient()
   const router = useRouter()
-  const [loading, setLoading] = useState(true)
-  // *** 2. GET the theme from the hook ***
   const { theme } = useTheme()
 
-  // (useEffect for checking session remains the same)
-  useEffect(() => {
-    async function checkSession() {
-      const { data: { session } } = await supabase.auth.getSession()
-      if (session) {
-        router.push('/')
-        router.refresh()
-      } else {
-        setLoading(false)
-      }
-    }
-    checkSession()
-  }, [supabase, router])
-
-  // (useEffect for auth state change remains the same)
+  // This effect ONLY listens for a NEW sign-in event.
+  // It no longer checks for an existing session, as the middleware handles that.
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
@@ -44,16 +29,14 @@ export default function LoginPage() {
     }
   }, [supabase, router])
 
-  if (loading) {
-    return <div className="p-8 text-center text-gray-500">Loading...</div>
-  }
+  // We have removed the 'loading' state and the 'checkSession' useEffect.
+  // The page now just renders the form immediately.
 
   return (
     <div style={{ width: '100%', maxWidth: '420px', margin: 'auto', paddingTop: '2rem' }}>
       <Auth
         supabaseClient={supabase}
         appearance={{ theme: ThemeSupa }}
-        // *** 3. USE the dynamic theme ***
         theme={theme}
         providers={[]} 
         redirectTo="/" 
