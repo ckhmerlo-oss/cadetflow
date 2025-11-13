@@ -1,21 +1,19 @@
 // in supabase/functions/bulk-create-users/index.ts
 import { createClient, SupabaseClient } from 'https://esm.sh/@supabase/supabase-js@2'
-import { parse } from 'https://deno.land/std@0.224.0/csv/mod.ts' // Deno's standard CSV parser
+import { parse } from 'https://deno.land/std@0.224.0/csv/mod.ts'
 
-// --- START: CORS Configuration ---
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
   'Access-Control-Allow-Methods': 'POST, OPTIONS',
 }
 
+// Handle pre-flight (OPTIONS) requests
 const handleOptions = (req: Request) => {
   if (req.method === 'OPTIONS') {
     return new Response('ok', { headers: corsHeaders })
   }
 }
-// --- END: CORS Configuration ---
-
 
 interface UserRecord {
   email: string
@@ -37,7 +35,8 @@ function generatePassword() {
   return pass
 }
 
-Deno.serve(async (req) => {
+// *** FIX: Added type 'Request' to req ***
+Deno.serve(async (req: Request) => {
   const optionsResponse = handleOptions(req)
   if (optionsResponse) return optionsResponse
 
@@ -68,8 +67,6 @@ Deno.serve(async (req) => {
   }
 
   // 3. User is an Admin. Initialize the Admin Client.
-  // *** START OF FIX ***
-  // We make the adminClient's auth explicit to avoid any conflicts
   const adminClient = createClient(
     Deno.env.get('SUPABASE_URL') ?? '',
     Deno.env.get('SERVICE_ROLE_KEY') ?? '',
@@ -80,15 +77,15 @@ Deno.serve(async (req) => {
       }
     }
   )
-  // *** END OF FIX ***
 
   // 4. Process the CSV
   try {
     const csvText = await req.text()
 
-    const cleanCsvText = csvText.startsWith('\uFEFF')
-      ? csvText.substring(1).trim()
-      : csvText.trim();
+    let cleanCsvText = csvText.trim();
+    if (cleanCsvText.startsWith('\uFEFF')) {
+      cleanCsvText = cleanCsvText.substring(1);
+    }
     
     const records = parse(cleanCsvText, {
       skipFirstRow: true,
@@ -125,7 +122,7 @@ Deno.serve(async (req) => {
       status: 200,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
     })
-  } catch (e) {
+  } catch (e: any) { // *** FIX: Added type 'any' to e ***
     return new Response(JSON.stringify({ error: e.message }), {
       status: 500,
       headers: { ...corsHeaders, 'Content-Type': 'application/json' },
