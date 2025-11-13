@@ -4,9 +4,7 @@ import { Inter } from 'next/font/google'
 import Link from 'next/link'
 import { createClient } from '@/utils/supabase/server'
 import { ThemeProvider } from '@/app/components/ThemeProvider'
-// *** NEW: Import the one menu component ***
 import HeaderMenu from '@/app/components/HeaderMenu'
-// (We no longer need to import SignOutButton, ThemeToggleButton, or FeedbackButton here)
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -28,11 +26,12 @@ export default async function RootLayout({
   let roleLevel = 0
   let logoText = "CadetFlow";
   let logoColor = "text-indigo-600 hover:text-indigo-700";
-
-  if (user) {
+  let isSiteAdmin = false; // <-- This will be set by the new check
+  if (user) {1
     const { data: profile } = await supabase
       .from('profiles')
       .select(`
+        is_site_admin,
         roles(can_manage_own_company_roster, can_manage_all_rosters, role_name, default_role_level),
         company:companies(company_name)
       `)
@@ -44,10 +43,12 @@ export default async function RootLayout({
 
     if (roles) {
       roleLevel = roles.default_role_level || 0;
-      if (roles.can_manage_own_company_roster || roles.can_manage_all_rosters) {
-        canManage = true
-      }
+      canManage = roles.can_manage_own_company_roster || roles.can_manage_all_rosters;
     }
+    
+    // *** UPDATE THIS LOGIC ***
+    // We now check the profile flag directly, not the role flag.
+    isSiteAdmin = profile?.is_site_admin || false;
 
     if (roleLevel >= 50 || (roles?.role_name && roles.role_name.includes('TAC'))) {
       logoText = "TACFlow";
@@ -64,10 +65,8 @@ export default async function RootLayout({
         <ThemeProvider defaultTheme="dark">
           <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
             <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-              
               <div className="flex justify-between items-center h-16">
                 
-                {/* Left Side: Logo */}
                 <div className="flex-shrink-0">
                   <Link 
                     href="/" 
@@ -77,16 +76,15 @@ export default async function RootLayout({
                   </Link>
                 </div>
                
-                {/* Right Side: Replaced with new Menu */}
                 <div className="flex items-center">
                   <HeaderMenu 
                     isLoggedIn={!!user}
                     canManage={canManage}
                     showDailyReports={roleLevel >= 50}
+                    isSiteAdmin={isSiteAdmin} // <-- This prop now uses the new logic
                   />
                 </div>
               </div>
-
             </nav>
           </header>
 

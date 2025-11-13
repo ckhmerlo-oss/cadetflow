@@ -12,6 +12,7 @@ type HeaderMenuProps = {
   canManage: boolean
   showDailyReports: boolean
   isLoggedIn: boolean
+  isSiteAdmin: boolean // <-- *** ADD NEW PROP ***
 }
 
 // --- Icons ---
@@ -27,7 +28,7 @@ const CloseIcon = () => (
 )
 
 // --- Main Component ---
-export default function HeaderMenu({ canManage, showDailyReports, isLoggedIn }: HeaderMenuProps) {
+export default function HeaderMenu({ canManage, showDailyReports, isLoggedIn, isSiteAdmin }: HeaderMenuProps) { // <-- *** ADD isSiteAdmin ***
   const [isOpen, setIsOpen] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const supabase = createClient()
@@ -118,6 +119,7 @@ export default function HeaderMenu({ canManage, showDailyReports, isLoggedIn }: 
           <div className="absolute right-0 mt-2 w-56 origin-top-right bg-white dark:bg-gray-800 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 dark:ring-gray-700 z-50">
             <div className="py-1" role="menu" aria-orientation="vertical">
               
+
               {/* Main Links */}
               {showDailyReports && (
                 <Link href="/reports/daily" className="block w-full text-left px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">
@@ -143,6 +145,12 @@ export default function HeaderMenu({ canManage, showDailyReports, isLoggedIn }: 
                 <ThemeToggleButton />
               </div>
 
+            {/* *** NEW ADMIN LINK *** */}
+            {isSiteAdmin && (
+              <Link href="/admin" className="block w-full text-left px-4 py-2 text-sm font-medium text-yellow-600 dark:text-yellow-400 hover:bg-gray-100 dark:hover:bg-gray-700" role="menuitem">
+                Site Settings
+              </Link>
+            )}
               <div className="border-t border-gray-100 dark:border-gray-700 my-1"></div>
 
               {/* Sign Out Button */}
@@ -162,7 +170,7 @@ export default function HeaderMenu({ canManage, showDailyReports, isLoggedIn }: 
             <div className="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
               <div className="relative transform overflow-hidden rounded-lg bg-white dark:bg-gray-800 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                 <form onSubmit={handleFeedbackSubmit}>
-                  {/* ... (Modal content from your FeedbackButton component) ... */}
+                  {/* ... (Modal content) ... */}
                   <div className="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                     <h3 className="text-lg font-medium text-gray-900 dark:text-white">Submit Feedback</h3>
                     <div className="mt-4 space-y-4">

@@ -1,0 +1,33 @@
+[00:00:04.760] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:05.449] Server  LOG      ✓ Ready in 4.2s
+[00:00:08.783] Server  LOG      ○ Compiling / ...
+[00:00:16.525] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:31.208] Server  LOG      ✓ Compiled in 223ms
+[00:00:36.139] Server  LOG      ✓ Compiled in 112ms
+[00:00:41.225] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:45.733] Server  LOG      ✓ Compiled in 184ms
+[00:00:51.825] Server  LOG      ✓ Compiled in 154ms
+[00:00:55.108] Server  LOG      ✓ Compiled in 171ms
+[00:01:34.838] Server  LOG      ✓ Compiled in 143ms
+[00:03:38.740] Server  LOG      ✓ Compiled in 137ms
+[00:03:39.455] Server  ERROR    ⨯ ReferenceError: is_site_admin is not defined
+[00:03:39.472] Server  ERROR    ⨯ ReferenceError: is_site_admin is not defined
+[00:03:39.842] Server  ERROR    ⨯ ReferenceError: is_site_admin is not defined
+[00:03:40.890] Browser ERROR   uncaughtError: ReferenceError: is_site_admin is not defined
+[00:03:53.396] Server  LOG      ✓ Compiled in 124ms
+[00:03:56.120] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:06:12.500] Server  LOG      ✓ Compiled in 66ms
+[00:06:13.163] Server  ERROR    ⨯ ReferenceError: profiles is not defined
+[00:06:13.480] Server  ERROR    ⨯ ReferenceError: profiles is not defined
+[00:06:13.863] Server  ERROR    ⨯ ReferenceError: profiles is not defined
+[00:06:14.600] Browser ERROR   uncaughtError: ReferenceError: profiles is not defined
+[00:06:23.657] Server  LOG      ✓ Compiled in 67ms
+[00:06:26.165] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:18:24.400] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:39:30.899] Server  LOG      ✓ Compiled in 47ms
+[00:39:31.895] Server  LOG      ✓ Compiled in 31ms
+[00:39:33.595] Server  LOG      ✓ Compiled in 29ms
+[00:39:44.822] Server  LOG      ✓ Compiled in 44ms
+[00:39:47.580] Server  LOG      ✓ Compiled in 25ms
+[00:39:57.778] Server  LOG      ✓ Compiled in 28ms
+[00:40:00.565] Server  LOG      ✓ Compiled in 27ms
