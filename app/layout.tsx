@@ -6,6 +6,8 @@ import { createClient } from '@/utils/supabase/server'
 import { ThemeProvider } from '@/app/components/ThemeProvider'
 import HeaderMenu from '@/app/components/HeaderMenu'
 
+import { SpeedInsights } from "@vercel/speed-insights/next"
+
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
@@ -58,7 +60,7 @@ export default async function RootLayout({
       logoColor = "text-yellow-600 hover:text-yellow-700";
     }
   }
-
+  
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <body className={`${inter.className}`}>
@@ -92,6 +94,7 @@ export default async function RootLayout({
             {children}
           </main>
         </ThemeProvider>
+        <SpeedInsights/>
       </body>
     </html>
   )
