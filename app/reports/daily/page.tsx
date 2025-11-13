@@ -45,7 +45,24 @@ export default function DailyReportsPage() {
   const [selectedCadet, setSelectedCadet] = useState<TourSheetCadet | null>(null)
   const [toursToLog, setToursToLog] = useState(3)
   const [logComment, setLogComment] = useState('')
-
+// --- Set Document Title for Printing ---
+  useEffect(() => {
+    const date = new Date();
+    // Formats date to MM/DD/YY
+    const formattedDate = date.toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: '2-digit' });
+    
+    if (activeTab === 'green') {
+      document.title = `Green Sheet ${formattedDate}`;
+    } else {
+      document.title = `Tour Sheet ${formattedDate}`;
+    }
+    
+    // Cleanup: Revert title when leaving the page
+    return () => {
+      document.title = 'CadetFlow'; // Your default title
+    };
+  }, [activeTab]); // This will re-run whenever the tab changes
+  
   useEffect(() => {
     async function getReports() {
       setLoading(true)
@@ -132,15 +149,65 @@ export default function DailyReportsPage() {
     <>
       <style jsx global>{`
         @media print {
-          @page { margin: 0.25in; }
+          @page {
+            margin: 0.25in;
+          }
           body { background-color: white !important; color: black !important; }
           header, .no-print, .printable-section:not(.print-active) { display: none !important; }
           main { padding: 0; margin: 0; }
-          .printable-section { padding: 0; box-shadow: none; border: none; margin: 0; width: 100%; }
-          .printable-section h2 { font-size: 1.5rem; margin-bottom: 0.5rem; text-align: center; border-bottom: 2px solid black; padding-bottom: 0.5rem; }
-          .printable-table { width: 100%; border-collapse: collapse; }
-          .printable-table th, .printable-table td { border: 1px solid #000; padding: 0.2rem 0.25rem; font-size: 8pt; text-align: left; vertical-align: top; word-wrap: break-word; }
+          
+          .printable-section {
+            padding: 0;
+            box-shadow: none;
+            border: none;
+            margin: 0;
+            width: 100%;
+          }
+          .printable-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            text-align: center;
+            border-bottom: 2px solid black;
+            padding-bottom: 0.5rem;
+          }
+
+          /* --- START: NEW FIX --- */
+          /* These rules "flatten" the container divs, allowing the table
+             to be the element that breaks across pages. */
+          .flow-root,
+          .overflow-x-auto,
+          .inline-block {
+            display: block !important;
+            width: 100% !important;
+            min-width: 100% !important;
+            overflow: visible !important;
+          }
+          /* --- END: NEW FIX --- */
+          
+          .printable-table {
+            width: 100%;
+            border-collapse: collapse;
+            page-break-inside: auto; /* Allow table to break */
+          }
+          
+          .printable-table thead {
+            display: table-header-group; /* Repeat header */
+          }
+          
+          .printable-table tbody tr {
+            page-break-inside: avoid; /* Keep rows together */
+          }
+
+          .printable-table th, .printable-table td {
+            border: 1px solid #000;
+            padding: 0.2rem 0.25rem;
+            font-size: 8pt;
+            text-align: left;
+            vertical-align: top;
+            word-wrap: break-word;
+          }
           .printable-table th { background-color: #eee; }
+          
           .col-cadet { width: 18%; } .col-co { width: 5%; } .col-offense { width: 25%; } .col-cat { width: 4%; } .col-demerits { width: 6%; } .col-submitter { width: 15%; } .col-notes { width: 22%; } .col-date { width: 5%; }
           .col-tour-cadet { width: 30%; } .col-tour-co { width: 15%; } .col-tour-total { width: 10%; } .col-tour-served { width: 15%; } .col-tour-notes { width: 30%; }
           .fill-in-box { height: 2.5em; }

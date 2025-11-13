@@ -1,13 +1,12 @@
 // in app/layout.tsx
 import './globals.css'
 import { Inter } from 'next/font/google'
-import SignOutButton from '@/app/components/SignOutButton'
 import Link from 'next/link'
 import { createClient } from '@/utils/supabase/server'
 import { ThemeProvider } from '@/app/components/ThemeProvider'
-import ThemeToggleButton from '@/app/components/ThemeToggleButton'
-import FeedbackButton from '@/app/components/FeedbackButton'
-
+// *** NEW: Import the one menu component ***
+import HeaderMenu from '@/app/components/HeaderMenu'
+// (We no longer need to import SignOutButton, ThemeToggleButton, or FeedbackButton here)
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -25,10 +24,8 @@ export default async function RootLayout({
   const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
   
-  // --- Initialize all permission variables with defaults ---
   let canManage = false
-  let isCommandantStaff = false
-  let roleLevel = 0 // <--- FIX: Added this initialization
+  let roleLevel = 0
   let logoText = "CadetFlow";
   let logoColor = "text-indigo-600 hover:text-indigo-700";
 
@@ -46,16 +43,13 @@ export default async function RootLayout({
     const company = (profile as any)?.company 
 
     if (roles) {
-      // --- FIX: Set the actual level here ---
       roleLevel = roles.default_role_level || 0;
-
       if (roles.can_manage_own_company_roster || roles.can_manage_all_rosters) {
         canManage = true
       }
-      isCommandantStaff = roles.role_name === 'Commandant' || roles.role_name === 'Deputy Commandant'
     }
 
-    if (isCommandantStaff || (roles?.role_name && roles.role_name.includes('TAC'))) {
+    if (roleLevel >= 50 || (roles?.role_name && roles.role_name.includes('TAC'))) {
       logoText = "TACFlow";
       logoColor = "text-red-600 hover:text-red-700";
     } else if (company?.company_name === 'Battalion Staff') { 
@@ -65,7 +59,6 @@ export default async function RootLayout({
   }
 
   return (
-    // *** FIX: Added className="dark" to prevent white flash on load ***
     <html lang="en" className="dark" suppressHydrationWarning>
       <body className={`${inter.className}`}>
         <ThemeProvider defaultTheme="dark">
@@ -74,41 +67,26 @@ export default async function RootLayout({
               
               <div className="flex justify-between items-center h-16">
                 
-                <div className="flex items-center space-x-4">
-                  <div className="flex-shrink-0">
-                    <Link 
-                      href="/" 
-                      className={`text-2xl font-bold ${logoColor} transition-colors`}
-                    >
-                      {logoText}
-                    </Link>
-                  </div>
-                  {user && <FeedbackButton />}
+                {/* Left Side: Logo */}
+                <div className="flex-shrink-0">
+                  <Link 
+                    href="/" 
+                    className={`text-2xl font-bold ${logoColor} transition-colors`}
+                  >
+                    {logoText}
+                  </Link>
                 </div>
                
-                <div className="flex items-center space-x-4">
-                  {/* Use the now-defined roleLevel variable */}
-                  {roleLevel >= 50 && (
-                    <Link 
-                      href="/reports/daily" 
-                      className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-600"
-                    >
-                      Daily Reports
-                    </Link>
-                  )}
-                  {canManage && (
-                    <Link 
-                      href="/manage" 
-                      className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-indigo-600"
-                    >
-                      Manage Roster
-                    </Link>
-                  )}
-                                  
-                  <ThemeToggleButton />
-                  <SignOutButton />
+                {/* Right Side: Replaced with new Menu */}
+                <div className="flex items-center">
+                  <HeaderMenu 
+                    isLoggedIn={!!user}
+                    canManage={canManage}
+                    showDailyReports={roleLevel >= 50}
+                  />
                 </div>
               </div>
+
             </nav>
           </header>
 
