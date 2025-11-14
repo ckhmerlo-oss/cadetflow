@@ -59,8 +59,10 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
-     * - auth/callback (our new password reset route)
+     *
+     * We have REMOVED 'auth/callback' from this list.
+     * We WANT the middleware to run on this route.
      */
-    '/((?!_next/static|_next/image|favicon.ico|auth/callback).*)',
+    '/((?!_next/static|_next/image|favicon.ico).*)',
   ],
 }
