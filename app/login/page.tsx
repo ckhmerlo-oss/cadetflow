@@ -5,7 +5,7 @@ import { createClient } from '@/utils/supabase/client'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { useRouter } from 'next/navigation'
-import { useEffect } from 'react' // Remove useState
+import { useEffect } from 'react' // We still need useEffect for post-login
 import { useTheme } from '@/app/components/ThemeProvider'
 
 export default function LoginPage() {
@@ -13,6 +13,7 @@ export default function LoginPage() {
   const router = useRouter()
   const { theme } = useTheme()
 
+  // This effect listens for a NEW sign-in OR a password recovery
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
@@ -21,10 +22,8 @@ export default function LoginPage() {
           router.refresh()
         }
         
-        // --- THIS IS THE FIX ---
-        // Listen for the password recovery event
+        // --- THIS IS THE CRITICAL FIX ---
         if (event === 'PASSWORD_RECOVERY') {
-          // Redirect the user to your update-password page
           router.push('/update-password')
         }
         // --- END OF FIX ---
