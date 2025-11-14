@@ -126,7 +126,7 @@ BEGIN
     SELECT 1 FROM public.profiles p
     JOIN public.roles r ON p.role_id = r.id
     WHERE p.id = auth.uid()
-      AND r.role_name IN ('Commandant', 'Deputy Commandant')
+      AND r.role_name IN ('Commandant', 'Deputy Commandant', 'Admin')
   ) THEN
     RAISE EXCEPTION 'You do not have permission to perform this action.';
   END IF;

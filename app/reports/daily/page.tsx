@@ -155,20 +155,13 @@ export default function DailyReportsPage() {
           body { background-color: white !important; color: black !important; }
           header, .no-print, .printable-section:not(.print-active) { display: none !important; }
           main { padding: 0; margin: 0; }
-          
-          .printable-section {
-            padding: 0;
-            box-shadow: none;
-            border: none;
-            margin: 0;
-            width: 100%;
-          }
-          .printable-section h2 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            text-align: center;
-            border-bottom: 2px solid black;
-            padding-bottom: 0.5rem;
+     
+          /* 1. Flatten the main page container so it doesn't add padding or max-width */
+    
+          .print-container {
+            max-width: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
           }
 
           /* --- START: NEW FIX --- */
@@ -214,7 +207,7 @@ export default function DailyReportsPage() {
         }
       `}</style>
 
-      <div className="max-w-7xl mx-auto p-2 sm:p-4 lg:p-6">
+      <div className="max-w-7xl mx-auto p-2 sm:p-4 lg:p-6 print-container">
         <div className="flex justify-between items-center no-print">
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Reports</h1>
           <button onClick={() => window.print()} className="py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700">Print {activeTab === 'green' ? 'Green Sheet' : 'Tour Sheet'}</button>
