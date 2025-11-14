@@ -4,6 +4,8 @@
 import { createClient } from '@/utils/supabase/client';
 import type { User } from '@supabase/supabase-js';
 import React, { useState, useEffect } from 'react';
+import { useFormState, useFormStatus } from 'react-dom'
+import { adminResetPassword } from './actions' // Import the new action
 
 type AcademicTerm = {
   id: string;
@@ -396,4 +398,92 @@ function AdminSection({ title, children }: { title: string, children: React.Reac
       </div>
     </section>
   );
+}
+
+// 2. ADD THIS COMPONENT for the submit button
+function ResetButton() {
+  const { pending } = useFormStatus()
+  return (
+    <button
+      type="submit"
+      disabled={pending}
+      className="mt-2 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-400"
+    >
+      {pending ? 'Resetting...' : 'Set New Password'}
+    </button>
+  )
+}
+
+// This is your main component
+export default function AdminClientComponent({
+  // ... (keep your existing props)
+}) {
+  
+  // 3. ADD THIS HOOK for the new form's state
+  const [resetState, resetFormAction] = useFormState(adminResetPassword, {
+    error: null,
+    success: false,
+  })
+
+  // ... (keep all your other existing code, hooks, and functions)
+
+  // 4. ADD THE NEW FORM inside your return()
+  return (
+    <div className="space-y-8">
+      {/* ... (Your existing Bulk Create Users form) ... */}
+      <div>
+        <h3 className="text-xl font-semibold text-white">
+          Manual Password Reset
+        </h3>
+        <form 
+          action={resetFormAction} 
+          className="mt-4 space-y-4 bg-gray-800 p-6 rounded-lg shadow"
+        >
+          <div>
+            <label 
+              htmlFor="userId" 
+              className="block text-sm font-medium text-gray-200"
+            >
+              User ID
+            </label>
+            <input
+              type="text"
+              name="userId"
+              id="userId"
+              required
+              className="mt-1 block w-full rounded-md border-gray-600 bg-gray-900 text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              placeholder="Enter the user's Auth User ID"
+            />
+          </div>
+          <div>
+            <label 
+              htmlFor="newPassword" 
+              className="block text-sm font-medium text-gray-200"
+            >
+              New Password
+            </label>
+            <input
+              type="password"
+              name="newPassword"
+              id="newPassword"
+              required
+              className="mt-1 block w-full rounded-md border-gray-600 bg-gray-900 text-gray-100 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+              placeholder="Min. 6 characters"
+            />
+          </div>
+
+          <ResetButton />
+
+          {resetState.error && (
+            <p className="text-sm text-red-400">{resetState.error}</p>
+          )}
+          {resetState.success && (
+            <p className="text-sm text-green-400">
+              Password reset successful!
+            </p>
+          )}
+        </form>
+      </div>
+    </div>
+  )
 }
