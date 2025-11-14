@@ -14,12 +14,6 @@ export default function UpdatePasswordPage() {
   const [success, setSuccess] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
-  // This page should only be accessible after a user has
-  // clicked a recovery link. We'll check for a user session.
-  // We can add a useEffect to check this, but for now, the form
-  // will simply fail if the user isn't logged in (which they are
-  // after clicking the link and being processed by the auth callback).
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setError(null)
@@ -37,8 +31,6 @@ export default function UpdatePasswordPage() {
 
     setIsLoading(true)
 
-    // The auth callback has set the session.
-    // We can now call updateUser with the new password.
     const { error } = await supabase.auth.updateUser({
       password: newPassword,
     })
@@ -47,9 +39,7 @@ export default function UpdatePasswordPage() {
       setError(error.message)
     } else {
       setSuccess(true)
-      // Sign out to force re-login with new password
       await supabase.auth.signOut()
-      // Redirect to login page after a short delay
       setTimeout(() => {
         router.push('/login?message=password_updated')
       }, 3000)

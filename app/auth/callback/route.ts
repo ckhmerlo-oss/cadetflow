@@ -3,7 +3,6 @@ import { createClient } from '@/utils/supabase/server'
 import { NextResponse } from 'next/server'
 import type { NextRequest } from 'next/server'
 
-// This function is the new "receiver" for all Supabase auth links.
 export async function GET(request: NextRequest) {
   const requestUrl = new URL(request.url)
   const code = requestUrl.searchParams.get('code')
@@ -15,11 +14,9 @@ export async function GET(request: NextRequest) {
 
     if (error) {
       console.error('Error exchanging code for session:', error.message)
-      // Redirect to an error page or home
       return NextResponse.redirect(new URL('/login?error=auth_error', request.url))
     }
     
-    // *** THIS IS THE IMPORTANT PART ***
     // Check if this was a password recovery link
     if (data.session?.user?.recovery_sent_at) {
       // It was a recovery link. Redirect to the update-password page.
