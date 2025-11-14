@@ -22,21 +22,23 @@ export async function adminResetPassword(prevState: any, formData: FormData) {
     // This uses the SERVICE_ROLE_KEY, which must never be exposed to the client.
     const supabaseAdmin = createClient(
       process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SERVICE_ROLE_KEY! // Ensure this is in your .env.local
+      process.env.SUPABASE_SERVICE_ROLE_KEY! // This is the new key you must add
     )
 
     const { error } = await supabaseAdmin.auth.admin.updateUserById(
       userId,
-      { password: newPassword } 
+      { password: newPassword }
     )
 
     if (error) {
       throw error
     }
 
+    // On success, return a success state
     return { error: null, success: true }
 
   } catch (error: any) {
+    // On failure, return the error message
     return { error: `Failed to reset password: ${error.message}`, success: false }
   }
 }
