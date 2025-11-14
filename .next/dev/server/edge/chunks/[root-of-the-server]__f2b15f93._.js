@@ -33,8 +33,6 @@ async function middleware(request) {
             headers: request.headers
         }
     });
-    // We need to create a new Supabase client
-    // on every request to refresh the session.
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$supabase$2f$ssr$2f$dist$2f$module$2f$createServerClient$2e$js__$5b$middleware$2d$edge$5d$__$28$ecmascript$29$__["createServerClient"])(("TURBOPACK compile-time value", "https://ejzvpknayvkggswejgkm.supabase.co"), ("TURBOPACK compile-time value", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVqenZwa25heXZrZ2dzd2VqZ2ttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE4Mzc1ODMsImV4cCI6MjA3NzQxMzU4M30.Bmf6dl5raXm1Y4Mrdctz6d8kfFOKkiCFmrm85YgKoJ8"), {
         cookies: {
             get (name) {
@@ -76,9 +74,6 @@ async function middleware(request) {
             }
         }
     });
-    // This line is the most important:
-    // It refreshes the session cookie for server-side
-    // components, solving the redirect loop.
     await supabase.auth.getSession();
     return response;
 }
@@ -89,7 +84,13 @@ const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
-     */ '/((?!_next/static|_next/image|favicon.ico).*)'
+     * - /login (the login page)
+     * - /auth/callback (the auth callback route)
+     * - /update-password (the password update page)
+     *
+     * This ensures the middleware ONLY runs on your
+     * protected application routes.
+     */ '/((?!_next/static|_next/image|favicon.ico|login|auth/callback|update-password).*)'
     ]
 };
 }),

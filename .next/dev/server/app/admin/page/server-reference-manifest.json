@@ -1,4 +1,20 @@
 {
-  "node": {},
+  "node": {
+    "608e5914a99cd89e1d3e43764c86a13361e1288d2c": {
+      "workers": {
+        "app/admin/page": {
+          "moduleId": "[project]/.next-internal/server/app/admin/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/admin/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "adminResetPassword",
+          "filename": "app/admin/actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/page": "action-browser"
+      },
+      "exportedName": "adminResetPassword",
+      "filename": "app/admin/actions.ts"
+    }
+  },
   "edge": {}
 }

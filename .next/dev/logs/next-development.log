@@ -1,33 +1,589 @@
-[00:00:04.760] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:05.449] Server  LOG      ✓ Ready in 4.2s
-[00:00:08.783] Server  LOG      ○ Compiling / ...
-[00:00:16.525] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:31.208] Server  LOG      ✓ Compiled in 223ms
-[00:00:36.139] Server  LOG      ✓ Compiled in 112ms
-[00:00:41.225] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:45.733] Server  LOG      ✓ Compiled in 184ms
-[00:00:51.825] Server  LOG      ✓ Compiled in 154ms
-[00:00:55.108] Server  LOG      ✓ Compiled in 171ms
-[00:01:34.838] Server  LOG      ✓ Compiled in 143ms
-[00:03:38.740] Server  LOG      ✓ Compiled in 137ms
-[00:03:39.455] Server  ERROR    ⨯ ReferenceError: is_site_admin is not defined
-[00:03:39.472] Server  ERROR    ⨯ ReferenceError: is_site_admin is not defined
-[00:03:39.842] Server  ERROR    ⨯ ReferenceError: is_site_admin is not defined
-[00:03:40.890] Browser ERROR   uncaughtError: ReferenceError: is_site_admin is not defined
-[00:03:53.396] Server  LOG      ✓ Compiled in 124ms
-[00:03:56.120] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:06:12.500] Server  LOG      ✓ Compiled in 66ms
-[00:06:13.163] Server  ERROR    ⨯ ReferenceError: profiles is not defined
-[00:06:13.480] Server  ERROR    ⨯ ReferenceError: profiles is not defined
-[00:06:13.863] Server  ERROR    ⨯ ReferenceError: profiles is not defined
-[00:06:14.600] Browser ERROR   uncaughtError: ReferenceError: profiles is not defined
-[00:06:23.657] Server  LOG      ✓ Compiled in 67ms
-[00:06:26.165] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:18:24.400] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:39:30.899] Server  LOG      ✓ Compiled in 47ms
-[00:39:31.895] Server  LOG      ✓ Compiled in 31ms
-[00:39:33.595] Server  LOG      ✓ Compiled in 29ms
-[00:39:44.822] Server  LOG      ✓ Compiled in 44ms
-[00:39:47.580] Server  LOG      ✓ Compiled in 25ms
-[00:39:57.778] Server  LOG      ✓ Compiled in 28ms
-[00:40:00.565] Server  LOG      ✓ Compiled in 27ms
+[00:00:03.134] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:03.406] Server  LOG      ✓ Ready in 2.5s
+[00:00:23.389] Server  LOG      ○ Compiling / ...
+[00:00:26.678] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:28.096] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:28.096] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:00:28.096] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1763127619176}
+[00:00:28.096] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:28.206] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1763127619184-6662047525841","route":"/","type":"TTFB","value":7013}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:00:32.291] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/admin color: rgb(120, 120, 120) color: inherit {"dp":"/admin","o":"http://localhost:3000/admin","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1763127623851}
+[00:00:38.553] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className","eventType":"keydown"},"href":"http://localhost:3000/admin","id":"v3-1763127619184-5543033624679","route":"/admin","type":"INP","value":40}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:03:16.769] Browser ERROR   ReactDOM.useFormState has been renamed to React.useActionState. Please update %s to use React.useActionState. AdminClientComponent
+[00:03:33.885] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className","eventType":"keydown"},"href":"http://localhost:3000/admin","id":"v3-1763127619184-5543033624679","route":"/admin","type":"INP","value":144}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:06:31.597] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"h2.text-2xl.font-semibold.text-gray-900.dark:text-white.border-b.dark:border-gray-700.pb-4.mb-6","eventType":"contextmenu"},"href":"http://localhost:3000/admin","id":"v3-1763127619184-5543033624679","route":"/admin","type":"INP","value":320}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:13:22.881] Server  LOG      ✓ Compiled in 165ms
+[00:13:22.921] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./app/admin/admin-client-component.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:13:22.923] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./app/admin/admin-client-component.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
+[00:13:24.013] Browser ERROR   Failed to fetch RSC payload for http://localhost:3000/admin. Falling back to browser navigation. {}
+[00:13:24.460] Server  ERROR    ⨯ Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+[00:13:24.994] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:13:25.168] Browser ERROR   uncaughtError: Error: Element type is invalid: expected a string (for built-in components) or a class/function (for composite components) but got: undefined. You likely forgot to export your component from the file it's defined in, or you might have mixed up default and named imports.
+
+Check the render method of `AdminPage`.
+[00:13:29.409] Server  LOG      ✓ Compiled in 59ms
+[00:13:30.654] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:13:30.777] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:13:30.777] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/admin","route":"/admin"}
+[00:13:30.777] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/admin color: rgb(120, 120, 120) color: inherit {"dp":"/admin","o":"http://localhost:3000/admin","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1763128402341}
+[00:13:30.777] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:13:32.291] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/admin","id":"v3-1763128402346-5015666167375","route":"/admin","type":"FCP","value":1016},{"href":"http://localhost:3000/admin","id":"v3-1763128402346-2644860923094","route":"/admin","type":"TTFB","value":621},{"attribution":{"eventTarget":"h2.mt-6.text-center.text-2xl.font-bold.tracking-tight.text-gray-900.dark:text-white"},"href":"http://localhost:3000/admin","id":"v3-1763128402346-1038450821737","route":"/admin","type":"LCP","value":1017}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:14:12.668] Server  LOG      ✓ Compiled in 45ms
+[00:14:13.694] Browser ERROR   ./app/admin/admin-client-component.tsx:436:1
+Parsing ecmascript source code failed
+  434 |       
+  435 |   )
+> 436 | } 
+      | ^
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:14:32.380] Browser ERROR   ./app/admin/admin-client-component.tsx:437:1
+Parsing ecmascript source code failed
+  435 |       
+  436 |   )
+> 437 | } 
+      | ^
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:14:33.577] Browser ERROR   ./app/admin/admin-client-component.tsx:437:11
+Parsing ecmascript source code failed
+  435 |         </form>
+  436 |       </div>
+> 437 |     </div>
+      |           ^
+> 438 |       </AdminSection>
+      | ^^^^^^^
+  439 |     </div>
+  440 |   );
+  441 | }
+
+Expected '</', got 'jsx text (
+      )'
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:14:36.125] Browser ERROR   ./app/admin/admin-client-component.tsx:437:1
+Parsing ecmascript source code failed
+  435 |       
+  436 |   )
+> 437 | } 
+      | ^
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:14:41.044] Browser ERROR   ./app/admin/admin-client-component.tsx:436:12
+Parsing ecmascript source code failed
+  434 |       </div>
+  435 |     </div>
+> 436 |           </div>
+      |            ^^^^^
+  437 |         )}
+  438 |         
+  439 |       </AdminSection>
+
+Unterminated regexp literal
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:14:52.983] Browser ERROR   ./app/admin/admin-client-component.tsx:490:1
+Parsing ecmascript source code failed
+  488 |       
+  489 |   )
+> 490 | } 
+      | ^
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:15:21.335] Browser ERROR   ./app/admin/admin-client-component.tsx:480:5
+Parsing ecmascript source code failed
+  478 |     error: null,
+  479 |     success: false,
+> 480 |   })
+      |     ^
+  481 |
+  482 |   // ... (keep all your other existing code, hooks, and functions)
+  483 |
+
+Expected '}', got '<eof>'
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:15:26.659] Browser ERROR   ./app/admin/admin-client-component.tsx:468:5
+Parsing ecmascript source code failed
+  466 |     error: null,
+  467 |     success: false,
+> 468 |   })
+      |     ^
+  469 |
+  470 |   // ... (keep all your other existing code, hooks, and functions)
+  471 |
+
+Expected '}', got '<eof>'
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:15:50.122] Browser ERROR   ./app/admin/admin-client-component.tsx:482:5
+Parsing ecmascript source code failed
+  480 |     error: null,
+  481 |     success: false,
+> 482 |   })
+      |     ^
+  483 |
+  484 |   // ... (keep all your other existing code, hooks, and functions)
+  485 |
+
+Expected '}', got '<eof>'
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:15:52.420] Browser ERROR   ./app/admin/admin-client-component.tsx:482:5
+Parsing ecmascript source code failed
+  480 |     error: null,
+  481 |     success: false,
+> 482 |   })
+      |     ^
+  483 |
+  484 |   // ... (keep all your other existing code, hooks, and functions)
+  485 |
+
+Expected '}', got '<eof>'
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:16:11.955] Browser ERROR   ./app/admin/admin-client-component.tsx:476:5
+Parsing ecmascript source code failed
+  474 | export default function AdminClientComponent({
+  475 |   // ... (keep your existing props)
+> 476 | }) {
+      |     ^
+  477 |   
+  478 |   
+  479 |
+
+Expected '}', got '<eof>'
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:16:23.111] Browser ERROR   ./app/admin/admin-client-component.tsx:480:5
+Parsing ecmascript source code failed
+  478 | export default function AdminClientComponent({
+  479 |   // ... (keep your existing props)
+> 480 | }) {
+      |     ^
+  481 |   
+  482 |   
+  483 |
+
+Expected '}', got '<eof>'
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:16:26.080] Server  LOG      ✓ Compiled in 229ms
+[00:16:26.820] Browser ERROR   ./app/admin/admin-client-component.tsx:481:5
+Parsing ecmascript source code failed
+  479 | export default function AdminClientComponent({
+  480 |   // ... (keep your existing props)
+> 481 | }) {
+      |     ^
+  482 |   
+  483 |   
+  484 |
+
+Expected '}', got '<eof>'
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:16:26.820] Browser ERROR   ./app/admin/page.tsx:4:1
+Export AdminSettingsClient doesn't exist in target module
+  2 | import { createClient } from '@/utils/supabase/server';
+  3 | import { redirect } from 'next/navigation';
+> 4 | import { AdminSettingsClient } from './admin-client-component';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | export default async function AdminPage() {
+  7 |   const supabase = createClient();
+
+The export AdminSettingsClient was not found in module [project]/app/admin/admin-client-component.tsx [app-rsc] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+[00:16:33.565] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className","eventType":"keydown"},"href":"http://localhost:3000/admin","id":"v3-1763128402346-7445859526558","route":"/admin","type":"INP","value":104}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:16:36.897] Server  ERROR    ⨯ ./app/admin/admin-client-component.tsx:481:5
+Parsing ecmascript source code failed
+  479 | export default function AdminClientComponent({
+  480 |   // ... (keep your existing props)
+> 481 | }) {
+      |     ^
+  482 |   
+  483 |   
+  484 |
+
+Expected '}', got '<eof>'
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+
+
+
+./app/admin/page.tsx:4:1
+Export AdminSettingsClient doesn't exist in target module
+  2 | import { createClient } from '@/utils/supabase/server';
+  3 | import { redirect } from 'next/navigation';
+> 4 | import { AdminSettingsClient } from './admin-client-component';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | export default async function AdminPage() {
+  7 |   const supabase = createClient();
+
+The export AdminSettingsClient was not found in module [project]/app/admin/admin-client-component.tsx [app-rsc] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+
+[00:16:38.309] Browser ERROR   ./app/admin/admin-client-component.tsx:481:5
+Parsing ecmascript source code failed
+  479 | export default function AdminClientComponent({
+  480 |   // ... (keep your existing props)
+> 481 | }) {
+      |     ^
+  482 |   
+  483 |   
+  484 |
+
+Expected '}', got '<eof>'
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:16:38.309] Browser ERROR   ./app/admin/page.tsx:4:1
+Export AdminSettingsClient doesn't exist in target module
+  2 | import { createClient } from '@/utils/supabase/server';
+  3 | import { redirect } from 'next/navigation';
+> 4 | import { AdminSettingsClient } from './admin-client-component';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | export default async function AdminPage() {
+  7 |   const supabase = createClient();
+
+The export AdminSettingsClient was not found in module [project]/app/admin/admin-client-component.tsx [app-rsc] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+[00:16:40.881] Browser ERROR   ./app/admin/admin-client-component.tsx:481:5
+Parsing ecmascript source code failed
+  479 | export default function AdminClientComponent({
+  480 |   // ... (keep your existing props)
+> 481 | }) {
+      |     ^
+  482 |   
+  483 |   
+  484 |
+
+Expected '}', got '<eof>'
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:16:40.881] Browser ERROR   ./app/admin/page.tsx:4:1
+Export AdminSettingsClient doesn't exist in target module
+  2 | import { createClient } from '@/utils/supabase/server';
+  3 | import { redirect } from 'next/navigation';
+> 4 | import { AdminSettingsClient } from './admin-client-component';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | export default async function AdminPage() {
+  7 |   const supabase = createClient();
+
+The export AdminSettingsClient was not found in module [project]/app/admin/admin-client-component.tsx [app-rsc] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+[00:16:40.881] Browser ERROR   ./app/admin/admin-client-component.tsx:481:5
+Parsing ecmascript source code failed
+  479 | export default function AdminClientComponent({
+  480 |   // ... (keep your existing props)
+> 481 | }) {
+      |     ^
+  482 |   
+  483 |   
+  484 |
+
+Expected '}', got '<eof>'
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:16:40.881] Browser ERROR   ./app/admin/page.tsx:4:1
+Export AdminSettingsClient doesn't exist in target module
+  2 | import { createClient } from '@/utils/supabase/server';
+  3 | import { redirect } from 'next/navigation';
+> 4 | import { AdminSettingsClient } from './admin-client-component';
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | export default async function AdminPage() {
+  7 |   const supabase = createClient();
+
+The export AdminSettingsClient was not found in module [project]/app/admin/admin-client-component.tsx [app-rsc] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+[00:16:40.881] Browser ERROR   uncaughtError: Error: ./app/admin/admin-client-component.tsx:481:5
+Parsing ecmascript source code failed
+  479 | export default function AdminClientComponent({
+  480 |   // ... (keep your existing props)
+> 481 | }) {
+      |     ^
+  482 |   
+  483 |   
+  484 |
+
+Expected '}', got '<eof>'
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+
+
+[00:17:07.107] Server  LOG      ✓ Compiled in 161ms
+[00:17:09.168] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:17:09.168] Browser ERROR   ReactDOM.useFormState has been renamed to React.useActionState. Please update %s to use React.useActionState. AdminSettingsClient
+[00:17:09.289] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:17:09.289] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/admin","route":"/admin"}
+[00:17:09.289] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/admin color: rgb(120, 120, 120) color: inherit {"dp":"/admin","o":"http://localhost:3000/admin","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1763128620862}
+[00:17:09.289] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:17:18.549] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/admin","id":"v3-1763128620863-3736714986493","route":"/admin","type":"FCP","value":1877},{"href":"http://localhost:3000/admin","id":"v3-1763128620863-1292767448594","route":"/admin","type":"TTFB","value":1176},{"attribution":{"eventTarget":"h2.mt-6.text-center.text-2xl.font-bold.tracking-tight.text-gray-900.dark:text-white"},"href":"http://localhost:3000/admin","id":"v3-1763128620863-1459877827643","route":"/admin","type":"LCP","value":1878},{"attribution":{"eventTarget":"button.flex.w-full.justify-center.rounded-md.border.border-transparent.bg-indigo-600.py-2.px-4.text-sm.font-medium.text-white.shadow-sm.hover:bg-indigo-700.focus:outline-none.focus:ring-2.focus:ring-indigo-500.focus:ring-offset-2.disabled:bg-gray-400","eventType":"pointerdown"},"href":"http://localhost:3000/admin","id":"v3-1763128620863-6986664968361","route":"/admin","type":"FID","value":4},{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className>script>nextjs-portal","eventType":"keydown"},"href":"http://localhost:3000/admin","id":"v3-1763128620863-1756331342109","route":"/admin","type":"INP","value":80}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:17:42.393] Server  LOG      ✓ Compiled in 50ms
+[00:18:55.944] Server  LOG      ✓ Compiled in 42ms
+[00:18:56.971] Browser ERROR   ./app/admin/admin-client-component.tsx:457:5
+Parsing ecmascript source code failed
+  455 |         
+  456 |       </AdminSection>
+> 457 |     </div>
+      |     ^
+  458 |   );
+  459 | }
+  460 |
+
+Expression expected
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:18:56.971] Browser ERROR   ./app/admin/admin-client-component.tsx:454:10
+Parsing ecmascript source code failed
+  452 |         </form>
+  453 |           </div>
+> 454 |         )}
+      |          ^
+  455 |         
+  456 |       </AdminSection>
+  457 |     </div>
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:18:56.971] Browser ERROR   ./app/admin/admin-client-component.tsx:457:6
+Parsing ecmascript source code failed
+  455 |         
+  456 |       </AdminSection>
+> 457 |     </div>
+      |      ^^^^^
+  458 |   );
+  459 | }
+  460 |
+
+Unterminated regexp literal
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:19:00.264] Browser ERROR   ./app/admin/admin-client-component.tsx:457:5
+Parsing ecmascript source code failed
+  455 |         
+  456 |       </AdminSection>
+> 457 |     </div>
+      |     ^
+  458 |   );
+  459 | }
+  460 |
+
+Expression expected
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:19:00.265] Browser ERROR   ./app/admin/admin-client-component.tsx:454:10
+Parsing ecmascript source code failed
+  452 |             </form>
+  453 |           </div>
+> 454 |         )}
+      |          ^
+  455 |         
+  456 |       </AdminSection>
+  457 |     </div>
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:19:00.265] Browser ERROR   ./app/admin/admin-client-component.tsx:457:6
+Parsing ecmascript source code failed
+  455 |         
+  456 |       </AdminSection>
+> 457 |     </div>
+      |      ^^^^^
+  458 |   );
+  459 | }
+  460 |
+
+Unterminated regexp literal
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:19:14.216] Browser ERROR   ./app/admin/admin-client-component.tsx:457:5
+Parsing ecmascript source code failed
+  455 |         
+  456 |       </AdminSection>
+> 457 |     </div>
+      |     ^
+  458 |   );
+  459 | }
+  460 |
+
+Expression expected
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:19:14.217] Browser ERROR   ./app/admin/admin-client-component.tsx:454:10
+Parsing ecmascript source code failed
+  452 |             </form>
+  453 |           </div>
+> 454 |         )}
+      |          ^
+  455 |         
+  456 |       </AdminSection>
+  457 |     </div>
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:19:14.217] Browser ERROR   ./app/admin/admin-client-component.tsx:457:6
+Parsing ecmascript source code failed
+  455 |         
+  456 |       </AdminSection>
+> 457 |     </div>
+      |      ^^^^^
+  458 |   );
+  459 | }
+  460 |
+
+Unterminated regexp literal
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:19:17.826] Server  LOG      ✓ Compiled in 67ms
+[00:19:18.720] Browser ERROR   ./app/admin/admin-client-component.tsx:455:5
+Parsing ecmascript source code failed
+  453 |         
+  454 |       </AdminSection>
+> 455 |     </div>
+      |     ^
+  456 |   );
+  457 | }
+  458 |
+
+Expression expected
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:19:18.720] Browser ERROR   ./app/admin/admin-client-component.tsx:399:14
+Parsing ecmascript source code failed
+  397 |                   ))}
+  398 |                 </ul>
+> 399 |             )}
+      |              ^
+  400 |             <h3 className="text-xl font-semibold text-white">
+  401 |               Manual Password Reset
+  402 |             </h3>
+
+Unexpected token. Did you mean `{'}'}` or `&rbrace;`?
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:19:18.720] Browser ERROR   ./app/admin/admin-client-component.tsx:455:6
+Parsing ecmascript source code failed
+  453 |         
+  454 |       </AdminSection>
+> 455 |     </div>
+      |      ^^^^^
+  456 |   );
+  457 | }
+  458 |
+
+Unterminated regexp literal
+
+Import trace:
+  Server Component:
+    ./app/admin/admin-client-component.tsx
+    ./app/admin/page.tsx
+[00:21:43.047] Server  LOG      ✓ Compiled in 54ms
+[00:23:11.323] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"keyup"},"href":"http://localhost:3000/admin","id":"v3-1763128620863-1756331342109","route":"/admin","type":"INP","value":1040}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
