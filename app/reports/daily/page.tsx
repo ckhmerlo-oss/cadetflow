@@ -138,7 +138,7 @@ export default function DailyReportsPage() {
   // --- PERMISSIONS LOGIC ---
   // 1. Can VIEW page: Level >= 50 (Handled by SQL RLS, checked in useEffect)
   // 2. Can POST Green Sheet: ONLY Commandant Staff
-  const canPost = ['Commandant', 'Deputy Commandant'].includes(userRole);
+  const canPost = ['Commandant', 'Deputy Commandant', 'Admin'].includes(userRole);
   // 3. Can LOG Tours: TAC Officers OR Commandant Staff
   const canLog = userRole.includes('TAC') || canPost;
 
