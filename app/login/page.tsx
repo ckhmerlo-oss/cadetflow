@@ -22,6 +22,13 @@ export default function LoginPage() {
           router.push('/')
           router.refresh()
         }
+
+        // Listen for the password recovery event
+        if (event === 'PASSWORD_RECOVERY') {
+          // Redirect the user to your update-password page
+          router.push('/update-password')
+          
+        }
       }
     )
     return () => {
