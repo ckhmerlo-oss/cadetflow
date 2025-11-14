@@ -2,6 +2,7 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
 
+// ... (all the middleware code you already have) ...
 export async function middleware(request: NextRequest) {
   let response = NextResponse.next({
     request: {
@@ -9,7 +10,10 @@ export async function middleware(request: NextRequest) {
     },
   })
 
+  // We need to create a new Supabase client
+  // on every request to refresh the session.
   const supabase = createServerClient(
+    // These ENV variables must be set in your .env.local file
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
@@ -39,14 +43,17 @@ export async function middleware(request: NextRequest) {
     }
   )
 
-  // This will NOW ONLY run on your protected app routes
+  // This line is the most important:
+  // It refreshes the session cookie for server-side
+  // components, solving the redirect loop.
   await supabase.auth.getSession()
 
   return response
 }
 
+
 // --- THIS IS THE FIX ---
-// Update the matcher to exclude all auth and static routes
+// Replace your existing config with this:
 export const config = {
   matcher: [
     /*
@@ -54,12 +61,12 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
-     * - /login (the login page itself)
+     * - /login (the login page)
      * - /auth/callback (the auth callback route)
      * - /update-password (the password update page)
      *
-     * This ensures the middleware only runs on
-     * protected application routes.
+     * This ensures the middleware ONLY runs on your
+     * protected application routes and ignores auth flows.
      */
     '/((?!_next/static|_next/image|favicon.ico|login|auth/callback|update-password).*)',
   ],
