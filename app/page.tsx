@@ -1,4 +1,3 @@
-// in app/page.tsx
 import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
@@ -40,21 +39,23 @@ export default async function Dashboard() {
 
   if (profile && profile.company_id === null && profile.first_name === 'New') return redirect('/onboarding')
 
+  // Handle Types safely
   const role = profile?.role as any
   const role_level = role?.default_role_level || 0
-
-  if (role_level === 10) {
-    redirect(`/ledger/${user.id}`);
-  }
-  
   const canManageAll = role?.can_manage_all_rosters || false
   const isFaculty = role_level >= 50 || canManageAll
   const groupName = role?.approval_group?.group_name || 'Personal Dashboard'
 
-  // 2. Fetch Data
+  // Redirect low-level roles if needed
+  if (role_level === 10) {
+    redirect(`/ledger/${user.id}`);
+  }
+
+  // 2. Fetch Data (Using the logic from Live Site)
   const { data: rpcData, error } = await supabase.rpc('get_my_dashboard_reports')
-  const allInvolvedReports: ReportWithNames[] = rpcData || [];
   if (error) console.error("Error fetching reports:", error.message)
+  
+  const allInvolvedReports: ReportWithNames[] = rpcData || [];
 
   let allPendingReports: ReportWithNames[] = [];
   let cadetStats: CadetStats | null = null; 
@@ -92,7 +93,8 @@ export default async function Dashboard() {
   const mySubmittedReports = allInvolvedReports.filter(report => report.submitted_by === user.id) || []
 
   return (
-    <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+    // Removed "opacity-0" here to fix the blank screen issue
+    <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 animate-in fade-in duration-500">
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Welcome, {profile?.first_name || user.email}</h1>
@@ -111,22 +113,58 @@ export default async function Dashboard() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="md:col-span-2"><div className="grid grid-cols-1 md:grid-cols-3 gap-4"><CadetStatsHeader stats={cadetStats} /></div></div>
           <div className="bg-sky-300 dark:bg-indigo-900 rounded-lg shadow-sm flex overflow-hidden">
-            <Link href={`/ledger/${user.id}`} className="flex-1 flex items-center justify-center p-6 text-lg font-bold text-white hover:bg-sky-500 dark:hover:bg-indigo-600 transition-colors w-full h-full text-center">All Reports</Link>
+            <Link href={`/ledger/${user.id}`} className="flex-1 flex items-center justify-center p-6 text-lg font-bold text-white hover:bg-sky-500 dark:hover:bg-indigo-600 transition-colors w-full h-full text-center">
+                View Full Record &rarr;
+            </Link>
           </div>
         </div>
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
-        {(role_level >= 15) && <DashboardSection title="Action Items" items={actionItems} emptyMessage="No action items in your queue. Great job!" showSubject />}
-        {isFaculty && canManageAll && <DashboardSection title="All In-Progress Reports" items={allPendingReports} emptyMessage="No reports pending approval." showSubject />}
-        {(role_level >= 15) && <DashboardSection title="Submitted Reports" items={mySubmittedReports} emptyMessage="You haven't submitted any reports yet." showSubject />}
-        {isFaculty && <DashboardSection title="Completed Archive" items={allCompletedReports} emptyMessage="No completed reports found." showSubject />}
+        {(role_level >= 15) && (
+            <DashboardSection 
+                title="Action Items" 
+                items={actionItems} 
+                emptyMessage="No action items in your queue. Great job!" 
+                showSubject 
+                viewAllHref="/action-items"
+            />
+        )}
+        
+        {isFaculty && canManageAll && (
+            <DashboardSection 
+                title="All In-Progress Reports" 
+                items={allPendingReports} 
+                emptyMessage="No reports pending approval." 
+                showSubject 
+            />
+        )}
+
+        {(role_level >= 15) && (
+            <DashboardSection 
+                title="Submitted Reports" 
+                items={mySubmittedReports} 
+                emptyMessage="You haven't submitted any reports yet." 
+                showSubject 
+            />
+        )}
+
+        {isFaculty && (
+            <DashboardSection 
+                title="Completed Archive" 
+                items={allCompletedReports} 
+                emptyMessage="No completed reports found." 
+                showSubject 
+                // viewAllHref="/archive" // Uncomment when archive page is ready
+            />
+        )}
       </div>
     </div>
   )
 }
 
 // --- Helper Components ---
+
 function CadetStatsHeader({ stats }: { stats: CadetStats }) {
   return (
     <>
@@ -146,12 +184,54 @@ function StatCard({ title, value }: { title: string, value: string | number }) {
   )
 }
 
-function DashboardSection({ title, items, emptyMessage, showSubject = false, showSubmitter = false }: { title: string; items: ReportWithNames[]; emptyMessage: string; showSubject?: boolean; showSubmitter?: boolean; }) {
+// UPDATED: Accepts viewAllHref to create clickable headers
+function DashboardSection({ 
+    title, 
+    items, 
+    emptyMessage, 
+    showSubject = false, 
+    showSubmitter = false,
+    viewAllHref 
+}: { 
+    title: string; 
+    items: ReportWithNames[]; 
+    emptyMessage: string; 
+    showSubject?: boolean; 
+    showSubmitter?: boolean;
+    viewAllHref?: string;
+}) {
   return (
-    <div className="space-y-4">
-      <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">{title} ({items?.length || 0})</h2>
-      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm space-y-3 h-96 overflow-y-auto">
-        {items && items.length > 0 ? items.map(report => <ReportCard key={report.id} report={report} showSubject={showSubject} showSubmitter={showSubmitter} />) : <p className="text-gray-500 dark:text-gray-400 p-4">{emptyMessage}</p>}
+    <div className="space-y-4 flex flex-col h-full">
+      <div className="flex justify-between items-end">
+          <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
+            {viewAllHref ? (
+                <Link href={viewAllHref} className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                    {title}
+                </Link>
+            ) : title}
+            <span className="ml-2 text-lg text-gray-500 font-normal">({items?.length || 0})</span>
+          </h2>
+          
+          {viewAllHref && (
+            <Link href={viewAllHref} className="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:underline pb-1">
+                View all &rarr;
+            </Link>
+          )}
+      </div>
+      
+      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm space-y-3 h-96 overflow-y-auto flex-grow">
+        {items && items.length > 0 ? (
+            items.map(report => (
+                <ReportCard 
+                    key={report.id} 
+                    report={report} 
+                    showSubject={showSubject} 
+                    showSubmitter={showSubmitter} 
+                />
+            ))
+        ) : (
+            <p className="text-gray-500 dark:text-gray-400 p-4">{emptyMessage}</p>
+        )}
       </div>
     </div>
   )
@@ -173,28 +253,24 @@ function ReportCard({ report, showSubject, showSubmitter }: { report: ReportWith
   const formatStatus = (status: string) => status.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
   const title = report.offense_type?.offense_name || 'Untitled Report';
 
-  // *** NEW HELPER: Get color-coded appeal badge ***
   const getAppealBadge = (status: string) => {
       if (status === 'approved') {
-          return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">Appeal Granted</span>
+          return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 ml-2">Appeal Granted</span>
       } else if (status === 'rejected_final') {
-          return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200">Appeal Denied</span>
+          return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200 ml-2">Appeal Denied</span>
       } else {
-           // Pending or intermediate rejected states
-           return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">Appeal In Progress</span>
+           return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 ml-2">Appeal In Progress</span>
       }
   }
 
   return (
     <Link 
       href={`/report/${report.id}`} 
-      // *** REVERTED: Removed 'appealStyle' custom background/border ***
       className="block p-4 border border-gray-200 dark:border-gray-700 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
     >
       <div className="flex justify-between items-center">
-        <div className="truncate flex items-center">
-             <span className="font-medium text-indigo-600 dark:text-indigo-400 truncate mr-2">{title}</span>
-             {/* *** UPDATED: Use new badge helper *** */}
+        <div className="truncate flex items-center flex-1 mr-2">
+             <span className="font-medium text-indigo-600 dark:text-indigo-400 truncate">{title}</span>
              {report.appeal_status && getAppealBadge(report.appeal_status)}
         </div>
         <span className={`text-xs font-medium px-2 py-0.5 rounded-full flex-shrink-0 ${getStatusColor()}`}>

@@ -1,7 +1,7 @@
 // in app/admin/page.tsx
 import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
-import { AdminSettingsClient } from './admin-client-component';
+import { AdminSettingsClient } from './AdminClientComponent';
 
 export default async function AdminPage() {
   const supabase = createClient();

@@ -8,8 +8,11 @@ module.exports = [
     ()=>adminResetPassword
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/build/webpack/loaders/next-flight-loader/server-reference.js [app-rsc] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$supabase$2f$supabase$2d$js$2f$dist$2f$module$2f$index$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/@supabase/supabase-js/dist/module/index.js [app-rsc] (ecmascript) <locals>");
+// We need TWO clients. One to check the user, one to perform the admin task.
+var __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/utils/supabase/server.ts [app-rsc] (ecmascript)"); // Standard server client
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$supabase$2f$supabase$2d$js$2f$dist$2f$module$2f$index$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/@supabase/supabase-js/dist/module/index.js [app-rsc] (ecmascript) <locals>"); // Admin client
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$action$2d$validate$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/build/webpack/loaders/next-flight-loader/action-validate.js [app-rsc] (ecmascript)");
+;
 ;
 ;
 async function adminResetPassword(prevState, formData) {
@@ -28,22 +31,38 @@ async function adminResetPassword(prevState, formData) {
         };
     }
     try {
-        // Create the admin client *inside* the server action
-        // This uses the SERVICE_ROLE_KEY, which must never be exposed to the client.
+        // === START OF FIX ===
+        // 1. Create a standard client to check the CALLER'S identity
+        const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
+        // 2. Get the currently logged-in user's data
+        const { data: { user } } = await supabase.auth.getUser();
+        if (!user) {
+            throw new Error('Not authenticated');
+        }
+        // 3. Check their role level from the profiles table
+        const { data: profile, error: profileError } = await supabase.from('profiles').select('role_level').eq('id', user.id).single();
+        if (profileError) {
+            throw new Error('Could not verify user profile.');
+        }
+        // 4. Enforce security! (Using 105 for "Admin" from your roles.json)
+        if (profile.role_level < 105) {
+            throw new Error('Permission denied: You are not an administrator.');
+        }
+        // === END OF FIX ===
+        // 5. Only if the check passes, create the admin client
         const supabaseAdmin = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$supabase$2f$supabase$2d$js$2f$dist$2f$module$2f$index$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$locals$3e$__["createClient"])(("TURBOPACK compile-time value", "https://ejzvpknayvkggswejgkm.supabase.co"), process.env.SUPABASE_SERVICE_ROLE_KEY);
+        // 6. Perform the admin action
         const { error } = await supabaseAdmin.auth.admin.updateUserById(userId, {
             password: newPassword
         });
         if (error) {
             throw error;
         }
-        // On success, return a success state
         return {
             error: null,
             success: true
         };
     } catch (error) {
-        // On failure, return the error message
         return {
             error: `Failed to reset password: ${error.message}`,
             success: false
