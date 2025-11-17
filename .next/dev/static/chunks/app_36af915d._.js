@@ -2,7 +2,6 @@
 "[project]/app/manage/RosterClient.tsx [app-client] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
-// in app/manage/RosterClient.tsx
 __turbopack_context__.s([
     "default",
     ()=>RosterClient
@@ -16,7 +15,6 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 // --- End Type Definitions ---
-// Sort order for Conduct filter
 const CONDUCT_ORDER = [
     'Exemplary',
     'Commendable',
@@ -38,20 +36,17 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
     const handleRowClick = (cadetId)=>{
         setOpenCadetId((prevId)=>prevId === cadetId ? null : cadetId);
     };
-    // --- Data Logic: Filter & Sort ---
     const filteredAndSortedCadets = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
         "RosterClient.useMemo[filteredAndSortedCadets]": ()=>{
             let filteredData = [
                 ...initialData
             ];
-            // 1. Filter by Search Term
             if (searchTerm) {
                 const lowerSearch = searchTerm.toLowerCase();
                 filteredData = filteredData.filter({
                     "RosterClient.useMemo[filteredAndSortedCadets]": (cadet)=>cadet.first_name.toLowerCase().includes(lowerSearch) || cadet.last_name.toLowerCase().includes(lowerSearch) || cadet.cadet_rank && cadet.cadet_rank.toLowerCase().includes(lowerSearch) || cadet.room_number && cadet.room_number.toLowerCase().includes(lowerSearch)
                 }["RosterClient.useMemo[filteredAndSortedCadets]"]);
             }
-            // 2. Filter by Dropdowns
             if (filterCompany !== 'all') {
                 filteredData = filteredData.filter({
                     "RosterClient.useMemo[filteredAndSortedCadets]": (cadet)=>cadet.company_name === filterCompany
@@ -67,7 +62,6 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                     "RosterClient.useMemo[filteredAndSortedCadets]": (cadet)=>cadet.conduct_status === filterConduct
                 }["RosterClient.useMemo[filteredAndSortedCadets]"]);
             }
-            // 3. Sort
             filteredData.sort({
                 "RosterClient.useMemo[filteredAndSortedCadets]": (a, b)=>{
                     const aValue = a[sortConfig.key];
@@ -93,7 +87,6 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
         filterConduct,
         sortConfig
     ]);
-    // --- Sort Handler ---
     const requestSort = (key)=>{
         let direction = 'ascending';
         if (sortConfig.key === key && sortConfig.direction === 'ascending') {
@@ -108,15 +101,13 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
         if (sortConfig.key !== key) return null;
         return sortConfig.direction === 'ascending' ? ' ▲' : ' ▼';
     };
-    // --- Other Helpers ---
     const getConductColor = (status)=>{
         if (status === 'Exemplary') return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200';
         if (status === 'Commendable') return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
         if (status === 'Satisfactory') return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200';
         if (status === 'Deficient') return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200';
-        return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'; // Unsatisfactory
+        return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
     };
-    // --- NEW: Appeal Badge Helper ---
     const getAppealBadge = (status)=>{
         if (!status) return null;
         switch(status){
@@ -126,7 +117,7 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                     children: "Granted"
                 }, void 0, false, {
                     fileName: "[project]/app/manage/RosterClient.tsx",
-                    lineNumber: 142,
+                    lineNumber: 133,
                     columnNumber: 16
                 }, this);
             case 'rejected_final':
@@ -135,7 +126,7 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                     children: "Denied"
                 }, void 0, false, {
                     fileName: "[project]/app/manage/RosterClient.tsx",
-                    lineNumber: 144,
+                    lineNumber: 135,
                     columnNumber: 16
                 }, this);
             case 'pending_issuer':
@@ -146,12 +137,48 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                     children: "Pending"
                 }, void 0, false, {
                     fileName: "[project]/app/manage/RosterClient.tsx",
-                    lineNumber: 148,
+                    lineNumber: 139,
                     columnNumber: 16
                 }, this);
             default:
-                return null; // Don't show 'rejected_by_issuer' etc.
+                return null;
         }
+    };
+    // <<< NEW: Helper for recent report status >>>
+    const getRecentReportStatus = (report)=>{
+        const status = report.status;
+        if (status === 'pulled') return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+            className: "text-xs text-gray-500 dark:text-gray-400",
+            children: "Pulled"
+        }, void 0, false, {
+            fileName: "[project]/app/manage/RosterClient.tsx",
+            lineNumber: 148,
+            columnNumber: 37
+        }, this);
+        if (status === 'rejected') return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+            className: "text-xs text-red-600 dark:text-red-400",
+            children: "Rejected"
+        }, void 0, false, {
+            fileName: "[project]/app/manage/RosterClient.tsx",
+            lineNumber: 149,
+            columnNumber: 39
+        }, this);
+        if (status === 'completed') return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+            className: "text-xs text-green-600 dark:text-green-400",
+            children: "Approved"
+        }, void 0, false, {
+            fileName: "[project]/app/manage/RosterClient.tsx",
+            lineNumber: 150,
+            columnNumber: 40
+        }, this);
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+            className: "text-xs text-yellow-600 dark:text-yellow-400",
+            children: status.replace('_', ' ')
+        }, void 0, false, {
+            fileName: "[project]/app/manage/RosterClient.tsx",
+            lineNumber: 151,
+            columnNumber: 12
+        }, this);
     };
     const formatTimeAgo = (dateStr)=>{
         const date = new Date(dateStr);
@@ -169,7 +196,6 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
         if (interval > 1) return Math.floor(interval) + "m ago";
         return Math.floor(seconds) + "s ago";
     };
-    // --- Unique Filter Options ---
     const uniqueCompanies = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
         "RosterClient.useMemo[uniqueCompanies]": ()=>[
                 ...new Set(initialData.map({
@@ -192,7 +218,6 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
     }["RosterClient.useMemo[uniqueGrades]"], [
         initialData
     ]);
-    // FIX: Sort conduct levels by delinquency, not alphabetically
     const uniqueConducts = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
         "RosterClient.useMemo[uniqueConducts]": ()=>{
             const presentStatuses = new Set(initialData.map({
@@ -219,7 +244,7 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                         className: "w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-800 dark:text-white"
                     }, void 0, false, {
                         fileName: "[project]/app/manage/RosterClient.tsx",
-                        lineNumber: 192,
+                        lineNumber: 189,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -232,7 +257,7 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                 children: "All Companies"
                             }, void 0, false, {
                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                lineNumber: 204,
+                                lineNumber: 201,
                                 columnNumber: 11
                             }, this),
                             uniqueCompanies.map((co)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -240,13 +265,13 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                     children: co
                                 }, co, false, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 205,
+                                    lineNumber: 202,
                                     columnNumber: 38
                                 }, this))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/manage/RosterClient.tsx",
-                        lineNumber: 199,
+                        lineNumber: 196,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -259,7 +284,7 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                 children: "All Grades"
                             }, void 0, false, {
                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                lineNumber: 212,
+                                lineNumber: 209,
                                 columnNumber: 11
                             }, this),
                             uniqueGrades.map((g)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -267,13 +292,13 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                     children: g
                                 }, g, false, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 213,
+                                    lineNumber: 210,
                                     columnNumber: 34
                                 }, this))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/manage/RosterClient.tsx",
-                        lineNumber: 207,
+                        lineNumber: 204,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -286,7 +311,7 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                 children: "All Conduct"
                             }, void 0, false, {
                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                lineNumber: 220,
+                                lineNumber: 217,
                                 columnNumber: 11
                             }, this),
                             uniqueConducts.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -294,19 +319,19 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                     children: c
                                 }, c, false, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 221,
+                                    lineNumber: 218,
                                     columnNumber: 36
                                 }, this))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/manage/RosterClient.tsx",
-                        lineNumber: 215,
+                        lineNumber: 212,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/manage/RosterClient.tsx",
-                lineNumber: 191,
+                lineNumber: 188,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
@@ -326,7 +351,7 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 229,
+                                    lineNumber: 225,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -339,7 +364,7 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 232,
+                                    lineNumber: 228,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -352,7 +377,7 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 235,
+                                    lineNumber: 231,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -365,7 +390,7 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 238,
+                                    lineNumber: 234,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -378,7 +403,7 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 241,
+                                    lineNumber: 237,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -391,7 +416,7 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 244,
+                                    lineNumber: 240,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -402,23 +427,23 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                         children: "Expand"
                                     }, void 0, false, {
                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                        lineNumber: 247,
+                                        lineNumber: 243,
                                         columnNumber: 71
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 247,
+                                    lineNumber: 243,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/manage/RosterClient.tsx",
-                            lineNumber: 228,
+                            lineNumber: 224,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/manage/RosterClient.tsx",
-                        lineNumber: 227,
+                        lineNumber: 223,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -434,7 +459,7 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                                 children: cadet.cadet_rank || '-'
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                lineNumber: 257,
+                                                lineNumber: 253,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -446,7 +471,7 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                lineNumber: 258,
+                                                lineNumber: 254,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -454,7 +479,7 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                                 children: cadet.company_name || '-'
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                lineNumber: 259,
+                                                lineNumber: 255,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -462,7 +487,7 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                                 children: cadet.grade_level || '-'
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                lineNumber: 260,
+                                                lineNumber: 256,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -470,7 +495,7 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                                 children: cadet.room_number || '-'
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                lineNumber: 261,
+                                                lineNumber: 257,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -480,12 +505,12 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                                     children: cadet.conduct_status
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                                    lineNumber: 263,
+                                                    lineNumber: 259,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                lineNumber: 262,
+                                                lineNumber: 258,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -495,18 +520,18 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                                     children: openCadetId === cadet.id ? 'Hide' : 'Details'
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                                    lineNumber: 268,
+                                                    lineNumber: 264,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                lineNumber: 267,
+                                                lineNumber: 263,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                        lineNumber: 253,
+                                        lineNumber: 249,
                                         columnNumber: 15
                                     }, this),
                                     openCadetId === cadet.id && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
@@ -525,7 +550,7 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                                                 children: "Key Metrics"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                lineNumber: 281,
+                                                                lineNumber: 277,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -536,12 +561,37 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                                                         children: "Term Demerits"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 283,
+                                                                        lineNumber: 279,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                         className: "text-sm font-bold text-gray-900 dark:text-white",
                                                                         children: cadet.term_demerits
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/app/manage/RosterClient.tsx",
+                                                                        lineNumber: 280,
+                                                                        columnNumber: 27
+                                                                    }, this)
+                                                                ]
+                                                            }, void 0, true, {
+                                                                fileName: "[project]/app/manage/RosterClient.tsx",
+                                                                lineNumber: 278,
+                                                                columnNumber: 25
+                                                            }, this),
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "flex justify-between p-3 bg-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600",
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                        className: "text-sm font-medium text-gray-600 dark:text-gray-400",
+                                                                        children: "Year Demerits"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/app/manage/RosterClient.tsx",
+                                                                        lineNumber: 283,
+                                                                        columnNumber: 27
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                        className: "text-sm font-bold text-gray-900 dark:text-white",
+                                                                        children: cadet.year_demerits
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
                                                                         lineNumber: 284,
@@ -558,15 +608,15 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                                                 children: [
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                         className: "text-sm font-medium text-gray-600 dark:text-gray-400",
-                                                                        children: "Year Demerits"
+                                                                        children: "Tour Balance"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
                                                                         lineNumber: 287,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                        className: "text-sm font-bold text-gray-900 dark:text-white",
-                                                                        children: cadet.year_demerits
+                                                                        className: `text-sm font-bold ${cadet.has_star_tours || cadet.current_tour_balance > 0 ? 'text-red-600 dark:text-red-400' : 'text-gray-900 dark:text-white'}`,
+                                                                        children: cadet.has_star_tours ? '*' : cadet.current_tour_balance
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
                                                                         lineNumber: 288,
@@ -577,36 +627,11 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
                                                                 lineNumber: 286,
                                                                 columnNumber: 25
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                className: "flex justify-between p-3 bg-white dark:bg-gray-700 rounded-lg border border-gray-200 dark:border-gray-600",
-                                                                children: [
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                        className: "text-sm font-medium text-gray-600 dark:text-gray-400",
-                                                                        children: "Tour Balance"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 291,
-                                                                        columnNumber: 27
-                                                                    }, this),
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                        className: `text-sm font-bold ${cadet.has_star_tours || cadet.current_tour_balance > 0 ? 'text-red-600 dark:text-red-400' : 'text-gray-900 dark:text-white'}`,
-                                                                        children: cadet.has_star_tours ? '*' : cadet.current_tour_balance
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 292,
-                                                                        columnNumber: 27
-                                                                    }, this)
-                                                                ]
-                                                            }, void 0, true, {
-                                                                fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                lineNumber: 290,
-                                                                columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                        lineNumber: 280,
+                                                        lineNumber: 276,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -617,7 +642,7 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                                                 children: "Recent Reports"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                lineNumber: 300,
+                                                                lineNumber: 296,
                                                                 columnNumber: 25
                                                             }, this),
                                                             cadet.recent_reports && cadet.recent_reports.length > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -628,28 +653,27 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                                 children: [
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                                        className: "font-medium text-gray-800 dark:text-gray-200 flex items-center",
+                                                                                        className: `font-medium text-gray-800 dark:text-gray-200 flex items-center ${report.status === 'pulled' ? 'line-through' : ''}`,
                                                                                         children: [
                                                                                             report.offense_name || 'Report',
                                                                                             getAppealBadge(report.appeal_status)
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                        lineNumber: 306,
+                                                                                        lineNumber: 302,
                                                                                         columnNumber: 35
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                                        className: "text-xs text-gray-500 dark:text-gray-400",
-                                                                                        children: report.status
+                                                                                        children: getRecentReportStatus(report)
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                        lineNumber: 311,
+                                                                                        lineNumber: 308,
                                                                                         columnNumber: 35
                                                                                     }, this)
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                lineNumber: 305,
+                                                                                lineNumber: 301,
                                                                                 columnNumber: 33
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -657,31 +681,31 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                                                                 children: formatTimeAgo(report.created_at)
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                lineNumber: 313,
+                                                                                lineNumber: 310,
                                                                                 columnNumber: 33
                                                                             }, this)
                                                                         ]
                                                                     }, report.id, true, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 304,
+                                                                        lineNumber: 300,
                                                                         columnNumber: 31
                                                                     }, this))
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                lineNumber: 302,
+                                                                lineNumber: 298,
                                                                 columnNumber: 27
                                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                                                 className: "text-sm text-gray-500 dark:text-gray-400 italic",
                                                                 children: "No recent reports found."
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                lineNumber: 318,
+                                                                lineNumber: 315,
                                                                 columnNumber: 27
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                        lineNumber: 299,
+                                                        lineNumber: 295,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -692,7 +716,7 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                                                 children: "Actions"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                lineNumber: 324,
+                                                                lineNumber: 321,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -704,7 +728,7 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                                                         children: "View Full Profile"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 326,
+                                                                        lineNumber: 323,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -713,7 +737,7 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                                                         children: "View Full Ledger"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 329,
+                                                                        lineNumber: 326,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     canEditProfiles && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -722,58 +746,58 @@ function RosterClient({ initialData, canEditProfiles, companies }) {
                                                                         children: "Edit Profile"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 333,
+                                                                        lineNumber: 330,
                                                                         columnNumber: 29
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                lineNumber: 325,
+                                                                lineNumber: 322,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                        lineNumber: 323,
+                                                        lineNumber: 320,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                lineNumber: 277,
+                                                lineNumber: 273,
                                                 columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                            lineNumber: 276,
+                                            lineNumber: 272,
                                             columnNumber: 19
                                         }, this)
                                     }, `${cadet.id}-dropdown`, false, {
                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                        lineNumber: 275,
+                                        lineNumber: 271,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, cadet.id, true, {
                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                lineNumber: 252,
+                                lineNumber: 248,
                                 columnNumber: 13
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/app/manage/RosterClient.tsx",
-                        lineNumber: 250,
+                        lineNumber: 246,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/manage/RosterClient.tsx",
-                lineNumber: 226,
+                lineNumber: 222,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/manage/RosterClient.tsx",
-        lineNumber: 188,
+        lineNumber: 186,
         columnNumber: 5
     }, this);
 }

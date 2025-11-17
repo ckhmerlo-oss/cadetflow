@@ -3,11 +3,10 @@
 
 import { createClient } from '@/utils/supabase/server'
 import { notFound, redirect } from 'next/navigation'
-import ReportDetailsClient from './ReportDetailsClient' // We will create this
+import ReportDetailsClient from './ReportDetailsClient'
 import { User } from '@supabase/supabase-js'
 
-// Define types here (or in a separate types.ts file)
-// These types match the data you were fetching
+// ... (All Type definitions remain the same)
 type Report = {
   id: string;
   status: string;
@@ -54,6 +53,7 @@ type Appeal = {
   final_comment: string | null;
 }
 
+
 /**
  * Server-side data fetching function
  */
@@ -61,6 +61,7 @@ async function getReportData(reportId: string, user: User) {
   const supabase = createClient()
 
   // 1. Fetch main report, logs, and appeal in parallel
+  // ... (Data fetching logic remains the same)
   const [reportResult, logResult, appealResult] = await Promise.all([
     supabase
       .from('demerit_reports') 
@@ -90,6 +91,7 @@ async function getReportData(reportId: string, user: User) {
   const appeal = (appealResult.data || null) as Appeal | null
 
   // 2. Conditionally fetch data needed for interactions
+  // ... (Conditional fetching logic remains the same)
   let offenses: OffenseType[] = []
   if (report.submitted_by === user.id && report.status === 'needs_revision') {
     const { data } = await supabase.from('offense_types').select('*').order('offense_group').order('offense_name')
@@ -103,9 +105,19 @@ async function getReportData(reportId: string, user: User) {
   }
 
   // 3. Check all user permissions in parallel
+  
+  // Fetch viewer role for Staff check
+  const { data: viewerProfile } = await supabase
+    .from('profiles')
+    .select('role:role_id (default_role_level)')
+    .eq('id', user.id)
+    .single()
+  
+  const viewerRoleLevel = (viewerProfile?.role as any)?.default_role_level || 0
+  const isStaff = viewerRoleLevel >= 50
+
   let isApprover = false
   if (report.current_approver_group_id) {
-    // This check is faster than querying profiles/roles
     const { data: isMember } = await supabase.rpc('is_member_of_approver_group', {
       p_group_id: report.current_approver_group_id
     })
@@ -122,6 +134,15 @@ async function getReportData(reportId: string, user: User) {
       }
   }
 
+  // --- MODIFIED: Calculate canPull ---
+  const isSubmitter = report.submitted_by === user.id
+  const isCompleted = report.status === 'completed'
+  const isPending = report.status === 'pending_approval' // <-- ADDED THIS
+  
+  // Allow pulling if (submitter OR staff) AND (report is completed OR pending)
+  const canPull = (isSubmitter || isStaff) && (isCompleted || isPending)
+  // --- END MODIFIED ---
+
   return {
     report,
     logs,
@@ -129,10 +150,11 @@ async function getReportData(reportId: string, user: User) {
     offenses,
     escalationTarget,
     permissions: {
-      isSubmitter: report.submitted_by === user.id,
+      isSubmitter: isSubmitter,
       isSubject: report.subject_cadet_id === user.id,
       isApprover,
       canActOnAppeal,
+      canPull: !!canPull, // This will now be true for pending reports
     }
   }
 }
@@ -141,12 +163,10 @@ async function getReportData(reportId: string, user: User) {
 /**
  * The new Server Component Page
  */
-/**
- * The new Server Component Page
- */
-export default async function ReportDetailsPage({ params: paramsPromise }: { params: Promise<{ id: string }> }) { // <--- FIX 1: Accept the promise
+// ... (The default export function ReportDetailsPage remains exactly the same)
+export default async function ReportDetailsPage({ params: paramsPromise }: { params: Promise<{ id: string }> }) {
   
-  const params = await paramsPromise; // <--- FIX 2: Await the promise
+  const params = await paramsPromise; 
   
   const supabase = createClient()
 
@@ -155,7 +175,6 @@ export default async function ReportDetailsPage({ params: paramsPromise }: { par
     return redirect('/login')
   }
 
-  // This check will now work correctly
   if (!params.id || params.id === 'undefined' || params.id === 'null') {
     return notFound()
   }

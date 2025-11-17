@@ -40,13 +40,12 @@ async function Dashboard() {
     const role = profile?.role;
     const role_level = role?.default_role_level || 0;
     const canManageAll = role?.can_manage_all_rosters || false;
-    const isFaculty = role_level >= 50 || canManageAll;
+    const isFaculty = role_level >= 50 || false;
     const groupName = role?.approval_group?.group_name || 'Personal Dashboard';
-    // Redirect low-level roles if needed
     if (role_level === 10) {
         (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["redirect"])(`/ledger/${user.id}`);
     }
-    // 2. Fetch Data (Using the logic from Live Site)
+    // 2. Fetch Data
     const { data: rpcData, error } = await supabase.rpc('get_my_dashboard_reports');
     if (error) console.error("Error fetching reports:", error.message);
     const allInvolvedReports = rpcData || [];
@@ -83,6 +82,8 @@ async function Dashboard() {
     }
     // 3. Filter Lists
     const actionItems = allInvolvedReports.filter((report)=>{
+        // Don't show pulled reports as action items
+        if (report.status === 'pulled') return false;
         if (report.status === 'pending_approval' && report.current_approver_group_id !== null) return true;
         if (report.status === 'needs_revision' && report.submitted_by === user.id) return true;
         if (report.appeal_status) {
@@ -99,8 +100,7 @@ async function Dashboard() {
         return false;
     }) || [];
     const mySubmittedReports = allInvolvedReports.filter((report)=>report.submitted_by === user.id) || [];
-    return(// Removed "opacity-0" here to fix the blank screen issue
-    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 animate-in fade-in duration-500",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -255,7 +255,7 @@ async function Dashboard() {
         fileName: "[project]/app/page.tsx",
         lineNumber: 97,
         columnNumber: 5
-    }, this));
+    }, this);
 }
 // --- Helper Components ---
 function CadetStatsHeader({ stats }) {
@@ -266,7 +266,7 @@ function CadetStatsHeader({ stats }) {
                 value: stats.term_demerits
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 171,
+                lineNumber: 170,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(StatCard, {
@@ -274,7 +274,7 @@ function CadetStatsHeader({ stats }) {
                 value: stats.year_demerits
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 172,
+                lineNumber: 171,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(StatCard, {
@@ -282,7 +282,7 @@ function CadetStatsHeader({ stats }) {
                 value: stats.current_tour_balance
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 173,
+                lineNumber: 172,
                 columnNumber: 7
             }, this)
         ]
@@ -297,7 +297,7 @@ function StatCard({ title, value }) {
                 children: title
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 181,
+                lineNumber: 180,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -305,17 +305,16 @@ function StatCard({ title, value }) {
                 children: value
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 182,
+                lineNumber: 181,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/page.tsx",
-        lineNumber: 180,
+        lineNumber: 179,
         columnNumber: 5
     }, this);
 }
-// UPDATED: Accepts viewAllHref to create clickable headers
 function DashboardSection({ title, items, emptyMessage, showSubject = false, showSubmitter = false, viewAllHref }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "space-y-4 flex flex-col h-full",
@@ -332,7 +331,7 @@ function DashboardSection({ title, items, emptyMessage, showSubject = false, sho
                                 children: title
                             }, void 0, false, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 208,
+                                lineNumber: 206,
                                 columnNumber: 17
                             }, this) : title,
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -344,13 +343,13 @@ function DashboardSection({ title, items, emptyMessage, showSubject = false, sho
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 212,
+                                lineNumber: 210,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 206,
+                        lineNumber: 204,
                         columnNumber: 11
                     }, this),
                     viewAllHref && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
@@ -359,13 +358,13 @@ function DashboardSection({ title, items, emptyMessage, showSubject = false, sho
                         children: "View all →"
                     }, void 0, false, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 216,
+                        lineNumber: 214,
                         columnNumber: 13
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 205,
+                lineNumber: 203,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -376,29 +375,30 @@ function DashboardSection({ title, items, emptyMessage, showSubject = false, sho
                         showSubmitter: showSubmitter
                     }, report.id, false, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 225,
+                        lineNumber: 223,
                         columnNumber: 17
                     }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                     className: "text-gray-500 dark:text-gray-400 p-4",
                     children: emptyMessage
                 }, void 0, false, {
                     fileName: "[project]/app/page.tsx",
-                    lineNumber: 233,
+                    lineNumber: 231,
                     columnNumber: 13
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 222,
+                lineNumber: 220,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/page.tsx",
-        lineNumber: 204,
+        lineNumber: 202,
         columnNumber: 5
     }, this);
 }
 function ReportCard({ report, showSubject, showSubmitter }) {
+    // <<< UPDATED getStatusColor >>>
     const getStatusColor = ()=>{
         switch(report.status){
             case 'completed':
@@ -409,12 +409,19 @@ function ReportCard({ report, showSubject, showSubmitter }) {
                 return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100';
             case 'needs_revision':
                 return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100';
+            case 'pulled':
+                return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100' // <<< ADDED
+                ;
             default:
                 return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100';
         }
     };
     const formatName = (person)=>person ? `${person.last_name}, ${person.first_name.charAt(0)}.` : 'N/A';
-    const formatStatus = (status)=>status.replace('_', ' ').replace(/\b\w/g, (l)=>l.toUpperCase());
+    // <<< UPDATED formatStatus >>>
+    const formatStatus = (status)=>{
+        if (status === 'pulled') return 'Pulled'; // <<< ADDED
+        return status.replace('_', ' ').replace(/\b\w/g, (l)=>l.toUpperCase());
+    };
     const title = report.offense_type?.offense_name || 'Untitled Report';
     const getAppealBadge = (status)=>{
         if (status === 'approved') {
@@ -423,7 +430,7 @@ function ReportCard({ report, showSubject, showSubmitter }) {
                 children: "Appeal Granted"
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 258,
+                lineNumber: 263,
                 columnNumber: 18
             }, this);
         } else if (status === 'rejected_final') {
@@ -432,7 +439,7 @@ function ReportCard({ report, showSubject, showSubmitter }) {
                 children: "Appeal Denied"
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 260,
+                lineNumber: 265,
                 columnNumber: 18
             }, this);
         } else {
@@ -441,7 +448,7 @@ function ReportCard({ report, showSubject, showSubmitter }) {
                 children: "Appeal In Progress"
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 262,
+                lineNumber: 267,
                 columnNumber: 19
             }, this);
         }
@@ -457,18 +464,18 @@ function ReportCard({ report, showSubject, showSubmitter }) {
                         className: "truncate flex items-center flex-1 mr-2",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                className: "font-medium text-indigo-600 dark:text-indigo-400 truncate",
+                                className: `font-medium ${report.status === 'pulled' ? 'text-gray-500 line-through' : 'text-indigo-600 dark:text-indigo-400'}`,
                                 children: title
                             }, void 0, false, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 273,
+                                lineNumber: 278,
                                 columnNumber: 14
                             }, this),
                             report.appeal_status && getAppealBadge(report.appeal_status)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 272,
+                        lineNumber: 277,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -476,13 +483,13 @@ function ReportCard({ report, showSubject, showSubmitter }) {
                         children: formatStatus(report.status)
                     }, void 0, false, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 276,
+                        lineNumber: 281,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 271,
+                lineNumber: 276,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -496,13 +503,13 @@ function ReportCard({ report, showSubject, showSubmitter }) {
                                 children: formatName(report.subject)
                             }, void 0, false, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 281,
+                                lineNumber: 286,
                                 columnNumber: 37
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 281,
+                        lineNumber: 286,
                         columnNumber: 25
                     }, this),
                     showSubmitter && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -513,13 +520,13 @@ function ReportCard({ report, showSubject, showSubmitter }) {
                                 children: formatName(report.submitter)
                             }, void 0, false, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 282,
+                                lineNumber: 287,
                                 columnNumber: 41
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 282,
+                        lineNumber: 287,
                         columnNumber: 27
                     }, this),
                     report.status === 'pending_approval' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -530,25 +537,25 @@ function ReportCard({ report, showSubject, showSubmitter }) {
                                 children: report.group?.group_name || 'N/A'
                             }, void 0, false, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 283,
+                                lineNumber: 288,
                                 columnNumber: 66
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 283,
+                        lineNumber: 288,
                         columnNumber: 50
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 280,
+                lineNumber: 285,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/page.tsx",
-        lineNumber: 267,
+        lineNumber: 272,
         columnNumber: 5
     }, this);
 }

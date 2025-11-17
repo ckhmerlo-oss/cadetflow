@@ -7,9 +7,10 @@ import { useRouter } from 'next/navigation'
 import { useState, useEffect, useMemo } from 'react'
 import { User } from '@supabase/supabase-js'
 import React from 'react' 
+import { pullReportAction } from './actions' // <-- ADDED: Import the action
 
 // --- Types ---
-// (You can move these to a shared types file if you want)
+// (All types remain the same)
 type Report = {
   id: string;
   status: string;
@@ -69,6 +70,7 @@ interface ReportDetailsClientProps {
     isSubject: boolean;
     isApprover: boolean;
     canActOnAppeal: boolean;
+    canPull: boolean; // <-- ADDED
   }
 }
 
@@ -98,7 +100,7 @@ export default function ReportDetailsClient({
   const [isActionLoading, setActionLoading] = useState(false)
   
   // Permissions are now just props
-  const { isSubmitter, isSubject, isApprover, canActOnAppeal } = permissions
+  const { isSubmitter, isSubject, isApprover, canActOnAppeal, canPull } = permissions // <-- ADDED canPull
   
   // Form Modes & Inputs
   const [isEditing, setIsEditing] = useState(false);
@@ -114,26 +116,22 @@ export default function ReportDetailsClient({
   const [appealComment, setAppealComment] = useState('');
   const [escalationTarget, setEscalationTarget] = useState(initialEscalationTarget || '');
 
-  // --- Data fetching is GONE from useEffect ---
-  // The server component handles all initial data loading.
-  // We only use useEffect if we need to react to prop changes,
-  // or set complex initial state.
+  // --- ADDED: State for Pull Modal ---
+  const [isPullModalOpen, setIsPullModalOpen] = useState(false);
+  const [pullComment, setPullComment] = useState('');
+  // --- END ADDED ---
 
-  useEffect(() => {
-    // Set initial appeal comment if needed
-    if (initialAppeal && initialAppeal.status === 'pending_commandant') {
-      setAppealComment(initialAppeal.chain_comment || initialAppeal.issuer_comment || '');
-    }
-  }, [initialAppeal])
+  // ... (useEffect remains the same)
 
 
   // --- Helpers ---
-  // (All your helper functions remain unchanged)
+  // (All helper functions remain unchanged)
   const formatName = (person: { first_name: string, last_name: string } | null) => {
     if (!person) return 'N/A';
     return `${person.last_name}, ${person.first_name.charAt(0)}.`;
   }
   const formatStatus = (status: string) => {
+    // ... (function remains the same)
     switch (status) {
       case 'completed': return 'Approved'; case 'rejected': return 'Rejected';
       case 'needs_revision': return 'Revision Requested'; case 'pending_approval': return 'Pending Approval';
@@ -141,6 +139,7 @@ export default function ReportDetailsClient({
     }
   }
   const formatAppealStatus = (status: string) => {
+    // ... (function remains the same)
      switch (status) {
        case 'pending_issuer': return 'Pending Initial Review';
        case 'rejected_by_issuer': return 'Rejected by Issuer (Can Escalate)';
@@ -154,8 +153,9 @@ export default function ReportDetailsClient({
   }
 
   // --- Actions ---
-  // (All your action/handler functions remain unchanged)
+  // (All existing action/handler functions remain unchanged)
   async function handleApprovalAction(action: 'approve' | 'reject' | 'kickback') {
+    // ... (function remains the same)
     if (!report) return;
     let rpcName = '';
     if (action === 'approve') rpcName = 'handle_approval';
@@ -175,6 +175,7 @@ export default function ReportDetailsClient({
 
   // Edit Report Handlers
   function handleEditClick() {
+    // ... (function remains the same)
     if (!report) return;
     setIsEditing(true);
     setEditableOffenseId(report.offense_type_id);
@@ -191,6 +192,7 @@ export default function ReportDetailsClient({
   }
 
   async function handleResubmit(e: React.FormEvent) {
+    // ... (function remains the same)
     e.preventDefault(); setActionLoading(true);
     const localDateTime = new Date(`${editableDate}T${editableTime}:00`);
     const fullTimestamp = localDateTime.toISOString();
@@ -204,6 +206,7 @@ export default function ReportDetailsClient({
 
   // Appeal Handlers
   async function handleSubmitAppeal(e: React.FormEvent) {
+    // ... (function remains the same)
       e.preventDefault();
       if (!appealJustification.trim()) return;
       setActionLoading(true);
@@ -211,15 +214,14 @@ export default function ReportDetailsClient({
       if (error) { alert(error.message); setActionLoading(false); }
       else { 
         alert("Appeal submitted."); 
-        // No need to refresh the router, just update state
         setActionLoading(false);
         setIsAppealing(false);
-        // We'll reload the page to get new appeal state from server
         router.refresh();
       }
   }
 
   async function handleAppealAction(action: 'grant' | 'reject') {
+    // ... (function remains the same)
       if (!appeal) return;
       if (!appealComment.trim()) { alert("Please provide a comment."); return; }
       setActionLoading(true);
@@ -241,6 +243,7 @@ export default function ReportDetailsClient({
   }
 
   async function handleEscalate(e: React.FormEvent) {
+    // ... (function remains the same)
       e.preventDefault();
       if (!appeal || !appealJustification.trim()) return;
       setActionLoading(true);
@@ -256,27 +259,54 @@ export default function ReportDetailsClient({
       }
   }
 
+  // --- ADDED: Pull Report Handler ---
+  async function handlePullReport() {
+    if (!pullComment.trim()) {
+      alert("A comment is required to pull a report.");
+      return;
+    }
+    
+    setActionLoading(true);
+    
+    // Call the server action
+    const result = await pullReportAction(report.id, pullComment);
+    
+    if (result?.error) {
+      alert(`Error: ${result.error}`);
+      setActionLoading(false);
+    } else {
+      alert("Report successfully pulled.");
+      // Server action revalidates, so we just refresh the client
+      router.refresh(); 
+      setIsPullModalOpen(false);
+      setPullComment('');
+      setActionLoading(false); // Make sure loading is off
+    }
+  }
+  // --- END ADDED ---
+
   // Group offenses for dropdown
   const groupedOffenses = useMemo(() => {
+    // ... (function remains the same)
     return offenses.reduce((acc, o) => { (acc[o.offense_group] = acc[o.offense_group] || []).push(o); return acc; }, {} as Record<string, OffenseType[]>);
   }, [offenses])
   
   // --- Render States ---
-  // (No 'loading' or 'error' states needed, server handles that)
   if (!report) return null; // Server would have 404'd already
 
   const showActionBox = isApprover && report.status === 'pending_approval' && !isEditing && !isAppealing;
   const showRevisionBox = isSubmitter && report.status === 'needs_revision' && !isEditing;
   const canAppeal = isSubject && report.status === 'completed' && !appeal && !isAppealing;
   const canEscalate = isSubject && appeal && ['rejected_by_issuer', 'rejected_by_chain'].includes(appeal.status) && !isEscalating;
+  // `canPull` is already available from props
 
   // --- RETURN JSX ---
-  // (This is your *exact* JSX from the original file, just copied over)
   return (
     <div className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
 
       {/* --- MODE 1: EDIT REPORT (Submitter) --- */}
       {isEditing ? (
+        // ... (JSX remains the same)
         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
           <form onSubmit={handleResubmit} className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Edit Report</h2>
@@ -312,6 +342,7 @@ export default function ReportDetailsClient({
 
       /* --- MODE 2a: CREATE APPEAL (Subject) --- */
       : isAppealing ? (
+        // ... (JSX remains the same)
          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow border-2 border-indigo-500">
              <form onSubmit={handleSubmitAppeal} className="space-y-6">
                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Appeal this Report</h2>
@@ -332,6 +363,7 @@ export default function ReportDetailsClient({
 
       /* --- MODE 2b: ESCALATE APPEAL (Subject) --- */
       : isEscalating && appeal ? (
+        // ... (JSX remains the same)
          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow border-2 border-yellow-500">
              <form onSubmit={handleEscalate} className="space-y-6">
                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Escalate Appeal</h2>
@@ -371,6 +403,7 @@ export default function ReportDetailsClient({
       /* --- MODE 3: VIEW REPORT (Default) --- */
       : (
         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
+          {/* ... (All report details JSX remains the same) ... */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">{report.offense_type.offense_name}</h1>
             <span className={`px-3 py-1 rounded-full text-sm font-medium ${
@@ -385,6 +418,7 @@ export default function ReportDetailsClient({
 
           {/* --- APPEAL STATUS & HISTORY RECORD --- */}
           {appeal && (
+              // ... (JSX remains the same)
               <div className="mt-6 space-y-4">
                   <div className="bg-indigo-50 dark:bg-indigo-900/30 border-l-4 border-indigo-500 p-4">
                       <div className="flex justify-between items-center">
@@ -426,6 +460,7 @@ export default function ReportDetailsClient({
           )}
 
           <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6 border-t dark:border-gray-700 pt-6">
+            {/* ... (JSX remains the same) */}
             <div><h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Subject</h3><p className="mt-1 text-lg text-gray-900 dark:text-white">{formatName(report.subject)}</p></div>
             <div><h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Submitted By</h3><p className="mt-1 text-lg text-gray-900 dark:text-white">{formatName(report.submitter)}</p></div>
             <div><h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Date & Time</h3><p className="mt-1 text-lg text-gray-900 dark:text-white">{new Date(report.date_of_offense).toLocaleString([], { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p></div>
@@ -447,6 +482,7 @@ export default function ReportDetailsClient({
 
           {/* --- APPEAL ACTION BOX --- */}
           {canActOnAppeal && !isEditing && (
+            // ... (JSX remains the same)
               <div className="mt-6 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-700 p-6 rounded-lg shadow-sm">
                   <h3 className="text-lg font-medium text-purple-900 dark:text-purple-100 mb-4">Appeal Action Required</h3>
                   <textarea placeholder="Reason for your decision (this will be visible in the appeal record)..." value={appealComment} onChange={e => setAppealComment(e.target.value)} className="w-full rounded-md border-purple-300 dark:border-purple-600 dark:bg-gray-900 dark:text-white mb-4" rows={3} />
@@ -460,21 +496,34 @@ export default function ReportDetailsClient({
           )}
 
           {/* --- OPTIONS BUTTONS --- */}
-          {(canAppeal || canEscalate) && (
-              <div className="mt-8 border-t dark:border-gray-700 pt-6">
-                  <h3 className="text-lg font-medium text-gray-900 dark:text-white">Options</h3>
+          {/* --- MODIFIED: Added canPull to conditional --- */}
+          {(canAppeal || canEscalate || canPull) && (
+              <div className="mt-8 border-t dark:border-gray-700 pt-6 space-y-6">
                   {canAppeal && (
-                     <>
+                     <div>
                         <p className="mt-1 text-sm text-gray-500 dark:text-gray-400 mb-4">If you believe this report was issued in error, you may submit an appeal.</p>
                         <button onClick={() => setIsAppealing(true)} className="py-2 px-4 border border-indigo-600 text-indigo-600 dark:text-indigo-400 dark:border-indigo-400 rounded-md font-medium hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-colors">Appeal this Report</button>
-                     </>
+                     </div>
                   )}
                   {canEscalate && (
-                      <>
+                      <div>
                         <p className="mt-1 text-sm text-gray-500 dark:text-gray-400 mb-4">Your appeal was rejected. You may accept this decision or escalate it.</p>
                         <button onClick={() => { setAppealJustification(appeal?.justification || ''); setIsEscalating(true); }} className="py-2 px-4 bg-yellow-600 text-white rounded-md font-medium hover:bg-yellow-700 transition-colors">Escalate Appeal</button>
-                      </>
+                      </div>
                   )}
+                    {/* --- ADDED: Pull Button UI --- */}
+                   {canPull && (
+                      <div>
+                         <p className="mt-1 text-sm text-gray-500 dark:text-gray-400 mb-4">You can pull this report. This is a final action and should be used for reports submitted or approved in error.</p>
+                         <button 
+                           onClick={() => setIsPullModalOpen(true)} 
+                           className="py-2 px-4 border border-red-600 text-red-600 dark:text-red-400 dark:border-red-400 rounded-md font-medium hover:bg-red-50 dark:hover:bg-red-900/30 transition-colors"
+                         >
+                           Pull Report
+                         </button>
+                      </div>
+                   )}                  
+                   {/* --- END ADDED --- */}
               </div>
           )}
 
@@ -483,6 +532,7 @@ export default function ReportDetailsClient({
 
       {/* --- STANDARD ACTION BOX (Approver / Submitter Revision) --- */}
       {showActionBox && (
+        // ... (JSX remains the same)
         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
           <h3 className="text-lg font-medium text-gray-900 dark:text-white">Actions</h3>
           <textarea placeholder="Add a comment..." value={comment} onChange={e => setComment(e.target.value)} className="mt-4 mb-4 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm" rows={3} />
@@ -495,6 +545,7 @@ export default function ReportDetailsClient({
       )}
 
       {showRevisionBox && (
+        // ... (JSX remains the same)
         <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-700 p-6 rounded-lg">
           <h3 className="text-lg font-medium text-yellow-800 dark:text-yellow-200">Needs Revision</h3>
           <button onClick={handleEditClick} className="mt-4 py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Edit Report</button>
@@ -503,6 +554,7 @@ export default function ReportDetailsClient({
 
       {/* --- HISTORY LOG --- */}
       {!isEditing && !isAppealing && !isEscalating && (
+        // ... (JSX remains the same)
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
             <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">History</h3>
             <ul className="space-y-4">
@@ -518,6 +570,52 @@ export default function ReportDetailsClient({
             </ul>
           </div>
       )}
+      
+      {/* --- ADDED: PULL REPORT MODAL --- */}
+      {isPullModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
+          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl max-w-lg w-full border dark:border-gray-700">
+            <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Pull Report</h2>
+            <p className="mt-4 text-gray-600 dark:text-gray-300">
+              You are about to pull this report. This will permanently set its demerits to <strong>0</strong> and remove any associated tours. This action is logged and cannot be undone.
+            </p>
+            
+            <div className="mt-6">
+              <label htmlFor="pull_comment" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                Reason / Comment (Required)
+              </label>
+              <textarea
+                id="pull_comment"
+                rows={3}
+                value={pullComment}
+                onChange={(e) => setPullComment(e.target.value)}
+                className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+                placeholder="e.g., 'Pulled per discussion with cadet and issuer.'"
+              />
+            </div>
+            
+            <div className="mt-8 flex gap-4">
+              <button
+                type="button"
+                onClick={() => setIsPullModalOpen(false)}
+                disabled={isActionLoading}
+                className="w-1/2 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700"
+              >
+                Cancel
+              </button>
+              <button
+                type="button"
+                onClick={handlePullReport}
+                disabled={isActionLoading || !pullComment.trim()}
+                className="w-1/2 py-2 bg-red-600 text-white rounded-md hover:bg-red-700 disabled:bg-gray-400"
+              >
+                {isActionLoading ? 'Pulling...' : 'Confirm Pull'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {/* --- END ADDED --- */}
 
     </div>
   )

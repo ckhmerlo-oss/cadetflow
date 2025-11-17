@@ -46,12 +46,11 @@ export default async function Dashboard() {
   const isFaculty = role_level >= 50 || false
   const groupName = role?.approval_group?.group_name || 'Personal Dashboard'
 
-  // Redirect low-level roles if needed
   if (role_level === 10) {
     redirect(`/ledger/${user.id}`);
   }
 
-  // 2. Fetch Data (Using the logic from Live Site)
+  // 2. Fetch Data
   const { data: rpcData, error } = await supabase.rpc('get_my_dashboard_reports')
   if (error) console.error("Error fetching reports:", error.message)
   
@@ -81,6 +80,8 @@ export default async function Dashboard() {
     
   // 3. Filter Lists
   const actionItems = allInvolvedReports.filter(report => {
+      // Don't show pulled reports as action items
+      if (report.status === 'pulled') return false; 
       if (report.status === 'pending_approval' && report.current_approver_group_id !== null) return true;
       if (report.status === 'needs_revision' && report.submitted_by === user.id) return true;
       if (report.appeal_status) {
@@ -93,7 +94,6 @@ export default async function Dashboard() {
   const mySubmittedReports = allInvolvedReports.filter(report => report.submitted_by === user.id) || []
 
   return (
-    // Removed "opacity-0" here to fix the blank screen issue
     <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 animate-in fade-in duration-500">
       <div className="flex justify-between items-center mb-8">
         <div>
@@ -155,7 +155,6 @@ export default async function Dashboard() {
                 items={allCompletedReports} 
                 emptyMessage="No completed reports found." 
                 showSubject 
-                // viewAllHref="/archive" // Uncomment when archive page is ready
             />
         )}
       </div>
@@ -184,7 +183,6 @@ function StatCard({ title, value }: { title: string, value: string | number }) {
   )
 }
 
-// UPDATED: Accepts viewAllHref to create clickable headers
 function DashboardSection({ 
     title, 
     items, 
@@ -239,18 +237,25 @@ function DashboardSection({
 
 function ReportCard({ report, showSubject, showSubmitter }: { report: ReportWithNames; showSubject?: boolean; showSubmitter?: boolean }) {
   
+  // <<< UPDATED getStatusColor >>>
   const getStatusColor = () => {
     switch (report.status) {
       case 'completed': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100'
       case 'rejected': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100'
       case 'pending_approval': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100'
       case 'needs_revision': return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100'
+      case 'pulled': return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100' // <<< ADDED
       default: return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100'
     }
   }
 
   const formatName = (person: { first_name: string, last_name: string } | null) => person ? `${person.last_name}, ${person.first_name.charAt(0)}.` : 'N/A';
-  const formatStatus = (status: string) => status.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
+  // <<< UPDATED formatStatus >>>
+  const formatStatus = (status: string) => {
+    if (status === 'pulled') return 'Pulled'; // <<< ADDED
+    return status.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
+  }
+  
   const title = report.offense_type?.offense_name || 'Untitled Report';
 
   const getAppealBadge = (status: string) => {
@@ -270,7 +275,7 @@ function ReportCard({ report, showSubject, showSubmitter }: { report: ReportWith
     >
       <div className="flex justify-between items-center">
         <div className="truncate flex items-center flex-1 mr-2">
-             <span className="font-medium text-indigo-600 dark:text-indigo-400 truncate">{title}</span>
+             <span className={`font-medium ${report.status === 'pulled' ? 'text-gray-500 line-through' : 'text-indigo-600 dark:text-indigo-400'}`}>{title}</span>
              {report.appeal_status && getAppealBadge(report.appeal_status)}
         </div>
         <span className={`text-xs font-medium px-2 py-0.5 rounded-full flex-shrink-0 ${getStatusColor()}`}>

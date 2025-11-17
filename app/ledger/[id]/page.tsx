@@ -1,4 +1,3 @@
-// in app/ledger/[id]/page.tsx
 'use client'
 
 import { createClient } from '@/utils/supabase/client'
@@ -18,7 +17,7 @@ type AuditLogEvent = {
   report_id: string | null
   appeal_status: string | null
   appeal_note: string | null
-  date_of_offense: string | null // <<< ADDED THIS LINE
+  date_of_offense: string | null
 }
 
 type LedgerStats = {
@@ -93,39 +92,35 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
     )
   }, [fullLog, selectedTermId, terms])
 
-  // --- HELPERS ---
+  // --- HELPERS (Updated) ---
   const formatStatus = (status: string) => {
     switch (status) {
-      case 'completed': return 'Approved'; case 'rejected': return 'Rejected';
-      case 'pending_approval': return 'Pending'; case 'needs_revision': return 'Revision Needed';
+      case 'completed': return 'Approved';
+      case 'rejected': return 'Rejected';
+      case 'pending_approval': return 'Pending';
+      case 'needs_revision': return 'Revision Needed';
+      case 'pulled': return 'Pulled'; // <<< ADDED
       default: return status;
     }
   }
   const getStatusColor = (status: string) => {
     switch (status) {
-      case 'completed': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100'
-      case 'rejected': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100'
-      case 'pending_approval': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100'
-      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100'
+      case 'completed': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100';
+      case 'rejected': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100';
+      case 'pending_approval': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100';
+      case 'pulled': return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100'; // <<< ADDED
+      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100';
     }
   }
   const getDisplayStatus = (event: AuditLogEvent) => {
     if (event.appeal_status === 'approved') return 'Appeal Granted';
-    return formatStatus(event.status);
+    return formatStatus(event.status); // Will now show "Pulled"
   }
   const getDisplayStatusColor = (event: AuditLogEvent) => {
      if (event.appeal_status === 'approved') return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200';
-     return getStatusColor(event.status);
+     return getStatusColor(event.status); // Will now return gray for "pulled"
   }
   
-  // New helper to format just the date part
-  const formatDate = (dateStr: string) => new Date(dateStr).toLocaleDateString('en-US', {
-    month: '2-digit',
-    day: '2-digit',
-    year: 'numeric'
-  })
-  
-  // New helper to format date and time
   const formatDateTime = (dateStr: string) => new Date(dateStr).toLocaleString('en-US', {
     month: 'numeric',
     day: 'numeric',
@@ -222,14 +217,12 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
                               </span>
                           </div>
                           
-                          {/* --- DATE/TIME SECTION --- */}
                           <div className="mt-1 text-sm text-gray-500 dark:text-gray-400">
-                            {/* <<< NEW LINE: Show Offense Date if it exists >>> */}
                             {event.event_type === 'demerit' && event.date_of_offense && (
                               <p>Offense Date: <span className="font-medium">{formatDateTime(event.date_of_offense)}</span></p>
                             )}
                             <p>
-                              {event.event_type === 'demerit' ? 'Approval Date' : 'Log Date'}: {formatDateTime(event.event_date)}
+                              {event.event_type === 'demerit' ? 'Log Date' : 'Log Date'}: {formatDateTime(event.event_date)}
                             </p>
                           </div>
                           
@@ -237,7 +230,8 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
                              {event.event_type === 'demerit' ? (
                                <div>
                                  <p className="text-xs uppercase font-semibold text-gray-500 dark:text-gray-400">Demerits Issued</p>
-                                 <p className={`text-base font-bold ${event.status === 'rejected' || event.appeal_status === 'approved' ? 'line-through text-gray-400' : 'text-red-600 dark:text-red-400'}`}>
+                                 {/* <<< UPDATED: Add check for 'pulled' status >>> */}
+                                 <p className={`text-base font-bold ${event.status === 'rejected' || event.status === 'pulled' || event.appeal_status === 'approved' ? 'line-through text-gray-400' : 'text-red-600 dark:text-red-400'}`}>
                                    {event.demerits_issued}
                                  </p>
                                </div>

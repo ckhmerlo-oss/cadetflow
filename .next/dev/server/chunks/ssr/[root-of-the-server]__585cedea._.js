@@ -62,7 +62,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/utils/supabase/server.ts [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$api$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/next/dist/api/navigation.react-server.js [app-rsc] (ecmascript) <locals>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/components/navigation.react-server.js [app-rsc] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$report$2f5b$id$5d2f$ReportDetailsClient$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/report/[id]/ReportDetailsClient.tsx [app-rsc] (ecmascript)"); // We will create this
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$report$2f5b$id$5d2f$ReportDetailsClient$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/report/[id]/ReportDetailsClient.tsx [app-rsc] (ecmascript)");
 ;
 ;
 ;
@@ -72,6 +72,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$report$2f5b$id$5d2f$R
  */ async function getReportData(reportId, user) {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
     // 1. Fetch main report, logs, and appeal in parallel
+    // ... (Data fetching logic remains the same)
     const [reportResult, logResult, appealResult] = await Promise.all([
         supabase.from('demerit_reports').select(`*, subject:subject_cadet_id ( first_name, last_name ), submitter:submitted_by ( first_name, last_name ), offense_type:offense_type_id ( * )`).eq('id', reportId).single(),
         supabase.from('approval_log').select('*, actor:actor_id(first_name, last_name)').eq('report_id', reportId).order('created_at', {
@@ -89,6 +90,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$report$2f5b$id$5d2f$R
     const logs = logResult.data || [];
     const appeal = appealResult.data || null;
     // 2. Conditionally fetch data needed for interactions
+    // ... (Conditional fetching logic remains the same)
     let offenses = [];
     if (report.submitted_by === user.id && report.status === 'needs_revision') {
         const { data } = await supabase.from('offense_types').select('*').order('offense_group').order('offense_name');
@@ -105,9 +107,12 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$report$2f5b$id$5d2f$R
         if (data) escalationTarget = data;
     }
     // 3. Check all user permissions in parallel
+    // Fetch viewer role for Staff check
+    const { data: viewerProfile } = await supabase.from('profiles').select('role:role_id (default_role_level)').eq('id', user.id).single();
+    const viewerRoleLevel = viewerProfile?.role?.default_role_level || 0;
+    const isStaff = viewerRoleLevel >= 50;
     let isApprover = false;
     if (report.current_approver_group_id) {
-        // This check is faster than querying profiles/roles
         const { data: isMember } = await supabase.rpc('is_member_of_approver_group', {
             p_group_id: report.current_approver_group_id
         });
@@ -127,6 +132,14 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$report$2f5b$id$5d2f$R
             if (hasPerm) canActOnAppeal = true;
         }
     }
+    // --- MODIFIED: Calculate canPull ---
+    const isSubmitter = report.submitted_by === user.id;
+    const isCompleted = report.status === 'completed';
+    const isPending = report.status === 'pending_approval' // <-- ADDED THIS
+    ;
+    // Allow pulling if (submitter OR staff) AND (report is completed OR pending)
+    const canPull = (isSubmitter || isStaff) && (isCompleted || isPending);
+    // --- END MODIFIED ---
     return {
         report,
         logs,
@@ -134,21 +147,21 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$report$2f5b$id$5d2f$R
         offenses,
         escalationTarget,
         permissions: {
-            isSubmitter: report.submitted_by === user.id,
+            isSubmitter: isSubmitter,
             isSubject: report.subject_cadet_id === user.id,
             isApprover,
-            canActOnAppeal
+            canActOnAppeal,
+            canPull: !!canPull
         }
     };
 }
 async function ReportDetailsPage({ params: paramsPromise }) {
-    const params = await paramsPromise; // <--- FIX 2: Await the promise
+    const params = await paramsPromise;
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) {
         return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["redirect"])('/login');
     }
-    // This check will now work correctly
     if (!params.id || params.id === 'undefined' || params.id === 'null') {
         return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["notFound"])();
     }
@@ -164,7 +177,7 @@ async function ReportDetailsPage({ params: paramsPromise }) {
         permissions: data.permissions
     }, void 0, false, {
         fileName: "[project]/app/report/[id]/page.tsx",
-        lineNumber: 167,
+        lineNumber: 186,
         columnNumber: 5
     }, this);
 }

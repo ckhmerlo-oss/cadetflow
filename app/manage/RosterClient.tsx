@@ -1,4 +1,3 @@
-// in app/manage/RosterClient.tsx
 'use client'
 
 import React, { useState, useMemo } from 'react'
@@ -11,7 +10,7 @@ type RecentReport = {
   offense_name: string;
   status: string;
   created_at: string;
-  appeal_status: string | null; // <<< ADDED
+  appeal_status: string | null;
 }
 export type RosterCadet = {
   id: string;
@@ -20,7 +19,7 @@ export type RosterCadet = {
   cadet_rank: string | null;
   company_name: string | null;
   grade_level: string | null;
-  room_number: string | null;
+  room_number: string | null; 
   term_demerits: number;
   year_demerits: number;
   current_tour_balance: number;
@@ -35,11 +34,10 @@ type SortDirection = 'ascending' | 'descending';
 type RosterClientProps = {
   initialData: RosterCadet[]
   canEditProfiles: boolean
-  companies: Company[] // For filter dropdown
+  companies: Company[] 
 }
 // --- End Type Definitions ---
 
-// Sort order for Conduct filter
 const CONDUCT_ORDER = [
   'Exemplary',
   'Commendable',
@@ -64,11 +62,9 @@ export default function RosterClient({ initialData, canEditProfiles, companies }
     setOpenCadetId(prevId => (prevId === cadetId ? null : cadetId))
   }
 
-  // --- Data Logic: Filter & Sort ---
   const filteredAndSortedCadets = useMemo(() => {
     let filteredData = [...initialData];
 
-    // 1. Filter by Search Term
     if (searchTerm) {
       const lowerSearch = searchTerm.toLowerCase();
       filteredData = filteredData.filter(cadet =>
@@ -79,7 +75,6 @@ export default function RosterClient({ initialData, canEditProfiles, companies }
       );
     }
 
-    // 2. Filter by Dropdowns
     if (filterCompany !== 'all') {
       filteredData = filteredData.filter(cadet => cadet.company_name === filterCompany);
     }
@@ -90,7 +85,6 @@ export default function RosterClient({ initialData, canEditProfiles, companies }
       filteredData = filteredData.filter(cadet => cadet.conduct_status === filterConduct);
     }
 
-    // 3. Sort
     filteredData.sort((a, b) => {
       const aValue = a[sortConfig.key];
       const bValue = b[sortConfig.key];
@@ -110,7 +104,6 @@ export default function RosterClient({ initialData, canEditProfiles, companies }
     return filteredData;
   }, [initialData, searchTerm, filterCompany, filterGrade, filterConduct, sortConfig]);
 
-  // --- Sort Handler ---
   const requestSort = (key: SortKey) => {
     let direction: SortDirection = 'ascending';
     if (sortConfig.key === key && sortConfig.direction === 'ascending') {
@@ -124,16 +117,14 @@ export default function RosterClient({ initialData, canEditProfiles, companies }
     return sortConfig.direction === 'ascending' ? ' ▲' : ' ▼';
   };
 
-  // --- Other Helpers ---
   const getConductColor = (status: string) => {
       if (status === 'Exemplary') return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200';
       if (status === 'Commendable') return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
       if (status === 'Satisfactory') return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200';
       if (status === 'Deficient') return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200';
-      return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'; // Unsatisfactory
+      return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
   }
 
-  // --- NEW: Appeal Badge Helper ---
   const getAppealBadge = (status: string | null) => {
     if (!status) return null;
     
@@ -147,8 +138,17 @@ export default function RosterClient({ initialData, canEditProfiles, companies }
       case 'pending_commandant':
         return <span className="ml-2 px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">Pending</span>;
       default:
-        return null; // Don't show 'rejected_by_issuer' etc.
+        return null;
     }
+  }
+
+  // <<< NEW: Helper for recent report status >>>
+  const getRecentReportStatus = (report: RecentReport) => {
+    const status = report.status;
+    if (status === 'pulled') return <span className="text-xs text-gray-500 dark:text-gray-400">Pulled</span>
+    if (status === 'rejected') return <span className="text-xs text-red-600 dark:text-red-400">Rejected</span>
+    if (status === 'completed') return <span className="text-xs text-green-600 dark:text-green-400">Approved</span>
+    return <span className="text-xs text-yellow-600 dark:text-yellow-400">{status.replace('_', ' ')}</span>
   }
 
   const formatTimeAgo = (dateStr: string) => {
@@ -169,7 +169,6 @@ export default function RosterClient({ initialData, canEditProfiles, companies }
     return Math.floor(seconds) + "s ago";
   }
 
-  // --- Unique Filter Options ---
   const uniqueCompanies = useMemo(() => 
     [...new Set(initialData.map(c => c.company_name).filter((c): c is string => !!c).sort())], 
   [initialData]);
@@ -178,7 +177,6 @@ export default function RosterClient({ initialData, canEditProfiles, companies }
     [...new Set(initialData.map(c => c.grade_level).filter((g): g is string => !!g).sort())], 
   [initialData]);
   
-  // FIX: Sort conduct levels by delinquency, not alphabetically
   const uniqueConducts = useMemo(() => {
     const presentStatuses = new Set(initialData.map(c => c.conduct_status));
     return CONDUCT_ORDER.filter(status => presentStatuses.has(status));
@@ -187,7 +185,6 @@ export default function RosterClient({ initialData, canEditProfiles, companies }
   return (
     <div className="bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
       
-      {/* --- Search & Filter Bar --- */}
       <div className="p-4 grid grid-cols-1 md:grid-cols-4 gap-4 border-b border-gray-200 dark:border-gray-700 no-print">
         <input
           type="text"
@@ -222,7 +219,6 @@ export default function RosterClient({ initialData, canEditProfiles, companies }
         </select>
       </div>
 
-      {/* --- Roster Table --- */}
       <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 printable-table">
         <thead className="bg-gray-50 dark:bg-gray-700/50">
           <tr>
@@ -303,12 +299,13 @@ export default function RosterClient({ initialData, canEditProfiles, companies }
                             {cadet.recent_reports.map((report: RecentReport) => (
                               <div key={report.id} className="flex justify-between items-center text-sm">
                                 <div>
-                                  <p className="font-medium text-gray-800 dark:text-gray-200 flex items-center">
+                                  <p className={`font-medium text-gray-800 dark:text-gray-200 flex items-center ${report.status === 'pulled' ? 'line-through' : ''}`}>
                                     {report.offense_name || 'Report'}
                                     {/* <<< RENDER APPEAL BADGE >>> */}
                                     {getAppealBadge(report.appeal_status)}
                                   </p>
-                                  <p className="text-xs text-gray-500 dark:text-gray-400">{report.status}</p>
+                                  {/* <<< RENDER STATUS PILL >>> */}
+                                  <p>{getRecentReportStatus(report)}</p>
                                 </div>
                                 <span className="text-xs text-gray-500 dark:text-gray-400">{formatTimeAgo(report.created_at)}</span>
                               </div>

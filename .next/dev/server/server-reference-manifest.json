@@ -1,5 +1,36 @@
 {
-  "node": {},
+  "node": {
+    "601825c1ce798c77ae07c6930e3a294bdc9c1e2f2a": {
+      "workers": {
+        "app/report/[id]/page": {
+          "moduleId": "[project]/.next-internal/server/app/report/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/report/[id]/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "pullReportAction",
+          "filename": "app/report/[id]/actions.ts"
+        }
+      },
+      "layer": {
+        "app/report/[id]/page": "action-browser"
+      },
+      "filename": "app/report/[id]/actions.ts",
+      "exportedName": "pullReportAction"
+    },
+    "60522fa0c1ab889549cd43ee3a6e075bf758d786b7": {
+      "workers": {
+        "app/profile/[id]/page": {
+          "moduleId": "[project]/.next-internal/server/app/profile/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/profile/[id]/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "updateCadetProfile",
+          "filename": "app/profile/[id]/actions.ts"
+        }
+      },
+      "layer": {
+        "app/profile/[id]/page": "action-browser"
+      },
+      "filename": "app/profile/[id]/actions.ts",
+      "exportedName": "updateCadetProfile"
+    }
+  },
   "edge": {},
   "encryptionKey": "Ku+updFvSe1tgtIWMP2mZHZDq9R0QPeA7Ra0C4IeR/M="
 }
