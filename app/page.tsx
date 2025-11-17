@@ -43,7 +43,7 @@ export default async function Dashboard() {
   const role = profile?.role as any
   const role_level = role?.default_role_level || 0
   const canManageAll = role?.can_manage_all_rosters || false
-  const isFaculty = role_level >= 50 || canManageAll
+  const isFaculty = role_level >= 50 || false
   const groupName = role?.approval_group?.group_name || 'Personal Dashboard'
 
   // Redirect low-level roles if needed
