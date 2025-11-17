@@ -1,4 +1,3 @@
-// in app/reports/daily/page.tsx
 'use client'
 
 import { createClient } from '@/utils/supabase/client'
@@ -23,6 +22,7 @@ type TourSheetCadet = {
   first_name: string;
   company_name: string;
   total_tours: number;
+  has_star_tours: boolean; // * Tours field
 }
 
 export default function DailyReportsPage() {
@@ -45,7 +45,8 @@ export default function DailyReportsPage() {
   const [selectedCadet, setSelectedCadet] = useState<TourSheetCadet | null>(null)
   const [toursToLog, setToursToLog] = useState(3)
   const [logComment, setLogComment] = useState('')
-// --- Set Document Title for Printing ---
+
+  // --- Set Document Title for Printing ---
   useEffect(() => {
     const date = new Date();
     // Formats date to MM/DD/YY
@@ -57,11 +58,10 @@ export default function DailyReportsPage() {
       document.title = `Tour Sheet ${formattedDate}`;
     }
     
-    // Cleanup: Revert title when leaving the page
     return () => {
-      document.title = 'CadetFlow'; // Your default title
+      document.title = 'CadetFlow';
     };
-  }, [activeTab]); // This will re-run whenever the tab changes
+  }, [activeTab]);
   
   useEffect(() => {
     async function getReports() {
@@ -84,11 +84,10 @@ export default function DailyReportsPage() {
 
       const [greenRes, tourRes] = await Promise.all([
         supabase.rpc('get_unposted_green_sheet'),
-        supabase.rpc('get_tour_sheet')
+        supabase.rpc('get_tour_sheet') // This function now returns 'has_star_tours'
       ])
 
       if (greenRes.error) {
-        // If RLS fails (e.g. user is level < 50), we'll catch it here
         setError("You do not have permission to view these reports.")
       } else {
         setGreenSheet(greenRes.data)
@@ -117,14 +116,20 @@ export default function DailyReportsPage() {
 
   async function handleLogTours() {
     if (!selectedCadet || toursToLog <= 0) return
-    if (toursToLog > selectedCadet.total_tours) {
+    if (toursToLog > selectedCadet.total_tours && !selectedCadet.has_star_tours) {
       alert(`Cannot log ${toursToLog} tours. Only ${selectedCadet.total_tours} remaining.`); return;
     }
     setIsLoggingTours(true)
     const { error } = await supabase.rpc('log_served_tours', { p_cadet_id: selectedCadet.cadet_id, p_tours_served: toursToLog, p_comment: logComment })
     if (error) alert(error.message)
     else {
-      setTourSheet(tourSheet.map(c => c.cadet_id === selectedCadet.cadet_id ? { ...c, total_tours: c.total_tours - toursToLog } : c).filter(c => c.total_tours > 0))
+      setTourSheet(tourSheet.map(c => 
+        c.cadet_id === selectedCadet.cadet_id 
+          ? { ...c, total_tours: c.total_tours - toursToLog } 
+          : c
+      )
+      // Filter logic updated to keep cadets with * Tours, even if balance is 0
+      .filter(c => c.total_tours > 0 || c.has_star_tours))
       closeModal()
     }
     setIsLoggingTours(false)
@@ -136,10 +141,7 @@ export default function DailyReportsPage() {
   const formatDate = (d: string) => new Date(new Date(d).getTime() + new Date(d).getTimezoneOffset() * 60000).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit' });
 
   // --- PERMISSIONS LOGIC ---
-  // 1. Can VIEW page: Level >= 50 (Handled by SQL RLS, checked in useEffect)
-  // 2. Can POST Green Sheet: ONLY Commandant Staff
   const canPost = ['Commandant', 'Deputy Commandant', 'Admin'].includes(userRole);
-  // 3. Can LOG Tours: TAC Officers OR Commandant Staff
   const canLog = userRole.includes('TAC') || canPost;
 
   if (loading) return <div className="p-4 text-center text-gray-500 dark:text-gray-400">Loading daily reports...</div>
@@ -149,48 +151,20 @@ export default function DailyReportsPage() {
     <>
       <style jsx global>{`
         @media print {
-          @page {
-            margin: 0.25in;
-          }
+          @page { margin: 0.25in; }
           body { background-color: white !important; color: black !important; }
           header, .no-print, .printable-section:not(.print-active) { display: none !important; }
           main { padding: 0; margin: 0; }
-     
-          /* 1. Flatten the main page container so it doesn't add padding or max-width */
-    
-          .print-container {
-            max-width: none !important;
-            padding: 0 !important;
-            margin: 0 !important;
-          }
-
-          /* --- START: NEW FIX --- */
-          /* These rules "flatten" the container divs, allowing the table
-             to be the element that breaks across pages. */
-          .flow-root,
-          .overflow-x-auto,
-          .inline-block {
+          .print-container { max-width: none !important; padding: 0 !important; margin: 0 !important; }
+          .flow-root, .overflow-x-auto, .inline-block {
             display: block !important;
             width: 100% !important;
             min-width: 100% !important;
             overflow: visible !important;
           }
-          /* --- END: NEW FIX --- */
-          
-          .printable-table {
-            width: 100%;
-            border-collapse: collapse;
-            page-break-inside: auto; /* Allow table to break */
-          }
-          
-          .printable-table thead {
-            display: table-header-group; /* Repeat header */
-          }
-          
-          .printable-table tbody tr {
-            page-break-inside: avoid; /* Keep rows together */
-          }
-
+          .printable-table { width: 100%; border-collapse: collapse; page-break-inside: auto; }
+          .printable-table thead { display: table-header-group; }
+          .printable-table tbody tr { page-break-inside: avoid; }
           .printable-table th, .printable-table td {
             border: 1px solid #000;
             padding: 0.2rem 0.25rem;
@@ -200,7 +174,6 @@ export default function DailyReportsPage() {
             word-wrap: break-word;
           }
           .printable-table th { background-color: #eee; }
-          
           .col-cadet { width: 18%; } .col-co { width: 5%; } .col-offense { width: 25%; } .col-cat { width: 4%; } .col-demerits { width: 6%; } .col-submitter { width: 15%; } .col-notes { width: 22%; } .col-date { width: 5%; }
           .col-tour-cadet { width: 30%; } .col-tour-co { width: 15%; } .col-tour-total { width: 10%; } .col-tour-served { width: 15%; } .col-tour-notes { width: 30%; }
           .fill-in-box { height: 2.5em; }
@@ -224,7 +197,6 @@ export default function DailyReportsPage() {
         <section className={`mt-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow printable-section ${activeTab === 'green' ? 'print-active' : 'hidden no-print'}`}>
           <div className="flex justify-between items-center no-print">
             <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">Unposted Green Sheet ({greenSheet.length})</h2>
-            {/* *** CONDITIONAL POST BUTTON *** */}
             {canPost && (
               <button onClick={handleMarkAsPosted} disabled={isPosting || greenSheet.length === 0} className="py-2 px-3 rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 disabled:bg-gray-400">
                 {isPosting ? 'Posting...' : 'Mark All as Posted'}
@@ -285,10 +257,23 @@ export default function DailyReportsPage() {
                   </thead>
                   <tbody className="bg-white dark:bg-gray-800">
                     {tourSheet.length > 0 ? tourSheet.map(c => (
-                      <tr key={c.cadet_id}>
-                        <td className="p-2 text-sm font-medium text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600">{c.last_name}, {c.first_name}</td>
+                      <tr key={c.cadet_id} className={`${c.has_star_tours ? 'bg-red-50 dark:bg-red-900/20' : ''}`}>
+                        <td className="p-2 text-sm font-medium text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600">
+                          <div className="flex items-center gap-1.5">
+                            {/* ICON-FIX: Replaced SVG with centered asterisk */}
+                            {c.has_star_tours && (
+                              <span className="font-bold text-lg leading-none text-red-600 dark:text-red-400" aria-hidden="true" title="Star Tours Assigned">
+                                &lowast;
+                              </span>
+                            )}
+                            <span>{c.last_name}, {c.first_name}</span>
+                          </div>
+                        </td>
                         <td className="p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">{c.company_name || '-'}</td>
-                        <td className="p-2 text-sm font-bold text-red-600 dark:text-red-400 border border-gray-300 dark:border-gray-600">{c.total_tours}</td>
+                        <td className="p-2 text-sm font-bold text-red-600 dark:text-red-400 border border-gray-300 dark:border-gray-600">
+                          {/* NEW: Show * if star tours active */}
+                          {c.has_star_tours ? '*' : c.total_tours}
+                        </td>
                         <td className="p-2 print:table-cell hidden fill-in-box border border-gray-300 dark:border-gray-600"></td>
                         <td className="p-2 print:table-cell hidden fill-in-box border border-gray-300 dark:border-gray-600"></td>
                         <td className="relative p-2 text-right text-sm font-medium no-print border border-gray-300 dark:border-gray-600">
@@ -315,7 +300,7 @@ export default function DailyReportsPage() {
               <div className="relative transform overflow-hidden rounded-lg bg-white dark:bg-gray-800 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                 <div className="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                   <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-white" id="modal-title">Log Served Tours: {selectedCadet.last_name}</h3>
-                  <p className="text-sm text-gray-500 dark:text-gray-400">Current Balance: {selectedCadet.total_tours} tours</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">Current Balance: {selectedCadet.has_star_tours ? '*' : selectedCadet.total_tours} tours</p>
                   <div className="mt-4 space-y-4">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Tours Served</label>

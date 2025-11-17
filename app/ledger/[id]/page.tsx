@@ -18,6 +18,7 @@ type AuditLogEvent = {
   report_id: string | null
   appeal_status: string | null
   appeal_note: string | null
+  date_of_offense: string | null // <<< ADDED THIS LINE
 }
 
 type LedgerStats = {
@@ -109,15 +110,30 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
     }
   }
   const getDisplayStatus = (event: AuditLogEvent) => {
-    // If appeal is granted, override the main status text
     if (event.appeal_status === 'approved') return 'Appeal Granted';
     return formatStatus(event.status);
   }
   const getDisplayStatusColor = (event: AuditLogEvent) => {
-     // If appeal is granted, override main status color to Purple
      if (event.appeal_status === 'approved') return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200';
      return getStatusColor(event.status);
   }
+  
+  // New helper to format just the date part
+  const formatDate = (dateStr: string) => new Date(dateStr).toLocaleDateString('en-US', {
+    month: '2-digit',
+    day: '2-digit',
+    year: 'numeric'
+  })
+  
+  // New helper to format date and time
+  const formatDateTime = (dateStr: string) => new Date(dateStr).toLocaleString('en-US', {
+    month: 'numeric',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit'
+  })
+
 
   return (
     <>
@@ -191,36 +207,36 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
                                     event.title
                                   )}
                                   
-                                  {/* --- UPDATED APPEAL BADGES --- */}
-                                  {/* Approved = Purple */}
                                   {event.appeal_status === 'approved' && <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">Appeal Granted</span>}
-                                  
-                                  {/* Rejected Final = Orange */}
                                   {event.appeal_status === 'rejected_final' && <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200">Appeal Denied</span>}
-                                  
-                                  {/* Pending = Blue */}
                                   {['pending_issuer', 'pending_chain', 'pending_commandant'].includes(event.appeal_status || '') && (
                                     <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">Appeal Pending</span>
                                   )}
-                                  
-                                  {/* Rejected but can escalate = Yellow */}
                                   {['rejected_by_issuer', 'rejected_by_chain'].includes(event.appeal_status || '') && (
                                     <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">Appeal Rejected - Can Escalate</span>
                                   )}
                                 </h3>
                               </div>
-                              {/* Main Status Pill (overridden if appeal granted) */}
                               <span className={`text-xs font-medium px-2 py-0.5 rounded-full flex-shrink-0 ${event.event_type === 'served' ? getStatusColor('completed') : getDisplayStatusColor(event)}`}>
                                 {getDisplayStatus(event)}
                               </span>
                           </div>
-                          <p className="text-sm text-gray-500 dark:text-gray-400">{new Date(event.event_date).toLocaleString()}</p>
+                          
+                          {/* --- DATE/TIME SECTION --- */}
+                          <div className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+                            {/* <<< NEW LINE: Show Offense Date if it exists >>> */}
+                            {event.event_type === 'demerit' && event.date_of_offense && (
+                              <p>Offense Date: <span className="font-medium">{formatDateTime(event.date_of_offense)}</span></p>
+                            )}
+                            <p>
+                              {event.event_type === 'demerit' ? 'Approval Date' : 'Log Date'}: {formatDateTime(event.event_date)}
+                            </p>
+                          </div>
                           
                           <div className="mt-3 grid grid-cols-2 gap-4">
                              {event.event_type === 'demerit' ? (
                                <div>
                                  <p className="text-xs uppercase font-semibold text-gray-500 dark:text-gray-400">Demerits Issued</p>
-                                 {/* Strike through demerits if rejected OR appeal granted */}
                                  <p className={`text-base font-bold ${event.status === 'rejected' || event.appeal_status === 'approved' ? 'line-through text-gray-400' : 'text-red-600 dark:text-red-400'}`}>
                                    {event.demerits_issued}
                                  </p>
@@ -241,7 +257,6 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
                              </p>
                              {event.details && <p className="text-sm text-gray-600 dark:text-gray-400 italic mt-1">"{event.details}"</p>}
                              
-                             {/* Final Appeal Note (e.g., from Commandant) */}
                              {event.appeal_note && (
                                 <div className={`mt-2 p-2 border-l-4 rounded text-sm ${event.appeal_status === 'approved' ? 'bg-purple-50 dark:bg-purple-900/20 border-purple-500' : 'bg-orange-50 dark:bg-orange-900/20 border-orange-500'}`}>
                                   <span className={`font-medium ${event.appeal_status === 'approved' ? 'text-purple-800 dark:text-purple-300' : 'text-orange-800 dark:text-orange-300'}`}>
