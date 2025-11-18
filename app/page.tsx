@@ -80,7 +80,6 @@ export default async function Dashboard() {
     
   // 3. Filter Lists
   const actionItems = allInvolvedReports.filter(report => {
-      // Don't show pulled reports as action items
       if (report.status === 'pulled') return false; 
       if (report.status === 'pending_approval' && report.current_approver_group_id !== null) return true;
       if (report.status === 'needs_revision' && report.submitted_by === user.id) return true;
@@ -100,7 +99,10 @@ export default async function Dashboard() {
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Welcome, {profile?.first_name || user.email}</h1>
           <p className="mt-2 text-lg text-gray-600 dark:text-gray-400">{groupName}</p>
         </div>
-        <div>
+        
+        {/* --- UPDATED HEADER BUTTONS --- */}
+        <div className="flex gap-3">
+                  
           {(role_level >= 15) && (
             <Link href="/submit" className="py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-colors">
               Submit New Report
@@ -149,12 +151,14 @@ export default async function Dashboard() {
             />
         )}
 
+        {/* --- UPDATED SECTION: Completed Archive --- */}
         {isFaculty && (
             <DashboardSection 
                 title="Completed Archive" 
                 items={allCompletedReports} 
                 emptyMessage="No completed reports found." 
                 showSubject 
+                viewAllHref="/reports/history" // <<< ADDED LINK
             />
         )}
       </div>
@@ -162,7 +166,7 @@ export default async function Dashboard() {
   )
 }
 
-// --- Helper Components ---
+// --- Helper Components (Unchanged) ---
 
 function CadetStatsHeader({ stats }: { stats: CadetStats }) {
   return (
@@ -237,22 +241,21 @@ function DashboardSection({
 
 function ReportCard({ report, showSubject, showSubmitter }: { report: ReportWithNames; showSubject?: boolean; showSubmitter?: boolean }) {
   
-  // <<< UPDATED getStatusColor >>>
   const getStatusColor = () => {
     switch (report.status) {
       case 'completed': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100'
       case 'rejected': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100'
       case 'pending_approval': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100'
       case 'needs_revision': return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100'
-      case 'pulled': return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100' // <<< ADDED
+      case 'pulled': return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100'
       default: return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100'
     }
   }
 
   const formatName = (person: { first_name: string, last_name: string } | null) => person ? `${person.last_name}, ${person.first_name.charAt(0)}.` : 'N/A';
-  // <<< UPDATED formatStatus >>>
+  
   const formatStatus = (status: string) => {
-    if (status === 'pulled') return 'Pulled'; // <<< ADDED
+    if (status === 'pulled') return 'Pulled';
     return status.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
   }
   

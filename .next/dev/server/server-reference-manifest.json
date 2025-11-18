@@ -1,34 +1,109 @@
 {
   "node": {
-    "601825c1ce798c77ae07c6930e3a294bdc9c1e2f2a": {
+    "60e5c7fb23ffb8c9c0e2856c0fd39d4c9a2aa7ebfd": {
       "workers": {
-        "app/report/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/report/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/report/[id]/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/reports/history/page": {
+          "moduleId": "[project]/.next-internal/server/app/reports/history/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/reports/history/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "pullReportAction",
-          "filename": "app/report/[id]/actions.ts"
+          "exportedName": "fetchReportHistory",
+          "filename": "app/reports/history/actions.ts"
         }
       },
       "layer": {
-        "app/report/[id]/page": "action-browser"
+        "app/reports/history/page": "action-browser"
       },
-      "filename": "app/report/[id]/actions.ts",
-      "exportedName": "pullReportAction"
+      "filename": "app/reports/history/actions.ts",
+      "exportedName": "fetchReportHistory"
     },
-    "60522fa0c1ab889549cd43ee3a6e075bf758d786b7": {
+    "40f822964e4558426439eaf89829b99701c5e902f5": {
       "workers": {
-        "app/profile/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/profile/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/profile/[id]/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/manage/roles/page": {
+          "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "updateCadetProfile",
-          "filename": "app/profile/[id]/actions.ts"
+          "exportedName": "getCompanyChain",
+          "filename": "app/manage/roles/actions.ts"
         }
       },
       "layer": {
-        "app/profile/[id]/page": "action-browser"
+        "app/manage/roles/page": "action-browser"
       },
-      "filename": "app/profile/[id]/actions.ts",
-      "exportedName": "updateCadetProfile"
+      "filename": "app/manage/roles/actions.ts",
+      "exportedName": "getCompanyChain"
+    },
+    "4016bb68d9cf66d294d1ba16e7a69df06b10582128": {
+      "workers": {
+        "app/manage/roles/page": {
+          "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "deleteGroupAction",
+          "filename": "app/manage/roles/actions.ts"
+        }
+      },
+      "layer": {
+        "app/manage/roles/page": "action-browser"
+      },
+      "filename": "app/manage/roles/actions.ts",
+      "exportedName": "deleteGroupAction"
+    },
+    "70079b3c073a3793d07e63f99a88ba3a28fa1e70c4": {
+      "workers": {
+        "app/manage/roles/page": {
+          "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "createGroupAction",
+          "filename": "app/manage/roles/actions.ts"
+        }
+      },
+      "layer": {
+        "app/manage/roles/page": "action-browser"
+      },
+      "filename": "app/manage/roles/actions.ts",
+      "exportedName": "createGroupAction"
+    },
+    "40d1742e2232c673b4b92bd7a1a01d3d91b6ef8390": {
+      "workers": {
+        "app/manage/roles/page": {
+          "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getGroupRoles",
+          "filename": "app/manage/roles/actions.ts"
+        }
+      },
+      "layer": {
+        "app/manage/roles/page": "action-browser"
+      },
+      "filename": "app/manage/roles/actions.ts",
+      "exportedName": "getGroupRoles"
+    },
+    "40a5568cc820ffe2098c17cccc97ba4d2a6ccce129": {
+      "workers": {
+        "app/manage/roles/page": {
+          "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "deleteRoleAction",
+          "filename": "app/manage/roles/actions.ts"
+        }
+      },
+      "layer": {
+        "app/manage/roles/page": "action-browser"
+      },
+      "filename": "app/manage/roles/actions.ts",
+      "exportedName": "deleteRoleAction"
+    },
+    "78c1a20f4cc5bc2da7ea96c7a649be0cc1e65b0c41": {
+      "workers": {
+        "app/manage/roles/page": {
+          "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "createRoleAction",
+          "filename": "app/manage/roles/actions.ts"
+        }
+      },
+      "layer": {
+        "app/manage/roles/page": "action-browser"
+      },
+      "filename": "app/manage/roles/actions.ts",
+      "exportedName": "createRoleAction"
     }
   },
   "edge": {},

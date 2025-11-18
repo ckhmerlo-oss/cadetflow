@@ -1,10 +1,7 @@
 {
-  "/ledger/[id]/page": "app/ledger/[id]/page.js",
-  "/login/page": "app/login/page.js",
   "/manage/page": "app/manage/page.js",
+  "/manage/roles/page": "app/manage/roles/page.js",
   "/page": "app/page.js",
-  "/profile/[id]/page": "app/profile/[id]/page.js",
-  "/report/[id]/page": "app/report/[id]/page.js",
-  "/reports/daily/page": "app/reports/daily/page.js",
+  "/reports/history/page": "app/reports/history/page.js",
   "/submit/page": "app/submit/page.js"
 }

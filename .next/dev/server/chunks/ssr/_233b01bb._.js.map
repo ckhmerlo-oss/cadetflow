@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 4, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/ckhme/my-workflow-app/app/manage/actions.ts"],"sourcesContent":["'use server'\r\n\r\nimport { createClient } from '@/utils/supabase/server'\r\nimport { revalidatePath } from 'next/cache'\r\n\r\nexport async function updateUserRole(profileId: string, roleId: string | null) {\r\n  const supabase = createClient()\r\n  \r\n  const { error } = await supabase\r\n    .from('profiles')\r\n    .update({ role_id: roleId })\r\n    .eq('id', profileId)\r\n\r\n  if (error) {\r\n    return { error: error.message }\r\n  }\r\n\r\n  revalidatePath('/manage')\r\n  return { success: true }\r\n}"],"names":[],"mappings":";;;;;AAEA;AACA;;;;;AAEO,eAAe,eAAe,SAAiB,EAAE,MAAqB;IAC3E,MAAM,WAAW,IAAA,2IAAY;IAE7B,MAAM,EAAE,KAAK,EAAE,GAAG,MAAM,SACrB,IAAI,CAAC,YACL,MAAM,CAAC;QAAE,SAAS;IAAO,GACzB,EAAE,CAAC,MAAM;IAEZ,IAAI,OAAO;QACT,OAAO;YAAE,OAAO,MAAM,OAAO;QAAC;IAChC;IAEA,IAAA,+IAAc,EAAC;IACf,OAAO;QAAE,SAAS;IAAK;AACzB;;;IAdsB;;AAAA,+OAAA","debugId":null}},
+    {"offset": {"line": 39, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/ckhme/my-workflow-app/.next-internal/server/app/manage/page/actions.js%20%28server%20actions%20loader%29"],"sourcesContent":["export {updateUserRole as '60d62aff1f884c156897a47f4cc30feb26912543b5'} from 'ACTIONS_MODULE0'\n"],"names":[],"mappings":";AAAA","debugId":null}}]
+}

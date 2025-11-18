@@ -27,6 +27,15 @@ export type RosterCadet = {
   conduct_status: string;
   recent_reports: RecentReport[] | null;
 }
+
+export type ApprovalGroup = {
+  id: string;
+  group_name: string;
+  next_approver_group_id: string | null;
+  company_id: string | null; // New
+  is_final_authority: boolean; // New
+};
+
 type Company = { id: string; company_name: string }
 type SortKey = keyof RosterCadet;
 type SortDirection = 'ascending' | 'descending';

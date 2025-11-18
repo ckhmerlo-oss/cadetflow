@@ -3,55 +3,45 @@
 import { createClient } from '@/utils/supabase/server'
 import { revalidatePath } from 'next/cache'
 
-// Helper function to get the role level of the currently logged-in user
-async function getMyRoleLevel(supabase: any) {
+// Helper: Check if user is authorized (Staff/Admin/TAC)
+async function checkPermissions(supabase: any) {
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return 0
-  
+  if (!user) return false
+
   const { data: profile } = await supabase
     .from('profiles')
-    .select('role:role_id (default_role_level)')
+    .select('role:role_id (default_role_level, role_name)')
     .eq('id', user.id)
     .single()
+
+  const level = (profile?.role as any)?.default_role_level || 0
+  const name = (profile?.role as any)?.role_name || ''
   
-  return (profile?.role as any)?.default_role_level || 0
+  // Allow Staff (50+), or specific roles like Admin/TAC
+  return level >= 50 || name === 'Admin' || name.includes('TAC')
 }
 
-export async function createNewRole(prevState: any, formData: FormData) {
+export async function updateUserRole(userId: string, roleId: string | null) {
   const supabase = createClient()
-
-  // 1. Security Check: Verify user is Role Level 90+
-  const userRoleLevel = await getMyRoleLevel(supabase)
-  if (userRoleLevel < 90) {
-    return { success: false, message: 'Permission Denied: You must be Role Level 90 or higher.' }
+  
+  // 1. Security Check
+  const isAuthorized = await checkPermissions(supabase)
+  if (!isAuthorized) {
+    return { error: "Unauthorized. You do not have permission to change roles." }
   }
 
-  // 2. Get Data from Form
-  const roleData = {
-    role_name: formData.get('role_name') as string,
-    default_role_level: parseInt(formData.get('default_role_level') as string, 10),
-    company_id: formData.get('company_id') === 'null' ? null : formData.get('company_id'),
-    approval_group_id: formData.get('approval_group_id') === 'null' ? null : formData.get('approval_group_id'),
-    can_manage_all_rosters: formData.get('can_manage_all_rosters') === 'on',
-    can_manage_own_company_roster: formData.get('can_manage_own_company_roster') === 'on'
-  }
-
-  // 3. Validate Data
-  if (!roleData.role_name || isNaN(roleData.default_role_level)) {
-    return { success: false, message: 'Role Name and Role Level are required.' }
-  }
-
-  // 4. Insert into Database
+  // 2. Update Profile
   const { error } = await supabase
-    .from('roles')
-    .insert(roleData)
+    .from('profiles')
+    .update({ role_id: roleId })
+    .eq('id', userId)
 
   if (error) {
-    console.error('Error creating role:', error)
-    return { success: false, message: `Database Error: ${error.message}` }
+    return { error: error.message }
   }
 
-  // 5. Success
-  revalidatePath('/manage') // This tells Next.js to refresh the data on the manage page
-  return { success: true, message: `Role "${roleData.role_name}" created successfully.` }
+  // 3. Revalidate
+  revalidatePath('/manage')
+  revalidatePath('/manage/roles') // Also refresh the visualizer if needed
+  return { success: true }
 }
