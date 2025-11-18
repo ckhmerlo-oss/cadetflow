@@ -1,5 +1,3 @@
 {
-  "/manage/page": "app/manage/page.js",
-  "/manage/roles/page": "app/manage/roles/page.js",
-  "/page": "app/page.js"
+  "/manage/roles/page": "app/manage/roles/page.js"
 }

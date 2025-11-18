@@ -68,11 +68,47 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$manage$2f$roles$2f$co
 ;
 async function RolesConfigurationPage() {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
-    // 1. Security Check
+    // 1. Get User & Permissions
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["redirect"])('/login');
-    // 2. Fetch Companies for the Dropdown
-    const { data: companies } = await supabase.from('companies').select('id, company_name').order('company_name');
+    const { data: profile } = await supabase.from('profiles').select(`
+        company_id, 
+        role:role_id (can_manage_all_rosters, can_manage_own_company_roster, default_role_level)
+    `).eq('id', user.id).single();
+    const userPermissions = profile?.role || {
+        can_manage_all_rosters: false,
+        can_manage_own_company_roster: false,
+        default_role_level: 0
+    };
+    const userCompanyId = profile?.company_id;
+    // 2. Authorization Check (Staff/High Level Required to configure the chain)
+    // This prevents non-managers from even loading the page
+    if (userPermissions.default_role_level < 50) {
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "max-w-7xl mx-auto p-8 text-red-500",
+            children: "Permission Denied: You must be Staff (Level 50+) or higher to configure the Chain of Command."
+        }, void 0, false, {
+            fileName: "[project]/app/manage/roles/page.tsx",
+            lineNumber: 39,
+            columnNumber: 14
+        }, this);
+    }
+    // 3. Fetch all potential companies (excluding non-cadet units)
+    const { data: allCompanies } = await supabase.from('companies').select('id, company_name')// Exclude Commandant Department and Faculty, as requested
+    .not('company_name', 'in', '("Commandant Department", "Faculty")').order('company_name');
+    // 4. Apply Management Filters
+    const filteredCompanies = (allCompanies || []).filter((company)=>{
+        // Condition A: If user can manage all, show all companies
+        if (userPermissions.can_manage_all_rosters) {
+            return true;
+        }
+        // Condition B: If user can manage their own company, show only their company
+        if (userPermissions.can_manage_own_company_roster && userCompanyId) {
+            return company.id === userCompanyId;
+        }
+        // If neither condition is met, exclude the company
+        return false;
+    });
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "max-w-[95vw] mx-auto p-6",
         children: [
@@ -84,34 +120,59 @@ async function RolesConfigurationPage() {
                         children: "Chain of Command Configuration"
                     }, void 0, false, {
                         fileName: "[project]/app/manage/roles/page.tsx",
-                        lineNumber: 22,
+                        lineNumber: 70,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                         className: "text-gray-500 dark:text-gray-400 mt-1",
-                        children: 'Visualize and edit the approval hierarchy. Drag and drop functionality is not yet implemented; use the "Insert" and "Delete" actions to modify the chain.'
+                        children: "Select a company to visualize and edit its specific approval flow."
                     }, void 0, false, {
                         fileName: "[project]/app/manage/roles/page.tsx",
-                        lineNumber: 23,
+                        lineNumber: 71,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/manage/roles/page.tsx",
-                lineNumber: 21,
+                lineNumber: 69,
                 columnNumber: 7
             }, this),
+            filteredCompanies.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "p-8 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-800 rounded-lg",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                        className: "text-lg font-medium text-yellow-800 dark:text-yellow-200",
+                        children: "No Companies Available"
+                    }, void 0, false, {
+                        fileName: "[project]/app/manage/roles/page.tsx",
+                        lineNumber: 78,
+                        columnNumber: 15
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "text-sm text-yellow-700 dark:text-yellow-300",
+                        children: "Your current role does not grant permission to configure any company's approval chain."
+                    }, void 0, false, {
+                        fileName: "[project]/app/manage/roles/page.tsx",
+                        lineNumber: 79,
+                        columnNumber: 15
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/manage/roles/page.tsx",
+                lineNumber: 77,
+                columnNumber: 11
+            }, this) : // Pass the filtered list of companies to the client
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$manage$2f$roles$2f$components$2f$ChainVisualizer$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
-                initialCompanies: companies || []
+                initialCompanies: filteredCompanies
             }, void 0, false, {
                 fileName: "[project]/app/manage/roles/page.tsx",
-                lineNumber: 29,
-                columnNumber: 7
+                lineNumber: 85,
+                columnNumber: 11
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/manage/roles/page.tsx",
-        lineNumber: 20,
+        lineNumber: 68,
         columnNumber: 5
     }, this);
 }
