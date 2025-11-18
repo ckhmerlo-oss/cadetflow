@@ -10,37 +10,51 @@ interface ChainVisualizerProps {
   initialCompanies: { id: string; company_name: string }[]
 }
 
+// Helper to determine the initial company ID safely
+const getInitialCompanyId = (companies: ChainVisualizerProps['initialCompanies']) => {
+    // Look for the first company named 'Alpha Company' or default to the first one found
+    const alphaCompany = companies.find(c => c.company_name === 'Alpha Company');
+    return alphaCompany?.id || companies[0]?.id || '';
+}
+
 export default function ChainVisualizer({ initialCompanies }: ChainVisualizerProps) {
-  const [selectedCompanyId, setSelectedCompanyId] = useState(initialCompanies[0]?.id || '')
+    
+  // --- MODIFIED: Use the safe helper function for initial state ---
+  const [selectedCompanyId, setSelectedCompanyId] = useState(() => getInitialCompanyId(initialCompanies));
+  
   const [nodes, setNodes] = useState<ApprovalGroupNode[]>([])
   const [loading, setLoading] = useState(false)
-  
-  // Ref for the inner wrapper that holds Nodes + SVG
   const contentRef = useRef<HTMLDivElement>(null)
   const [connections, setConnections] = useState<{ path: string; key: string }[]>([])
   
-  // Modal State
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
   const [targetChildId, setTargetChildId] = useState<string | null>(null)
   const [selectedNodeForRoles, setSelectedNodeForRoles] = useState<ApprovalGroupNode | null>(null)
 
-  // 1. Fetch Chain
+  // 1. Fetch Chain - Only run if an ID is actually selected
   useEffect(() => {
-    if (!selectedCompanyId) return
-    fetchChain()
+    if (!selectedCompanyId) {
+        setNodes([]);
+        setLoading(false);
+        return;
+    }
+    fetchChain();
   }, [selectedCompanyId])
 
   async function fetchChain() {
     setLoading(true)
+    // We already handle errors in the action, here we just update state
     const data = await getCompanyChain(selectedCompanyId)
-    setNodes(data)
+    setNodes(data || []) // Ensure nodes is an array even on error
     setLoading(false)
   }
 
-  // 2. Layout Algorithm (Columns)
+  // ... (Rest of Layout Algorithm and Draw Connections remains the same) ...
+
   const columns = useMemo(() => {
     if (nodes.length === 0) return []
 
+    // ... (Layout logic remains the same, using the now-safe 'nodes' state) ...
     const depthMap = new Map<string, number>()
     const adjacency = new Map<string, string[]>() 
 
@@ -80,15 +94,11 @@ export default function ChainVisualizer({ initialCompanies }: ChainVisualizerPro
     return cols.reverse() 
   }, [nodes])
 
-
-  // 3. Draw Lines (Anchored to Nodes Layer)
+  // ... (Draw Connections and Handlers remain the same) ...
   const drawConnections = useCallback(() => {
-    // We check contentRef to ensure we have the correct origin
     if (!contentRef.current || nodes.length === 0) return
 
     const newConnections: { path: string; key: string }[] = []
-    
-    // Get the bounding box of the DIV that contains both SVG and Nodes
     const contentRect = contentRef.current.getBoundingClientRect()
 
     nodes.forEach(node => {
@@ -101,15 +111,12 @@ export default function ChainVisualizer({ initialCompanies }: ChainVisualizerPro
         const childRect = childEl.getBoundingClientRect()
         const parentRect = parentEl.getBoundingClientRect()
 
-        // Calculate coordinates relative to the contentRef container
-        // This removes any offsets from headers, padding, or scrolling
         const startX = childRect.right - contentRect.left
         const startY = (childRect.top + childRect.height / 2) - contentRect.top
         
         const endX = parentRect.left - contentRect.left
         const endY = (parentRect.top + parentRect.height / 2) - contentRect.top
 
-        // Straight Direct Line
         const path = `M ${startX} ${startY} L ${endX} ${endY}`
         newConnections.push({ path, key: `${node.id}-${node.next_approver_group_id}` })
       }
@@ -127,8 +134,6 @@ export default function ChainVisualizer({ initialCompanies }: ChainVisualizerPro
     }
   }, [drawConnections, columns])
 
-
-  // 4. Handlers
   const handleDelete = async (id: string) => {
     if (!confirm("Delete this group? Any groups pointing to it will be moved to its approver.")) return
     await deleteGroupAction(id)
@@ -142,6 +147,7 @@ export default function ChainVisualizer({ initialCompanies }: ChainVisualizerPro
     setSelectedNodeForRoles(node)
   }
 
+
   return (
     <div className="space-y-6">
       {/* Toolbar */}
@@ -153,6 +159,8 @@ export default function ChainVisualizer({ initialCompanies }: ChainVisualizerPro
           className="rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white p-2"
         >
           {initialCompanies.map(c => <option key={c.id} value={c.id}>{c.company_name}</option>)}
+          {/* Fallback option if no companies are loaded */}
+          {initialCompanies.length === 0 && <option value="">No Companies Available</option>}
         </select>
         <button onClick={fetchChain} className="ml-auto text-sm text-indigo-600 hover:underline dark:text-indigo-400">Refresh</button>
       </div>
@@ -165,7 +173,9 @@ export default function ChainVisualizer({ initialCompanies }: ChainVisualizerPro
         {loading ? (
           <div className="flex items-center justify-center h-full text-gray-500">Loading Chain...</div>
         ) : (
-          <div className="flex flex-col min-w-max h-full p-8">
+          <div 
+            className="flex flex-col min-w-max h-full p-8 relative"
+          >
             
             {/* --- ROW 1: HEADERS --- */}
             <div className="flex gap-24 mb-4 border-b dark:border-gray-700 pb-2">
@@ -177,13 +187,12 @@ export default function ChainVisualizer({ initialCompanies }: ChainVisualizerPro
             </div>
 
             {/* --- ROW 2: NODES & LINES --- */}
-            {/* THIS DIV is the Anchor (contentRef) */}
             <div 
               ref={contentRef}
               className="relative flex-grow flex items-center"
             >
               
-              {/* SVG Layer (Positions at 0,0 of contentRef) */}
+              {/* SVG Layer */}
               <svg className="absolute top-0 left-0 w-full h-full pointer-events-none z-0">
                 <defs>
                   <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
@@ -203,10 +212,10 @@ export default function ChainVisualizer({ initialCompanies }: ChainVisualizerPro
                 ))}
               </svg>
 
-              {/* Nodes Layer */}
+              {/* Node Columns */}
               <div className="flex gap-24 z-10 relative h-full w-full">
                 {columns.map((col, colIndex) => (
-                  <div key={colIndex} className="flex flex-col gap-16 justify-center h-full w-64">
+                  <div key={colIndex} className="flex flex-col gap-16 justify-center w-64">
                     {col.map(node => (
                       <div key={node.id} id={`node-${node.id}`} onClick={() => handleNodeClick(node)} className="cursor-pointer">
                         <GroupNode 
@@ -227,9 +236,14 @@ export default function ChainVisualizer({ initialCompanies }: ChainVisualizerPro
               </div>
 
             </div>
-
-            {columns.length === 0 && (
-               <div className="absolute inset-0 flex items-center justify-center text-gray-500">No approval groups found for this company.</div>
+            
+            {/* Display message if no groups are loaded and we're not loading */}
+            {!loading && columns.length === 0 && (
+                 <div className="absolute inset-0 flex items-center justify-center text-gray-500">
+                    {initialCompanies.length === 0 
+                        ? "Configuration error: No companies were loaded from the server."
+                        : "No approval groups found for this company. Add a new group to start the chain."}
+                 </div>
             )}
           </div>
         )}

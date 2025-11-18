@@ -844,33 +844,44 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$manage$2f$roles$2f$co
 ;
 ;
 ;
+// Helper to determine the initial company ID safely
+const getInitialCompanyId = (companies)=>{
+    // Look for the first company named 'Alpha Company' or default to the first one found
+    const alphaCompany = companies.find((c)=>c.company_name === 'Alpha Company');
+    return alphaCompany?.id || companies[0]?.id || '';
+};
 function ChainVisualizer({ initialCompanies }) {
-    const [selectedCompanyId, setSelectedCompanyId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(initialCompanies[0]?.id || '');
+    // --- MODIFIED: Use the safe helper function for initial state ---
+    const [selectedCompanyId, setSelectedCompanyId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(()=>getInitialCompanyId(initialCompanies));
     const [nodes, setNodes] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
-    // Ref for the inner wrapper that holds Nodes + SVG
     const contentRef = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRef"])(null);
     const [connections, setConnections] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
-    // Modal State
     const [isAddModalOpen, setIsAddModalOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [targetChildId, setTargetChildId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     const [selectedNodeForRoles, setSelectedNodeForRoles] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
-    // 1. Fetch Chain
+    // 1. Fetch Chain - Only run if an ID is actually selected
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
-        if (!selectedCompanyId) return;
+        if (!selectedCompanyId) {
+            setNodes([]);
+            setLoading(false);
+            return;
+        }
         fetchChain();
     }, [
         selectedCompanyId
     ]);
     async function fetchChain() {
         setLoading(true);
+        // We already handle errors in the action, here we just update state
         const data = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$manage$2f$roles$2f$data$3a$023fe3__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$text$2f$javascript$3e$__["getCompanyChain"])(selectedCompanyId);
-        setNodes(data);
+        setNodes(data || []); // Ensure nodes is an array even on error
         setLoading(false);
     }
-    // 2. Layout Algorithm (Columns)
+    // ... (Rest of Layout Algorithm and Draw Connections remains the same) ...
     const columns = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>{
         if (nodes.length === 0) return [];
+        // ... (Layout logic remains the same, using the now-safe 'nodes' state) ...
         const depthMap = new Map();
         const adjacency = new Map();
         nodes.forEach((node)=>{
@@ -906,12 +917,10 @@ function ChainVisualizer({ initialCompanies }) {
     }, [
         nodes
     ]);
-    // 3. Draw Lines (Anchored to Nodes Layer)
+    // ... (Draw Connections and Handlers remain the same) ...
     const drawConnections = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(()=>{
-        // We check contentRef to ensure we have the correct origin
         if (!contentRef.current || nodes.length === 0) return;
         const newConnections = [];
-        // Get the bounding box of the DIV that contains both SVG and Nodes
         const contentRect = contentRef.current.getBoundingClientRect();
         nodes.forEach((node)=>{
             if (!node.next_approver_group_id) return;
@@ -920,13 +929,10 @@ function ChainVisualizer({ initialCompanies }) {
             if (childEl && parentEl) {
                 const childRect = childEl.getBoundingClientRect();
                 const parentRect = parentEl.getBoundingClientRect();
-                // Calculate coordinates relative to the contentRef container
-                // This removes any offsets from headers, padding, or scrolling
                 const startX = childRect.right - contentRect.left;
                 const startY = childRect.top + childRect.height / 2 - contentRect.top;
                 const endX = parentRect.left - contentRect.left;
                 const endY = parentRect.top + parentRect.height / 2 - contentRect.top;
-                // Straight Direct Line
                 const path = `M ${startX} ${startY} L ${endX} ${endY}`;
                 newConnections.push({
                     path,
@@ -949,7 +955,6 @@ function ChainVisualizer({ initialCompanies }) {
         drawConnections,
         columns
     ]);
-    // 4. Handlers
     const handleDelete = async (id)=>{
         if (!confirm("Delete this group? Any groups pointing to it will be moved to its approver.")) return;
         await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$manage$2f$roles$2f$data$3a$adbae7__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$text$2f$javascript$3e$__["deleteGroupAction"])(id);
@@ -973,24 +978,34 @@ function ChainVisualizer({ initialCompanies }) {
                         children: "Select Company:"
                     }, void 0, false, {
                         fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                        lineNumber: 149,
+                        lineNumber: 155,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                         value: selectedCompanyId,
                         onChange: (e)=>setSelectedCompanyId(e.target.value),
                         className: "rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white p-2",
-                        children: initialCompanies.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                value: c.id,
-                                children: c.company_name
-                            }, c.id, false, {
+                        children: [
+                            initialCompanies.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                    value: c.id,
+                                    children: c.company_name
+                                }, c.id, false, {
+                                    fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
+                                    lineNumber: 161,
+                                    columnNumber: 38
+                                }, this)),
+                            initialCompanies.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                value: "",
+                                children: "No Companies Available"
+                            }, void 0, false, {
                                 fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                                lineNumber: 155,
-                                columnNumber: 38
-                            }, this))
-                    }, void 0, false, {
+                                lineNumber: 163,
+                                columnNumber: 45
+                            }, this)
+                        ]
+                    }, void 0, true, {
                         fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                        lineNumber: 150,
+                        lineNumber: 156,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -999,13 +1014,13 @@ function ChainVisualizer({ initialCompanies }) {
                         children: "Refresh"
                     }, void 0, false, {
                         fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                        lineNumber: 157,
+                        lineNumber: 165,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                lineNumber: 148,
+                lineNumber: 154,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1018,10 +1033,10 @@ function ChainVisualizer({ initialCompanies }) {
                     children: "Loading Chain..."
                 }, void 0, false, {
                     fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                    lineNumber: 166,
+                    lineNumber: 174,
                     columnNumber: 11
                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "flex flex-col min-w-max h-full p-8",
+                    className: "flex flex-col min-w-max h-full p-8 relative",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "flex gap-24 mb-4 border-b dark:border-gray-700 pb-2",
@@ -1030,12 +1045,12 @@ function ChainVisualizer({ initialCompanies }) {
                                     children: colIndex === columns.length - 1 ? "Final Authority" : `Step ${columns.length - 1 - colIndex}`
                                 }, colIndex, false, {
                                     fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                                    lineNumber: 173,
+                                    lineNumber: 183,
                                     columnNumber: 17
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                            lineNumber: 171,
+                            lineNumber: 181,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1058,17 +1073,17 @@ function ChainVisualizer({ initialCompanies }) {
                                                     fill: "#9CA3AF"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                                                    lineNumber: 190,
+                                                    lineNumber: 199,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                                                lineNumber: 189,
+                                                lineNumber: 198,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                                            lineNumber: 188,
+                                            lineNumber: 197,
                                             columnNumber: 17
                                         }, this),
                                         connections.map((conn)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
@@ -1080,19 +1095,19 @@ function ChainVisualizer({ initialCompanies }) {
                                                 className: "opacity-60 transition-all duration-300"
                                             }, conn.key, false, {
                                                 fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                                                lineNumber: 194,
+                                                lineNumber: 203,
                                                 columnNumber: 19
                                             }, this))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                                    lineNumber: 187,
+                                    lineNumber: 196,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "flex gap-24 z-10 relative h-full w-full",
                                     children: columns.map((col, colIndex)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "flex flex-col gap-16 justify-center h-full w-64",
+                                            className: "flex flex-col gap-16 justify-center w-64",
                                             children: col.map((node)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     id: `node-${node.id}`,
                                                     onClick: ()=>handleNodeClick(node),
@@ -1109,47 +1124,47 @@ function ChainVisualizer({ initialCompanies }) {
                                                         }
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                                                        lineNumber: 212,
+                                                        lineNumber: 221,
                                                         columnNumber: 25
                                                     }, this)
                                                 }, node.id, false, {
                                                     fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                                                    lineNumber: 211,
+                                                    lineNumber: 220,
                                                     columnNumber: 23
                                                 }, this))
                                         }, colIndex, false, {
                                             fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                                            lineNumber: 209,
+                                            lineNumber: 218,
                                             columnNumber: 19
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                                    lineNumber: 207,
+                                    lineNumber: 216,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                            lineNumber: 181,
+                            lineNumber: 190,
                             columnNumber: 13
                         }, this),
-                        columns.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        !loading && columns.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "absolute inset-0 flex items-center justify-center text-gray-500",
-                            children: "No approval groups found for this company."
+                            children: initialCompanies.length === 0 ? "Configuration error: No companies were loaded from the server." : "No approval groups found for this company. Add a new group to start the chain."
                         }, void 0, false, {
                             fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                            lineNumber: 232,
-                            columnNumber: 16
+                            lineNumber: 242,
+                            columnNumber: 18
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                    lineNumber: 168,
+                    lineNumber: 176,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                lineNumber: 161,
+                lineNumber: 169,
                 columnNumber: 7
             }, this),
             isAddModalOpen && targetChildId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$manage$2f$roles$2f$components$2f$AddGroupModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1163,7 +1178,7 @@ function ChainVisualizer({ initialCompanies }) {
                 }
             }, void 0, false, {
                 fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                lineNumber: 240,
+                lineNumber: 254,
                 columnNumber: 9
             }, this),
             selectedNodeForRoles && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$manage$2f$roles$2f$components$2f$RoleListModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1176,13 +1191,13 @@ function ChainVisualizer({ initialCompanies }) {
                 companyId: selectedCompanyId
             }, void 0, false, {
                 fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                lineNumber: 253,
+                lineNumber: 267,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-        lineNumber: 146,
+        lineNumber: 152,
         columnNumber: 5
     }, this);
 }

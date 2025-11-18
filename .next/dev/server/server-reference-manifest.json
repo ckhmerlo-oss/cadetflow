@@ -1,20 +1,5 @@
 {
   "node": {
-    "60e5c7fb23ffb8c9c0e2856c0fd39d4c9a2aa7ebfd": {
-      "workers": {
-        "app/reports/history/page": {
-          "moduleId": "[project]/.next-internal/server/app/reports/history/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/reports/history/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "fetchReportHistory",
-          "filename": "app/reports/history/actions.ts"
-        }
-      },
-      "layer": {
-        "app/reports/history/page": "action-browser"
-      },
-      "filename": "app/reports/history/actions.ts",
-      "exportedName": "fetchReportHistory"
-    },
     "40f822964e4558426439eaf89829b99701c5e902f5": {
       "workers": {
         "app/manage/roles/page": {
