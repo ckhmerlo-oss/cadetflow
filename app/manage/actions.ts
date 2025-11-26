@@ -24,24 +24,55 @@ async function checkPermissions(supabase: any) {
 export async function updateUserRole(userId: string, roleId: string | null) {
   const supabase = createClient()
   
-  // 1. Security Check
-  const isAuthorized = await checkPermissions(supabase)
-  if (!isAuthorized) {
-    return { error: "Unauthorized. You do not have permission to change roles." }
+  if (!await checkPermissions(supabase)) {
+    return { error: "Unauthorized." }
   }
 
-  // 2. Update Profile
   const { error } = await supabase
     .from('profiles')
     .update({ role_id: roleId })
     .eq('id', userId)
 
-  if (error) {
-    return { error: error.message }
+  if (error) return { error: error.message }
+
+  revalidatePath('/manage')
+  return { success: true }
+}
+
+// --- NEW BULK ACTIONS ---
+
+export async function bulkAssignCompany(userIds: string[], companyId: string) {
+  const supabase = createClient()
+  
+  if (!await checkPermissions(supabase)) {
+    return { error: "Unauthorized." }
   }
 
-  // 3. Revalidate
+  const { error } = await supabase
+    .from('profiles')
+    .update({ company_id: companyId })
+    .in('id', userIds)
+
+  if (error) return { error: error.message }
+
   revalidatePath('/manage')
-  revalidatePath('/manage/roles') // Also refresh the visualizer if needed
+  return { success: true }
+}
+
+export async function bulkAssignRole(userIds: string[], roleId: string) {
+  const supabase = createClient()
+  
+  if (!await checkPermissions(supabase)) {
+    return { error: "Unauthorized." }
+  }
+
+  const { error } = await supabase
+    .from('profiles')
+    .update({ role_id: roleId })
+    .in('id', userIds)
+
+  if (error) return { error: error.message }
+
+  revalidatePath('/manage')
   return { success: true }
 }

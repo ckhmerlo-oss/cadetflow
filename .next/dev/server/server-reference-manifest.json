@@ -1,5 +1,35 @@
 {
   "node": {
+    "603a47877742303afc33baf0bf80c9229af4e52ef8": {
+      "workers": {
+        "app/manage/page": {
+          "moduleId": "[project]/.next-internal/server/app/manage/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "bulkAssignCompany",
+          "filename": "app/manage/actions.ts"
+        }
+      },
+      "layer": {
+        "app/manage/page": "action-browser"
+      },
+      "filename": "app/manage/actions.ts",
+      "exportedName": "bulkAssignCompany"
+    },
+    "60532683f7b9907727bf29a27c70ffe98877d06a86": {
+      "workers": {
+        "app/manage/page": {
+          "moduleId": "[project]/.next-internal/server/app/manage/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "bulkAssignRole",
+          "filename": "app/manage/actions.ts"
+        }
+      },
+      "layer": {
+        "app/manage/page": "action-browser"
+      },
+      "filename": "app/manage/actions.ts",
+      "exportedName": "bulkAssignRole"
+    },
     "601825c1ce798c77ae07c6930e3a294bdc9c1e2f2a": {
       "workers": {
         "app/report/[id]/page": {
@@ -14,6 +44,21 @@
       },
       "filename": "app/report/[id]/actions.ts",
       "exportedName": "pullReportAction"
+    },
+    "60522fa0c1ab889549cd43ee3a6e075bf758d786b7": {
+      "workers": {
+        "app/profile/[id]/page": {
+          "moduleId": "[project]/.next-internal/server/app/profile/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/profile/[id]/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "updateCadetProfile",
+          "filename": "app/profile/[id]/actions.ts"
+        }
+      },
+      "layer": {
+        "app/profile/[id]/page": "action-browser"
+      },
+      "filename": "app/profile/[id]/actions.ts",
+      "exportedName": "updateCadetProfile"
     }
   },
   "edge": {},
