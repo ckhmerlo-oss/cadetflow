@@ -1,64 +1,19 @@
 {
   "node": {
-    "603a47877742303afc33baf0bf80c9229af4e52ef8": {
+    "608e5914a99cd89e1d3e43764c86a13361e1288d2c": {
       "workers": {
-        "app/manage/page": {
-          "moduleId": "[project]/.next-internal/server/app/manage/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/admin/page": {
+          "moduleId": "[project]/.next-internal/server/app/admin/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/admin/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "bulkAssignCompany",
-          "filename": "app/manage/actions.ts"
+          "exportedName": "adminResetPassword",
+          "filename": "app/admin/actions.ts"
         }
       },
       "layer": {
-        "app/manage/page": "action-browser"
+        "app/admin/page": "action-browser"
       },
-      "filename": "app/manage/actions.ts",
-      "exportedName": "bulkAssignCompany"
-    },
-    "60532683f7b9907727bf29a27c70ffe98877d06a86": {
-      "workers": {
-        "app/manage/page": {
-          "moduleId": "[project]/.next-internal/server/app/manage/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "bulkAssignRole",
-          "filename": "app/manage/actions.ts"
-        }
-      },
-      "layer": {
-        "app/manage/page": "action-browser"
-      },
-      "filename": "app/manage/actions.ts",
-      "exportedName": "bulkAssignRole"
-    },
-    "601825c1ce798c77ae07c6930e3a294bdc9c1e2f2a": {
-      "workers": {
-        "app/report/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/report/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/report/[id]/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "pullReportAction",
-          "filename": "app/report/[id]/actions.ts"
-        }
-      },
-      "layer": {
-        "app/report/[id]/page": "action-browser"
-      },
-      "filename": "app/report/[id]/actions.ts",
-      "exportedName": "pullReportAction"
-    },
-    "60522fa0c1ab889549cd43ee3a6e075bf758d786b7": {
-      "workers": {
-        "app/profile/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/profile/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/profile/[id]/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "updateCadetProfile",
-          "filename": "app/profile/[id]/actions.ts"
-        }
-      },
-      "layer": {
-        "app/profile/[id]/page": "action-browser"
-      },
-      "filename": "app/profile/[id]/actions.ts",
-      "exportedName": "updateCadetProfile"
+      "filename": "app/admin/actions.ts",
+      "exportedName": "adminResetPassword"
     }
   },
   "edge": {},
