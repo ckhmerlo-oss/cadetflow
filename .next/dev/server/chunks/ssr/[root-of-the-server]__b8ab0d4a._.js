@@ -52,7 +52,6 @@ __turbopack_context__.n(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$a
 "[project]/app/action-items/page.tsx [app-rsc] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
-// in app/action-items/page.tsx
 __turbopack_context__.s([
     "default",
     ()=>ActionItemsPage
@@ -66,41 +65,165 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$action$2d$items$2f$Ac
 ;
 ;
 ;
-async function getActionItems() {
+async function ActionItemsPage() {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["redirect"])('/login');
-    const { data, error } = await supabase.rpc('get_my_action_items');
+    // 1. Fetch All Involved Reports
+    const { data: rpcData, error } = await supabase.rpc('get_my_dashboard_reports');
     if (error) {
-        console.error('Error fetching action items:', error.message);
-        return [];
+        console.error("Error fetching reports:", error.message);
+        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "p-8 text-red-600",
+            children: "Error loading action items."
+        }, void 0, false, {
+            fileName: "[project]/app/action-items/page.tsx",
+            lineNumber: 45,
+            columnNumber: 12
+        }, this);
     }
-    return data;
-}
-async function ActionItemsPage() {
-    const items = await getActionItems();
+    let allInvolvedReports = rpcData || [];
+    // 2. Fetch Appeals for ALL involved reports (to ensure we don't miss status if RPC doesn't return it)
+    const allReportIds = allInvolvedReports.map((r)=>r.id);
+    let appealsMap = {};
+    if (allReportIds.length > 0) {
+        const { data: appealsData } = await supabase.from('appeals').select('id, report_id, status, justification, issuer_comment, chain_comment').in('report_id', allReportIds);
+        if (appealsData) {
+            appealsData.forEach((app)=>{
+                appealsMap[app.report_id] = app;
+            });
+        }
+    }
+    // 3. Filter for Action Items
+    let filteredReports = allInvolvedReports.filter((report)=>{
+        if (report.status === 'pulled') return false;
+        // Pending Approval (Standard)
+        if (report.status === 'pending_approval' && report.current_approver_group_id !== null) return true;
+        // Needs Revision
+        if (report.status === 'needs_revision' && report.submitted_by === user.id) return true;
+        // Appeal Actions
+        // Check RPC status OR the fetched map status
+        const appealStatus = report.appeal_status || appealsMap[report.id]?.status;
+        if (appealStatus) {
+            // If I am the subject, I act if it was rejected (to escalate)
+            if (report.subject_cadet_id === user.id) return [
+                'rejected_by_issuer',
+                'rejected_by_chain'
+            ].includes(appealStatus);
+            // If I am authority, I act if it is pending
+            return [
+                'pending_issuer',
+                'pending_chain',
+                'pending_commandant'
+            ].includes(appealStatus);
+        }
+        return false;
+    });
+    const filteredIds = filteredReports.map((r)=>r.id);
+    // 4. Fetch Logs for filtered items
+    let logsMap = {};
+    if (filteredIds.length > 0) {
+        const { data: logsData } = await supabase.from('approval_log').select('report_id, action, comment, created_at, actor:actor_id(first_name, last_name)').in('report_id', filteredIds).order('created_at', {
+            ascending: false
+        });
+        if (logsData) {
+            logsData.forEach((log)=>{
+                if (!logsMap[log.report_id]) logsMap[log.report_id] = [];
+                const actor = Array.isArray(log.actor) ? log.actor[0] : log.actor;
+                logsMap[log.report_id].push({
+                    actor_name: actor ? `${actor.last_name}, ${actor.first_name}` : 'Unknown',
+                    action: log.action,
+                    created_at: log.created_at,
+                    comment: log.comment
+                });
+            });
+        }
+    }
+    // 5. Map to Final Type
+    const actionItems = filteredReports.map((item)=>{
+        // Normalize array/object responses from Supabase joins
+        const subjectObj = Array.isArray(item.subject) ? item.subject[0] : item.subject;
+        const submitterObj = Array.isArray(item.submitter) ? item.submitter[0] : item.submitter;
+        const groupObj = Array.isArray(item.group) ? item.group[0] : item.group;
+        const offenseObj = Array.isArray(item.offense_type) ? item.offense_type[0] : item.offense_type;
+        const appealData = appealsMap[item.id] || {};
+        return {
+            id: item.id,
+            status: item.status,
+            created_at: item.created_at,
+            current_approver_group_id: item.current_approver_group_id,
+            subject_cadet_id: item.subject_cadet_id,
+            submitted_by: item.submitted_by,
+            subject: subjectObj || {
+                first_name: 'Unknown',
+                last_name: 'Unknown'
+            },
+            submitter: submitterObj || {
+                first_name: 'Unknown',
+                last_name: 'Unknown'
+            },
+            group: groupObj,
+            offense_type: {
+                offense_name: offenseObj?.offense_name || item.title || 'Unknown Offense',
+                demerits: 0
+            },
+            notes: item.notes,
+            // --- Populate Appeal Fields (Fixes 2322 Error) ---
+            appeal_status: item.appeal_status || appealData.status || null,
+            appeal_id: appealData.id || null,
+            appeal_justification: appealData.justification || null,
+            appeal_issuer_comment: appealData.issuer_comment || null,
+            appeal_chain_comment: appealData.chain_comment || null,
+            // -------------------------------------------------
+            logs: logsMap[item.id] || []
+        };
+    });
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "max-w-7xl mx-auto p-4 sm:p-6 lg:p-8",
         children: [
-            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                className: "text-3xl font-bold text-gray-900 dark:text-white mb-6",
-                children: "Action Items"
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex justify-between items-center mb-6",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                            className: "text-3xl font-bold text-gray-900 dark:text-white",
+                            children: "Action Items"
+                        }, void 0, false, {
+                            fileName: "[project]/app/action-items/page.tsx",
+                            lineNumber: 159,
+                            columnNumber: 11
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                            className: "mt-1 text-sm text-gray-500 dark:text-gray-400",
+                            children: "Reports requiring your immediate attention. Select rows to perform bulk actions."
+                        }, void 0, false, {
+                            fileName: "[project]/app/action-items/page.tsx",
+                            lineNumber: 160,
+                            columnNumber: 11
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/action-items/page.tsx",
+                    lineNumber: 158,
+                    columnNumber: 9
+                }, this)
             }, void 0, false, {
                 fileName: "[project]/app/action-items/page.tsx",
-                lineNumber: 44,
+                lineNumber: 157,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$action$2d$items$2f$ActionItemsClient$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
-                items: items
+                initialReports: actionItems,
+                currentUserId: user.id
             }, void 0, false, {
                 fileName: "[project]/app/action-items/page.tsx",
-                lineNumber: 47,
+                lineNumber: 166,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/action-items/page.tsx",
-        lineNumber: 43,
+        lineNumber: 156,
         columnNumber: 5
     }, this);
 }

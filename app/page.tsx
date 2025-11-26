@@ -90,6 +90,7 @@ export default async function Dashboard() {
       return false;
   }) || []
 
+  // ... existing code ...
   const mySubmittedReports = allInvolvedReports.filter(report => report.submitted_by === user.id) || []
 
   return (
@@ -139,6 +140,7 @@ export default async function Dashboard() {
                 items={allPendingReports} 
                 emptyMessage="No reports pending approval." 
                 showSubject 
+                viewAllHref="/reports/pending"
             />
         )}
 
@@ -148,6 +150,7 @@ export default async function Dashboard() {
                 items={mySubmittedReports} 
                 emptyMessage="You haven't submitted any reports yet." 
                 showSubject 
+                viewAllHref="/reports/submitted"
             />
         )}
 
@@ -206,6 +209,7 @@ function DashboardSection({
     <div className="space-y-4 flex flex-col h-full">
       <div className="flex justify-between items-end">
           <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
+            {/* If a link is provided, wrap the title in it */}
             {viewAllHref ? (
                 <Link href={viewAllHref} className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
                     {title}
@@ -214,6 +218,7 @@ function DashboardSection({
             <span className="ml-2 text-lg text-gray-500 font-normal">({items?.length || 0})</span>
           </h2>
           
+          {/* Render the "View all ->" link if an href is passed */}
           {viewAllHref && (
             <Link href={viewAllHref} className="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:underline pb-1">
                 View all &rarr;

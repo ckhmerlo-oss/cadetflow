@@ -114,7 +114,10 @@ async function getReportData(reportId: string, user: User) {
     .single()
   
   const viewerRoleLevel = (viewerProfile?.role as any)?.default_role_level || 0
-  const isStaff = viewerRoleLevel >= 50
+  
+  // *** UPDATE: Changed threshold from 50 to 90 ***
+  // This matches the new SQL policy: only Commandant/Admins (90+) can pull reports they didn't write.
+  const isCommandantStaff = viewerRoleLevel >= 90
 
   let isApprover = false
   if (report.current_approver_group_id) {
@@ -134,14 +137,14 @@ async function getReportData(reportId: string, user: User) {
       }
   }
 
-  // --- MODIFIED: Calculate canPull ---
+  // --- Calculate canPull ---
   const isSubmitter = report.submitted_by === user.id
   const isCompleted = report.status === 'completed'
-  const isPending = report.status === 'pending_approval' // <-- ADDED THIS
+  const isPending = report.status === 'pending_approval'
   
-  // Allow pulling if (submitter OR staff) AND (report is completed OR pending)
-  const canPull = (isSubmitter || isStaff) && (isCompleted || isPending)
-  // --- END MODIFIED ---
+  // *** UPDATE: Use isCommandantStaff instead of isStaff ***
+  // Allow pulling if (submitter OR Commandant Staff) AND (report is completed OR pending)
+  const canPull = (isSubmitter || isCommandantStaff) && (isCompleted || isPending)
 
   return {
     report,
@@ -154,7 +157,7 @@ async function getReportData(reportId: string, user: User) {
       isSubject: report.subject_cadet_id === user.id,
       isApprover,
       canActOnAppeal,
-      canPull: !!canPull, // This will now be true for pending reports
+      canPull: !!canPull, 
     }
   }
 }

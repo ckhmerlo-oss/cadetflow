@@ -1,4 +1,8 @@
 -- 06_test_green_sheet_fixed.sql
+
+
+SELECT plan(0);
+
 BEGIN;
 
 DO $$

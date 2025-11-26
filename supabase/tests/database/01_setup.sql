@@ -1,6 +1,12 @@
 -- 01_setup.sql
 BEGIN;
 
+-- 0. FIX PERMISSIONS (Crucial for test runner)
+GRANT USAGE, CREATE ON SCHEMA public TO postgres;
+GRANT ALL ON ALL TABLES IN SCHEMA public TO postgres;
+GRANT ALL ON ALL SEQUENCES IN SCHEMA public TO postgres;
+GRANT ALL ON ALL ROUTINES IN SCHEMA public TO postgres;
+
 -- 1. Assertion Function
 CREATE OR REPLACE FUNCTION test_assert(condition boolean, message text) RETURNS void AS $$
 BEGIN
@@ -26,7 +32,6 @@ VALUES
 ON CONFLICT (id) DO NOTHING;
 
 -- 4. Create Test Role
--- FIX: Changed to valid HEX UUID (701e... instead of role...)
 INSERT INTO public.roles (id, role_name, default_role_level)
 VALUES ('00000000-0000-0000-0000-701e00000001', 'Test Cadet Role', 0)
 ON CONFLICT (id) DO NOTHING;
@@ -40,7 +45,7 @@ VALUES (
   '00000000-0000-0000-0000-c4de70000001', 
   'Test', 
   'Cadet', 
-  '00000000-0000-0000-0000-701e00000001', -- Matches the fixed Role UUID above
+  '00000000-0000-0000-0000-701e00000001',
   0
 )
 ON CONFLICT (id) DO UPDATE SET total_demerits = 0;

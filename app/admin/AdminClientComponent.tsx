@@ -3,8 +3,8 @@
 
 import { createClient } from '@/utils/supabase/client';
 import type { User } from '@supabase/supabase-js';
-import React, { useState, useEffect } from 'react';
-import { useFormState, useFormStatus } from 'react-dom';
+import React, { useState, useEffect, useActionState } from 'react'; // Changed: Added useActionState
+import { useFormStatus } from 'react-dom'; // Changed: Removed useFormState
 import { adminResetPassword } from './actions'; // Import the new action
 
 type AcademicTerm = {
@@ -94,7 +94,8 @@ export function AdminSettingsClient({ user }: { user: User }) {
   const [uploadError, setUploadError] = useState<string | null>(null);
 
   // 3. ADD THIS HOOK for the new form's state
-  const [resetState, resetFormAction] = useFormState(adminResetPassword, {
+  // Changed: useFormState -> useActionState
+  const [resetState, resetFormAction] = useActionState(adminResetPassword, {
     error: null,
     success: false,
   });

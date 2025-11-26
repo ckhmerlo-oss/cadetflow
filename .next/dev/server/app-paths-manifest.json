@@ -1,3 +1,12 @@
 {
-  "/manage/roles/page": "app/manage/roles/page.js"
+  "/action-items/page": "app/action-items/page.js",
+  "/ledger/[id]/page": "app/ledger/[id]/page.js",
+  "/login/page": "app/login/page.js",
+  "/manage/page": "app/manage/page.js",
+  "/page": "app/page.js",
+  "/report/[id]/page": "app/report/[id]/page.js",
+  "/reports/daily/page": "app/reports/daily/page.js",
+  "/reports/history/page": "app/reports/history/page.js",
+  "/reports/pending/page": "app/reports/pending/page.js",
+  "/reports/submitted/page": "app/reports/submitted/page.js"
 }

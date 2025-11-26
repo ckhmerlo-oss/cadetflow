@@ -1,4 +1,7 @@
 -- 03_test_nuke.sql (Persistent Version)
+
+SELECT plan(0);
+
 DO $$
 DECLARE
   v_cadet_id uuid := '00000000-0000-0000-0000-c4de70000001';

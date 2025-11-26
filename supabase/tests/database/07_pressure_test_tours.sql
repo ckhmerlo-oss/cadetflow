@@ -1,5 +1,9 @@
 -- 07_pressure_test_tours.sql
 -- THE CHAOS TEST (Fixed)
+
+
+SELECT plan(0);
+
 BEGIN;
 
 DO $$

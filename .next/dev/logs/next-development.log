@@ -1,7 +1,359 @@
-[00:00:01.364] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:01.541] Server  LOG      ✓ Ready in 1155ms
-[00:00:30.352] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:30.751] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:30.751] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:30.751] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/manage/roles","route":"/manage/roles"}
-[00:00:30.751] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage/roles color: rgb(120, 120, 120) color: inherit {"dp":"/manage/roles","o":"http://localhost:3000/manage/roles","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1763490511741}
+[00:00:04.347] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:04.861] Server  LOG      ✓ Ready in 3.5s
+[00:00:11.125] Server  LOG      ○ Compiling /report/[id] ...
+[00:00:19.338] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:19.391] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:19.730] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:19.730] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:19.730] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/report/ebca266e-f516-479a-8082-ffcda4fcd4ba","route":"/report/[id]"}
+[00:00:19.730] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/ebca266e-f516-479a-8082-ffcda4fcd4ba color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/ebca266e-f516-479a-8082-ffcda4fcd4ba","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764087369428}
+[00:00:20.707] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:20.707] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:20.707] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/ledger/b4c6c7f2-25e2-435d-994e-9587b6c7ea90","route":"/ledger/[id]"}
+[00:00:20.707] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ledger/b4c6c7f2-25e2-435d-994e-9587b6c7ea90 color: rgb(120, 120, 120) color: inherit {"dp":"/ledger/[id]","o":"http://localhost:3000/ledger/b4c6c7f2-25e2-435d-994e-9587b6c7ea90","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764087369427}
+[00:00:24.375] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/report/ebca266e-f516-479a-8082-ffcda4fcd4ba","id":"v3-1764087369427-2060841199836","route":"/report/[id]","type":"FCP","value":11424},{"href":"http://localhost:3000/report/ebca266e-f516-479a-8082-ffcda4fcd4ba","id":"v3-1764087369427-6516002164038","route":"/report/[id]","type":"TTFB","value":11037},{"attribution":{"eventTarget":"h1.text-2xl.md:text-3xl.font-bold.text-gray-900.dark:text-white"},"href":"http://localhost:3000/report/ebca266e-f516-479a-8082-ffcda4fcd4ba","id":"v3-1764087369427-2980678376512","route":"/report/[id]","type":"LCP","value":11424},{"attribution":{"eventTarget":"button.p-2.rounded-md.text-gray-600.dark:text-gray-300.hover:bg-gray-100.dark:hover:bg-gray-700","eventType":"pointerdown"},"href":"http://localhost:3000/report/ebca266e-f516-479a-8082-ffcda4fcd4ba","id":"v3-1764087369426-6331164541685","route":"/report/[id]","type":"FID","value":6}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:00:24.375] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764087374080}
+[00:00:32.803] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764087382494}
+[00:00:35.091] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/ec98eb1e-6919-470f-a011-af4a40fd2446 color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/ec98eb1e-6919-470f-a011-af4a40fd2446","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764087384781}
+[00:00:43.418] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764087393113}
+[00:00:47.974] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764087397681}
+[00:00:58.113] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/380cb264-83b9-40be-b30c-fa6861fd300d color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/380cb264-83b9-40be-b30c-fa6861fd300d","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764087407805}
+[00:01:00.303] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764087409993}
+[00:01:04.441] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/13c88594-5352-4657-95e1-01e500c92c57 color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/13c88594-5352-4657-95e1-01e500c92c57","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764087414139}
+[00:01:08.770] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764087418461}
+[00:01:11.601] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/91bc361e-9d0d-4917-a74d-1c9389469623 color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/91bc361e-9d0d-4917-a74d-1c9389469623","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764087421296}
+[00:01:14.649] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764087424333}
+[00:01:16.660] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/50e8997b-c8b5-484c-83db-576630ca755a color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/50e8997b-c8b5-484c-83db-576630ca755a","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764087426364}
+[00:01:18.402] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764087428104}
+[00:01:23.997] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"click"},"href":"http://localhost:3000/","id":"v3-1764087369427-1862057735479","route":"/","type":"INP","value":56}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:04:49.525] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/50e8997b-c8b5-484c-83db-576630ca755a color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/50e8997b-c8b5-484c-83db-576630ca755a","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764087639223}
+[00:04:53.179] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764087642874}
+[00:05:09.569] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/daily color: rgb(120, 120, 120) color: inherit {"dp":"/reports/daily","o":"http://localhost:3000/reports/daily","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764087659268}
+[00:11:32.465] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764088042087}
+[00:11:33.397] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"div.flex-shrink-0>a.text-2xl.font-bold.text-red-600.hover:text-red-700.transition-colors","eventType":"click"},"href":"http://localhost:3000/","id":"v3-1764087369427-1862057735479","route":"/","type":"INP","value":72}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:11:40.641] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/ledger/b4c6c7f2-25e2-435d-994e-9587b6c7ea90","id":"v3-1764087369427-3307009437979","route":"/ledger/[id]","type":"TTFB","value":10729}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:14:13.223] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/history color: rgb(120, 120, 120) color: inherit {"dp":"/reports/history","o":"http://localhost:3000/reports/history","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764091802927}
+[01:14:14.106] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764091803800}
+[01:14:25.615] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className","eventType":"keydown"},"href":"http://localhost:3000/","id":"v3-1764087369427-1862057735479","route":"/","type":"INP","value":96}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:16:28.681] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className","eventType":"keydown"},"href":"http://localhost:3000/","id":"v3-1764087369427-1862057735479","route":"/","type":"INP","value":144}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:22:32.700] Server  LOG      ✓ Compiled in 100ms
+[01:22:48.994] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/pending color: rgb(120, 120, 120) color: inherit {"dp":"/reports/pending","o":"http://localhost:3000/reports/pending","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764092318685}
+[01:26:51.952] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/50e8997b-c8b5-484c-83db-576630ca755a color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/50e8997b-c8b5-484c-83db-576630ca755a","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764092561653}
+[01:26:53.281] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/pending color: rgb(120, 120, 120) color: inherit {"dp":"/reports/pending","o":"http://localhost:3000/reports/pending","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764092562977}
+[01:30:29.454] Server  LOG      ✓ Compiled in 114ms
+[01:31:00.845] Server  LOG      ✓ Compiled in 119ms
+[01:35:55.600] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764093105281}
+[01:36:07.544] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/history color: rgb(120, 120, 120) color: inherit {"dp":"/reports/history","o":"http://localhost:3000/reports/history","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764093117237}
+[01:56:51.492] Server  LOG      ✓ Compiled in 115ms
+[01:56:56.718] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764094366409}
+[01:57:40.189] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:57:40.569] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:57:40.569] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:57:40.569] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:57:40.569] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764094410266}
+[01:58:03.351] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1764094410265-1970665536354","route":"/","type":"TTFB","value":1881}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[02:05:47.638] Server  LOG      ✓ Compiled in 156ms
+[02:05:55.370] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/submitted color: rgb(120, 120, 120) color: inherit {"dp":"/reports/submitted","o":"http://localhost:3000/reports/submitted","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764094905077}
+[02:09:18.268] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764095107959}
+[02:09:23.563] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/submitted color: rgb(120, 120, 120) color: inherit {"dp":"/reports/submitted","o":"http://localhost:3000/reports/submitted","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764095113187}
+[02:09:25.427] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"pointerdown"},"href":"http://localhost:3000/reports/submitted","id":"v3-1764094410265-2048012318529","route":"/reports/submitted","type":"INP","value":16}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[02:36:49.650] Server  LOG      ✓ Compiled in 74ms
+[02:39:50.974] Server  LOG      ✓ Compiled in 161ms
+[02:40:04.123] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"tr.hover:bg-gray-50.dark:hover:bg-gray-700/50.transition-colors>td.px-6.py-4.whitespace-nowrap","eventType":"pointerdown"},"href":"http://localhost:3000/reports/submitted","id":"v3-1764094410265-2048012318529","route":"/reports/submitted","type":"INP","value":48}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[02:41:26.137] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className","eventType":"keydown"},"href":"http://localhost:3000/reports/submitted","id":"v3-1764094410265-2048012318529","route":"/reports/submitted","type":"INP","value":120}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[02:47:45.328] Server  LOG      ✓ Compiled in 165ms
+[02:47:51.773] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/2d89e2ee-4652-49d7-8d3c-2c726cb36017 color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/2d89e2ee-4652-49d7-8d3c-2c726cb36017","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764097421476}
+[02:50:49.171] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764097598859}
+[02:57:00.955] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764097970657}
+[03:01:17.321] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"textarea.block.w-full.sm:flex-grow.rounded-md.border-gray-300.dark:border-gray-700.dark:bg-gray-900.dark:text-white.shadow-sm.py-2.px-3","eventType":"pointerdown"},"href":"http://localhost:3000/action-items","id":"v3-1764094410265-2048012318529","route":"/action-items","type":"INP","value":200}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[03:10:07.000] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[03:10:07.302] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[03:10:07.302] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[03:10:07.302] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/action-items","route":"/action-items"}
+[03:10:07.302] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764098757004}
+[03:10:20.352] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/action-items","id":"v3-1764098757002-9961664192374","route":"/action-items","type":"FCP","value":1645},{"href":"http://localhost:3000/action-items","id":"v3-1764098757002-1686776192017","route":"/action-items","type":"TTFB","value":1333},{"attribution":{"eventTarget":"textarea.block.w-full.sm:flex-grow.rounded-md.border-gray-300.dark:border-gray-700.dark:bg-gray-900.dark:text-white.shadow-sm.py-2.px-3","eventType":"pointerdown"},"href":"http://localhost:3000/action-items","id":"v3-1764098757002-9639864833786","route":"/action-items","type":"FID","value":8},{"attribution":{"eventTarget":"div.max-w-7xl.mx-auto.p-4.sm:p-6.lg:p-8>h1.text-3xl.font-bold.text-gray-900.dark:text-white.mb-6"},"href":"http://localhost:3000/action-items","id":"v3-1764098757002-3407000665174","route":"/action-items","type":"LCP","value":1645},{"attribution":{"eventTarget":"input.block.w-full.md:w-1/3.rounded-md.border-gray-300.dark:border-gray-600.dark:bg-gray-900.dark:text-white.shadow-sm","eventType":"pointerdown"},"href":"http://localhost:3000/action-items","id":"v3-1764098757002-5656106913078","route":"/action-items","type":"INP","value":40}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[03:10:34.742] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764098784441}
+[03:10:38.933] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[03:10:39.315] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[03:10:39.315] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[03:10:39.315] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/action-items","route":"/action-items"}
+[03:10:39.315] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764098788861}
+[03:10:42.724] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[03:10:43.277] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[03:10:43.277] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[03:10:43.277] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/reports/pending","route":"/reports/pending"}
+[03:10:43.277] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/pending color: rgb(120, 120, 120) color: inherit {"dp":"/reports/pending","o":"http://localhost:3000/reports/pending","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764098792733}
+[03:10:45.607] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[03:10:46.079] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[03:10:46.079] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[03:10:46.080] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/reports/submitted","route":"/reports/submitted"}
+[03:10:46.080] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/submitted color: rgb(120, 120, 120) color: inherit {"dp":"/reports/submitted","o":"http://localhost:3000/reports/submitted","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764098795587}
+[03:10:48.414] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[03:10:48.988] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[03:10:48.988] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[03:10:48.988] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/reports/history","route":"/reports/history"}
+[03:10:48.988] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/history color: rgb(120, 120, 120) color: inherit {"dp":"/reports/history","o":"http://localhost:3000/reports/history","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764098798359}
+[03:10:50.483] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/action-items","id":"v3-1764098788859-4135584646353","route":"/action-items","type":"TTFB","value":546}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[03:10:51.191] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/reports/pending","id":"v3-1764098792732-5516479311603","route":"/reports/pending","type":"TTFB","value":1282}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[03:10:51.692] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"a.text-sm.font-medium.text-indigo-600.dark:text-indigo-400.hover:underline.pb-1","eventType":"contextmenu"},"href":"http://localhost:3000/","id":"v3-1764098757002-5656106913078","route":"/","type":"INP","value":384}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[03:10:51.985] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/reports/submitted","id":"v3-1764098795583-7902343903842","route":"/reports/submitted","type":"TTFB","value":1211}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[03:10:52.529] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/reports/history","id":"v3-1764098798357-7228044544897","route":"/reports/history","type":"TTFB","value":708}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[03:14:42.558] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-500.dark:text-gray-300","eventType":"click"},"href":"http://localhost:3000/reports/history","id":"v3-1764098798357-3586004497971","route":"/reports/history","type":"INP","value":80}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[03:16:47.143] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764099156838}
+[03:16:49.865] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"pointerdown"},"href":"http://localhost:3000/login","id":"v3-1764098792732-9265008292277","route":"/login","type":"INP","value":32}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[03:16:55.576] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764099165272}
+[03:16:58.417] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764099168117}
+[03:17:02.137] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"keyup"},"href":"http://localhost:3000/action-items","id":"v3-1764098792732-9265008292277","route":"/action-items","type":"INP","value":112}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[03:19:28.325] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"keypress"},"href":"http://localhost:3000/action-items","id":"v3-1764098792732-9265008292277","route":"/action-items","type":"INP","value":96}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[05:49:39.463] Server  LOG      ✓ Compiled in 381ms
+[05:49:39.545] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[05:49:39.546] Browser ERROR   uncaughtError: TypeError: can't access property Symbol.iterator, initialReports is undefined
+[05:49:39.547] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[05:49:39.547] Browser ERROR   uncaughtError: TypeError: can't access property Symbol.iterator, initialReports is undefined
+[05:49:40.744] Browser ERROR   uncaughtError: TypeError: can't access property Symbol.iterator, initialReports is undefined
+[05:49:41.719] Browser ERROR   uncaughtError: TypeError: can't access property Symbol.iterator, initialReports is undefined
+[05:49:41.913] Server  LOG      ✓ Compiled in 289ms
+[05:49:41.945] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[05:49:41.949] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[05:49:43.751] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[05:49:44.023] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[05:49:44.792] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[05:49:44.792] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[05:49:44.792] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/action-items","route":"/action-items"}
+[05:49:44.792] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764108327778}
+[05:49:44.843] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[05:49:44.843] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[05:49:44.843] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/action-items","route":"/action-items"}
+[05:49:44.843] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764108327778}
+[05:50:20.235] Server  LOG      ✓ Compiled in 102ms
+[05:50:20.283] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[05:50:20.284] Browser ERROR   uncaughtError: TypeError: can't access property Symbol.iterator, initialReports is undefined
+[05:50:20.302] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[05:50:20.302] Browser ERROR   uncaughtError: TypeError: can't access property Symbol.iterator, initialReports is undefined
+[05:50:22.519] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[05:50:22.519] Browser ERROR   uncaughtError: TypeError: can't access property Symbol.iterator, initialReports is undefined
+[05:50:22.736] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[05:50:23.864] Browser ERROR   uncaughtError: TypeError: can't access property Symbol.iterator, initialReports is undefined
+[05:50:42.435] Server  LOG      ✓ Compiled in 108ms
+[05:50:45.700] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[05:50:45.753] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[05:50:45.947] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[05:50:45.947] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[05:50:45.947] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/action-items","route":"/action-items"}
+[05:50:45.947] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764108389437}
+[05:50:46.922] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[05:50:46.923] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[05:50:46.923] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/action-items","route":"/action-items"}
+[05:50:46.923] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764108389423}
+[05:51:32.014] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/action-items","id":"v3-1764108389421-5957904825091","route":"/action-items","type":"TTFB","value":2371}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[05:51:40.212] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className","eventType":"keydown"},"href":"http://localhost:3000/action-items","id":"v3-1764108389421-3075248053765","route":"/action-items","type":"INP","value":1344}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[05:52:05.643] Server  LOG      ✓ Compiled in 147ms
+[05:52:14.764] Server  LOG      ✓ Compiled in 623ms
+[05:52:19.350] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[05:52:19.655] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[05:52:19.656] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[05:52:19.656] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/reports/history","route":"/reports/history"}
+[05:52:19.656] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/history color: rgb(120, 120, 120) color: inherit {"dp":"/reports/history","o":"http://localhost:3000/reports/history","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764108483213}
+[05:52:24.320] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/reports/history","id":"v3-1764108483210-9895228733924","route":"/reports/history","type":"FCP","value":1353},{"href":"http://localhost:3000/reports/history","id":"v3-1764108483210-6645768438607","route":"/reports/history","type":"TTFB","value":1012},{"attribution":{"eventTarget":"main>div.max-w-7xl.mx-auto.p-8.text-center>p.text-gray-600.mt-2"},"href":"http://localhost:3000/reports/history","id":"v3-1764108483210-8607191420961","route":"/reports/history","type":"LCP","value":1353},{"attribution":{"eventTarget":"nav.max-w-6xl.mx-auto.px-4.sm:px-6.lg:px-8","eventType":"pointerdown"},"href":"http://localhost:3000/reports/history","id":"v3-1764108483210-8386126341035","route":"/reports/history","type":"FID","value":6}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[05:52:24.320] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764108487884}
+[05:52:29.896] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764108493459}
+[05:52:33.353] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/history color: rgb(120, 120, 120) color: inherit {"dp":"/reports/history","o":"http://localhost:3000/reports/history","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764108496902}
+[05:59:43.350] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"select.block.w-full.rounded-md.border-gray-300.dark:border-gray-600.dark:bg-gray-900.dark:text-white.shadow-sm.focus:border-indigo-500.focus:ring-indigo-500.sm:text-sm.py-2.px-3","eventType":"pointerdown"},"href":"http://localhost:3000/reports/history","id":"v3-1764108483210-5033806177763","route":"/reports/history","type":"INP","value":112}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[06:16:52.168] Server  LOG      ✓ Compiled in 316ms
+[06:17:00.000] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/a24dfd71-30f8-485c-bec7-a04515f28fb7 color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/a24dfd71-30f8-485c-bec7-a04515f28fb7","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764109963557}
+[06:17:01.023] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764109964578}
+[06:17:04.101] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/91bc361e-9d0d-4917-a74d-1c9389469623 color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/91bc361e-9d0d-4917-a74d-1c9389469623","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764109967667}
+[06:17:05.484] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764109969037}
+[06:22:37.420] Server  LOG      ✓ Compiled in 135ms
+[06:22:37.466] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[06:22:37.467] Browser ERROR   uncaughtError: TypeError: can't access property Symbol.iterator, filteredItems is undefined
+[06:22:37.508] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[06:22:37.508] Browser ERROR   uncaughtError: TypeError: can't access property Symbol.iterator, filteredItems is undefined
+[06:22:40.114] Server  ERROR    ⨯ TypeError: filteredItems is not iterable
+[06:22:40.212] Browser ERROR   uncaughtError: TypeError: can't access property Symbol.iterator, filteredItems is undefined
+[06:22:40.248] Browser ERROR   uncaughtError: TypeError: can't access property Symbol.iterator, filteredItems is undefined
+[06:22:40.616] Server  ERROR    ⨯ TypeError: filteredItems is not iterable
+[06:22:41.326] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[06:22:41.572] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[06:22:41.836] Browser ERROR   uncaughtError: TypeError: can't access property Symbol.iterator, filteredItems is undefined
+[06:22:42.448] Browser ERROR   uncaughtError: TypeError: can't access property Symbol.iterator, filteredItems is undefined
+[06:22:44.209] Server  LOG      ✓ Compiled in 100ms
+[06:22:46.450] Server  ERROR    ⨯ TypeError: initialReports is not iterable
+[06:22:47.285] Server  ERROR    ⨯ TypeError: initialReports is not iterable
+[06:22:47.951] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[06:22:48.076] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[06:22:50.023] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:22:50.023] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:22:50.023] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/action-items","route":"/action-items"}
+[06:22:50.023] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764110311965}
+[06:22:50.035] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:22:50.035] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:22:50.035] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/action-items","route":"/action-items"}
+[06:22:50.035] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764110311997}
+[06:22:53.818] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/action-items","id":"v3-1764110311962-6706439056124","route":"/action-items","type":"TTFB","value":2380}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[06:23:00.043] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className","eventType":"keydown"},"href":"http://localhost:3000/action-items","id":"v3-1764110311961-8564278693303","route":"/action-items","type":"INP","value":80}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[06:27:31.391] Server  LOG      ✓ Compiled in 100ms
+[06:27:34.391] Browser ERROR   uncaughtError: TypeError: can't access property Symbol.iterator, filteredItems is undefined
+[06:27:34.391] Browser ERROR   uncaughtError: TypeError: can't access property Symbol.iterator, filteredItems is undefined
+[06:35:09.120] Server  LOG      ✓ Compiled in 197ms
+[06:35:09.150] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[06:35:09.151] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[06:35:11.222] Browser ERROR   unhandledRejection: undefined
+[06:35:11.222] Browser ERROR   unhandledRejection: undefined
+[06:35:11.328] Browser ERROR   unhandledRejection: undefined
+[06:35:11.328] Browser ERROR   unhandledRejection: undefined
+[06:35:12.208] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[06:35:12.440] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[06:35:12.676] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:35:12.676] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:35:12.676] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/action-items","route":"/action-items"}
+[06:35:12.676] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764111056134}
+[06:35:13.417] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:35:13.417] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:35:13.417] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/action-items","route":"/action-items"}
+[06:35:13.417] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764111056120}
+[06:38:30.028] Server  LOG      ✓ Compiled in 116ms
+[06:41:35.007] Server  LOG      ✓ Compiled in 108ms
+[06:41:52.770] Server  ERROR    ⨯ ./app/action-items/page.tsx:3:1
+Module not found: Can't resolve './ActionItesClient'
+  1 | import { createClient } from '@/utils/supabase/server'
+  2 | import { redirect } from 'next/navigation'
+> 3 | import ActionItemsClient from './ActionItesClient'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 |
+  5 | export type ActionItemReport = {
+  6 |   id: string;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[06:41:52.773] Server  ERROR    ⨯ ./app/action-items/page.tsx:3:1
+Module not found: Can't resolve './ActionItesClient'
+  1 | import { createClient } from '@/utils/supabase/server'
+  2 | import { redirect } from 'next/navigation'
+> 3 | import ActionItemsClient from './ActionItesClient'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 |
+  5 | export type ActionItemReport = {
+  6 |   id: string;
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[06:41:52.835] Server  LOG      ✓ Compiled in 129ms
+[06:41:53.685] Browser ERROR   ./app/action-items/page.tsx:3:1
+Module not found: Can't resolve './ActionItesClient'
+  1 | import { createClient } from '@/utils/supabase/server'
+  2 | import { redirect } from 'next/navigation'
+> 3 | import ActionItemsClient from './ActionItesClient'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 |
+  5 | export type ActionItemReport = {
+  6 |   id: string;
+
+https://nextjs.org/docs/messages/module-not-found
+[06:41:53.688] Browser ERROR   ./app/action-items/page.tsx:3:1
+Module not found: Can't resolve './ActionItesClient'
+  1 | import { createClient } from '@/utils/supabase/server'
+  2 | import { redirect } from 'next/navigation'
+> 3 | import ActionItemsClient from './ActionItesClient'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 |
+  5 | export type ActionItemReport = {
+  6 |   id: string;
+
+https://nextjs.org/docs/messages/module-not-found
+[06:41:53.688] Browser ERROR   ./app/action-items/page.tsx:3:1
+Module not found: Can't resolve './ActionItesClient'
+  1 | import { createClient } from '@/utils/supabase/server'
+  2 | import { redirect } from 'next/navigation'
+> 3 | import ActionItemsClient from './ActionItesClient'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 |
+  5 | export type ActionItemReport = {
+  6 |   id: string;
+
+https://nextjs.org/docs/messages/module-not-found
+[06:41:54.133] Server  LOG      ✓ Compiled in 89ms
+[06:41:54.884] Browser ERROR   ./app/action-items/page.tsx:3:1
+Module not found: Can't resolve './ActionItesClient'
+  1 | import { createClient } from '@/utils/supabase/server'
+  2 | import { redirect } from 'next/navigation'
+> 3 | import ActionItemsClient from './ActionItesClient'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 |
+  5 | export type ActionItemReport = {
+  6 |   id: string;
+
+https://nextjs.org/docs/messages/module-not-found
+[06:41:54.884] Browser ERROR   ./app/action-items/page.tsx:3:1
+Module not found: Can't resolve './ActionItesClient'
+  1 | import { createClient } from '@/utils/supabase/server'
+  2 | import { redirect } from 'next/navigation'
+> 3 | import ActionItemsClient from './ActionItesClient'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 |
+  5 | export type ActionItemReport = {
+  6 |   id: string;
+
+https://nextjs.org/docs/messages/module-not-found
+[06:41:54.885] Browser ERROR   ./app/action-items/page.tsx:3:1
+Module not found: Can't resolve './ActionItesClient'
+  1 | import { createClient } from '@/utils/supabase/server'
+  2 | import { redirect } from 'next/navigation'
+> 3 | import ActionItemsClient from './ActionItesClient'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 |
+  5 | export type ActionItemReport = {
+  6 |   id: string;
+
+https://nextjs.org/docs/messages/module-not-found
+[06:41:57.317] Browser ERROR   Failed to fetch RSC payload for http://localhost:3000/. Falling back to browser navigation. {}
+[06:41:57.319] Browser ERROR   Failed to fetch RSC payload for http://localhost:3000/action-items. Falling back to browser navigation. {}
+[06:41:57.379] Browser ERROR   Failed to fetch RSC payload for http://localhost:3000/action-items. Falling back to browser navigation. {}
+[06:42:00.734] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[06:42:00.821] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[06:42:01.020] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[06:42:01.199] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:42:01.199] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:42:01.199] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/action-items","route":"/action-items"}
+[06:42:01.199] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764111464421}
+[06:42:01.355] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:42:01.355] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:42:01.356] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/action-items","route":"/action-items"}
+[06:42:01.356] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764111464612}
+[06:42:02.207] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:42:02.208] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[06:42:02.208] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[06:42:02.208] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764111464812}
+[06:43:41.289] Server  LOG      ✓ Compiled in 108ms
+[06:43:42.653] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/action-items","id":"v3-1764111464611-5225686148294","route":"/action-items","type":"TTFB","value":4826}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[06:44:04.736] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764111588286}
+[06:44:49.639] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764111633191}
+[06:44:52.092] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764111635645}
+[06:45:13.796] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/a24dfd71-30f8-485c-bec7-a04515f28fb7 color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/a24dfd71-30f8-485c-bec7-a04515f28fb7","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764111657355}
+[06:45:15.974] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764111659527}
+[06:45:19.787] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/50e8997b-c8b5-484c-83db-576630ca755a color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/50e8997b-c8b5-484c-83db-576630ca755a","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764111663350}
+[06:45:21.694] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764111665242}
+[06:57:33.939] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className","eventType":"keyup"},"href":"http://localhost:3000/action-items","id":"v3-1764111464611-5321864126791","route":"/action-items","type":"INP","value":1208}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[06:58:37.968] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/action-items","id":"v3-1764111464418-5483916559786","route":"/action-items","type":"TTFB","value":4809}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[07:24:23.862] Server  LOG      ✓ Compiled in 241ms
+[07:29:32.083] Server  LOG      ✓ Compiled in 189ms
+[07:35:39.909] Server  LOG      ✓ Compiled in 144ms
+[07:42:16.113] Server  LOG      ✓ Compiled in 91ms
+[07:42:18.474] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1764111464810-1752322002750","route":"/","type":"TTFB","value":5806}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[07:42:23.126] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[07:42:23.409] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[07:42:23.409] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[07:42:23.409] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/action-items","route":"/action-items"}
+[07:42:23.409] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764115086967}
+[07:42:45.110] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/action-items","id":"v3-1764115086966-3650914006610","route":"/action-items","type":"TTFB","value":1044},{"attribution":{"eventTarget":"td.px-6.py-4.text-sm.text-gray-500.dark:text-gray-300","eventType":"pointerdown"},"href":"http://localhost:3000/action-items","id":"v3-1764115086966-9690846043572","route":"/action-items","type":"FID","value":17},{"attribution":{"eventTarget":"td.px-6.py-4.text-sm.text-gray-500.dark:text-gray-300","eventType":"click"},"href":"http://localhost:3000/action-items","id":"v3-1764115086966-9280208642399","route":"/action-items","type":"INP","value":48}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[07:47:02.484] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/1ab52765-47df-4d2f-a4a1-65d1a2de31b2 color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/1ab52765-47df-4d2f-a4a1-65d1a2de31b2","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764115366044}
+[07:47:04.339] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/submitted color: rgb(120, 120, 120) color: inherit {"dp":"/reports/submitted","o":"http://localhost:3000/reports/submitted","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764115367880}
+[07:47:13.794] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"click"},"href":"http://localhost:3000/reports/submitted","id":"v3-1764098795583-7971406124880","route":"/reports/submitted","type":"INP","value":48}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[08:53:46.989] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className","eventType":"keypress"},"href":"http://localhost:3000/reports/submitted","id":"v3-1764098795583-7971406124880","route":"/reports/submitted","type":"INP","value":8016}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[08:54:01.814] Server  LOG      ✓ Compiled in 379ms

@@ -110,7 +110,9 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$report$2f5b$id$5d2f$R
     // Fetch viewer role for Staff check
     const { data: viewerProfile } = await supabase.from('profiles').select('role:role_id (default_role_level)').eq('id', user.id).single();
     const viewerRoleLevel = viewerProfile?.role?.default_role_level || 0;
-    const isStaff = viewerRoleLevel >= 50;
+    // *** UPDATE: Changed threshold from 50 to 90 ***
+    // This matches the new SQL policy: only Commandant/Admins (90+) can pull reports they didn't write.
+    const isCommandantStaff = viewerRoleLevel >= 90;
     let isApprover = false;
     if (report.current_approver_group_id) {
         const { data: isMember } = await supabase.rpc('is_member_of_approver_group', {
@@ -132,14 +134,13 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$report$2f5b$id$5d2f$R
             if (hasPerm) canActOnAppeal = true;
         }
     }
-    // --- MODIFIED: Calculate canPull ---
+    // --- Calculate canPull ---
     const isSubmitter = report.submitted_by === user.id;
     const isCompleted = report.status === 'completed';
-    const isPending = report.status === 'pending_approval' // <-- ADDED THIS
-    ;
-    // Allow pulling if (submitter OR staff) AND (report is completed OR pending)
-    const canPull = (isSubmitter || isStaff) && (isCompleted || isPending);
-    // --- END MODIFIED ---
+    const isPending = report.status === 'pending_approval';
+    // *** UPDATE: Use isCommandantStaff instead of isStaff ***
+    // Allow pulling if (submitter OR Commandant Staff) AND (report is completed OR pending)
+    const canPull = (isSubmitter || isCommandantStaff) && (isCompleted || isPending);
     return {
         report,
         logs,
@@ -177,7 +178,7 @@ async function ReportDetailsPage({ params: paramsPromise }) {
         permissions: data.permissions
     }, void 0, false, {
         fileName: "[project]/app/report/[id]/page.tsx",
-        lineNumber: 186,
+        lineNumber: 189,
         columnNumber: 5
     }, this);
 }
