@@ -1,4 +1,20 @@
 {
-  "node": {},
+  "node": {
+    "601965a4035ba6a536f826c0aa7efe7c152e3c9d1f": {
+      "workers": {
+        "app/reports/pending/page": {
+          "moduleId": "[project]/.next-internal/server/app/reports/pending/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/reports/pending/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "fetchPendingReports",
+          "filename": "app/reports/pending/actions.ts"
+        }
+      },
+      "layer": {
+        "app/reports/pending/page": "action-browser"
+      },
+      "exportedName": "fetchPendingReports",
+      "filename": "app/reports/pending/actions.ts"
+    }
+  },
   "edge": {}
 }

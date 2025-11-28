@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { updateCadetProfile } from './actions'
+import { submitTourAdjustment, updateCadetProfile } from './actions'
 import { 
   CADET_RANKS, 
   FALL_SPORTS, 
@@ -24,11 +24,16 @@ type ProfileClientProps = {
 export default function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSportData, calculatedConduct }: ProfileClientProps) {
   const [isEditing, setIsEditing] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
+  
+  // Adjustment State
+  const [adjAmount, setAdjAmount] = useState(0)
+  const [adjReason, setAdjReason] = useState('')
+  const [isAdjusting, setIsAdjusting] = useState(false)
 
   const fullName = `${profile.last_name}, ${profile.first_name}`
   const isProbation = !!profile.probation_status && profile.probation_status !== 'None'
   const probationStatus = profile.probation_status || 'None'
-  const hasStarTours = profile.has_star_tours === true 
+  const hasStarTours = profile.has_star_tours === true
   
   const getConductColor = (status: string) => {
       if (status === 'Exemplary') return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 ring-1 ring-purple-500/20';
@@ -48,12 +53,34 @@ export default function ProfileClient({ profile, stats, canEdit, canManageStarTo
       setIsEditing(false)
     }
   }
+  
+  // New Handler for Adjustments
+  async function handleAdjustment() {
+    if (adjAmount === 0 || !adjReason) {
+        alert("Please enter a valid amount and a reason.");
+        return;
+    }
+    if(!confirm(`Are you sure you want to adjust the tour balance by ${adjAmount > 0 ? '+' : ''}${adjAmount}? This will be permanently logged.`)) return;
+
+    setIsAdjusting(true)
+    const res = await submitTourAdjustment(profile.id, adjAmount, adjReason)
+    setIsAdjusting(false)
+
+    if(res.error) {
+        alert(res.error)
+    } else {
+        alert("Adjustment applied successfully.")
+        setAdjAmount(0)
+        setAdjReason('')
+    }
+  }
 
   // --- EDIT MODE ---
   if (isEditing) {
     return (
-      <div className="w-full">
+      <div className="w-full space-y-6">
         <form action={handleSubmit} className="bg-white dark:bg-gray-800 shadow rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+          {/* ... existing form header and fields ... */}
           <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-700/50">
             <h2 className="text-lg font-bold text-gray-900 dark:text-white">Editing {fullName}</h2>
             <div className="space-x-3">
@@ -95,9 +122,6 @@ export default function ProfileClient({ profile, stats, canEdit, canManageStarTo
                   Cadet is on * Tours
                 </label>
               </div>
-              {!canManageStarTours && (
-                <p className="text-xs text-gray-500 mt-1">Only Commandant-level staff can modify * Tours.</p>
-              )}
             </div>
 
             <div className="col-span-full border-t border-gray-200 dark:border-gray-700 pt-6 mt-2">
@@ -110,6 +134,48 @@ export default function ProfileClient({ profile, stats, canEdit, canManageStarTo
             </div>
           </div>
         </form>
+
+        {/* --- NEW: TOUR ADJUSTMENT SECTION --- */}
+        {canManageStarTours && (
+            <div className="bg-white dark:bg-gray-800 shadow rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+                <div className="px-6 py-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/50">
+                    <h2 className="text-lg font-bold text-gray-900 dark:text-white">Manual Tour Adjustment</h2>
+                    <p className="text-xs text-gray-500">Directly manipulate the ledger. Positive adds penalty, negative removes/serves.</p>
+                </div>
+                <div className="p-6 grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
+                    <div>
+                        <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Adjustment Amount</label>
+                        <input 
+                            type="number" 
+                            value={adjAmount}
+                            onChange={e => setAdjAmount(Number(e.target.value))}
+                            className="block w-full rounded-md border-gray-300 dark:bg-gray-700 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2.5 border" 
+                            placeholder="e.g. 5 or -5"
+                        />
+                    </div>
+                    <div className="md:col-span-1">
+                        <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-1">Reason</label>
+                        <input 
+                            type="text" 
+                            value={adjReason}
+                            onChange={e => setAdjReason(e.target.value)}
+                            className="block w-full rounded-md border-gray-300 dark:bg-gray-700 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2.5 border" 
+                            placeholder="Administrative Adjustment"
+                        />
+                    </div>
+                    <div>
+                        <button 
+                            type="button" 
+                            onClick={handleAdjustment}
+                            disabled={isAdjusting || adjAmount === 0 || !adjReason}
+                            className="w-full px-4 py-2.5 text-sm font-bold text-white bg-gray-800 dark:bg-gray-600 rounded-md hover:bg-gray-900 dark:hover:bg-gray-500 shadow-sm disabled:opacity-50"
+                        >
+                            {isAdjusting ? 'Applying...' : 'Apply Adjustment'}
+                        </button>
+                    </div>
+                </div>
+            </div>
+        )}
       </div>
     )
   }

@@ -1,25 +1,2721 @@
-[00:00:03.937] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:04.415] Server  LOG      ✓ Ready in 3.2s
-[00:00:06.364] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"input.w-full.p-2.border.rounded.text-sm.dark:bg-gray-800.dark:border-gray-600.dark:text-white","eventType":"keyup"},"href":"http://localhost:3000/admin","id":"v3-1764172627153-4396894890611","route":"/admin","type":"INP","value":496}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:00:09.614] Server  LOG      ○ Compiling /admin ...
-[00:00:15.760] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:16.013] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:16.013] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:16.013] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/admin","route":"/admin"}
-[00:00:16.013] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/admin color: rgb(120, 120, 120) color: inherit {"dp":"/admin","o":"http://localhost:3000/admin","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764173164385}
-[00:00:21.325] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/admin","id":"v3-1764173164385-1536283118379","route":"/admin","type":"FCP","value":8784},{"href":"http://localhost:3000/admin","id":"v3-1764173164385-7773482957435","route":"/admin","type":"TTFB","value":8523},{"attribution":{"eventTarget":"div.flex.flex-col.items-center>h2.mt-6.text-center.text-2xl.font-bold.text-gray-900.dark:text-white"},"href":"http://localhost:3000/admin","id":"v3-1764173164385-3153355286240","route":"/admin","type":"LCP","value":9233},{"attribution":{"eventTarget":"div.w-full.max-w-md.space-y-8.p-8.bg-white.dark:bg-gray-800.shadow-lg.rounded-xl>form.space-y-6","eventType":"pointerdown"},"href":"http://localhost:3000/admin","id":"v3-1764173164385-3802273138002","route":"/admin","type":"FID","value":7},{"attribution":{"eventTarget":"","eventType":"pointerdown"},"href":"http://localhost:3000/admin","id":"v3-1764173164385-2910235336218","route":"/admin","type":"INP","value":16}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:00:32.963] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:33.270] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:33.270] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:33.270] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
-[00:00:33.270] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764173181645}
-[00:00:38.582] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1764173181642-7744048635626","route":"/","type":"TTFB","value":99685},{"attribution":{"eventTarget":"button.p-2.rounded-md.text-gray-600.dark:text-gray-300.hover:bg-gray-100.dark:hover:bg-gray-700","eventType":"pointerdown"},"href":"http://localhost:3000/","id":"v3-1764173181642-3632192393963","route":"/","type":"FID","value":19}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:00:38.582] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/admin color: rgb(120, 120, 120) color: inherit {"dp":"/admin","o":"http://localhost:3000/admin","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764173186932}
-[00:00:55.135] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:55.386] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:55.386] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:55.386] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/admin","route":"/admin"}
-[00:00:55.386] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/admin color: rgb(120, 120, 120) color: inherit {"dp":"/admin","o":"http://localhost:3000/admin","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764173203756}
-[00:01:38.645] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/admin","id":"v3-1764173203743-4957763900255","route":"/admin","type":"TTFB","value":798},{"attribution":{"eventTarget":"input.mt-1.block.w-full.rounded-md.border-gray-300.dark:bg-gray-900.dark:border-gray-600.dark:text-white.shadow-sm","eventType":"pointerdown"},"href":"http://localhost:3000/admin","id":"v3-1764173203743-1481520535305","route":"/admin","type":"FID","value":4},{"attribution":{"eventTarget":"","eventType":"keyup"},"href":"http://localhost:3000/admin","id":"v3-1764173203743-5032365099505","route":"/admin","type":"INP","value":480}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:10:44.647] Server  LOG      ✓ Compiled in 224ms
-[00:12:12.512] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"keyup"},"href":"http://localhost:3000/admin","id":"v3-1764173203743-5032365099505","route":"/admin","type":"INP","value":472}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:00:02.991] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:03.266] Server  LOG      ✓ Ready in 2.5s
+[00:00:06.895] Server  LOG      ○ Compiling / ...
+[00:00:09.355] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:11.169] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:11.169] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:00:11.169] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764332904242}
+[00:00:11.169] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:56.666] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1764332904244-5980805787213","route":"/","type":"TTFB","value":6824}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:02:54.056] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/50e8997b-c8b5-484c-83db-576630ca755a color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/50e8997b-c8b5-484c-83db-576630ca755a","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333068672}
+[00:02:56.853] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333071470}
+[00:03:03.622] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/profile/02c82cc1-f3a6-4327-8c97-acb1ffbaf392 color: rgb(120, 120, 120) color: inherit {"dp":"/profile/[id]","o":"http://localhost:3000/profile/02c82cc1-f3a6-4327-8c97-acb1ffbaf392","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333078240}
+[00:03:12.180] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333086792}
+[00:03:20.790] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ledger/da77b296-ad3e-489f-94c1-955242db224d color: rgb(120, 120, 120) color: inherit {"dp":"/ledger/[id]","o":"http://localhost:3000/ledger/da77b296-ad3e-489f-94c1-955242db224d","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333095411}
+[00:03:26.982] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333101594}
+[00:03:32.622] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/profile/da77b296-ad3e-489f-94c1-955242db224d color: rgb(120, 120, 120) color: inherit {"dp":"/profile/[id]","o":"http://localhost:3000/profile/da77b296-ad3e-489f-94c1-955242db224d","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333107236}
+[00:03:52.923] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333127540}
+[00:03:54.423] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/50e8997b-c8b5-484c-83db-576630ca755a color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/50e8997b-c8b5-484c-83db-576630ca755a","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333129043}
+[00:03:56.328] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333130948}
+[00:04:00.778] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/profile/da77b296-ad3e-489f-94c1-955242db224d color: rgb(120, 120, 120) color: inherit {"dp":"/profile/[id]","o":"http://localhost:3000/profile/da77b296-ad3e-489f-94c1-955242db224d","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333135389}
+[00:04:01.903] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333136512}
+[00:04:05.622] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ledger/da77b296-ad3e-489f-94c1-955242db224d color: rgb(120, 120, 120) color: inherit {"dp":"/ledger/[id]","o":"http://localhost:3000/ledger/da77b296-ad3e-489f-94c1-955242db224d","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333140241}
+[00:04:11.184] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333145807}
+[00:04:12.673] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/50e8997b-c8b5-484c-83db-576630ca755a color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/50e8997b-c8b5-484c-83db-576630ca755a","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333147281}
+[00:04:13.643] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333148258}
+[00:04:16.877] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/profile/da77b296-ad3e-489f-94c1-955242db224d color: rgb(120, 120, 120) color: inherit {"dp":"/profile/[id]","o":"http://localhost:3000/profile/da77b296-ad3e-489f-94c1-955242db224d","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333151496}
+[00:04:18.845] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"keyup"},"href":"http://localhost:3000/profile/da77b296-ad3e-489f-94c1-955242db224d","id":"v3-1764332904244-4846509895814","route":"/profile/[id]","type":"INP","value":504}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:04:38.265] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333172879}
+[00:04:41.170] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333175781}
+[00:04:51.808] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333186425}
+[00:04:53.324] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/submit color: rgb(120, 120, 120) color: inherit {"dp":"/submit","o":"http://localhost:3000/submit","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333187934}
+[00:05:08.970] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333203585}
+[00:05:13.669] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/daily color: rgb(120, 120, 120) color: inherit {"dp":"/reports/daily","o":"http://localhost:3000/reports/daily","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333208292}
+[00:05:30.147] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/c20df365-e255-4260-b584-21f3a2814f66 color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/c20df365-e255-4260-b584-21f3a2814f66","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333224765}
+[00:05:38.272] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"keyup"},"href":"http://localhost:3000/report/c20df365-e255-4260-b584-21f3a2814f66","id":"v3-1764332904244-4846509895814","route":"/report/[id]","type":"INP","value":512}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:05:44.022] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/daily color: rgb(120, 120, 120) color: inherit {"dp":"/reports/daily","o":"http://localhost:3000/reports/daily","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333238634}
+[00:08:20.623] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333394336}
+[00:08:26.191] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/daily color: rgb(120, 120, 120) color: inherit {"dp":"/reports/daily","o":"http://localhost:3000/reports/daily","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333400811}
+[00:08:34.614] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333409227}
+[00:08:35.521] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/submit color: rgb(120, 120, 120) color: inherit {"dp":"/submit","o":"http://localhost:3000/submit","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333410144}
+[00:08:51.150] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333425761}
+[00:08:54.640] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/daily color: rgb(120, 120, 120) color: inherit {"dp":"/reports/daily","o":"http://localhost:3000/reports/daily","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333429261}
+[00:09:50.097] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333484705}
+[00:10:19.399] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"keyup"},"href":"http://localhost:3000/","id":"v3-1764332904244-4846509895814","route":"/","type":"INP","value":504}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:18:23.983] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/history color: rgb(120, 120, 120) color: inherit {"dp":"/reports/history","o":"http://localhost:3000/reports/history","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764333998589}
+[00:27:58.712] Server  LOG      ✓ Compiled in 84ms
+[00:34:33.742] Server  LOG      ✓ Compiled in 88ms
+[00:34:42.874] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"keyup"},"href":"http://localhost:3000/reports/history","id":"v3-1764332904244-4846509895814","route":"/reports/history","type":"INP","value":512}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:37:18.702] Server  LOG      ✓ Compiled in 80ms
+[00:43:29.826] Server  LOG      ✓ Compiled in 80ms
+[00:43:39.044] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764335513649}
+[00:43:39.867] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/history color: rgb(120, 120, 120) color: inherit {"dp":"/reports/history","o":"http://localhost:3000/reports/history","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764335514471}
+[00:43:56.749] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. d2dd01e6-8670-42f3-addc-b1d344fd57ee
+[00:43:56.749] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. bd29b87f-9beb-4a02-86fe-25c8cab6f1e8
+[00:44:15.563] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:44:15.781] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:44:15.781] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:44:15.781] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/reports/history","route":"/reports/history"}
+[00:44:15.781] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/history color: rgb(120, 120, 120) color: inherit {"dp":"/reports/history","o":"http://localhost:3000/reports/history","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764335550396}
+[00:44:18.651] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. d2dd01e6-8670-42f3-addc-b1d344fd57ee
+[00:44:18.651] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. bd29b87f-9beb-4a02-86fe-25c8cab6f1e8
+[00:44:29.686] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/reports/history","id":"v3-1764335550396-6449188555200","route":"/reports/history","type":"FCP","value":845},{"href":"http://localhost:3000/reports/history","id":"v3-1764335550396-6000482460051","route":"/reports/history","type":"TTFB","value":730},{"attribution":{"eventTarget":"div.flex.justify-between.items-center.mb-6>div>h1.text-3xl.font-bold.text-gray-900.dark:text-white"},"href":"http://localhost:3000/reports/history","id":"v3-1764335550395-9074712754393","route":"/reports/history","type":"LCP","value":845},{"attribution":{"eventTarget":"button.px-6.py-2.bg-white.dark:bg-gray-700.border.border-gray-300.dark:border-gray-500.rounded-full.shadow-sm.text-indigo-600.dark:text-indigo-400.font-medium.hover:bg-gray-50.dark:hover:bg-gray-600.transition-all.disabled:opacity-50","eventType":"pointerdown"},"href":"http://localhost:3000/reports/history","id":"v3-1764335550395-5749710690611","route":"/reports/history","type":"FID","value":13},{"attribution":{"eventTarget":"","eventType":"pointerdown"},"href":"http://localhost:3000/reports/history","id":"v3-1764335550396-1018585634860","route":"/reports/history","type":"INP","value":16}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:48:34.146] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. d2dd01e6-8670-42f3-addc-b1d344fd57ee
+[00:48:34.146] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. bd29b87f-9beb-4a02-86fe-25c8cab6f1e8
+[00:48:34.146] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. d2dd01e6-8670-42f3-addc-b1d344fd57ee
+[00:48:34.146] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. bd29b87f-9beb-4a02-86fe-25c8cab6f1e8
+[00:49:01.778] Server  LOG      ✓ Compiled in 56ms
+[00:49:02.780] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. d2dd01e6-8670-42f3-addc-b1d344fd57ee
+[00:49:02.780] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. bd29b87f-9beb-4a02-86fe-25c8cab6f1e8
+[00:49:09.362] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. d2dd01e6-8670-42f3-addc-b1d344fd57ee
+[00:49:09.362] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. bd29b87f-9beb-4a02-86fe-25c8cab6f1e8
+[00:49:09.362] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. d2dd01e6-8670-42f3-addc-b1d344fd57ee
+[00:49:09.362] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. bd29b87f-9beb-4a02-86fe-25c8cab6f1e8
+[00:49:20.780] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. d2dd01e6-8670-42f3-addc-b1d344fd57ee
+[00:49:20.780] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. bd29b87f-9beb-4a02-86fe-25c8cab6f1e8
+[00:49:20.780] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. d2dd01e6-8670-42f3-addc-b1d344fd57ee
+[00:49:20.780] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. bd29b87f-9beb-4a02-86fe-25c8cab6f1e8
+[00:49:28.573] Server  LOG      ✓ Compiled in 57ms
+[00:49:29.580] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. d2dd01e6-8670-42f3-addc-b1d344fd57ee
+[00:49:29.580] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. bd29b87f-9beb-4a02-86fe-25c8cab6f1e8
+[00:49:30.360] Server  LOG      ✓ Compiled in 41ms
+[00:49:31.312] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. d2dd01e6-8670-42f3-addc-b1d344fd57ee
+[00:49:31.312] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. bd29b87f-9beb-4a02-86fe-25c8cab6f1e8
+[00:49:37.624] Server  LOG      ✓ Compiled in 52ms
+[00:49:38.165] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. d2dd01e6-8670-42f3-addc-b1d344fd57ee
+[00:49:38.165] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. bd29b87f-9beb-4a02-86fe-25c8cab6f1e8
+[00:49:46.126] Server  LOG      ✓ Compiled in 52ms
+[00:49:46.193] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. d2dd01e6-8670-42f3-addc-b1d344fd57ee
+[00:49:46.193] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. bd29b87f-9beb-4a02-86fe-25c8cab6f1e8
+[00:49:48.875] Server  LOG      ✓ Compiled in 44ms
+[00:49:48.977] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. d2dd01e6-8670-42f3-addc-b1d344fd57ee
+[00:49:48.977] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. bd29b87f-9beb-4a02-86fe-25c8cab6f1e8
+[00:49:55.244] Server  LOG      ✓ Compiled in 44ms
+[00:49:55.296] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. d2dd01e6-8670-42f3-addc-b1d344fd57ee
+[00:49:55.296] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. bd29b87f-9beb-4a02-86fe-25c8cab6f1e8
+[00:49:57.661] Server  LOG      ✓ Compiled in 47ms
+[00:49:57.713] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. d2dd01e6-8670-42f3-addc-b1d344fd57ee
+[00:49:57.713] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. bd29b87f-9beb-4a02-86fe-25c8cab6f1e8
+[00:50:00.345] Server  LOG      ✓ Compiled in 56ms
+[00:50:00.396] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. d2dd01e6-8670-42f3-addc-b1d344fd57ee
+[00:50:00.396] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. bd29b87f-9beb-4a02-86fe-25c8cab6f1e8
+[00:50:08.277] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. d2dd01e6-8670-42f3-addc-b1d344fd57ee
+[00:50:08.277] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. bd29b87f-9beb-4a02-86fe-25c8cab6f1e8
+[00:50:08.430] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. d2dd01e6-8670-42f3-addc-b1d344fd57ee
+[00:50:08.430] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. bd29b87f-9beb-4a02-86fe-25c8cab6f1e8
+[00:50:29.510] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className","eventType":"keydown"},"href":"http://localhost:3000/reports/history","id":"v3-1764335550396-1018585634860","route":"/reports/history","type":"INP","value":88}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:54:18.210] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. d2dd01e6-8670-42f3-addc-b1d344fd57ee
+[00:54:18.210] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. bd29b87f-9beb-4a02-86fe-25c8cab6f1e8
+[00:54:18.210] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. d2dd01e6-8670-42f3-addc-b1d344fd57ee
+[00:54:18.210] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. bd29b87f-9beb-4a02-86fe-25c8cab6f1e8
+[00:54:20.377] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. d2dd01e6-8670-42f3-addc-b1d344fd57ee
+[00:54:20.377] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. bd29b87f-9beb-4a02-86fe-25c8cab6f1e8
+[00:54:20.377] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. d2dd01e6-8670-42f3-addc-b1d344fd57ee
+[00:54:20.377] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. bd29b87f-9beb-4a02-86fe-25c8cab6f1e8
+[00:54:38.252] Server  LOG      ✓ Compiled in 56ms
+[00:54:39.315] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. d2dd01e6-8670-42f3-addc-b1d344fd57ee
+[00:54:39.315] Browser ERROR   Encountered two children with the same key, `%s`. Keys should be unique so that components maintain their identity across updates. Non-unique keys may cause children to be duplicated and/or omitted — the behavior is unsupported and could change in a future version. bd29b87f-9beb-4a02-86fe-25c8cab6f1e8
+[00:54:44.327] Browser ERROR   uncaughtError: TypeError: can't access property "length", initialReports is undefined
+[00:54:44.667] Server  LOG      ✓ Compiled in 36ms
+[00:54:45.956] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:54:46.745] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:54:46.745] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:54:46.745] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/reports/history","route":"/reports/history"}
+[00:54:46.745] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/history color: rgb(120, 120, 120) color: inherit {"dp":"/reports/history","o":"http://localhost:3000/reports/history","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764336180766}
+[00:54:48.774] Server  LOG      ✓ Compiled in 38ms
+[00:54:50.487] Server  LOG      ✓ Compiled in 63ms
+[00:54:58.300] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/reports/history","id":"v3-1764336180766-7486816390094","route":"/reports/history","type":"TTFB","value":1062}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:54:59.569] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:54:59.741] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:54:59.741] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:54:59.741] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/reports/history","route":"/reports/history"}
+[00:54:59.741] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/history color: rgb(120, 120, 120) color: inherit {"dp":"/reports/history","o":"http://localhost:3000/reports/history","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764336194364}
+[00:55:07.495] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/reports/history","id":"v3-1764336194362-7597369009081","route":"/reports/history","type":"FCP","value":605},{"href":"http://localhost:3000/reports/history","id":"v3-1764336194362-8920994438028","route":"/reports/history","type":"TTFB","value":488},{"attribution":{"eventTarget":"div.flex.justify-between.items-center.mb-6>div>h1.text-3xl.font-bold.text-gray-900.dark:text-white"},"href":"http://localhost:3000/reports/history","id":"v3-1764336194362-9122420430093","route":"/reports/history","type":"LCP","value":605},{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className","eventType":"keydown"},"href":"http://localhost:3000/reports/history","id":"v3-1764336194362-7224552606719","route":"/reports/history","type":"FID","value":2},{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className","eventType":"keydown"},"href":"http://localhost:3000/reports/history","id":"v3-1764336194362-3327103791854","route":"/reports/history","type":"INP","value":80}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:00:55.188] Server  LOG      ✓ Compiled in 55ms
+[01:01:36.056] Server  LOG      ✓ Compiled in 41ms
+[01:01:39.352] Server  LOG      ✓ Compiled in 49ms
+[01:07:44.845] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:07:44.846] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:07:44.848] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:07:44.853] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:07:44.854] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:07:44.856] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:07:44.859] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:07:44.860] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:07:44.861] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:07:44.883] Server  LOG      ✓ Compiled in 60ms
+[01:07:45.925] Browser ERROR   ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[01:07:45.925] Browser ERROR   ./app/reports/history/ReportHistoryClient.tsx:6:1
+Export fetchReportHistory doesn't exist in target module
+  4 | import Link from 'next/link'
+  5 | import { useRouter } from 'next/navigation'
+> 6 | import { HistoryReport, fetchReportHistory } from './actions'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // --- HELPERS ---
+  9 | const formatName = (person: { first_name: string, last_name: string } | null) => {
+
+The export fetchReportHistory was not found in module [project]/app/reports/history/actions.ts [app-client] (ecmascript).
+Did you mean to import updateCadetProfile?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./app/reports/history/ReportHistoryClient.tsx
+    ./app/reports/history/page.tsx
+[01:07:45.925] Browser ERROR   ./app/reports/history/ReportHistoryClient.tsx:6:1
+Export fetchReportHistory doesn't exist in target module
+  4 | import Link from 'next/link'
+  5 | import { useRouter } from 'next/navigation'
+> 6 | import { HistoryReport, fetchReportHistory } from './actions'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // --- HELPERS ---
+  9 | const formatName = (person: { first_name: string, last_name: string } | null) => {
+
+The export fetchReportHistory was not found in module [project]/app/reports/history/actions.ts [app-ssr] (ecmascript).
+Did you mean to import updateCadetProfile?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./app/reports/history/ReportHistoryClient.tsx
+    ./app/reports/history/page.tsx
+[01:08:09.737] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:08:09.738] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:08:09.740] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:08:09.743] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:08:09.745] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:08:09.746] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:08:09.749] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:08:09.752] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:08:09.754] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:08:09.779] Server  LOG      ✓ Compiled in 48ms
+[01:08:10.691] Browser ERROR   ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[01:08:10.691] Browser ERROR   ./app/reports/history/ReportHistoryClient.tsx:6:1
+Export fetchReportHistory doesn't exist in target module
+  4 | import Link from 'next/link'
+  5 | import { useRouter } from 'next/navigation'
+> 6 | import { HistoryReport, fetchReportHistory } from './actions'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // --- HELPERS ---
+  9 | const formatName = (person: { first_name: string, last_name: string } | null) => {
+
+The export fetchReportHistory was not found in module [project]/app/reports/history/actions.ts [app-client] (ecmascript).
+Did you mean to import updateCadetProfile?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./app/reports/history/ReportHistoryClient.tsx
+    ./app/reports/history/page.tsx
+[01:08:10.691] Browser ERROR   ./app/reports/history/ReportHistoryClient.tsx:6:1
+Export fetchReportHistory doesn't exist in target module
+  4 | import Link from 'next/link'
+  5 | import { useRouter } from 'next/navigation'
+> 6 | import { HistoryReport, fetchReportHistory } from './actions'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // --- HELPERS ---
+  9 | const formatName = (person: { first_name: string, last_name: string } | null) => {
+
+The export fetchReportHistory was not found in module [project]/app/reports/history/actions.ts [app-ssr] (ecmascript).
+Did you mean to import updateCadetProfile?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./app/reports/history/ReportHistoryClient.tsx
+    ./app/reports/history/page.tsx
+[01:08:49.547] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:08:49.549] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:08:49.550] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:08:49.554] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:08:49.555] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:08:49.556] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:08:49.559] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:08:49.561] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:08:49.563] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:08:49.595] Server  LOG      ✓ Compiled in 40ms
+[01:08:50.523] Browser ERROR   ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[01:08:50.523] Browser ERROR   ./app/reports/history/ReportHistoryClient.tsx:6:1
+Export fetchReportHistory doesn't exist in target module
+  4 | import Link from 'next/link'
+  5 | import { useRouter } from 'next/navigation'
+> 6 | import { HistoryReport, fetchReportHistory } from './actions'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // --- HELPERS ---
+  9 | const formatName = (person: { first_name: string, last_name: string } | null) => {
+
+The export fetchReportHistory was not found in module [project]/app/reports/history/actions.ts [app-client] (ecmascript).
+Did you mean to import updateCadetProfile?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./app/reports/history/ReportHistoryClient.tsx
+    ./app/reports/history/page.tsx
+[01:08:50.523] Browser ERROR   ./app/reports/history/ReportHistoryClient.tsx:6:1
+Export fetchReportHistory doesn't exist in target module
+  4 | import Link from 'next/link'
+  5 | import { useRouter } from 'next/navigation'
+> 6 | import { HistoryReport, fetchReportHistory } from './actions'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // --- HELPERS ---
+  9 | const formatName = (person: { first_name: string, last_name: string } | null) => {
+
+The export fetchReportHistory was not found in module [project]/app/reports/history/actions.ts [app-ssr] (ecmascript).
+Did you mean to import updateCadetProfile?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./app/reports/history/ReportHistoryClient.tsx
+    ./app/reports/history/page.tsx
+[01:08:52.286] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:08:52.288] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:08:52.289] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:08:52.292] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:08:52.294] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:08:52.296] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:08:52.298] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:08:52.300] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:08:52.301] Server  ERROR    ⨯ ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[01:08:52.326] Server  LOG      ✓ Compiled in 45ms
+[01:08:53.340] Browser ERROR   ./app/reports/history/actions.ts:5:1
+Module not found: Can't resolve '../constants'
+  3 | import { createClient } from '@/utils/supabase/server'
+  4 | import { revalidatePath } from 'next/cache'
+> 5 | import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  6 |
+  7 | export async function updateCadetProfile(cadetId: string, formData: FormData) {
+  8 |   const supabase = createClient()
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/history/actions.ts [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component Browser]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/history/actions.ts [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Client Component SSR]
+    ./app/reports/history/ReportHistoryClient.tsx [Server Component]
+    ./app/reports/history/page.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[01:08:53.340] Browser ERROR   ./app/reports/history/ReportHistoryClient.tsx:6:1
+Export fetchReportHistory doesn't exist in target module
+  4 | import Link from 'next/link'
+  5 | import { useRouter } from 'next/navigation'
+> 6 | import { HistoryReport, fetchReportHistory } from './actions'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // --- HELPERS ---
+  9 | const formatName = (person: { first_name: string, last_name: string } | null) => {
+
+The export fetchReportHistory was not found in module [project]/app/reports/history/actions.ts [app-client] (ecmascript).
+Did you mean to import updateCadetProfile?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./app/reports/history/ReportHistoryClient.tsx
+    ./app/reports/history/page.tsx
+[01:08:53.340] Browser ERROR   ./app/reports/history/ReportHistoryClient.tsx:6:1
+Export fetchReportHistory doesn't exist in target module
+  4 | import Link from 'next/link'
+  5 | import { useRouter } from 'next/navigation'
+> 6 | import { HistoryReport, fetchReportHistory } from './actions'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // --- HELPERS ---
+  9 | const formatName = (person: { first_name: string, last_name: string } | null) => {
+
+The export fetchReportHistory was not found in module [project]/app/reports/history/actions.ts [app-ssr] (ecmascript).
+Did you mean to import updateCadetProfile?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./app/reports/history/ReportHistoryClient.tsx
+    ./app/reports/history/page.tsx
+[01:08:59.390] Browser ERROR   uncaughtError: TypeError: can't access property "length", initialReports is undefined
+[01:09:00.687] Server  LOG      ✓ Compiled in 47ms
+[01:09:01.915] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:09:02.700] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:09:02.700] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:09:02.700] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/reports/history","route":"/reports/history"}
+[01:09:02.700] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/history color: rgb(120, 120, 120) color: inherit {"dp":"/reports/history","o":"http://localhost:3000/reports/history","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764337036736}
+[01:09:04.242] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/reports/history","id":"v3-1764337036735-1460224975791","route":"/reports/history","type":"TTFB","value":1001}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:09:39.818] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"input.block.w-full.rounded-md.border-gray-300.dark:border-gray-600.dark:bg-gray-800.dark:text-white.shadow-sm.sm:text-sm.py-2.px-3.focus:ring-indigo-500.focus:border-indigo-500","eventType":"keyup"},"href":"http://localhost:3000/reports/history","id":"v3-1764337036735-7191287069272","route":"/reports/history","type":"INP","value":472}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:16:48.171] Server  LOG      ✓ Compiled in 48ms
+[01:21:29.782] Server  LOG      ✓ Compiled in 55ms
+[01:22:08.185] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:22:08.360] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:22:08.360] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:22:08.360] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/reports/history","route":"/reports/history"}
+[01:22:08.360] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/history color: rgb(120, 120, 120) color: inherit {"dp":"/reports/history","o":"http://localhost:3000/reports/history","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764337822970}
+[01:24:16.768] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/reports/history","id":"v3-1764337822970-1969286588721","route":"/reports/history","type":"TTFB","value":842},{"attribution":{"eventTarget":"td.px-6.py-4.whitespace-nowrap.text-sm.text-gray-500.dark:text-gray-300","eventType":"pointerdown"},"href":"http://localhost:3000/reports/history","id":"v3-1764337822970-5494897525626","route":"/reports/history","type":"FID","value":4},{"attribution":{"eventTarget":"","eventType":"pointerdown"},"href":"http://localhost:3000/reports/history","id":"v3-1764337822970-2759263014861","route":"/reports/history","type":"INP","value":104}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:30:28.280] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764338322890}
+[01:30:32.298] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/submitted color: rgb(120, 120, 120) color: inherit {"dp":"/reports/submitted","o":"http://localhost:3000/reports/submitted","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764338326911}
+[01:30:34.577] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/db032ed0-a57e-4504-9fe1-5ab30e85165b color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/db032ed0-a57e-4504-9fe1-5ab30e85165b","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764338329195}
+[01:30:35.424] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/submitted color: rgb(120, 120, 120) color: inherit {"dp":"/reports/submitted","o":"http://localhost:3000/reports/submitted","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764338330032}
+[01:30:53.382] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764338347990}
+[01:30:56.771] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/pending color: rgb(120, 120, 120) color: inherit {"dp":"/reports/pending","o":"http://localhost:3000/reports/pending","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764338351386}
+[01:49:20.270] Server  LOG      ✓ Compiled in 184ms
+[01:49:28.974] Server  LOG      ✓ Compiled in 35ms
+[01:49:31.125] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764339465734}
+[01:49:34.472] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/submitted color: rgb(120, 120, 120) color: inherit {"dp":"/reports/submitted","o":"http://localhost:3000/reports/submitted","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764339469089}
+[01:49:48.130] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764339482745}
+[01:50:25.137] Server  LOG      ✓ Compiled in 158ms
+[01:50:28.443] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/pending color: rgb(120, 120, 120) color: inherit {"dp":"/reports/pending","o":"http://localhost:3000/reports/pending","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764339523052}
+[01:50:32.386] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/50e8997b-c8b5-484c-83db-576630ca755a color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/50e8997b-c8b5-484c-83db-576630ca755a","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764339527001}
+[01:50:33.528] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/pending color: rgb(120, 120, 120) color: inherit {"dp":"/reports/pending","o":"http://localhost:3000/reports/pending","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764339528134}
+[01:51:07.445] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/50e8997b-c8b5-484c-83db-576630ca755a color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/50e8997b-c8b5-484c-83db-576630ca755a","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764339562059}
+[01:51:08.140] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/pending color: rgb(120, 120, 120) color: inherit {"dp":"/reports/pending","o":"http://localhost:3000/reports/pending","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764339562754}
+[01:51:14.438] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764339569050}
+[01:51:16.665] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/submitted color: rgb(120, 120, 120) color: inherit {"dp":"/reports/submitted","o":"http://localhost:3000/reports/submitted","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764339571286}
+[01:51:32.917] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764339587516}
+[01:51:34.370] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/pending color: rgb(120, 120, 120) color: inherit {"dp":"/reports/pending","o":"http://localhost:3000/reports/pending","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764339588984}
+[01:51:52.263] Browser ERROR   ./app/reports/pending/actions.ts:13:26
+Parsing ecmascript source code failed
+  11 |   const { data, error } = await fetchPendingReports(0, 50)
+  12 |
+> 13 |   if (error) return <div className="p-8 text-red-500">Error: {error}</div>
+     |                          ^^^^^^^^^
+  14 |
+  15 |   return (
+  16 |     <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+
+Expected '>', got 'className'
+
+Import trace:
+  Server Component:
+    ./app/reports/pending/actions.ts
+    ./app/reports/pending/page.tsx
+[01:52:57.730] Server  LOG      ✓ Compiled in 32ms
+[01:52:58.751] Browser ERROR   ./app/reports/pending/PendingReportsClient.tsx:5:33
+Parsing ecmascript source code failed
+  3 | import { useState, useMemo } from 'react'
+  4 | import Link from 'next/link'
+> 5 | import { ReportWithNames } from "./page'
+    |                                 ^^^^^^^^
+  6 |
+  7 | type SortKey = 'created_at' | 'subject' | 'offense' | 'submitter' | 'group';
+  8 |
+
+Unterminated string constant
+
+Import trace:
+  Server Component:
+    ./app/reports/pending/PendingReportsClient.tsx
+    ./app/reports/pending/page.tsx
+[02:00:14.613] Server  LOG      ✓ Compiled in 43ms
+[02:00:15.640] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:230:22
+Parsing ecmascript source code failed
+  228 |                             )}
+  229 |                         </React.Fragment>
+> 230 |                     )) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                      ^
+  231 |                 </tbody>
+  232 |             </table>
+  233 |         </div>
+
+Expected '</', got ')'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:00:26.379] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:230:22
+Parsing ecmascript source code failed
+  228 |                             )}
+  229 |                         </React.Fragment>
+> 230 |                     )) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                      ^
+  231 |                 </tbody>
+  232 |             </table>
+  233 |         </div>
+
+Expected '</', got ')'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:00:36.997] Server  LOG      ✓ Compiled in 55ms
+[02:00:38.029] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:230:22
+Parsing ecmascript source code failed
+  228 |                             )}
+  229 |                         </React.Fragment>
+> 230 |                     )) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                      ^
+  231 |                 </tbody>
+  232 |             </table>
+  233 |         </div>
+
+Expected '</', got ')'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:00:45.116] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:230:24
+Parsing ecmascript source code failed
+  228 |                             )}
+  229 |                         </React.Fragment>
+> 230 |                     ); : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                        ^
+  231 |                 </tbody>
+  232 |             </table>
+  233 |         </div>
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:00:47.571] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:231:17
+Parsing ecmascript source code failed
+  229 |                         </React.Fragment>
+  230 |                     ) ; <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+> 231 |                 </tbody>
+      |                 ^
+  232 |             </table>
+  233 |         </div>
+  234 |         {hasMore && <div className="p-4 flex justify-center"><button onClick={handleLoadMore} disabled={isLoadingMore} className="px-6 py-2 bg-white border rounded-full shadow-sm text-indigo-600 text-sm font-medium">{isLoadingMore ? 'Loading...' : 'Load More'}</button></div>}
+
+Expression expected
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:00:47.571] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:231:18
+Parsing ecmascript source code failed
+  229 |                         </React.Fragment>
+  230 |                     ) ; <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+> 231 |                 </tbody>
+      |                  ^^^^^^^
+  232 |             </table>
+  233 |         </div>
+  234 |         {hasMore && <div className="p-4 flex justify-center"><button onClick={handleLoadMore} disabled={isLoadingMore} className="px-6 py-2 bg-white border rounded-full shadow-sm text-indigo-600 text-sm font-medium">{isLoadingMore ? 'Loading...' : 'Load More'}</button></div>}
+
+Unterminated regexp literal
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:00:49.388] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:230:116
+Parsing ecmascript source code failed
+  228 |                             )}
+  229 |                         </React.Fragment>
+> 230 |                     )  <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                                                                                                                    ^^^^^
+  231 |                 </tbody>
+  232 |             </table>
+  233 |         </div>
+
+Unterminated regexp literal
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:00:52.047] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:230:23
+Parsing ecmascript source code failed
+  228 |                             )}
+  229 |                         </React.Fragment>
+> 230 |                     ) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>};
+      |                       ^
+  231 |                 </tbody>
+  232 |             </table>
+  233 |         </div>
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:00:53.735] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:230:23
+Parsing ecmascript source code failed
+  228 |                             )}
+  229 |                         </React.Fragment>
+> 230 |                     ) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                       ^
+  231 |                 </tbody>
+  232 |             </table>
+  233 |         </div>
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:01:16.995] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:230:23
+Parsing ecmascript source code failed
+  228 |                             )}
+  229 |                         </React.Fragment>
+> 230 |                     ) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                       ^
+  231 |                 </tbody>
+  232 |             </table>
+  233 |         </div>
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:01:27.132] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:230:23
+Parsing ecmascript source code failed
+  228 |                             )}
+  229 |                         </React.Fragment>
+> 230 |                     ) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                       ^
+  231 |                 </tbody>
+  232 |             </table>
+  233 |         </div>
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:01:29.810] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:230:23
+Parsing ecmascript source code failed
+  228 |                             )}
+  229 |                         </React.Fragment>
+> 230 |                     ) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                       ^
+  231 |                 </tbody>
+  232 |             </table>
+  233 |         </div>
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:01:30.878] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:230:23
+Parsing ecmascript source code failed
+  228 |                             )}
+  229 |                         </React.Fragment>
+> 230 |                     ) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                       ^
+  231 |                 </tbody>
+  232 |             </table>
+  233 |         </div>
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:01:33.062] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:230:23
+Parsing ecmascript source code failed
+  228 |                             )}
+  229 |                         </React.Fragment>
+> 230 |                     ) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                       ^
+  231 |                 </tbody>
+  232 |             </table>
+  233 |         </div>
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:01:34.987] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:230:23
+Parsing ecmascript source code failed
+  228 |                             )}
+  229 |                         </React.Fragment>
+> 230 |                     ) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                       ^
+  231 |                 </tbody>
+  232 |             </table>
+  233 |         </div>
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:01:38.161] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:230:23
+Parsing ecmascript source code failed
+  228 |                             )}
+  229 |                         </React.Fragment>
+> 230 |                     ) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                       ^
+  231 |                 </tbody>
+  232 |             </table>
+  233 |         </div>
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:01:42.289] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:230:23
+Parsing ecmascript source code failed
+  228 |                             )}
+  229 |                         </React.Fragment>
+> 230 |                     ) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                       ^
+  231 |                 </tbody>
+  232 |             </table>
+  233 |         </div>
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:01:46.346] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:230:23
+Parsing ecmascript source code failed
+  228 |                             )}
+  229 |                         </React.Fragment>
+> 230 |                     ) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                       ^
+  231 |                 </tbody>
+  232 |             </table>
+  233 |         </div>
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:01:48.127] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:230:23
+Parsing ecmascript source code failed
+  228 |                             )}
+  229 |                         </React.Fragment>
+> 230 |                     ) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                       ^
+  231 |                 </tbody>
+  232 |             </table>
+  233 |         </div>
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:01:51.252] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:230:23
+Parsing ecmascript source code failed
+  228 |                             )}
+  229 |                         </React.Fragment>
+> 230 |                     ) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                       ^
+  231 |                 </tbody>
+  232 |             </table>
+  233 |         </div>
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:02:07.768] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:230:23
+Parsing ecmascript source code failed
+  228 |                             )}
+  229 |                         </React.Fragment>
+> 230 |                     ) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                       ^
+  231 |                 </tbody>
+  232 |             </table>
+  233 |         </div>
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:02:13.666] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:230:23
+Parsing ecmascript source code failed
+  228 |                             )}
+  229 |                         </React.Fragment>
+> 230 |                     ) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                       ^
+  231 |                 </tbody>
+  232 |             </table>
+  233 |         </div>
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:02:26.579] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:231:17
+Parsing ecmascript source code failed
+  229 |                         </React.Fragment>
+  230 |                     ); <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+> 231 |                 </tbody>
+      |                 ^
+  232 |             </table>
+  233 |         </div>
+  234 |         {hasMore && <div className="p-4 flex justify-center"><button onClick={handleLoadMore} disabled={isLoadingMore} className="px-6 py-2 bg-white border rounded-full shadow-sm text-indigo-600 text-sm font-medium">{isLoadingMore ? 'Loading...' : 'Load More'}</button></div>}
+
+Expression expected
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:02:26.579] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:231:18
+Parsing ecmascript source code failed
+  229 |                         </React.Fragment>
+  230 |                     ); <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+> 231 |                 </tbody>
+      |                  ^^^^^^^
+  232 |             </table>
+  233 |         </div>
+  234 |         {hasMore && <div className="p-4 flex justify-center"><button onClick={handleLoadMore} disabled={isLoadingMore} className="px-6 py-2 bg-white border rounded-full shadow-sm text-indigo-600 text-sm font-medium">{isLoadingMore ? 'Loading...' : 'Load More'}</button></div>}
+
+Unterminated regexp literal
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:02:33.541] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:230:23
+Parsing ecmascript source code failed
+  228 |                             )}
+  229 |                         </React.Fragment>
+> 230 |                     ) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                       ^
+  231 |                 </tbody>
+  232 |             </table>
+  233 |         </div>
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:02:50.170] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:02:50.363] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:230:23
+Parsing ecmascript source code failed
+  228 |                             )}
+  229 |                         </React.Fragment>
+> 230 |                     ) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                       ^
+  231 |                 </tbody>
+  232 |             </table>
+  233 |         </div>
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:02:50.363] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:230:23
+Parsing ecmascript source code failed
+  228 |                             )}
+  229 |                         </React.Fragment>
+> 230 |                     ) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                       ^
+  231 |                 </tbody>
+  232 |             </table>
+  233 |         </div>
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:02:50.363] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:02:50.363] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:02:50.363] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/reports/pending","route":"/reports/pending"}
+[02:02:50.363] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/pending color: rgb(120, 120, 120) color: inherit {"dp":"/reports/pending","o":"http://localhost:3000/reports/pending","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764340264984}
+[02:02:53.697] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/reports/pending","id":"v3-1764340264983-2872946690024","route":"/reports/pending","type":"FCP","value":1206},{"href":"http://localhost:3000/reports/pending","id":"v3-1764340264983-6486560371176","route":"/reports/pending","type":"TTFB","value":1124}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[02:02:53.697] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:230:23
+Parsing ecmascript source code failed
+  228 |                             )}
+  229 |                         </React.Fragment>
+> 230 |                     ) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                       ^
+  231 |                 </tbody>
+  232 |             </table>
+  233 |         </div>
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:02:54.493] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764340269103}
+[02:02:58.009] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/pending color: rgb(120, 120, 120) color: inherit {"dp":"/reports/pending","o":"http://localhost:3000/reports/pending","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764340272624}
+[02:02:58.009] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":""},"href":"http://localhost:3000/","id":"v3-1764340264983-4426848877095","route":"/","type":"LCP","value":1206},{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className>script>nextjs-portal","eventType":"pointerdown"},"href":"http://localhost:3000/","id":"v3-1764340264983-8287467095414","route":"/","type":"FID","value":8}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[02:03:00.822] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className>script>nextjs-portal","eventType":"pointerdown"},"href":"http://localhost:3000/reports/pending","id":"v3-1764340264983-7531931389988","route":"/reports/pending","type":"INP","value":24}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[02:05:28.192] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:234:22
+Parsing ecmascript source code failed
+  232 |                             )}
+  233 |                         </React.Fragment>
+> 234 |                     )) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                      ^
+  235 |                 </tbody>
+  236 |             </table>
+  237 |         </div>
+
+Expected '</', got ')'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:05:32.867] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:230:23
+Parsing ecmascript source code failed
+  228 |                             )}
+  229 |                         </React.Fragment>
+> 230 |                     ) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                       ^
+  231 |                 </tbody>
+  232 |             </table>
+  233 |         </div>
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:05:36.378] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:234:22
+Parsing ecmascript source code failed
+  232 |                             )}
+  233 |                         </React.Fragment>
+> 234 |                     )) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                      ^
+  235 |                 </tbody>
+  236 |             </table>
+  237 |         </div>
+
+Expected '</', got ')'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:05:39.892] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:234:23
+Parsing ecmascript source code failed
+  232 |                             )}
+  233 |                         </React.Fragment>
+> 234 |                     ) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                       ^
+  235 |                 </tbody>
+  236 |             </table>
+  237 |         </div>
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:05:42.214] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:181:25
+Parsing ecmascript source code failed
+  179 |                         const appeal = report.appeals?.[0];
+  180 |                         return (
+> 181 |                         <React.Fragment key={report.id}>
+      |                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 182 |                             <tr onClick={() => setExpandedId(expandedId === report.id ? null : report.id)} className={`cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 ${expandedId === report.id ? 'bg-gray-50 dark:bg-gray-700/50' : ''}`}>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 183 |                                 <td className="px-6 py-4 whitespace-nowrap"><span className={`px-2 py-0.5 rounded-full text-xs font-bold ${STATUS_COLORS[report.status]}`}>{report.status.replace('_', ' ')}</span></td>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 184 |                                 <td className="px-6 py-4 whitespace-nowrap">{appeal ? <span className={`px-2 py-0.5 rounded text-xs font-medium ${APPEAL_COLORS[appeal.status]}`}>{appeal.status.replace(/_/g, ' ')}</span> : <span className="text-gray-300">-</span>}</td>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 185 |                                 <td className="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">{formatName(report.subject)}</td>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 186 |                                 <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">{report.offense_type.offense_name}</td>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 187 |                                 <td className="px-6 py-4 text-sm font-bold text-red-600">{report.demerits_effective}</td>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 188 |                                 <td className="px-6 py-4 text-sm text-gray-500">{new Date(report.created_at).toLocaleDateString()}</td>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 189 |                             </tr>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 190 |                             
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 191 |                             {expandedId === report.id && (
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 192 |                                 <tr className="bg-gray-50 dark:bg-gray-900/30 shadow-inner">
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 193 |                                     <td colSpan={6} className="px-6 py-6">
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 194 |                                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 195 |                                             <div className="space-y-4">
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 196 |                                                 <h4 className="text-xs font-bold text-gray-500 uppercase">Report Details</h4>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 197 |                                                 <div className="bg-white dark:bg-gray-800 p-4 rounded border border-gray-200 dark:border-gray-700">
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 198 |                                                     <p className="text-sm text-gray-900 dark:text-white mb-2"><strong>Date of Offense:</strong> {new Date(report.date_of_offense).toLocaleString()}</p>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 199 |                                                     <p className="text-xs text-gray-500 mb-1">Notes:</p>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 200 |                                                     <p className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{report.notes || 'None'}</p>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 201 |                                                     <div className="mt-4 pt-3 border-t border-gray-100 dark:border-gray-700">
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 202 |                                                         <Link href={`/report/${report.id}`} className="text-indigo-600 text-sm font-medium hover:underline">View Full Report &rarr;</Link>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 203 |                                                     </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 204 |                                                 </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 205 |                                             </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 206 |                                             <div className="space-y-4">
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 207 |                                                 <h4 className="text-xs font-bold text-gray-500 uppercase">Timeline</h4>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 208 |                                                 <ul className="bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 divide-y divide-gray-100 dark:divide-gray-700">
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 209 |                                                     {report.approval_log.map((log, i) => (
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 210 |                                                         <li key={i} className="p-3 text-sm">
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 211 |                                                             <div className="flex justify-between font-medium text-gray-900 dark:text-white">
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 212 |                                                                 <span>{formatName(log.actor)}</span>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 213 |                                                                 <span className="text-xs text-gray-500">{new Date(log.created_at).toLocaleDateString()}</span>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 214 |                                                             </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 215 |                                                             <p className="text-xs text-gray-600 mt-1"><span className="uppercase font-bold">{log.action}</span> {log.comment && `- "${log.comment}"`}</p>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 216 |                                                         </li>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 217 |                                                     ))}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 218 |                                                 </ul>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 219 |                                             </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 220 |                                             {appeal && (
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 221 |                                                 <div className="space-y-4">
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 222 |                                                     <h4 className="text-xs font-bold text-gray-500 uppercase">Appeal Case</h4>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 223 |                                                     <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 space-y-3">
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 224 |                                                         <div><span className="block text-xs text-gray-400">Justification</span><p className="text-sm text-gray-700 dark:text-gray-300 mt-1 italic">"{appeal.justification}"</p></div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 225 |                                                         {appeal.final_comment && <div><span className="block text-xs text-gray-400">Verdict</span><p className="text-sm text-gray-900 dark:text-white mt-1">{appeal.final_comment}</p></div>}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 226 |                                                     </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 227 |                                                 </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 228 |                                             )}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 229 |                                         </div>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 230 |                                     </td>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 231 |                                 </tr>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 232 |                             )}
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+> 233 |                         </React.Fragment>
+      | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  234 |                      : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+  235 |                 </tbody>
+  236 |             </table>
+
+Not a pattern
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:05:44.943] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:234:23
+Parsing ecmascript source code failed
+  232 |                             )}
+  233 |                         </React.Fragment>
+> 234 |                     ) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                       ^
+  235 |                 </tbody>
+  236 |             </table>
+  237 |         </div>
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:05:49.685] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:234:23
+Parsing ecmascript source code failed
+  232 |                             )}
+  233 |                         </React.Fragment>
+> 234 |                     ) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>
+      |                       ^
+  235 |                 </tbody>
+  236 |             </table>
+  237 |         </div>
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:05:51.644] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:234:23
+Parsing ecmascript source code failed
+  232 |                             )}
+  233 |                         </React.Fragment>
+> 234 |                     ) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                       ^
+  235 |                 </tbody>
+  236 |             </table>
+  237 |         </div>
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:05:58.950] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:178:80
+Parsing ecmascript source code failed
+  176 |                 </thead>
+  177 |                 <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+> 178 |                     processedReports.length > 0 ? processedReports.map(report => {
+      |                                                                                ^
+  179 |                         const appeal = report.appeals?.[0];
+  180 |                         return (
+  181 |                         <React.Fragment key={report.id}>
+
+Unexpected token. Did you mean `{'>'}` or `&gt;`?
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:06:00.142] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:234:23
+Parsing ecmascript source code failed
+  232 |                             )}
+  233 |                         </React.Fragment>
+> 234 |                     ) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                       ^
+  235 |                 </tbody>
+  236 |             </table>
+  237 |         </div>
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:06:04.424] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:234:22
+Parsing ecmascript source code failed
+  232 |                             )}
+  233 |                         </React.Fragment>
+> 234 |                     )); : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                      ^
+  235 |                 </tbody>
+  236 |             </table>
+  237 |         </div>
+
+Expected '</', got ')'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:06:06.677] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:230:23
+Parsing ecmascript source code failed
+  228 |                             )}
+  229 |                         </React.Fragment>
+> 230 |                     ) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                       ^
+  231 |                 </tbody>
+  232 |             </table>
+  233 |         </div>
+
+Expected '</', got ':'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:06:08.010] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:234:22
+Parsing ecmascript source code failed
+  232 |                             )}
+  233 |                         </React.Fragment>
+> 234 |                     )) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                      ^
+  235 |                 </tbody>
+  236 |             </table>
+  237 |         </div>
+
+Expected '</', got ')'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:08:02.777] Server  LOG      ✓ Compiled in 59ms
+[02:08:03.687] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:271:22
+Parsing ecmascript source code failed
+  269 |                             )}
+  270 |                         </React.Fragment>
+> 271 |                     )) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                      ^
+  272 |                 </tbody>
+  273 |             </table>
+  274 |         </div>
+
+Expected '</', got ')'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:08:07.294] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:271:22
+Parsing ecmascript source code failed
+  269 |                             )}
+  270 |                         </React.Fragment>
+> 271 |                     )) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                      ^
+  272 |                 </tbody>
+  273 |             </table>
+  274 |         </div>
+
+Expected '</', got ')'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:08:14.841] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className","eventType":"keydown"},"href":"http://localhost:3000/reports/pending","id":"v3-1764340264983-7531931389988","route":"/reports/pending","type":"INP","value":96}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[02:10:33.073] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:271:22
+Parsing ecmascript source code failed
+  269 |                             )}
+  270 |                         </React.Fragment>
+> 271 |                     )) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                      ^
+  272 |                 </tbody>
+  273 |             </table>
+  274 |         </div>
+
+Expected '</', got ')'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:11:18.220] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:271:22
+Parsing ecmascript source code failed
+  269 |                             )}
+  270 |                         </React.Fragment>
+> 271 |                     )) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                      ^
+  272 |                 </tbody>
+  273 |             </table>
+  274 |         </div>
+
+Expected '</', got ')'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:11:21.580] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:271:22
+Parsing ecmascript source code failed
+  269 |                             )}
+  270 |                         </React.Fragment>
+> 271 |                     )) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                      ^
+  272 |                 </tbody>
+  273 |             </table>
+  274 |         </div>
+
+Expected '</', got ')'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:11:30.051] Server  LOG      ✓ Compiled in 46ms
+[02:11:38.777] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:271:22
+Parsing ecmascript source code failed
+  269 |                             )}
+  270 |                         </React.Fragment>
+> 271 |                     )) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                      ^
+  272 |                 </tbody>
+  273 |             </table>
+  274 |         </div>
+
+Expected '</', got ')'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:11:49.834] Server  LOG      ✓ Compiled in 41ms
+[02:12:08.118] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764340822726}
+[02:12:11.188] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/pending color: rgb(120, 120, 120) color: inherit {"dp":"/reports/pending","o":"http://localhost:3000/reports/pending","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764340825799}
+[02:12:20.062] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"contextmenu"},"href":"http://localhost:3000/reports/pending","id":"v3-1764340264983-7531931389988","route":"/reports/pending","type":"INP","value":464}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[02:12:24.506] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:234:22
+Parsing ecmascript source code failed
+  232 |                             )}
+  233 |                         </React.Fragment>
+> 234 |                     )) : <tr><td colSpan={6} className="px-6 py-10 text-center text-gray-500">No reports found.</td></tr>}
+      |                      ^
+  235 |                 </tbody>
+  236 |             </table>
+  237 |         </div>
+
+Expected '</', got ')'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:12:27.869] Server  LOG      ✓ Compiled in 46ms
+[02:13:24.723] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:6:1
+Export fetchPendingReports doesn't exist in target module
+  4 | import Link from 'next/link'
+  5 | import { useRouter } from 'next/navigation'
+> 6 | import { PendingReport, fetchPendingReports } from './actions'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // --- REUSED HELPERS & COLORS ---
+  9 | const formatName = (person: { first_name: string, last_name: string } | null) => {
+
+The export fetchPendingReports was not found in module [project]/app/reports/submitted/actions.ts [app-client] (ecmascript).
+Did you mean to import fetchSubmittedReports?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:13:24.723] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:6:1
+Export fetchPendingReports doesn't exist in target module
+  4 | import Link from 'next/link'
+  5 | import { useRouter } from 'next/navigation'
+> 6 | import { PendingReport, fetchPendingReports } from './actions'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // --- REUSED HELPERS & COLORS ---
+  9 | const formatName = (person: { first_name: string, last_name: string } | null) => {
+
+The export fetchPendingReports was not found in module [project]/app/reports/submitted/actions.ts [app-ssr] (ecmascript).
+Did you mean to import fetchSubmittedReports?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:13:27.663] Server  LOG      ✓ Compiled in 51ms
+[02:14:12.138] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764340946740}
+[02:14:12.862] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/pending color: rgb(120, 120, 120) color: inherit {"dp":"/reports/pending","o":"http://localhost:3000/reports/pending","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764340947482}
+[02:14:28.267] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:14:28.464] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:14:28.464] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:14:28.464] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/reports/pending","route":"/reports/pending"}
+[02:14:28.464] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/pending color: rgb(120, 120, 120) color: inherit {"dp":"/reports/pending","o":"http://localhost:3000/reports/pending","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764340963072}
+[02:14:29.307] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/reports/pending","id":"v3-1764340963071-1903725438373","route":"/reports/pending","type":"FCP","value":1010},{"href":"http://localhost:3000/reports/pending","id":"v3-1764340963072-6744221870077","route":"/reports/pending","type":"TTFB","value":821}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[02:14:29.978] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764340964594}
+[02:14:31.927] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":""},"href":"http://localhost:3000/","id":"v3-1764340963071-2220476978988","route":"/","type":"LCP","value":1010},{"attribution":{"eventTarget":"a.text-sm.font-medium.text-indigo-600.dark:text-indigo-400.hover:underline.pb-1","eventType":"pointerdown"},"href":"http://localhost:3000/","id":"v3-1764340963071-9712911146161","route":"/","type":"FID","value":13}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[02:14:31.927] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/history color: rgb(120, 120, 120) color: inherit {"dp":"/reports/history","o":"http://localhost:3000/reports/history","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764340966531}
+[02:14:35.192] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"pointerdown"},"href":"http://localhost:3000/reports/history","id":"v3-1764340963072-9641387925556","route":"/reports/history","type":"INP","value":24}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[02:22:41.929] Server  LOG      ✓ Compiled in 262ms
+[02:22:42.044] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:6:1
+Export fetchReportHistory doesn't exist in target module
+  4 | import Link from 'next/link'
+  5 | import { useRouter } from 'next/navigation'
+> 6 | import { HistoryReport, fetchReportHistory } from './actions'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // --- HELPERS ---
+  9 | const formatName = (person: { first_name: string, last_name: string } | null) => {
+
+The export fetchReportHistory was not found in module [project]/app/reports/submitted/actions.ts [app-client] (ecmascript).
+Did you mean to import fetchSubmittedReports?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:22:42.044] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:6:1
+Export fetchReportHistory doesn't exist in target module
+  4 | import Link from 'next/link'
+  5 | import { useRouter } from 'next/navigation'
+> 6 | import { HistoryReport, fetchReportHistory } from './actions'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // --- HELPERS ---
+  9 | const formatName = (person: { first_name: string, last_name: string } | null) => {
+
+The export fetchReportHistory was not found in module [project]/app/reports/submitted/actions.ts [app-ssr] (ecmascript).
+Did you mean to import fetchSubmittedReports?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:22:42.634] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:6:1
+Export fetchReportHistory doesn't exist in target module
+  4 | import Link from 'next/link'
+  5 | import { useRouter } from 'next/navigation'
+> 6 | import { HistoryReport, fetchReportHistory } from './actions'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // --- HELPERS ---
+  9 | const formatName = (person: { first_name: string, last_name: string } | null) => {
+
+The export fetchReportHistory was not found in module [project]/app/reports/submitted/actions.ts [app-client] (ecmascript).
+Did you mean to import fetchSubmittedReports?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:22:42.634] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:6:1
+Export fetchReportHistory doesn't exist in target module
+  4 | import Link from 'next/link'
+  5 | import { useRouter } from 'next/navigation'
+> 6 | import { HistoryReport, fetchReportHistory } from './actions'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | // --- HELPERS ---
+  9 | const formatName = (person: { first_name: string, last_name: string } | null) => {
+
+The export fetchReportHistory was not found in module [project]/app/reports/submitted/actions.ts [app-ssr] (ecmascript).
+Did you mean to import fetchSubmittedReports?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:22:55.020] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className","eventType":"keydown"},"href":"http://localhost:3000/reports/history","id":"v3-1764340963072-9641387925556","route":"/reports/history","type":"INP","value":112}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[02:23:09.002] Server  LOG      ✓ Compiled in 70ms
+[02:23:18.602] Server  LOG      ✓ Compiled in 73ms
+[02:23:37.267] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:23:37.441] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:23:37.441] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/submit","route":"/submit"}
+[02:23:37.441] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/submit color: rgb(120, 120, 120) color: inherit {"dp":"/submit","o":"http://localhost:3000/submit","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764341512037}
+[02:23:37.441] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:23:37.473] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className","eventType":"keydown"},"href":"http://localhost:3000/reports/pending","id":"v3-1764340264983-7531931389988","route":"/reports/pending","type":"INP","value":696}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[02:23:44.995] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:23:45.168] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:23:45.168] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:23:45.168] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/reports/submitted","route":"/reports/submitted"}
+[02:23:45.168] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/submitted color: rgb(120, 120, 120) color: inherit {"dp":"/reports/submitted","o":"http://localhost:3000/reports/submitted","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764341519788}
+[02:23:51.369] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/reports/submitted","id":"v3-1764341519787-8766661722213","route":"/reports/submitted","type":"FCP","value":840},{"href":"http://localhost:3000/reports/submitted","id":"v3-1764341519787-2898838643453","route":"/reports/submitted","type":"TTFB","value":676},{"attribution":{"eventTarget":"div.max-w-7xl.mx-auto.p-4.sm:p-6.lg:p-8>h1.text-3xl.font-bold.text-gray-900.dark:text-white.mb-6"},"href":"http://localhost:3000/reports/submitted","id":"v3-1764341519787-7023996648815","route":"/reports/submitted","type":"LCP","value":840},{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className","eventType":"keydown"},"href":"http://localhost:3000/reports/submitted","id":"v3-1764341519787-1116621629834","route":"/reports/submitted","type":"FID","value":11},{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className","eventType":"keydown"},"href":"http://localhost:3000/reports/submitted","id":"v3-1764341519787-4669088639052","route":"/reports/submitted","type":"INP","value":88}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[02:23:55.730] Server  LOG      ✓ Compiled in 56ms
+[02:24:04.623] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className","eventType":"keyup"},"href":"http://localhost:3000/reports/submitted","id":"v3-1764341519787-4669088639052","route":"/reports/submitted","type":"INP","value":312}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[02:24:16.045] Server  LOG      ✓ Compiled in 71ms
+[02:31:19.206] Server  LOG      ✓ Compiled in 89ms
+[02:31:25.689] Server  LOG      ✓ Compiled in 96ms
+[02:31:31.556] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:31:31.730] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:31:31.730] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:31:31.730] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/reports/pending","route":"/reports/pending"}
+[02:31:31.730] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/pending color: rgb(120, 120, 120) color: inherit {"dp":"/reports/pending","o":"http://localhost:3000/reports/pending","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764341986351}
+[02:31:45.656] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/reports/pending","id":"v3-1764341986350-6631086732871","route":"/reports/pending","type":"FCP","value":667},{"href":"http://localhost:3000/reports/pending","id":"v3-1764341986350-5417618183003","route":"/reports/pending","type":"TTFB","value":553},{"attribution":{"eventTarget":"div.max-w-7xl.mx-auto.p-4.sm:p-6.lg:p-8>h1.text-3xl.font-bold.text-gray-900.dark:text-white.mb-6"},"href":"http://localhost:3000/reports/pending","id":"v3-1764341986350-5069020811957","route":"/reports/pending","type":"LCP","value":667},{"attribution":{"eventTarget":"div.p-4.flex.justify-center","eventType":"pointerdown"},"href":"http://localhost:3000/reports/pending","id":"v3-1764341986350-9020960386425","route":"/reports/pending","type":"FID","value":7},{"attribution":{"eventTarget":"div.p-4.flex.justify-center","eventType":"pointerdown"},"href":"http://localhost:3000/reports/pending","id":"v3-1764341986350-8931713649186","route":"/reports/pending","type":"INP","value":8}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[02:31:55.450] Server  LOG      ✓ Compiled in 57ms
+[02:32:11.268] Server  LOG      ✓ Compiled in 101ms
+[02:32:11.737] Browser ERROR   uncaughtError: ReferenceError: searchTerm is not defined
+[02:32:43.299] Server  LOG      ✓ Compiled in 79ms
+[02:32:44.314] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:32:45.227] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:32:45.227] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:32:45.227] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/reports/submitted","route":"/reports/submitted"}
+[02:32:45.227] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/submitted color: rgb(120, 120, 120) color: inherit {"dp":"/reports/submitted","o":"http://localhost:3000/reports/submitted","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764342059107}
+[02:33:26.162] Server  LOG      ✓ Compiled in 49ms
+[02:33:27.089] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:112:80
+Parsing ecmascript source code failed
+  110 |       
+  111 |       {/* FLOATING TOOLBAR */}
+> 112 |       <div className="<div className="flex flex-col lg:flex-row gap-4 items-end">
+      |                                                                                ^^
+  113 |             <div className="w-full lg:w-1/3 relative">
+  114 |                 <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Search My Reports</label>
+  115 |                 {/* ... Search Input ... */}
+
+Unterminated string constant
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:33:27.187] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:112:80
+Parsing ecmascript source code failed
+  110 |       
+  111 |       {/* FLOATING TOOLBAR */}
+> 112 |       <div className="<div className="flex flex-col lg:flex-row gap-4 items-end">
+      |                                                                                ^^
+  113 |             <div className="w-full lg:w-1/3 relative">
+  114 |                 <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Search My Reports</label>
+  115 |                 {/* ... Search Input ... */}
+
+Unterminated string constant
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:33:27.187] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:112:80
+Parsing ecmascript source code failed
+  110 |       
+  111 |       {/* FLOATING TOOLBAR */}
+> 112 |       <div className="<div className="flex flex-col lg:flex-row gap-4 items-end">
+      |                                                                                ^^
+  113 |             <div className="w-full lg:w-1/3 relative">
+  114 |                 <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Search My Reports</label>
+  115 |                 {/* ... Search Input ... */}
+
+Unterminated string constant
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:33:30.170] Server  LOG      ✓ Compiled in 64ms
+[02:33:30.830] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:112:22
+Parsing ecmascript source code failed
+  110 |       
+  111 |       {/* FLOATING TOOLBAR */}
+> 112 |       <div className="
+      |                      ^
+
+Unterminated string constant
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:33:31.073] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:112:22
+Parsing ecmascript source code failed
+  110 |       
+  111 |       {/* FLOATING TOOLBAR */}
+> 112 |       <div className="
+      |                      ^
+
+Unterminated string constant
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:33:31.074] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:112:22
+Parsing ecmascript source code failed
+  110 |       
+  111 |       {/* FLOATING TOOLBAR */}
+> 112 |       <div className="
+      |                      ^
+
+Unterminated string constant
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:33:42.489] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:158:12
+Parsing ecmascript source code failed
+  156 |       </div>
+  157 |
+> 158 |       <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+      |            ^^^^^^^^^
+  159 |          {/* ... Table Content (Same as before, no changes) ... */}
+  160 |          {/* Just wrapping the existing table logic here */}
+  161 |          <div className="overflow-x-auto">
+
+Expected ',', got 'className'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:33:42.506] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:158:12
+Parsing ecmascript source code failed
+  156 |       </div>
+  157 |
+> 158 |       <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+      |            ^^^^^^^^^
+  159 |          {/* ... Table Content (Same as before, no changes) ... */}
+  160 |          {/* Just wrapping the existing table logic here */}
+  161 |          <div className="overflow-x-auto">
+
+Expected ',', got 'className'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:33:42.507] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:158:12
+Parsing ecmascript source code failed
+  156 |       </div>
+  157 |
+> 158 |       <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+      |            ^^^^^^^^^
+  159 |          {/* ... Table Content (Same as before, no changes) ... */}
+  160 |          {/* Just wrapping the existing table logic here */}
+  161 |          <div className="overflow-x-auto">
+
+Expected ',', got 'className'
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:33:49.062] Server  LOG      ✓ Compiled in 54ms
+[02:41:53.780] Server  LOG      ✓ Compiled in 72ms
+[02:41:54.667] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:189:78
+Parsing ecmascript source code failed
+  187 |
+  188 |   const SortIcon = ({ column }: { column: SortKey }) => {
+> 189 |     if (sortConfig.key !== column) return <span className="text-gray-300 ml-1">⇅</span>
+      |                                                                              ^^^^^^^^^^^^
+  190 |     return <span className="text-indigo-600 dark:text-indigo-400 ml-1">{sortConfig.direction === 'asc' ? '↑' : '↓'}</span>
+  191 |   }
+  192 |
+
+Unterminated string constant
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:41:54.667] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:189:78
+Parsing ecmascript source code failed
+  187 |
+  188 |   const SortIcon = ({ column }: { column: SortKey }) => {
+> 189 |     if (sortConfig.key !== column) return <span className="text-gray-300 ml-1">⇅</span>
+      |                                                                              ^^^^^^^^^^^^
+  190 |     return <span className="text-indigo-600 dark:text-indigo-400 ml-1">{sortConfig.direction === 'asc' ? '↑' : '↓'}</span>
+  191 |   }
+  192 |
+
+Unterminated string constant
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:41:54.667] Browser ERROR   ./app/reports/submitted/SubmittedReportsClient.tsx:189:78
+Parsing ecmascript source code failed
+  187 |
+  188 |   const SortIcon = ({ column }: { column: SortKey }) => {
+> 189 |     if (sortConfig.key !== column) return <span className="text-gray-300 ml-1">⇅</span>
+      |                                                                              ^^^^^^^^^^^^
+  190 |     return <span className="text-indigo-600 dark:text-indigo-400 ml-1">{sortConfig.direction === 'asc' ? '↑' : '↓'}</span>
+  191 |   }
+  192 |
+
+Unterminated string constant
+
+Import trace:
+  Server Component:
+    ./app/reports/submitted/SubmittedReportsClient.tsx
+    ./app/reports/submitted/page.tsx
+[02:41:57.945] Server  LOG      ✓ Compiled in 78ms
+[02:41:59.484] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/reports/submitted","id":"v3-1764342059106-9528085271318","route":"/reports/submitted","type":"TTFB","value":818}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[02:42:08.597] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className","eventType":"keydown"},"href":"http://localhost:3000/reports/submitted","id":"v3-1764342059106-5380351456632","route":"/reports/submitted","type":"INP","value":368}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[02:44:16.145] Server  LOG      ✓ Compiled in 54ms
+[02:46:24.664] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764342879274}
+[02:47:53.224] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:47:55.251] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:47:55.251] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:47:55.251] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[02:47:55.251] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764342968067}
+[02:47:57.892] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1764342968065-3971478874184","route":"/","type":"TTFB","value":1122}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[02:48:02.754] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/submitted color: rgb(120, 120, 120) color: inherit {"dp":"/reports/submitted","o":"http://localhost:3000/reports/submitted","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764342977358}
+[02:48:07.064] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"pointerdown"},"href":"http://localhost:3000/reports/submitted","id":"v3-1764342968065-1262330659942","route":"/reports/submitted","type":"INP","value":16}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[02:52:47.599] Server  LOG      ✓ Compiled in 94ms
+[02:52:53.771] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764343268371}
+[02:52:54.590] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/history color: rgb(120, 120, 120) color: inherit {"dp":"/reports/history","o":"http://localhost:3000/reports/history","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764343269214}
+[02:53:08.286] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764343282893}
+[02:53:14.572] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/pending color: rgb(120, 120, 120) color: inherit {"dp":"/reports/pending","o":"http://localhost:3000/reports/pending","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764343289186}
+[02:55:45.336] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:55:46.169] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:55:46.169] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:55:46.169] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[02:55:46.169] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764343440180}
+[02:55:50.464] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1764343440180-4086343303675","route":"/","type":"TTFB","value":1059}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[02:55:53.037] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/history color: rgb(120, 120, 120) color: inherit {"dp":"/reports/history","o":"http://localhost:3000/reports/history","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764343447655}
+[02:56:19.166] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"th.px-6.py-3.text-left.text-xs.font-medium.text-gray-500.dark:text-gray-400.uppercase.tracking-wider.cursor-pointer.hover:bg-gray-100.dark:hover:bg-gray-700","eventType":"click"},"href":"http://localhost:3000/reports/history","id":"v3-1764343440180-8241523816206","route":"/reports/history","type":"INP","value":40}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}

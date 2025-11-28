@@ -2,6 +2,7 @@
 
 import { createClient } from '@/utils/supabase/server'
 
+// Unified Type Definition
 export type HistoryReport = {
   id: string;
   created_at: string;
@@ -9,11 +10,24 @@ export type HistoryReport = {
   status: string;
   notes: string | null;
   demerits_effective: number;
-  subject: { first_name: string, last_name: string };
-  submitter: { first_name: string, last_name: string };
+  subject: { first_name: string, last_name: string } | null;
+  submitter: { first_name: string, last_name: string } | null;
   offense_type: { offense_name: string; demerits: number };
-  // NEW: Fetch appeal status
-  appeals: { status: string }[]; 
+  
+  // NEW: Full history relations
+  appeals: { 
+    status: string;
+    justification: string | null;
+    final_comment: string | null;
+    created_at: string;
+  }[];
+  
+  approval_log: {
+    action: string;
+    comment: string | null;
+    created_at: string;
+    actor: { first_name: string, last_name: string } | null;
+  }[];
 }
 
 export async function fetchReportHistory(offset: number, limit: number) {
@@ -34,7 +48,13 @@ export async function fetchReportHistory(offset: number, limit: number) {
       subject:subject_cadet_id ( first_name, last_name ),
       submitter:submitted_by ( first_name, last_name ),
       offense_type:offense_type_id ( offense_name, demerits ),
-      appeals ( status )
+      appeals ( status, justification, final_comment, created_at ),
+      approval_log (
+        action,
+        comment,
+        created_at,
+        actor:actor_id ( first_name, last_name )
+      )
     `)
     .in('status', ['completed', 'rejected', 'pulled'])
     .order('created_at', { ascending: false })

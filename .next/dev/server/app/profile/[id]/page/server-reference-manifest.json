@@ -1,5 +1,20 @@
 {
   "node": {
+    "70b9149166bb73a786dd21695a604390b8789189f9": {
+      "workers": {
+        "app/profile/[id]/page": {
+          "moduleId": "[project]/.next-internal/server/app/profile/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/profile/[id]/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "submitTourAdjustment",
+          "filename": "app/profile/[id]/actions.ts"
+        }
+      },
+      "layer": {
+        "app/profile/[id]/page": "action-browser"
+      },
+      "exportedName": "submitTourAdjustment",
+      "filename": "app/profile/[id]/actions.ts"
+    },
     "60522fa0c1ab889549cd43ee3a6e075bf758d786b7": {
       "workers": {
         "app/profile/[id]/page": {

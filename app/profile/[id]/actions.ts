@@ -48,3 +48,46 @@ export async function updateCadetProfile(cadetId: string, formData: FormData) {
   revalidatePath(`/reports/daily`)
   return { success: true }
 }
+
+export async function submitTourAdjustment(cadetId: string, amount: number, reason: string) {
+  const supabase = createClient()
+  
+  // 1. Auth Check
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { error: 'Unauthorized' }
+
+  // 2. Permission Check (Commandant Staff / Level 90+)
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('role:role_id (default_role_level)')
+    .eq('id', user.id)
+    .single()
+
+  const roleLevel = (profile?.role as any)?.default_role_level || 0
+  if (roleLevel < 90) {
+    return { error: 'Permission Denied: Only Commandant Staff can manually adjust tour balances.' }
+  }
+
+  if (amount === 0) return { error: 'Adjustment amount cannot be zero.' }
+  if (!reason) return { error: 'A reason is required for adjustments.' }
+
+  // 3. Insert Ledger Entry
+  const { error } = await supabase.from('tour_ledger').insert({
+    cadet_id: cadetId,
+    staff_id: user.id,
+    amount: amount,
+    action: 'adjustment',
+    comment: reason
+  })
+
+  if (error) {
+    console.error('Adjustment Error:', error)
+    return { error: error.message }
+  }
+
+  // 4. Revalidate
+  revalidatePath(`/profile/${cadetId}`)
+  revalidatePath(`/ledger/${cadetId}`)
+  
+  return { success: true }
+}

@@ -60,13 +60,18 @@ function ReportHistoryClient({ initialReports }) {
     const [isLoadingMore, setIsLoadingMore] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     // Preferences
     const [loadAmount, setLoadAmount] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(50);
-    // Filters & Sort
-    const [searchTerm, setSearchTerm] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    // Sorting State
     const [sortConfig, setSortConfig] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
         key: 'date',
         direction: 'desc'
     });
     const [expandedId, setExpandedId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
+    // Filtering State
+    const [searchTerm, setSearchTerm] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const [filterType, setFilterType] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('all');
+    const [filterValue, setFilterValue] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const [startDate, setStartDate] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const [endDate, setEndDate] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
     // --- HANDLERS ---
     const handleLoadMore = async ()=>{
         setIsLoadingMore(true);
@@ -75,10 +80,15 @@ function ReportHistoryClient({ initialReports }) {
             alert("Failed to load more reports.");
         } else if (data) {
             if (data.length < loadAmount) setHasMore(false);
-            setReports((prev)=>[
+            // *** FIX IS HERE: Dedup incoming data ***
+            setReports((prev)=>{
+                const existingIds = new Set(prev.map((r)=>r.id));
+                const uniqueNewReports = data.filter((r)=>!existingIds.has(r.id));
+                return [
                     ...prev,
-                    ...data
-                ]);
+                    ...uniqueNewReports
+                ];
+            });
             setOffset((prev)=>prev + data.length);
         }
         setIsLoadingMore(false);
@@ -89,14 +99,19 @@ function ReportHistoryClient({ initialReports }) {
                 direction: current.key === key && current.direction === 'asc' ? 'desc' : 'asc'
             }));
     };
-    // Helper to render sort arrow
+    const handleFilterTypeChange = (type)=>{
+        setFilterType(type);
+        setFilterValue('');
+        setStartDate('');
+        setEndDate('');
+    };
     const SortIcon = ({ column })=>{
         if (sortConfig.key !== column) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
             className: "text-gray-300 ml-1",
             children: "⇅"
         }, void 0, false, {
             fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-            lineNumber: 74,
+            lineNumber: 94,
             columnNumber: 43
         }, this);
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -104,22 +119,107 @@ function ReportHistoryClient({ initialReports }) {
             children: sortConfig.direction === 'asc' ? '↑' : '↓'
         }, void 0, false, {
             fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-            lineNumber: 75,
+            lineNumber: 95,
             columnNumber: 12
         }, this);
     };
+    // --- DYNAMIC OPTIONS ---
+    const uniqueSubjects = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "ReportHistoryClient.useMemo[uniqueSubjects]": ()=>[
+                ...new Set(reports.map({
+                    "ReportHistoryClient.useMemo[uniqueSubjects]": (r)=>formatName(r.subject)
+                }["ReportHistoryClient.useMemo[uniqueSubjects]"]))
+            ].sort()
+    }["ReportHistoryClient.useMemo[uniqueSubjects]"], [
+        reports
+    ]);
+    const uniqueSubmitters = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "ReportHistoryClient.useMemo[uniqueSubmitters]": ()=>[
+                ...new Set(reports.map({
+                    "ReportHistoryClient.useMemo[uniqueSubmitters]": (r)=>formatName(r.submitter)
+                }["ReportHistoryClient.useMemo[uniqueSubmitters]"]))
+            ].sort()
+    }["ReportHistoryClient.useMemo[uniqueSubmitters]"], [
+        reports
+    ]);
+    const uniqueOffenses = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "ReportHistoryClient.useMemo[uniqueOffenses]": ()=>[
+                ...new Set(reports.map({
+                    "ReportHistoryClient.useMemo[uniqueOffenses]": (r)=>r.offense_type.offense_name
+                }["ReportHistoryClient.useMemo[uniqueOffenses]"]))
+            ].sort()
+    }["ReportHistoryClient.useMemo[uniqueOffenses]"], [
+        reports
+    ]);
+    const uniqueStatuses = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "ReportHistoryClient.useMemo[uniqueStatuses]": ()=>[
+                ...new Set(reports.map({
+                    "ReportHistoryClient.useMemo[uniqueStatuses]": (r)=>r.status
+                }["ReportHistoryClient.useMemo[uniqueStatuses]"]))
+            ].sort()
+    }["ReportHistoryClient.useMemo[uniqueStatuses]"], [
+        reports
+    ]);
+    const uniqueAppeals = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
+        "ReportHistoryClient.useMemo[uniqueAppeals]": ()=>[
+                ...new Set(reports.map({
+                    "ReportHistoryClient.useMemo[uniqueAppeals]": (r)=>r.appeals?.[0]?.status || 'None'
+                }["ReportHistoryClient.useMemo[uniqueAppeals]"]))
+            ].sort()
+    }["ReportHistoryClient.useMemo[uniqueAppeals]"], [
+        reports
+    ]);
     // --- FILTERING & SORTING LOGIC ---
     const processedReports = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
         "ReportHistoryClient.useMemo[processedReports]": ()=>{
-            // 1. Filter
-            let result = reports.filter({
-                "ReportHistoryClient.useMemo[processedReports].result": (r)=>{
-                    const lowerSearch = searchTerm.toLowerCase();
-                    if (!lowerSearch) return true;
-                    return formatName(r.subject).toLowerCase().includes(lowerSearch) || formatName(r.submitter).toLowerCase().includes(lowerSearch) || r.offense_type.offense_name.toLowerCase().includes(lowerSearch) || r.status.toLowerCase().includes(lowerSearch);
+            let result = [
+                ...reports
+            ];
+            // 1. Apply Search Term (Global fuzzy search)
+            if (searchTerm) {
+                const lower = searchTerm.toLowerCase();
+                result = result.filter({
+                    "ReportHistoryClient.useMemo[processedReports]": (r)=>formatName(r.subject).toLowerCase().includes(lower) || formatName(r.submitter).toLowerCase().includes(lower) || r.offense_type.offense_name.toLowerCase().includes(lower) || r.status.toLowerCase().includes(lower)
+                }["ReportHistoryClient.useMemo[processedReports]"]);
+            }
+            // 2. Apply Specific Filter (Strict)
+            if (filterType === 'date_range') {
+                if (startDate) result = result.filter({
+                    "ReportHistoryClient.useMemo[processedReports]": (r)=>new Date(r.created_at) >= new Date(startDate)
+                }["ReportHistoryClient.useMemo[processedReports]"]);
+                if (endDate) result = result.filter({
+                    "ReportHistoryClient.useMemo[processedReports]": (r)=>new Date(r.created_at) <= new Date(endDate + 'T23:59:59')
+                }["ReportHistoryClient.useMemo[processedReports]"]);
+            } else if (filterValue && filterType !== 'all') {
+                switch(filterType){
+                    case 'subject':
+                        result = result.filter({
+                            "ReportHistoryClient.useMemo[processedReports]": (r)=>formatName(r.subject) === filterValue
+                        }["ReportHistoryClient.useMemo[processedReports]"]);
+                        break;
+                    case 'submitter':
+                        result = result.filter({
+                            "ReportHistoryClient.useMemo[processedReports]": (r)=>formatName(r.submitter) === filterValue
+                        }["ReportHistoryClient.useMemo[processedReports]"]);
+                        break;
+                    case 'offense':
+                        result = result.filter({
+                            "ReportHistoryClient.useMemo[processedReports]": (r)=>r.offense_type.offense_name === filterValue
+                        }["ReportHistoryClient.useMemo[processedReports]"]);
+                        break;
+                    case 'status':
+                        result = result.filter({
+                            "ReportHistoryClient.useMemo[processedReports]": (r)=>r.status === filterValue
+                        }["ReportHistoryClient.useMemo[processedReports]"]);
+                        break;
+                    case 'appeal':
+                        result = result.filter({
+                            "ReportHistoryClient.useMemo[processedReports]": (r)=>(r.appeals?.[0]?.status || 'None') === filterValue
+                        }["ReportHistoryClient.useMemo[processedReports]"]);
+                        break;
                 }
-            }["ReportHistoryClient.useMemo[processedReports].result"]);
-            // 2. Sort
+            }
+            // 3. Sort
             result.sort({
                 "ReportHistoryClient.useMemo[processedReports]": (a, b)=>{
                     let valA = '', valB = '';
@@ -163,6 +263,10 @@ function ReportHistoryClient({ initialReports }) {
     }["ReportHistoryClient.useMemo[processedReports]"], [
         reports,
         searchTerm,
+        filterType,
+        filterValue,
+        startDate,
+        endDate,
         sortConfig
     ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -172,56 +276,278 @@ function ReportHistoryClient({ initialReports }) {
                 className: "bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "p-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/20 flex flex-col sm:flex-row gap-4 justify-between items-end",
+                        className: "p-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/20 flex flex-col lg:flex-row gap-4 items-end",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "w-full sm:w-1/2",
+                                className: "w-full lg:w-1/3",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                         className: "block text-xs font-medium text-gray-500 uppercase mb-1",
-                                        children: "Search Archives"
+                                        children: "Quick Search"
                                     }, void 0, false, {
                                         fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                        lineNumber: 142,
+                                        lineNumber: 165,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                         type: "text",
-                                        placeholder: "Search by name, offense, or status...",
-                                        className: "block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm sm:text-sm py-2 px-3",
+                                        placeholder: "Search by name, infraction, status...",
+                                        className: "block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm sm:text-sm py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500",
                                         value: searchTerm,
                                         onChange: (e)=>setSearchTerm(e.target.value)
                                     }, void 0, false, {
                                         fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                        lineNumber: 143,
+                                        lineNumber: 166,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                lineNumber: 141,
+                                lineNumber: 164,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "w-full sm:w-auto",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                    onClick: ()=>router.refresh(),
-                                    className: "w-full py-2 px-4 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors text-sm",
-                                    children: "↻ Refresh Data"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                    lineNumber: 152,
-                                    columnNumber: 14
-                                }, this)
-                            }, void 0, false, {
+                                className: "w-full lg:w-2/3 flex flex-col sm:flex-row gap-4",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "w-full sm:w-1/3",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                className: "block text-xs font-medium text-gray-500 uppercase mb-1",
+                                                children: "Filter By"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
+                                                lineNumber: 180,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                                value: filterType,
+                                                onChange: (e)=>handleFilterTypeChange(e.target.value),
+                                                className: "block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm sm:text-sm py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                        value: "all",
+                                                        children: "None"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
+                                                        lineNumber: 186,
+                                                        columnNumber: 21
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                        value: "date_range",
+                                                        children: "Date Range"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
+                                                        lineNumber: 187,
+                                                        columnNumber: 21
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                        value: "subject",
+                                                        children: "Subject"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
+                                                        lineNumber: 188,
+                                                        columnNumber: 21
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                        value: "submitter",
+                                                        children: "Submitter"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
+                                                        lineNumber: 189,
+                                                        columnNumber: 21
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                        value: "offense",
+                                                        children: "Infraction"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
+                                                        lineNumber: 190,
+                                                        columnNumber: 21
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                        value: "status",
+                                                        children: "Status"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
+                                                        lineNumber: 191,
+                                                        columnNumber: 21
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                        value: "appeal",
+                                                        children: "Appeal Status"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
+                                                        lineNumber: 192,
+                                                        columnNumber: 21
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
+                                                lineNumber: 181,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
+                                        lineNumber: 179,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "w-full sm:w-2/3",
+                                        children: filterType === 'date_range' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "flex gap-2",
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "flex-1",
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                            className: "block text-xs font-medium text-gray-500 uppercase mb-1",
+                                                            children: "From"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
+                                                            lineNumber: 201,
+                                                            columnNumber: 29
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                            type: "date",
+                                                            value: startDate,
+                                                            onChange: (e)=>setStartDate(e.target.value),
+                                                            className: "block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm sm:text-sm py-2 px-3"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
+                                                            lineNumber: 202,
+                                                            columnNumber: 29
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
+                                                    lineNumber: 200,
+                                                    columnNumber: 25
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    className: "flex-1",
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                            className: "block text-xs font-medium text-gray-500 uppercase mb-1",
+                                                            children: "To"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
+                                                            lineNumber: 205,
+                                                            columnNumber: 29
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                            type: "date",
+                                                            value: endDate,
+                                                            onChange: (e)=>setEndDate(e.target.value),
+                                                            className: "block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm sm:text-sm py-2 px-3"
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
+                                                            lineNumber: 206,
+                                                            columnNumber: 29
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
+                                                    lineNumber: 204,
+                                                    columnNumber: 25
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
+                                            lineNumber: 199,
+                                            columnNumber: 21
+                                        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            children: [
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                    className: `block text-xs font-medium uppercase mb-1 ${filterType === 'all' ? 'text-gray-300 dark:text-gray-600' : 'text-gray-500'}`,
+                                                    children: filterType === 'all' ? 'Select Filter Type' : 'Select Value'
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
+                                                    lineNumber: 211,
+                                                    columnNumber: 25
+                                                }, this),
+                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                                    value: filterValue,
+                                                    onChange: (e)=>setFilterValue(e.target.value),
+                                                    disabled: filterType === 'all',
+                                                    className: `block w-full rounded-md border shadow-sm sm:text-sm py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500 ${filterType === 'all' ? 'bg-gray-50 border-gray-200 text-gray-400 dark:bg-gray-900/50 dark:border-gray-700 dark:text-gray-500 cursor-not-allowed' : 'border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white'}`,
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                            value: "",
+                                                            children: filterType === 'all' ? '—' : '-- Select --'
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
+                                                            lineNumber: 224,
+                                                            columnNumber: 29
+                                                        }, this),
+                                                        filterType === 'subject' && uniqueSubjects.map((s)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                value: s,
+                                                                children: s
+                                                            }, s, false, {
+                                                                fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
+                                                                lineNumber: 225,
+                                                                columnNumber: 82
+                                                            }, this)),
+                                                        filterType === 'submitter' && uniqueSubmitters.map((s)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                value: s,
+                                                                children: s
+                                                            }, s, false, {
+                                                                fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
+                                                                lineNumber: 226,
+                                                                columnNumber: 86
+                                                            }, this)),
+                                                        filterType === 'offense' && uniqueOffenses.map((s)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                value: s,
+                                                                children: s
+                                                            }, s, false, {
+                                                                fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
+                                                                lineNumber: 227,
+                                                                columnNumber: 82
+                                                            }, this)),
+                                                        filterType === 'status' && uniqueStatuses.map((s)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                value: s,
+                                                                children: s
+                                                            }, s, false, {
+                                                                fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
+                                                                lineNumber: 228,
+                                                                columnNumber: 81
+                                                            }, this)),
+                                                        filterType === 'appeal' && uniqueAppeals.map((s)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                                value: s,
+                                                                children: s
+                                                            }, s, false, {
+                                                                fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
+                                                                lineNumber: 229,
+                                                                columnNumber: 80
+                                                            }, this))
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
+                                                    lineNumber: 214,
+                                                    columnNumber: 25
+                                                }, this)
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
+                                            lineNumber: 210,
+                                            columnNumber: 21
+                                        }, this)
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
+                                        lineNumber: 197,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
                                 fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                lineNumber: 151,
+                                lineNumber: 176,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                        lineNumber: 140,
+                        lineNumber: 161,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -242,13 +568,13 @@ function ReportHistoryClient({ initialReports }) {
                                                         column: "status"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                        lineNumber: 163,
+                                                        lineNumber: 243,
                                                         columnNumber: 231
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                lineNumber: 163,
+                                                lineNumber: 243,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -260,13 +586,13 @@ function ReportHistoryClient({ initialReports }) {
                                                         column: "appeal"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                        lineNumber: 164,
+                                                        lineNumber: 244,
                                                         columnNumber: 231
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                lineNumber: 164,
+                                                lineNumber: 244,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -278,13 +604,13 @@ function ReportHistoryClient({ initialReports }) {
                                                         column: "subject"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                        lineNumber: 165,
+                                                        lineNumber: 245,
                                                         columnNumber: 233
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                lineNumber: 165,
+                                                lineNumber: 245,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -296,31 +622,31 @@ function ReportHistoryClient({ initialReports }) {
                                                         column: "submitter"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                        lineNumber: 166,
+                                                        lineNumber: 246,
                                                         columnNumber: 237
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                lineNumber: 166,
+                                                lineNumber: 246,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                 onClick: ()=>handleSort('offense'),
                                                 className: "px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700",
                                                 children: [
-                                                    "Offense ",
+                                                    "Infraction ",
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
                                                         column: "offense"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                        lineNumber: 167,
-                                                        columnNumber: 233
+                                                        lineNumber: 247,
+                                                        columnNumber: 236
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                lineNumber: 167,
+                                                lineNumber: 247,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -332,13 +658,13 @@ function ReportHistoryClient({ initialReports }) {
                                                         column: "demerits"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                        lineNumber: 168,
+                                                        lineNumber: 248,
                                                         columnNumber: 230
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                lineNumber: 168,
+                                                lineNumber: 248,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -350,13 +676,13 @@ function ReportHistoryClient({ initialReports }) {
                                                         column: "date"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                        lineNumber: 169,
+                                                        lineNumber: 249,
                                                         columnNumber: 227
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                lineNumber: 169,
+                                                lineNumber: 249,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -366,23 +692,23 @@ function ReportHistoryClient({ initialReports }) {
                                                     children: "View"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                    lineNumber: 170,
+                                                    lineNumber: 250,
                                                     columnNumber: 52
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                lineNumber: 170,
+                                                lineNumber: 250,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                        lineNumber: 162,
+                                        lineNumber: 242,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                    lineNumber: 161,
+                                    lineNumber: 241,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -402,12 +728,12 @@ function ReportHistoryClient({ initialReports }) {
                                                                 children: report.status === 'completed' ? 'Approved' : report.status.charAt(0).toUpperCase() + report.status.slice(1)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                                lineNumber: 183,
+                                                                lineNumber: 263,
                                                                 columnNumber: 25
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                            lineNumber: 182,
+                                                            lineNumber: 262,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -417,19 +743,19 @@ function ReportHistoryClient({ initialReports }) {
                                                                 children: appealStatus.replace(/_/g, ' ')
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                                lineNumber: 189,
+                                                                lineNumber: 269,
                                                                 columnNumber: 28
                                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                 className: "text-gray-300",
                                                                 children: "-"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                                lineNumber: 192,
+                                                                lineNumber: 272,
                                                                 columnNumber: 30
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                            lineNumber: 187,
+                                                            lineNumber: 267,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -437,7 +763,7 @@ function ReportHistoryClient({ initialReports }) {
                                                             children: formatName(report.subject)
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                            lineNumber: 194,
+                                                            lineNumber: 274,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -445,7 +771,7 @@ function ReportHistoryClient({ initialReports }) {
                                                             children: formatName(report.submitter)
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                            lineNumber: 195,
+                                                            lineNumber: 275,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -453,7 +779,7 @@ function ReportHistoryClient({ initialReports }) {
                                                             children: report.offense_type.offense_name
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                            lineNumber: 196,
+                                                            lineNumber: 276,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -461,7 +787,7 @@ function ReportHistoryClient({ initialReports }) {
                                                             children: report.demerits_effective
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                            lineNumber: 197,
+                                                            lineNumber: 277,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -469,7 +795,7 @@ function ReportHistoryClient({ initialReports }) {
                                                             children: new Date(report.created_at).toLocaleDateString()
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                            lineNumber: 198,
+                                                            lineNumber: 278,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -477,13 +803,13 @@ function ReportHistoryClient({ initialReports }) {
                                                             children: expandedId === report.id ? 'Close' : 'View'
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                            lineNumber: 199,
+                                                            lineNumber: 279,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                    lineNumber: 178,
+                                                    lineNumber: 258,
                                                     columnNumber: 21
                                                 }, this),
                                                 expandedId === report.id && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
@@ -504,7 +830,7 @@ function ReportHistoryClient({ initialReports }) {
                                                                                     children: "Date of Offense:"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                                                    lineNumber: 210,
+                                                                                    lineNumber: 290,
                                                                                     columnNumber: 89
                                                                                 }, this),
                                                                                 " ",
@@ -512,7 +838,7 @@ function ReportHistoryClient({ initialReports }) {
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                                            lineNumber: 210,
+                                                                            lineNumber: 290,
                                                                             columnNumber: 33
                                                                         }, this),
                                                                         appealStatus && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -522,7 +848,7 @@ function ReportHistoryClient({ initialReports }) {
                                                                                     children: "Appeal Status:"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                                                    lineNumber: 213,
+                                                                                    lineNumber: 293,
                                                                                     columnNumber: 38
                                                                                 }, this),
                                                                                 " ",
@@ -531,13 +857,13 @@ function ReportHistoryClient({ initialReports }) {
                                                                                     children: appealStatus.replace(/_/g, ' ')
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                                                    lineNumber: 213,
+                                                                                    lineNumber: 293,
                                                                                     columnNumber: 70
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                                            lineNumber: 212,
+                                                                            lineNumber: 292,
                                                                             columnNumber: 36
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -548,7 +874,7 @@ function ReportHistoryClient({ initialReports }) {
                                                                                     children: "Notes"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                                                    lineNumber: 217,
+                                                                                    lineNumber: 297,
                                                                                     columnNumber: 37
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -556,19 +882,19 @@ function ReportHistoryClient({ initialReports }) {
                                                                                     children: report.notes || 'No notes provided.'
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                                                    lineNumber: 218,
+                                                                                    lineNumber: 298,
                                                                                     columnNumber: 37
                                                                                 }, this)
                                                                             ]
                                                                         }, void 0, true, {
                                                                             fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                                            lineNumber: 216,
+                                                                            lineNumber: 296,
                                                                             columnNumber: 33
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                                    lineNumber: 209,
+                                                                    lineNumber: 289,
                                                                     columnNumber: 29
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -579,34 +905,34 @@ function ReportHistoryClient({ initialReports }) {
                                                                         children: "Open Full Report Page →"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                                        lineNumber: 222,
+                                                                        lineNumber: 302,
                                                                         columnNumber: 33
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                                    lineNumber: 221,
+                                                                    lineNumber: 301,
                                                                     columnNumber: 29
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                            lineNumber: 208,
+                                                            lineNumber: 288,
                                                             columnNumber: 27
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                        lineNumber: 207,
+                                                        lineNumber: 287,
                                                         columnNumber: 25
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                                    lineNumber: 206,
+                                                    lineNumber: 286,
                                                     columnNumber: 23
                                                 }, this)
                                             ]
                                         }, report.id, true, {
                                             fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                            lineNumber: 177,
+                                            lineNumber: 257,
                                             columnNumber: 19
                                         }, this);
                                     }) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
@@ -616,34 +942,34 @@ function ReportHistoryClient({ initialReports }) {
                                             children: "No reports found."
                                         }, void 0, false, {
                                             fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                            lineNumber: 236,
+                                            lineNumber: 316,
                                             columnNumber: 21
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                        lineNumber: 236,
+                                        lineNumber: 316,
                                         columnNumber: 17
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                    lineNumber: 173,
+                                    lineNumber: 253,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                            lineNumber: 160,
+                            lineNumber: 240,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                        lineNumber: 159,
+                        lineNumber: 239,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                lineNumber: 137,
+                lineNumber: 158,
                 columnNumber: 7
             }, this),
             hasMore && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -656,7 +982,7 @@ function ReportHistoryClient({ initialReports }) {
                                 children: "Load"
                             }, void 0, false, {
                                 fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                lineNumber: 247,
+                                lineNumber: 327,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -669,7 +995,7 @@ function ReportHistoryClient({ initialReports }) {
                                         children: "50"
                                     }, void 0, false, {
                                         fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                        lineNumber: 253,
+                                        lineNumber: 333,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -677,7 +1003,7 @@ function ReportHistoryClient({ initialReports }) {
                                         children: "100"
                                     }, void 0, false, {
                                         fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                        lineNumber: 254,
+                                        lineNumber: 334,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -685,26 +1011,26 @@ function ReportHistoryClient({ initialReports }) {
                                         children: "300"
                                     }, void 0, false, {
                                         fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                        lineNumber: 255,
+                                        lineNumber: 335,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                lineNumber: 248,
+                                lineNumber: 328,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                 children: "more rows"
                             }, void 0, false, {
                                 fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                                lineNumber: 257,
+                                lineNumber: 337,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                        lineNumber: 246,
+                        lineNumber: 326,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -714,23 +1040,23 @@ function ReportHistoryClient({ initialReports }) {
                         children: isLoadingMore ? 'Loading...' : 'Load More Reports'
                     }, void 0, false, {
                         fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                        lineNumber: 259,
+                        lineNumber: 339,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-                lineNumber: 245,
+                lineNumber: 325,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/reports/history/ReportHistoryClient.tsx",
-        lineNumber: 136,
+        lineNumber: 157,
         columnNumber: 5
     }, this);
 }
-_s(ReportHistoryClient, "rb/8QHq/UGwrv/YoyIPonFTXVVk=", false, function() {
+_s(ReportHistoryClient, "TlGWvk4/TIujkSl5YNC7cdtdlJg=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
     ];

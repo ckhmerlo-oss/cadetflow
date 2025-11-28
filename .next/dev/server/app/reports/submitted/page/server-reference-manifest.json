@@ -1,4 +1,20 @@
 {
-  "node": {},
+  "node": {
+    "602f956fc8255f8d77d4dae1b2d77c1cd1c5028578": {
+      "workers": {
+        "app/reports/submitted/page": {
+          "moduleId": "[project]/.next-internal/server/app/reports/submitted/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/reports/submitted/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "fetchSubmittedReports",
+          "filename": "app/reports/submitted/actions.ts"
+        }
+      },
+      "layer": {
+        "app/reports/submitted/page": "action-browser"
+      },
+      "exportedName": "fetchSubmittedReports",
+      "filename": "app/reports/submitted/actions.ts"
+    }
+  },
   "edge": {}
 }
