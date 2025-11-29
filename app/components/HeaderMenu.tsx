@@ -11,7 +11,7 @@ type HeaderMenuProps = {
   showDailyReports: boolean
   isLoggedIn: boolean
   isSiteAdmin: boolean
-  roleLevel: number // Added
+  roleLevel: number 
 }
 
 // Icons
@@ -80,9 +80,9 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, is
   return (
     <>
       {/* --- DESKTOP MENU --- */}
-      <div className="hidden md:flex items-center space-x-4">
+      {/* UPDATED: justify-end to force right alignment, space-x-3 for tighter spacing */}
+      <div className="hidden md:flex items-center justify-end space-x-3">
         
-        {/* Only show Dashboard if Level 15+ (Cadet Leaders and up) */}
         {roleLevel >= 15 && (
             <Link 
                 href="/" 
@@ -103,7 +103,6 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, is
             </Link>
         )}
 
-        {/* Only show Report History (Archive) to Faculty (50+) */}
         {isLoggedIn && roleLevel >= 50 && (
             <Link 
                 href="/reports/history" 
@@ -157,7 +156,8 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, is
 
         {/* DIRECT ACTIONS */}
         {isLoggedIn ? (
-          <div className="flex items-center gap-2 ml-3">
+          // UPDATED: Removed ml-3 to fix massive gap
+          <div className="flex items-center gap-2">
              <button 
                onClick={() => setFeedbackOpen(true)} 
                className="text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-white p-2 rounded-full transition-colors"

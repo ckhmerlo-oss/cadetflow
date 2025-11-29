@@ -11,6 +11,9 @@ export default function OnboardingTour(permissions: UserPermissions & { show: bo
   const [rect, setRect] = useState<DOMRect | null>(null)
   const [isCompleting, setIsCompleting] = useState(false)
   
+  // --- NEW: Mobile Detection State ---
+  const [isMobile, setIsMobile] = useState(false)
+  
   const router = useRouter()
   const pathname = usePathname()
   const supabase = createClient()
@@ -34,31 +37,41 @@ export default function OnboardingTour(permissions: UserPermissions & { show: bo
     }
   }, [permissions.show, activeSteps.length])
 
+  // --- NEW: Handle Mobile Resize ---
+  useEffect(() => {
+    const checkMobile = () => {
+        // Consider mobile if width < 768px (standard md breakpoint)
+        setIsMobile(window.innerWidth < 768)
+    }
+    
+    // Check initially
+    checkMobile()
+    
+    // Add listener
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
   // 3. Navigation & Positioning Engine
   useEffect(() => {
     if (!isOpen || !currentStep) return
 
-    // A. Route Check
     if (pathname !== currentStep.path) {
       router.push(currentStep.path)
       return 
     }
 
-    // B. Find Element
     const findAndHighlight = () => {
       const element = document.getElementById(currentStep.targetId)
       if (element) {
         const r = element.getBoundingClientRect()
-        // Ensure visible
         if (r.width > 0 && r.height > 0) {
           setRect(r)
-          
-          // CONDITIONAL SCROLL: Only scroll if NOT disabled
-          if (!currentStep.disableScroll) {
+          // Only auto-scroll if NOT disabled AND NOT on mobile (mobile users usually prefer manual scroll context)
+          if (!currentStep.disableScroll && !isMobile) {
             element.scrollIntoView({ behavior: 'smooth', block: 'center' })
           }
         } else {
-            // Fallback
             setRect({ top: window.innerHeight/2, left: window.innerWidth/2, width: 0, height: 0 } as DOMRect)
         }
       } else {
@@ -66,16 +79,13 @@ export default function OnboardingTour(permissions: UserPermissions & { show: bo
       }
     }
 
-    // Call immediately
     const timer = setTimeout(findAndHighlight, 500)
-    
-    // Add resize listener
     window.addEventListener('resize', findAndHighlight)
     return () => {
         clearTimeout(timer)
         window.removeEventListener('resize', findAndHighlight)
     }
-  }, [currentStepIndex, currentStep, isOpen, pathname, router])
+  }, [currentStepIndex, currentStep, isOpen, pathname, router, isMobile])
 
   const handleNext = () => {
     if (currentStepIndex < activeSteps.length - 1) {
@@ -101,18 +111,32 @@ export default function OnboardingTour(permissions: UserPermissions & { show: bo
 
   if (!isOpen || !currentStep) return null
 
-  // Helper for popover styles
+  // --- UPDATED: Helper for popover styles ---
   const getPopoverStyle = () => {
+    // 1. MOBILE OVERRIDE: Force Center
+    if (isMobile) {
+        return {
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            position: 'fixed', // Use fixed to ensure it stays on screen
+            width: '90vw',     // Responsive width
+            maxWidth: '320px', // Cap width
+            zIndex: 10002      // Ensure above backdrop
+        } as React.CSSProperties
+    }
+
+    // 2. DESKTOP LOGIC (Existing)
     if (!rect) return { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }
     
     const gap = 15
     const width = 320
     
     switch (currentStep.placement) {
-      case 'right': return { top: rect.top, left: rect.right + gap }
-      case 'left': return { top: rect.top, left: rect.left - width - gap }
-      case 'top': return { top: rect.top - gap - 200, left: rect.left } 
-      case 'bottom': default: return { top: rect.bottom + gap, left: rect.left }
+      case 'right': return { top: rect.top, left: rect.right + gap, width }
+      case 'left': return { top: rect.top, left: rect.left - width - gap, width }
+      case 'top': return { top: rect.top - gap - 200, left: rect.left, width } 
+      case 'bottom': default: return { top: rect.bottom + gap, left: rect.left, width }
     }
   }
 
@@ -121,7 +145,7 @@ export default function OnboardingTour(permissions: UserPermissions & { show: bo
   return (
     <div className="fixed inset-0 z-[9999] pointer-events-none">
       
-      {/* 1. Backdrop */}
+      {/* 1. Backdrop / Spotlight */}
       <div 
         className="absolute transition-all duration-500 ease-in-out rounded-md pointer-events-auto bg-transparent"
         style={{
@@ -133,10 +157,11 @@ export default function OnboardingTour(permissions: UserPermissions & { show: bo
         }}
       />
 
-      {/* 2. Popover */}
+      {/* 2. Popover Card */}
+      {/* Removed w-80 class, width is now handled by inline style for responsiveness */}
       <div 
-        className="absolute pointer-events-auto transition-all duration-500 ease-out w-80 flex flex-col bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden"
-        style={{ top: style.top, left: style.left }}
+        className="absolute pointer-events-auto transition-all duration-500 ease-out flex flex-col bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden"
+        style={style}
       >
         <div className="bg-indigo-600 px-4 py-3 flex justify-between items-center">
           <span className="text-xs font-bold text-indigo-100 uppercase tracking-wider">

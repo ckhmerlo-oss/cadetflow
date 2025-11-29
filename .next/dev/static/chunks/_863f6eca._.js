@@ -308,7 +308,7 @@ function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, role
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "hidden md:flex items-center space-x-4",
+                className: "hidden md:flex items-center justify-end space-x-3",
                 children: [
                     roleLevel >= 15 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                         href: "/",
@@ -337,7 +337,7 @@ function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, role
                         children: "Report History"
                     }, void 0, false, {
                         fileName: "[project]/app/components/HeaderMenu.tsx",
-                        lineNumber: 108,
+                        lineNumber: 107,
                         columnNumber: 13
                     }, this),
                     showDailyReports && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -347,7 +347,7 @@ function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, role
                         children: "Green Sheet"
                     }, void 0, false, {
                         fileName: "[project]/app/components/HeaderMenu.tsx",
-                        lineNumber: 118,
+                        lineNumber: 117,
                         columnNumber: 14
                     }, this),
                     canManage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -359,7 +359,7 @@ function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, role
                                 children: "Action Items"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/HeaderMenu.tsx",
-                                lineNumber: 129,
+                                lineNumber: 128,
                                 columnNumber: 14
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -369,7 +369,7 @@ function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, role
                                 children: "Roster"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/HeaderMenu.tsx",
-                                lineNumber: 136,
+                                lineNumber: 135,
                                 columnNumber: 13
                             }, this)
                         ]
@@ -381,16 +381,17 @@ function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, role
                         children: "Admin"
                     }, void 0, false, {
                         fileName: "[project]/app/components/HeaderMenu.tsx",
-                        lineNumber: 147,
+                        lineNumber: 146,
                         columnNumber: 13
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$ThemeToggleButton$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                         fileName: "[project]/app/components/HeaderMenu.tsx",
-                        lineNumber: 156,
+                        lineNumber: 155,
                         columnNumber: 9
                     }, this),
-                    isLoggedIn ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex items-center gap-2 ml-3",
+                    isLoggedIn ? // UPDATED: Removed ml-3 to fix massive gap
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "flex items-center gap-2",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 onClick: ()=>setFeedbackOpen(true),
@@ -448,7 +449,7 @@ function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, role
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/HeaderMenu.tsx",
-                lineNumber: 83,
+                lineNumber: 84,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -883,6 +884,8 @@ function OnboardingTour(permissions) {
     const [currentStepIndex, setCurrentStepIndex] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
     const [rect, setRect] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [isCompleting, setIsCompleting] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    // --- NEW: Mobile Detection State ---
+    const [isMobile, setIsMobile] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"])();
     const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"])();
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$client$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createClient"])();
@@ -919,33 +922,47 @@ function OnboardingTour(permissions) {
         permissions.show,
         activeSteps.length
     ]);
+    // --- NEW: Handle Mobile Resize ---
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
+        "OnboardingTour.useEffect": ()=>{
+            const checkMobile = {
+                "OnboardingTour.useEffect.checkMobile": ()=>{
+                    // Consider mobile if width < 768px (standard md breakpoint)
+                    setIsMobile(window.innerWidth < 768);
+                }
+            }["OnboardingTour.useEffect.checkMobile"];
+            // Check initially
+            checkMobile();
+            // Add listener
+            window.addEventListener('resize', checkMobile);
+            return ({
+                "OnboardingTour.useEffect": ()=>window.removeEventListener('resize', checkMobile)
+            })["OnboardingTour.useEffect"];
+        }
+    }["OnboardingTour.useEffect"], []);
     // 3. Navigation & Positioning Engine
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "OnboardingTour.useEffect": ()=>{
             if (!isOpen || !currentStep) return;
-            // A. Route Check
             if (pathname !== currentStep.path) {
                 router.push(currentStep.path);
                 return;
             }
-            // B. Find Element
             const findAndHighlight = {
                 "OnboardingTour.useEffect.findAndHighlight": ()=>{
                     const element = document.getElementById(currentStep.targetId);
                     if (element) {
                         const r = element.getBoundingClientRect();
-                        // Ensure visible
                         if (r.width > 0 && r.height > 0) {
                             setRect(r);
-                            // CONDITIONAL SCROLL: Only scroll if NOT disabled
-                            if (!currentStep.disableScroll) {
+                            // Only auto-scroll if NOT disabled AND NOT on mobile (mobile users usually prefer manual scroll context)
+                            if (!currentStep.disableScroll && !isMobile) {
                                 element.scrollIntoView({
                                     behavior: 'smooth',
                                     block: 'center'
                                 });
                             }
                         } else {
-                            // Fallback
                             setRect({
                                 top: window.innerHeight / 2,
                                 left: window.innerWidth / 2,
@@ -958,9 +975,7 @@ function OnboardingTour(permissions) {
                     }
                 }
             }["OnboardingTour.useEffect.findAndHighlight"];
-            // Call immediately
             const timer = setTimeout(findAndHighlight, 500);
-            // Add resize listener
             window.addEventListener('resize', findAndHighlight);
             return ({
                 "OnboardingTour.useEffect": ()=>{
@@ -974,7 +989,8 @@ function OnboardingTour(permissions) {
         currentStep,
         isOpen,
         pathname,
-        router
+        router,
+        isMobile
     ]);
     const handleNext = ()=>{
         if (currentStepIndex < activeSteps.length - 1) {
@@ -996,8 +1012,21 @@ function OnboardingTour(permissions) {
         router.refresh();
     };
     if (!isOpen || !currentStep) return null;
-    // Helper for popover styles
+    // --- UPDATED: Helper for popover styles ---
     const getPopoverStyle = ()=>{
+        // 1. MOBILE OVERRIDE: Force Center
+        if (isMobile) {
+            return {
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)',
+                position: 'fixed',
+                width: '90vw',
+                maxWidth: '320px',
+                zIndex: 10002 // Ensure above backdrop
+            };
+        }
+        // 2. DESKTOP LOGIC (Existing)
         if (!rect) return {
             top: '50%',
             left: '50%',
@@ -1009,23 +1038,27 @@ function OnboardingTour(permissions) {
             case 'right':
                 return {
                     top: rect.top,
-                    left: rect.right + gap
+                    left: rect.right + gap,
+                    width
                 };
             case 'left':
                 return {
                     top: rect.top,
-                    left: rect.left - width - gap
+                    left: rect.left - width - gap,
+                    width
                 };
             case 'top':
                 return {
                     top: rect.top - gap - 200,
-                    left: rect.left
+                    left: rect.left,
+                    width
                 };
             case 'bottom':
             default:
                 return {
                     top: rect.bottom + gap,
-                    left: rect.left
+                    left: rect.left,
+                    width
                 };
         }
     };
@@ -1044,15 +1077,12 @@ function OnboardingTour(permissions) {
                 }
             }, void 0, false, {
                 fileName: "[project]/app/components/tour/OnboardingTour.tsx",
-                lineNumber: 125,
+                lineNumber: 149,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "absolute pointer-events-auto transition-all duration-500 ease-out w-80 flex flex-col bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden",
-                style: {
-                    top: style.top,
-                    left: style.left
-                },
+                className: "absolute pointer-events-auto transition-all duration-500 ease-out flex flex-col bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden",
+                style: style,
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "bg-indigo-600 px-4 py-3 flex justify-between items-center",
@@ -1067,7 +1097,7 @@ function OnboardingTour(permissions) {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/tour/OnboardingTour.tsx",
-                                lineNumber: 142,
+                                lineNumber: 167,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1076,13 +1106,13 @@ function OnboardingTour(permissions) {
                                 children: "Skip"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/tour/OnboardingTour.tsx",
-                                lineNumber: 145,
+                                lineNumber: 170,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/tour/OnboardingTour.tsx",
-                        lineNumber: 141,
+                        lineNumber: 166,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1093,7 +1123,7 @@ function OnboardingTour(permissions) {
                                 children: currentStep.title
                             }, void 0, false, {
                                 fileName: "[project]/app/components/tour/OnboardingTour.tsx",
-                                lineNumber: 151,
+                                lineNumber: 176,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1101,13 +1131,13 @@ function OnboardingTour(permissions) {
                                 children: currentStep.content
                             }, void 0, false, {
                                 fileName: "[project]/app/components/tour/OnboardingTour.tsx",
-                                lineNumber: 154,
+                                lineNumber: 179,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/tour/OnboardingTour.tsx",
-                        lineNumber: 150,
+                        lineNumber: 175,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1120,7 +1150,7 @@ function OnboardingTour(permissions) {
                                 children: "Back"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/tour/OnboardingTour.tsx",
-                                lineNumber: 160,
+                                lineNumber: 185,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1130,29 +1160,29 @@ function OnboardingTour(permissions) {
                                 children: currentStepIndex === activeSteps.length - 1 ? 'Finish' : 'Next'
                             }, void 0, false, {
                                 fileName: "[project]/app/components/tour/OnboardingTour.tsx",
-                                lineNumber: 168,
+                                lineNumber: 193,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/tour/OnboardingTour.tsx",
-                        lineNumber: 159,
+                        lineNumber: 184,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/tour/OnboardingTour.tsx",
-                lineNumber: 137,
+                lineNumber: 162,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/components/tour/OnboardingTour.tsx",
-        lineNumber: 122,
+        lineNumber: 146,
         columnNumber: 5
     }, this);
 }
-_s(OnboardingTour, "hOTuRDpg17mM8qQUA84np0N2E/Q=", false, function() {
+_s(OnboardingTour, "qxH0CyWKWorY6XJeidMJur64zzY=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"],
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"]
