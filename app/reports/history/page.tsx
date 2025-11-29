@@ -8,6 +8,19 @@ export default async function ReportArchivePage() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return redirect('/login')
 
+  // CHECK PERMISSIONS (Level 50+ only)
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('role:role_id(default_role_level)')
+    .eq('id', user.id)
+    .single()
+  
+  const roleLevel = (profile?.role as any)?.default_role_level || 0;
+  if (roleLevel < 50) {
+      // Unauthorized users go home
+      return redirect('/')
+  }
+
   // Initial load
   const { data, error } = await fetchReportHistory(0, 50)
 
@@ -26,7 +39,6 @@ export default async function ReportArchivePage() {
         </div>
       </div>
       
-      {/* Pass data directly. The types now match. */}
       <ReportHistoryClient initialReports={data || []} />
     </div>
   )

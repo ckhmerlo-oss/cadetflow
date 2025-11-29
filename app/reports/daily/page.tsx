@@ -24,7 +24,7 @@ type TourSheetCadet = {
   company_name: string;
   total_tours: number;
   has_star_tours: boolean;
-  tours_logged_today: boolean; // New Flag
+  tours_logged_today: boolean;
 }
 
 // Sorting Types
@@ -207,7 +207,6 @@ export default function DailyReportsPage() {
   async function handleLogTours() {
     if (toursToLog <= 0) return;
 
-    // Validate if single selection
     if (selectedCadet && !selectedTourCadets.size) {
         if (toursToLog > selectedCadet.total_tours && !selectedCadet.has_star_tours) {
             alert(`Cannot log ${toursToLog} tours. Only ${selectedCadet.total_tours} remaining.`); 
@@ -220,10 +219,8 @@ export default function DailyReportsPage() {
     let successCount = 0;
     let errorMsg = '';
 
-    // Determine targets: Either the single selected cadet, OR the bulk set
     const targets = selectedCadet ? [selectedCadet.cadet_id] : Array.from(selectedTourCadets);
 
-    // Execute in parallel
     const promises = targets.map(cadetId => 
         supabase.rpc('log_served_tours', { 
             p_cadet_id: cadetId, 
@@ -242,11 +239,10 @@ export default function DailyReportsPage() {
     if (errorMsg && successCount === 0) {
         alert(`Failed: ${errorMsg}`);
     } else {
-        // Optimistic update for all affected
         const affectedIds = new Set(targets);
         setTourSheet(prev => prev.map(c => 
             affectedIds.has(c.cadet_id) 
-              ? { ...c, total_tours: c.total_tours - toursToLog, tours_logged_today: true } // Update logged flag
+              ? { ...c, total_tours: c.total_tours - toursToLog, tours_logged_today: true } 
               : c
           ).filter(c => c.total_tours > 0 || c.has_star_tours)
         );
@@ -314,8 +310,12 @@ export default function DailyReportsPage() {
           .col-check, .cell-check { display: none; }
         }
       `}</style>
-
-      <div className="max-w-7xl mx-auto p-2 sm:p-4 lg:p-6 print-container">
+      
+      {/* WRAPPER ID for Tour Targeting */}
+      <div id="tour-daily-table" className="mt-8 flex flex-col">
+        {/* Removed stray div here that caused spacing issue */}
+        
+       <div className="max-w-7xl mx-auto p-2 sm:p-4 lg:p-6 print-container">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 no-print">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Reports</h1>
@@ -343,7 +343,8 @@ export default function DailyReportsPage() {
         </div>
 
         {/* --- Green Sheet Section --- */}
-        <section className={`mt-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow printable-section ${activeTab === 'green' ? 'print-active' : 'hidden no-print'}`}>
+        {/* ADDED ID */}
+        <section id="green-sheet-container" className={`mt-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow printable-section ${activeTab === 'green' ? 'print-active' : 'hidden no-print'}`}>
           <div className="flex justify-between items-center no-print mb-4">
             <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">
                 Unposted Green Sheet ({processedGreenSheet.length})
@@ -403,7 +404,6 @@ export default function DailyReportsPage() {
                 {searchTerm && <span className="text-sm font-normal text-gray-500 ml-2">(Filtered)</span>}
              </h2>
              
-             {/* Bulk Action Button */}
              {canLog && selectedTourCadets.size > 0 && (
                  <button 
                     onClick={() => openTourModal()}
@@ -419,15 +419,12 @@ export default function DailyReportsPage() {
                 <table className="min-w-full printable-table border-collapse border border-gray-300 dark:border-gray-700">
                   <thead className="bg-gray-50 dark:bg-gray-700">
                     <tr>
-                      {/* Checkbox Column (No Print) */}
                       {canLog && (
                           <th className="p-2 text-center w-10 border border-gray-300 dark:border-gray-600 col-check no-print">
                               <input 
                                 type="checkbox" 
                                 className="rounded border-gray-300 dark:border-gray-600 dark:bg-gray-700"
-                                // Select All logic: only selects un-logged cadets
                                 onChange={handleSelectAllTourRows}
-                                // Check 'checked' status based on whether all ELIGIBLE rows are selected
                                 checked={
                                     processedTourSheet.filter(c => !c.tours_logged_today).length > 0 && 
                                     selectedTourCadets.size === processedTourSheet.filter(c => !c.tours_logged_today).length
@@ -452,7 +449,6 @@ export default function DailyReportsPage() {
                             ${c.tours_logged_today ? 'opacity-50 bg-gray-50 dark:bg-gray-900/50' : ''}
                         `}
                       >
-                        {/* Checkbox Cell */}
                         {canLog && (
                             <td className="p-2 text-center border border-gray-300 dark:border-gray-600 cell-check no-print">
                                 <input 
@@ -460,7 +456,6 @@ export default function DailyReportsPage() {
                                     className="rounded border-gray-300 dark:border-gray-600 dark:bg-gray-700 disabled:opacity-50"
                                     checked={selectedTourCadets.has(c.cadet_id)}
                                     onChange={() => handleSelectTourRow(c.cadet_id)}
-                                    // DISABLE selection if already logged to prevent accidents
                                     disabled={c.tours_logged_today}
                                 />
                             </td>
@@ -491,9 +486,6 @@ export default function DailyReportsPage() {
                             <button 
                                 onClick={() => openTourModal(c)} 
                                 className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300 disabled:text-gray-400"
-                                // Optional: Disable logging button if already done? 
-                                // User can typically re-log if they made a mistake (e.g., log 1, then log 2 more). 
-                                // Keeping it enabled but visually marked is safer.
                             >
                                 Log
                             </button>
@@ -507,8 +499,9 @@ export default function DailyReportsPage() {
           </div>
         </section>
       </div>
+      </div>
 
-      {/* --- Log Tours Modal (Handles Single & Bulk) --- */}
+      {/* --- Log Tours Modal --- */}
       {modalOpen && (
         <div className="relative z-10 no-print" aria-labelledby="modal-title" role="dialog" aria-modal="true">
           <div className="fixed inset-0 bg-gray-500 bg-opacity-75 dark:bg-gray-900/75 transition-opacity"></div>
@@ -517,7 +510,6 @@ export default function DailyReportsPage() {
               <div className="relative transform overflow-hidden rounded-lg bg-white dark:bg-gray-800 text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg">
                 <div className="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                   
-                  {/* Modal Header */}
                   <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-white" id="modal-title">
                       {selectedCadet 
                         ? `Log Served Tours: ${selectedCadet.last_name}` 
@@ -525,7 +517,6 @@ export default function DailyReportsPage() {
                       }
                   </h3>
                   
-                  {/* Modal Subheader */}
                   <p className="text-sm text-gray-500 dark:text-gray-400">
                       {selectedCadet 
                         ? `Current Balance: ${selectedCadet.has_star_tours ? '*' : selectedCadet.total_tours} tours`

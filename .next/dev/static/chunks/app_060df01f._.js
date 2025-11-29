@@ -51,7 +51,6 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                     "RosterClient.useMemo[filteredAndSortedCadets]": (c)=>c.company_name === filterCompany
                 }["RosterClient.useMemo[filteredAndSortedCadets]"]);
             }
-            // Only apply these filters for cadets
             if (variant === 'cadet') {
                 if (filterGrade !== 'all') filteredData = filteredData.filter({
                     "RosterClient.useMemo[filteredAndSortedCadets]": (c)=>c.grade_level === filterGrade
@@ -97,93 +96,6 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
         if (status === 'Deficient') return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200';
         return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
     };
-    const getAppealBadge = (status)=>{
-        if (!status) return null;
-        switch(status){
-            case 'approved':
-                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                    className: "ml-2 px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200",
-                    children: "Granted"
-                }, void 0, false, {
-                    fileName: "[project]/app/manage/RosterClient.tsx",
-                    lineNumber: 121,
-                    columnNumber: 31
-                }, this);
-            case 'rejected_final':
-                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                    className: "ml-2 px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200",
-                    children: "Denied"
-                }, void 0, false, {
-                    fileName: "[project]/app/manage/RosterClient.tsx",
-                    lineNumber: 122,
-                    columnNumber: 37
-                }, this);
-            case 'pending_issuer':
-            case 'pending_chain':
-            case 'pending_commandant':
-                return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                    className: "ml-2 px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200",
-                    children: "Pending"
-                }, void 0, false, {
-                    fileName: "[project]/app/manage/RosterClient.tsx",
-                    lineNumber: 125,
-                    columnNumber: 41
-                }, this);
-            default:
-                return null;
-        }
-    };
-    const getRecentReportStatus = (report)=>{
-        const status = report.status;
-        if (status === 'pulled') return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-            className: "text-xs text-gray-500 dark:text-gray-400",
-            children: "Pulled"
-        }, void 0, false, {
-            fileName: "[project]/app/manage/RosterClient.tsx",
-            lineNumber: 132,
-            columnNumber: 37
-        }, this);
-        if (status === 'rejected') return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-            className: "text-xs text-red-600 dark:text-red-400",
-            children: "Rejected"
-        }, void 0, false, {
-            fileName: "[project]/app/manage/RosterClient.tsx",
-            lineNumber: 133,
-            columnNumber: 39
-        }, this);
-        if (status === 'completed') return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-            className: "text-xs text-green-600 dark:text-green-400",
-            children: "Approved"
-        }, void 0, false, {
-            fileName: "[project]/app/manage/RosterClient.tsx",
-            lineNumber: 134,
-            columnNumber: 40
-        }, this);
-        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-            className: "text-xs text-yellow-600 dark:text-yellow-400",
-            children: status.replace('_', ' ')
-        }, void 0, false, {
-            fileName: "[project]/app/manage/RosterClient.tsx",
-            lineNumber: 135,
-            columnNumber: 12
-        }, this);
-    };
-    const formatTimeAgo = (dateStr)=>{
-        const date = new Date(dateStr);
-        const now = new Date();
-        const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
-        let interval = seconds / 31536000;
-        if (interval > 1) return Math.floor(interval) + "y ago";
-        interval = seconds / 2592000;
-        if (interval > 1) return Math.floor(interval) + "mo ago";
-        interval = seconds / 86400;
-        if (interval > 1) return Math.floor(interval) + "d ago";
-        interval = seconds / 3600;
-        if (interval > 1) return Math.floor(interval) + "h ago";
-        interval = seconds / 60;
-        if (interval > 1) return Math.floor(interval) + "m ago";
-        return Math.floor(seconds) + "s ago";
-    };
     const uniqueCompanies = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
         "RosterClient.useMemo[uniqueCompanies]": ()=>[
                 ...new Set(initialData.map({
@@ -206,6 +118,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
         className: "bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                id: "roster-controls",
                 className: "p-4 grid grid-cols-1 md:grid-cols-4 gap-4 border-b border-gray-200 dark:border-gray-700 no-print",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -216,7 +129,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                         className: "w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-800 dark:text-white"
                     }, void 0, false, {
                         fileName: "[project]/app/manage/RosterClient.tsx",
-                        lineNumber: 164,
+                        lineNumber: 125,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -229,7 +142,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                 children: "All Companies"
                             }, void 0, false, {
                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                lineNumber: 166,
+                                lineNumber: 127,
                                 columnNumber: 11
                             }, this),
                             uniqueCompanies.map((co)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -237,13 +150,13 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                     children: String(co)
                                 }, String(co), false, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 167,
+                                    lineNumber: 128,
                                     columnNumber: 38
                                 }, this))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/manage/RosterClient.tsx",
-                        lineNumber: 165,
+                        lineNumber: 126,
                         columnNumber: 9
                     }, this),
                     variant === 'cadet' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -258,7 +171,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                         children: "All Grades"
                                     }, void 0, false, {
                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                        lineNumber: 173,
+                                        lineNumber: 134,
                                         columnNumber: 15
                                     }, this),
                                     uniqueGrades.map((g)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -266,13 +179,13 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                             children: String(g)
                                         }, String(g), false, {
                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                            lineNumber: 174,
+                                            lineNumber: 135,
                                             columnNumber: 38
                                         }, this))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                lineNumber: 172,
+                                lineNumber: 133,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -285,7 +198,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                         children: "All Conduct"
                                     }, void 0, false, {
                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                        lineNumber: 177,
+                                        lineNumber: 138,
                                         columnNumber: 15
                                     }, this),
                                     CONDUCT_ORDER.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -293,13 +206,13 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                             children: c
                                         }, c, false, {
                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                            lineNumber: 178,
+                                            lineNumber: 139,
                                             columnNumber: 39
                                         }, this))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                lineNumber: 176,
+                                lineNumber: 137,
                                 columnNumber: 13
                             }, this)
                         ]
@@ -307,10 +220,11 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/manage/RosterClient.tsx",
-                lineNumber: 163,
+                lineNumber: 124,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
+                id: "roster-table-content",
                 className: "min-w-full divide-y divide-gray-200 dark:divide-gray-700 printable-table",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
@@ -327,7 +241,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 188,
+                                    lineNumber: 149,
                                     columnNumber: 17
                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                     scope: "col",
@@ -339,7 +253,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 190,
+                                    lineNumber: 151,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -352,7 +266,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 193,
+                                    lineNumber: 154,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -365,7 +279,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 194,
+                                    lineNumber: 155,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -378,7 +292,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 195,
+                                    lineNumber: 156,
                                     columnNumber: 13
                                 }, this),
                                 variant === 'cadet' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -393,7 +307,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                            lineNumber: 199,
+                                            lineNumber: 160,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -406,7 +320,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                            lineNumber: 200,
+                                            lineNumber: 161,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -419,7 +333,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                            lineNumber: 201,
+                                            lineNumber: 162,
                                             columnNumber: 17
                                         }, this)
                                     ]
@@ -427,18 +341,17 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/manage/RosterClient.tsx",
-                            lineNumber: 186,
+                            lineNumber: 147,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/manage/RosterClient.tsx",
-                        lineNumber: 185,
+                        lineNumber: 146,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
                         className: "divide-y divide-gray-200 dark:divide-gray-700",
                         children: filteredAndSortedCadets.map((person)=>{
-                            // Visual identifier for admins in Faculty view
                             const isAdmin = variant === 'faculty' && (person.role_level || 0) >= 90;
                             return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"].Fragment, {
                                 children: [
@@ -454,14 +367,14 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                 children: person.cadet_rank || '-'
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                lineNumber: 222,
+                                                lineNumber: 180,
                                                 columnNumber: 21
                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                 className: "px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400 font-mono",
                                                 children: person.email || '-'
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                lineNumber: 224,
+                                                lineNumber: 182,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -475,13 +388,13 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                         children: "Admin"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                        lineNumber: 231,
+                                                        lineNumber: 188,
                                                         columnNumber: 25
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                lineNumber: 228,
+                                                lineNumber: 185,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -489,7 +402,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                 children: person.company_name || '-'
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                lineNumber: 237,
+                                                lineNumber: 194,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -497,7 +410,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                 children: person.role_name
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                lineNumber: 238,
+                                                lineNumber: 195,
                                                 columnNumber: 17
                                             }, this),
                                             variant === 'cadet' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -507,7 +420,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                         children: person.grade_level || '-'
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                        lineNumber: 242,
+                                                        lineNumber: 199,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -515,7 +428,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                         children: person.room_number || '-'
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                        lineNumber: 243,
+                                                        lineNumber: 200,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -525,12 +438,12 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                             children: person.conduct_status
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                                            lineNumber: 244,
+                                                            lineNumber: 201,
                                                             columnNumber: 73
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                        lineNumber: 244,
+                                                        lineNumber: 201,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
@@ -538,7 +451,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                        lineNumber: 213,
+                                        lineNumber: 172,
                                         columnNumber: 15
                                     }, this),
                                     openCadetId === person.id && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
@@ -557,7 +470,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                                 children: variant === 'cadet' ? 'Academic & Disciplinary' : 'Faculty Details'
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                lineNumber: 255,
+                                                                lineNumber: 211,
                                                                 columnNumber: 25
                                                             }, this),
                                                             variant === 'cadet' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -571,7 +484,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                                                 children: "Demerits (Term)"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                lineNumber: 260,
+                                                                                lineNumber: 216,
                                                                                 columnNumber: 140
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -579,13 +492,13 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                                                 children: person.term_demerits
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                lineNumber: 260,
+                                                                                lineNumber: 216,
                                                                                 columnNumber: 218
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 260,
+                                                                        lineNumber: 216,
                                                                         columnNumber: 29
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -596,7 +509,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                                                 children: "Demerits (Year)"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                lineNumber: 261,
+                                                                                lineNumber: 217,
                                                                                 columnNumber: 140
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -604,13 +517,13 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                                                 children: person.year_demerits
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                lineNumber: 261,
+                                                                                lineNumber: 217,
                                                                                 columnNumber: 218
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 261,
+                                                                        lineNumber: 217,
                                                                         columnNumber: 29
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -621,7 +534,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                                                 children: "Tour Balance"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                lineNumber: 262,
+                                                                                lineNumber: 218,
                                                                                 columnNumber: 140
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -629,19 +542,19 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                                                 children: person.has_star_tours ? '*' : person.current_tour_balance
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                lineNumber: 262,
+                                                                                lineNumber: 218,
                                                                                 columnNumber: 215
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 262,
+                                                                        lineNumber: 218,
                                                                         columnNumber: 29
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                lineNumber: 259,
+                                                                lineNumber: 215,
                                                                 columnNumber: 27
                                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                 className: "p-4 bg-white dark:bg-gray-700 rounded border border-gray-200 dark:border-gray-600",
@@ -653,7 +566,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                                                 children: "Email:"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                lineNumber: 266,
+                                                                                lineNumber: 222,
                                                                                 columnNumber: 85
                                                                             }, this),
                                                                             " ",
@@ -661,7 +574,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 266,
+                                                                        lineNumber: 222,
                                                                         columnNumber: 29
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -671,7 +584,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                                                 children: "System ID:"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                lineNumber: 267,
+                                                                                lineNumber: 223,
                                                                                 columnNumber: 90
                                                                             }, this),
                                                                             " ",
@@ -680,13 +593,13 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                                                 children: person.id
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                lineNumber: 267,
+                                                                                lineNumber: 223,
                                                                                 columnNumber: 118
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 267,
+                                                                        lineNumber: 223,
                                                                         columnNumber: 29
                                                                     }, this),
                                                                     isAdmin && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -698,19 +611,19 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 268,
+                                                                        lineNumber: 224,
                                                                         columnNumber: 41
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                lineNumber: 265,
+                                                                lineNumber: 221,
                                                                 columnNumber: 27
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                        lineNumber: 254,
+                                                        lineNumber: 210,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -721,7 +634,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                                 children: "Actions"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                lineNumber: 275,
+                                                                lineNumber: 230,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -733,7 +646,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                                         children: "View Profile"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 277,
+                                                                        lineNumber: 232,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     variant === 'cadet' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -742,7 +655,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                                         children: "View Ledger"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 279,
+                                                                        lineNumber: 234,
                                                                         columnNumber: 29
                                                                     }, this),
                                                                     canEditProfiles && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -751,59 +664,59 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                                         children: "Re-Assign"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 282,
+                                                                        lineNumber: 237,
                                                                         columnNumber: 29
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                lineNumber: 276,
+                                                                lineNumber: 231,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                        lineNumber: 274,
+                                                        lineNumber: 229,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                lineNumber: 251,
+                                                lineNumber: 208,
                                                 columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                            lineNumber: 250,
+                                            lineNumber: 207,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                        lineNumber: 249,
+                                        lineNumber: 206,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, person.id, true, {
                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                lineNumber: 212,
+                                lineNumber: 171,
                                 columnNumber: 13
                             }, this);
                         })
                     }, void 0, false, {
                         fileName: "[project]/app/manage/RosterClient.tsx",
-                        lineNumber: 206,
+                        lineNumber: 167,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/manage/RosterClient.tsx",
-                lineNumber: 184,
+                lineNumber: 145,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/manage/RosterClient.tsx",
-        lineNumber: 160,
+        lineNumber: 121,
         columnNumber: 5
     }, this);
 }
@@ -1244,7 +1157,7 @@ function ManagePage() {
                                         children: "Roster Management"
                                     }, void 0, false, {
                                         fileName: "[project]/app/manage/page.tsx",
-                                        lineNumber: 257,
+                                        lineNumber: 256,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1252,13 +1165,13 @@ function ManagePage() {
                                         children: "Assign cadets to roles."
                                     }, void 0, false, {
                                         fileName: "[project]/app/manage/page.tsx",
-                                        lineNumber: 258,
+                                        lineNumber: 257,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/manage/page.tsx",
-                                lineNumber: 256,
+                                lineNumber: 255,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1279,79 +1192,87 @@ function ManagePage() {
                                             className: "jsx-21e72d2f241fbad9"
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/page.tsx",
-                                            lineNumber: 263,
+                                            lineNumber: 262,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/manage/page.tsx",
-                                        lineNumber: 262,
+                                        lineNumber: 261,
                                         columnNumber: 13
                                     }, this),
                                     "Configure Chain of Command"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/manage/page.tsx",
-                                lineNumber: 261,
+                                lineNumber: 260,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/manage/page.tsx",
-                        lineNumber: 255,
+                        lineNumber: 254,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "jsx-21e72d2f241fbad9" + " " + "mb-6 border-b border-gray-200 dark:border-gray-700 no-print",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
-                            "aria-label": "Tabs",
-                            className: "jsx-21e72d2f241fbad9" + " " + "-mb-px flex space-x-8",
-                            children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                    onClick: ()=>setActiveTab('roster'),
-                                    className: "jsx-21e72d2f241fbad9" + " " + `whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'roster' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`,
-                                    children: "Cadet Roster"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/manage/page.tsx",
-                                    lineNumber: 271,
-                                    columnNumber: 13
-                                }, this),
-                                isAdmin && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                    onClick: ()=>setActiveTab('faculty'),
-                                    className: "jsx-21e72d2f241fbad9" + " " + `whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'faculty' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`,
-                                    children: "Faculty & Staff"
-                                }, void 0, false, {
-                                    fileName: "[project]/app/manage/page.tsx",
-                                    lineNumber: 277,
-                                    columnNumber: 15
-                                }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                    onClick: ()=>setActiveTab('unassigned'),
-                                    className: "jsx-21e72d2f241fbad9" + " " + `whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'unassigned' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`,
-                                    children: [
-                                        "Unassigned",
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "jsx-21e72d2f241fbad9" + " " + "ml-1.5 inline-block py-0.5 px-2 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
-                                            children: unassigned.length
-                                        }, void 0, false, {
-                                            fileName: "[project]/app/manage/page.tsx",
-                                            lineNumber: 284,
-                                            columnNumber: 15
-                                        }, this)
-                                    ]
-                                }, void 0, true, {
-                                    fileName: "[project]/app/manage/page.tsx",
-                                    lineNumber: 282,
-                                    columnNumber: 13
-                                }, this)
-                            ]
-                        }, void 0, true, {
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            id: "tour-roster-filters",
+                            className: "jsx-21e72d2f241fbad9" + " " + "mb-6 border-b border-gray-200 dark:border-gray-700 no-print",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
+                                "aria-label": "Tabs",
+                                className: "jsx-21e72d2f241fbad9" + " " + "-mb-px flex space-x-8",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>setActiveTab('roster'),
+                                        className: "jsx-21e72d2f241fbad9" + " " + `whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'roster' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`,
+                                        children: "Cadet Roster"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/manage/page.tsx",
+                                        lineNumber: 271,
+                                        columnNumber: 13
+                                    }, this),
+                                    isAdmin && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>setActiveTab('faculty'),
+                                        className: "jsx-21e72d2f241fbad9" + " " + `whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'faculty' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`,
+                                        children: "Faculty & Staff"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/manage/page.tsx",
+                                        lineNumber: 277,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>setActiveTab('unassigned'),
+                                        className: "jsx-21e72d2f241fbad9" + " " + `whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'unassigned' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`,
+                                        children: [
+                                            "Unassigned",
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "jsx-21e72d2f241fbad9" + " " + "ml-1.5 inline-block py-0.5 px-2 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
+                                                children: unassigned.length
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/manage/page.tsx",
+                                                lineNumber: 284,
+                                                columnNumber: 15
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/manage/page.tsx",
+                                        lineNumber: 282,
+                                        columnNumber: 13
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/manage/page.tsx",
+                                lineNumber: 270,
+                                columnNumber: 11
+                            }, this)
+                        }, void 0, false, {
                             fileName: "[project]/app/manage/page.tsx",
-                            lineNumber: 270,
+                            lineNumber: 269,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/manage/page.tsx",
-                        lineNumber: 269,
+                        lineNumber: 268,
                         columnNumber: 9
                     }, this),
                     error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1362,7 +1283,7 @@ function ManagePage() {
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/manage/page.tsx",
-                        lineNumber: 289,
+                        lineNumber: 290,
                         columnNumber: 19
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1377,12 +1298,12 @@ function ManagePage() {
                                     children: "Print Roster"
                                 }, void 0, false, {
                                     fileName: "[project]/app/manage/page.tsx",
-                                    lineNumber: 294,
+                                    lineNumber: 295,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/manage/page.tsx",
-                                lineNumber: 293,
+                                lineNumber: 294,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$manage$2f$RosterClient$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1393,13 +1314,13 @@ function ManagePage() {
                                 variant: "cadet"
                             }, void 0, false, {
                                 fileName: "[project]/app/manage/page.tsx",
-                                lineNumber: 296,
+                                lineNumber: 297,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/manage/page.tsx",
-                        lineNumber: 292,
+                        lineNumber: 293,
                         columnNumber: 9
                     }, this),
                     isAdmin && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1415,19 +1336,19 @@ function ManagePage() {
                                             children: "Restricted View:"
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/page.tsx",
-                                            lineNumber: 304,
+                                            lineNumber: 305,
                                             columnNumber: 19
                                         }, this),
                                         " You are viewing the Faculty & Staff roster. This data is only visible to role level 90+."
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/page.tsx",
-                                    lineNumber: 303,
+                                    lineNumber: 304,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/manage/page.tsx",
-                                lineNumber: 302,
+                                lineNumber: 303,
                                 columnNumber: 14
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$manage$2f$RosterClient$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1438,13 +1359,13 @@ function ManagePage() {
                                 variant: "faculty"
                             }, void 0, false, {
                                 fileName: "[project]/app/manage/page.tsx",
-                                lineNumber: 307,
+                                lineNumber: 308,
                                 columnNumber: 14
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/manage/page.tsx",
-                        lineNumber: 301,
+                        lineNumber: 302,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1465,7 +1386,7 @@ function ManagePage() {
                                                     className: "jsx-21e72d2f241fbad9" + " " + "rounded border-gray-300 dark:border-gray-600"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/manage/page.tsx",
-                                                    lineNumber: 316,
+                                                    lineNumber: 317,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1476,13 +1397,13 @@ function ManagePage() {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/manage/page.tsx",
-                                                    lineNumber: 317,
+                                                    lineNumber: 318,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/manage/page.tsx",
-                                            lineNumber: 315,
+                                            lineNumber: 316,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1496,23 +1417,23 @@ function ManagePage() {
                                                     children: "Assign Selected..."
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/manage/page.tsx",
-                                                    lineNumber: 320,
+                                                    lineNumber: 321,
                                                     columnNumber: 231
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/page.tsx",
-                                                lineNumber: 320,
+                                                lineNumber: 321,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/page.tsx",
-                                            lineNumber: 319,
+                                            lineNumber: 320,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/page.tsx",
-                                    lineNumber: 314,
+                                    lineNumber: 315,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1530,7 +1451,7 @@ function ManagePage() {
                                                             className: "jsx-21e72d2f241fbad9" + " " + "w-12 px-6 py-3"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 327,
+                                                            lineNumber: 328,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1544,13 +1465,13 @@ function ManagePage() {
                                                                     className: "jsx-21e72d2f241fbad9"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 328,
+                                                                    lineNumber: 329,
                                                                     columnNumber: 241
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 328,
+                                                            lineNumber: 329,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1564,13 +1485,13 @@ function ManagePage() {
                                                                     className: "jsx-21e72d2f241fbad9"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 329,
+                                                                    lineNumber: 330,
                                                                     columnNumber: 254
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 329,
+                                                            lineNumber: 330,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1584,13 +1505,13 @@ function ManagePage() {
                                                                     className: "jsx-21e72d2f241fbad9"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 330,
+                                                                    lineNumber: 331,
                                                                     columnNumber: 247
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 330,
+                                                            lineNumber: 331,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1604,13 +1525,13 @@ function ManagePage() {
                                                                     className: "jsx-21e72d2f241fbad9"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 331,
+                                                                    lineNumber: 332,
                                                                     columnNumber: 241
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 331,
+                                                            lineNumber: 332,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1621,23 +1542,23 @@ function ManagePage() {
                                                                 children: "Action"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/manage/page.tsx",
-                                                                lineNumber: 332,
+                                                                lineNumber: 333,
                                                                 columnNumber: 59
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 332,
+                                                            lineNumber: 333,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/manage/page.tsx",
-                                                    lineNumber: 326,
+                                                    lineNumber: 327,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/page.tsx",
-                                                lineNumber: 325,
+                                                lineNumber: 326,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -1657,12 +1578,12 @@ function ManagePage() {
                                                                     className: "jsx-21e72d2f241fbad9" + " " + "rounded border-gray-300 dark:border-gray-600 h-4 w-4 text-indigo-600"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 339,
+                                                                    lineNumber: 340,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/manage/page.tsx",
-                                                                lineNumber: 338,
+                                                                lineNumber: 339,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1674,7 +1595,7 @@ function ManagePage() {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/manage/page.tsx",
-                                                                lineNumber: 341,
+                                                                lineNumber: 342,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1682,7 +1603,7 @@ function ManagePage() {
                                                                 children: new Date(u.created_at).toLocaleDateString()
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/manage/page.tsx",
-                                                                lineNumber: 342,
+                                                                lineNumber: 343,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1692,19 +1613,19 @@ function ManagePage() {
                                                                     children: u.company_name
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 343,
+                                                                    lineNumber: 344,
                                                                     columnNumber: 93
                                                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                     className: "jsx-21e72d2f241fbad9" + " " + "text-red-500 dark:text-red-400 text-xs italic",
                                                                     children: "Unassigned"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 343,
+                                                                    lineNumber: 344,
                                                                     columnNumber: 271
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/manage/page.tsx",
-                                                                lineNumber: 343,
+                                                                lineNumber: 344,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1714,19 +1635,19 @@ function ManagePage() {
                                                                     children: u.role_name
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 344,
+                                                                    lineNumber: 345,
                                                                     columnNumber: 90
                                                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                     className: "jsx-21e72d2f241fbad9" + " " + "text-red-500 dark:text-red-400 text-xs italic",
                                                                     children: "Unassigned"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 344,
+                                                                    lineNumber: 345,
                                                                     columnNumber: 273
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/manage/page.tsx",
-                                                                lineNumber: 344,
+                                                                lineNumber: 345,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1743,18 +1664,18 @@ function ManagePage() {
                                                                     children: "Edit"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 345,
+                                                                    lineNumber: 346,
                                                                     columnNumber: 98
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/manage/page.tsx",
-                                                                lineNumber: 345,
+                                                                lineNumber: 346,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, u.user_id, true, {
                                                         fileName: "[project]/app/manage/page.tsx",
-                                                        lineNumber: 337,
+                                                        lineNumber: 338,
                                                         columnNumber: 21
                                                     }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                                     className: "jsx-21e72d2f241fbad9",
@@ -1764,39 +1685,39 @@ function ManagePage() {
                                                         children: "No unassigned profiles found."
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/manage/page.tsx",
-                                                        lineNumber: 347,
+                                                        lineNumber: 348,
                                                         columnNumber: 28
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/manage/page.tsx",
-                                                    lineNumber: 347,
+                                                    lineNumber: 348,
                                                     columnNumber: 24
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/page.tsx",
-                                                lineNumber: 335,
+                                                lineNumber: 336,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/manage/page.tsx",
-                                        lineNumber: 324,
+                                        lineNumber: 325,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/manage/page.tsx",
-                                    lineNumber: 323,
+                                    lineNumber: 324,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/manage/page.tsx",
-                            lineNumber: 313,
+                            lineNumber: 314,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/manage/page.tsx",
-                        lineNumber: 312,
+                        lineNumber: 313,
                         columnNumber: 9
                     }, this)
                 ]
@@ -1818,7 +1739,7 @@ function ManagePage() {
                             className: "jsx-21e72d2f241fbad9" + " " + "fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
                         }, void 0, false, {
                             fileName: "[project]/app/manage/page.tsx",
-                            lineNumber: 360,
+                            lineNumber: 361,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1827,7 +1748,7 @@ function ManagePage() {
                             children: "​"
                         }, void 0, false, {
                             fileName: "[project]/app/manage/page.tsx",
-                            lineNumber: 361,
+                            lineNumber: 362,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1847,7 +1768,7 @@ function ManagePage() {
                                                         children: "Bulk Assignment"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/manage/page.tsx",
-                                                        lineNumber: 366,
+                                                        lineNumber: 367,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1861,23 +1782,23 @@ function ManagePage() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 367,
+                                                            lineNumber: 368,
                                                             columnNumber: 43
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/manage/page.tsx",
-                                                        lineNumber: 367,
+                                                        lineNumber: 368,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/manage/page.tsx",
-                                                lineNumber: 365,
+                                                lineNumber: 366,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/page.tsx",
-                                            lineNumber: 364,
+                                            lineNumber: 365,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1891,7 +1812,7 @@ function ManagePage() {
                                                             children: "Company"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 372,
+                                                            lineNumber: 373,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -1905,7 +1826,7 @@ function ManagePage() {
                                                                     children: "-- No Change --"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 374,
+                                                                    lineNumber: 375,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 companies.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1914,19 +1835,19 @@ function ManagePage() {
                                                                         children: c.company_name
                                                                     }, c.id, false, {
                                                                         fileName: "[project]/app/manage/page.tsx",
-                                                                        lineNumber: 375,
+                                                                        lineNumber: 376,
                                                                         columnNumber: 43
                                                                     }, this))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 373,
+                                                            lineNumber: 374,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/manage/page.tsx",
-                                                    lineNumber: 371,
+                                                    lineNumber: 372,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1937,7 +1858,7 @@ function ManagePage() {
                                                             children: "Role"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 379,
+                                                            lineNumber: 380,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -1951,7 +1872,7 @@ function ManagePage() {
                                                                     children: "-- No Change --"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 381,
+                                                                    lineNumber: 382,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 availableRoles.map((r)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1965,13 +1886,13 @@ function ManagePage() {
                                                                         ]
                                                                     }, r.id, true, {
                                                                         fileName: "[project]/app/manage/page.tsx",
-                                                                        lineNumber: 382,
+                                                                        lineNumber: 383,
                                                                         columnNumber: 48
                                                                     }, this))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 380,
+                                                            lineNumber: 381,
                                                             columnNumber: 21
                                                         }, this),
                                                         targetCompanyId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1979,25 +1900,25 @@ function ManagePage() {
                                                             children: "Showing only roles available for this company (and global roles)."
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 384,
+                                                            lineNumber: 385,
                                                             columnNumber: 41
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/manage/page.tsx",
-                                                    lineNumber: 378,
+                                                    lineNumber: 379,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/manage/page.tsx",
-                                            lineNumber: 370,
+                                            lineNumber: 371,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/page.tsx",
-                                    lineNumber: 363,
+                                    lineNumber: 364,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2011,7 +1932,7 @@ function ManagePage() {
                                             children: isSubmitting ? 'Saving...' : 'Save Assignments'
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/page.tsx",
-                                            lineNumber: 389,
+                                            lineNumber: 390,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2021,30 +1942,30 @@ function ManagePage() {
                                             children: "Cancel"
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/page.tsx",
-                                            lineNumber: 390,
+                                            lineNumber: 391,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/page.tsx",
-                                    lineNumber: 388,
+                                    lineNumber: 389,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/manage/page.tsx",
-                            lineNumber: 362,
+                            lineNumber: 363,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/manage/page.tsx",
-                    lineNumber: 359,
+                    lineNumber: 360,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/manage/page.tsx",
-                lineNumber: 358,
+                lineNumber: 359,
                 columnNumber: 9
             }, this)
         ]

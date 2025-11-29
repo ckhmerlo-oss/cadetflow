@@ -19,7 +19,6 @@ export type RosterCadet = {
   cadet_rank: string | null;
   company_name: string | null;
   role_name: string | null;
-  // These may be null/0 for Faculty
   grade_level?: string | null;
   room_number?: string | null; 
   term_demerits?: number;
@@ -29,7 +28,7 @@ export type RosterCadet = {
   conduct_status?: string;
   recent_reports?: RecentReport[] | null;
   email?: string; 
-  role_level?: number; // Added for Admin check
+  role_level?: number;
 }
 
 type Company = { id: string; company_name: string }
@@ -79,7 +78,7 @@ export default function RosterClient({ initialData, canEditProfiles, companies, 
     if (filterCompany !== 'all') {
       filteredData = filteredData.filter(c => c.company_name === filterCompany);
     }
-    // Only apply these filters for cadets
+    
     if (variant === 'cadet') {
       if (filterGrade !== 'all') filteredData = filteredData.filter(c => c.grade_level === filterGrade);
       if (filterConduct !== 'all') filteredData = filteredData.filter(c => c.conduct_status === filterConduct);
@@ -115,52 +114,14 @@ export default function RosterClient({ initialData, canEditProfiles, companies, 
       return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
   }
 
-  const getAppealBadge = (status: string | null) => {
-    if (!status) return null;
-    switch (status) {
-      case 'approved': return <span className="ml-2 px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">Granted</span>;
-      case 'rejected_final': return <span className="ml-2 px-2 py-0.5 rounded text-xs font-medium bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200">Denied</span>;
-      case 'pending_issuer':
-      case 'pending_chain':
-      case 'pending_commandant': return <span className="ml-2 px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">Pending</span>;
-      default: return null;
-    }
-  }
-
-  const getRecentReportStatus = (report: RecentReport) => {
-    const status = report.status;
-    if (status === 'pulled') return <span className="text-xs text-gray-500 dark:text-gray-400">Pulled</span>
-    if (status === 'rejected') return <span className="text-xs text-red-600 dark:text-red-400">Rejected</span>
-    if (status === 'completed') return <span className="text-xs text-green-600 dark:text-green-400">Approved</span>
-    return <span className="text-xs text-yellow-600 dark:text-yellow-400">{status.replace('_', ' ')}</span>
-  }
-
-  const formatTimeAgo = (dateStr: string) => {
-    const date = new Date(dateStr)
-    const now = new Date()
-    const seconds = Math.floor((now.getTime() - date.getTime()) / 1000)
-    
-    let interval = seconds / 31536000;
-    if (interval > 1) return Math.floor(interval) + "y ago";
-    interval = seconds / 2592000;
-    if (interval > 1) return Math.floor(interval) + "mo ago";
-    interval = seconds / 86400;
-    if (interval > 1) return Math.floor(interval) + "d ago";
-    interval = seconds / 3600;
-    if (interval > 1) return Math.floor(interval) + "h ago";
-    interval = seconds / 60;
-    if (interval > 1) return Math.floor(interval) + "m ago";
-    return Math.floor(seconds) + "s ago";
-  }
-
   const uniqueCompanies = useMemo(() => [...new Set(initialData.map(c => c.company_name).filter(Boolean).sort())], [initialData]);
   const uniqueGrades = useMemo(() => [...new Set(initialData.map(c => c.grade_level).filter(Boolean).sort())], [initialData]);
 
   return (
     <div className="bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
       
-      {/* Filters */}
-      <div className="p-4 grid grid-cols-1 md:grid-cols-4 gap-4 border-b border-gray-200 dark:border-gray-700 no-print">
+      {/* Filters with ID for Tour */}
+      <div id="roster-controls" className="p-4 grid grid-cols-1 md:grid-cols-4 gap-4 border-b border-gray-200 dark:border-gray-700 no-print">
         <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder={variant === 'cadet' ? "Search by name, role, room..." : "Search by name, role, email..."} className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-800 dark:text-white" />
         <select value={filterCompany} onChange={(e) => setFilterCompany(e.target.value)} className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-800 dark:text-white">
           <option value="all">All Companies</option>
@@ -181,7 +142,7 @@ export default function RosterClient({ initialData, canEditProfiles, companies, 
         )}
       </div>
 
-      <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 printable-table">
+      <table id="roster-table-content" className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 printable-table">
         <thead className="bg-gray-50 dark:bg-gray-700/50">
           <tr>
             {variant === 'cadet' ? (
@@ -205,9 +166,7 @@ export default function RosterClient({ initialData, canEditProfiles, companies, 
         </thead>
         <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
           {filteredAndSortedCadets.map((person) => {
-            // Visual identifier for admins in Faculty view
             const isAdmin = variant === 'faculty' && (person.role_level || 0) >= 90;
-            
             return (
             <React.Fragment key={person.id}>
               <tr 
@@ -217,14 +176,12 @@ export default function RosterClient({ initialData, canEditProfiles, companies, 
                     ${isAdmin ? 'bg-amber-50/50 dark:bg-amber-900/10 border-l-4 border-amber-400' : ''}
                 `}
               >
-                {/* Column 1: Rank (Cadet) or Email (Faculty) */}
                 {variant === 'cadet' ? (
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">{person.cadet_rank || '-'}</td>
                 ) : (
                     <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400 font-mono">{person.email || '-'}</td>
                 )}
 
-                {/* Name Column */}
                 <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
                     {person.last_name}, {person.first_name}
                     {isAdmin && (
@@ -250,7 +207,6 @@ export default function RosterClient({ initialData, canEditProfiles, companies, 
                   <td colSpan={variant === 'cadet' ? 7 : 4} className="px-6 py-4">
                     <div className="flex flex-col md:flex-row justify-between gap-6">
                       
-                      {/* Left Info Block */}
                       <div className="flex-grow space-y-4">
                         <h4 className="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
                           {variant === 'cadet' ? 'Academic & Disciplinary' : 'Faculty Details'}
@@ -270,7 +226,6 @@ export default function RosterClient({ initialData, canEditProfiles, companies, 
                         )}
                       </div>
 
-                      {/* Right Actions Block */}
                       <div className="flex-shrink-0 md:w-48 space-y-3">
                         <h4 className="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">Actions</h4>
                         <div className="flex flex-col gap-2">

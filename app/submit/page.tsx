@@ -1,4 +1,3 @@
-// in app/submit/page.tsx
 'use client' 
 
 import { createClient } from '@/utils/supabase/client'
@@ -6,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useState, useEffect, useMemo } from 'react'
 import SearchableSelect, { SelectOption } from '@/app/components/SearchableSelect'
 
+// ... Types ...
 type CadetProfile = {
   id: string;
   first_name: string;
@@ -33,11 +33,12 @@ export default function SubmitReport() {
   const supabase = createClient()
   const router = useRouter()
   
+  // ... state ...
   const [subjectCadetId, setSubjectCadetId] = useState('')
   const [offenseTypeId, setOffenseTypeId] = useState('')
   const [notes, setNotes] = useState('')
   const [dateOfOffense, setDateOfOffense] = useState(getLocalDate())
-  const [timeOfOffense, setTimeOfOffense] = useState(new Date().toTimeString().slice(0, 5)) // Defaults to current HH:MM
+  const [timeOfOffense, setTimeOfOffense] = useState(new Date().toTimeString().slice(0, 5)) 
   const [cadets, setCadets] = useState<CadetProfile[]>([])
   const [offenses, setOffenses] = useState<OffenseType[]>([])
   
@@ -46,6 +47,23 @@ export default function SubmitReport() {
 
   useEffect(() => {
     async function getFormData() {
+      // 1. CHECK PERMISSIONS
+      const { data: { user } } = await supabase.auth.getUser()
+      if (user) {
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('role:role_id(default_role_level)')
+            .eq('id', user.id)
+            .single()
+          
+          const roleLevel = (profile?.role as any)?.default_role_level || 0;
+          if (roleLevel < 15) {
+              // Redirect unauthorized cadets back to ledger
+              router.replace(`/ledger/${user.id}`)
+              return
+          }
+      }
+
       // Fetch cadets
       const { data: cadetsData, error: cadetsError } = await supabase.rpc('get_subordinates')
       if (cadetsError) {
@@ -70,8 +88,9 @@ export default function SubmitReport() {
       }
     }
     getFormData()
-  }, [supabase]) 
+  }, [supabase, router]) 
 
+  // ... rest of component ...
   // Transform for SearchableSelect
   const cadetOptions: SelectOption[] = useMemo(() => {
     return cadets.map(c => ({
@@ -83,7 +102,6 @@ export default function SubmitReport() {
   const offenseOptions: SelectOption[] = useMemo(() => {
     return offenses.map(o => ({
         id: o.id,
-        // Format: [1a] Late to Formation (3)
         label: `[${o.offense_code}] ${o.offense_name} (${o.demerits})`,
         group: o.offense_group
     }))
@@ -101,18 +119,14 @@ export default function SubmitReport() {
     setLoading(true)
     setError(null)
 
-    // *** COMBINE DATE AND TIME ***
-    // Creates a full timestamp like "2025-11-07T14:30:00" which Supabase will interpret correctly in UTC
-    // *** FIX: Create a Date object first so it captures the local timezone ***
     const localDateTime = new Date(`${dateOfOffense}T${timeOfOffense}:00`);
-    // Convert to UTC string for the database
     const fullTimestamp = localDateTime.toISOString();
 
     const { error: rpcError } = await supabase.rpc('create_new_report', {
       p_subject_cadet_id: subjectCadetId,
       p_offense_type_id: offenseTypeId,
       p_notes: notes,
-      p_offense_timestamp: fullTimestamp // <-- Send the combined timestamp
+      p_offense_timestamp: fullTimestamp 
     })
 
     setLoading(false)
@@ -127,7 +141,13 @@ export default function SubmitReport() {
 
   return (
     <div className="relative max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+
+      <div id="tour-submit-form" className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+        <h2 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
+          New Disciplinary Report
+        </h2>
+      
+        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
         
         <form onSubmit={handleSubmit} className="space-y-6">
           <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
@@ -143,8 +163,6 @@ export default function SubmitReport() {
             required
           />
 
-          
-          {/* *** UPDATED DATE/TIME SECTION *** */}
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label htmlFor="date" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
@@ -201,6 +219,7 @@ export default function SubmitReport() {
 
           {error && <p className="text-sm text-red-600 dark:text-red-400">{error}</p>}
         </form>
+        </div>
       </div>
     </div>
   )

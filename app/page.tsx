@@ -95,15 +95,15 @@ export default async function Dashboard() {
 
   return (
     <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 animate-in fade-in duration-500">
+
       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Welcome, {profile?.first_name || user.email}</h1>
           <p className="mt-2 text-lg text-gray-600 dark:text-gray-400">{groupName}</p>
         </div>
         
-        {/* --- UPDATED HEADER BUTTONS --- */}
+        {/* --- HEADER BUTTONS --- */}
         <div className="flex gap-3">
-                  
           {(role_level >= 15) && (
             <Link href="/submit" className="py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-colors">
               Submit New Report
@@ -124,16 +124,21 @@ export default async function Dashboard() {
       )}
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+        
+        {/* 1. ACTION ITEMS (Single Instance, with Tour ID) */}
         {(role_level >= 15) && (
-            <DashboardSection 
-                title="Action Items" 
-                items={actionItems} 
-                emptyMessage="No action items in your queue. Great job!" 
-                showSubject 
-                viewAllHref="/action-items"
-            />
+            <div id="dashboard-action-items">
+                <DashboardSection 
+                    title="Action Items" 
+                    items={actionItems} 
+                    emptyMessage="No action items in your queue. Great job!" 
+                    showSubject 
+                    viewAllHref="/action-items"
+                />
+            </div>
         )}
         
+        {/* 2. PENDING (Staff/Faculty) */}
         {isFaculty && canManageAll && (
             <DashboardSection 
                 title="All In-Progress Reports" 
@@ -144,6 +149,7 @@ export default async function Dashboard() {
             />
         )}
 
+        {/* 3. SUBMITTED (Cadet Leaders/Staff) */}
         {(role_level >= 15) && (
             <DashboardSection 
                 title="Submitted Reports" 
@@ -154,14 +160,14 @@ export default async function Dashboard() {
             />
         )}
 
-        {/* --- UPDATED SECTION: Completed Archive --- */}
+        {/* 4. COMPLETED ARCHIVE (Staff) */}
         {isFaculty && (
             <DashboardSection 
                 title="Completed Archive" 
                 items={allCompletedReports} 
                 emptyMessage="No completed reports found." 
                 showSubject 
-                viewAllHref="/reports/history" // <<< ADDED LINK
+                viewAllHref="/reports/history" 
             />
         )}
       </div>
@@ -169,7 +175,7 @@ export default async function Dashboard() {
   )
 }
 
-// --- Helper Components (Unchanged) ---
+// --- Helper Components ---
 
 function CadetStatsHeader({ stats }: { stats: CadetStats }) {
   return (
@@ -209,7 +215,6 @@ function DashboardSection({
     <div className="space-y-4 flex flex-col h-full">
       <div className="flex justify-between items-end">
           <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
-            {/* If a link is provided, wrap the title in it */}
             {viewAllHref ? (
                 <Link href={viewAllHref} className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
                     {title}
@@ -218,7 +223,6 @@ function DashboardSection({
             <span className="ml-2 text-lg text-gray-500 font-normal">({items?.length || 0})</span>
           </h2>
           
-          {/* Render the "View all ->" link if an href is passed */}
           {viewAllHref && (
             <Link href={viewAllHref} className="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:underline pb-1">
                 View all &rarr;

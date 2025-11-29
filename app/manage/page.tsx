@@ -250,8 +250,7 @@ export default function ManagePage() {
         }
       `}</style>
     
-      <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-        
+      <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">        
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 no-print">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Roster Management</h1>
@@ -267,6 +266,7 @@ export default function ManagePage() {
         </div>
         
         <div className="mb-6 border-b border-gray-200 dark:border-gray-700 no-print">
+          <div id="tour-roster-filters" className="mb-6 border-b border-gray-200 dark:border-gray-700 no-print">
           <nav className="-mb-px flex space-x-8" aria-label="Tabs">
             <button onClick={() => setActiveTab('roster')} className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'roster' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`}>
               Cadet Roster
@@ -284,6 +284,7 @@ export default function ManagePage() {
               <span className="ml-1.5 inline-block py-0.5 px-2 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">{unassigned.length}</span>
             </button>
           </nav>
+          </div>
         </div>
         
         {error && <div className="mb-6 p-4 text-center text-red-600 bg-red-50 rounded-lg border border-red-200">Error: {error}</div>}

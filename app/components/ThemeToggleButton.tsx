@@ -1,4 +1,3 @@
-// in app/components/ThemeToggleButton.tsx
 'use client'
 
 import { useTheme } from './ThemeProvider'
@@ -22,7 +21,8 @@ export default function ThemeToggleButton() {
   return (
     <button
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className="p-1 rounded-full text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+      // UPDATED: Fixed w-10 h-10 ensures a perfect circle.
+      className="flex items-center justify-center w-10 h-10 rounded-full text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
       aria-label="Toggle theme"
     >
       {theme === 'light' ? <MoonIcon /> : <SunIcon />}

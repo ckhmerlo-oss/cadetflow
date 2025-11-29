@@ -142,7 +142,7 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
       `}</style>
 
       <div className="max-w-5xl mx-auto p-4 sm:p-6 lg:p-8 print-container">
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+        <div id="ledger-header" className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white">All Reports</h1>
             {cadetProfile && (
@@ -169,7 +169,7 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
         {!loading && !error && (
           <>
             {stats && (
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 print:mb-4">
+              <div id="ledger-stats-grid" className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 print:mb-4">
                 <StatBox label="Term Demerits" value={stats.term_demerits} />
                 <StatBox label="Year Demerits" value={stats.year_demerits} />
                 <StatBox label="Tours Marched (Total)" value={stats.total_tours_marched} />
@@ -178,7 +178,7 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
             )}
 
             <div className="flow-root">
-              <ul role="list" className="-mb-8">
+              <ul id="ledger-history-list" role="list" className="-mb-8">
                 {displayedLog.map((event, eventIdx) => (
                   <li key={eventIdx}>
                     <div className="relative pb-8 print:pb-4">

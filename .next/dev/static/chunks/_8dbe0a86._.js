@@ -245,7 +245,6 @@ function DailyReportsPage() {
     }
     async function handleLogTours() {
         if (toursToLog <= 0) return;
-        // Validate if single selection
         if (selectedCadet && !selectedTourCadets.size) {
             if (toursToLog > selectedCadet.total_tours && !selectedCadet.has_star_tours) {
                 alert(`Cannot log ${toursToLog} tours. Only ${selectedCadet.total_tours} remaining.`);
@@ -255,11 +254,9 @@ function DailyReportsPage() {
         setIsLoggingTours(true);
         let successCount = 0;
         let errorMsg = '';
-        // Determine targets: Either the single selected cadet, OR the bulk set
         const targets = selectedCadet ? [
             selectedCadet.cadet_id
         ] : Array.from(selectedTourCadets);
-        // Execute in parallel
         const promises = targets.map((cadetId)=>supabase.rpc('log_served_tours', {
                 p_cadet_id: cadetId,
                 p_tours_served: toursToLog,
@@ -273,14 +270,12 @@ function DailyReportsPage() {
         if (errorMsg && successCount === 0) {
             alert(`Failed: ${errorMsg}`);
         } else {
-            // Optimistic update for all affected
             const affectedIds = new Set(targets);
             setTourSheet((prev)=>prev.map((c)=>affectedIds.has(c.cadet_id) ? {
                         ...c,
                         total_tours: c.total_tours - toursToLog,
                         tours_logged_today: true
-                    } // Update logged flag
-                     : c).filter((c)=>c.total_tours > 0 || c.has_star_tours));
+                    } : c).filter((c)=>c.total_tours > 0 || c.has_star_tours));
             closeModal();
             setSelectedTourCadets(new Set());
         }
@@ -315,7 +310,7 @@ function DailyReportsPage() {
         children: "Loading daily reports..."
     }, void 0, false, {
         fileName: "[project]/app/reports/daily/page.tsx",
-        lineNumber: 279,
+        lineNumber: 275,
         columnNumber: 23
     }, this);
     if (error) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -323,7 +318,7 @@ function DailyReportsPage() {
         children: error
     }, void 0, false, {
         fileName: "[project]/app/reports/daily/page.tsx",
-        lineNumber: 280,
+        lineNumber: 276,
         columnNumber: 21
     }, this);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -333,815 +328,821 @@ function DailyReportsPage() {
                 children: "@media print{@page{margin:.25in}body{color:#000!important;background-color:#fff!important}header,.no-print,.printable-section:not(.print-active){display:none!important}main{margin:0;padding:0}.print-container{max-width:none!important;margin:0!important;padding:0!important}.flow-root,.overflow-x-auto,.inline-block{width:100%!important;min-width:100%!important;display:block!important;overflow:visible!important}.printable-table{border-collapse:collapse;page-break-inside:auto;width:100%}.printable-table thead{display:table-header-group}.printable-table tbody tr{page-break-inside:avoid}.printable-table th,.printable-table td{text-align:left;vertical-align:top;word-wrap:break-word;border:1px solid #000;padding:.2rem .25rem;font-size:8pt}.printable-table th{background-color:#eee}.col-cadet{width:18%}.col-co{width:5%}.col-offense{width:25%}.col-cat{width:4%}.col-demerits{width:6%}.col-submitter{width:15%}.col-notes{width:22%}.col-date{width:5%}.col-tour-cadet{width:30%}.col-tour-co{width:15%}.col-tour-total{width:10%}.col-tour-served{width:15%}.col-tour-notes{width:30%}.fill-in-box{height:2.5em}.col-check,.cell-check{display:none}}"
             }, void 0, false, void 0, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "jsx-91434ad331695927" + " " + "max-w-7xl mx-auto p-2 sm:p-4 lg:p-6 print-container",
-                children: [
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-91434ad331695927" + " " + "flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 no-print",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "jsx-91434ad331695927",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                        className: "jsx-91434ad331695927" + " " + "text-3xl font-bold text-gray-900 dark:text-white",
-                                        children: "Reports"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/reports/daily/page.tsx",
-                                        lineNumber: 321,
-                                        columnNumber: 13
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "jsx-91434ad331695927" + " " + "text-sm text-gray-500 dark:text-gray-400",
-                                        children: "Daily administrative summaries."
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/reports/daily/page.tsx",
-                                        lineNumber: 322,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/reports/daily/page.tsx",
-                                lineNumber: 320,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "jsx-91434ad331695927" + " " + "flex flex-col sm:flex-row gap-2 w-full sm:w-auto",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                        type: "text",
-                                        placeholder: "Search reports...",
-                                        value: searchTerm,
-                                        onChange: (e)=>setSearchTerm(e.target.value),
-                                        className: "jsx-91434ad331695927" + " " + "block w-full sm:w-64 rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm py-2 px-3 text-sm"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/reports/daily/page.tsx",
-                                        lineNumber: 325,
-                                        columnNumber: 14
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        onClick: ()=>window.print(),
-                                        className: "jsx-91434ad331695927" + " " + "py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 flex-shrink-0",
-                                        children: [
-                                            "Print ",
-                                            activeTab === 'green' ? 'Green Sheet' : 'Tour Sheet'
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/app/reports/daily/page.tsx",
-                                        lineNumber: 332,
-                                        columnNumber: 14
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/reports/daily/page.tsx",
-                                lineNumber: 324,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/app/reports/daily/page.tsx",
-                        lineNumber: 319,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-91434ad331695927" + " " + "mt-6 border-b border-gray-200 dark:border-gray-700 no-print",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
-                            "aria-label": "Tabs",
-                            className: "jsx-91434ad331695927" + " " + "-mb-px flex space-x-6",
+                id: "tour-daily-table",
+                className: "jsx-91434ad331695927" + " " + "mt-8 flex flex-col",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "jsx-91434ad331695927" + " " + "max-w-7xl mx-auto p-2 sm:p-4 lg:p-6 print-container",
+                    children: [
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "jsx-91434ad331695927" + " " + "flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 no-print",
                             children: [
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                    onClick: ()=>setActiveTab('green'),
-                                    className: "jsx-91434ad331695927" + " " + `border-b-2 px-3 py-2 text-sm font-medium ${activeTab === 'green' ? 'border-indigo-600 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`,
-                                    children: "Green Sheet"
-                                }, void 0, false, {
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "jsx-91434ad331695927",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
+                                            className: "jsx-91434ad331695927" + " " + "text-3xl font-bold text-gray-900 dark:text-white",
+                                            children: "Reports"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/reports/daily/page.tsx",
+                                            lineNumber: 321,
+                                            columnNumber: 13
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                            className: "jsx-91434ad331695927" + " " + "text-sm text-gray-500 dark:text-gray-400",
+                                            children: "Daily administrative summaries."
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/reports/daily/page.tsx",
+                                            lineNumber: 322,
+                                            columnNumber: 13
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
                                     fileName: "[project]/app/reports/daily/page.tsx",
-                                    lineNumber: 340,
-                                    columnNumber: 13
+                                    lineNumber: 320,
+                                    columnNumber: 11
                                 }, this),
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                    onClick: ()=>setActiveTab('tour'),
-                                    className: "jsx-91434ad331695927" + " " + `border-b-2 px-3 py-2 text-sm font-medium ${activeTab === 'tour' ? 'border-indigo-600 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`,
-                                    children: "Tour Sheet"
-                                }, void 0, false, {
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "jsx-91434ad331695927" + " " + "flex flex-col sm:flex-row gap-2 w-full sm:w-auto",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                            type: "text",
+                                            placeholder: "Search reports...",
+                                            value: searchTerm,
+                                            onChange: (e)=>setSearchTerm(e.target.value),
+                                            className: "jsx-91434ad331695927" + " " + "block w-full sm:w-64 rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm py-2 px-3 text-sm"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/reports/daily/page.tsx",
+                                            lineNumber: 325,
+                                            columnNumber: 14
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>window.print(),
+                                            className: "jsx-91434ad331695927" + " " + "py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 flex-shrink-0",
+                                            children: [
+                                                "Print ",
+                                                activeTab === 'green' ? 'Green Sheet' : 'Tour Sheet'
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/app/reports/daily/page.tsx",
+                                            lineNumber: 332,
+                                            columnNumber: 14
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
                                     fileName: "[project]/app/reports/daily/page.tsx",
-                                    lineNumber: 341,
-                                    columnNumber: 13
+                                    lineNumber: 324,
+                                    columnNumber: 11
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/reports/daily/page.tsx",
-                            lineNumber: 339,
-                            columnNumber: 11
-                        }, this)
-                    }, void 0, false, {
-                        fileName: "[project]/app/reports/daily/page.tsx",
-                        lineNumber: 338,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-                        className: "jsx-91434ad331695927" + " " + `mt-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow printable-section ${activeTab === 'green' ? 'print-active' : 'hidden no-print'}`,
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "jsx-91434ad331695927" + " " + "flex justify-between items-center no-print mb-4",
+                            lineNumber: 319,
+                            columnNumber: 9
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            className: "jsx-91434ad331695927" + " " + "mt-6 border-b border-gray-200 dark:border-gray-700 no-print",
+                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
+                                "aria-label": "Tabs",
+                                className: "jsx-91434ad331695927" + " " + "-mb-px flex space-x-6",
                                 children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                        className: "jsx-91434ad331695927" + " " + "text-2xl font-semibold text-gray-800 dark:text-white",
-                                        children: [
-                                            "Unposted Green Sheet (",
-                                            processedGreenSheet.length,
-                                            ")",
-                                            searchTerm && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "jsx-91434ad331695927" + " " + "text-sm font-normal text-gray-500 ml-2",
-                                                children: "(Filtered)"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/reports/daily/page.tsx",
-                                                lineNumber: 350,
-                                                columnNumber: 32
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/app/reports/daily/page.tsx",
-                                        lineNumber: 348,
-                                        columnNumber: 13
-                                    }, this),
-                                    canPost && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        onClick: handleMarkAsPosted,
-                                        disabled: isPosting || greenSheet.length === 0,
-                                        className: "jsx-91434ad331695927" + " " + "py-2 px-3 rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 disabled:bg-gray-400",
-                                        children: isPosting ? 'Posting...' : `Mark All ${greenSheet.length} as Posted`
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>setActiveTab('green'),
+                                        className: "jsx-91434ad331695927" + " " + `border-b-2 px-3 py-2 text-sm font-medium ${activeTab === 'green' ? 'border-indigo-600 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`,
+                                        children: "Green Sheet"
                                     }, void 0, false, {
                                         fileName: "[project]/app/reports/daily/page.tsx",
-                                        lineNumber: 353,
-                                        columnNumber: 15
+                                        lineNumber: 340,
+                                        columnNumber: 13
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>setActiveTab('tour'),
+                                        className: "jsx-91434ad331695927" + " " + `border-b-2 px-3 py-2 text-sm font-medium ${activeTab === 'tour' ? 'border-indigo-600 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`,
+                                        children: "Tour Sheet"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/reports/daily/page.tsx",
+                                        lineNumber: 341,
+                                        columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/reports/daily/page.tsx",
-                                lineNumber: 347,
+                                lineNumber: 339,
                                 columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                className: "jsx-91434ad331695927" + " " + "hidden print:block",
-                                children: [
-                                    "Green Sheet - ",
-                                    new Date().toLocaleDateString()
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/reports/daily/page.tsx",
-                                lineNumber: 358,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "jsx-91434ad331695927" + " " + "mt-4 flow-root",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "jsx-91434ad331695927" + " " + "-mx-2 -my-2 overflow-x-auto sm:-mx-4 lg:-mx-6",
-                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "jsx-91434ad331695927" + " " + "inline-block min-w-full py-2 align-middle sm:px-4 lg:px-6",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                                            className: "jsx-91434ad331695927" + " " + "min-w-full printable-table border-collapse border border-gray-300 dark:border-gray-700",
+                            }, this)
+                        }, void 0, false, {
+                            fileName: "[project]/app/reports/daily/page.tsx",
+                            lineNumber: 338,
+                            columnNumber: 9
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
+                            id: "green-sheet-container",
+                            className: "jsx-91434ad331695927" + " " + `mt-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow printable-section ${activeTab === 'green' ? 'print-active' : 'hidden no-print'}`,
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "jsx-91434ad331695927" + " " + "flex justify-between items-center no-print mb-4",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                            className: "jsx-91434ad331695927" + " " + "text-2xl font-semibold text-gray-800 dark:text-white",
                                             children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
-                                                    className: "jsx-91434ad331695927" + " " + "bg-gray-50 dark:bg-gray-700",
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                        className: "jsx-91434ad331695927",
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                onClick: ()=>handleSort('subject'),
-                                                                className: "jsx-91434ad331695927" + " " + "p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-cadet cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600",
-                                                                children: [
-                                                                    "Cadet ",
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
-                                                                        column: "subject",
-                                                                        className: "jsx-91434ad331695927"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/app/reports/daily/page.tsx",
-                                                                        lineNumber: 365,
-                                                                        columnNumber: 259
-                                                                    }, this)
-                                                                ]
-                                                            }, void 0, true, {
-                                                                fileName: "[project]/app/reports/daily/page.tsx",
-                                                                lineNumber: 365,
-                                                                columnNumber: 23
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                onClick: ()=>handleSort('company'),
-                                                                className: "jsx-91434ad331695927" + " " + "p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-co cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600",
-                                                                children: [
-                                                                    "CO ",
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
-                                                                        column: "company",
-                                                                        className: "jsx-91434ad331695927"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/app/reports/daily/page.tsx",
-                                                                        lineNumber: 366,
-                                                                        columnNumber: 253
-                                                                    }, this)
-                                                                ]
-                                                            }, void 0, true, {
-                                                                fileName: "[project]/app/reports/daily/page.tsx",
-                                                                lineNumber: 366,
-                                                                columnNumber: 23
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                onClick: ()=>handleSort('offense'),
-                                                                className: "jsx-91434ad331695927" + " " + "p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-offense cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600",
-                                                                children: [
-                                                                    "Offense ",
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
-                                                                        column: "offense",
-                                                                        className: "jsx-91434ad331695927"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/app/reports/daily/page.tsx",
-                                                                        lineNumber: 367,
-                                                                        columnNumber: 263
-                                                                    }, this)
-                                                                ]
-                                                            }, void 0, true, {
-                                                                fileName: "[project]/app/reports/daily/page.tsx",
-                                                                lineNumber: 367,
-                                                                columnNumber: 23
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                onClick: ()=>handleSort('cat'),
-                                                                className: "jsx-91434ad331695927" + " " + "p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-cat cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600",
-                                                                children: [
-                                                                    "Cat ",
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
-                                                                        column: "cat",
-                                                                        className: "jsx-91434ad331695927"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/app/reports/daily/page.tsx",
-                                                                        lineNumber: 368,
-                                                                        columnNumber: 251
-                                                                    }, this)
-                                                                ]
-                                                            }, void 0, true, {
-                                                                fileName: "[project]/app/reports/daily/page.tsx",
-                                                                lineNumber: 368,
-                                                                columnNumber: 23
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                onClick: ()=>handleSort('demerits'),
-                                                                className: "jsx-91434ad331695927" + " " + "p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-demerits cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600",
-                                                                children: [
-                                                                    "Dem ",
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
-                                                                        column: "demerits",
-                                                                        className: "jsx-91434ad331695927"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/app/reports/daily/page.tsx",
-                                                                        lineNumber: 369,
-                                                                        columnNumber: 261
-                                                                    }, this)
-                                                                ]
-                                                            }, void 0, true, {
-                                                                fileName: "[project]/app/reports/daily/page.tsx",
-                                                                lineNumber: 369,
-                                                                columnNumber: 23
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                onClick: ()=>handleSort('submitter'),
-                                                                className: "jsx-91434ad331695927" + " " + "p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-submitter cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600",
-                                                                children: [
-                                                                    "By ",
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
-                                                                        column: "submitter",
-                                                                        className: "jsx-91434ad331695927"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/app/reports/daily/page.tsx",
-                                                                        lineNumber: 370,
-                                                                        columnNumber: 262
-                                                                    }, this)
-                                                                ]
-                                                            }, void 0, true, {
-                                                                fileName: "[project]/app/reports/daily/page.tsx",
-                                                                lineNumber: 370,
-                                                                columnNumber: 23
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                className: "jsx-91434ad331695927" + " " + "p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-notes",
-                                                                children: "Notes"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/reports/daily/page.tsx",
-                                                                lineNumber: 371,
-                                                                columnNumber: 23
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                onClick: ()=>handleSort('date'),
-                                                                className: "jsx-91434ad331695927" + " " + "p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-date cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600",
-                                                                children: [
-                                                                    "Date ",
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
-                                                                        column: "date",
-                                                                        className: "jsx-91434ad331695927"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/app/reports/daily/page.tsx",
-                                                                        lineNumber: 372,
-                                                                        columnNumber: 254
-                                                                    }, this)
-                                                                ]
-                                                            }, void 0, true, {
-                                                                fileName: "[project]/app/reports/daily/page.tsx",
-                                                                lineNumber: 372,
-                                                                columnNumber: 23
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/app/reports/daily/page.tsx",
-                                                        lineNumber: 364,
-                                                        columnNumber: 21
-                                                    }, this)
+                                                "Unposted Green Sheet (",
+                                                processedGreenSheet.length,
+                                                ")",
+                                                searchTerm && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: "jsx-91434ad331695927" + " " + "text-sm font-normal text-gray-500 ml-2",
+                                                    children: "(Filtered)"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/reports/daily/page.tsx",
-                                                    lineNumber: 363,
-                                                    columnNumber: 19
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
-                                                    className: "jsx-91434ad331695927" + " " + "bg-white dark:bg-gray-800",
-                                                    children: processedGreenSheet.length > 0 ? processedGreenSheet.map((r)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                            onClick: ()=>router.push(`/report/${r.report_id}`),
-                                                            className: "jsx-91434ad331695927" + " " + "cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors",
-                                                            children: [
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: "jsx-91434ad331695927" + " " + "p-2 text-sm font-medium text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600",
-                                                                    children: r.subject_name
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/app/reports/daily/page.tsx",
-                                                                    lineNumber: 382,
-                                                                    columnNumber: 25
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: "jsx-91434ad331695927" + " " + "p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600",
-                                                                    children: r.company_name || '-'
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/app/reports/daily/page.tsx",
-                                                                    lineNumber: 383,
-                                                                    columnNumber: 25
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: "jsx-91434ad331695927" + " " + "p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600",
-                                                                    children: r.offense_name
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/app/reports/daily/page.tsx",
-                                                                    lineNumber: 384,
-                                                                    columnNumber: 25
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: "jsx-91434ad331695927" + " " + "p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600",
-                                                                    children: r.policy_category
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/app/reports/daily/page.tsx",
-                                                                    lineNumber: 385,
-                                                                    columnNumber: 25
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: "jsx-91434ad331695927" + " " + "p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600",
-                                                                    children: r.demerits
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/app/reports/daily/page.tsx",
-                                                                    lineNumber: 386,
-                                                                    columnNumber: 25
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: "jsx-91434ad331695927" + " " + "p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600",
-                                                                    children: r.submitter_name
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/app/reports/daily/page.tsx",
-                                                                    lineNumber: 387,
-                                                                    columnNumber: 25
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: "jsx-91434ad331695927" + " " + "p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600 max-w-xs break-words",
-                                                                    children: r.notes
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/app/reports/daily/page.tsx",
-                                                                    lineNumber: 388,
-                                                                    columnNumber: 25
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: "jsx-91434ad331695927" + " " + "p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600",
-                                                                    children: formatDate(r.date_of_offense)
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/app/reports/daily/page.tsx",
-                                                                    lineNumber: 389,
-                                                                    columnNumber: 25
-                                                                }, this)
-                                                            ]
-                                                        }, r.report_id, true, {
-                                                            fileName: "[project]/app/reports/daily/page.tsx",
-                                                            lineNumber: 377,
-                                                            columnNumber: 23
-                                                        }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                        className: "jsx-91434ad331695927" + " " + "no-print",
-                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                            colSpan: 8,
-                                                            className: "jsx-91434ad331695927" + " " + "p-4 text-center text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600",
-                                                            children: searchTerm ? 'No reports match filter.' : 'No unposted demerits.'
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/app/reports/daily/page.tsx",
-                                                            lineNumber: 391,
-                                                            columnNumber: 51
-                                                        }, this)
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/app/reports/daily/page.tsx",
-                                                        lineNumber: 391,
-                                                        columnNumber: 26
-                                                    }, this)
-                                                }, void 0, false, {
-                                                    fileName: "[project]/app/reports/daily/page.tsx",
-                                                    lineNumber: 375,
-                                                    columnNumber: 19
+                                                    lineNumber: 351,
+                                                    columnNumber: 32
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/reports/daily/page.tsx",
+                                            lineNumber: 349,
+                                            columnNumber: 13
+                                        }, this),
+                                        canPost && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: handleMarkAsPosted,
+                                            disabled: isPosting || greenSheet.length === 0,
+                                            className: "jsx-91434ad331695927" + " " + "py-2 px-3 rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 disabled:bg-gray-400",
+                                            children: isPosting ? 'Posting...' : `Mark All ${greenSheet.length} as Posted`
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/reports/daily/page.tsx",
+                                            lineNumber: 354,
+                                            columnNumber: 15
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/reports/daily/page.tsx",
+                                    lineNumber: 348,
+                                    columnNumber: 11
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                    className: "jsx-91434ad331695927" + " " + "hidden print:block",
+                                    children: [
+                                        "Green Sheet - ",
+                                        new Date().toLocaleDateString()
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/reports/daily/page.tsx",
+                                    lineNumber: 359,
+                                    columnNumber: 11
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "jsx-91434ad331695927" + " " + "mt-4 flow-root",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "jsx-91434ad331695927" + " " + "-mx-2 -my-2 overflow-x-auto sm:-mx-4 lg:-mx-6",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "jsx-91434ad331695927" + " " + "inline-block min-w-full py-2 align-middle sm:px-4 lg:px-6",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
+                                                className: "jsx-91434ad331695927" + " " + "min-w-full printable-table border-collapse border border-gray-300 dark:border-gray-700",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
+                                                        className: "jsx-91434ad331695927" + " " + "bg-gray-50 dark:bg-gray-700",
+                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                            className: "jsx-91434ad331695927",
+                                                            children: [
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                    onClick: ()=>handleSort('subject'),
+                                                                    className: "jsx-91434ad331695927" + " " + "p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-cadet cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600",
+                                                                    children: [
+                                                                        "Cadet ",
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
+                                                                            column: "subject",
+                                                                            className: "jsx-91434ad331695927"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/reports/daily/page.tsx",
+                                                                            lineNumber: 366,
+                                                                            columnNumber: 259
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/app/reports/daily/page.tsx",
+                                                                    lineNumber: 366,
+                                                                    columnNumber: 23
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                    onClick: ()=>handleSort('company'),
+                                                                    className: "jsx-91434ad331695927" + " " + "p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-co cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600",
+                                                                    children: [
+                                                                        "CO ",
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
+                                                                            column: "company",
+                                                                            className: "jsx-91434ad331695927"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/reports/daily/page.tsx",
+                                                                            lineNumber: 367,
+                                                                            columnNumber: 253
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/app/reports/daily/page.tsx",
+                                                                    lineNumber: 367,
+                                                                    columnNumber: 23
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                    onClick: ()=>handleSort('offense'),
+                                                                    className: "jsx-91434ad331695927" + " " + "p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-offense cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600",
+                                                                    children: [
+                                                                        "Offense ",
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
+                                                                            column: "offense",
+                                                                            className: "jsx-91434ad331695927"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/reports/daily/page.tsx",
+                                                                            lineNumber: 368,
+                                                                            columnNumber: 263
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/app/reports/daily/page.tsx",
+                                                                    lineNumber: 368,
+                                                                    columnNumber: 23
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                    onClick: ()=>handleSort('cat'),
+                                                                    className: "jsx-91434ad331695927" + " " + "p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-cat cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600",
+                                                                    children: [
+                                                                        "Cat ",
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
+                                                                            column: "cat",
+                                                                            className: "jsx-91434ad331695927"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/reports/daily/page.tsx",
+                                                                            lineNumber: 369,
+                                                                            columnNumber: 251
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/app/reports/daily/page.tsx",
+                                                                    lineNumber: 369,
+                                                                    columnNumber: 23
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                    onClick: ()=>handleSort('demerits'),
+                                                                    className: "jsx-91434ad331695927" + " " + "p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-demerits cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600",
+                                                                    children: [
+                                                                        "Dem ",
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
+                                                                            column: "demerits",
+                                                                            className: "jsx-91434ad331695927"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/reports/daily/page.tsx",
+                                                                            lineNumber: 370,
+                                                                            columnNumber: 261
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/app/reports/daily/page.tsx",
+                                                                    lineNumber: 370,
+                                                                    columnNumber: 23
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                    onClick: ()=>handleSort('submitter'),
+                                                                    className: "jsx-91434ad331695927" + " " + "p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-submitter cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600",
+                                                                    children: [
+                                                                        "By ",
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
+                                                                            column: "submitter",
+                                                                            className: "jsx-91434ad331695927"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/reports/daily/page.tsx",
+                                                                            lineNumber: 371,
+                                                                            columnNumber: 262
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/app/reports/daily/page.tsx",
+                                                                    lineNumber: 371,
+                                                                    columnNumber: 23
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                    className: "jsx-91434ad331695927" + " " + "p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-notes",
+                                                                    children: "Notes"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/app/reports/daily/page.tsx",
+                                                                    lineNumber: 372,
+                                                                    columnNumber: 23
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                    onClick: ()=>handleSort('date'),
+                                                                    className: "jsx-91434ad331695927" + " " + "p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-date cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600",
+                                                                    children: [
+                                                                        "Date ",
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
+                                                                            column: "date",
+                                                                            className: "jsx-91434ad331695927"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/reports/daily/page.tsx",
+                                                                            lineNumber: 373,
+                                                                            columnNumber: 254
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/app/reports/daily/page.tsx",
+                                                                    lineNumber: 373,
+                                                                    columnNumber: 23
+                                                                }, this)
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/app/reports/daily/page.tsx",
+                                                            lineNumber: 365,
+                                                            columnNumber: 21
+                                                        }, this)
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/reports/daily/page.tsx",
+                                                        lineNumber: 364,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
+                                                        className: "jsx-91434ad331695927" + " " + "bg-white dark:bg-gray-800",
+                                                        children: processedGreenSheet.length > 0 ? processedGreenSheet.map((r)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                                onClick: ()=>router.push(`/report/${r.report_id}`),
+                                                                className: "jsx-91434ad331695927" + " " + "cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors",
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                        className: "jsx-91434ad331695927" + " " + "p-2 text-sm font-medium text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600",
+                                                                        children: r.subject_name
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/app/reports/daily/page.tsx",
+                                                                        lineNumber: 383,
+                                                                        columnNumber: 25
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                        className: "jsx-91434ad331695927" + " " + "p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600",
+                                                                        children: r.company_name || '-'
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/app/reports/daily/page.tsx",
+                                                                        lineNumber: 384,
+                                                                        columnNumber: 25
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                        className: "jsx-91434ad331695927" + " " + "p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600",
+                                                                        children: r.offense_name
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/app/reports/daily/page.tsx",
+                                                                        lineNumber: 385,
+                                                                        columnNumber: 25
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                        className: "jsx-91434ad331695927" + " " + "p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600",
+                                                                        children: r.policy_category
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/app/reports/daily/page.tsx",
+                                                                        lineNumber: 386,
+                                                                        columnNumber: 25
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                        className: "jsx-91434ad331695927" + " " + "p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600",
+                                                                        children: r.demerits
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/app/reports/daily/page.tsx",
+                                                                        lineNumber: 387,
+                                                                        columnNumber: 25
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                        className: "jsx-91434ad331695927" + " " + "p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600",
+                                                                        children: r.submitter_name
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/app/reports/daily/page.tsx",
+                                                                        lineNumber: 388,
+                                                                        columnNumber: 25
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                        className: "jsx-91434ad331695927" + " " + "p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600 max-w-xs break-words",
+                                                                        children: r.notes
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/app/reports/daily/page.tsx",
+                                                                        lineNumber: 389,
+                                                                        columnNumber: 25
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                        className: "jsx-91434ad331695927" + " " + "p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600",
+                                                                        children: formatDate(r.date_of_offense)
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/app/reports/daily/page.tsx",
+                                                                        lineNumber: 390,
+                                                                        columnNumber: 25
+                                                                    }, this)
+                                                                ]
+                                                            }, r.report_id, true, {
+                                                                fileName: "[project]/app/reports/daily/page.tsx",
+                                                                lineNumber: 378,
+                                                                columnNumber: 23
+                                                            }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                            className: "jsx-91434ad331695927" + " " + "no-print",
+                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                colSpan: 8,
+                                                                className: "jsx-91434ad331695927" + " " + "p-4 text-center text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600",
+                                                                children: searchTerm ? 'No reports match filter.' : 'No unposted demerits.'
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/reports/daily/page.tsx",
+                                                                lineNumber: 392,
+                                                                columnNumber: 51
+                                                            }, this)
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/app/reports/daily/page.tsx",
+                                                            lineNumber: 392,
+                                                            columnNumber: 26
+                                                        }, this)
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/reports/daily/page.tsx",
+                                                        lineNumber: 376,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/reports/daily/page.tsx",
+                                                lineNumber: 363,
+                                                columnNumber: 17
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/reports/daily/page.tsx",
                                             lineNumber: 362,
-                                            columnNumber: 17
+                                            columnNumber: 76
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/reports/daily/page.tsx",
-                                        lineNumber: 361,
-                                        columnNumber: 76
+                                        lineNumber: 362,
+                                        columnNumber: 13
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/reports/daily/page.tsx",
                                     lineNumber: 361,
-                                    columnNumber: 13
+                                    columnNumber: 11
                                 }, this)
-                            }, void 0, false, {
-                                fileName: "[project]/app/reports/daily/page.tsx",
-                                lineNumber: 360,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/app/reports/daily/page.tsx",
-                        lineNumber: 346,
-                        columnNumber: 9
-                    }, this),
-                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-                        className: "jsx-91434ad331695927" + " " + `mt-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow printable-section ${activeTab === 'tour' ? 'print-active' : 'hidden no-print'}`,
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "jsx-91434ad331695927" + " " + "no-print mb-4 flex justify-between items-center",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                        className: "jsx-91434ad331695927" + " " + "text-2xl font-semibold text-gray-800 dark:text-white",
-                                        children: [
-                                            "Tour Sheet (",
-                                            processedTourSheet.length,
-                                            ")",
-                                            searchTerm && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "jsx-91434ad331695927" + " " + "text-sm font-normal text-gray-500 ml-2",
-                                                children: "(Filtered)"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/reports/daily/page.tsx",
-                                                lineNumber: 403,
-                                                columnNumber: 32
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/app/reports/daily/page.tsx",
-                                        lineNumber: 401,
-                                        columnNumber: 14
-                                    }, this),
-                                    canLog && selectedTourCadets.size > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        onClick: ()=>openTourModal(),
-                                        className: "jsx-91434ad331695927" + " " + "py-2 px-4 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 text-sm font-medium",
-                                        children: [
-                                            "Bulk Log for ",
-                                            selectedTourCadets.size,
-                                            " Cadets"
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/app/reports/daily/page.tsx",
-                                        lineNumber: 408,
-                                        columnNumber: 18
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/reports/daily/page.tsx",
-                                lineNumber: 400,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                className: "jsx-91434ad331695927" + " " + "hidden print:block",
-                                children: [
-                                    "Tour Sheet - ",
-                                    new Date().toLocaleDateString()
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/reports/daily/page.tsx",
-                                lineNumber: 416,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "jsx-91434ad331695927" + " " + "mt-4 flow-root",
-                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "jsx-91434ad331695927" + " " + "-mx-2 -my-2 overflow-x-auto sm:-mx-4 lg:-mx-6",
-                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "jsx-91434ad331695927" + " " + "inline-block min-w-full py-2 align-middle sm:px-4 lg:px-6",
-                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                                            className: "jsx-91434ad331695927" + " " + "min-w-full printable-table border-collapse border border-gray-300 dark:border-gray-700",
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/reports/daily/page.tsx",
+                            lineNumber: 347,
+                            columnNumber: 9
+                        }, this),
+                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
+                            className: "jsx-91434ad331695927" + " " + `mt-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow printable-section ${activeTab === 'tour' ? 'print-active' : 'hidden no-print'}`,
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "jsx-91434ad331695927" + " " + "no-print mb-4 flex justify-between items-center",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                            className: "jsx-91434ad331695927" + " " + "text-2xl font-semibold text-gray-800 dark:text-white",
                                             children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
-                                                    className: "jsx-91434ad331695927" + " " + "bg-gray-50 dark:bg-gray-700",
-                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                        className: "jsx-91434ad331695927",
-                                                        children: [
-                                                            canLog && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                className: "jsx-91434ad331695927" + " " + "p-2 text-center w-10 border border-gray-300 dark:border-gray-600 col-check no-print",
-                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                    type: "checkbox",
-                                                                    // Select All logic: only selects un-logged cadets
-                                                                    onChange: handleSelectAllTourRows,
-                                                                    // Check 'checked' status based on whether all ELIGIBLE rows are selected
-                                                                    checked: processedTourSheet.filter((c)=>!c.tours_logged_today).length > 0 && selectedTourCadets.size === processedTourSheet.filter((c)=>!c.tours_logged_today).length,
-                                                                    className: "jsx-91434ad331695927" + " " + "rounded border-gray-300 dark:border-gray-600 dark:bg-gray-700"
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/app/reports/daily/page.tsx",
-                                                                    lineNumber: 425,
-                                                                    columnNumber: 31
-                                                                }, this)
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/reports/daily/page.tsx",
-                                                                lineNumber: 424,
-                                                                columnNumber: 27
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                onClick: ()=>handleSort('subject'),
-                                                                className: "jsx-91434ad331695927" + " " + "p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-tour-cadet cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600",
-                                                                children: [
-                                                                    "Cadet ",
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
-                                                                        column: "subject",
-                                                                        className: "jsx-91434ad331695927"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/app/reports/daily/page.tsx",
-                                                                        lineNumber: 438,
-                                                                        columnNumber: 264
-                                                                    }, this)
-                                                                ]
-                                                            }, void 0, true, {
-                                                                fileName: "[project]/app/reports/daily/page.tsx",
-                                                                lineNumber: 438,
-                                                                columnNumber: 23
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                onClick: ()=>handleSort('company'),
-                                                                className: "jsx-91434ad331695927" + " " + "p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-tour-co cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600",
-                                                                children: [
-                                                                    "Company ",
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
-                                                                        column: "company",
-                                                                        className: "jsx-91434ad331695927"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/app/reports/daily/page.tsx",
-                                                                        lineNumber: 439,
-                                                                        columnNumber: 263
-                                                                    }, this)
-                                                                ]
-                                                            }, void 0, true, {
-                                                                fileName: "[project]/app/reports/daily/page.tsx",
-                                                                lineNumber: 439,
-                                                                columnNumber: 23
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                onClick: ()=>handleSort('total_tours'),
-                                                                className: "jsx-91434ad331695927" + " " + "p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-tour-total cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600",
-                                                                children: [
-                                                                    "Total ",
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
-                                                                        column: "total_tours",
-                                                                        className: "jsx-91434ad331695927"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/app/reports/daily/page.tsx",
-                                                                        lineNumber: 440,
-                                                                        columnNumber: 268
-                                                                    }, this)
-                                                                ]
-                                                            }, void 0, true, {
-                                                                fileName: "[project]/app/reports/daily/page.tsx",
-                                                                lineNumber: 440,
-                                                                columnNumber: 23
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                className: "jsx-91434ad331695927" + " " + "p-2 text-left text-sm font-semibold text-gray-900 dark:text-white print:table-cell hidden border border-gray-300 dark:border-gray-600 col-tour-served",
-                                                                children: "Served"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/reports/daily/page.tsx",
-                                                                lineNumber: 441,
-                                                                columnNumber: 23
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                className: "jsx-91434ad331695927" + " " + "p-2 text-left text-sm font-semibold text-gray-900 dark:text-white print:table-cell hidden border border-gray-300 dark:border-gray-600 col-tour-notes",
-                                                                children: "Notes"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/reports/daily/page.tsx",
-                                                                lineNumber: 442,
-                                                                columnNumber: 23
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                className: "jsx-91434ad331695927" + " " + "relative p-2 no-print border-l border-gray-300 dark:border-gray-600",
-                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                    className: "jsx-91434ad331695927" + " " + "sr-only",
-                                                                    children: "Actions"
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/app/reports/daily/page.tsx",
-                                                                    lineNumber: 443,
-                                                                    columnNumber: 107
-                                                                }, this)
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/reports/daily/page.tsx",
-                                                                lineNumber: 443,
-                                                                columnNumber: 23
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/app/reports/daily/page.tsx",
-                                                        lineNumber: 421,
-                                                        columnNumber: 21
-                                                    }, this)
+                                                "Tour Sheet (",
+                                                processedTourSheet.length,
+                                                ")",
+                                                searchTerm && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: "jsx-91434ad331695927" + " " + "text-sm font-normal text-gray-500 ml-2",
+                                                    children: "(Filtered)"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/reports/daily/page.tsx",
-                                                    lineNumber: 420,
-                                                    columnNumber: 19
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
-                                                    className: "jsx-91434ad331695927" + " " + "bg-white dark:bg-gray-800",
-                                                    children: processedTourSheet.length > 0 ? processedTourSheet.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                            className: "jsx-91434ad331695927" + " " + `
-                            ${c.has_star_tours ? 'bg-red-50 dark:bg-red-900/20' : ''} 
-                            ${c.tours_logged_today ? 'opacity-50 bg-gray-50 dark:bg-gray-900/50' : ''}
-                        `,
-                                                            children: [
-                                                                canLog && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: "jsx-91434ad331695927" + " " + "p-2 text-center border border-gray-300 dark:border-gray-600 cell-check no-print",
-                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                        type: "checkbox",
-                                                                        checked: selectedTourCadets.has(c.cadet_id),
-                                                                        onChange: ()=>handleSelectTourRow(c.cadet_id),
-                                                                        // DISABLE selection if already logged to prevent accidents
-                                                                        disabled: c.tours_logged_today,
-                                                                        className: "jsx-91434ad331695927" + " " + "rounded border-gray-300 dark:border-gray-600 dark:bg-gray-700 disabled:opacity-50"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/app/reports/daily/page.tsx",
-                                                                        lineNumber: 458,
-                                                                        columnNumber: 33
-                                                                    }, this)
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/app/reports/daily/page.tsx",
-                                                                    lineNumber: 457,
-                                                                    columnNumber: 29
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: "jsx-91434ad331695927" + " " + "p-2 text-sm font-medium text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600",
-                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "jsx-91434ad331695927" + " " + "flex items-center gap-2",
-                                                                        children: [
-                                                                            c.has_star_tours && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                "aria-hidden": "true",
-                                                                                title: "Star Tours Assigned",
-                                                                                className: "jsx-91434ad331695927" + " " + "font-bold text-lg leading-none text-red-600 dark:text-red-400",
-                                                                                children: "∗"
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/app/reports/daily/page.tsx",
-                                                                                lineNumber: 471,
-                                                                                columnNumber: 31
-                                                                            }, this),
-                                                                            c.tours_logged_today && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                className: "jsx-91434ad331695927" + " " + "text-green-600 dark:text-green-400 font-bold text-xs border border-green-600 dark:border-green-400 px-1 rounded no-print",
-                                                                                children: "✓"
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/app/reports/daily/page.tsx",
-                                                                                lineNumber: 476,
-                                                                                columnNumber: 33
-                                                                            }, this),
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                className: "jsx-91434ad331695927",
-                                                                                children: [
-                                                                                    c.last_name,
-                                                                                    ", ",
-                                                                                    c.first_name
-                                                                                ]
-                                                                            }, void 0, true, {
-                                                                                fileName: "[project]/app/reports/daily/page.tsx",
-                                                                                lineNumber: 480,
-                                                                                columnNumber: 29
-                                                                            }, this)
-                                                                        ]
-                                                                    }, void 0, true, {
-                                                                        fileName: "[project]/app/reports/daily/page.tsx",
-                                                                        lineNumber: 469,
-                                                                        columnNumber: 27
-                                                                    }, this)
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/app/reports/daily/page.tsx",
-                                                                    lineNumber: 468,
-                                                                    columnNumber: 25
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: "jsx-91434ad331695927" + " " + "p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600",
-                                                                    children: c.company_name || '-'
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/app/reports/daily/page.tsx",
-                                                                    lineNumber: 483,
-                                                                    columnNumber: 25
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: "jsx-91434ad331695927" + " " + "p-2 text-sm font-bold text-red-600 dark:text-red-400 border border-gray-300 dark:border-gray-600",
-                                                                    children: c.has_star_tours ? '*' : c.total_tours
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/app/reports/daily/page.tsx",
-                                                                    lineNumber: 484,
-                                                                    columnNumber: 25
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: "jsx-91434ad331695927" + " " + "p-2 print:table-cell hidden fill-in-box border border-gray-300 dark:border-gray-600"
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/app/reports/daily/page.tsx",
-                                                                    lineNumber: 487,
-                                                                    columnNumber: 25
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: "jsx-91434ad331695927" + " " + "p-2 print:table-cell hidden fill-in-box border border-gray-300 dark:border-gray-600"
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/app/reports/daily/page.tsx",
-                                                                    lineNumber: 488,
-                                                                    columnNumber: 25
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: "jsx-91434ad331695927" + " " + "relative p-2 text-right text-sm font-medium no-print border border-gray-300 dark:border-gray-600",
-                                                                    children: canLog && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                        onClick: ()=>openTourModal(c),
-                                                                        className: "jsx-91434ad331695927" + " " + "text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300 disabled:text-gray-400",
-                                                                        children: "Log"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/app/reports/daily/page.tsx",
-                                                                        lineNumber: 491,
-                                                                        columnNumber: 29
-                                                                    }, this)
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/app/reports/daily/page.tsx",
-                                                                    lineNumber: 489,
-                                                                    columnNumber: 25
-                                                                }, this)
-                                                            ]
-                                                        }, c.cadet_id, true, {
-                                                            fileName: "[project]/app/reports/daily/page.tsx",
-                                                            lineNumber: 448,
-                                                            columnNumber: 23
-                                                        }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                        className: "jsx-91434ad331695927" + " " + "no-print",
-                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                            colSpan: 7,
-                                                            className: "jsx-91434ad331695927" + " " + "p-4 text-center text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600",
-                                                            children: searchTerm ? 'No cadets match filter.' : 'No cadets on ED.'
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/app/reports/daily/page.tsx",
-                                                            lineNumber: 503,
-                                                            columnNumber: 51
-                                                        }, this)
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/app/reports/daily/page.tsx",
-                                                        lineNumber: 503,
-                                                        columnNumber: 26
-                                                    }, this)
-                                                }, void 0, false, {
-                                                    fileName: "[project]/app/reports/daily/page.tsx",
-                                                    lineNumber: 446,
-                                                    columnNumber: 19
+                                                    lineNumber: 404,
+                                                    columnNumber: 32
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/reports/daily/page.tsx",
-                                            lineNumber: 419,
-                                            columnNumber: 17
+                                            lineNumber: 402,
+                                            columnNumber: 14
+                                        }, this),
+                                        canLog && selectedTourCadets.size > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>openTourModal(),
+                                            className: "jsx-91434ad331695927" + " " + "py-2 px-4 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 text-sm font-medium",
+                                            children: [
+                                                "Bulk Log for ",
+                                                selectedTourCadets.size,
+                                                " Cadets"
+                                            ]
+                                        }, void 0, true, {
+                                            fileName: "[project]/app/reports/daily/page.tsx",
+                                            lineNumber: 408,
+                                            columnNumber: 18
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/reports/daily/page.tsx",
+                                    lineNumber: 401,
+                                    columnNumber: 11
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                                    className: "jsx-91434ad331695927" + " " + "hidden print:block",
+                                    children: [
+                                        "Tour Sheet - ",
+                                        new Date().toLocaleDateString()
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/reports/daily/page.tsx",
+                                    lineNumber: 416,
+                                    columnNumber: 11
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                    className: "jsx-91434ad331695927" + " " + "mt-4 flow-root",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "jsx-91434ad331695927" + " " + "-mx-2 -my-2 overflow-x-auto sm:-mx-4 lg:-mx-6",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "jsx-91434ad331695927" + " " + "inline-block min-w-full py-2 align-middle sm:px-4 lg:px-6",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
+                                                className: "jsx-91434ad331695927" + " " + "min-w-full printable-table border-collapse border border-gray-300 dark:border-gray-700",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
+                                                        className: "jsx-91434ad331695927" + " " + "bg-gray-50 dark:bg-gray-700",
+                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                            className: "jsx-91434ad331695927",
+                                                            children: [
+                                                                canLog && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                    className: "jsx-91434ad331695927" + " " + "p-2 text-center w-10 border border-gray-300 dark:border-gray-600 col-check no-print",
+                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                        type: "checkbox",
+                                                                        onChange: handleSelectAllTourRows,
+                                                                        checked: processedTourSheet.filter((c)=>!c.tours_logged_today).length > 0 && selectedTourCadets.size === processedTourSheet.filter((c)=>!c.tours_logged_today).length,
+                                                                        className: "jsx-91434ad331695927" + " " + "rounded border-gray-300 dark:border-gray-600 dark:bg-gray-700"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/app/reports/daily/page.tsx",
+                                                                        lineNumber: 424,
+                                                                        columnNumber: 31
+                                                                    }, this)
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/app/reports/daily/page.tsx",
+                                                                    lineNumber: 423,
+                                                                    columnNumber: 27
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                    onClick: ()=>handleSort('subject'),
+                                                                    className: "jsx-91434ad331695927" + " " + "p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-tour-cadet cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600",
+                                                                    children: [
+                                                                        "Cadet ",
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
+                                                                            column: "subject",
+                                                                            className: "jsx-91434ad331695927"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/reports/daily/page.tsx",
+                                                                            lineNumber: 435,
+                                                                            columnNumber: 264
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/app/reports/daily/page.tsx",
+                                                                    lineNumber: 435,
+                                                                    columnNumber: 23
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                    onClick: ()=>handleSort('company'),
+                                                                    className: "jsx-91434ad331695927" + " " + "p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-tour-co cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600",
+                                                                    children: [
+                                                                        "Company ",
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
+                                                                            column: "company",
+                                                                            className: "jsx-91434ad331695927"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/reports/daily/page.tsx",
+                                                                            lineNumber: 436,
+                                                                            columnNumber: 263
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/app/reports/daily/page.tsx",
+                                                                    lineNumber: 436,
+                                                                    columnNumber: 23
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                    onClick: ()=>handleSort('total_tours'),
+                                                                    className: "jsx-91434ad331695927" + " " + "p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-tour-total cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600",
+                                                                    children: [
+                                                                        "Total ",
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
+                                                                            column: "total_tours",
+                                                                            className: "jsx-91434ad331695927"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/reports/daily/page.tsx",
+                                                                            lineNumber: 437,
+                                                                            columnNumber: 268
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/app/reports/daily/page.tsx",
+                                                                    lineNumber: 437,
+                                                                    columnNumber: 23
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                    className: "jsx-91434ad331695927" + " " + "p-2 text-left text-sm font-semibold text-gray-900 dark:text-white print:table-cell hidden border border-gray-300 dark:border-gray-600 col-tour-served",
+                                                                    children: "Served"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/app/reports/daily/page.tsx",
+                                                                    lineNumber: 438,
+                                                                    columnNumber: 23
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                    className: "jsx-91434ad331695927" + " " + "p-2 text-left text-sm font-semibold text-gray-900 dark:text-white print:table-cell hidden border border-gray-300 dark:border-gray-600 col-tour-notes",
+                                                                    children: "Notes"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/app/reports/daily/page.tsx",
+                                                                    lineNumber: 439,
+                                                                    columnNumber: 23
+                                                                }, this),
+                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                                                    className: "jsx-91434ad331695927" + " " + "relative p-2 no-print border-l border-gray-300 dark:border-gray-600",
+                                                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                        className: "jsx-91434ad331695927" + " " + "sr-only",
+                                                                        children: "Actions"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/app/reports/daily/page.tsx",
+                                                                        lineNumber: 440,
+                                                                        columnNumber: 107
+                                                                    }, this)
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/app/reports/daily/page.tsx",
+                                                                    lineNumber: 440,
+                                                                    columnNumber: 23
+                                                                }, this)
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/app/reports/daily/page.tsx",
+                                                            lineNumber: 421,
+                                                            columnNumber: 21
+                                                        }, this)
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/reports/daily/page.tsx",
+                                                        lineNumber: 420,
+                                                        columnNumber: 19
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
+                                                        className: "jsx-91434ad331695927" + " " + "bg-white dark:bg-gray-800",
+                                                        children: processedTourSheet.length > 0 ? processedTourSheet.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                                className: "jsx-91434ad331695927" + " " + `
+                            ${c.has_star_tours ? 'bg-red-50 dark:bg-red-900/20' : ''} 
+                            ${c.tours_logged_today ? 'opacity-50 bg-gray-50 dark:bg-gray-900/50' : ''}
+                        `,
+                                                                children: [
+                                                                    canLog && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                        className: "jsx-91434ad331695927" + " " + "p-2 text-center border border-gray-300 dark:border-gray-600 cell-check no-print",
+                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                                            type: "checkbox",
+                                                                            checked: selectedTourCadets.has(c.cadet_id),
+                                                                            onChange: ()=>handleSelectTourRow(c.cadet_id),
+                                                                            disabled: c.tours_logged_today,
+                                                                            className: "jsx-91434ad331695927" + " " + "rounded border-gray-300 dark:border-gray-600 dark:bg-gray-700 disabled:opacity-50"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/reports/daily/page.tsx",
+                                                                            lineNumber: 454,
+                                                                            columnNumber: 33
+                                                                        }, this)
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/app/reports/daily/page.tsx",
+                                                                        lineNumber: 453,
+                                                                        columnNumber: 29
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                        className: "jsx-91434ad331695927" + " " + "p-2 text-sm font-medium text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600",
+                                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                            className: "jsx-91434ad331695927" + " " + "flex items-center gap-2",
+                                                                            children: [
+                                                                                c.has_star_tours && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                    "aria-hidden": "true",
+                                                                                    title: "Star Tours Assigned",
+                                                                                    className: "jsx-91434ad331695927" + " " + "font-bold text-lg leading-none text-red-600 dark:text-red-400",
+                                                                                    children: "∗"
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/app/reports/daily/page.tsx",
+                                                                                    lineNumber: 466,
+                                                                                    columnNumber: 31
+                                                                                }, this),
+                                                                                c.tours_logged_today && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                    className: "jsx-91434ad331695927" + " " + "text-green-600 dark:text-green-400 font-bold text-xs border border-green-600 dark:border-green-400 px-1 rounded no-print",
+                                                                                    children: "✓"
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/app/reports/daily/page.tsx",
+                                                                                    lineNumber: 471,
+                                                                                    columnNumber: 33
+                                                                                }, this),
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                    className: "jsx-91434ad331695927",
+                                                                                    children: [
+                                                                                        c.last_name,
+                                                                                        ", ",
+                                                                                        c.first_name
+                                                                                    ]
+                                                                                }, void 0, true, {
+                                                                                    fileName: "[project]/app/reports/daily/page.tsx",
+                                                                                    lineNumber: 475,
+                                                                                    columnNumber: 29
+                                                                                }, this)
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/app/reports/daily/page.tsx",
+                                                                            lineNumber: 464,
+                                                                            columnNumber: 27
+                                                                        }, this)
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/app/reports/daily/page.tsx",
+                                                                        lineNumber: 463,
+                                                                        columnNumber: 25
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                        className: "jsx-91434ad331695927" + " " + "p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600",
+                                                                        children: c.company_name || '-'
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/app/reports/daily/page.tsx",
+                                                                        lineNumber: 478,
+                                                                        columnNumber: 25
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                        className: "jsx-91434ad331695927" + " " + "p-2 text-sm font-bold text-red-600 dark:text-red-400 border border-gray-300 dark:border-gray-600",
+                                                                        children: c.has_star_tours ? '*' : c.total_tours
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/app/reports/daily/page.tsx",
+                                                                        lineNumber: 479,
+                                                                        columnNumber: 25
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                        className: "jsx-91434ad331695927" + " " + "p-2 print:table-cell hidden fill-in-box border border-gray-300 dark:border-gray-600"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/app/reports/daily/page.tsx",
+                                                                        lineNumber: 482,
+                                                                        columnNumber: 25
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                        className: "jsx-91434ad331695927" + " " + "p-2 print:table-cell hidden fill-in-box border border-gray-300 dark:border-gray-600"
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/app/reports/daily/page.tsx",
+                                                                        lineNumber: 483,
+                                                                        columnNumber: 25
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                        className: "jsx-91434ad331695927" + " " + "relative p-2 text-right text-sm font-medium no-print border border-gray-300 dark:border-gray-600",
+                                                                        children: canLog && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                            onClick: ()=>openTourModal(c),
+                                                                            className: "jsx-91434ad331695927" + " " + "text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300 disabled:text-gray-400",
+                                                                            children: "Log"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/reports/daily/page.tsx",
+                                                                            lineNumber: 486,
+                                                                            columnNumber: 29
+                                                                        }, this)
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/app/reports/daily/page.tsx",
+                                                                        lineNumber: 484,
+                                                                        columnNumber: 25
+                                                                    }, this)
+                                                                ]
+                                                            }, c.cadet_id, true, {
+                                                                fileName: "[project]/app/reports/daily/page.tsx",
+                                                                lineNumber: 445,
+                                                                columnNumber: 23
+                                                            }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                                            className: "jsx-91434ad331695927" + " " + "no-print",
+                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                                colSpan: 7,
+                                                                className: "jsx-91434ad331695927" + " " + "p-4 text-center text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600",
+                                                                children: searchTerm ? 'No cadets match filter.' : 'No cadets on ED.'
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/reports/daily/page.tsx",
+                                                                lineNumber: 495,
+                                                                columnNumber: 51
+                                                            }, this)
+                                                        }, void 0, false, {
+                                                            fileName: "[project]/app/reports/daily/page.tsx",
+                                                            lineNumber: 495,
+                                                            columnNumber: 26
+                                                        }, this)
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/reports/daily/page.tsx",
+                                                        lineNumber: 443,
+                                                        columnNumber: 19
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/reports/daily/page.tsx",
+                                                lineNumber: 419,
+                                                columnNumber: 17
+                                            }, this)
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/reports/daily/page.tsx",
+                                            lineNumber: 418,
+                                            columnNumber: 76
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/reports/daily/page.tsx",
                                         lineNumber: 418,
-                                        columnNumber: 76
+                                        columnNumber: 13
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/reports/daily/page.tsx",
-                                    lineNumber: 418,
-                                    columnNumber: 13
+                                    lineNumber: 417,
+                                    columnNumber: 11
                                 }, this)
-                            }, void 0, false, {
-                                fileName: "[project]/app/reports/daily/page.tsx",
-                                lineNumber: 417,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/app/reports/daily/page.tsx",
-                        lineNumber: 399,
-                        columnNumber: 9
-                    }, this)
-                ]
-            }, void 0, true, {
+                            ]
+                        }, void 0, true, {
+                            fileName: "[project]/app/reports/daily/page.tsx",
+                            lineNumber: 400,
+                            columnNumber: 9
+                        }, this)
+                    ]
+                }, void 0, true, {
+                    fileName: "[project]/app/reports/daily/page.tsx",
+                    lineNumber: 318,
+                    columnNumber: 8
+                }, this)
+            }, void 0, false, {
                 fileName: "[project]/app/reports/daily/page.tsx",
-                lineNumber: 318,
+                lineNumber: 315,
                 columnNumber: 7
             }, this),
             modalOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1154,7 +1155,7 @@ function DailyReportsPage() {
                         className: "jsx-91434ad331695927" + " " + "fixed inset-0 bg-gray-500 bg-opacity-75 dark:bg-gray-900/75 transition-opacity"
                     }, void 0, false, {
                         fileName: "[project]/app/reports/daily/page.tsx",
-                        lineNumber: 514,
+                        lineNumber: 507,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1173,7 +1174,7 @@ function DailyReportsPage() {
                                                 children: selectedCadet ? `Log Served Tours: ${selectedCadet.last_name}` : `Bulk Log Tours (${selectedTourCadets.size} Cadets)`
                                             }, void 0, false, {
                                                 fileName: "[project]/app/reports/daily/page.tsx",
-                                                lineNumber: 521,
+                                                lineNumber: 513,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1181,7 +1182,7 @@ function DailyReportsPage() {
                                                 children: selectedCadet ? `Current Balance: ${selectedCadet.has_star_tours ? '*' : selectedCadet.total_tours} tours` : `This will deduct tours from all selected cadets.`
                                             }, void 0, false, {
                                                 fileName: "[project]/app/reports/daily/page.tsx",
-                                                lineNumber: 529,
+                                                lineNumber: 520,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1195,7 +1196,7 @@ function DailyReportsPage() {
                                                                 children: "Tours Served"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/reports/daily/page.tsx",
-                                                                lineNumber: 538,
+                                                                lineNumber: 529,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1205,13 +1206,13 @@ function DailyReportsPage() {
                                                                 className: "jsx-91434ad331695927" + " " + "mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/reports/daily/page.tsx",
-                                                                lineNumber: 539,
+                                                                lineNumber: 530,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/reports/daily/page.tsx",
-                                                        lineNumber: 537,
+                                                        lineNumber: 528,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1222,7 +1223,7 @@ function DailyReportsPage() {
                                                                 children: "Notes"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/reports/daily/page.tsx",
-                                                                lineNumber: 542,
+                                                                lineNumber: 533,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1233,25 +1234,25 @@ function DailyReportsPage() {
                                                                 className: "jsx-91434ad331695927" + " " + "mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/reports/daily/page.tsx",
-                                                                lineNumber: 543,
+                                                                lineNumber: 534,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/reports/daily/page.tsx",
-                                                        lineNumber: 541,
+                                                        lineNumber: 532,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/reports/daily/page.tsx",
-                                                lineNumber: 536,
+                                                lineNumber: 527,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/reports/daily/page.tsx",
-                                        lineNumber: 518,
+                                        lineNumber: 511,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1265,7 +1266,7 @@ function DailyReportsPage() {
                                                 children: isLoggingTours ? 'Logging...' : 'Confirm Log'
                                             }, void 0, false, {
                                                 fileName: "[project]/app/reports/daily/page.tsx",
-                                                lineNumber: 548,
+                                                lineNumber: 539,
                                                 columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1275,35 +1276,35 @@ function DailyReportsPage() {
                                                 children: "Cancel"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/reports/daily/page.tsx",
-                                                lineNumber: 549,
+                                                lineNumber: 540,
                                                 columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/reports/daily/page.tsx",
-                                        lineNumber: 547,
+                                        lineNumber: 538,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/reports/daily/page.tsx",
-                                lineNumber: 517,
+                                lineNumber: 510,
                                 columnNumber: 15
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/reports/daily/page.tsx",
-                            lineNumber: 516,
+                            lineNumber: 509,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/reports/daily/page.tsx",
-                        lineNumber: 515,
+                        lineNumber: 508,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/reports/daily/page.tsx",
-                lineNumber: 513,
+                lineNumber: 506,
                 columnNumber: 9
             }, this)
         ]

@@ -159,7 +159,6 @@ __turbopack_context__.n(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$c
 "[project]/app/layout.tsx [app-rsc] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
-// in app/layout.tsx
 __turbopack_context__.s([
     "default",
     ()=>RootLayout,
@@ -172,8 +171,14 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 var __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/utils/supabase/server.ts [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$ThemeProvider$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/components/ThemeProvider.tsx [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$HeaderMenu$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/components/HeaderMenu.tsx [app-rsc] (ecmascript)");
+(()=>{
+    const e = new Error("Cannot find module '@/app/components/OnboardingTour'");
+    e.code = 'MODULE_NOT_FOUND';
+    throw e;
+})();
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$vercel$2f$speed$2d$insights$2f$dist$2f$next$2f$index$2e$mjs__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@vercel/speed-insights/dist/next/index.mjs [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$vercel$2f$analytics$2f$dist$2f$next$2f$index$2e$mjs__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/@vercel/analytics/dist/next/index.mjs [app-rsc] (ecmascript)");
+;
 ;
 ;
 ;
@@ -194,11 +199,12 @@ async function RootLayout({ children }) {
     let roleLevel = 0;
     let logoText = "CadetFlow";
     let logoColor = "text-indigo-600 hover:text-indigo-700";
-    let isSiteAdmin = false; // <-- This will be set by the new check
+    let isSiteAdmin = false;
+    let hasSeenTour = false;
     if (user) {
-        1;
         const { data: profile } = await supabase.from('profiles').select(`
         is_site_admin,
+        has_seen_tour,
         roles(can_manage_own_company_roster, can_manage_all_rosters, role_name, default_role_level),
         company:companies(company_name)
       `).eq('id', user.id).single();
@@ -208,9 +214,14 @@ async function RootLayout({ children }) {
             roleLevel = roles.default_role_level || 0;
             canManage = roles.can_manage_own_company_roster || roles.can_manage_all_rosters;
         }
-        // *** UPDATE THIS LOGIC ***
-        // We now check the profile flag directly, not the role flag.
+        // Pull profile-level flags
         isSiteAdmin = profile?.is_site_admin || false;
+        // If profile is missing or flag is null, default to false (show tour)
+        // If profile exists and has_seen_tour is true, then we don't show it.
+        // Note: If profile doesn't exist yet (onboarding), we might want to suppress until profile is created.
+        // However, the tour is safe to show.
+        hasSeenTour = profile?.has_seen_tour || false;
+        // Dynamic Logo Logic
         if (roleLevel >= 50 || roles?.role_name && roles.role_name.includes('TAC')) {
             logoText = "TACFlow";
             logoColor = "text-red-600 hover:text-red-700";
@@ -244,12 +255,12 @@ async function RootLayout({ children }) {
                                                 children: logoText
                                             }, void 0, false, {
                                                 fileName: "[project]/app/layout.tsx",
-                                                lineNumber: 74,
+                                                lineNumber: 82,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/layout.tsx",
-                                            lineNumber: 73,
+                                            lineNumber: 81,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -261,62 +272,75 @@ async function RootLayout({ children }) {
                                                 isSiteAdmin: isSiteAdmin
                                             }, void 0, false, {
                                                 fileName: "[project]/app/layout.tsx",
-                                                lineNumber: 83,
+                                                lineNumber: 91,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/layout.tsx",
-                                            lineNumber: 82,
+                                            lineNumber: 90,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/layout.tsx",
-                                    lineNumber: 71,
+                                    lineNumber: 79,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/layout.tsx",
-                                lineNumber: 70,
+                                lineNumber: 78,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/layout.tsx",
-                            lineNumber: 69,
+                            lineNumber: 77,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
-                            children: children
-                        }, void 0, false, {
+                            children: [
+                                user && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(OnboardingTour, {
+                                    show: !hasSeenTour,
+                                    canManage: canManage,
+                                    showDailyReports: roleLevel >= 50,
+                                    isSiteAdmin: isSiteAdmin,
+                                    roleLevel: roleLevel
+                                }, void 0, false, {
+                                    fileName: "[project]/app/layout.tsx",
+                                    lineNumber: 108,
+                                    columnNumber: 15
+                                }, this),
+                                children
+                            ]
+                        }, void 0, true, {
                             fileName: "[project]/app/layout.tsx",
-                            lineNumber: 94,
+                            lineNumber: 102,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/layout.tsx",
-                    lineNumber: 68,
+                    lineNumber: 76,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$vercel$2f$speed$2d$insights$2f$dist$2f$next$2f$index$2e$mjs__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["SpeedInsights"], {}, void 0, false, {
                     fileName: "[project]/app/layout.tsx",
-                    lineNumber: 98,
+                    lineNumber: 119,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$vercel$2f$analytics$2f$dist$2f$next$2f$index$2e$mjs__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Analytics"], {}, void 0, false, {
                     fileName: "[project]/app/layout.tsx",
-                    lineNumber: 99,
+                    lineNumber: 120,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/app/layout.tsx",
-            lineNumber: 67,
+            lineNumber: 75,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/layout.tsx",
-        lineNumber: 66,
+        lineNumber: 74,
         columnNumber: 5
     }, this);
 }

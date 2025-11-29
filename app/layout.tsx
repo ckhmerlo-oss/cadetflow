@@ -1,10 +1,10 @@
-// in app/layout.tsx
 import './globals.css'
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
 import { createClient } from '@/utils/supabase/server'
 import { ThemeProvider } from '@/app/components/ThemeProvider'
 import HeaderMenu from '@/app/components/HeaderMenu'
+import OnboardingTour from '@/app/components/tour/OnboardingTour'
 
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/next"
@@ -29,12 +29,15 @@ export default async function RootLayout({
   let roleLevel = 0
   let logoText = "CadetFlow";
   let logoColor = "text-indigo-600 hover:text-indigo-700";
-  let isSiteAdmin = false; // <-- This will be set by the new check
-  if (user) {1
+  let isSiteAdmin = false;
+  let hasSeenTour = false;
+
+  if (user) {
     const { data: profile } = await supabase
       .from('profiles')
       .select(`
         is_site_admin,
+        has_seen_tour,
         roles(can_manage_own_company_roster, can_manage_all_rosters, role_name, default_role_level),
         company:companies(company_name)
       `)
@@ -49,10 +52,10 @@ export default async function RootLayout({
       canManage = roles.can_manage_own_company_roster || roles.can_manage_all_rosters;
     }
     
-    // *** UPDATE THIS LOGIC ***
-    // We now check the profile flag directly, not the role flag.
     isSiteAdmin = profile?.is_site_admin || false;
+    hasSeenTour = profile?.has_seen_tour || false;
 
+    // Dynamic Logo Logic
     if (roleLevel >= 50 || (roles?.role_name && roles.role_name.includes('TAC'))) {
       logoText = "TACFlow";
       logoColor = "text-red-600 hover:text-red-700";
@@ -84,7 +87,8 @@ export default async function RootLayout({
                     isLoggedIn={!!user}
                     canManage={canManage}
                     showDailyReports={roleLevel >= 50}
-                    isSiteAdmin={isSiteAdmin} // <-- This prop now uses the new logic
+                    isSiteAdmin={isSiteAdmin}
+                    roleLevel={roleLevel} // <--- Added this prop
                   />
                 </div>
               </div>
@@ -92,6 +96,16 @@ export default async function RootLayout({
           </header>
 
           <main>
+            {user && (
+              <OnboardingTour 
+                show={!hasSeenTour} 
+                canManage={canManage}
+                showDailyReports={roleLevel >= 50}
+                isSiteAdmin={isSiteAdmin}
+                roleLevel={roleLevel}
+                userId={user.id}
+              />
+            )}
             {children}
           </main>
         </ThemeProvider>
