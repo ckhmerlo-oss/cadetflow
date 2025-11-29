@@ -141,13 +141,8 @@ export default function SubmitReport() {
 
   return (
     <div className="relative max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
-
-      <div id="tour-submit-form" className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-        <h2 className="text-lg font-medium text-gray-900 dark:text-white mb-4">
-          New Disciplinary Report
-        </h2>
       
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
+        <div id="tour-submit-form" className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md">
         
         <form onSubmit={handleSubmit} className="space-y-6">
           <h2 className="text-2xl font-semibold text-gray-900 dark:text-white">
@@ -221,6 +216,5 @@ export default function SubmitReport() {
         </form>
         </div>
       </div>
-    </div>
   )
 }

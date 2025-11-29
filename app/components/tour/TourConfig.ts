@@ -18,6 +18,7 @@ export type UserPermissions = {
 }
 
 export const TOUR_STEPS: TourStep[] = [
+  // ... (All previous steps remain the same) ...
   // --- LEVEL 10 SPECIFIC TOUR (Ledger Only) ---
   {
     id: 'ledger-intro',
@@ -67,11 +68,10 @@ export const TOUR_STEPS: TourStep[] = [
     shouldShow: (p) => p.roleLevel >= 15,
     disableScroll: true
   },
-  // UPDATED: Now points to dashboard button instead of nav
   {
     id: 'nav-submit',
     path: '/',
-    targetId: 'dashboard-submit-btn', // <--- Changed Target
+    targetId: 'dashboard-submit-btn', 
     title: 'Submit Report',
     content: 'Click here to file a new demerit report.',
     placement: 'bottom',
@@ -84,12 +84,11 @@ export const TOUR_STEPS: TourStep[] = [
     id: 'green-sheet',
     path: '/', 
     targetId: 'nav-daily',
-    title: 'Green & Tour Sheet', // <--- Renamed
+    title: 'Green & Tour Sheet',
     content: 'Access the Daily Disciplinary Report and Punishment Log here.',
     placement: 'bottom',
     shouldShow: (p) => p.showDailyReports
   },
-  // NEW STEP: Tabs
   {
     id: 'daily-tabs', 
     path: '/reports/daily',
@@ -99,7 +98,6 @@ export const TOUR_STEPS: TourStep[] = [
     placement: 'bottom',
     shouldShow: (p) => p.showDailyReports
   },
-  // NEW STEP: Logging Primer
   {
     id: 'tour-logging', 
     path: '/reports/daily',
@@ -121,7 +119,16 @@ export const TOUR_STEPS: TourStep[] = [
     shouldShow: (p) => p.canManage
   },
 
-  // --- FINISH (Everyone) ---
+  // --- FEEDBACK & FINISH (Everyone) ---
+  {
+    id: 'nav-feedback',
+    path: '/', // Back to dashboard
+    targetId: 'nav-feedback',
+    title: 'Send Feedback',
+    content: 'Have a suggestion or found a bug? Let us know directly using this button.',
+    placement: 'left',
+    shouldShow: (p) => p.roleLevel >= 15
+  },
   {
     id: 'finish-logout',
     path: '/', 
