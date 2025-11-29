@@ -67,10 +67,11 @@ export const TOUR_STEPS: TourStep[] = [
     shouldShow: (p) => p.roleLevel >= 15,
     disableScroll: true
   },
+  // UPDATED: Now points to dashboard button instead of nav
   {
     id: 'nav-submit',
     path: '/',
-    targetId: 'nav-submit',
+    targetId: 'dashboard-submit-btn', // <--- Changed Target
     title: 'Submit Report',
     content: 'Click here to file a new demerit report.',
     placement: 'bottom',
@@ -81,10 +82,30 @@ export const TOUR_STEPS: TourStep[] = [
   // --- STAFF (Level 50+) ---
   {
     id: 'green-sheet',
+    path: '/', 
+    targetId: 'nav-daily',
+    title: 'Green & Tour Sheet', // <--- Renamed
+    content: 'Access the Daily Disciplinary Report and Punishment Log here.',
+    placement: 'bottom',
+    shouldShow: (p) => p.showDailyReports
+  },
+  // NEW STEP: Tabs
+  {
+    id: 'daily-tabs', 
     path: '/reports/daily',
-    targetId: 'green-sheet-container',
-    title: 'Daily Reports',
-    content: 'View the unposted Green Sheet here. You can toggle to the Tour Sheet to log served punishments.',
+    targetId: 'daily-tabs',
+    title: 'Toggle Views',
+    content: 'Switch between the "Green Sheet" (Daily Summary) and the "Tour Sheet" (Ledger) using these tabs.',
+    placement: 'bottom',
+    shouldShow: (p) => p.showDailyReports
+  },
+  // NEW STEP: Logging Primer
+  {
+    id: 'tour-logging', 
+    path: '/reports/daily',
+    targetId: 'daily-content-area', 
+    title: 'Logging Tours',
+    content: 'TAC Officers: Switch to the Tour Sheet tab. Select cadets and use the "Bulk Log" button to record served tours.',
     placement: 'top',
     shouldShow: (p) => p.showDailyReports
   },
@@ -93,10 +114,10 @@ export const TOUR_STEPS: TourStep[] = [
   {
     id: 'roster-manage',
     path: '/manage',
-    targetId: 'roster-controls', // <--- CHANGED TARGET
+    targetId: 'roster-controls',
     title: 'Roster Management',
     content: 'Search for cadets, assign roles, or move them between companies using these filters.',
-    placement: 'bottom', // <--- CHANGED PLACEMENT
+    placement: 'bottom',
     shouldShow: (p) => p.canManage
   },
 

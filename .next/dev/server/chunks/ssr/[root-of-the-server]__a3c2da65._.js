@@ -164,7 +164,23 @@ function ThemeToggleButton() {
             fileName: "[project]/app/components/ThemeToggleButton.tsx",
             lineNumber: 28,
             columnNumber: 28
-        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SunIcon, {}, void 0, false, {
+        }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+            xmlns: "http://www.w3.org/2000/svg",
+            fill: "none",
+            viewBox: "0 0 24 24",
+            strokeWidth: "1.5",
+            stroke: "currentColor",
+            className: "size-6",
+            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                strokeLinecap: "round",
+                strokeLinejoin: "round",
+                d: "M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"
+            }, void 0, false, {
+                fileName: "[project]/app/components/ThemeToggleButton.tsx",
+                lineNumber: 29,
+                columnNumber: 9
+            }, this)
+        }, void 0, false, {
             fileName: "[project]/app/components/ThemeToggleButton.tsx",
             lineNumber: 28,
             columnNumber: 43
@@ -771,10 +787,11 @@ const TOUR_STEPS = [
         shouldShow: (p)=>p.roleLevel >= 15,
         disableScroll: true
     },
+    // UPDATED: Now points to dashboard button instead of nav
     {
         id: 'nav-submit',
         path: '/',
-        targetId: 'nav-submit',
+        targetId: 'dashboard-submit-btn',
         title: 'Submit Report',
         content: 'Click here to file a new demerit report.',
         placement: 'bottom',
@@ -784,10 +801,30 @@ const TOUR_STEPS = [
     // --- STAFF (Level 50+) ---
     {
         id: 'green-sheet',
+        path: '/',
+        targetId: 'nav-daily',
+        title: 'Green & Tour Sheet',
+        content: 'Access the Daily Disciplinary Report and Punishment Log here.',
+        placement: 'bottom',
+        shouldShow: (p)=>p.showDailyReports
+    },
+    // NEW STEP: Tabs
+    {
+        id: 'daily-tabs',
         path: '/reports/daily',
-        targetId: 'green-sheet-container',
-        title: 'Daily Reports',
-        content: 'View the unposted Green Sheet here. You can toggle to the Tour Sheet to log served punishments.',
+        targetId: 'daily-tabs',
+        title: 'Toggle Views',
+        content: 'Switch between the "Green Sheet" (Daily Summary) and the "Tour Sheet" (Ledger) using these tabs.',
+        placement: 'bottom',
+        shouldShow: (p)=>p.showDailyReports
+    },
+    // NEW STEP: Logging Primer
+    {
+        id: 'tour-logging',
+        path: '/reports/daily',
+        targetId: 'daily-content-area',
+        title: 'Logging Tours',
+        content: 'TAC Officers: Switch to the Tour Sheet tab. Select cadets and use the "Bulk Log" button to record served tours.',
         placement: 'top',
         shouldShow: (p)=>p.showDailyReports
     },
@@ -846,7 +883,6 @@ function OnboardingTour(permissions) {
     const [isOpen, setIsOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [currentStepIndex, setCurrentStepIndex] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(0);
     const [rect, setRect] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
-    const [isCompleting, setIsCompleting] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     // --- NEW: Mobile Detection State ---
     const [isMobile, setIsMobile] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
@@ -878,12 +914,9 @@ function OnboardingTour(permissions) {
     // --- NEW: Handle Mobile Resize ---
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         const checkMobile = ()=>{
-            // Consider mobile if width < 768px (standard md breakpoint)
             setIsMobile(window.innerWidth < 768);
         };
-        // Check initially
         checkMobile();
-        // Add listener
         window.addEventListener('resize', checkMobile);
         return ()=>window.removeEventListener('resize', checkMobile);
     }, []);
@@ -900,7 +933,7 @@ function OnboardingTour(permissions) {
                 const r = element.getBoundingClientRect();
                 if (r.width > 0 && r.height > 0) {
                     setRect(r);
-                    // Only auto-scroll if NOT disabled AND NOT on mobile (mobile users usually prefer manual scroll context)
+                    // Only auto-scroll if NOT disabled AND NOT on mobile
                     if (!currentStep.disableScroll && !isMobile) {
                         element.scrollIntoView({
                             behavior: 'smooth',
@@ -946,16 +979,21 @@ function OnboardingTour(permissions) {
         }
     };
     const handleFinish = async ()=>{
-        setIsCompleting(true);
-        await supabase.rpc('complete_onboarding_tour');
+        // 1. Optimistic Close: Remove UI immediately so mobile users don't feel stuck
         setIsOpen(false);
         setRect(null);
-        router.refresh();
+        // 2. Persist in background
+        try {
+            await supabase.rpc('complete_onboarding_tour');
+            router.refresh();
+        } catch (err) {
+            console.error("Failed to save tour completion", err);
+        }
     };
     if (!isOpen || !currentStep) return null;
-    // --- UPDATED: Helper for popover styles ---
+    // --- Helper for popover styles ---
     const getPopoverStyle = ()=>{
-        // 1. MOBILE OVERRIDE: Force Center
+        // MOBILE OVERRIDE: Force Center
         if (isMobile) {
             return {
                 top: '50%',
@@ -964,10 +1002,10 @@ function OnboardingTour(permissions) {
                 position: 'fixed',
                 width: '90vw',
                 maxWidth: '320px',
-                zIndex: 10002 // Ensure above backdrop
+                zIndex: 10002
             };
         }
-        // 2. DESKTOP LOGIC (Existing)
+        // DESKTOP LOGIC
         if (!rect) return {
             top: '50%',
             left: '50%',
@@ -1038,7 +1076,7 @@ function OnboardingTour(permissions) {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/tour/OnboardingTour.tsx",
-                                lineNumber: 167,
+                                lineNumber: 166,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1047,13 +1085,13 @@ function OnboardingTour(permissions) {
                                 children: "Skip"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/tour/OnboardingTour.tsx",
-                                lineNumber: 170,
+                                lineNumber: 169,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/tour/OnboardingTour.tsx",
-                        lineNumber: 166,
+                        lineNumber: 165,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1064,7 +1102,7 @@ function OnboardingTour(permissions) {
                                 children: currentStep.title
                             }, void 0, false, {
                                 fileName: "[project]/app/components/tour/OnboardingTour.tsx",
-                                lineNumber: 176,
+                                lineNumber: 175,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1072,13 +1110,13 @@ function OnboardingTour(permissions) {
                                 children: currentStep.content
                             }, void 0, false, {
                                 fileName: "[project]/app/components/tour/OnboardingTour.tsx",
-                                lineNumber: 179,
+                                lineNumber: 178,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/tour/OnboardingTour.tsx",
-                        lineNumber: 175,
+                        lineNumber: 174,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1091,29 +1129,28 @@ function OnboardingTour(permissions) {
                                 children: "Back"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/tour/OnboardingTour.tsx",
-                                lineNumber: 185,
+                                lineNumber: 184,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 onClick: handleNext,
-                                disabled: isCompleting,
                                 className: "bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-4 py-2 rounded-lg shadow-sm transition-colors",
                                 children: currentStepIndex === activeSteps.length - 1 ? 'Finish' : 'Next'
                             }, void 0, false, {
                                 fileName: "[project]/app/components/tour/OnboardingTour.tsx",
-                                lineNumber: 193,
+                                lineNumber: 192,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/tour/OnboardingTour.tsx",
-                        lineNumber: 184,
+                        lineNumber: 183,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/tour/OnboardingTour.tsx",
-                lineNumber: 162,
+                lineNumber: 161,
                 columnNumber: 7
             }, this)
         ]

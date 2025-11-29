@@ -27,7 +27,6 @@ type TourSheetCadet = {
   tours_logged_today: boolean;
 }
 
-// Sorting Types
 type SortKey = 'subject' | 'company' | 'offense' | 'cat' | 'demerits' | 'submitter' | 'date' | 'total_tours'
 type SortDirection = 'asc' | 'desc'
 
@@ -42,24 +41,20 @@ export default function DailyReportsPage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  // Permissions State
   const [userRole, setUserRole] = useState<string>('')
   
   const [isPosting, setIsPosting] = useState(false)
   const [isLoggingTours, setIsLoggingTours] = useState(false)
   
-  // Modal State
   const [modalOpen, setModalOpen] = useState(false)
   const [selectedCadet, setSelectedCadet] = useState<TourSheetCadet | null>(null) 
   const [selectedTourCadets, setSelectedTourCadets] = useState<Set<string>>(new Set()) 
   const [toursToLog, setToursToLog] = useState(3)
   const [logComment, setLogComment] = useState('')
 
-  // --- Filtering & Sorting State ---
   const [searchTerm, setSearchTerm] = useState('')
   const [sortConfig, setSortConfig] = useState<{ key: SortKey; direction: SortDirection }>({ key: 'date', direction: 'desc' })
 
-  // --- Set Document Title for Printing ---
   useEffect(() => {
     const date = new Date();
     const formattedDate = date.toLocaleDateString('en-US', { day: '2-digit', month: '2-digit', year: '2-digit' });
@@ -107,7 +102,6 @@ export default function DailyReportsPage() {
     getReports()
   }, [supabase])
 
-  // --- Handlers ---
   const handleSort = (key: SortKey) => {
     setSortConfig(current => ({
       key,
@@ -115,7 +109,6 @@ export default function DailyReportsPage() {
     }))
   }
 
-  // Bulk Select Handlers
   const handleSelectTourRow = (id: string) => {
     const newSet = new Set(selectedTourCadets)
     if (newSet.has(id)) newSet.delete(id); else newSet.add(id);
@@ -123,9 +116,7 @@ export default function DailyReportsPage() {
   }
 
   const handleSelectAllTourRows = () => {
-    // Only select rows that have NOT been logged today
     const eligibleCadets = processedTourSheet.filter(c => !c.tours_logged_today).map(c => c.cadet_id);
-    
     if (selectedTourCadets.size === eligibleCadets.length) {
       setSelectedTourCadets(new Set())
     } else {
@@ -133,23 +124,19 @@ export default function DailyReportsPage() {
     }
   }
 
-  // Sort Indicator Component
   const SortIcon = ({ column }: { column: SortKey }) => {
     if (sortConfig.key !== column) return <span className="text-gray-300 ml-1 print:hidden">⇅</span>
     return <span className="text-indigo-600 dark:text-indigo-400 ml-1 print:hidden">{sortConfig.direction === 'asc' ? '↑' : '↓'}</span>
   }
 
-  // --- Processed Lists (Filter & Sort) ---
   const processedGreenSheet = useMemo(() => {
     const lowerSearch = searchTerm.toLowerCase()
-    
     let data = greenSheet.filter(item => 
       !lowerSearch || 
       item.subject_name.toLowerCase().includes(lowerSearch) ||
       item.offense_name.toLowerCase().includes(lowerSearch) ||
       (item.company_name && item.company_name.toLowerCase().includes(lowerSearch))
     )
-
     data.sort((a, b) => {
       let valA: any = '', valB: any = ''
       switch (sortConfig.key) {
@@ -171,14 +158,12 @@ export default function DailyReportsPage() {
 
   const processedTourSheet = useMemo(() => {
     const lowerSearch = searchTerm.toLowerCase()
-    
     let data = tourSheet.filter(item => 
       !lowerSearch || 
       item.last_name.toLowerCase().includes(lowerSearch) ||
       item.first_name.toLowerCase().includes(lowerSearch) ||
       item.company_name.toLowerCase().includes(lowerSearch)
     )
-
     data.sort((a, b) => {
       let valA: any = '', valB: any = ''
       switch (sortConfig.key) {
@@ -194,7 +179,6 @@ export default function DailyReportsPage() {
     return data
   }, [tourSheet, searchTerm, sortConfig])
 
-  // --- Action Handlers ---
   async function handleMarkAsPosted() {
     if (greenSheet.length === 0 || !window.confirm("Mark all currently unposted reports as posted?")) return
     setIsPosting(true)
@@ -206,69 +190,43 @@ export default function DailyReportsPage() {
 
   async function handleLogTours() {
     if (toursToLog <= 0) return;
-
     if (selectedCadet && !selectedTourCadets.size) {
         if (toursToLog > selectedCadet.total_tours && !selectedCadet.has_star_tours) {
             alert(`Cannot log ${toursToLog} tours. Only ${selectedCadet.total_tours} remaining.`); 
             return;
         }
     }
-
     setIsLoggingTours(true)
-    
     let successCount = 0;
     let errorMsg = '';
-
     const targets = selectedCadet ? [selectedCadet.cadet_id] : Array.from(selectedTourCadets);
-
     const promises = targets.map(cadetId => 
-        supabase.rpc('log_served_tours', { 
-            p_cadet_id: cadetId, 
-            p_tours_served: toursToLog, 
-            p_comment: logComment 
-        })
+        supabase.rpc('log_served_tours', { p_cadet_id: cadetId, p_tours_served: toursToLog, p_comment: logComment })
     );
-
     const results = await Promise.all(promises);
-
     results.forEach(res => {
-        if (res.error) errorMsg = res.error.message;
-        else successCount++;
+        if (res.error) errorMsg = res.error.message; else successCount++;
     });
-
     if (errorMsg && successCount === 0) {
         alert(`Failed: ${errorMsg}`);
     } else {
         const affectedIds = new Set(targets);
         setTourSheet(prev => prev.map(c => 
-            affectedIds.has(c.cadet_id) 
-              ? { ...c, total_tours: c.total_tours - toursToLog, tours_logged_today: true } 
-              : c
+            affectedIds.has(c.cadet_id) ? { ...c, total_tours: c.total_tours - toursToLog, tours_logged_today: true } : c
           ).filter(c => c.total_tours > 0 || c.has_star_tours)
         );
-        
         closeModal();
         setSelectedTourCadets(new Set());
     }
-    
     setIsLoggingTours(false)
   }
 
   function openTourModal(cadet?: TourSheetCadet) { 
-      if (cadet) {
-          setSelectedCadet(cadet);
-      } else {
-          setSelectedCadet(null);
-      }
-      setToursToLog(3); 
-      setLogComment(''); 
-      setModalOpen(true); 
+      if (cadet) { setSelectedCadet(cadet); } else { setSelectedCadet(null); }
+      setToursToLog(3); setLogComment(''); setModalOpen(true); 
   }
-  
   function closeModal() { setModalOpen(false); setSelectedCadet(null); }
-  
   const formatDate = (d: string) => new Date(new Date(d).getTime() + new Date(d).getTimezoneOffset() * 60000).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit' });
-
   const canPost = ['Commandant', 'Deputy Commandant', 'Admin'].includes(userRole);
   const canLog = userRole.includes('TAC') || canPost;
 
@@ -293,29 +251,20 @@ export default function DailyReportsPage() {
           .printable-table { width: 100%; border-collapse: collapse; page-break-inside: auto; }
           .printable-table thead { display: table-header-group; }
           .printable-table tbody tr { page-break-inside: avoid; }
-          .printable-table th, .printable-table td {
-            border: 1px solid #000;
-            padding: 0.2rem 0.25rem;
-            font-size: 8pt;
-            text-align: left;
-            vertical-align: top;
-            word-wrap: break-word;
-          }
+          .printable-table th, .printable-table td { border: 1px solid #000; padding: 0.2rem 0.25rem; font-size: 8pt; text-align: left; vertical-align: top; word-wrap: break-word; }
           .printable-table th { background-color: #eee; }
+          /* Reset responsive hiding for print */
+          .printable-table th, .printable-table td { display: table-cell !important; }
+          
           .col-cadet { width: 18%; } .col-co { width: 5%; } .col-offense { width: 25%; } .col-cat { width: 4%; } .col-demerits { width: 6%; } .col-submitter { width: 15%; } .col-notes { width: 22%; } .col-date { width: 5%; }
           .col-tour-cadet { width: 30%; } .col-tour-co { width: 15%; } .col-tour-total { width: 10%; } .col-tour-served { width: 15%; } .col-tour-notes { width: 30%; }
           .fill-in-box { height: 2.5em; }
-          
-          /* Hide checkboxes in print */
           .col-check, .cell-check { display: none; }
         }
       `}</style>
       
-      {/* WRAPPER ID for Tour Targeting */}
       <div id="tour-daily-table" className="mt-8 flex flex-col">
-        {/* Removed stray div here that caused spacing issue */}
-        
-       <div className="max-w-7xl mx-auto p-2 sm:p-4 lg:p-6 print-container">
+       <div className="w-full max-w-7xl mx-auto p-2 sm:p-4 lg:p-6 print-container">
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 no-print">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Reports</h1>
@@ -335,169 +284,182 @@ export default function DailyReportsPage() {
           </div>
         </div>
 
-        <div className="mt-6 border-b border-gray-200 dark:border-gray-700 no-print">
+        <div id="daily-tabs" className="mt-6 border-b border-gray-200 dark:border-gray-700 no-print">
           <nav className="-mb-px flex space-x-6" aria-label="Tabs">
             <button onClick={() => setActiveTab('green')} className={`border-b-2 px-3 py-2 text-sm font-medium ${activeTab === 'green' ? 'border-indigo-600 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`}>Green Sheet</button>
             <button onClick={() => setActiveTab('tour')} className={`border-b-2 px-3 py-2 text-sm font-medium ${activeTab === 'tour' ? 'border-indigo-600 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`}>Tour Sheet</button>
           </nav>
         </div>
 
-        {/* --- Green Sheet Section --- */}
-        {/* ADDED ID */}
-        <section id="green-sheet-container" className={`mt-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow printable-section ${activeTab === 'green' ? 'print-active' : 'hidden no-print'}`}>
-          <div className="flex justify-between items-center no-print mb-4">
-            <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">
-                Unposted Green Sheet ({processedGreenSheet.length})
-                {searchTerm && <span className="text-sm font-normal text-gray-500 ml-2">(Filtered)</span>}
-            </h2>
-            {canPost && (
-              <button onClick={handleMarkAsPosted} disabled={isPosting || greenSheet.length === 0} className="py-2 px-3 rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 disabled:bg-gray-400">
-                {isPosting ? 'Posting...' : `Mark All ${greenSheet.length} as Posted`}
-              </button>
-            )}
-          </div>
-          <h2 className="hidden print:block">Green Sheet - {new Date().toLocaleDateString()}</h2>
-          
-          <div className="mt-4 flow-root">
-            <div className="-mx-2 -my-2 overflow-x-auto sm:-mx-4 lg:-mx-6"><div className="inline-block min-w-full py-2 align-middle sm:px-4 lg:px-6">
-                <table className="min-w-full printable-table border-collapse border border-gray-300 dark:border-gray-700">
-                  <thead className="bg-gray-50 dark:bg-gray-700">
-                    <tr>
-                      <th onClick={() => handleSort('subject')} className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-cadet cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600">Cadet <SortIcon column="subject"/></th>
-                      <th onClick={() => handleSort('company')} className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-co cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600">CO <SortIcon column="company"/></th>
-                      <th onClick={() => handleSort('offense')} className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-offense cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600">Offense <SortIcon column="offense"/></th>
-                      <th onClick={() => handleSort('cat')} className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-cat cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600">Cat <SortIcon column="cat"/></th>
-                      <th onClick={() => handleSort('demerits')} className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-demerits cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600">Dem <SortIcon column="demerits"/></th>
-                      <th onClick={() => handleSort('submitter')} className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-submitter cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600">By <SortIcon column="submitter"/></th>
-                      <th className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-notes">Notes</th>
-                      <th onClick={() => handleSort('date')} className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-date cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600">Date <SortIcon column="date"/></th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white dark:bg-gray-800">
-                    {processedGreenSheet.length > 0 ? processedGreenSheet.map(r => (
-                      <tr 
-                        key={r.report_id}
-                        onClick={() => router.push(`/report/${r.report_id}`)}
-                        className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
-                      >
-                        <td className="p-2 text-sm font-medium text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600">{r.subject_name}</td>
-                        <td className="p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">{r.company_name || '-'}</td>
-                        <td className="p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">{r.offense_name}</td>
-                        <td className="p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">{r.policy_category}</td>
-                        <td className="p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">{r.demerits}</td>
-                        <td className="p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">{r.submitter_name}</td>
-                        <td className="p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600 max-w-xs break-words">{r.notes}</td>
-                        <td className="p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">{formatDate(r.date_of_offense)}</td>
-                      </tr>
-                    )) : <tr className="no-print"><td colSpan={8} className="p-4 text-center text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">{searchTerm ? 'No reports match filter.' : 'No unposted demerits.'}</td></tr>}
-                  </tbody>
-                </table>
-            </div></div>
-          </div>
-        </section>
+        <div id="daily-content-area">
+            {/* --- Green Sheet Section --- */}
+            <section id="green-sheet-container" className={`mt-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow printable-section ${activeTab === 'green' ? 'print-active' : 'hidden no-print'}`}>
+            <div className="flex justify-between items-center no-print mb-4">
+                <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">
+                    Unposted Green Sheet ({processedGreenSheet.length})
+                    {searchTerm && <span className="text-sm font-normal text-gray-500 ml-2">(Filtered)</span>}
+                </h2>
+                {canPost && (
+                <button onClick={handleMarkAsPosted} disabled={isPosting || greenSheet.length === 0} className="py-2 px-3 rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 disabled:bg-gray-400">
+                    {isPosting ? 'Posting...' : `Mark All ${greenSheet.length} as Posted`}
+                </button>
+                )}
+            </div>
+            <h2 className="hidden print:block">Green Sheet - {new Date().toLocaleDateString()}</h2>
+            
+            <div className="mt-4 flow-root">
+                <div className="-mx-2 -my-2 overflow-x-auto sm:-mx-4 lg:-mx-6"><div className="inline-block min-w-full w-full py-2 align-middle sm:px-4 lg:px-6">
+                    <table className="min-w-full w-full printable-table border-collapse border border-gray-300 dark:border-gray-700">
+                    <thead className="bg-gray-50 dark:bg-gray-700">
+                        <tr>
+                        {/* Always Visible: Cadet, Offense, Demerits */}
+                        <th onClick={() => handleSort('subject')} className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-cadet cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600">Cadet <SortIcon column="subject"/></th>
+                        
+                        {/* Hidden on Mobile: CO, Cat, Submitter, Notes, Date */}
+                        <th onClick={() => handleSort('company')} className="hidden md:table-cell p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-co cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600">CO <SortIcon column="company"/></th>
+                        
+                        <th onClick={() => handleSort('offense')} className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-offense cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600">Offense <SortIcon column="offense"/></th>
+                        
+                        <th onClick={() => handleSort('cat')} className="hidden lg:table-cell p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-cat cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600">Cat <SortIcon column="cat"/></th>
+                        
+                        <th onClick={() => handleSort('demerits')} className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-demerits cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600">Dem <SortIcon column="demerits"/></th>
+                        
+                        <th onClick={() => handleSort('submitter')} className="hidden md:table-cell p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-submitter cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600">By <SortIcon column="submitter"/></th>
+                        
+                        <th className="hidden lg:table-cell p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-notes">Notes</th>
+                        
+                        <th onClick={() => handleSort('date')} className="hidden sm:table-cell p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-date cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600">Date <SortIcon column="date"/></th>
+                        </tr>
+                    </thead>
+                    <tbody className="bg-white dark:bg-gray-800">
+                        {processedGreenSheet.length > 0 ? processedGreenSheet.map(r => (
+                        <tr 
+                            key={r.report_id}
+                            onClick={() => router.push(`/report/${r.report_id}`)}
+                            className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
+                        >
+                            <td className="p-2 text-sm font-medium text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600">{r.subject_name}</td>
+                            <td className="hidden md:table-cell p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">{r.company_name || '-'}</td>
+                            <td className="p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">{r.offense_name}</td>
+                            <td className="hidden lg:table-cell p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">{r.policy_category}</td>
+                            <td className="p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">{r.demerits}</td>
+                            <td className="hidden md:table-cell p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">{r.submitter_name}</td>
+                            <td className="hidden lg:table-cell p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600 max-w-xs break-words">{r.notes}</td>
+                            <td className="hidden sm:table-cell p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">{formatDate(r.date_of_offense)}</td>
+                        </tr>
+                        )) : <tr className="no-print"><td colSpan={8} className="p-4 text-center text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">{searchTerm ? 'No reports match filter.' : 'No unposted demerits.'}</td></tr>}
+                    </tbody>
+                    </table>
+                </div></div>
+            </div>
+            </section>
 
-        {/* --- Tour Sheet Section --- */}
-        <section className={`mt-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow printable-section ${activeTab === 'tour' ? 'print-active' : 'hidden no-print'}`}>
-          <div className="no-print mb-4 flex justify-between items-center">
-             <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">
-                Tour Sheet ({processedTourSheet.length})
-                {searchTerm && <span className="text-sm font-normal text-gray-500 ml-2">(Filtered)</span>}
-             </h2>
-             
-             {canLog && selectedTourCadets.size > 0 && (
-                 <button 
-                    onClick={() => openTourModal()}
-                    className="py-2 px-4 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 text-sm font-medium"
-                 >
-                    Bulk Log for {selectedTourCadets.size} Cadets
-                 </button>
-             )}
-          </div>
-          <h2 className="hidden print:block">Tour Sheet - {new Date().toLocaleDateString()}</h2>
-          <div className="mt-4 flow-root">
-            <div className="-mx-2 -my-2 overflow-x-auto sm:-mx-4 lg:-mx-6"><div className="inline-block min-w-full py-2 align-middle sm:px-4 lg:px-6">
-                <table className="min-w-full printable-table border-collapse border border-gray-300 dark:border-gray-700">
-                  <thead className="bg-gray-50 dark:bg-gray-700">
-                    <tr>
-                      {canLog && (
-                          <th className="p-2 text-center w-10 border border-gray-300 dark:border-gray-600 col-check no-print">
-                              <input 
-                                type="checkbox" 
-                                className="rounded border-gray-300 dark:border-gray-600 dark:bg-gray-700"
-                                onChange={handleSelectAllTourRows}
-                                checked={
-                                    processedTourSheet.filter(c => !c.tours_logged_today).length > 0 && 
-                                    selectedTourCadets.size === processedTourSheet.filter(c => !c.tours_logged_today).length
-                                }
-                              />
-                          </th>
-                      )}
-                      <th onClick={() => handleSort('subject')} className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-tour-cadet cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600">Cadet <SortIcon column="subject"/></th>
-                      <th onClick={() => handleSort('company')} className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-tour-co cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600">Company <SortIcon column="company"/></th>
-                      <th onClick={() => handleSort('total_tours')} className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-tour-total cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600">Total <SortIcon column="total_tours"/></th>
-                      <th className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white print:table-cell hidden border border-gray-300 dark:border-gray-600 col-tour-served">Served</th>
-                      <th className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white print:table-cell hidden border border-gray-300 dark:border-gray-600 col-tour-notes">Notes</th>
-                      <th className="relative p-2 no-print border-l border-gray-300 dark:border-gray-600"><span className="sr-only">Actions</span></th>
-                    </tr>
-                  </thead>
-                  <tbody className="bg-white dark:bg-gray-800">
-                    {processedTourSheet.length > 0 ? processedTourSheet.map(c => (
-                      <tr 
-                        key={c.cadet_id} 
-                        className={`
-                            ${c.has_star_tours ? 'bg-red-50 dark:bg-red-900/20' : ''} 
-                            ${c.tours_logged_today ? 'opacity-50 bg-gray-50 dark:bg-gray-900/50' : ''}
-                        `}
-                      >
+            {/* --- Tour Sheet Section --- */}
+            <section className={`mt-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow printable-section ${activeTab === 'tour' ? 'print-active' : 'hidden no-print'}`}>
+            <div className="no-print mb-4 flex justify-between items-center">
+                <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">
+                    Tour Sheet ({processedTourSheet.length})
+                    {searchTerm && <span className="text-sm font-normal text-gray-500 ml-2">(Filtered)</span>}
+                </h2>
+                
+                {canLog && selectedTourCadets.size > 0 && (
+                    <button 
+                        id="tour-bulk-log-btn"
+                        onClick={() => openTourModal()}
+                        className="py-2 px-4 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 text-sm font-medium"
+                    >
+                        Bulk Log for {selectedTourCadets.size} Cadets
+                    </button>
+                )}
+            </div>
+            <h2 className="hidden print:block">Tour Sheet - {new Date().toLocaleDateString()}</h2>
+            <div className="mt-4 flow-root">
+                <div className="-mx-2 -my-2 overflow-x-auto sm:-mx-4 lg:-mx-6"><div className="inline-block min-w-full w-full py-2 align-middle sm:px-4 lg:px-6">
+                    <table className="min-w-full w-full printable-table border-collapse border border-gray-300 dark:border-gray-700">
+                    <thead className="bg-gray-50 dark:bg-gray-700">
+                        <tr>
                         {canLog && (
-                            <td className="p-2 text-center border border-gray-300 dark:border-gray-600 cell-check no-print">
+                            <th className="p-2 text-center w-10 border border-gray-300 dark:border-gray-600 col-check no-print">
                                 <input 
                                     type="checkbox" 
-                                    className="rounded border-gray-300 dark:border-gray-600 dark:bg-gray-700 disabled:opacity-50"
-                                    checked={selectedTourCadets.has(c.cadet_id)}
-                                    onChange={() => handleSelectTourRow(c.cadet_id)}
-                                    disabled={c.tours_logged_today}
+                                    className="rounded border-gray-300 dark:border-gray-600 dark:bg-gray-700"
+                                    onChange={handleSelectAllTourRows}
+                                    checked={
+                                        processedTourSheet.filter(c => !c.tours_logged_today).length > 0 && 
+                                        selectedTourCadets.size === processedTourSheet.filter(c => !c.tours_logged_today).length
+                                    }
                                 />
-                            </td>
+                            </th>
                         )}
-                        <td className="p-2 text-sm font-medium text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600">
-                          <div className="flex items-center gap-2">
-                            {c.has_star_tours && (
-                              <span className="font-bold text-lg leading-none text-red-600 dark:text-red-400" aria-hidden="true" title="Star Tours Assigned">
-                                &lowast;
-                              </span>
+                        {/* Hide Company on Mobile */}
+                        <th onClick={() => handleSort('subject')} className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-tour-cadet cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 w-1/3">Cadet <SortIcon column="subject"/></th>
+                        <th onClick={() => handleSort('company')} className="hidden md:table-cell p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-tour-co cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 w-1/4">Company <SortIcon column="company"/></th>
+                        <th onClick={() => handleSort('total_tours')} className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600 col-tour-total cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 w-1/6">Total <SortIcon column="total_tours"/></th>
+                        <th className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white print:table-cell hidden border border-gray-300 dark:border-gray-600 col-tour-served">Served</th>
+                        <th className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white print:table-cell hidden border border-gray-300 dark:border-gray-600 col-tour-notes">Notes</th>
+                        <th className="relative p-2 no-print border-l border-gray-300 dark:border-gray-600 w-auto"><span className="sr-only">Actions</span></th>
+                        </tr>
+                    </thead>
+                    <tbody className="bg-white dark:bg-gray-800">
+                        {processedTourSheet.length > 0 ? processedTourSheet.map(c => (
+                        <tr 
+                            key={c.cadet_id} 
+                            className={`
+                                ${c.has_star_tours ? 'bg-red-50 dark:bg-red-900/20' : ''} 
+                                ${c.tours_logged_today ? 'opacity-50 bg-gray-50 dark:bg-gray-900/50' : ''}
+                            `}
+                        >
+                            {canLog && (
+                                <td className="p-2 text-center border border-gray-300 dark:border-gray-600 cell-check no-print">
+                                    <input 
+                                        type="checkbox" 
+                                        className="rounded border-gray-300 dark:border-gray-600 dark:bg-gray-700 disabled:opacity-50"
+                                        checked={selectedTourCadets.has(c.cadet_id)}
+                                        onChange={() => handleSelectTourRow(c.cadet_id)}
+                                        disabled={c.tours_logged_today}
+                                    />
+                                </td>
                             )}
-                            {c.tours_logged_today && (
-                                <span className="text-green-600 dark:text-green-400 font-bold text-xs border border-green-600 dark:border-green-400 px-1 rounded no-print">
-                                    ✓
+                            <td className="p-2 text-sm font-medium text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600">
+                            <div className="flex items-center gap-2">
+                                {c.has_star_tours && (
+                                <span className="font-bold text-lg leading-none text-red-600 dark:text-red-400" aria-hidden="true" title="Star Tours Assigned">
+                                    &lowast;
                                 </span>
+                                )}
+                                {c.tours_logged_today && (
+                                    <span className="text-green-600 dark:text-green-400 font-bold text-xs border border-green-600 dark:border-green-400 px-1 rounded no-print">
+                                        ✓
+                                    </span>
+                                )}
+                                <span>{c.last_name}, {c.first_name}</span>
+                            </div>
+                            </td>
+                            {/* Hide Company Cell */}
+                            <td className="hidden md:table-cell p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">{c.company_name || '-'}</td>
+                            <td className="p-2 text-sm font-bold text-red-600 dark:text-red-400 border border-gray-300 dark:border-gray-600">
+                            {c.has_star_tours ? '*' : c.total_tours}
+                            </td>
+                            <td className="p-2 print:table-cell hidden fill-in-box border border-gray-300 dark:border-gray-600"></td>
+                            <td className="p-2 print:table-cell hidden fill-in-box border border-gray-300 dark:border-gray-600"></td>
+                            <td className="relative p-2 text-right text-sm font-medium no-print border border-gray-300 dark:border-gray-600">
+                            {canLog && (
+                                <button 
+                                    onClick={() => openTourModal(c)} 
+                                    className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300 disabled:text-gray-400"
+                                >
+                                    Log
+                                </button>
                             )}
-                            <span>{c.last_name}, {c.first_name}</span>
-                          </div>
-                        </td>
-                        <td className="p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">{c.company_name || '-'}</td>
-                        <td className="p-2 text-sm font-bold text-red-600 dark:text-red-400 border border-gray-300 dark:border-gray-600">
-                          {c.has_star_tours ? '*' : c.total_tours}
-                        </td>
-                        <td className="p-2 print:table-cell hidden fill-in-box border border-gray-300 dark:border-gray-600"></td>
-                        <td className="p-2 print:table-cell hidden fill-in-box border border-gray-300 dark:border-gray-600"></td>
-                        <td className="relative p-2 text-right text-sm font-medium no-print border border-gray-300 dark:border-gray-600">
-                          {canLog && (
-                            <button 
-                                onClick={() => openTourModal(c)} 
-                                className="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300 disabled:text-gray-400"
-                            >
-                                Log
-                            </button>
-                          )}
-                        </td>
-                      </tr>
-                    )) : <tr className="no-print"><td colSpan={7} className="p-4 text-center text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">{searchTerm ? 'No cadets match filter.' : 'No cadets on ED.'}</td></tr>}
-                  </tbody>
-                </table>
-            </div></div>
-          </div>
-        </section>
+                            </td>
+                        </tr>
+                        )) : <tr className="no-print"><td colSpan={7} className="p-4 text-center text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">{searchTerm ? 'No cadets match filter.' : 'No cadets on ED.'}</td></tr>}
+                    </tbody>
+                    </table>
+                </div></div>
+            </div>
+            </section>
+        </div>
       </div>
       </div>
 

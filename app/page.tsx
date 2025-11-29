@@ -90,7 +90,6 @@ export default async function Dashboard() {
       return false;
   }) || []
 
-  // ... existing code ...
   const mySubmittedReports = allInvolvedReports.filter(report => report.submitted_by === user.id) || []
 
   return (
@@ -105,7 +104,11 @@ export default async function Dashboard() {
         {/* --- HEADER BUTTONS --- */}
         <div className="flex gap-3">
           {(role_level >= 15) && (
-            <Link href="/submit" className="py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-colors">
+            <Link 
+              href="/submit" 
+              id="dashboard-submit-btn" // <--- ADDED ID
+              className="py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-colors"
+            >
               Submit New Report
             </Link>
           )}
@@ -125,7 +128,6 @@ export default async function Dashboard() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
         
-        {/* 1. ACTION ITEMS (Single Instance, with Tour ID) */}
         {(role_level >= 15) && (
             <div id="dashboard-action-items">
                 <DashboardSection 
@@ -138,7 +140,6 @@ export default async function Dashboard() {
             </div>
         )}
         
-        {/* 2. PENDING (Staff/Faculty) */}
         {isFaculty && canManageAll && (
             <DashboardSection 
                 title="All In-Progress Reports" 
@@ -149,7 +150,6 @@ export default async function Dashboard() {
             />
         )}
 
-        {/* 3. SUBMITTED (Cadet Leaders/Staff) */}
         {(role_level >= 15) && (
             <DashboardSection 
                 title="Submitted Reports" 
@@ -160,7 +160,6 @@ export default async function Dashboard() {
             />
         )}
 
-        {/* 4. COMPLETED ARCHIVE (Staff) */}
         {isFaculty && (
             <DashboardSection 
                 title="Completed Archive" 
@@ -175,8 +174,7 @@ export default async function Dashboard() {
   )
 }
 
-// --- Helper Components ---
-
+// ... (Helper Components remain unchanged) ...
 function CadetStatsHeader({ stats }: { stats: CadetStats }) {
   return (
     <>

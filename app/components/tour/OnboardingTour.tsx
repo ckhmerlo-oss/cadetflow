@@ -9,7 +9,6 @@ export default function OnboardingTour(permissions: UserPermissions & { show: bo
   const [isOpen, setIsOpen] = useState(false)
   const [currentStepIndex, setCurrentStepIndex] = useState(0)
   const [rect, setRect] = useState<DOMRect | null>(null)
-  const [isCompleting, setIsCompleting] = useState(false)
   
   // --- NEW: Mobile Detection State ---
   const [isMobile, setIsMobile] = useState(false)
@@ -40,14 +39,9 @@ export default function OnboardingTour(permissions: UserPermissions & { show: bo
   // --- NEW: Handle Mobile Resize ---
   useEffect(() => {
     const checkMobile = () => {
-        // Consider mobile if width < 768px (standard md breakpoint)
         setIsMobile(window.innerWidth < 768)
     }
-    
-    // Check initially
     checkMobile()
-    
-    // Add listener
     window.addEventListener('resize', checkMobile)
     return () => window.removeEventListener('resize', checkMobile)
   }, [])
@@ -67,7 +61,7 @@ export default function OnboardingTour(permissions: UserPermissions & { show: bo
         const r = element.getBoundingClientRect()
         if (r.width > 0 && r.height > 0) {
           setRect(r)
-          // Only auto-scroll if NOT disabled AND NOT on mobile (mobile users usually prefer manual scroll context)
+          // Only auto-scroll if NOT disabled AND NOT on mobile
           if (!currentStep.disableScroll && !isMobile) {
             element.scrollIntoView({ behavior: 'smooth', block: 'center' })
           }
@@ -102,31 +96,37 @@ export default function OnboardingTour(permissions: UserPermissions & { show: bo
   }
 
   const handleFinish = async () => {
-    setIsCompleting(true)
-    await supabase.rpc('complete_onboarding_tour') 
+    // 1. Optimistic Close: Remove UI immediately so mobile users don't feel stuck
     setIsOpen(false)
     setRect(null)
-    router.refresh()
+
+    // 2. Persist in background
+    try {
+        await supabase.rpc('complete_onboarding_tour') 
+        router.refresh()
+    } catch (err) {
+        console.error("Failed to save tour completion", err)
+    }
   }
 
   if (!isOpen || !currentStep) return null
 
-  // --- UPDATED: Helper for popover styles ---
+  // --- Helper for popover styles ---
   const getPopoverStyle = () => {
-    // 1. MOBILE OVERRIDE: Force Center
+    // MOBILE OVERRIDE: Force Center
     if (isMobile) {
         return {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            position: 'fixed', // Use fixed to ensure it stays on screen
-            width: '90vw',     // Responsive width
-            maxWidth: '320px', // Cap width
-            zIndex: 10002      // Ensure above backdrop
+            position: 'fixed',
+            width: '90vw',
+            maxWidth: '320px',
+            zIndex: 10002
         } as React.CSSProperties
     }
 
-    // 2. DESKTOP LOGIC (Existing)
+    // DESKTOP LOGIC
     if (!rect) return { top: '50%', left: '50%', transform: 'translate(-50%, -50%)' }
     
     const gap = 15
@@ -145,7 +145,7 @@ export default function OnboardingTour(permissions: UserPermissions & { show: bo
   return (
     <div className="fixed inset-0 z-[9999] pointer-events-none">
       
-      {/* 1. Backdrop / Spotlight */}
+      {/* Backdrop */}
       <div 
         className="absolute transition-all duration-500 ease-in-out rounded-md pointer-events-auto bg-transparent"
         style={{
@@ -157,8 +157,7 @@ export default function OnboardingTour(permissions: UserPermissions & { show: bo
         }}
       />
 
-      {/* 2. Popover Card */}
-      {/* Removed w-80 class, width is now handled by inline style for responsiveness */}
+      {/* Popover Card */}
       <div 
         className="absolute pointer-events-auto transition-all duration-500 ease-out flex flex-col bg-white dark:bg-gray-800 rounded-xl shadow-2xl border border-gray-200 dark:border-gray-700 overflow-hidden"
         style={style}
@@ -192,7 +191,6 @@ export default function OnboardingTour(permissions: UserPermissions & { show: bo
           
           <button
             onClick={handleNext}
-            disabled={isCompleting}
             className="bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium px-4 py-2 rounded-lg shadow-sm transition-colors"
           >
             {currentStepIndex === activeSteps.length - 1 ? 'Finish' : 'Next'}
