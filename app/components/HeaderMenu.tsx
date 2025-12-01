@@ -6,6 +6,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import { createClient } from '@/utils/supabase/client'
 import ThemeToggleButton from './ThemeToggleButton'
 import FeedbackButton from './FeedbackButton'
+import { isObject } from 'util'
 
 type HeaderMenuProps = {
   canManage: boolean
@@ -116,16 +117,15 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, is
         <div className="md:hidden absolute top-16 inset-x-0 z-50 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-lg">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {roleLevel >= 15 && ( <Link href="/" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Dashboard</Link> )}
-            {isLoggedIn && roleLevel >= 15 && ( <Link href="/submit" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Submit Report</Link> )}
-            {isLoggedIn && roleLevel >= 50 && ( <Link href="/reports/history" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Report History</Link> )}
-            {showDailyReports && ( <Link href="/reports/daily" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Green Sheet</Link> )}
-            {canManage && (
-                <>
-                {/* UPDATED LINK */}
-                <Link href="/action-items" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Action Items</Link>
-                <Link href="/manage" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Roster</Link>
-                </>
+            {isLoggedIn && roleLevel >= 15 && ( 
+              <>
+              <Link href="/submit" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Submit Report</Link>
+              <Link href="/action-items" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Action Items</Link>
+              </>
             )}
+            {showDailyReports && ( <Link href="/reports/daily" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Green Sheet</Link> )}
+            {isLoggedIn && roleLevel >= 50 && ( <Link href="/reports/history" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Report History</Link> )}
+            {canManage && ( <Link href="/manage" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Roster</Link> )}
             {isSiteAdmin && ( <Link href="/admin" className="block px-3 py-2 rounded-md text-base font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20">Admin</Link> )}
           </div>
 
