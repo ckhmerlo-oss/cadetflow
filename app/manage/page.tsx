@@ -31,7 +31,6 @@ export default function ManagePage() {
   const supabase = createClient()
   const router = useRouter()
   
-  // Added 'faculty' to tab state
   const [activeTab, setActiveTab] = useState<'roster' | 'faculty' | 'unassigned'>('roster')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -41,11 +40,11 @@ export default function ManagePage() {
   const [roles, setRoles] = useState<Role[]>([])
   const [unassigned, setUnassigned] = useState<UnassignedUser[]>([]) 
   const [rosterData, setRosterData] = useState<RosterCadet[]>([])
-  const [facultyData, setFacultyData] = useState<RosterCadet[]>([]) // New State
+  const [facultyData, setFacultyData] = useState<RosterCadet[]>([]) 
   
   // Permissions
   const [canEditProfiles, setCanEditProfiles] = useState(false)
-  const [isAdmin, setIsAdmin] = useState(false) // New State for 90+ check
+  const [isAdmin, setIsAdmin] = useState(false)
 
   // Selection State
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
@@ -62,7 +61,6 @@ export default function ManagePage() {
   const [targetRoleId, setTargetRoleId] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  // --- 1. Extract Data Fetching Logic ---
   const fetchData = useCallback(async () => {
     setLoading(true)
     setError(null)
@@ -88,7 +86,6 @@ export default function ManagePage() {
       setIsAdmin(isSiteAdmin);
       setCanEditProfiles(EDIT_AUTHORIZED_ROLES.includes(roleName) || roleName.includes('TAC') || isSiteAdmin)
 
-      // Build Promise Array
       const promises = [
         supabase.from('companies').select('*').order('company_name'),
         supabase.from('roles').select('*').order('default_role_level', { ascending: false }),
@@ -96,7 +93,6 @@ export default function ManagePage() {
         supabase.rpc('get_full_roster') 
       ]
 
-      // Only fetch faculty if admin
       if (isSiteAdmin) {
         promises.push(supabase.rpc('get_faculty_roster'))
       }
@@ -132,7 +128,6 @@ export default function ManagePage() {
     fetchData()
   }, [fetchData])
 
-  // --- Sorting Logic ---
   const sortedUnassigned = useMemo(() => {
     const sorted = [...unassigned]
     sorted.sort((a, b) => {
@@ -164,8 +159,6 @@ export default function ManagePage() {
     if (sortConfig.key !== column) return <span className="text-gray-300 ml-1">⇅</span>
     return <span className="text-indigo-600 dark:text-indigo-400 ml-1">{sortConfig.direction === 'asc' ? '↑' : '↓'}</span>
   }
-
-  // --- Handlers ---
 
   const handlePrintRoster = () => window.print()
 
@@ -250,7 +243,7 @@ export default function ManagePage() {
         }
       `}</style>
     
-      <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">        
+      <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 no-print">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Roster Management</h1>
@@ -265,14 +258,12 @@ export default function ManagePage() {
           </Link>
         </div>
         
-        <div className="mb-6 border-b border-gray-200 dark:border-gray-700 no-print">
-          <div id="tour-roster-filters" className="mb-6 border-b border-gray-200 dark:border-gray-700 no-print">
+        <div id="tour-roster-filters" className="mb-6 border-b border-gray-200 dark:border-gray-700 no-print">
           <nav className="-mb-px flex space-x-8" aria-label="Tabs">
             <button onClick={() => setActiveTab('roster')} className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'roster' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`}>
               Cadet Roster
             </button>
             
-            {/* ADMIN ONLY TAB */}
             {isAdmin && (
               <button onClick={() => setActiveTab('faculty')} className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'faculty' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`}>
                 Faculty & Staff
@@ -284,7 +275,6 @@ export default function ManagePage() {
               <span className="ml-1.5 inline-block py-0.5 px-2 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">{unassigned.length}</span>
             </button>
           </nav>
-          </div>
         </div>
         
         {error && <div className="mb-6 p-4 text-center text-red-600 bg-red-50 rounded-lg border border-red-200">Error: {error}</div>}
@@ -297,7 +287,7 @@ export default function ManagePage() {
           <RosterClient initialData={rosterData} canEditProfiles={canEditProfiles} companies={companies} onReassign={handleReassign} variant="cadet" />
         </div>
 
-        {/* --- TAB 2: FACULTY (ADMIN ONLY) --- */}
+        {/* --- TAB 2: FACULTY --- */}
         {isAdmin && (
           <div className={activeTab === 'faculty' ? '' : 'hidden'}>
              <div className="mb-4 p-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-md">
@@ -330,12 +320,15 @@ export default function ManagePage() {
                     <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('created_at')}>Date Joined <SortIcon column="created_at"/></th>
                     <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('company')}>Company <SortIcon column="company"/></th>
                     <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('role')}>Role <SortIcon column="role"/></th>
-                    <th scope="col" className="px-6 py-3"><span className="sr-only">Action</span></th>
                   </tr>
                 </thead>
                 <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
                   {sortedUnassigned.length > 0 ? sortedUnassigned.map(u => (
-                    <tr key={u.user_id} onClick={() => router.push(`/profile/${u.user_id}`)} className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors cursor-pointer">
+                    <tr 
+                        key={u.user_id} 
+                        onClick={() => { setSelectedIds(new Set([u.user_id])); openModal(); }} 
+                        className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors cursor-pointer"
+                    >
                       <td className="px-6 py-4 whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
                         <input type="checkbox" className="rounded border-gray-300 dark:border-gray-600 h-4 w-4 text-indigo-600" checked={selectedIds.has(u.user_id)} onChange={() => handleSelectRow(u.user_id)} onClick={(e) => e.stopPropagation()} />
                       </td>
@@ -343,9 +336,8 @@ export default function ManagePage() {
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{new Date(u.created_at).toLocaleDateString()}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm">{u.company_name ? <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">{u.company_name}</span> : <span className="text-red-500 dark:text-red-400 text-xs italic">Unassigned</span>}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm">{u.role_name ? <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">{u.role_name}</span> : <span className="text-red-500 dark:text-red-400 text-xs italic">Unassigned</span>}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium"><button onClick={(e) => { e.stopPropagation(); setSelectedIds(new Set([u.user_id])); openModal() }} className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-200">Edit</button></td>
                     </tr>
-                  )) : <tr><td colSpan={6} className="px-6 py-10 text-center text-sm text-gray-500 dark:text-gray-400">No unassigned profiles found.</td></tr>}
+                  )) : <tr><td colSpan={5} className="px-6 py-10 text-center text-sm text-gray-500 dark:text-gray-400">No unassigned profiles found.</td></tr>}
                 </tbody>
               </table>
             </div>

@@ -866,7 +866,6 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$manage$2f$data$3a$32e
 function ManagePage() {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$client$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["createClient"])();
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
-    // Added 'faculty' to tab state
     const [activeTab, setActiveTab] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('roster');
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(true);
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
@@ -875,12 +874,10 @@ function ManagePage() {
     const [roles, setRoles] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [unassigned, setUnassigned] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     const [rosterData, setRosterData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
-    const [facultyData, setFacultyData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]) // New State
-    ;
+    const [facultyData, setFacultyData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])([]);
     // Permissions
     const [canEditProfiles, setCanEditProfiles] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
-    const [isAdmin, setIsAdmin] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false) // New State for 90+ check
-    ;
+    const [isAdmin, setIsAdmin] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     // Selection State
     const [selectedIds, setSelectedIds] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(new Set());
     // Sorting State
@@ -893,7 +890,6 @@ function ManagePage() {
     const [targetCompanyId, setTargetCompanyId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
     const [targetRoleId, setTargetRoleId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
     const [isSubmitting, setIsSubmitting] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
-    // --- 1. Extract Data Fetching Logic ---
     const fetchData = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useCallback"])(async ()=>{
         setLoading(true);
         setError(null);
@@ -910,7 +906,6 @@ function ManagePage() {
             const isSiteAdmin = roleName === 'Admin' || roleLevel >= 90;
             setIsAdmin(isSiteAdmin);
             setCanEditProfiles(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$profile$2f$constants$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["EDIT_AUTHORIZED_ROLES"].includes(roleName) || roleName.includes('TAC') || isSiteAdmin);
-            // Build Promise Array
             const promises = [
                 supabase.from('companies').select('*').order('company_name'),
                 supabase.from('roles').select('*').order('default_role_level', {
@@ -919,7 +914,6 @@ function ManagePage() {
                 supabase.rpc('get_unassigned_users'),
                 supabase.rpc('get_full_roster')
             ];
-            // Only fetch faculty if admin
             if (isSiteAdmin) {
                 promises.push(supabase.rpc('get_faculty_roster'));
             }
@@ -953,7 +947,6 @@ function ManagePage() {
     }, [
         fetchData
     ]);
-    // --- Sorting Logic ---
     const sortedUnassigned = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>{
         const sorted = [
             ...unassigned
@@ -1000,7 +993,7 @@ function ManagePage() {
             children: "⇅"
         }, void 0, false, {
             fileName: "[project]/app/manage/page.tsx",
-            lineNumber: 164,
+            lineNumber: 159,
             columnNumber: 43
         }, this);
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1008,11 +1001,10 @@ function ManagePage() {
             children: sortConfig.direction === 'asc' ? '↑' : '↓'
         }, void 0, false, {
             fileName: "[project]/app/manage/page.tsx",
-            lineNumber: 165,
+            lineNumber: 160,
             columnNumber: 12
         }, this);
     };
-    // --- Handlers ---
     const handlePrintRoster = ()=>window.print();
     const handleSelectRow = (id)=>{
         const newSet = new Set(selectedIds);
@@ -1081,7 +1073,7 @@ function ManagePage() {
             children: "Loading roster data..."
         }, void 0, false, {
             fileName: "[project]/app/manage/page.tsx",
-            lineNumber: 239,
+            lineNumber: 232,
             columnNumber: 12
         }, this);
     }
@@ -1105,7 +1097,7 @@ function ManagePage() {
                                         children: "Roster Management"
                                     }, void 0, false, {
                                         fileName: "[project]/app/manage/page.tsx",
-                                        lineNumber: 256,
+                                        lineNumber: 249,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1113,13 +1105,13 @@ function ManagePage() {
                                         children: "Assign cadets to roles."
                                     }, void 0, false, {
                                         fileName: "[project]/app/manage/page.tsx",
-                                        lineNumber: 257,
+                                        lineNumber: 250,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/manage/page.tsx",
-                                lineNumber: 255,
+                                lineNumber: 248,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1140,87 +1132,80 @@ function ManagePage() {
                                             className: "jsx-21e72d2f241fbad9"
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/page.tsx",
-                                            lineNumber: 262,
+                                            lineNumber: 255,
                                             columnNumber: 15
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/manage/page.tsx",
-                                        lineNumber: 261,
+                                        lineNumber: 254,
                                         columnNumber: 13
                                     }, this),
                                     "Configure Chain of Command"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/manage/page.tsx",
-                                lineNumber: 260,
+                                lineNumber: 253,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/manage/page.tsx",
-                        lineNumber: 254,
+                        lineNumber: 247,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        id: "tour-roster-filters",
                         className: "jsx-21e72d2f241fbad9" + " " + "mb-6 border-b border-gray-200 dark:border-gray-700 no-print",
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            id: "tour-roster-filters",
-                            className: "jsx-21e72d2f241fbad9" + " " + "mb-6 border-b border-gray-200 dark:border-gray-700 no-print",
-                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
-                                "aria-label": "Tabs",
-                                className: "jsx-21e72d2f241fbad9" + " " + "-mb-px flex space-x-8",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        onClick: ()=>setActiveTab('roster'),
-                                        className: "jsx-21e72d2f241fbad9" + " " + `whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'roster' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`,
-                                        children: "Cadet Roster"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/manage/page.tsx",
-                                        lineNumber: 271,
-                                        columnNumber: 13
-                                    }, this),
-                                    isAdmin && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        onClick: ()=>setActiveTab('faculty'),
-                                        className: "jsx-21e72d2f241fbad9" + " " + `whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'faculty' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`,
-                                        children: "Faculty & Staff"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/manage/page.tsx",
-                                        lineNumber: 277,
-                                        columnNumber: 15
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        onClick: ()=>setActiveTab('unassigned'),
-                                        className: "jsx-21e72d2f241fbad9" + " " + `whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'unassigned' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`,
-                                        children: [
-                                            "Unassigned",
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "jsx-21e72d2f241fbad9" + " " + "ml-1.5 inline-block py-0.5 px-2 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
-                                                children: unassigned.length
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/manage/page.tsx",
-                                                lineNumber: 284,
-                                                columnNumber: 15
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/app/manage/page.tsx",
-                                        lineNumber: 282,
-                                        columnNumber: 13
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/manage/page.tsx",
-                                lineNumber: 270,
-                                columnNumber: 11
-                            }, this)
-                        }, void 0, false, {
+                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
+                            "aria-label": "Tabs",
+                            className: "jsx-21e72d2f241fbad9" + " " + "-mb-px flex space-x-8",
+                            children: [
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>setActiveTab('roster'),
+                                    className: "jsx-21e72d2f241fbad9" + " " + `whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'roster' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`,
+                                    children: "Cadet Roster"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/manage/page.tsx",
+                                    lineNumber: 263,
+                                    columnNumber: 13
+                                }, this),
+                                isAdmin && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>setActiveTab('faculty'),
+                                    className: "jsx-21e72d2f241fbad9" + " " + `whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'faculty' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`,
+                                    children: "Faculty & Staff"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/manage/page.tsx",
+                                    lineNumber: 268,
+                                    columnNumber: 15
+                                }, this),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                    onClick: ()=>setActiveTab('unassigned'),
+                                    className: "jsx-21e72d2f241fbad9" + " " + `whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'unassigned' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`,
+                                    children: [
+                                        "Unassigned",
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: "jsx-21e72d2f241fbad9" + " " + "ml-1.5 inline-block py-0.5 px-2 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200",
+                                            children: unassigned.length
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/manage/page.tsx",
+                                            lineNumber: 275,
+                                            columnNumber: 15
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/manage/page.tsx",
+                                    lineNumber: 273,
+                                    columnNumber: 13
+                                }, this)
+                            ]
+                        }, void 0, true, {
                             fileName: "[project]/app/manage/page.tsx",
-                            lineNumber: 269,
+                            lineNumber: 262,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/manage/page.tsx",
-                        lineNumber: 268,
+                        lineNumber: 261,
                         columnNumber: 9
                     }, this),
                     error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1231,7 +1216,7 @@ function ManagePage() {
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/manage/page.tsx",
-                        lineNumber: 290,
+                        lineNumber: 280,
                         columnNumber: 19
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1246,12 +1231,12 @@ function ManagePage() {
                                     children: "Print Roster"
                                 }, void 0, false, {
                                     fileName: "[project]/app/manage/page.tsx",
-                                    lineNumber: 295,
+                                    lineNumber: 285,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/manage/page.tsx",
-                                lineNumber: 294,
+                                lineNumber: 284,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$manage$2f$RosterClient$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1262,13 +1247,13 @@ function ManagePage() {
                                 variant: "cadet"
                             }, void 0, false, {
                                 fileName: "[project]/app/manage/page.tsx",
-                                lineNumber: 297,
+                                lineNumber: 287,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/manage/page.tsx",
-                        lineNumber: 293,
+                        lineNumber: 283,
                         columnNumber: 9
                     }, this),
                     isAdmin && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1284,19 +1269,19 @@ function ManagePage() {
                                             children: "Restricted View:"
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/page.tsx",
-                                            lineNumber: 305,
+                                            lineNumber: 295,
                                             columnNumber: 19
                                         }, this),
                                         " You are viewing the Faculty & Staff roster. This data is only visible to role level 90+."
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/page.tsx",
-                                    lineNumber: 304,
+                                    lineNumber: 294,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/manage/page.tsx",
-                                lineNumber: 303,
+                                lineNumber: 293,
                                 columnNumber: 14
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$manage$2f$RosterClient$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1307,13 +1292,13 @@ function ManagePage() {
                                 variant: "faculty"
                             }, void 0, false, {
                                 fileName: "[project]/app/manage/page.tsx",
-                                lineNumber: 308,
+                                lineNumber: 298,
                                 columnNumber: 14
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/manage/page.tsx",
-                        lineNumber: 302,
+                        lineNumber: 292,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1334,7 +1319,7 @@ function ManagePage() {
                                                     className: "jsx-21e72d2f241fbad9" + " " + "rounded border-gray-300 dark:border-gray-600"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/manage/page.tsx",
-                                                    lineNumber: 317,
+                                                    lineNumber: 307,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1345,13 +1330,13 @@ function ManagePage() {
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/manage/page.tsx",
-                                                    lineNumber: 318,
+                                                    lineNumber: 308,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/manage/page.tsx",
-                                            lineNumber: 316,
+                                            lineNumber: 306,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1365,23 +1350,23 @@ function ManagePage() {
                                                     children: "Assign Selected..."
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/manage/page.tsx",
-                                                    lineNumber: 321,
+                                                    lineNumber: 311,
                                                     columnNumber: 231
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/page.tsx",
-                                                lineNumber: 321,
+                                                lineNumber: 311,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/page.tsx",
-                                            lineNumber: 320,
+                                            lineNumber: 310,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/page.tsx",
-                                    lineNumber: 315,
+                                    lineNumber: 305,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1399,7 +1384,7 @@ function ManagePage() {
                                                             className: "jsx-21e72d2f241fbad9" + " " + "w-12 px-6 py-3"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 328,
+                                                            lineNumber: 318,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1413,13 +1398,13 @@ function ManagePage() {
                                                                     className: "jsx-21e72d2f241fbad9"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 329,
+                                                                    lineNumber: 319,
                                                                     columnNumber: 241
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 329,
+                                                            lineNumber: 319,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1433,13 +1418,13 @@ function ManagePage() {
                                                                     className: "jsx-21e72d2f241fbad9"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 330,
+                                                                    lineNumber: 320,
                                                                     columnNumber: 254
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 330,
+                                                            lineNumber: 320,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1453,13 +1438,13 @@ function ManagePage() {
                                                                     className: "jsx-21e72d2f241fbad9"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 331,
+                                                                    lineNumber: 321,
                                                                     columnNumber: 247
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 331,
+                                                            lineNumber: 321,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -1473,46 +1458,35 @@ function ManagePage() {
                                                                     className: "jsx-21e72d2f241fbad9"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 332,
+                                                                    lineNumber: 322,
                                                                     columnNumber: 241
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 332,
-                                                            columnNumber: 21
-                                                        }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                            scope: "col",
-                                                            className: "jsx-21e72d2f241fbad9" + " " + "px-6 py-3",
-                                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                className: "jsx-21e72d2f241fbad9" + " " + "sr-only",
-                                                                children: "Action"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/manage/page.tsx",
-                                                                lineNumber: 333,
-                                                                columnNumber: 59
-                                                            }, this)
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 333,
+                                                            lineNumber: 322,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/manage/page.tsx",
-                                                    lineNumber: 327,
+                                                    lineNumber: 317,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/page.tsx",
-                                                lineNumber: 326,
+                                                lineNumber: 316,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
                                                 className: "jsx-21e72d2f241fbad9" + " " + "bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700",
                                                 children: sortedUnassigned.length > 0 ? sortedUnassigned.map((u)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                        onClick: ()=>router.push(`/profile/${u.user_id}`),
+                                                        onClick: ()=>{
+                                                            setSelectedIds(new Set([
+                                                                u.user_id
+                                                            ]));
+                                                            openModal();
+                                                        },
                                                         className: "jsx-21e72d2f241fbad9" + " " + "hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors cursor-pointer",
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1526,12 +1500,12 @@ function ManagePage() {
                                                                     className: "jsx-21e72d2f241fbad9" + " " + "rounded border-gray-300 dark:border-gray-600 h-4 w-4 text-indigo-600"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 340,
+                                                                    lineNumber: 333,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/manage/page.tsx",
-                                                                lineNumber: 339,
+                                                                lineNumber: 332,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1543,7 +1517,7 @@ function ManagePage() {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/manage/page.tsx",
-                                                                lineNumber: 342,
+                                                                lineNumber: 335,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1551,7 +1525,7 @@ function ManagePage() {
                                                                 children: new Date(u.created_at).toLocaleDateString()
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/manage/page.tsx",
-                                                                lineNumber: 343,
+                                                                lineNumber: 336,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1561,19 +1535,19 @@ function ManagePage() {
                                                                     children: u.company_name
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 344,
+                                                                    lineNumber: 337,
                                                                     columnNumber: 93
                                                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                     className: "jsx-21e72d2f241fbad9" + " " + "text-red-500 dark:text-red-400 text-xs italic",
                                                                     children: "Unassigned"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 344,
+                                                                    lineNumber: 337,
                                                                     columnNumber: 271
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/manage/page.tsx",
-                                                                lineNumber: 344,
+                                                                lineNumber: 337,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1583,95 +1557,73 @@ function ManagePage() {
                                                                     children: u.role_name
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 345,
+                                                                    lineNumber: 338,
                                                                     columnNumber: 90
                                                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                     className: "jsx-21e72d2f241fbad9" + " " + "text-red-500 dark:text-red-400 text-xs italic",
                                                                     children: "Unassigned"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 345,
+                                                                    lineNumber: 338,
                                                                     columnNumber: 273
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/manage/page.tsx",
-                                                                lineNumber: 345,
-                                                                columnNumber: 23
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                className: "jsx-21e72d2f241fbad9" + " " + "px-6 py-4 whitespace-nowrap text-right text-sm font-medium",
-                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                    onClick: (e)=>{
-                                                                        e.stopPropagation();
-                                                                        setSelectedIds(new Set([
-                                                                            u.user_id
-                                                                        ]));
-                                                                        openModal();
-                                                                    },
-                                                                    className: "jsx-21e72d2f241fbad9" + " " + "text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-200",
-                                                                    children: "Edit"
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 346,
-                                                                    columnNumber: 98
-                                                                }, this)
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/app/manage/page.tsx",
-                                                                lineNumber: 346,
+                                                                lineNumber: 338,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, u.user_id, true, {
                                                         fileName: "[project]/app/manage/page.tsx",
-                                                        lineNumber: 338,
+                                                        lineNumber: 327,
                                                         columnNumber: 21
                                                     }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                                     className: "jsx-21e72d2f241fbad9",
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        colSpan: 6,
+                                                        colSpan: 5,
                                                         className: "jsx-21e72d2f241fbad9" + " " + "px-6 py-10 text-center text-sm text-gray-500 dark:text-gray-400",
                                                         children: "No unassigned profiles found."
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/manage/page.tsx",
-                                                        lineNumber: 348,
+                                                        lineNumber: 340,
                                                         columnNumber: 28
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/manage/page.tsx",
-                                                    lineNumber: 348,
+                                                    lineNumber: 340,
                                                     columnNumber: 24
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/page.tsx",
-                                                lineNumber: 336,
+                                                lineNumber: 325,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/manage/page.tsx",
-                                        lineNumber: 325,
+                                        lineNumber: 315,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/manage/page.tsx",
-                                    lineNumber: 324,
+                                    lineNumber: 314,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/manage/page.tsx",
-                            lineNumber: 314,
+                            lineNumber: 304,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/manage/page.tsx",
-                        lineNumber: 313,
+                        lineNumber: 303,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/manage/page.tsx",
-                lineNumber: 253,
+                lineNumber: 246,
                 columnNumber: 7
             }, this),
             modalOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1687,7 +1639,7 @@ function ManagePage() {
                             className: "jsx-21e72d2f241fbad9" + " " + "fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
                         }, void 0, false, {
                             fileName: "[project]/app/manage/page.tsx",
-                            lineNumber: 361,
+                            lineNumber: 353,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1696,7 +1648,7 @@ function ManagePage() {
                             children: "​"
                         }, void 0, false, {
                             fileName: "[project]/app/manage/page.tsx",
-                            lineNumber: 362,
+                            lineNumber: 354,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1716,7 +1668,7 @@ function ManagePage() {
                                                         children: "Bulk Assignment"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/manage/page.tsx",
-                                                        lineNumber: 367,
+                                                        lineNumber: 359,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1730,23 +1682,23 @@ function ManagePage() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 368,
+                                                            lineNumber: 360,
                                                             columnNumber: 43
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/manage/page.tsx",
-                                                        lineNumber: 368,
+                                                        lineNumber: 360,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/manage/page.tsx",
-                                                lineNumber: 366,
+                                                lineNumber: 358,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/page.tsx",
-                                            lineNumber: 365,
+                                            lineNumber: 357,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1760,7 +1712,7 @@ function ManagePage() {
                                                             children: "Company"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 373,
+                                                            lineNumber: 365,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -1774,7 +1726,7 @@ function ManagePage() {
                                                                     children: "-- No Change --"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 375,
+                                                                    lineNumber: 367,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 companies.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1783,19 +1735,19 @@ function ManagePage() {
                                                                         children: c.company_name
                                                                     }, c.id, false, {
                                                                         fileName: "[project]/app/manage/page.tsx",
-                                                                        lineNumber: 376,
+                                                                        lineNumber: 368,
                                                                         columnNumber: 43
                                                                     }, this))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 374,
+                                                            lineNumber: 366,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/manage/page.tsx",
-                                                    lineNumber: 372,
+                                                    lineNumber: 364,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1806,7 +1758,7 @@ function ManagePage() {
                                                             children: "Role"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 380,
+                                                            lineNumber: 372,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -1820,7 +1772,7 @@ function ManagePage() {
                                                                     children: "-- No Change --"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 382,
+                                                                    lineNumber: 374,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 availableRoles.map((r)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1834,13 +1786,13 @@ function ManagePage() {
                                                                         ]
                                                                     }, r.id, true, {
                                                                         fileName: "[project]/app/manage/page.tsx",
-                                                                        lineNumber: 383,
+                                                                        lineNumber: 375,
                                                                         columnNumber: 48
                                                                     }, this))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 381,
+                                                            lineNumber: 373,
                                                             columnNumber: 21
                                                         }, this),
                                                         targetCompanyId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1848,25 +1800,25 @@ function ManagePage() {
                                                             children: "Showing only roles available for this company (and global roles)."
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 385,
+                                                            lineNumber: 377,
                                                             columnNumber: 41
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/manage/page.tsx",
-                                                    lineNumber: 379,
+                                                    lineNumber: 371,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/manage/page.tsx",
-                                            lineNumber: 371,
+                                            lineNumber: 363,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/page.tsx",
-                                    lineNumber: 364,
+                                    lineNumber: 356,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1880,7 +1832,7 @@ function ManagePage() {
                                             children: isSubmitting ? 'Saving...' : 'Save Assignments'
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/page.tsx",
-                                            lineNumber: 390,
+                                            lineNumber: 382,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1890,30 +1842,30 @@ function ManagePage() {
                                             children: "Cancel"
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/page.tsx",
-                                            lineNumber: 391,
+                                            lineNumber: 383,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/page.tsx",
-                                    lineNumber: 389,
+                                    lineNumber: 381,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/manage/page.tsx",
-                            lineNumber: 363,
+                            lineNumber: 355,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/manage/page.tsx",
-                    lineNumber: 360,
+                    lineNumber: 352,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/manage/page.tsx",
-                lineNumber: 359,
+                lineNumber: 351,
                 columnNumber: 9
             }, this)
         ]
