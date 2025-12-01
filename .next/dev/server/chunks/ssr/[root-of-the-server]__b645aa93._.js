@@ -249,7 +249,7 @@ async function RootLayout({ children }) {
         isSiteAdmin = profile?.is_site_admin || false;
         hasSeenTour = profile?.has_seen_tour || false;
         // Dynamic Logo Logic
-        if (roleLevel >= 50 || roles?.role_name && roles.role_name.includes('TAC')) {
+        if (roleLevel >= 60 || roles?.role_name && roles.role_name.includes('TAC')) {
             logoText = "TACFlow";
             logoColor = "text-red-600 hover:text-red-700";
         } else if (company?.company_name === 'Battalion Staff') {

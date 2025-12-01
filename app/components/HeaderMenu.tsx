@@ -74,7 +74,8 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, is
 
         {canManage && (
             <>
-             <Link href="/reports/pending" id="nav-approval" className="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+             {/* UPDATED LINK */}
+             <Link href="/action-items" id="nav-approval" className="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
                 Action Items
             </Link>
             <Link href="/manage" id="nav-roster" className="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
@@ -120,7 +121,8 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, is
             {showDailyReports && ( <Link href="/reports/daily" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Green Sheet</Link> )}
             {canManage && (
                 <>
-                <Link href="/reports/pending" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Action Items</Link>
+                {/* UPDATED LINK */}
+                <Link href="/action-items" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Action Items</Link>
                 <Link href="/manage" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Roster</Link>
                 </>
             )}

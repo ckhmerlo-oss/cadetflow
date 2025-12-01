@@ -1,107 +1,371 @@
-[00:00:03.688] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:04.126] Server  LOG      ✓ Ready in 3.1s
-[00:00:07.383] Server  LOG      ○ Compiling / ...
-[00:00:13.785] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:14.152] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:14.152] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:14.152] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
-[00:00:14.152] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764427957925}
-[00:00:18.130] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1764427957923-8967781001944","route":"/","type":"FCP","value":219644},{"href":"http://localhost:3000/","id":"v3-1764427957923-5733507053989","route":"/","type":"TTFB","value":219273},{"attribution":{"eventTarget":"div.flex.justify-between.items-end>h2.text-2xl.font-semibold.text-gray-800.dark:text-gray-100"},"href":"http://localhost:3000/","id":"v3-1764427957923-3270834124832","route":"/","type":"LCP","value":219644},{"attribution":{"eventTarget":"#dashboard-submit-btn","eventType":"pointerdown"},"href":"http://localhost:3000/","id":"v3-1764427957923-4970009901093","route":"/","type":"FID","value":19}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:00:18.130] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/submit color: rgb(120, 120, 120) color: inherit {"dp":"/submit","o":"http://localhost:3000/submit","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764427961896}
-[00:00:22.177] Server  LOG      ✓ Compiled in 333ms
-[00:00:28.139] Server  LOG      ✓ Compiled in 138ms
-[00:00:28.264] Browser ERROR   ./app/submit/page.tsx:153:12
-Parsing ecmascript source code failed
-  151 | // --- Types ---
-  152 | type GreenSheetReport = {
-> 153 |   report_id: string;
-      |            ^
-  154 |   subject_name: string;
-  155 |   company_name: string | null;
-  156 |   offense_name: string;
+[00:00:05.328] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:06.066] Server  LOG      ✓ Ready in 4.4s
+[00:00:09.660] Server  LOG      ○ Compiling / ...
+[00:00:18.263] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:18.877] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:18.877] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:18.877] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:00:18.877] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764595817427}
+[00:00:48.606] Server  LOG      ✓ Compiled in 162ms
+[00:02:17.919] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1764595817424-2308821739282","route":"/","type":"FCP","value":11862},{"href":"http://localhost:3000/","id":"v3-1764595817424-9830168603056","route":"/","type":"TTFB","value":11164},{"attribution":{"eventTarget":"div.flex.justify-between.items-end>h2.text-2xl.font-semibold.text-gray-800.dark:text-gray-100"},"href":"http://localhost:3000/","id":"v3-1764595817424-7424619121146","route":"/","type":"LCP","value":11862},{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className","eventType":"keydown"},"href":"http://localhost:3000/","id":"v3-1764595817424-5227871817854","route":"/","type":"FID","value":12},{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className","eventType":"keydown"},"href":"http://localhost:3000/","id":"v3-1764595817424-6353032226558","route":"/","type":"INP","value":152}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:17:11.183] Server  LOG      ✓ Compiled in 457ms
+[00:17:22.178] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/admin color: rgb(120, 120, 120) color: inherit {"dp":"/admin","o":"http://localhost:3000/admin","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764596840730}
+[00:17:25.791] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764596844337}
+[00:17:43.410] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/admin color: rgb(120, 120, 120) color: inherit {"dp":"/admin","o":"http://localhost:3000/admin","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764596861961}
+[00:18:04.361] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764596882910}
+[00:18:15.001] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764596893557}
+[00:18:38.134] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/admin color: rgb(120, 120, 120) color: inherit {"dp":"/admin","o":"http://localhost:3000/admin","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764596916681}
+[00:18:44.786] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764596923336}
+[00:18:49.023] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage/roles color: rgb(120, 120, 120) color: inherit {"dp":"/manage/roles","o":"http://localhost:3000/manage/roles","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764596927556}
+[00:20:03.601] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"keydown"},"href":"http://localhost:3000/manage/roles","id":"v3-1764595817424-6353032226558","route":"/manage/roles","type":"INP","value":208}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:30:16.010] Server  LOG      ✓ Compiled in 168ms
+[00:30:31.547] Server  LOG      ✓ Compiled in 157ms
+[00:31:14.652] Server  LOG      ✓ Compiled in 135ms
+[00:32:45.324] Server  LOG      ✓ Compiled in 190ms
+[00:32:46.085] Browser ERROR   ./app/manage/roles/components/RoleListModal.tsx:3:1
+Export createRoleAction doesn't exist in target module
+  1 | 'use client'
+  2 | import { useState, useEffect } from 'react'
+> 3 | import { getGroupRoles, deleteRoleAction, createRoleAction } from '../actions'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 |
+  5 | interface RoleListModalProps {
+  6 |   isOpen: boolean
 
-Expected '</', got ':'
-
-Import traces:
-  Client Component Browser:
-    ./app/submit/page.tsx [Client Component Browser]
-    ./app/submit/page.tsx [Server Component]
-
-  Client Component SSR:
-    ./app/submit/page.tsx [Client Component SSR]
-    ./app/submit/page.tsx [Server Component]
-[00:00:30.645] Server  LOG      ✓ Compiled in 169ms
-[00:00:31.681] Server  LOG      ✓ Compiled in 194ms
-[00:00:44.441] Server  LOG      ✓ Compiled in 147ms
-[00:00:46.674] Server  LOG      ✓ Compiled in 147ms
-[00:00:46.788] Browser ERROR   ./app/submit/page.tsx:219:6
-Parsing ecmascript source code failed
-  217 |         </div>
-  218 |       </div>
-> 219 |     </div>
-      |      ^^^^^
-  220 |   )
-  221 | }
-
-Unterminated regexp literal
+The export createRoleAction was not found in module [project]/app/manage/roles/actions.ts [app-client] (ecmascript).
+Did you mean to import createGroupAction?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
 
 Import traces:
   Client Component Browser:
-    ./app/submit/page.tsx [Client Component Browser]
-    ./app/submit/page.tsx [Server Component]
+    ./app/manage/roles/components/RoleListModal.tsx [Client Component Browser]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Client Component Browser]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Server Component]
+    ./app/manage/roles/page.tsx [Server Component]
 
   Client Component SSR:
-    ./app/submit/page.tsx [Client Component SSR]
-    ./app/submit/page.tsx [Server Component]
-[00:00:51.805] Server  LOG      ✓ Compiled in 120ms
-[00:01:27.542] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className","eventType":"keydown"},"href":"http://localhost:3000/submit","id":"v3-1764427957923-8326936418144","route":"/submit","type":"INP","value":352}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:04:31.203] Server  LOG      ✓ Compiled in 193ms
-[00:04:32.980] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:04:32.980] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:04:32.980] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:04:32.980] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/submit","route":"/submit"}
-[00:04:32.980] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/submit color: rgb(120, 120, 120) color: inherit {"dp":"/submit","o":"http://localhost:3000/submit","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764428216838}
-[00:04:33.911] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/submit","id":"v3-1764428216837-8934816167479","route":"/submit","type":"TTFB","value":984}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:04:40.836] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"button.text-sm.font-medium.text-gray-600.dark:text-gray-300.hover:text-indigo-600.transition-colors","eventType":"keyup"},"href":"http://localhost:3000/submit","id":"v3-1764428216837-1236445442898","route":"/submit","type":"INP","value":48}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:06:33.539] Server  LOG      ✓ Compiled in 286ms
-[00:06:35.278] Server  LOG      ✓ Compiled in 169ms
-[00:06:48.914] Server  LOG      ✓ Compiled in 143ms
-[00:06:57.210] Server  LOG      ✓ Compiled in 163ms
-[00:07:02.599] Server  LOG      ✓ Compiled in 167ms
-[00:07:17.684] Server  LOG      ✓ Compiled in 131ms
-[00:07:18.881] Server  LOG      ✓ Compiled in 161ms
-[00:07:19.994] Server  LOG      ✓ Compiled in 169ms
-[00:07:34.630] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764428398391}
-[00:07:56.251] Server  LOG      ✓ Compiled in 74ms
-[00:08:08.116] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764428431895}
-[00:08:13.637] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764428437402}
-[00:08:16.285] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ledger/47bd1324-e8ea-4a4b-8d27-9c1592d71770 color: rgb(120, 120, 120) color: inherit {"dp":"/ledger/[id]","o":"http://localhost:3000/ledger/47bd1324-e8ea-4a4b-8d27-9c1592d71770","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764428440056}
-[00:08:45.542] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"keydown"},"href":"http://localhost:3000/ledger/47bd1324-e8ea-4a4b-8d27-9c1592d71770","id":"v3-1764428216837-1236445442898","route":"/ledger/[id]","type":"INP","value":536}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:08:57.391] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764428481161}
-[00:09:04.495] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764428488270}
-[00:09:23.819] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ledger/fa677a4b-ce1a-4725-b70b-8d4afa328bbe color: rgb(120, 120, 120) color: inherit {"dp":"/ledger/[id]","o":"http://localhost:3000/ledger/fa677a4b-ce1a-4725-b70b-8d4afa328bbe","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764428507598}
-[00:09:45.541] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/cb9ee448-70e2-40f6-9891-8ae1d789c73f color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/cb9ee448-70e2-40f6-9891-8ae1d789c73f","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764428529305}
-[00:09:48.105] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ledger/fa677a4b-ce1a-4725-b70b-8d4afa328bbe color: rgb(120, 120, 120) color: inherit {"dp":"/ledger/[id]","o":"http://localhost:3000/ledger/fa677a4b-ce1a-4725-b70b-8d4afa328bbe","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764428531872}
-[00:09:56.079] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"keyup"},"href":"http://localhost:3000/ledger/fa677a4b-ce1a-4725-b70b-8d4afa328bbe","id":"v3-1764428216837-1236445442898","route":"/ledger/[id]","type":"INP","value":424}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:19:35.786] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:19:36.056] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:19:36.057] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:19:36.057] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/ledger/fa677a4b-ce1a-4725-b70b-8d4afa328bbe","route":"/ledger/[id]"}
-[00:19:36.057] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ledger/fa677a4b-ce1a-4725-b70b-8d4afa328bbe color: rgb(120, 120, 120) color: inherit {"dp":"/ledger/[id]","o":"http://localhost:3000/ledger/fa677a4b-ce1a-4725-b70b-8d4afa328bbe","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764429119828}
-[00:19:39.086] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/ledger/fa677a4b-ce1a-4725-b70b-8d4afa328bbe","id":"v3-1764429119826-9199609745511","route":"/ledger/[id]","type":"FCP","value":1698},{"href":"http://localhost:3000/ledger/fa677a4b-ce1a-4725-b70b-8d4afa328bbe","id":"v3-1764429119826-3276907939784","route":"/ledger/[id]","type":"TTFB","value":1338},{"attribution":{"eventTarget":"div.jsx-bac5c28a010d81cd>p.jsx-bac5c28a010d81cd.mt-1.text-lg.text-gray-600.dark:text-gray-400"},"href":"http://localhost:3000/ledger/fa677a4b-ce1a-4725-b70b-8d4afa328bbe","id":"v3-1764429119826-8782651380892","route":"/ledger/[id]","type":"LCP","value":2440}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:41:12.197] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className>main","eventType":"pointerdown"},"href":"http://localhost:3000/ledger/fa677a4b-ce1a-4725-b70b-8d4afa328bbe","id":"v3-1764429119826-8966392353973","route":"/ledger/[id]","type":"INP","value":24}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:41:59.021] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764430462792}
-[00:42:04.818] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764430468578}
-[00:42:17.284] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/daily color: rgb(120, 120, 120) color: inherit {"dp":"/reports/daily","o":"http://localhost:3000/reports/daily","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764430481032}
-[00:42:26.594] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764430490364}
-[00:42:29.414] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/submit color: rgb(120, 120, 120) color: inherit {"dp":"/submit","o":"http://localhost:3000/submit","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764430493180}
-[00:42:49.987] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"input.block.w-full.rounded-md.border.bg-white.dark:bg-gray-900.py-2.pl-3.pr-10.text-sm.shadow-sm.focus:border-indigo-500.focus:outline-none.focus:ring-1.focus:ring-indigo-500.dark:text-white.border-gray-300.dark:border-gray-600","eventType":"keyup"},"href":"http://localhost:3000/submit","id":"v3-1764429119826-8966392353973","route":"/submit","type":"INP","value":480}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:42:49.987] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764430511829}
-[00:50:19.963] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/daily color: rgb(120, 120, 120) color: inherit {"dp":"/reports/daily","o":"http://localhost:3000/reports/daily","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764430963728}
-[00:50:50.454] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className","eventType":"keydown"},"href":"http://localhost:3000/reports/daily","id":"v3-1764429119826-8966392353973","route":"/reports/daily","type":"INP","value":1312}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:50:54.499] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:50:54.810] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:50:54.810] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:50:54.810] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/reports/daily","route":"/reports/daily"}
-[00:50:54.810] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/daily color: rgb(120, 120, 120) color: inherit {"dp":"/reports/daily","o":"http://localhost:3000/reports/daily","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764430998578}
-[00:51:11.360] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/reports/daily","id":"v3-1764430998576-5481032624779","route":"/reports/daily","type":"FCP","value":2514},{"href":"http://localhost:3000/reports/daily","id":"v3-1764430998576-3193338599665","route":"/reports/daily","type":"TTFB","value":2013},{"attribution":{"eventTarget":"h2.jsx-ca50e6d014e17e6d.text-2xl.font-semibold.text-gray-800.dark:text-white"},"href":"http://localhost:3000/reports/daily","id":"v3-1764430998576-1278199084533","route":"/reports/daily","type":"LCP","value":3277},{"attribution":{"eventTarget":"button.jsx-ca50e6d014e17e6d.border-b-2.px-3.py-2.text-sm.font-medium.border-indigo-600.text-indigo-600.dark:text-indigo-400","eventType":"pointerdown"},"href":"http://localhost:3000/reports/daily","id":"v3-1764430998576-3145538925457","route":"/reports/daily","type":"FID","value":18},{"attribution":{"eventTarget":"button.jsx-ca50e6d014e17e6d.border-b-2.px-3.py-2.text-sm.font-medium.border-indigo-600.text-indigo-600.dark:text-indigo-400","eventType":"keydown"},"href":"http://localhost:3000/reports/daily","id":"v3-1764430998576-2089259006652","route":"/reports/daily","type":"INP","value":3264}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+    ./app/manage/roles/components/RoleListModal.tsx [Client Component SSR]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Client Component SSR]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Server Component]
+    ./app/manage/roles/page.tsx [Server Component]
+[00:32:46.085] Browser ERROR   ./app/manage/roles/components/RoleListModal.tsx:3:1
+Export createRoleAction doesn't exist in target module
+  1 | 'use client'
+  2 | import { useState, useEffect } from 'react'
+> 3 | import { getGroupRoles, deleteRoleAction, createRoleAction } from '../actions'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 |
+  5 | interface RoleListModalProps {
+  6 |   isOpen: boolean
+
+The export createRoleAction was not found in module [project]/app/manage/roles/actions.ts [app-ssr] (ecmascript).
+Did you mean to import createGroupAction?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/manage/roles/components/RoleListModal.tsx [Client Component Browser]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Client Component Browser]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Server Component]
+    ./app/manage/roles/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/manage/roles/components/RoleListModal.tsx [Client Component SSR]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Client Component SSR]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Server Component]
+    ./app/manage/roles/page.tsx [Server Component]
+[00:32:46.085] Browser ERROR   ./app/manage/roles/components/RoleListModal.tsx:3:1
+Export deleteRoleAction doesn't exist in target module
+  1 | 'use client'
+  2 | import { useState, useEffect } from 'react'
+> 3 | import { getGroupRoles, deleteRoleAction, createRoleAction } from '../actions'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 |
+  5 | interface RoleListModalProps {
+  6 |   isOpen: boolean
+
+The export deleteRoleAction was not found in module [project]/app/manage/roles/actions.ts [app-client] (ecmascript).
+Did you mean to import deleteGroupAction?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/manage/roles/components/RoleListModal.tsx [Client Component Browser]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Client Component Browser]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Server Component]
+    ./app/manage/roles/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/manage/roles/components/RoleListModal.tsx [Client Component SSR]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Client Component SSR]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Server Component]
+    ./app/manage/roles/page.tsx [Server Component]
+[00:32:46.085] Browser ERROR   ./app/manage/roles/components/RoleListModal.tsx:3:1
+Export deleteRoleAction doesn't exist in target module
+  1 | 'use client'
+  2 | import { useState, useEffect } from 'react'
+> 3 | import { getGroupRoles, deleteRoleAction, createRoleAction } from '../actions'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 |
+  5 | interface RoleListModalProps {
+  6 |   isOpen: boolean
+
+The export deleteRoleAction was not found in module [project]/app/manage/roles/actions.ts [app-ssr] (ecmascript).
+Did you mean to import deleteGroupAction?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/manage/roles/components/RoleListModal.tsx [Client Component Browser]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Client Component Browser]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Server Component]
+    ./app/manage/roles/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/manage/roles/components/RoleListModal.tsx [Client Component SSR]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Client Component SSR]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Server Component]
+    ./app/manage/roles/page.tsx [Server Component]
+[00:33:29.264] Server  LOG      ✓ Compiled in 117ms
+[00:33:30.111] Browser ERROR   ./app/manage/roles/components/RoleListModal.tsx:3:1
+Export createRoleAction doesn't exist in target module
+  1 | 'use client'
+  2 | import { useState, useEffect } from 'react'
+> 3 | import { getGroupRoles, deleteRoleAction, createRoleAction } from '../actions'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 |
+  5 | interface RoleListModalProps {
+  6 |   isOpen: boolean
+
+The export createRoleAction was not found in module [project]/app/manage/roles/actions.ts [app-client] (ecmascript).
+Did you mean to import createGroupAction?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/manage/roles/components/RoleListModal.tsx [Client Component Browser]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Client Component Browser]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Server Component]
+    ./app/manage/roles/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/manage/roles/components/RoleListModal.tsx [Client Component SSR]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Client Component SSR]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Server Component]
+    ./app/manage/roles/page.tsx [Server Component]
+[00:33:30.111] Browser ERROR   ./app/manage/roles/components/RoleListModal.tsx:3:1
+Export createRoleAction doesn't exist in target module
+  1 | 'use client'
+  2 | import { useState, useEffect } from 'react'
+> 3 | import { getGroupRoles, deleteRoleAction, createRoleAction } from '../actions'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 |
+  5 | interface RoleListModalProps {
+  6 |   isOpen: boolean
+
+The export createRoleAction was not found in module [project]/app/manage/roles/actions.ts [app-ssr] (ecmascript).
+Did you mean to import createGroupAction?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/manage/roles/components/RoleListModal.tsx [Client Component Browser]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Client Component Browser]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Server Component]
+    ./app/manage/roles/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/manage/roles/components/RoleListModal.tsx [Client Component SSR]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Client Component SSR]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Server Component]
+    ./app/manage/roles/page.tsx [Server Component]
+[00:33:30.111] Browser ERROR   ./app/manage/roles/components/RoleListModal.tsx:3:1
+Export deleteRoleAction doesn't exist in target module
+  1 | 'use client'
+  2 | import { useState, useEffect } from 'react'
+> 3 | import { getGroupRoles, deleteRoleAction, createRoleAction } from '../actions'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 |
+  5 | interface RoleListModalProps {
+  6 |   isOpen: boolean
+
+The export deleteRoleAction was not found in module [project]/app/manage/roles/actions.ts [app-client] (ecmascript).
+Did you mean to import deleteGroupAction?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/manage/roles/components/RoleListModal.tsx [Client Component Browser]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Client Component Browser]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Server Component]
+    ./app/manage/roles/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/manage/roles/components/RoleListModal.tsx [Client Component SSR]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Client Component SSR]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Server Component]
+    ./app/manage/roles/page.tsx [Server Component]
+[00:33:30.111] Browser ERROR   ./app/manage/roles/components/RoleListModal.tsx:3:1
+Export deleteRoleAction doesn't exist in target module
+  1 | 'use client'
+  2 | import { useState, useEffect } from 'react'
+> 3 | import { getGroupRoles, deleteRoleAction, createRoleAction } from '../actions'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 |
+  5 | interface RoleListModalProps {
+  6 |   isOpen: boolean
+
+The export deleteRoleAction was not found in module [project]/app/manage/roles/actions.ts [app-ssr] (ecmascript).
+Did you mean to import deleteGroupAction?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/manage/roles/components/RoleListModal.tsx [Client Component Browser]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Client Component Browser]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Server Component]
+    ./app/manage/roles/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/manage/roles/components/RoleListModal.tsx [Client Component SSR]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Client Component SSR]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Server Component]
+    ./app/manage/roles/page.tsx [Server Component]
+[00:34:24.476] Server  LOG      ✓ Compiled in 54ms
+[00:34:25.383] Browser ERROR   ./app/manage/roles/components/RoleListModal.tsx:3:1
+Export createRoleAction doesn't exist in target module
+  1 | 'use client'
+  2 | import { useState, useEffect } from 'react'
+> 3 | import { getGroupRoles, deleteRoleAction, createRoleAction } from '../actions'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 |
+  5 | interface RoleListModalProps {
+  6 |   isOpen: boolean
+
+The export createRoleAction was not found in module [project]/app/manage/roles/actions.ts [app-client] (ecmascript).
+Did you mean to import createGroupAction?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/manage/roles/components/RoleListModal.tsx [Client Component Browser]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Client Component Browser]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Server Component]
+    ./app/manage/roles/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/manage/roles/components/RoleListModal.tsx [Client Component SSR]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Client Component SSR]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Server Component]
+    ./app/manage/roles/page.tsx [Server Component]
+[00:34:25.383] Browser ERROR   ./app/manage/roles/components/RoleListModal.tsx:3:1
+Export createRoleAction doesn't exist in target module
+  1 | 'use client'
+  2 | import { useState, useEffect } from 'react'
+> 3 | import { getGroupRoles, deleteRoleAction, createRoleAction } from '../actions'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 |
+  5 | interface RoleListModalProps {
+  6 |   isOpen: boolean
+
+The export createRoleAction was not found in module [project]/app/manage/roles/actions.ts [app-ssr] (ecmascript).
+Did you mean to import createGroupAction?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/manage/roles/components/RoleListModal.tsx [Client Component Browser]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Client Component Browser]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Server Component]
+    ./app/manage/roles/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/manage/roles/components/RoleListModal.tsx [Client Component SSR]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Client Component SSR]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Server Component]
+    ./app/manage/roles/page.tsx [Server Component]
+[00:34:25.383] Browser ERROR   ./app/manage/roles/components/RoleListModal.tsx:3:1
+Export deleteRoleAction doesn't exist in target module
+  1 | 'use client'
+  2 | import { useState, useEffect } from 'react'
+> 3 | import { getGroupRoles, deleteRoleAction, createRoleAction } from '../actions'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 |
+  5 | interface RoleListModalProps {
+  6 |   isOpen: boolean
+
+The export deleteRoleAction was not found in module [project]/app/manage/roles/actions.ts [app-client] (ecmascript).
+Did you mean to import deleteGroupAction?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/manage/roles/components/RoleListModal.tsx [Client Component Browser]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Client Component Browser]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Server Component]
+    ./app/manage/roles/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/manage/roles/components/RoleListModal.tsx [Client Component SSR]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Client Component SSR]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Server Component]
+    ./app/manage/roles/page.tsx [Server Component]
+[00:34:25.383] Browser ERROR   ./app/manage/roles/components/RoleListModal.tsx:3:1
+Export deleteRoleAction doesn't exist in target module
+  1 | 'use client'
+  2 | import { useState, useEffect } from 'react'
+> 3 | import { getGroupRoles, deleteRoleAction, createRoleAction } from '../actions'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  4 |
+  5 | interface RoleListModalProps {
+  6 |   isOpen: boolean
+
+The export deleteRoleAction was not found in module [project]/app/manage/roles/actions.ts [app-ssr] (ecmascript).
+Did you mean to import deleteGroupAction?
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/manage/roles/components/RoleListModal.tsx [Client Component Browser]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Client Component Browser]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Server Component]
+    ./app/manage/roles/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/manage/roles/components/RoleListModal.tsx [Client Component SSR]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Client Component SSR]
+    ./app/manage/roles/components/ChainVisualizer.tsx [Server Component]
+    ./app/manage/roles/page.tsx [Server Component]
+[00:35:37.036] Server  LOG      ✓ Compiled in 67ms
+[00:35:37.952] Browser ERROR   ./app/manage/roles/components/ChainVisualizer.tsx:10:59
+Parsing ecmascript source code failed
+   8 |
+   9 | interface ChainVisualizerProps {
+> 10 |   initialCompanies: { id: string; company_name: string }[]viewerRoleLevel: number // <--- NEW PROP
+     |                                                           ^^^^^^^^^^^^^^^
+  11 | }
+  12 |
+  13 | const getInitialCompanyId = (companies: ChainVisualizerProps['initialCompanies']) => {
+
+Expected ';', got 'viewerRoleLevel'
+
+Import trace:
+  Server Component:
+    ./app/manage/roles/components/ChainVisualizer.tsx
+    ./app/manage/roles/page.tsx
+[00:36:34.264] Browser ERROR   uncaughtError: ReferenceError: viewerRoleLevel is not defined
+[00:39:02.359] Server  WARN     ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+[00:39:02.382] Server  LOG      ✓ Compiled in 48ms
+[00:39:02.408] Server  ERROR   Error: aborted
+[00:39:02.410] Server  ERROR    ⨯ "uncaughtException:" Error: aborted
+[00:39:02.411] Server  ERROR    ⨯ "uncaughtException: " Error: aborted
+[00:39:04.105] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:39:04.585] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:39:04.585] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:39:04.585] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/manage/roles","route":"/manage/roles"}
+[00:39:04.585] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage/roles color: rgb(120, 120, 120) color: inherit {"dp":"/manage/roles","o":"http://localhost:3000/manage/roles","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764598143133}
+[00:39:20.968] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/manage/roles","id":"v3-1764598143132-2697322062469","route":"/manage/roles","type":"FCP","value":1520},{"href":"http://localhost:3000/manage/roles","id":"v3-1764598143132-1550146701858","route":"/manage/roles","type":"TTFB","value":1177},{"attribution":{"eventTarget":"main>div.max-w-[95vw].mx-auto.p-6>div.mb-8>h1.text-3xl.font-bold.text-gray-900.dark:text-white"},"href":"http://localhost:3000/manage/roles","id":"v3-1764598143132-2101944551261","route":"/manage/roles","type":"LCP","value":1520},{"attribution":{"eventTarget":"div.relative.w-64.p-4.rounded-lg.border-2.shadow-md.transition-all.hover:shadow-lg.bg-white.dark:bg-gray-800.group.border-gray-200.dark:border-gray-700","eventType":"pointerdown"},"href":"http://localhost:3000/manage/roles","id":"v3-1764598143132-1192048213657","route":"/manage/roles","type":"FID","value":12}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:39:20.968] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/admin color: rgb(120, 120, 120) color: inherit {"dp":"/admin","o":"http://localhost:3000/admin","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764598159517}
+[00:40:29.846] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764598228408}
+[00:40:32.424] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage/roles color: rgb(120, 120, 120) color: inherit {"dp":"/manage/roles","o":"http://localhost:3000/manage/roles","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1764598230969}
+[00:40:59.598] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"keyup"},"href":"http://localhost:3000/manage/roles","id":"v3-1764598143132-4787359143779","route":"/manage/roles","type":"INP","value":536}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}

@@ -30,7 +30,7 @@
       "exportedName": "deleteGroupAction",
       "filename": "app/manage/roles/actions.ts"
     },
-    "70079b3c073a3793d07e63f99a88ba3a28fa1e70c4": {
+    "78079b3c073a3793d07e63f99a88ba3a28fa1e70c4": {
       "workers": {
         "app/manage/roles/page": {
           "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
@@ -43,6 +43,36 @@
         "app/manage/roles/page": "action-browser"
       },
       "exportedName": "createGroupAction",
+      "filename": "app/manage/roles/actions.ts"
+    },
+    "781b8c91e00c51cec97ea6f3ef449d49978b40516a": {
+      "workers": {
+        "app/manage/roles/page": {
+          "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "createSubordinateGroupAction",
+          "filename": "app/manage/roles/actions.ts"
+        }
+      },
+      "layer": {
+        "app/manage/roles/page": "action-browser"
+      },
+      "exportedName": "createSubordinateGroupAction",
+      "filename": "app/manage/roles/actions.ts"
+    },
+    "00ae9ae6ba58b134ae0dcbb1048b635e73b23ee2bd": {
+      "workers": {
+        "app/manage/roles/page": {
+          "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getAllApprovalGroups",
+          "filename": "app/manage/roles/actions.ts"
+        }
+      },
+      "layer": {
+        "app/manage/roles/page": "action-browser"
+      },
+      "exportedName": "getAllApprovalGroups",
       "filename": "app/manage/roles/actions.ts"
     },
     "40d1742e2232c673b4b92bd7a1a01d3d91b6ef8390": {
@@ -60,34 +90,49 @@
       "exportedName": "getGroupRoles",
       "filename": "app/manage/roles/actions.ts"
     },
-    "40a5568cc820ffe2098c17cccc97ba4d2a6ccce129": {
+    "40c44b7d62b9d33af21c6e0e829e12736ada41a06f": {
       "workers": {
         "app/manage/roles/page": {
           "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "deleteRoleAction",
+          "exportedName": "getCompanyRoles",
           "filename": "app/manage/roles/actions.ts"
         }
       },
       "layer": {
         "app/manage/roles/page": "action-browser"
       },
-      "exportedName": "deleteRoleAction",
+      "exportedName": "getCompanyRoles",
       "filename": "app/manage/roles/actions.ts"
     },
-    "78c1a20f4cc5bc2da7ea96c7a649be0cc1e65b0c41": {
+    "608d78a921def9249bf4f244e6cff42c63651c6157": {
       "workers": {
         "app/manage/roles/page": {
           "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "createRoleAction",
+          "exportedName": "assignRoleToGroupAction",
           "filename": "app/manage/roles/actions.ts"
         }
       },
       "layer": {
         "app/manage/roles/page": "action-browser"
       },
-      "exportedName": "createRoleAction",
+      "exportedName": "assignRoleToGroupAction",
+      "filename": "app/manage/roles/actions.ts"
+    },
+    "4043f145d74fb551c0f220d4655fa7d3b096b01be1": {
+      "workers": {
+        "app/manage/roles/page": {
+          "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "unassignRoleAction",
+          "filename": "app/manage/roles/actions.ts"
+        }
+      },
+      "layer": {
+        "app/manage/roles/page": "action-browser"
+      },
+      "exportedName": "unassignRoleAction",
       "filename": "app/manage/roles/actions.ts"
     }
   },

@@ -8,18 +8,17 @@ import RoleListModal from './RoleListModal'
 
 interface ChainVisualizerProps {
   initialCompanies: { id: string; company_name: string }[]
+  viewerRoleLevel: number // Defined here correctly
 }
 
-// Helper to determine the initial company ID safely
 const getInitialCompanyId = (companies: ChainVisualizerProps['initialCompanies']) => {
-    // Look for the first company named 'Alpha Company' or default to the first one found
     const alphaCompany = companies.find(c => c.company_name === 'Alpha Company');
     return alphaCompany?.id || companies[0]?.id || '';
 }
 
-export default function ChainVisualizer({ initialCompanies }: ChainVisualizerProps) {
+// *** FIX IS HERE: Added viewerRoleLevel to the destructuring ***
+export default function ChainVisualizer({ initialCompanies, viewerRoleLevel }: ChainVisualizerProps) {
     
-  // --- MODIFIED: Use the safe helper function for initial state ---
   const [selectedCompanyId, setSelectedCompanyId] = useState(() => getInitialCompanyId(initialCompanies));
   
   const [nodes, setNodes] = useState<ApprovalGroupNode[]>([])
@@ -28,10 +27,12 @@ export default function ChainVisualizer({ initialCompanies }: ChainVisualizerPro
   const [connections, setConnections] = useState<{ path: string; key: string }[]>([])
   
   const [isAddModalOpen, setIsAddModalOpen] = useState(false)
-  const [targetChildId, setTargetChildId] = useState<string | null>(null)
+  const [targetGroupId, setTargetGroupId] = useState<string | null>(null)
+  
+  const [addMode, setAddMode] = useState<'genesis' | 'add_parent' | 'add_child'>('genesis') 
+  
   const [selectedNodeForRoles, setSelectedNodeForRoles] = useState<ApprovalGroupNode | null>(null)
 
-  // 1. Fetch Chain - Only run if an ID is actually selected
   useEffect(() => {
     if (!selectedCompanyId) {
         setNodes([]);
@@ -43,18 +44,14 @@ export default function ChainVisualizer({ initialCompanies }: ChainVisualizerPro
 
   async function fetchChain() {
     setLoading(true)
-    // We already handle errors in the action, here we just update state
     const data = await getCompanyChain(selectedCompanyId)
-    setNodes(data || []) // Ensure nodes is an array even on error
+    setNodes(data || [])
     setLoading(false)
   }
-
-  // ... (Rest of Layout Algorithm and Draw Connections remains the same) ...
 
   const columns = useMemo(() => {
     if (nodes.length === 0) return []
 
-    // ... (Layout logic remains the same, using the now-safe 'nodes' state) ...
     const depthMap = new Map<string, number>()
     const adjacency = new Map<string, string[]>() 
 
@@ -94,9 +91,13 @@ export default function ChainVisualizer({ initialCompanies }: ChainVisualizerPro
     return cols.reverse() 
   }, [nodes])
 
-  // ... (Draw Connections and Handlers remain the same) ...
   const drawConnections = useCallback(() => {
-    if (!contentRef.current || nodes.length === 0) return
+    if (!contentRef.current) return
+
+    if (nodes.length === 0) {
+        setConnections([])
+        return
+    }
 
     const newConnections: { path: string; key: string }[] = []
     const contentRect = contentRef.current.getBoundingClientRect()
@@ -139,18 +140,32 @@ export default function ChainVisualizer({ initialCompanies }: ChainVisualizerPro
     await deleteGroupAction(id)
     fetchChain()
   }
-  const handleOpenAdd = (childId: string) => {
-    setTargetChildId(childId)
-    setIsAddModalOpen(true)
+
+  // --- Handlers for Modals ---
+  const openAddParent = (nodeId: string) => {
+      setTargetGroupId(nodeId);
+      setAddMode('add_parent');
+      setIsAddModalOpen(true);
   }
+
+  const openAddChild = (nodeId: string) => {
+      setTargetGroupId(nodeId);
+      setAddMode('add_child');
+      setIsAddModalOpen(true);
+  }
+
+  const openGenesis = () => {
+      setTargetGroupId(null);
+      setAddMode('genesis');
+      setIsAddModalOpen(true);
+  }
+
   const handleNodeClick = (node: ApprovalGroupNode) => {
     setSelectedNodeForRoles(node)
   }
 
-
   return (
     <div className="space-y-6">
-      {/* Toolbar */}
       <div className="flex flex-wrap items-center gap-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow z-10 relative">
         <label className="font-medium text-gray-700 dark:text-gray-300">Select Company:</label>
         <select 
@@ -159,13 +174,11 @@ export default function ChainVisualizer({ initialCompanies }: ChainVisualizerPro
           className="rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white p-2"
         >
           {initialCompanies.map(c => <option key={c.id} value={c.id}>{c.company_name}</option>)}
-          {/* Fallback option if no companies are loaded */}
           {initialCompanies.length === 0 && <option value="">No Companies Available</option>}
         </select>
         <button onClick={fetchChain} className="ml-auto text-sm text-indigo-600 hover:underline dark:text-indigo-400">Refresh</button>
       </div>
 
-      {/* Scrollable Outer Container */}
       <div 
         className="overflow-x-auto bg-gray-50 dark:bg-gray-900/50 rounded-xl border dark:border-gray-700 flex flex-col"
         style={{ height: '700px' }}
@@ -173,26 +186,21 @@ export default function ChainVisualizer({ initialCompanies }: ChainVisualizerPro
         {loading ? (
           <div className="flex items-center justify-center h-full text-gray-500">Loading Chain...</div>
         ) : (
-          <div 
-            className="flex flex-col min-w-max h-full p-8 relative"
-          >
+          <div className="flex flex-col min-w-max h-full p-8 relative">
             
-            {/* --- ROW 1: HEADERS --- */}
-            <div className="flex gap-24 mb-4 border-b dark:border-gray-700 pb-2">
-              {columns.map((_, colIndex) => (
-                <div key={colIndex} className="w-64 text-center text-xs font-bold text-gray-400 uppercase tracking-wider">
-                   {colIndex === columns.length - 1 ? "Final Authority" : `Step ${columns.length - 1 - colIndex}`}
+            {/* HEADERS */}
+            {columns.length > 0 && (
+                <div className="flex gap-24 mb-4 border-b dark:border-gray-700 pb-2">
+                {columns.map((_, colIndex) => (
+                    <div key={colIndex} className="w-64 text-center text-xs font-bold text-gray-400 uppercase tracking-wider">
+                    {colIndex === columns.length - 1 ? "Final Authority" : `Step ${columns.length - 1 - colIndex}`}
+                    </div>
+                ))}
                 </div>
-              ))}
-            </div>
+            )}
 
-            {/* --- ROW 2: NODES & LINES --- */}
-            <div 
-              ref={contentRef}
-              className="relative flex-grow flex items-center"
-            >
-              
-              {/* SVG Layer */}
+            {/* NODES */}
+            <div ref={contentRef} className="relative flex-grow flex items-center">
               <svg className="absolute top-0 left-0 w-full h-full pointer-events-none z-0">
                 <defs>
                   <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
@@ -212,7 +220,6 @@ export default function ChainVisualizer({ initialCompanies }: ChainVisualizerPro
                 ))}
               </svg>
 
-              {/* Node Columns */}
               <div className="flex gap-24 z-10 relative h-full w-full">
                 {columns.map((col, colIndex) => (
                   <div key={colIndex} className="flex flex-col gap-16 justify-center w-64">
@@ -220,42 +227,45 @@ export default function ChainVisualizer({ initialCompanies }: ChainVisualizerPro
                       <div key={node.id} id={`node-${node.id}`} onClick={() => handleNodeClick(node)} className="cursor-pointer">
                         <GroupNode 
                           node={node} 
-                          onDelete={(e: React.MouseEvent) => { 
-                            e.stopPropagation(); 
-                            handleDelete(node.id); 
-                          }}
-                          onAddParent={(e: React.MouseEvent) => { 
-                            e.stopPropagation(); 
-                            handleOpenAdd(node.id); 
-                          }}
+                          onDelete={(e: React.MouseEvent) => { e.stopPropagation(); handleDelete(node.id); }}
+                          onAddParent={(e: React.MouseEvent) => { e.stopPropagation(); openAddParent(node.id); }}
+                          onAddSubordinate={(e: React.MouseEvent) => { e.stopPropagation(); openAddChild(node.id); }}
                         />
                       </div>
                     ))}
                   </div>
                 ))}
               </div>
-
             </div>
             
-            {/* Display message if no groups are loaded and we're not loading */}
+            {/* EMPTY STATE */}
             {!loading && columns.length === 0 && (
-                 <div className="absolute inset-0 flex items-center justify-center text-gray-500">
-                    {initialCompanies.length === 0 
+                 <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-500 gap-4 z-20">
+                    <p>{initialCompanies.length === 0 
                         ? "Configuration error: No companies were loaded from the server."
-                        : "No approval groups found for this company. Add a new group to start the chain."}
+                        : "No approval groups found for this company."}</p>
+                    
+                    {initialCompanies.length > 0 && selectedCompanyId && (
+                        <button 
+                            onClick={openGenesis}
+                            className="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 transition-colors"
+                        >
+                            + Create First Group
+                        </button>
+                    )}
                  </div>
             )}
           </div>
         )}
       </div>
 
-      {/* Modals */}
-      {isAddModalOpen && targetChildId && (
+      {isAddModalOpen && (
         <AddGroupModal 
           isOpen={isAddModalOpen}
           onClose={() => setIsAddModalOpen(false)}
           companyId={selectedCompanyId}
-          childGroupId={targetChildId}
+          referenceGroupId={targetGroupId}
+          mode={addMode}
           onSuccess={() => {
             setIsAddModalOpen(false)
             fetchChain()
@@ -272,6 +282,7 @@ export default function ChainVisualizer({ initialCompanies }: ChainVisualizerPro
           groupId={selectedNodeForRoles.id}
           companyName={initialCompanies.find(c => c.id === selectedCompanyId)?.company_name || 'Unit'}
           companyId={selectedCompanyId}
+          viewerRoleLevel={viewerRoleLevel} // Now this variable exists!
         />
       )}
     </div>

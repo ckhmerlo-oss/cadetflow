@@ -14,6 +14,81 @@
       },
       "exportedName": "adminResetPassword",
       "filename": "app/admin/actions.ts"
+    },
+    "409cbb727408449410bfea660db2abfb11797904d6": {
+      "workers": {
+        "app/admin/page": {
+          "moduleId": "[project]/.next-internal/server/app/admin/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/admin/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "createAdminRoleAction",
+          "filename": "app/admin/actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/page": "action-browser"
+      },
+      "exportedName": "createAdminRoleAction",
+      "filename": "app/admin/actions.ts"
+    },
+    "400bac5072b2551d4bd28c32bf2e33039b2da0bb73": {
+      "workers": {
+        "app/admin/page": {
+          "moduleId": "[project]/.next-internal/server/app/admin/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/admin/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "updateAdminRoleAction",
+          "filename": "app/admin/actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/page": "action-browser"
+      },
+      "exportedName": "updateAdminRoleAction",
+      "filename": "app/admin/actions.ts"
+    },
+    "40dcef34cc16fdbc2c174e912844adf0f3f625342d": {
+      "workers": {
+        "app/admin/page": {
+          "moduleId": "[project]/.next-internal/server/app/admin/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/admin/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "deleteAdminRoleAction",
+          "filename": "app/admin/actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/page": "action-browser"
+      },
+      "exportedName": "deleteAdminRoleAction",
+      "filename": "app/admin/actions.ts"
+    },
+    "401f2a511d0b58b3c3417f75c84cb385686a805049": {
+      "workers": {
+        "app/admin/page": {
+          "moduleId": "[project]/.next-internal/server/app/admin/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/admin/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "createCompanyAction",
+          "filename": "app/admin/actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/page": "action-browser"
+      },
+      "exportedName": "createCompanyAction",
+      "filename": "app/admin/actions.ts"
+    },
+    "40f9e26d10a4fa3408cc94a726980f8ab3047bd1fe": {
+      "workers": {
+        "app/admin/page": {
+          "moduleId": "[project]/.next-internal/server/app/admin/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/admin/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "deleteCompanyAction",
+          "filename": "app/admin/actions.ts"
+        }
+      },
+      "layer": {
+        "app/admin/page": "action-browser"
+      },
+      "exportedName": "deleteCompanyAction",
+      "filename": "app/admin/actions.ts"
     }
   },
   "edge": {}

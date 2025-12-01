@@ -14,7 +14,6 @@ export type ApprovalGroupNode = {
 }
 
 // --- SECURITY HELPER ---
-// Returns true if authorized, throws error if not.
 async function requireAuth(supabase: SupabaseClient) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) throw new Error("Unauthorized")
@@ -27,9 +26,6 @@ async function requireAuth(supabase: SupabaseClient) {
 
   const roleLevel = (profile?.role as any)?.default_role_level || 0
   
-  // SECURITY POLICY: 
-  // Only Staff (50+) or higher can configure the Chain of Command.
-  // You can adjust this to 40 if Company Commanders should edit their own structure.
   if (roleLevel < 50) {
     throw new Error("Insufficient permissions: You must be Staff to edit the Chain of Command.")
   }
@@ -37,11 +33,10 @@ async function requireAuth(supabase: SupabaseClient) {
   return user
 }
 
-// --- FETCHING (Publicly viewable for transparency, or restrict if needed) ---
+// --- FETCHING ---
 export async function getCompanyChain(companyId: string) {
   const supabase = createClient()
   
-  // 1. Fetch groups
   const { data: companyGroups, error } = await supabase
     .from('approval_groups')
     .select(`
@@ -55,13 +50,11 @@ export async function getCompanyChain(companyId: string) {
     return []
   }
 
-  // 2. Flatten
   const formattedGroups = companyGroups.map(g => ({
     ...g,
     role_count: g.roles ? (g.roles as any)[0]?.count || 0 : 0
   })) as ApprovalGroupNode[]
 
-  // 3. Fetch external links (Final Authority nodes outside the company)
   const outgoingLinkIds = formattedGroups
     .map(g => g.next_approver_group_id)
     .filter(id => id !== null) as string[];
@@ -85,7 +78,6 @@ export async function getCompanyChain(companyId: string) {
 
 export async function getGroupRoles(groupId: string) {
   const supabase = createClient()
-  // View-only access is fine for logged in users
   const { data, error } = await supabase
     .from('roles')
     .select('id, role_name, default_role_level')
@@ -95,49 +87,113 @@ export async function getGroupRoles(groupId: string) {
   return { roles: data || [], error: error?.message }
 }
 
+export async function getAllApprovalGroups() {
+  const supabase = createClient()
+  try { await requireAuth(supabase) } catch (e) { return [] }
 
-// --- MUTATIONS (Protected) ---
+  const { data, error } = await supabase
+    .from('approval_groups')
+    .select(`
+      id, 
+      group_name, 
+      company:company_id (company_name)
+    `)
+    .order('group_name')
+  
+  if (error) return []
+  
+  return data.map((g: any) => ({
+    id: g.id,
+    label: `${g.group_name} (${g.company?.company_name || 'No Co.'})`
+  }))
+}
+
+
+// --- MUTATIONS ---
 
 export async function createGroupAction(
   companyId: string, 
-  groupName: string, 
-  childGroupIdToApprove: string 
+  groupName: string | null, 
+  childGroupIdToApprove?: string | null,
+  existingGroupId?: string | null
 ) {
   const supabase = createClient()
   try { await requireAuth(supabase) } catch (e: any) { return { error: e.message } }
 
-  // 1. Get Child's current parent
-  const { data: childGroup, error: fetchError } = await supabase
-    .from('approval_groups')
-    .select('next_approver_group_id')
-    .eq('id', childGroupIdToApprove)
-    .single();
+  let targetParentId = existingGroupId;
 
-  if (fetchError || !childGroup) return { error: "Could not find the group you selected." };
+  if (!targetParentId) {
+      if (!groupName) return { error: "Group Name is required for new groups." };
 
-  const oldParentId = childGroup.next_approver_group_id;
+      let nextLink = null;
+      
+      if (childGroupIdToApprove) {
+          const { data: child } = await supabase.from('approval_groups').select('next_approver_group_id').eq('id', childGroupIdToApprove).single();
+          nextLink = child?.next_approver_group_id || null;
+      }
 
-  // 2. Insert New Group
-  const { data: newGroup, error: createError } = await supabase
-    .from('approval_groups')
-    .insert({
-      group_name: groupName,
-      company_id: companyId,
-      next_approver_group_id: oldParentId,
-      is_final_authority: false
-    })
-    .select('id')
-    .single();
+      const { data: newGroup, error: createError } = await supabase
+        .from('approval_groups')
+        .insert({
+          group_name: groupName,
+          company_id: companyId,
+          next_approver_group_id: nextLink,
+          is_final_authority: !nextLink
+        })
+        .select('id')
+        .single();
 
-  if (createError) return { error: createError.message };
+      if (createError) return { error: createError.message };
+      targetParentId = newGroup.id;
+  }
 
-  // 3. Update Child
-  const { error: updateError } = await supabase
-    .from('approval_groups')
-    .update({ next_approver_group_id: newGroup.id })
-    .eq('id', childGroupIdToApprove);
+  if (childGroupIdToApprove && targetParentId) {
+      const { error: updateError } = await supabase
+        .from('approval_groups')
+        .update({ 
+            next_approver_group_id: targetParentId,
+            is_final_authority: false
+        })
+        .eq('id', childGroupIdToApprove);
 
-  if (updateError) return { error: "Failed to re-link the chain." };
+      if (updateError) return { error: "Failed to re-link the chain." };
+  }
+
+  revalidatePath('/manage/roles');
+  return { success: true };
+}
+
+export async function createSubordinateGroupAction(
+  companyId: string,
+  groupName: string | null,
+  parentGroupId: string,
+  existingGroupId?: string | null
+) {
+  const supabase = createClient()
+  try { await requireAuth(supabase) } catch (e: any) { return { error: e.message } }
+
+  if (existingGroupId) {
+      const { error } = await supabase
+        .from('approval_groups')
+        .update({ 
+            next_approver_group_id: parentGroupId,
+            is_final_authority: false 
+        })
+        .eq('id', existingGroupId);
+      
+      if (error) return { error: error.message };
+  } else {
+      if (!groupName) return { error: "Name required." };
+      const { error } = await supabase
+        .from('approval_groups')
+        .insert({
+          group_name: groupName,
+          company_id: companyId,
+          next_approver_group_id: parentGroupId,
+          is_final_authority: false
+        });
+      if (error) return { error: error.message };
+  }
 
   revalidatePath('/manage/roles');
   return { success: true };
@@ -147,8 +203,6 @@ export async function deleteGroupAction(groupId: string) {
   const supabase = createClient()
   try { await requireAuth(supabase) } catch (e: any) { return { error: e.message } }
 
-  // 1. Check if group has roles inside it
-  // If we delete the group, the roles become orphans. Block this.
   const { count } = await supabase
     .from('roles')
     .select('*', { count: 'exact', head: true })
@@ -158,7 +212,6 @@ export async function deleteGroupAction(groupId: string) {
     return { error: "Cannot delete: This group still contains roles. Please move or delete them first." }
   }
 
-  // 2. Get Target info
   const { data: targetGroup } = await supabase
     .from('approval_groups')
     .select('next_approver_group_id')
@@ -168,15 +221,16 @@ export async function deleteGroupAction(groupId: string) {
   if (!targetGroup) return { error: "Group not found" };
   const parentId = targetGroup.next_approver_group_id;
 
-  // 3. Re-link children (Heal the chain)
   const { error: relinkError } = await supabase
     .from('approval_groups')
-    .update({ next_approver_group_id: parentId })
+    .update({ 
+        next_approver_group_id: parentId,
+        is_final_authority: (parentId === null) 
+    })
     .eq('next_approver_group_id', groupId);
 
   if (relinkError) return { error: "Failed to re-link children groups." };
 
-  // 4. Delete
   const { error: deleteError } = await supabase
     .from('approval_groups')
     .delete()
@@ -188,48 +242,53 @@ export async function deleteGroupAction(groupId: string) {
   return { success: true };
 }
 
-export async function createRoleAction(
-  companyId: string,
-  groupId: string,
-  roleName: string,
-  defaultLevel: number
-) {
+// --- NEW ROLE ASSIGNMENT ACTIONS ---
+
+// Action 1: Fetch Unassigned Roles for a Company
+export async function getCompanyRoles(companyId: string) {
+  const supabase = createClient()
+  
+  // We want roles that are:
+  // 1. Belonging to this company
+  // 2. Not assigned to ANY approval group (approval_group_id IS NULL)
+  // OR roles that belong to this group (to show current) - but RoleListModal fetches current separately.
+  // So here we just want AVAILABLE roles.
+  
+  const { data, error } = await supabase
+    .from('roles')
+    .select('id, role_name, default_role_level')
+    .eq('company_id', companyId)
+    .is('approval_group_id', null)
+    .order('role_name')
+
+  return { roles: data || [], error: error?.message }
+}
+
+// Action 2: Link Role to Group
+export async function assignRoleToGroupAction(roleId: string, groupId: string) {
   const supabase = createClient()
   try { await requireAuth(supabase) } catch (e: any) { return { error: e.message } }
 
-  const { error } = await supabase.from('roles').insert({
-    company_id: companyId,
-    approval_group_id: groupId,
-    role_name: roleName,
-    default_role_level: defaultLevel,
-    // Auto-set permissions based on level
-    can_manage_own_company_roster: defaultLevel >= 40, 
-    can_manage_all_rosters: defaultLevel >= 50
-  })
+  const { error } = await supabase
+    .from('roles')
+    .update({ approval_group_id: groupId })
+    .eq('id', roleId)
 
   if (error) return { error: error.message }
   revalidatePath('/manage/roles')
   return { success: true }
 }
 
-export async function deleteRoleAction(roleId: string) {
+// Action 3: Unlink Role from Group
+export async function unassignRoleAction(roleId: string) {
   const supabase = createClient()
   try { await requireAuth(supabase) } catch (e: any) { return { error: e.message } }
-  
-  // 1. CHECK FOR USAGE
-  // If a cadet is assigned to this role, we must block deletion or we break the roster.
-  const { count } = await supabase
-    .from('profiles')
-    .select('*', { count: 'exact', head: true })
-    .eq('role_id', roleId)
 
-  if (count && count > 0) {
-    return { error: `Cannot delete: ${count} cadet(s) are currently assigned to this role.` }
-  }
-  
-  // 2. Delete
-  const { error } = await supabase.from('roles').delete().eq('id', roleId)
-  
+  const { error } = await supabase
+    .from('roles')
+    .update({ approval_group_id: null })
+    .eq('id', roleId)
+
   if (error) return { error: error.message }
   revalidatePath('/manage/roles')
   return { success: true }

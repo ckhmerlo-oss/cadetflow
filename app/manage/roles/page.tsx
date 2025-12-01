@@ -32,35 +32,27 @@ export default async function RolesConfigurationPage() {
     
   const userPermissions = profile?.role || { can_manage_all_rosters: false, can_manage_own_company_roster: false, default_role_level: 0 }
   const userCompanyId = profile?.company_id
+  
+  // *** NEW: Extract Viewer Level ***
+  const viewerRoleLevel = userPermissions.default_role_level || 0;
 
-  // 2. Authorization Check (Staff/High Level Required to configure the chain)
-  // This prevents non-managers from even loading the page
-  if (userPermissions.default_role_level < 50) {
+  // 2. Authorization Check
+  if (viewerRoleLevel < 50) {
       return <div className="max-w-7xl mx-auto p-8 text-red-500">Permission Denied: You must be Staff (Level 50+) or higher to configure the Chain of Command.</div>
   }
 
-  // 3. Fetch all potential companies (excluding non-cadet units)
+  // 3. Fetch companies
   const { data: allCompanies } = await supabase
     .from('companies')
     .select('id, company_name')
-    // Exclude Commandant Department and Faculty, as requested
     .not('company_name', 'in', '("Commandant Department", "Faculty")') 
     .order('company_name')
 
   // 4. Apply Management Filters
   const filteredCompanies = (allCompanies || [])
     .filter(company => {
-        // Condition A: If user can manage all, show all companies
-        if (userPermissions.can_manage_all_rosters) {
-            return true;
-        }
-        
-        // Condition B: If user can manage their own company, show only their company
-        if (userPermissions.can_manage_own_company_roster && userCompanyId) {
-            return company.id === userCompanyId;
-        }
-        
-        // If neither condition is met, exclude the company
+        if (userPermissions.can_manage_all_rosters) return true;
+        if (userPermissions.can_manage_own_company_roster && userCompanyId) return company.id === userCompanyId;
         return false;
     }) as Company[]
 
@@ -81,8 +73,10 @@ export default async function RolesConfigurationPage() {
               </p>
           </div>
       ) : (
-          // Pass the filtered list of companies to the client
-          <ChainVisualizer initialCompanies={filteredCompanies} />
+          <ChainVisualizer 
+            initialCompanies={filteredCompanies} 
+            viewerRoleLevel={viewerRoleLevel} // <--- PASSED HERE
+          />
       )}
     </div>
   )
