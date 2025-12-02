@@ -132,16 +132,60 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 ;
 async function updateCadetProfile(cadetId, formData) {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
+    // 1. Auth Check
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return {
         error: 'Unauthorized'
     };
-    const { data: editorProfile } = await supabase.from('profiles').select('role:role_id (role_name)').eq('id', user.id).single();
-    const roleName = editorProfile?.role?.role_name || '';
-    const canEdit = __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$profile$2f$constants$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["EDIT_AUTHORIZED_ROLES"].includes(roleName) || roleName.includes('TAC') || roleName === 'Admin';
-    if (!canEdit) return {
-        error: 'You do not have permission to edit profiles.'
+    // 2. Fetch Editor Permissions
+    const { data: editor } = await supabase.from('profiles').select(`
+      id, 
+      company_id, 
+      role:role_id (
+        role_name, 
+        default_role_level, 
+        can_manage_all_rosters, 
+        can_manage_own_company_roster
+      )
+    `).eq('id', user.id).single();
+    if (!editor || !editor.role) return {
+        error: 'Unauthorized'
     };
+    const editorRole = editor.role;
+    const editorLevel = editorRole.default_role_level || 0;
+    const canManageAll = editorRole.can_manage_all_rosters;
+    const canManageOwn = editorRole.can_manage_own_company_roster;
+    // 3. Fetch Target Details
+    const { data: target } = await supabase.from('profiles').select('company_id, role:role_id(default_role_level)').eq('id', cadetId).single();
+    if (!target) return {
+        error: 'Target profile not found.'
+    };
+    const targetLevel = target.role?.default_role_level || 0;
+    // 4. HIERARCHY RULE: Cannot edit someone of equal or higher rank
+    if (targetLevel >= editorLevel) {
+        return {
+            error: `Permission Denied: You cannot edit a user of rank level ${targetLevel} (your level is ${editorLevel}).`
+        };
+    }
+    // 5. SCOPE RULE: Check if editor has jurisdiction
+    let hasPermission = false;
+    if (canManageAll) {
+        hasPermission = true;
+    } else if (canManageOwn) {
+        if (editor.company_id === target.company_id) {
+            hasPermission = true;
+        } else {
+            return {
+                error: "Permission Denied: You can only edit profiles within your own company."
+            };
+        }
+    }
+    if (!hasPermission) {
+        return {
+            error: 'You do not have permission to edit this profile.'
+        };
+    }
+    // 6. Prepare Updates
     const updates = {
         cadet_rank: formData.get('cadet_rank')?.toString() || null,
         room_number: formData.get('room_number')?.toString() || null,
@@ -152,9 +196,14 @@ async function updateCadetProfile(cadetId, formData) {
         sport_winter: formData.get('sport_winter')?.toString() || null,
         sport_spring: formData.get('sport_spring')?.toString() || null
     };
-    const canManageStarTours = __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$profile$2f$constants$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["STAR_TOUR_AUTHORIZED_ROLES"].includes(roleName);
+    // 7. SENSITIVE FIELD CHECK: Star Tours
+    // Only specific high-level roles can modify this field
+    const canManageStarTours = __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$profile$2f$constants$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["STAR_TOUR_AUTHORIZED_ROLES"].includes(editorRole.role_name);
     if (canManageStarTours) {
-        updates.has_star_tours = formData.get('has_star_tours') === 'on';
+        // Only read the checkbox if they are authorized
+        if (formData.has('has_star_tours')) {
+            updates.has_star_tours = formData.get('has_star_tours') === 'on';
+        }
     }
     const { error } = await supabase.from('profiles').update(updates).eq('id', cadetId);
     if (error) {

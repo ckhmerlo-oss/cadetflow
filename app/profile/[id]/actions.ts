@@ -2,25 +2,71 @@
 
 import { createClient } from '@/utils/supabase/server'
 import { revalidatePath } from 'next/cache'
-import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+import { STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
 
 export async function updateCadetProfile(cadetId: string, formData: FormData) {
   const supabase = createClient()
   
+  // 1. Auth Check
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return { error: 'Unauthorized' }
 
-  const { data: editorProfile } = await supabase
+  // 2. Fetch Editor Permissions
+  const { data: editor } = await supabase
     .from('profiles')
-    .select('role:role_id (role_name)')
+    .select(`
+      id, 
+      company_id, 
+      role:role_id (
+        role_name, 
+        default_role_level, 
+        can_manage_all_rosters, 
+        can_manage_own_company_roster
+      )
+    `)
     .eq('id', user.id)
     .single()
 
-  const roleName = (editorProfile?.role as any)?.role_name || ''
-  
-  const canEdit = EDIT_AUTHORIZED_ROLES.includes(roleName) || roleName.includes('TAC') || roleName === 'Admin';
-  if (!canEdit) return { error: 'You do not have permission to edit profiles.' }
+  if (!editor || !editor.role) return { error: 'Unauthorized' }
 
+  const editorRole = editor.role as any
+  const editorLevel = editorRole.default_role_level || 0
+  const canManageAll = editorRole.can_manage_all_rosters
+  const canManageOwn = editorRole.can_manage_own_company_roster
+  
+  // 3. Fetch Target Details
+  const { data: target } = await supabase
+    .from('profiles')
+    .select('company_id, role:role_id(default_role_level)')
+    .eq('id', cadetId)
+    .single()
+
+  if (!target) return { error: 'Target profile not found.' }
+  
+  const targetLevel = (target.role as any)?.default_role_level || 0
+
+  // 4. HIERARCHY RULE: Cannot edit someone of equal or higher rank
+  if (targetLevel >= editorLevel) {
+    return { error: `Permission Denied: You cannot edit a user of rank level ${targetLevel} (your level is ${editorLevel}).` }
+  }
+
+  // 5. SCOPE RULE: Check if editor has jurisdiction
+  let hasPermission = false
+  if (canManageAll) {
+    hasPermission = true
+  } else if (canManageOwn) {
+    if (editor.company_id === target.company_id) {
+      hasPermission = true
+    } else {
+      return { error: "Permission Denied: You can only edit profiles within your own company." }
+    }
+  }
+
+  if (!hasPermission) {
+    return { error: 'You do not have permission to edit this profile.' }
+  }
+
+  // 6. Prepare Updates
   const updates: { [key: string]: any } = {
     cadet_rank: formData.get('cadet_rank')?.toString() || null,
     room_number: formData.get('room_number')?.toString() || null,
@@ -32,9 +78,14 @@ export async function updateCadetProfile(cadetId: string, formData: FormData) {
     sport_spring: formData.get('sport_spring')?.toString() || null,
   }
 
-  const canManageStarTours = STAR_TOUR_AUTHORIZED_ROLES.includes(roleName);
+  // 7. SENSITIVE FIELD CHECK: Star Tours
+  // Only specific high-level roles can modify this field
+  const canManageStarTours = STAR_TOUR_AUTHORIZED_ROLES.includes(editorRole.role_name);
   if (canManageStarTours) {
-    updates.has_star_tours = formData.get('has_star_tours') === 'on'
+    // Only read the checkbox if they are authorized
+    if (formData.has('has_star_tours')) {
+        updates.has_star_tours = formData.get('has_star_tours') === 'on'
+    }
   }
 
   const { error } = await supabase.from('profiles').update(updates).eq('id', cadetId)

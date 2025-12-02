@@ -4,6 +4,7 @@ import { createClient } from '@/utils/supabase/client'
 import { useState, useEffect, useMemo } from 'react'
 import React from 'react'
 import Link from 'next/link'
+import { useRouter } from 'next/navigation'
 
 type AuditLogEvent = {
   event_date: string
@@ -43,6 +44,7 @@ type CadetProfile = {
 export default function LedgerPage({ params: paramsPromise }: { params: Promise<{ id: string }> }) {
   const params = React.use(paramsPromise)
   const targetCadetId = params.id
+  const router = useRouter()
 
   const supabase = createClient()
   const [fullLog, setFullLog] = useState<AuditLogEvent[]>([])
@@ -60,6 +62,42 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) {
         setLoading(false); setError("You must be logged in."); return;
+      }
+
+      // 1. PERMISSION CHECK
+      const { data: viewerProfile } = await supabase
+        .from('profiles')
+        .select(`
+           id, 
+           company_id, 
+           role:role_id (can_manage_all_rosters, can_manage_own_company_roster, role_name)
+        `)
+        .eq('id', user.id)
+        .single()
+        
+      if (viewerProfile) {
+         const role = viewerProfile.role as any;
+         const canManageAll = role?.can_manage_all_rosters || false;
+         const canManageOwn = role?.can_manage_own_company_roster || false;
+         const isAdmin = role?.role_name === 'Admin';
+
+         if (user.id !== targetCadetId && !isAdmin) {
+             // Fetch Target Company
+             const { data: target } = await supabase.from('profiles').select('company_id').eq('id', targetCadetId).single();
+             
+             if (!canManageAll && canManageOwn) {
+                 if (target && target.company_id !== viewerProfile.company_id) {
+                     setError("Unauthorized: You can only view ledgers within your own company.");
+                     setLoading(false);
+                     return;
+                 }
+             } else if (!canManageAll && !canManageOwn) {
+                 // Basic cadet trying to view someone else
+                 setError("Unauthorized.");
+                 setLoading(false);
+                 return;
+             }
+         }
       }
 
       const [logRes, statsRes, termsRes, profileRes] = await Promise.all([
@@ -81,7 +119,7 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
       setLoading(false)
     }
     getData()
-  }, [supabase, targetCadetId])
+  }, [supabase, targetCadetId, router])
 
   const displayedLog = useMemo(() => {
     if (selectedTermId === 'all') return fullLog
@@ -92,14 +130,14 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
     )
   }, [fullLog, selectedTermId, terms])
 
-  // --- HELPERS (Updated) ---
+  // --- HELPERS ---
   const formatStatus = (status: string) => {
     switch (status) {
       case 'completed': return 'Approved';
       case 'rejected': return 'Rejected';
       case 'pending_approval': return 'Pending';
       case 'needs_revision': return 'Revision Needed';
-      case 'pulled': return 'Pulled'; // <<< ADDED
+      case 'pulled': return 'Pulled';
       default: return status;
     }
   }
@@ -108,17 +146,17 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
       case 'completed': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100';
       case 'rejected': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100';
       case 'pending_approval': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100';
-      case 'pulled': return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100'; // <<< ADDED
+      case 'pulled': return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100';
       default: return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100';
     }
   }
   const getDisplayStatus = (event: AuditLogEvent) => {
     if (event.appeal_status === 'approved') return 'Appeal Granted';
-    return formatStatus(event.status); // Will now show "Pulled"
+    return formatStatus(event.status); 
   }
   const getDisplayStatusColor = (event: AuditLogEvent) => {
      if (event.appeal_status === 'approved') return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200';
-     return getStatusColor(event.status); // Will now return gray for "pulled"
+     return getStatusColor(event.status); 
   }
   
   const formatDateTime = (dateStr: string) => new Date(dateStr).toLocaleString('en-US', {
@@ -142,7 +180,7 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
       `}</style>
 
       <div className="max-w-5xl mx-auto p-4 sm:p-6 lg:p-8 print-container">
-        <div id="ledger-header" className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
           <div>
             <h1 className="text-3xl font-bold text-gray-900 dark:text-white">All Reports</h1>
             {cadetProfile && (
@@ -169,7 +207,7 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
         {!loading && !error && (
           <>
             {stats && (
-              <div id="ledger-stats-grid" className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 print:mb-4">
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 print:mb-4">
                 <StatBox label="Term Demerits" value={stats.term_demerits} />
                 <StatBox label="Year Demerits" value={stats.year_demerits} />
                 <StatBox label="Tours Marched (Total)" value={stats.total_tours_marched} />
@@ -178,7 +216,7 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
             )}
 
             <div className="flow-root">
-              <ul id="ledger-history-list" role="list" className="-mb-8">
+              <ul role="list" className="-mb-8">
                 {displayedLog.map((event, eventIdx) => (
                   <li key={eventIdx}>
                     <div className="relative pb-8 print:pb-4">
@@ -230,7 +268,6 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
                              {event.event_type === 'demerit' ? (
                                <div>
                                  <p className="text-xs uppercase font-semibold text-gray-500 dark:text-gray-400">Demerits Issued</p>
-                                 {/* <<< UPDATED: Add check for 'pulled' status >>> */}
                                  <p className={`text-base font-bold ${event.status === 'rejected' || event.status === 'pulled' || event.appeal_status === 'approved' ? 'line-through text-gray-400' : 'text-red-600 dark:text-red-400'}`}>
                                    {event.demerits_issued}
                                  </p>

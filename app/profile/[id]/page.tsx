@@ -34,15 +34,20 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
 
   const { data: viewerProfile } = await supabase
     .from('profiles')
-    .select('id, role:role_id (role_name, default_role_level)')
+    .select('id, company_id, role:role_id (role_name, default_role_level, can_manage_all_rosters, can_manage_own_company_roster)')
     .eq('id', user.id)
     .single()
 
   if (!viewerProfile) return redirect('/login')
 
-  const viewerRoleLevel = (viewerProfile.role as any)?.default_role_level || 0
-  const viewerRoleName = (viewerProfile.role as any)?.role_name || ''
-
+  // Viewer Permissions
+  const viewerRole = viewerProfile.role as any
+  const viewerRoleLevel = viewerRole?.default_role_level || 0
+  const viewerRoleName = viewerRole?.role_name || ''
+  const canManageAll = viewerRole?.can_manage_all_rosters || false
+  const canManageOwn = viewerRole?.can_manage_own_company_roster || false
+  const viewerCompanyId = viewerProfile.company_id
+  
   const [profileRes, statsRes] = await Promise.all([
       supabase.from('profiles').select(`*, company:company_id (company_name), role:role_id (role_name, default_role_level)`).eq('id', id).single(),
       supabase.rpc('get_cadet_ledger_stats', { p_cadet_id: id }).single()
@@ -56,14 +61,18 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
   const targetRoleLevel = (profile.role as any)?.default_role_level || 0
   const isSelf = user.id === id
   const isAdmin = viewerRoleName === 'Admin'
-
+  
+  // 1. Rank Check
   if (!isSelf && !isAdmin && (viewerRoleLevel < targetRoleLevel)) {
-    return (
-        <div className="max-w-md mx-auto mt-20 p-6 bg-white dark:bg-gray-800 rounded-lg shadow text-center border border-gray-200 dark:border-gray-700">
-            <h2 className="text-2xl font-bold text-red-600 mb-2">Unauthorized</h2>
-            <p className="text-gray-600 dark:text-gray-300">You do not have sufficient rank to view this profile.</p>
-        </div>
-    )
+     return <div className="max-w-md mx-auto mt-20 p-6 bg-white dark:bg-gray-800 rounded-lg shadow text-center border border-gray-200 dark:border-gray-700"><h2 className="text-2xl font-bold text-red-600 mb-2">Unauthorized</h2><p className="text-gray-600 dark:text-gray-300">You do not have sufficient rank to view this profile.</p></div>
+  }
+
+  // 2. Company Isolation Check (NEW)
+  // If you have "Manage Own" but NOT "Manage All", you can only see profiles in your company
+  if (!isSelf && !isAdmin && !canManageAll && canManageOwn) {
+     if (viewerCompanyId !== profile.company_id) {
+         return <div className="max-w-md mx-auto mt-20 p-6 bg-white dark:bg-gray-800 rounded-lg shadow text-center border border-gray-200 dark:border-gray-700"><h2 className="text-2xl font-bold text-red-600 mb-2">Unauthorized</h2><p className="text-gray-600 dark:text-gray-300">You can only view profiles within your own company.</p></div>
+     }
   }
 
   const canEdit = EDIT_AUTHORIZED_ROLES.includes(viewerRoleName) || viewerRoleName.includes('TAC') || isAdmin

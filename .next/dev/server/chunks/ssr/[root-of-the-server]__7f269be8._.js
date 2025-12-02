@@ -94,10 +94,15 @@ async function ProfilePage({ params }) {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["redirect"])('/login');
-    const { data: viewerProfile } = await supabase.from('profiles').select('id, role:role_id (role_name, default_role_level)').eq('id', user.id).single();
+    const { data: viewerProfile } = await supabase.from('profiles').select('id, company_id, role:role_id (role_name, default_role_level, can_manage_all_rosters, can_manage_own_company_roster)').eq('id', user.id).single();
     if (!viewerProfile) return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["redirect"])('/login');
-    const viewerRoleLevel = viewerProfile.role?.default_role_level || 0;
-    const viewerRoleName = viewerProfile.role?.role_name || '';
+    // Viewer Permissions
+    const viewerRole = viewerProfile.role;
+    const viewerRoleLevel = viewerRole?.default_role_level || 0;
+    const viewerRoleName = viewerRole?.role_name || '';
+    const canManageAll = viewerRole?.can_manage_all_rosters || false;
+    const canManageOwn = viewerRole?.can_manage_own_company_roster || false;
+    const viewerCompanyId = viewerProfile.company_id;
     const [profileRes, statsRes] = await Promise.all([
         supabase.from('profiles').select(`*, company:company_id (company_name), role:role_id (role_name, default_role_level)`).eq('id', id).single(),
         supabase.rpc('get_cadet_ledger_stats', {
@@ -110,6 +115,7 @@ async function ProfilePage({ params }) {
     const targetRoleLevel = profile.role?.default_role_level || 0;
     const isSelf = user.id === id;
     const isAdmin = viewerRoleName === 'Admin';
+    // 1. Rank Check
     if (!isSelf && !isAdmin && viewerRoleLevel < targetRoleLevel) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "max-w-md mx-auto mt-20 p-6 bg-white dark:bg-gray-800 rounded-lg shadow text-center border border-gray-200 dark:border-gray-700",
@@ -119,23 +125,54 @@ async function ProfilePage({ params }) {
                     children: "Unauthorized"
                 }, void 0, false, {
                     fileName: "[project]/app/profile/[id]/page.tsx",
-                    lineNumber: 63,
-                    columnNumber: 13
+                    lineNumber: 67,
+                    columnNumber: 157
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                     className: "text-gray-600 dark:text-gray-300",
                     children: "You do not have sufficient rank to view this profile."
                 }, void 0, false, {
                     fileName: "[project]/app/profile/[id]/page.tsx",
-                    lineNumber: 64,
-                    columnNumber: 13
+                    lineNumber: 67,
+                    columnNumber: 227
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/app/profile/[id]/page.tsx",
-            lineNumber: 62,
-            columnNumber: 9
+            lineNumber: 67,
+            columnNumber: 13
         }, this);
+    }
+    // 2. Company Isolation Check (NEW)
+    // If you have "Manage Own" but NOT "Manage All", you can only see profiles in your company
+    if (!isSelf && !isAdmin && !canManageAll && canManageOwn) {
+        if (viewerCompanyId !== profile.company_id) {
+            return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "max-w-md mx-auto mt-20 p-6 bg-white dark:bg-gray-800 rounded-lg shadow text-center border border-gray-200 dark:border-gray-700",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
+                        className: "text-2xl font-bold text-red-600 mb-2",
+                        children: "Unauthorized"
+                    }, void 0, false, {
+                        fileName: "[project]/app/profile/[id]/page.tsx",
+                        lineNumber: 74,
+                        columnNumber: 161
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                        className: "text-gray-600 dark:text-gray-300",
+                        children: "You can only view profiles within your own company."
+                    }, void 0, false, {
+                        fileName: "[project]/app/profile/[id]/page.tsx",
+                        lineNumber: 74,
+                        columnNumber: 231
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/profile/[id]/page.tsx",
+                lineNumber: 74,
+                columnNumber: 17
+            }, this);
+        }
     }
     const canEdit = __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$profile$2f$constants$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["EDIT_AUTHORIZED_ROLES"].includes(viewerRoleName) || viewerRoleName.includes('TAC') || isAdmin;
     const canManageStarTours = __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$profile$2f$constants$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["STAR_TOUR_AUTHORIZED_ROLES"].includes(viewerRoleName);
@@ -152,12 +189,12 @@ async function ProfilePage({ params }) {
             calculatedConduct: calculatedConduct
         }, void 0, false, {
             fileName: "[project]/app/profile/[id]/page.tsx",
-            lineNumber: 77,
+            lineNumber: 86,
             columnNumber: 8
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/profile/[id]/page.tsx",
-        lineNumber: 76,
+        lineNumber: 85,
         columnNumber: 5
     }, this);
 }

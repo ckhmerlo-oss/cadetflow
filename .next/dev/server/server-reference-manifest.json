@@ -7,10 +7,17 @@
           "async": false,
           "exportedName": "bulkAssignCompany",
           "filename": "app/manage/actions.ts"
+        },
+        "app/roster/page": {
+          "moduleId": "[project]/.next-internal/server/app/roster/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "bulkAssignCompany",
+          "filename": "app/manage/actions.ts"
         }
       },
       "layer": {
-        "app/manage/page": "action-browser"
+        "app/manage/page": "action-browser",
+        "app/roster/page": "action-browser"
       },
       "filename": "app/manage/actions.ts",
       "exportedName": "bulkAssignCompany"
@@ -22,148 +29,155 @@
           "async": false,
           "exportedName": "bulkAssignRole",
           "filename": "app/manage/actions.ts"
+        },
+        "app/roster/page": {
+          "moduleId": "[project]/.next-internal/server/app/roster/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "bulkAssignRole",
+          "filename": "app/manage/actions.ts"
         }
       },
       "layer": {
-        "app/manage/page": "action-browser"
+        "app/manage/page": "action-browser",
+        "app/roster/page": "action-browser"
       },
       "filename": "app/manage/actions.ts",
       "exportedName": "bulkAssignRole"
     },
-    "40f822964e4558426439eaf89829b99701c5e902f5": {
+    "608e5914a99cd89e1d3e43764c86a13361e1288d2c": {
       "workers": {
-        "app/manage/roles/page": {
-          "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/admin/page": {
+          "moduleId": "[project]/.next-internal/server/app/admin/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/admin/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "getCompanyChain",
-          "filename": "app/manage/roles/actions.ts"
+          "exportedName": "adminResetPassword",
+          "filename": "app/admin/actions.ts"
         }
       },
       "layer": {
-        "app/manage/roles/page": "action-browser"
+        "app/admin/page": "action-browser"
       },
-      "filename": "app/manage/roles/actions.ts",
-      "exportedName": "getCompanyChain"
+      "filename": "app/admin/actions.ts",
+      "exportedName": "adminResetPassword"
     },
-    "4016bb68d9cf66d294d1ba16e7a69df06b10582128": {
+    "409cbb727408449410bfea660db2abfb11797904d6": {
       "workers": {
-        "app/manage/roles/page": {
-          "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/admin/page": {
+          "moduleId": "[project]/.next-internal/server/app/admin/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/admin/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "deleteGroupAction",
-          "filename": "app/manage/roles/actions.ts"
+          "exportedName": "createAdminRoleAction",
+          "filename": "app/admin/actions.ts"
         }
       },
       "layer": {
-        "app/manage/roles/page": "action-browser"
+        "app/admin/page": "action-browser"
       },
-      "filename": "app/manage/roles/actions.ts",
-      "exportedName": "deleteGroupAction"
+      "filename": "app/admin/actions.ts",
+      "exportedName": "createAdminRoleAction"
     },
-    "78079b3c073a3793d07e63f99a88ba3a28fa1e70c4": {
+    "400bac5072b2551d4bd28c32bf2e33039b2da0bb73": {
       "workers": {
-        "app/manage/roles/page": {
-          "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/admin/page": {
+          "moduleId": "[project]/.next-internal/server/app/admin/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/admin/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "createGroupAction",
-          "filename": "app/manage/roles/actions.ts"
+          "exportedName": "updateAdminRoleAction",
+          "filename": "app/admin/actions.ts"
         }
       },
       "layer": {
-        "app/manage/roles/page": "action-browser"
+        "app/admin/page": "action-browser"
       },
-      "filename": "app/manage/roles/actions.ts",
-      "exportedName": "createGroupAction"
+      "filename": "app/admin/actions.ts",
+      "exportedName": "updateAdminRoleAction"
     },
-    "781b8c91e00c51cec97ea6f3ef449d49978b40516a": {
+    "40dcef34cc16fdbc2c174e912844adf0f3f625342d": {
       "workers": {
-        "app/manage/roles/page": {
-          "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/admin/page": {
+          "moduleId": "[project]/.next-internal/server/app/admin/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/admin/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "createSubordinateGroupAction",
-          "filename": "app/manage/roles/actions.ts"
+          "exportedName": "deleteAdminRoleAction",
+          "filename": "app/admin/actions.ts"
         }
       },
       "layer": {
-        "app/manage/roles/page": "action-browser"
+        "app/admin/page": "action-browser"
       },
-      "filename": "app/manage/roles/actions.ts",
-      "exportedName": "createSubordinateGroupAction"
+      "filename": "app/admin/actions.ts",
+      "exportedName": "deleteAdminRoleAction"
     },
-    "00ae9ae6ba58b134ae0dcbb1048b635e73b23ee2bd": {
+    "401f2a511d0b58b3c3417f75c84cb385686a805049": {
       "workers": {
-        "app/manage/roles/page": {
-          "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/admin/page": {
+          "moduleId": "[project]/.next-internal/server/app/admin/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/admin/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "getAllApprovalGroups",
-          "filename": "app/manage/roles/actions.ts"
+          "exportedName": "createCompanyAction",
+          "filename": "app/admin/actions.ts"
         }
       },
       "layer": {
-        "app/manage/roles/page": "action-browser"
+        "app/admin/page": "action-browser"
       },
-      "filename": "app/manage/roles/actions.ts",
-      "exportedName": "getAllApprovalGroups"
+      "filename": "app/admin/actions.ts",
+      "exportedName": "createCompanyAction"
     },
-    "40d1742e2232c673b4b92bd7a1a01d3d91b6ef8390": {
+    "40f9e26d10a4fa3408cc94a726980f8ab3047bd1fe": {
       "workers": {
-        "app/manage/roles/page": {
-          "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/admin/page": {
+          "moduleId": "[project]/.next-internal/server/app/admin/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/admin/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "getGroupRoles",
-          "filename": "app/manage/roles/actions.ts"
+          "exportedName": "deleteCompanyAction",
+          "filename": "app/admin/actions.ts"
         }
       },
       "layer": {
-        "app/manage/roles/page": "action-browser"
+        "app/admin/page": "action-browser"
       },
-      "filename": "app/manage/roles/actions.ts",
-      "exportedName": "getGroupRoles"
+      "filename": "app/admin/actions.ts",
+      "exportedName": "deleteCompanyAction"
     },
-    "40c44b7d62b9d33af21c6e0e829e12736ada41a06f": {
+    "70b9149166bb73a786dd21695a604390b8789189f9": {
       "workers": {
-        "app/manage/roles/page": {
-          "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/profile/[id]/page": {
+          "moduleId": "[project]/.next-internal/server/app/profile/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/profile/[id]/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "getCompanyRoles",
-          "filename": "app/manage/roles/actions.ts"
+          "exportedName": "submitTourAdjustment",
+          "filename": "app/profile/[id]/actions.ts"
         }
       },
       "layer": {
-        "app/manage/roles/page": "action-browser"
+        "app/profile/[id]/page": "action-browser"
       },
-      "filename": "app/manage/roles/actions.ts",
-      "exportedName": "getCompanyRoles"
+      "filename": "app/profile/[id]/actions.ts",
+      "exportedName": "submitTourAdjustment"
     },
-    "608d78a921def9249bf4f244e6cff42c63651c6157": {
+    "60522fa0c1ab889549cd43ee3a6e075bf758d786b7": {
       "workers": {
-        "app/manage/roles/page": {
-          "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/profile/[id]/page": {
+          "moduleId": "[project]/.next-internal/server/app/profile/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/profile/[id]/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "assignRoleToGroupAction",
-          "filename": "app/manage/roles/actions.ts"
+          "exportedName": "updateCadetProfile",
+          "filename": "app/profile/[id]/actions.ts"
         }
       },
       "layer": {
-        "app/manage/roles/page": "action-browser"
+        "app/profile/[id]/page": "action-browser"
       },
-      "filename": "app/manage/roles/actions.ts",
-      "exportedName": "assignRoleToGroupAction"
+      "filename": "app/profile/[id]/actions.ts",
+      "exportedName": "updateCadetProfile"
     },
-    "4043f145d74fb551c0f220d4655fa7d3b096b01be1": {
+    "601825c1ce798c77ae07c6930e3a294bdc9c1e2f2a": {
       "workers": {
-        "app/manage/roles/page": {
-          "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/report/[id]/page": {
+          "moduleId": "[project]/.next-internal/server/app/report/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/report/[id]/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "unassignRoleAction",
-          "filename": "app/manage/roles/actions.ts"
+          "exportedName": "pullReportAction",
+          "filename": "app/report/[id]/actions.ts"
         }
       },
       "layer": {
-        "app/manage/roles/page": "action-browser"
+        "app/report/[id]/page": "action-browser"
       },
-      "filename": "app/manage/roles/actions.ts",
-      "exportedName": "unassignRoleAction"
+      "filename": "app/report/[id]/actions.ts",
+      "exportedName": "pullReportAction"
     }
   },
   "edge": {},

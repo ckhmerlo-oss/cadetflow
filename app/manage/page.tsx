@@ -23,7 +23,6 @@ type UnassignedUser = {
   role_name: string | null;
 }
 
-// Sort Configuration
 type SortKey = 'name' | 'created_at' | 'company' | 'role'
 type SortDirection = 'asc' | 'desc'
 
@@ -35,27 +34,24 @@ export default function ManagePage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  // Data State
   const [companies, setCompanies] = useState<Company[]>([])
   const [roles, setRoles] = useState<Role[]>([])
   const [unassigned, setUnassigned] = useState<UnassignedUser[]>([]) 
   const [rosterData, setRosterData] = useState<RosterCadet[]>([])
   const [facultyData, setFacultyData] = useState<RosterCadet[]>([]) 
   
-  // Permissions
   const [canEditProfiles, setCanEditProfiles] = useState(false)
+  // NEW: Explicit Manage Permission State
+  const [canManage, setCanManage] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
 
-  // Selection State
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
   
-  // Sorting State
   const [sortConfig, setSortConfig] = useState<{ key: SortKey; direction: SortDirection }>({ 
     key: 'created_at', 
     direction: 'desc' 
   })
   
-  // Modal State
   const [modalOpen, setModalOpen] = useState(false)
   const [targetCompanyId, setTargetCompanyId] = useState('')
   const [targetRoleId, setTargetRoleId] = useState('')
@@ -75,16 +71,26 @@ export default function ManagePage() {
 
       const { data: viewerProfile } = await supabase
         .from('profiles')
-        .select('role:role_id (role_name, default_role_level)')
+        .select(`
+           company:companies(id, company_name),
+           role:role_id (role_name, default_role_level, can_manage_all_rosters, can_manage_own_company_roster)
+        `)
         .eq('id', user.id)
         .single()
       
-      const roleName = (viewerProfile?.role as any)?.role_name || ''
-      const roleLevel = (viewerProfile?.role as any)?.default_role_level || 0
-      
+      const roleData = viewerProfile?.role as any
+      const roleName = roleData?.role_name || ''
+      const roleLevel = roleData?.default_role_level || 0
+      const canManageAll = roleData?.can_manage_all_rosters || false
+      const canManageOwn = roleData?.can_manage_own_company_roster || false
+      const viewerCompanyName = (viewerProfile?.company as any)?.company_name
+
       const isSiteAdmin = roleName === 'Admin' || roleLevel >= 90;
       setIsAdmin(isSiteAdmin);
       setCanEditProfiles(EDIT_AUTHORIZED_ROLES.includes(roleName) || roleName.includes('TAC') || isSiteAdmin)
+      
+      // Set Manage Permission
+      setCanManage(canManageAll || canManageOwn || isSiteAdmin)
 
       const promises = [
         supabase.from('companies').select('*').order('company_name'),
@@ -109,7 +115,13 @@ export default function ManagePage() {
       if (rolesRes.data) setRoles(rolesRes.data)
       
       if (fullRosterRes.error) console.error("Error fetching roster:", fullRosterRes.error.message)
-      else setRosterData(fullRosterRes.data as RosterCadet[])
+      else {
+          let allCadets = fullRosterRes.data as RosterCadet[];
+          if (!canManageAll && canManageOwn && viewerCompanyName) {
+              allCadets = allCadets.filter(c => c.company_name === viewerCompanyName);
+          }
+          setRosterData(allCadets)
+      }
 
       if (unassignedRes.error) console.error("Error fetching unassigned:", unassignedRes.error.message)
       else setUnassigned(unassignedRes.data as UnassignedUser[])
@@ -201,6 +213,15 @@ export default function ManagePage() {
     }
   }
 
+  const getModalTitle = () => {
+      if (selectedIds.size === 1) {
+          const id = Array.from(selectedIds)[0];
+          const u = unassigned.find(x => x.user_id === id) || rosterData.find(x => x.id === id) || facultyData.find(x => x.id === id);
+          if (u) return `Re-Assign ${u.last_name}`;
+      }
+      return "Bulk Assignment";
+  }
+
   const handleSubmitAssignment = async () => {
     if (!targetCompanyId && !targetRoleId) {
       alert("Please select at least a Company OR a Role to assign.")
@@ -284,7 +305,15 @@ export default function ManagePage() {
           <div className="flex justify-end mb-4 no-print">
             <button onClick={handlePrintRoster} className="text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 underline">Print Roster</button>
           </div>
-          <RosterClient initialData={rosterData} canEditProfiles={canEditProfiles} companies={companies} onReassign={handleReassign} variant="cadet" />
+          {/* PASSED canManage PROP */}
+          <RosterClient 
+            initialData={rosterData} 
+            canEditProfiles={canEditProfiles} 
+            canManage={canManage} 
+            companies={companies} 
+            onReassign={handleReassign} 
+            variant="cadet" 
+          />
         </div>
 
         {/* --- TAB 2: FACULTY --- */}
@@ -295,13 +324,14 @@ export default function ManagePage() {
                   <strong>Restricted View:</strong> You are viewing the Faculty & Staff roster. This data is only visible to role level 90+.
                 </p>
              </div>
-             <RosterClient initialData={facultyData} canEditProfiles={canEditProfiles} companies={companies} onReassign={handleReassign} variant="faculty" />
+             <RosterClient initialData={facultyData} canEditProfiles={canEditProfiles} canManage={canManage} companies={companies} onReassign={handleReassign} variant="faculty" />
           </div>
         )}
 
         {/* --- TAB 3: UNASSIGNED --- */}
         <div className={`no-print ${activeTab === 'unassigned' ? '' : 'hidden'}`}>
-          <div className="bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+          {/* ... Unassigned table logic ... */}
+           <div className="bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
             <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row justify-between items-center gap-4 bg-gray-50 dark:bg-gray-900/50">
               <div className="flex items-center gap-2">
                 <input type="checkbox" className="rounded border-gray-300 dark:border-gray-600" checked={unassigned.length > 0 && selectedIds.size === unassigned.length} onChange={handleSelectAll} />
@@ -351,12 +381,13 @@ export default function ManagePage() {
         <div className="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
           <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
             <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" onClick={() => setModalOpen(false)}></div>
-            <span className="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
             <div className="relative inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full">
               <div className="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div className="sm:flex sm:items-start mb-4">
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white" id="modal-title">Bulk Assignment</h3>
+                    <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white" id="modal-title">
+                        {getModalTitle()}
+                    </h3>
                     <div className="mt-2"><p className="text-sm text-gray-500 dark:text-gray-400">Assigning {selectedIds.size} users. Leave a field blank to keep it unchanged.</p></div>
                   </div>
                 </div>
