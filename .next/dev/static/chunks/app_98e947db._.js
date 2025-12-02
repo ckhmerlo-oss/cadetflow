@@ -35,6 +35,14 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
     const handleRowClick = (cadetId)=>{
         setOpenCadetId((prevId)=>prevId === cadetId ? null : cadetId);
     };
+    // --- Helpers ---
+    const getCompanyAbbr = (name)=>{
+        if (!name) return '-';
+        if (name === 'Battalion Staff') return 'BN';
+        // Band Company -> B? Or Band? Usually 'Band' is short enough, but 'B' fits the pattern.
+        // Assuming First Letter for standard companies
+        return name.charAt(0);
+    };
     const filteredAndSortedCadets = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
         "RosterClient.useMemo[filteredAndSortedCadets]": ()=>{
             let filteredData = [
@@ -101,16 +109,16 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
         const now = new Date();
         const seconds = Math.floor((now.getTime() - date.getTime()) / 1000);
         let interval = seconds / 31536000;
-        if (interval > 1) return Math.floor(interval) + "y ago";
+        if (interval > 1) return Math.floor(interval) + "y";
         interval = seconds / 2592000;
-        if (interval > 1) return Math.floor(interval) + "mo ago";
+        if (interval > 1) return Math.floor(interval) + "mo";
         interval = seconds / 86400;
-        if (interval > 1) return Math.floor(interval) + "d ago";
+        if (interval > 1) return Math.floor(interval) + "d";
         interval = seconds / 3600;
-        if (interval > 1) return Math.floor(interval) + "h ago";
+        if (interval > 1) return Math.floor(interval) + "h";
         interval = seconds / 60;
-        if (interval > 1) return Math.floor(interval) + "m ago";
-        return Math.floor(seconds) + "s ago";
+        if (interval > 1) return Math.floor(interval) + "m";
+        return Math.floor(seconds) + "s";
     };
     const uniqueCompanies = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useMemo"])({
         "RosterClient.useMemo[uniqueCompanies]": ()=>[
@@ -141,11 +149,11 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                         type: "text",
                         value: searchTerm,
                         onChange: (e)=>setSearchTerm(e.target.value),
-                        placeholder: variant === 'cadet' ? "Search by name, role, room..." : "Search by name, role, email...",
+                        placeholder: variant === 'cadet' ? "Search..." : "Search email...",
                         className: "w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-800 dark:text-white"
                     }, void 0, false, {
                         fileName: "[project]/app/manage/RosterClient.tsx",
-                        lineNumber: 144,
+                        lineNumber: 153,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -155,10 +163,10 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                 value: "all",
-                                children: "All Companies"
+                                children: "All Cos"
                             }, void 0, false, {
                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                lineNumber: 146,
+                                lineNumber: 155,
                                 columnNumber: 11
                             }, this),
                             uniqueCompanies.map((co)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -166,13 +174,13 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                     children: String(co)
                                 }, String(co), false, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 147,
+                                    lineNumber: 156,
                                     columnNumber: 38
                                 }, this))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/manage/RosterClient.tsx",
-                        lineNumber: 145,
+                        lineNumber: 154,
                         columnNumber: 9
                     }, this),
                     variant === 'cadet' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -187,7 +195,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                         children: "All Grades"
                                     }, void 0, false, {
                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                        lineNumber: 153,
+                                        lineNumber: 162,
                                         columnNumber: 15
                                     }, this),
                                     uniqueGrades.map((g)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -195,13 +203,13 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                             children: String(g)
                                         }, String(g), false, {
                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                            lineNumber: 154,
+                                            lineNumber: 163,
                                             columnNumber: 38
                                         }, this))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                lineNumber: 152,
+                                lineNumber: 161,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -214,7 +222,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                         children: "All Conduct"
                                     }, void 0, false, {
                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                        lineNumber: 157,
+                                        lineNumber: 166,
                                         columnNumber: 15
                                     }, this),
                                     CONDUCT_ORDER.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -222,13 +230,13 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                             children: c
                                         }, c, false, {
                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                            lineNumber: 158,
+                                            lineNumber: 167,
                                             columnNumber: 39
                                         }, this))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                lineNumber: 156,
+                                lineNumber: 165,
                                 columnNumber: 13
                             }, this)
                         ]
@@ -236,7 +244,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/manage/RosterClient.tsx",
-                lineNumber: 143,
+                lineNumber: 152,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
@@ -249,7 +257,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                             children: [
                                 variant === 'cadet' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                     scope: "col",
-                                    className: "px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer",
+                                    className: "hidden md:table-cell px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer",
                                     onClick: ()=>requestSort('cadet_rank'),
                                     children: [
                                         "Rank ",
@@ -257,11 +265,11 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 168,
+                                    lineNumber: 178,
                                     columnNumber: 17
                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                     scope: "col",
-                                    className: "px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer",
+                                    className: "hidden md:table-cell px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer",
                                     onClick: ()=>requestSort('email'),
                                     children: [
                                         "Email ",
@@ -269,12 +277,12 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 170,
+                                    lineNumber: 180,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                     scope: "col",
-                                    className: "px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer",
+                                    className: "px-4 md:px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer",
                                     onClick: ()=>requestSort('last_name'),
                                     children: [
                                         "Name ",
@@ -282,25 +290,68 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 173,
+                                    lineNumber: 184,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                     scope: "col",
-                                    className: "px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer",
+                                    className: "px-2 md:px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer",
                                     onClick: ()=>requestSort('company_name'),
                                     children: [
-                                        "Company ",
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: "md:hidden",
+                                            children: "Co"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/manage/RosterClient.tsx",
+                                            lineNumber: 188,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: "hidden md:inline",
+                                            children: "Company"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/manage/RosterClient.tsx",
+                                            lineNumber: 189,
+                                            columnNumber: 17
+                                        }, this),
                                         getSortIndicator('company_name')
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 174,
+                                    lineNumber: 187,
                                     columnNumber: 13
+                                }, this),
+                                variant === 'cadet' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                    scope: "col",
+                                    className: "px-2 md:px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer",
+                                    onClick: ()=>requestSort('grade_level'),
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: "md:hidden",
+                                            children: "Gr"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/manage/RosterClient.tsx",
+                                            lineNumber: 196,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: "hidden md:inline",
+                                            children: "Grade"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/manage/RosterClient.tsx",
+                                            lineNumber: 197,
+                                            columnNumber: 17
+                                        }, this),
+                                        getSortIndicator('grade_level')
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/manage/RosterClient.tsx",
+                                    lineNumber: 195,
+                                    columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                     scope: "col",
-                                    className: "px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer",
+                                    className: "hidden lg:table-cell px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer",
                                     onClick: ()=>requestSort('role_name'),
                                     children: [
                                         "Role ",
@@ -308,40 +359,27 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 175,
+                                    lineNumber: 203,
                                     columnNumber: 13
                                 }, this),
                                 variant === 'cadet' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                             scope: "col",
-                                            className: "px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer",
-                                            onClick: ()=>requestSort('grade_level'),
-                                            children: [
-                                                "Grade ",
-                                                getSortIndicator('grade_level')
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "[project]/app/manage/RosterClient.tsx",
-                                            lineNumber: 179,
-                                            columnNumber: 17
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                            scope: "col",
-                                            className: "px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer",
+                                            className: "hidden xl:table-cell px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer",
                                             onClick: ()=>requestSort('room_number'),
                                             children: [
-                                                "Room # ",
+                                                "Room ",
                                                 getSortIndicator('room_number')
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                            lineNumber: 180,
+                                            lineNumber: 208,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                             scope: "col",
-                                            className: "px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer",
+                                            className: "hidden md:table-cell px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer",
                                             onClick: ()=>requestSort('conduct_status'),
                                             children: [
                                                 "Conduct ",
@@ -349,20 +387,36 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                            lineNumber: 181,
+                                            lineNumber: 211,
                                             columnNumber: 17
                                         }, this)
                                     ]
-                                }, void 0, true)
+                                }, void 0, true),
+                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                    scope: "col",
+                                    className: "relative px-4 md:px-6 py-3",
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                        className: "sr-only",
+                                        children: "Expand"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/manage/RosterClient.tsx",
+                                        lineNumber: 216,
+                                        columnNumber: 68
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/manage/RosterClient.tsx",
+                                    lineNumber: 216,
+                                    columnNumber: 13
+                                }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/manage/RosterClient.tsx",
-                            lineNumber: 166,
+                            lineNumber: 175,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/manage/RosterClient.tsx",
-                        lineNumber: 165,
+                        lineNumber: 174,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -380,22 +434,22 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                 `,
                                         children: [
                                             variant === 'cadet' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                className: "px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200",
+                                                className: "hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200",
                                                 children: person.cadet_rank || '-'
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                lineNumber: 201,
+                                                lineNumber: 235,
                                                 columnNumber: 21
                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                className: "px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400 font-mono",
+                                                className: "hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400 font-mono",
                                                 children: person.email || '-'
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                lineNumber: 203,
+                                                lineNumber: 237,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                className: "px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white",
+                                                className: "px-4 md:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white",
                                                 children: [
                                                     person.last_name,
                                                     ", ",
@@ -405,241 +459,241 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                         children: "Admin"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                        lineNumber: 208,
+                                                        lineNumber: 243,
                                                         columnNumber: 33
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                lineNumber: 206,
+                                                lineNumber: 241,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                className: "px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400",
-                                                children: person.company_name || '-'
-                                            }, void 0, false, {
+                                                className: "px-2 md:px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "md:hidden font-bold",
+                                                        children: getCompanyAbbr(person.company_name)
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/manage/RosterClient.tsx",
+                                                        lineNumber: 248,
+                                                        columnNumber: 21
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                        className: "hidden md:inline",
+                                                        children: person.company_name || '-'
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/manage/RosterClient.tsx",
+                                                        lineNumber: 249,
+                                                        columnNumber: 21
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                lineNumber: 211,
+                                                lineNumber: 247,
                                                 columnNumber: 17
                                             }, this),
+                                            variant === 'cadet' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
+                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                    className: "px-2 md:px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400",
+                                                    children: person.grade_level || '-'
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/manage/RosterClient.tsx",
+                                                    lineNumber: 255,
+                                                    columnNumber: 21
+                                                }, this)
+                                            }, void 0, false),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                className: "px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400",
+                                                className: "hidden lg:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400",
                                                 children: person.role_name
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                lineNumber: 212,
+                                                lineNumber: 260,
                                                 columnNumber: 17
                                             }, this),
                                             variant === 'cadet' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400",
-                                                        children: person.grade_level || '-'
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/app/manage/RosterClient.tsx",
-                                                        lineNumber: 216,
-                                                        columnNumber: 21
-                                                    }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400",
+                                                        className: "hidden xl:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400",
                                                         children: person.room_number || '-'
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                        lineNumber: 217,
+                                                        lineNumber: 265,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "px-6 py-4 whitespace-nowrap text-sm",
+                                                        className: "hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm",
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                             className: `inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold ${getConductColor(person.conduct_status)}`,
                                                             children: person.conduct_status
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                                            lineNumber: 218,
-                                                            columnNumber: 73
+                                                            lineNumber: 268,
+                                                            columnNumber: 94
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                        lineNumber: 218,
+                                                        lineNumber: 268,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
-                                            }, void 0, true)
+                                            }, void 0, true),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                className: "px-4 md:px-6 py-4 whitespace-nowrap text-right text-sm font-medium",
+                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: "text-gray-400",
+                                                    children: openCadetId === person.id ? '▲' : '▼'
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/manage/RosterClient.tsx",
+                                                    lineNumber: 274,
+                                                    columnNumber: 20
+                                                }, this)
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/manage/RosterClient.tsx",
+                                                lineNumber: 273,
+                                                columnNumber: 17
+                                            }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                        lineNumber: 192,
+                                        lineNumber: 225,
                                         columnNumber: 15
                                     }, this),
                                     openCadetId === person.id && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                         className: "bg-gray-50 dark:bg-gray-700/30 print-hide",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                            colSpan: variant === 'cadet' ? 7 : 4,
-                                            className: "px-6 py-6",
+                                            colSpan: variant === 'cadet' ? 8 : 5,
+                                            className: "px-3 md:px-6 py-4 md:py-6",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "grid grid-cols-1 md:grid-cols-3 gap-6",
+                                                className: "grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "space-y-3",
+                                                        className: "space-y-2",
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
                                                                 className: "text-xs font-bold text-gray-500 uppercase tracking-wider",
                                                                 children: variant === 'cadet' ? 'Key Metrics' : 'Faculty Info'
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                lineNumber: 231,
+                                                                lineNumber: 288,
                                                                 columnNumber: 25
                                                             }, this),
-                                                            variant === 'cadet' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
+                                                            variant === 'cadet' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "grid grid-cols-3 md:grid-cols-1 gap-2",
                                                                 children: [
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "flex justify-between p-3 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600",
+                                                                        className: "p-2 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600 text-center md:text-left md:flex md:justify-between md:items-center",
                                                                         children: [
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                className: "text-sm text-gray-600 dark:text-gray-400",
-                                                                                children: "Term Demerits"
+                                                                                className: "block md:inline text-[10px] md:text-sm text-gray-500 dark:text-gray-400 uppercase md:normal-case",
+                                                                                children: "Term"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                lineNumber: 237,
+                                                                                lineNumber: 294,
                                                                                 columnNumber: 31
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                className: "text-sm font-bold text-gray-900 dark:text-white",
+                                                                                className: "block md:inline text-sm md:text-base font-bold text-gray-900 dark:text-white",
                                                                                 children: person.term_demerits
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                lineNumber: 238,
+                                                                                lineNumber: 295,
                                                                                 columnNumber: 31
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 236,
+                                                                        lineNumber: 293,
                                                                         columnNumber: 29
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "flex justify-between p-3 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600",
+                                                                        className: "p-2 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600 text-center md:text-left md:flex md:justify-between md:items-center",
                                                                         children: [
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                className: "text-sm text-gray-600 dark:text-gray-400",
-                                                                                children: "Year Demerits"
+                                                                                className: "block md:inline text-[10px] md:text-sm text-gray-500 dark:text-gray-400 uppercase md:normal-case",
+                                                                                children: "Year"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                lineNumber: 241,
+                                                                                lineNumber: 298,
                                                                                 columnNumber: 31
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                className: "text-sm font-bold text-gray-900 dark:text-white",
+                                                                                className: "block md:inline text-sm md:text-base font-bold text-gray-900 dark:text-white",
                                                                                 children: person.year_demerits
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                lineNumber: 242,
+                                                                                lineNumber: 299,
                                                                                 columnNumber: 31
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 240,
+                                                                        lineNumber: 297,
                                                                         columnNumber: 29
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "flex justify-between p-3 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600",
+                                                                        className: "p-2 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600 text-center md:text-left md:flex md:justify-between md:items-center",
                                                                         children: [
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                className: "text-sm text-gray-600 dark:text-gray-400",
-                                                                                children: "Tour Balance"
+                                                                                className: "block md:inline text-[10px] md:text-sm text-gray-500 dark:text-gray-400 uppercase md:normal-case",
+                                                                                children: "Tours"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                lineNumber: 245,
+                                                                                lineNumber: 302,
                                                                                 columnNumber: 31
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                className: `text-sm font-bold ${person.has_star_tours || (person.current_tour_balance || 0) > 0 ? 'text-red-600 dark:text-red-400' : 'text-gray-900 dark:text-white'}`,
+                                                                                className: `block md:inline text-sm md:text-base font-bold ${person.has_star_tours || (person.current_tour_balance || 0) > 0 ? 'text-red-600 dark:text-red-400' : 'text-gray-900 dark:text-white'}`,
                                                                                 children: person.has_star_tours ? '*' : person.current_tour_balance
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                lineNumber: 246,
+                                                                                lineNumber: 303,
                                                                                 columnNumber: 31
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 244,
+                                                                        lineNumber: 301,
                                                                         columnNumber: 29
-                                                                    }, this)
-                                                                ]
-                                                            }, void 0, true) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                className: "p-4 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600",
-                                                                children: [
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                        className: "text-sm text-gray-700 dark:text-gray-200",
-                                                                        children: [
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
-                                                                                children: "Email:"
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                lineNumber: 253,
-                                                                                columnNumber: 85
-                                                                            }, this),
-                                                                            " ",
-                                                                            person.email || 'No email'
-                                                                        ]
-                                                                    }, void 0, true, {
-                                                                        fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 253,
-                                                                        columnNumber: 29
-                                                                    }, this),
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                        className: "text-sm text-gray-700 dark:text-gray-200 mt-1",
-                                                                        children: [
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
-                                                                                children: "System ID:"
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                lineNumber: 254,
-                                                                                columnNumber: 90
-                                                                            }, this),
-                                                                            " ",
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                className: "font-mono text-xs text-gray-500",
-                                                                                children: person.id
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                lineNumber: 254,
-                                                                                columnNumber: 118
-                                                                            }, this)
-                                                                        ]
-                                                                    }, void 0, true, {
-                                                                        fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 254,
-                                                                        columnNumber: 29
-                                                                    }, this),
-                                                                    isAdmin && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                        className: "text-xs text-amber-600 dark:text-amber-400 mt-2 font-semibold",
-                                                                        children: [
-                                                                            "System Administrator (Level ",
-                                                                            person.role_level,
-                                                                            ")"
-                                                                        ]
-                                                                    }, void 0, true, {
-                                                                        fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 255,
-                                                                        columnNumber: 41
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                lineNumber: 252,
+                                                                lineNumber: 292,
+                                                                columnNumber: 27
+                                                            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "p-3 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600 text-sm",
+                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                                    className: "truncate",
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                                                            children: "Email:"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/manage/RosterClient.tsx",
+                                                                            lineNumber: 310,
+                                                                            columnNumber: 53
+                                                                        }, this),
+                                                                        " ",
+                                                                        person.email
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/app/manage/RosterClient.tsx",
+                                                                    lineNumber: 310,
+                                                                    columnNumber: 29
+                                                                }, this)
+                                                            }, void 0, false, {
+                                                                fileName: "[project]/app/manage/RosterClient.tsx",
+                                                                lineNumber: 309,
                                                                 columnNumber: 27
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                        lineNumber: 230,
+                                                        lineNumber: 287,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "space-y-3",
+                                                        className: "space-y-2",
                                                         children: variant === 'cadet' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                                                             children: [
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
@@ -647,81 +701,81 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                                     children: "Recent Activity"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                    lineNumber: 264,
+                                                                    lineNumber: 319,
                                                                     columnNumber: 29
                                                                 }, this),
                                                                 person.recent_reports && person.recent_reports.length > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                     className: "bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600 divide-y divide-gray-100 dark:divide-gray-700",
                                                                     children: person.recent_reports.map((report)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                            className: "p-2.5 flex justify-between items-center text-sm",
+                                                                            className: "p-2 flex justify-between items-center text-xs",
                                                                             children: [
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                    className: "truncate pr-2",
                                                                                     children: [
-                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                                            className: "font-medium text-gray-800 dark:text-gray-200 truncate w-32",
-                                                                                            title: report.offense_name,
+                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                            className: "font-medium text-gray-800 dark:text-gray-200",
                                                                                             children: report.offense_name
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                            lineNumber: 270,
+                                                                                            lineNumber: 325,
                                                                                             columnNumber: 39
                                                                                         }, this),
-                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                                            className: "text-[10px] text-gray-400 uppercase",
+                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                                                            className: "ml-2 text-gray-400 uppercase text-[10px]",
                                                                                             children: report.status.replace('_', ' ')
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                            lineNumber: 271,
+                                                                                            lineNumber: 326,
                                                                                             columnNumber: 39
                                                                                         }, this)
                                                                                     ]
                                                                                 }, void 0, true, {
                                                                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                    lineNumber: 269,
+                                                                                    lineNumber: 324,
                                                                                     columnNumber: 37
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                    className: "text-xs text-gray-500",
+                                                                                    className: "text-gray-500 whitespace-nowrap",
                                                                                     children: formatTimeAgo(report.created_at)
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                    lineNumber: 273,
+                                                                                    lineNumber: 328,
                                                                                     columnNumber: 37
                                                                                 }, this)
                                                                             ]
                                                                         }, report.id, true, {
                                                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                            lineNumber: 268,
+                                                                            lineNumber: 323,
                                                                             columnNumber: 35
                                                                         }, this))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                    lineNumber: 266,
+                                                                    lineNumber: 321,
                                                                     columnNumber: 31
                                                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                    className: "p-4 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600 text-center text-sm text-gray-400 italic",
+                                                                    className: "p-3 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600 text-center text-xs text-gray-400 italic",
                                                                     children: "No recent reports."
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                    lineNumber: 278,
+                                                                    lineNumber: 333,
                                                                     columnNumber: 31
                                                                 }, this)
                                                             ]
                                                         }, void 0, true)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                        lineNumber: 261,
+                                                        lineNumber: 316,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "space-y-3",
+                                                        className: "space-y-2",
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
                                                                 className: "text-xs font-bold text-gray-500 uppercase tracking-wider",
                                                                 children: "Actions"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                lineNumber: 288,
+                                                                lineNumber: 343,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -729,20 +783,20 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                                 children: [
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                                                         href: `/profile/${person.id}`,
-                                                                        className: "w-full text-center px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-sm font-medium rounded-md shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors",
+                                                                        className: "block w-full text-center py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-sm font-medium rounded shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700",
                                                                         children: "View Profile"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 290,
+                                                                        lineNumber: 345,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     variant === 'cadet' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                                                         href: `/ledger/${person.id}`,
-                                                                        className: "w-full text-center px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-sm font-medium rounded-md shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors",
+                                                                        className: "block w-full text-center py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-sm font-medium rounded shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700",
                                                                         children: "View Ledger"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 292,
+                                                                        lineNumber: 349,
                                                                         columnNumber: 29
                                                                     }, this),
                                                                     (canManage || canEditProfiles) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -750,63 +804,63 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                                             e.stopPropagation();
                                                                             onReassign(person.id);
                                                                         },
-                                                                        className: "w-full text-center px-4 py-2 bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-700 text-indigo-700 dark:text-indigo-300 text-sm font-medium rounded-md shadow-sm hover:bg-indigo-100 dark:hover:bg-indigo-900/40 transition-colors",
+                                                                        className: "block w-full text-center py-2 bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-700 text-indigo-700 dark:text-indigo-300 text-sm font-medium rounded shadow-sm hover:bg-indigo-100 dark:hover:bg-indigo-900/40",
                                                                         children: "Re-Assign"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 296,
+                                                                        lineNumber: 354,
                                                                         columnNumber: 29
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                lineNumber: 289,
+                                                                lineNumber: 344,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                        lineNumber: 287,
+                                                        lineNumber: 342,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                lineNumber: 227,
+                                                lineNumber: 284,
                                                 columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                            lineNumber: 226,
+                                            lineNumber: 283,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                        lineNumber: 225,
+                                        lineNumber: 282,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, person.id, true, {
                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                lineNumber: 191,
+                                lineNumber: 224,
                                 columnNumber: 13
                             }, this);
                         })
                     }, void 0, false, {
                         fileName: "[project]/app/manage/RosterClient.tsx",
-                        lineNumber: 186,
+                        lineNumber: 219,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/manage/RosterClient.tsx",
-                lineNumber: 164,
+                lineNumber: 173,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/manage/RosterClient.tsx",
-        lineNumber: 140,
+        lineNumber: 149,
         columnNumber: 5
     }, this);
 }

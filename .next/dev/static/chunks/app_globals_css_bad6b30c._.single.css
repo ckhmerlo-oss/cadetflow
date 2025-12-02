@@ -815,6 +815,10 @@ html.dark {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.grid-cols-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 .flex-col {
   flex-direction: column;
 }
@@ -1733,11 +1737,6 @@ html.dark {
   letter-spacing: .05em;
 }
 
-.text-amber-600 {
-  --tw-text-opacity: 1;
-  color: rgb(217 119 6 / var(--tw-text-opacity, 1));
-}
-
 .text-amber-800 {
   --tw-text-opacity: 1;
   color: rgb(146 64 14 / var(--tw-text-opacity, 1));
@@ -1761,11 +1760,6 @@ html.dark {
 .text-blue-800 {
   --tw-text-opacity: 1;
   color: rgb(30 64 175 / var(--tw-text-opacity, 1));
-}
-
-.text-gray-200 {
-  --tw-text-opacity: 1;
-  color: rgb(229 231 235 / var(--tw-text-opacity, 1));
 }
 
 .text-gray-300 {
@@ -2555,11 +2549,6 @@ html.dark {
   color: rgb(253 230 138 / var(--tw-text-opacity, 1));
 }
 
-.dark\:text-amber-400:is(.dark *) {
-  --tw-text-opacity: 1;
-  color: rgb(251 191 36 / var(--tw-text-opacity, 1));
-}
-
 .dark\:text-blue-100:is(.dark *) {
   --tw-text-opacity: 1;
   color: rgb(219 234 254 / var(--tw-text-opacity, 1));
@@ -2869,20 +2858,12 @@ html.dark {
     display: block;
   }
 
-  .sm\:inline-block {
-    display: inline-block;
-  }
-
   .sm\:flex {
     display: flex;
   }
 
   .sm\:table-cell {
     display: table-cell;
-  }
-
-  .sm\:h-screen {
-    height: 100vh;
   }
 
   .sm\:w-1\/3 {
@@ -2988,6 +2969,10 @@ html.dark {
     grid-column: span 2 / span 2;
   }
 
+  .md\:inline {
+    display: inline;
+  }
+
   .md\:flex {
     display: flex;
   }
@@ -3004,16 +2989,16 @@ html.dark {
     min-height: 100vh;
   }
 
-  .md\:w-48 {
-    width: 12rem;
-  }
-
   .md\:w-64 {
     width: 16rem;
   }
 
   .md\:w-72 {
     width: 18rem;
+  }
+
+  .md\:grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
   }
 
   .md\:grid-cols-2 {
@@ -3036,6 +3021,14 @@ html.dark {
     align-items: center;
   }
 
+  .md\:justify-between {
+    justify-content: space-between;
+  }
+
+  .md\:gap-6 {
+    gap: 1.5rem;
+  }
+
   .md\:border-r {
     border-right-width: 1px;
   }
@@ -3044,9 +3037,37 @@ html.dark {
     padding: 2.5rem;
   }
 
+  .md\:px-6 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+
+  .md\:py-6 {
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .md\:text-left {
+    text-align: left;
+  }
+
   .md\:text-3xl {
     font-size: 1.875rem;
     line-height: 2.25rem;
+  }
+
+  .md\:text-base {
+    font-size: 1rem;
+    line-height: 1.5rem;
+  }
+
+  .md\:text-sm {
+    font-size: .875rem;
+    line-height: 1.25rem;
+  }
+
+  .md\:normal-case {
+    text-transform: none;
   }
 }
 
@@ -3100,6 +3121,12 @@ html.dark {
   .lg\:px-8 {
     padding-left: 2rem;
     padding-right: 2rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .xl\:table-cell {
+    display: table-cell;
   }
 }
 

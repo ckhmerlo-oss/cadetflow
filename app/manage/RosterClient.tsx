@@ -41,7 +41,7 @@ type RosterClientProps = {
   companies: Company[] 
   onReassign: (cadetId: string) => void
   variant?: 'cadet' | 'faculty'
-  canManage: boolean // NEW PROP
+  canManage: boolean 
 }
 
 const CONDUCT_ORDER = ['Exemplary', 'Commendable', 'Satisfactory', 'Deficient', 'Unsatisfactory'];
@@ -60,6 +60,15 @@ export default function RosterClient({ initialData, canEditProfiles, companies, 
   
   const handleRowClick = (cadetId: string) => {
     setOpenCadetId(prevId => (prevId === cadetId ? null : cadetId))
+  }
+
+  // --- Helpers ---
+  const getCompanyAbbr = (name: string | null) => {
+      if (!name) return '-';
+      if (name === 'Battalion Staff') return 'BN';
+      // Band Company -> B? Or Band? Usually 'Band' is short enough, but 'B' fits the pattern.
+      // Assuming First Letter for standard companies
+      return name.charAt(0);
   }
 
   const filteredAndSortedCadets = useMemo(() => {
@@ -121,16 +130,16 @@ export default function RosterClient({ initialData, canEditProfiles, companies, 
     const seconds = Math.floor((now.getTime() - date.getTime()) / 1000)
     
     let interval = seconds / 31536000;
-    if (interval > 1) return Math.floor(interval) + "y ago";
+    if (interval > 1) return Math.floor(interval) + "y";
     interval = seconds / 2592000;
-    if (interval > 1) return Math.floor(interval) + "mo ago";
+    if (interval > 1) return Math.floor(interval) + "mo";
     interval = seconds / 86400;
-    if (interval > 1) return Math.floor(interval) + "d ago";
+    if (interval > 1) return Math.floor(interval) + "d";
     interval = seconds / 3600;
-    if (interval > 1) return Math.floor(interval) + "h ago";
+    if (interval > 1) return Math.floor(interval) + "h";
     interval = seconds / 60;
-    if (interval > 1) return Math.floor(interval) + "m ago";
-    return Math.floor(seconds) + "s ago";
+    if (interval > 1) return Math.floor(interval) + "m";
+    return Math.floor(seconds) + "s";
   }
 
   const uniqueCompanies = useMemo(() => [...new Set(initialData.map(c => c.company_name).filter(Boolean).sort())], [initialData]);
@@ -141,9 +150,9 @@ export default function RosterClient({ initialData, canEditProfiles, companies, 
       
       {/* Filters */}
       <div id="roster-controls" className="p-4 grid grid-cols-1 md:grid-cols-4 gap-4 border-b border-gray-200 dark:border-gray-700 no-print">
-        <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder={variant === 'cadet' ? "Search by name, role, room..." : "Search by name, role, email..."} className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-800 dark:text-white" />
+        <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder={variant === 'cadet' ? "Search..." : "Search email..."} className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-800 dark:text-white" />
         <select value={filterCompany} onChange={(e) => setFilterCompany(e.target.value)} className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-800 dark:text-white">
-          <option value="all">All Companies</option>
+          <option value="all">All Cos</option>
           {uniqueCompanies.map(co => <option key={String(co)} value={String(co)}>{String(co)}</option>)}
         </select>
         
@@ -164,23 +173,47 @@ export default function RosterClient({ initialData, canEditProfiles, companies, 
       <table id="roster-table-content" className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 printable-table">
         <thead className="bg-gray-50 dark:bg-gray-700/50">
           <tr>
+            {/* Rank: Hidden on Mobile */}
             {variant === 'cadet' ? (
-                <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer" onClick={() => requestSort('cadet_rank')}>Rank {getSortIndicator('cadet_rank')}</th>
+                <th scope="col" className="hidden md:table-cell px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer" onClick={() => requestSort('cadet_rank')}>Rank {getSortIndicator('cadet_rank')}</th>
             ) : (
-                <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer" onClick={() => requestSort('email')}>Email {getSortIndicator('email')}</th>
+                <th scope="col" className="hidden md:table-cell px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer" onClick={() => requestSort('email')}>Email {getSortIndicator('email')}</th>
             )}
             
-            <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer" onClick={() => requestSort('last_name')}>Name {getSortIndicator('last_name')}</th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer" onClick={() => requestSort('company_name')}>Company {getSortIndicator('company_name')}</th>
-            <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer" onClick={() => requestSort('role_name')}>Role {getSortIndicator('role_name')}</th>
+            {/* Name: Visible Always */}
+            <th scope="col" className="px-4 md:px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer" onClick={() => requestSort('last_name')}>Name {getSortIndicator('last_name')}</th>
+            
+            {/* Company: Visible Always (Abbreviated on Mobile) */}
+            <th scope="col" className="px-2 md:px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer" onClick={() => requestSort('company_name')}>
+                <span className="md:hidden">Co</span>
+                <span className="hidden md:inline">Company</span>
+                {getSortIndicator('company_name')}
+            </th>
+            
+            {/* Grade: Visible Always (Short header on Mobile) */}
+            {variant === 'cadet' && (
+              <th scope="col" className="px-2 md:px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer" onClick={() => requestSort('grade_level')}>
+                <span className="md:hidden">Gr</span>
+                <span className="hidden md:inline">Grade</span>
+                {getSortIndicator('grade_level')}
+              </th>
+            )}
+            
+            {/* Role: Hidden on Mobile */}
+            <th scope="col" className="hidden lg:table-cell px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer" onClick={() => requestSort('role_name')}>Role {getSortIndicator('role_name')}</th>
             
             {variant === 'cadet' && (
               <>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer" onClick={() => requestSort('grade_level')}>Grade {getSortIndicator('grade_level')}</th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer" onClick={() => requestSort('room_number')}>Room # {getSortIndicator('room_number')}</th>
-                <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer" onClick={() => requestSort('conduct_status')}>Conduct {getSortIndicator('conduct_status')}</th>
+                {/* Room: Hidden on Mobile */}
+                <th scope="col" className="hidden xl:table-cell px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer" onClick={() => requestSort('room_number')}>Room {getSortIndicator('room_number')}</th>
+                
+                {/* Conduct: Hidden on Mobile */}
+                <th scope="col" className="hidden md:table-cell px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer" onClick={() => requestSort('conduct_status')}>Conduct {getSortIndicator('conduct_status')}</th>
               </>
             )}
+            
+            {/* Expand Arrow */}
+            <th scope="col" className="relative px-4 md:px-6 py-3"><span className="sr-only">Expand</span></th>
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
@@ -197,85 +230,107 @@ export default function RosterClient({ initialData, canEditProfiles, companies, 
                     ${openCadetId === person.id ? 'bg-gray-50 dark:bg-gray-700/50' : ''}
                 `}
               >
+                {/* RANK / EMAIL */}
                 {variant === 'cadet' ? (
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">{person.cadet_rank || '-'}</td>
+                    <td className="hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200">{person.cadet_rank || '-'}</td>
                 ) : (
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400 font-mono">{person.email || '-'}</td>
+                    <td className="hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400 font-mono">{person.email || '-'}</td>
                 )}
 
-                <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
+                {/* NAME */}
+                <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">
                     {person.last_name}, {person.first_name}
                     {isAdmin && <span className="ml-2 inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200 uppercase tracking-wide">Admin</span>}
                 </td>
 
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">{person.company_name || '-'}</td>
-                <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">{person.role_name}</td>
+                {/* COMPANY (Abbr on Mobile) */}
+                <td className="px-2 md:px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">
+                    <span className="md:hidden font-bold">{getCompanyAbbr(person.company_name)}</span>
+                    <span className="hidden md:inline">{person.company_name || '-'}</span>
+                </td>
                 
                 {variant === 'cadet' && (
                   <>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">{person.grade_level || '-'}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">{person.room_number || '-'}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm"><span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold ${getConductColor(person.conduct_status)}`}>{person.conduct_status}</span></td>
+                    {/* GRADE */}
+                    <td className="px-2 md:px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">{person.grade_level || '-'}</td>
                   </>
                 )}
+
+                {/* ROLE (Hidden Mobile) */}
+                <td className="hidden lg:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">{person.role_name}</td>
+
+                {variant === 'cadet' && (
+                  <>
+                    {/* ROOM (Hidden Mobile) */}
+                    <td className="hidden xl:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400">{person.room_number || '-'}</td>
+                    
+                    {/* CONDUCT (Hidden Mobile) */}
+                    <td className="hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm"><span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold ${getConductColor(person.conduct_status)}`}>{person.conduct_status}</span></td>
+                  </>
+                )}
+                
+                {/* ARROW */}
+                <td className="px-4 md:px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                   <span className="text-gray-400">
+                     {openCadetId === person.id ? '▲' : '▼'}
+                   </span>
+                </td>
               </tr>
               
-              {/* EXPANDED VIEW (3-Column Layout) */}
+              {/* EXPANDED VIEW */}
               {openCadetId === person.id && (
                 <tr className="bg-gray-50 dark:bg-gray-700/30 print-hide">
-                  <td colSpan={variant === 'cadet' ? 7 : 4} className="px-6 py-6">
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <td colSpan={variant === 'cadet' ? 8 : 5} className="px-3 md:px-6 py-4 md:py-6">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                       
-                      {/* COL 1: Key Metrics / Info */}
-                      <div className="space-y-3">
+                      {/* COL 1: Metrics (Compact Grid on Mobile) */}
+                      <div className="space-y-2">
                         <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider">
                           {variant === 'cadet' ? 'Key Metrics' : 'Faculty Info'}
                         </h4>
                         {variant === 'cadet' ? (
-                          <>
-                            <div className="flex justify-between p-3 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600">
-                              <span className="text-sm text-gray-600 dark:text-gray-400">Term Demerits</span>
-                              <span className="text-sm font-bold text-gray-900 dark:text-white">{person.term_demerits}</span>
+                          <div className="grid grid-cols-3 md:grid-cols-1 gap-2">
+                            <div className="p-2 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600 text-center md:text-left md:flex md:justify-between md:items-center">
+                              <span className="block md:inline text-[10px] md:text-sm text-gray-500 dark:text-gray-400 uppercase md:normal-case">Term</span>
+                              <span className="block md:inline text-sm md:text-base font-bold text-gray-900 dark:text-white">{person.term_demerits}</span>
                             </div>
-                            <div className="flex justify-between p-3 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600">
-                              <span className="text-sm text-gray-600 dark:text-gray-400">Year Demerits</span>
-                              <span className="text-sm font-bold text-gray-900 dark:text-white">{person.year_demerits}</span>
+                            <div className="p-2 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600 text-center md:text-left md:flex md:justify-between md:items-center">
+                              <span className="block md:inline text-[10px] md:text-sm text-gray-500 dark:text-gray-400 uppercase md:normal-case">Year</span>
+                              <span className="block md:inline text-sm md:text-base font-bold text-gray-900 dark:text-white">{person.year_demerits}</span>
                             </div>
-                            <div className="flex justify-between p-3 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600">
-                              <span className="text-sm text-gray-600 dark:text-gray-400">Tour Balance</span>
-                              <span className={`text-sm font-bold ${person.has_star_tours || (person.current_tour_balance || 0) > 0 ? 'text-red-600 dark:text-red-400' : 'text-gray-900 dark:text-white'}`}>
+                            <div className="p-2 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600 text-center md:text-left md:flex md:justify-between md:items-center">
+                              <span className="block md:inline text-[10px] md:text-sm text-gray-500 dark:text-gray-400 uppercase md:normal-case">Tours</span>
+                              <span className={`block md:inline text-sm md:text-base font-bold ${person.has_star_tours || (person.current_tour_balance || 0) > 0 ? 'text-red-600 dark:text-red-400' : 'text-gray-900 dark:text-white'}`}>
                                 {person.has_star_tours ? '*' : person.current_tour_balance}
                               </span>
                             </div>
-                          </>
+                          </div>
                         ) : (
-                          <div className="p-4 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600">
-                            <p className="text-sm text-gray-700 dark:text-gray-200"><strong>Email:</strong> {person.email || 'No email'}</p>
-                            <p className="text-sm text-gray-700 dark:text-gray-200 mt-1"><strong>System ID:</strong> <span className="font-mono text-xs text-gray-500">{person.id}</span></p>
-                            {isAdmin && <p className="text-xs text-amber-600 dark:text-amber-400 mt-2 font-semibold">System Administrator (Level {person.role_level})</p>}
+                          <div className="p-3 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600 text-sm">
+                            <p className="truncate"><strong>Email:</strong> {person.email}</p>
                           </div>
                         )}
                       </div>
 
-                      {/* COL 2: Recent Activity (For Cadets) */}
-                      <div className="space-y-3">
+                      {/* COL 2: Activity (Compact List) */}
+                      <div className="space-y-2">
                         {variant === 'cadet' && (
                             <>
                             <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Recent Activity</h4>
                             {person.recent_reports && person.recent_reports.length > 0 ? (
                               <div className="bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600 divide-y divide-gray-100 dark:divide-gray-700">
                                 {person.recent_reports.map(report => (
-                                  <div key={report.id} className="p-2.5 flex justify-between items-center text-sm">
-                                    <div>
-                                      <p className="font-medium text-gray-800 dark:text-gray-200 truncate w-32" title={report.offense_name}>{report.offense_name}</p>
-                                      <p className="text-[10px] text-gray-400 uppercase">{report.status.replace('_', ' ')}</p>
+                                  <div key={report.id} className="p-2 flex justify-between items-center text-xs">
+                                    <div className="truncate pr-2">
+                                      <span className="font-medium text-gray-800 dark:text-gray-200">{report.offense_name}</span>
+                                      <span className="ml-2 text-gray-400 uppercase text-[10px]">{report.status.replace('_', ' ')}</span>
                                     </div>
-                                    <span className="text-xs text-gray-500">{formatTimeAgo(report.created_at)}</span>
+                                    <span className="text-gray-500 whitespace-nowrap">{formatTimeAgo(report.created_at)}</span>
                                   </div>
                                 ))}
                               </div>
                             ) : (
-                              <div className="p-4 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600 text-center text-sm text-gray-400 italic">
+                              <div className="p-3 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600 text-center text-xs text-gray-400 italic">
                                 No recent reports.
                               </div>
                             )}
@@ -283,19 +338,22 @@ export default function RosterClient({ initialData, canEditProfiles, companies, 
                         )}
                       </div>
 
-                      {/* COL 3: Actions */}
-                      <div className="space-y-3">
+                      {/* COL 3: Actions (Compact Buttons) */}
+                      <div className="space-y-2">
                         <h4 className="text-xs font-bold text-gray-500 uppercase tracking-wider">Actions</h4>
                         <div className="flex flex-col gap-2">
-                          <Link href={`/profile/${person.id}`} className="w-full text-center px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-sm font-medium rounded-md shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">View Profile</Link>
+                          <Link href={`/profile/${person.id}`} className="block w-full text-center py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-sm font-medium rounded shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700">
+                            View Profile
+                          </Link>
                           {variant === 'cadet' && (
-                            <Link href={`/ledger/${person.id}`} className="w-full text-center px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-sm font-medium rounded-md shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors">View Ledger</Link>
+                            <Link href={`/ledger/${person.id}`} className="block w-full text-center py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-sm font-medium rounded shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700">
+                              View Ledger
+                            </Link>
                           )}
-                          {/* UPDATED: Using canManage OR canEditProfiles to show button */}
                           {(canManage || canEditProfiles) && (
                             <button 
                                 onClick={(e) => { e.stopPropagation(); onReassign(person.id); }} 
-                                className="w-full text-center px-4 py-2 bg-indigo-50 dark:bg-indigo-900/20 border border-indigo-200 dark:border-indigo-700 text-indigo-700 dark:text-indigo-300 text-sm font-medium rounded-md shadow-sm hover:bg-indigo-100 dark:hover:bg-indigo-900/40 transition-colors"
+                                className="block w-full text-center py-2 bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-700 text-indigo-700 dark:text-indigo-300 text-sm font-medium rounded shadow-sm hover:bg-indigo-100 dark:hover:bg-indigo-900/40"
                             >
                               Re-Assign
                             </button>

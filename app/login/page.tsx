@@ -11,8 +11,6 @@ export default function LoginPage() {
   const { theme } = useTheme()
   const [showForgotHelp, setShowForgotHelp] = useState(false)
 
-  // 1. Force Logout on Mount
-  // This clears any stale local session data that might cause a redirect loop
   useEffect(() => {
     const doLogout = async () => {
       await supabase.auth.signOut()
@@ -20,12 +18,10 @@ export default function LoginPage() {
     doLogout()
   }, [supabase])
 
-  // 2. Handle New Sign-Ins
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
         if (event === 'SIGNED_IN' && session) {
-          // Hard refresh to ensure server gets the new cookie
           window.location.replace('/') 
         }
         
@@ -47,9 +43,14 @@ export default function LoginPage() {
         appearance={{ 
             theme: ThemeSupa,
             style: {
-                anchor: { display: 'none' }, // Hides default links
+                anchor: { display: 'none' },
                 button: { borderRadius: '0.375rem' },
                 input: { borderRadius: '0.375rem' },
+            },
+            // NEW: Explicitly set text color based on the theme
+            className: {
+                input: 'text-gray-900 dark:text-white bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600',
+                label: 'text-gray-700 dark:text-gray-300',
             }
         }}
         theme={theme}
