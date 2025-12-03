@@ -11,13 +11,19 @@ export default function LoginPage() {
   const { theme } = useTheme()
   const [showForgotHelp, setShowForgotHelp] = useState(false)
 
+  // 1. CHECK IF ALREADY LOGGED IN
   useEffect(() => {
-    const doLogout = async () => {
-      await supabase.auth.signOut()
+    const checkSession = async () => {
+        const { data: { session } } = await supabase.auth.getSession()
+        if (session) {
+            // User is already logged in, send them home
+            window.location.replace('/')
+        }
     }
-    doLogout()
+    checkSession()
   }, [supabase])
 
+  // 2. Handle New Sign-Ins (Event Listener)
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
@@ -47,7 +53,6 @@ export default function LoginPage() {
                 button: { borderRadius: '0.375rem' },
                 input: { borderRadius: '0.375rem' },
             },
-            // NEW: Explicitly set text color based on the theme
             className: {
                 input: 'text-gray-900 dark:text-white bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600',
                 label: 'text-gray-700 dark:text-gray-300',

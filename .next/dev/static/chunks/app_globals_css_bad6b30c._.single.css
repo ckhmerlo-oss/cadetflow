@@ -613,6 +613,10 @@ html.dark {
   height: 100%;
 }
 
+.h-24 {
+  height: 6rem;
+}
+
 .max-h-40 {
   max-height: 10rem;
 }
@@ -771,6 +775,10 @@ html.dark {
 
 .flex-grow {
   flex-grow: 1;
+}
+
+.table-auto {
+  table-layout: auto;
 }
 
 .border-collapse {
@@ -1227,6 +1235,11 @@ html.dark {
   border-color: rgb(234 179 8 / var(--tw-border-opacity, 1));
 }
 
+.border-blue-600 {
+  --tw-border-opacity: 1;
+  border-color: rgb(37 99 235 / var(--tw-border-opacity, 1));
+}
+
 .bg-amber-100 {
   --tw-bg-opacity: 1;
   background-color: rgb(254 243 199 / var(--tw-bg-opacity, 1));
@@ -1381,6 +1394,30 @@ html.dark {
 .bg-yellow-600 {
   --tw-bg-opacity: 1;
   background-color: rgb(202 138 4 / var(--tw-bg-opacity, 1));
+}
+
+.bg-indigo-100 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(224 231 255 / var(--tw-bg-opacity, 1));
+}
+
+.bg-black\/40 {
+  background-color: #0006;
+}
+
+.bg-blue-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(59 130 246 / var(--tw-bg-opacity, 1));
+}
+
+.bg-blue-600 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(37 99 235 / var(--tw-bg-opacity, 1));
+}
+
+.bg-yellow-200 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(254 240 138 / var(--tw-bg-opacity, 1));
 }
 
 .bg-opacity-75 {
@@ -2091,6 +2128,10 @@ html.dark {
   transition-duration: .5s;
 }
 
+.duration-200 {
+  transition-duration: .2s;
+}
+
 .ease-in-out {
   transition-timing-function: cubic-bezier(.4, 0, .2, 1);
 }
@@ -2167,6 +2208,21 @@ html.dark {
 .hover\:bg-yellow-700:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(161 98 7 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-indigo-200:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(199 210 254 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-gray-300:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(209 213 219 / var(--tw-bg-opacity, 1));
+}
+
+.hover\:bg-yellow-300:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(253 224 71 / var(--tw-bg-opacity, 1));
 }
 
 .hover\:text-gray-500:hover {
@@ -2297,6 +2353,16 @@ html.dark {
 .disabled\:bg-indigo-400:disabled {
   --tw-bg-opacity: 1;
   background-color: rgb(129 140 248 / var(--tw-bg-opacity, 1));
+}
+
+.disabled\:bg-blue-300:disabled {
+  --tw-bg-opacity: 1;
+  background-color: rgb(147 197 253 / var(--tw-bg-opacity, 1));
+}
+
+.disabled\:bg-green-300:disabled {
+  --tw-bg-opacity: 1;
+  background-color: rgb(134 239 172 / var(--tw-bg-opacity, 1));
 }
 
 .disabled\:text-gray-400:disabled {
@@ -3145,6 +3211,11 @@ html.dark {
 
   .print\:hidden {
     display: none;
+  }
+
+  .print\:bg-gray-200 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1));
   }
 
   .print\:pb-4 {

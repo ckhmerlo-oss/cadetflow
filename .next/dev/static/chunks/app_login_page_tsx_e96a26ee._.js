@@ -25,18 +25,24 @@ function LoginPage() {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$client$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createClient"])();
     const { theme } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$ThemeProvider$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useTheme"])();
     const [showForgotHelp, setShowForgotHelp] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    // 1. CHECK IF ALREADY LOGGED IN
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "LoginPage.useEffect": ()=>{
-            const doLogout = {
-                "LoginPage.useEffect.doLogout": async ()=>{
-                    await supabase.auth.signOut();
+            const checkSession = {
+                "LoginPage.useEffect.checkSession": async ()=>{
+                    const { data: { session } } = await supabase.auth.getSession();
+                    if (session) {
+                        // User is already logged in, send them home
+                        window.location.replace('/');
+                    }
                 }
-            }["LoginPage.useEffect.doLogout"];
-            doLogout();
+            }["LoginPage.useEffect.checkSession"];
+            checkSession();
         }
     }["LoginPage.useEffect"], [
         supabase
     ]);
+    // 2. Handle New Sign-Ins (Event Listener)
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "LoginPage.useEffect": ()=>{
             const { data: { subscription } } = supabase.auth.onAuthStateChange({
@@ -82,7 +88,6 @@ function LoginPage() {
                             borderRadius: '0.375rem'
                         }
                     },
-                    // NEW: Explicitly set text color based on the theme
                     className: {
                         input: 'text-gray-900 dark:text-white bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600',
                         label: 'text-gray-700 dark:text-gray-300'
@@ -92,7 +97,7 @@ function LoginPage() {
                 providers: []
             }, void 0, false, {
                 fileName: "[project]/app/login/page.tsx",
-                lineNumber: 41,
+                lineNumber: 47,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -103,7 +108,7 @@ function LoginPage() {
                     children: "Forgot your password?"
                 }, void 0, false, {
                     fileName: "[project]/app/login/page.tsx",
-                    lineNumber: 62,
+                    lineNumber: 67,
                     columnNumber: 13
                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 animate-in fade-in slide-in-from-top-2",
@@ -118,14 +123,14 @@ function LoginPage() {
                                     children: "it@fuma.org"
                                 }, void 0, false, {
                                     fileName: "[project]/app/login/page.tsx",
-                                    lineNumber: 71,
+                                    lineNumber: 76,
                                     columnNumber: 36
                                 }, this),
                                 " for password assistance."
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/login/page.tsx",
-                            lineNumber: 70,
+                            lineNumber: 75,
                             columnNumber: 17
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -134,24 +139,24 @@ function LoginPage() {
                             children: "Close"
                         }, void 0, false, {
                             fileName: "[project]/app/login/page.tsx",
-                            lineNumber: 73,
+                            lineNumber: 78,
                             columnNumber: 17
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/login/page.tsx",
-                    lineNumber: 69,
+                    lineNumber: 74,
                     columnNumber: 13
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/login/page.tsx",
-                lineNumber: 60,
+                lineNumber: 65,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/login/page.tsx",
-        lineNumber: 39,
+        lineNumber: 45,
         columnNumber: 5
     }, this);
 }
