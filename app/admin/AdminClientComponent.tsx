@@ -6,7 +6,8 @@ import React, { useState } from 'react'
 import GeneralSettingsTab from './tabs/GeneralSettingsTab'
 import InfractionsTab from './tabs/InfractionsTab'
 import RolesTab from './tabs/RolesTab'
-import CompaniesTab from './tabs/CompaniesTab' // <--- IMPORTED
+import CompaniesTab from './tabs/CompaniesTab' 
+import NotificationsTab from './tabs/NotificationsTab' // <--- NEW IMPORT
 
 // Lock Icon Helper
 const LockIcon = () => (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12 text-gray-400"><path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 0 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" /></svg>)
@@ -19,7 +20,7 @@ export function AdminSettingsClient({ user }: { user: User }) {
   const [isLoading, setIsLoading] = useState(false)
   
   // UPDATED Tab State
-  const [activeTab, setActiveTab] = useState<'general' | 'infractions' | 'roles' | 'companies'>('general')
+  const [activeTab, setActiveTab] = useState<'general' | 'infractions' | 'roles' | 'companies' | 'notifications'>('general')
 
   const handleVerifyPassword = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -59,6 +60,7 @@ export function AdminSettingsClient({ user }: { user: User }) {
           <p className="text-xs text-gray-500 mt-1">System Configuration</p>
         </div>
         <nav className="p-4 space-y-2">
+          {/* ... Existing Buttons ... */}
           <button 
             onClick={() => setActiveTab('general')}
             className={`w-full text-left px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'general' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-200' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'}`}
@@ -77,12 +79,18 @@ export function AdminSettingsClient({ user }: { user: User }) {
           >
             Roles & Hierarchy
           </button>
-          {/* NEW TAB BUTTON */}
           <button 
             onClick={() => setActiveTab('companies')}
             className={`w-full text-left px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'companies' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-200' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'}`}
           >
             Companies & Units
+          </button>
+          {/* NEW TAB */}
+          <button 
+            onClick={() => setActiveTab('notifications')}
+            className={`w-full text-left px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'notifications' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-200' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'}`}
+          >
+            Notifications & Alerts
           </button>
         </nav>
       </aside>
@@ -94,6 +102,7 @@ export function AdminSettingsClient({ user }: { user: User }) {
           {activeTab === 'infractions' && <InfractionsTab />}
           {activeTab === 'roles' && <RolesTab />}
           {activeTab === 'companies' && <CompaniesTab />} 
+          {activeTab === 'notifications' && <NotificationsTab />} 
         </div>
       </main>
 

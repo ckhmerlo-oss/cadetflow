@@ -14,6 +14,7 @@ type OffenseType = {
 
 // Configuration for the Category System
 const CATEGORY_CONFIG: Record<string, { code: string; label: string; demerits: number; policy_cat: number; color: string }> = {
+  '0':  { code: '0',  label: 'Cat 0',  demerits: 0,  policy_cat: 0, color: 'bg-grey-400 text-white border-gray-700'},
   '1':  { code: '1',  label: 'Cat 1',  demerits: 3,  policy_cat: 1, color: 'bg-green-100 text-green-800 border-green-200' },
   '2a': { code: '2a', label: 'Cat 2a', demerits: 6,  policy_cat: 2, color: 'bg-yellow-100 text-yellow-800 border-yellow-200' },
   '2b': { code: '2b', label: 'Cat 2b', demerits: 10, policy_cat: 2, color: 'bg-orange-100 text-orange-800 border-orange-200' },

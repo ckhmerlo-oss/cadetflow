@@ -1,4 +1,20 @@
 {
-  "node": {},
+  "node": {
+    "00bbeb251e9c0d92f5c1d1ca0bd9f7292fb081a58d": {
+      "workers": {
+        "app/reports/daily/page": {
+          "moduleId": "[project]/.next-internal/server/app/reports/daily/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/lib/server.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "triggerGreenSheetBlast",
+          "filename": "app/lib/server.ts"
+        }
+      },
+      "layer": {
+        "app/reports/daily/page": "action-browser"
+      },
+      "exportedName": "triggerGreenSheetBlast",
+      "filename": "app/lib/server.ts"
+    }
+  },
   "edge": {}
 }

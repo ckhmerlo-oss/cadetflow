@@ -1759,7 +1759,7 @@ self.$RefreshInterceptModuleExecution$ = function(webpackModuleId) {
     exports.useTransition = function() {
         return resolveDispatcher().useTransition();
     };
-    exports.version = "19.3.0-canary-b4455a6e-20251027";
+    exports.version = "19.3.0-canary-52684925-20251110";
     "undefined" !== typeof __REACT_DEVTOOLS_GLOBAL_HOOK__ && "function" === typeof __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop && __REACT_DEVTOOLS_GLOBAL_HOOK__.registerInternalModuleStop(Error());
 }();
 }),

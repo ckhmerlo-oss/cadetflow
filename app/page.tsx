@@ -2,32 +2,33 @@ import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
-// --- Types ---
+// --- 1. UPDATED TYPE DEFINITION ---
+// We need to ensure 'appeal_status' is optional (?) string
 type ReportWithNames = {
-  id: string;
-  status: string;
-  created_at: string;
-  current_approver_group_id: string | null;
-  subject_cadet_id: string;
-  submitted_by: string;
-  subject: { first_name: string, last_name: string } | null;
-  submitter: { first_name: string, last_name: string } | null;
-  group: { group_name: string } | null;
-  offense_type: { offense_name: string } | null;
-  appeal_status: string | null;
+  id: string
+  status: string
+  created_at: string
+  subject_cadet_id: string
+  submitted_by: string
+  current_approver_group_id: string | null
+  // JSON objects returned from SQL
+  subject: { first_name: string; last_name: string } | null
+  submitter: { first_name: string; last_name: string } | null
+  group: { group_name: string } | null
+  offense_type: { offense_name: string } | null
+  // The new field
+  appeal_status?: string | null 
 }
 
 type CadetStats = {
-  term_demerits: number;
-  year_demerits: number;
-  total_tours_marched: number;
-  current_tour_balance: number;
+  term_demerits: number
+  year_demerits: number
+  current_tour_balance: number
 }
 
 export default async function Dashboard() {
   const supabase = createClient()
 
-  // 1. Get User & Profile
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return redirect('/login')
 
@@ -39,7 +40,6 @@ export default async function Dashboard() {
 
   if (profile && profile.company_id === null && profile.first_name === 'New') return redirect('/onboarding')
 
-  // Handle Types safely
   const role = profile?.role as any
   const role_level = role?.default_role_level || 0
   const canManageAll = role?.can_manage_all_rosters || false
@@ -50,7 +50,6 @@ export default async function Dashboard() {
     redirect(`/ledger/${user.id}`);
   }
 
-  // 2. Fetch Data
   const { data: rpcData, error } = await supabase.rpc('get_my_dashboard_reports')
   if (error) console.error("Error fetching reports:", error.message)
   
@@ -78,14 +77,32 @@ export default async function Dashboard() {
     if (statsData) cadetStats = statsData;
   }
     
-  // 3. Filter Lists
+  // --- 2. FILTER LOGIC (Includes Commandant Check) ---
   const actionItems = allInvolvedReports.filter(report => {
       if (report.status === 'pulled') return false; 
+      
+      // A. Standard Approvals
       if (report.status === 'pending_approval' && report.current_approver_group_id !== null) return true;
+      
+      // B. Revisions
       if (report.status === 'needs_revision' && report.submitted_by === user.id) return true;
+      
+      // C. Appeals
       if (report.appeal_status) {
-          if (report.subject_cadet_id === user.id) return ['rejected_by_issuer', 'rejected_by_chain'].includes(report.appeal_status);
-          return ['pending_issuer', 'pending_chain', 'pending_commandant'].includes(report.appeal_status);
+          // Cadet (Subject) sees rejections
+          if (report.subject_cadet_id === user.id) {
+              return ['rejected_by_issuer', 'rejected_by_chain'].includes(report.appeal_status);
+          }
+          // Issuer sees their step
+          if (report.submitted_by === user.id) {
+               return report.appeal_status === 'pending_issuer';
+          }
+          // Commandant sees final review
+          if (role_level >= 90) {
+              return report.appeal_status === 'pending_commandant';
+          }
+          // Chain members
+          return report.appeal_status === 'pending_chain'; 
       }
       return false;
   }) || []
@@ -94,21 +111,15 @@ export default async function Dashboard() {
 
   return (
     <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 animate-in fade-in duration-500">
-
-      <div className="flex justify-between items-center mb-8">
+       <div className="flex justify-between items-center mb-8">
         <div>
           <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Welcome, {profile?.first_name || user.email}</h1>
           <p className="mt-2 text-lg text-gray-600 dark:text-gray-400">{groupName}</p>
         </div>
         
-        {/* --- HEADER BUTTONS --- */}
         <div className="flex gap-3">
           {(role_level >= 15) && (
-            <Link 
-              href="/submit" 
-              id="dashboard-submit-btn" // <--- ADDED ID
-              className="py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-colors"
-            >
+            <Link href="/submit" id="dashboard-submit-btn" className="py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-colors">
               Submit New Report
             </Link>
           )}
@@ -174,7 +185,6 @@ export default async function Dashboard() {
   )
 }
 
-// ... (Helper Components remain unchanged) ...
 function CadetStatsHeader({ stats }: { stats: CadetStats }) {
   return (
     <>
@@ -274,6 +284,7 @@ function ReportCard({ report, showSubject, showSubmitter }: { report: ReportWith
       } else if (status === 'rejected_final') {
           return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200 ml-2">Appeal Denied</span>
       } else {
+           // Covers: pending_issuer, pending_chain, pending_commandant
            return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 ml-2">Appeal In Progress</span>
       }
   }
@@ -288,9 +299,13 @@ function ReportCard({ report, showSubject, showSubmitter }: { report: ReportWith
              <span className={`font-medium ${report.status === 'pulled' ? 'text-gray-500 line-through' : 'text-indigo-600 dark:text-indigo-400'}`}>{title}</span>
              {report.appeal_status && getAppealBadge(report.appeal_status)}
         </div>
-        <span className={`text-xs font-medium px-2 py-0.5 rounded-full flex-shrink-0 ${getStatusColor()}`}>
-          {formatStatus(report.status)}
-        </span>
+        
+        {/* HIDE 'Completed' badge if Appeal is active to avoid confusion */}
+        {(!report.appeal_status || report.appeal_status === 'approved' || report.appeal_status === 'rejected_final') && (
+            <span className={`text-xs font-medium px-2 py-0.5 rounded-full flex-shrink-0 ${getStatusColor()}`}>
+            {formatStatus(report.status)}
+            </span>
+        )}
       </div>
       <div className="mt-2 text-sm text-gray-500 dark:text-gray-400">
         {showSubject && <p>Subject: <span className="font-medium text-gray-700 dark:text-gray-200">{formatName(report.subject)}</span></p>}
