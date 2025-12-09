@@ -83,17 +83,6 @@ async function RolesConfigurationPage() {
     const userCompanyId = profile?.company_id;
     // *** NEW: Extract Viewer Level ***
     const viewerRoleLevel = userPermissions.default_role_level || 0;
-    // 2. Authorization Check
-    if (viewerRoleLevel < 50) {
-        return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "max-w-7xl mx-auto p-8 text-red-500",
-            children: "Permission Denied: You must be Staff (Level 50+) or higher to configure the Chain of Command."
-        }, void 0, false, {
-            fileName: "[project]/app/manage/roles/page.tsx",
-            lineNumber: 41,
-            columnNumber: 14
-        }, this);
-    }
     // 3. Fetch companies
     const { data: allCompanies } = await supabase.from('companies').select('id, company_name').not('company_name', 'in', '("Commandant Department", "Faculty")').order('company_name');
     // 4. Apply Management Filters
@@ -113,7 +102,7 @@ async function RolesConfigurationPage() {
                         children: "Chain of Command Configuration"
                     }, void 0, false, {
                         fileName: "[project]/app/manage/roles/page.tsx",
-                        lineNumber: 62,
+                        lineNumber: 57,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -121,13 +110,13 @@ async function RolesConfigurationPage() {
                         children: "Select a company to visualize and edit its specific approval flow."
                     }, void 0, false, {
                         fileName: "[project]/app/manage/roles/page.tsx",
-                        lineNumber: 63,
+                        lineNumber: 58,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/manage/roles/page.tsx",
-                lineNumber: 61,
+                lineNumber: 56,
                 columnNumber: 7
             }, this),
             filteredCompanies.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -138,7 +127,7 @@ async function RolesConfigurationPage() {
                         children: "No Companies Available"
                     }, void 0, false, {
                         fileName: "[project]/app/manage/roles/page.tsx",
-                        lineNumber: 70,
+                        lineNumber: 65,
                         columnNumber: 15
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -146,26 +135,26 @@ async function RolesConfigurationPage() {
                         children: "Your current role does not grant permission to configure any company's approval chain."
                     }, void 0, false, {
                         fileName: "[project]/app/manage/roles/page.tsx",
-                        lineNumber: 71,
+                        lineNumber: 66,
                         columnNumber: 15
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/manage/roles/page.tsx",
-                lineNumber: 69,
+                lineNumber: 64,
                 columnNumber: 11
             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$manage$2f$roles$2f$components$2f$ChainVisualizer$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
                 initialCompanies: filteredCompanies,
                 viewerRoleLevel: viewerRoleLevel
             }, void 0, false, {
                 fileName: "[project]/app/manage/roles/page.tsx",
-                lineNumber: 76,
+                lineNumber: 71,
                 columnNumber: 11
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/manage/roles/page.tsx",
-        lineNumber: 60,
+        lineNumber: 55,
         columnNumber: 5
     }, this);
 }

@@ -1,39 +1,148 @@
-[00:00:02.160] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:02.372] Server  LOG      ✓ Ready in 1931ms
-[00:00:10.556] Server  LOG      ○ Compiling /report/[id] ...
-[00:00:13.400] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:13.611] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:13.611] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:13.611] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/report/0dcdc8bd-69e3-42fe-aabe-7aa5cd4940a3","route":"/report/[id]"}
-[00:00:13.611] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/0dcdc8bd-69e3-42fe-aabe-7aa5cd4940a3 color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/0dcdc8bd-69e3-42fe-aabe-7aa5cd4940a3","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765294170885}
-[00:00:23.787] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/report/0dcdc8bd-69e3-42fe-aabe-7aa5cd4940a3","id":"v3-1765294170884-1930088564927","route":"/report/[id]","type":"FCP","value":9416244},{"href":"http://localhost:3000/report/0dcdc8bd-69e3-42fe-aabe-7aa5cd4940a3","id":"v3-1765294170884-3618362976637","route":"/report/[id]","type":"TTFB","value":9416101},{"attribution":{"eventTarget":"p.text-sm.text-gray-800.dark:text-gray-200.whitespace-pre-wrap"},"href":"http://localhost:3000/report/0dcdc8bd-69e3-42fe-aabe-7aa5cd4940a3","id":"v3-1765294170884-3748809711414","route":"/report/[id]","type":"LCP","value":9416244},{"attribution":{"eventTarget":"#nav-dashboard","eventType":"pointerdown"},"href":"http://localhost:3000/report/0dcdc8bd-69e3-42fe-aabe-7aa5cd4940a3","id":"v3-1765294170884-9813333012288","route":"/report/[id]","type":"FID","value":15}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:00:23.787] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/submit color: rgb(120, 120, 120) color: inherit {"dp":"/submit","o":"http://localhost:3000/submit","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765294181051}
-[00:01:34.142] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765294251410}
-[00:01:38.538] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/4cf3c939-bb9f-4df1-987d-ed9a0e6f79b5 color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/4cf3c939-bb9f-4df1-987d-ed9a0e6f79b5","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765294255802}
-[00:01:39.454] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765294256713}
-[00:01:40.756] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/4cf3c939-bb9f-4df1-987d-ed9a0e6f79b5 color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/4cf3c939-bb9f-4df1-987d-ed9a0e6f79b5","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765294258022}
-[00:01:41.439] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765294258694}
-[00:01:47.972] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/submit color: rgb(120, 120, 120) color: inherit {"dp":"/submit","o":"http://localhost:3000/submit","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765294265247}
-[00:01:55.024] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"keyup"},"href":"http://localhost:3000/submit","id":"v3-1765294170884-3321834228050","route":"/submit","type":"INP","value":488}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:04:16.548] Server  LOG      ✓ Compiled in 88ms
-[00:04:24.058] Server  LOG      ✓ Compiled in 67ms
-[00:04:24.958] Browser ERROR   ./app/submit/page.tsx:121:18
+[00:00:02.898] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:03.268] Server  LOG      ✓ Ready in 2.7s
+[00:00:07.494] Server  LOG      ○ Compiling / ...
+[00:00:11.141] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:11.871] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:11.871] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:11.871] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:00:11.871] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765309877919}
+[00:02:16.365] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1765309877918-8153129610205","route":"/","type":"TTFB","value":14500431}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:02:21.004] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765310007443}
+[00:02:23.320] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"pointerdown"},"href":"http://localhost:3000/login","id":"v3-1765309877918-9322174832731","route":"/login","type":"INP","value":24}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:02:27.978] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:28.139] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:02:28.139] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:02:28.139] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:02:28.139] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765310014585}
+[00:02:32.217] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1765310014582-1291942703204","route":"/","type":"FCP","value":764},{"href":"http://localhost:3000/","id":"v3-1765310014582-7430470134188","route":"/","type":"TTFB","value":642},{"attribution":{"eventTarget":"div.flex.justify-between.items-center.mb-8>div>h1.text-3xl.font-bold.text-gray-900.dark:text-white"},"href":"http://localhost:3000/","id":"v3-1765310014582-3292807479188","route":"/","type":"LCP","value":764},{"attribution":{"eventTarget":"#nav-roster","eventType":"pointerdown"},"href":"http://localhost:3000/","id":"v3-1765310014582-6793285179329","route":"/","type":"FID","value":12}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:02:32.218] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765310018653}
+[00:02:33.992] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage/roles color: rgb(120, 120, 120) color: inherit {"dp":"/manage/roles","o":"http://localhost:3000/manage/roles","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765310020429}
+[00:02:43.792] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"#nav-roster","eventType":"pointerdown"},"href":"http://localhost:3000/manage/roles","id":"v3-1765310014582-5021840667979","route":"/manage/roles","type":"INP","value":24}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:04:15.773] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765310122212}
+[00:04:28.207] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:28.382] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:04:28.382] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:04:28.382] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:04:28.382] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765310134823}
+[00:04:29.545] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1765310134816-4253768470079","route":"/","type":"FCP","value":487},{"href":"http://localhost:3000/","id":"v3-1765310134816-1969807438476","route":"/","type":"TTFB","value":383},{"attribution":{"eventTarget":"div.flex.justify-between.items-center.mb-8>div>h1.text-3xl.font-bold.text-gray-900.dark:text-white"},"href":"http://localhost:3000/","id":"v3-1765310134816-6394063437871","route":"/","type":"LCP","value":487},{"attribution":{"eventTarget":"div.flex.items-center>div.hidden.md:flex.items-center.justify-end.space-x-3","eventType":"pointerdown"},"href":"http://localhost:3000/","id":"v3-1765310134816-7646474784645","route":"/","type":"FID","value":15}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:04:29.545] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765310135974}
+[00:04:32.555] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/profile/abe8e389-4310-4bad-80ea-655141a33b1e color: rgb(120, 120, 120) color: inherit {"dp":"/profile/[id]","o":"http://localhost:3000/profile/abe8e389-4310-4bad-80ea-655141a33b1e","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765310139000}
+[00:04:47.123] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765310153561}
+[00:04:49.598] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:04:49.763] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:04:49.763] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:04:49.763] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:04:49.763] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765310156201}
+[00:04:53.392] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1765310156200-7407950496623","route":"/","type":"FCP","value":646},{"href":"http://localhost:3000/","id":"v3-1765310156200-2777794586275","route":"/","type":"TTFB","value":515},{"attribution":{"eventTarget":"div.flex.justify-between.items-end>h2.text-2xl.font-semibold.text-gray-800.dark:text-gray-100"},"href":"http://localhost:3000/","id":"v3-1765310156200-9277426436360","route":"/","type":"LCP","value":646},{"attribution":{"eventTarget":"#nav-roster","eventType":"pointerdown"},"href":"http://localhost:3000/","id":"v3-1765310156200-6263856248326","route":"/","type":"FID","value":18}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:04:53.392] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765310159837}
+[00:04:55.756] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/profile/abe8e389-4310-4bad-80ea-655141a33b1e color: rgb(120, 120, 120) color: inherit {"dp":"/profile/[id]","o":"http://localhost:3000/profile/abe8e389-4310-4bad-80ea-655141a33b1e","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765310162197}
+[00:05:07.637] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/daily color: rgb(120, 120, 120) color: inherit {"dp":"/reports/daily","o":"http://localhost:3000/reports/daily","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765310174080}
+[00:05:10.506] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/profile/abe8e389-4310-4bad-80ea-655141a33b1e color: rgb(120, 120, 120) color: inherit {"dp":"/profile/[id]","o":"http://localhost:3000/profile/abe8e389-4310-4bad-80ea-655141a33b1e","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765310176941}
+[00:06:04.193] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765310230630}
+[00:06:11.608] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"#nav-roster","eventType":"pointerdown"},"href":"http://localhost:3000/manage","id":"v3-1765310156200-2428981452484","route":"/manage","type":"INP","value":24}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:21:36.731] Server  LOG      ✓ Compiled in 145ms
+[00:21:55.173] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:55.222] Server  ERROR   C:\Users\ckhme\my-workflow-app\.next\dev\server\chunks\ssr\node_modules_next_dist_54128a8b._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:55.228] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:55.232] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\server\next-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:55.234] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:55.235] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:55.237] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:55.238] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:55.241] Server  ERROR    ⨯ Error: The default export is not a React Component in "/manage/probation/page"
+[00:21:55.245] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:55.246] Server  ERROR   C:\Users\ckhme\my-workflow-app\.next\dev\server\chunks\ssr\node_modules_next_dist_54128a8b._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:55.246] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:55.247] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\server\next-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:55.247] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:55.248] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:55.248] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:55.249] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:55.250] Server  ERROR    ⨯ Error: The default export is not a React Component in "/manage/probation/page"
+[00:21:56.697] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:56.698] Server  ERROR   C:\Users\ckhme\my-workflow-app\.next\dev\server\chunks\ssr\node_modules_next_dist_54128a8b._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:56.698] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:56.699] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\server\next-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:56.699] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:56.700] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:56.700] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:56.701] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:56.701] Server  ERROR    ⨯ Error: The default export is not a React Component in "/manage/probation/page"
+[00:21:56.706] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\compiled\next-server\app-page-turbo.runtime.dev.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:56.707] Server  ERROR   C:\Users\ckhme\my-workflow-app\.next\dev\server\chunks\ssr\node_modules_next_dist_54128a8b._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:56.708] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:56.709] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\server\next-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:56.710] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:56.710] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:56.711] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:56.711] Server  ERROR   C:\Users\ckhme\my-workflow-app\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:21:56.712] Server  ERROR    ⨯ Error: The default export is not a React Component in "/manage/probation/page"
+[00:21:56.980] Browser ERROR   uncaughtError: Error: The default export is not a React Component in "/manage/probation/page"
+[00:22:01.640] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:22:01.899] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:22:01.899] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:22:01.899] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/manage","route":"/manage"}
+[00:22:01.899] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765311188332}
+[00:22:08.008] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/manage","id":"v3-1765311188331-5294417227226","route":"/manage","type":"FCP","value":720},{"href":"http://localhost:3000/manage","id":"v3-1765311188331-1762969203629","route":"/manage","type":"TTFB","value":591},{"attribution":{"eventTarget":"div.jsx-21e72d2f241fbad9>h1.jsx-21e72d2f241fbad9.text-3xl.font-bold.text-gray-900.dark:text-white"},"href":"http://localhost:3000/manage","id":"v3-1765311188331-7956701884482","route":"/manage","type":"LCP","value":1196}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:22:29.239] Server  LOG      ✓ Compiled in 307ms
+[00:22:32.590] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:22:32.781] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:22:32.781] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:22:32.781] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/profile/fe3c6803-10e1-4471-bf3c-8cc1fd7174c5","route":"/profile/[id]"}
+[00:22:32.781] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/profile/fe3c6803-10e1-4471-bf3c-8cc1fd7174c5 color: rgb(120, 120, 120) color: inherit {"dp":"/profile/[id]","o":"http://localhost:3000/profile/fe3c6803-10e1-4471-bf3c-8cc1fd7174c5","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765311219212}
+[00:22:34.845] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/profile/fe3c6803-10e1-4471-bf3c-8cc1fd7174c5","id":"v3-1765311219212-9117017575570","route":"/profile/[id]","type":"FCP","value":2522},{"href":"http://localhost:3000/profile/fe3c6803-10e1-4471-bf3c-8cc1fd7174c5","id":"v3-1765311219212-1408200140465","route":"/profile/[id]","type":"TTFB","value":2366},{"attribution":{"eventTarget":"span.flex.items-center.gap-1"},"href":"http://localhost:3000/profile/fe3c6803-10e1-4471-bf3c-8cc1fd7174c5","id":"v3-1765311219212-9678841512379","route":"/profile/[id]","type":"LCP","value":2522},{"attribution":{"eventTarget":"#nav-roster","eventType":"pointerdown"},"href":"http://localhost:3000/profile/fe3c6803-10e1-4471-bf3c-8cc1fd7174c5","id":"v3-1765311219212-3526686779596","route":"/profile/[id]","type":"FID","value":5}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:22:34.845] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765311221281}
+[00:22:37.554] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage/probation color: rgb(120, 120, 120) color: inherit {"dp":"/manage/probation","o":"http://localhost:3000/manage/probation","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765311223994}
+[00:22:54.987] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765311241416}
+[00:22:57.266] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage/probation color: rgb(120, 120, 120) color: inherit {"dp":"/manage/probation","o":"http://localhost:3000/manage/probation","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765311243702}
+[00:23:11.187] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765311257618}
+[00:23:13.051] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage/probation color: rgb(120, 120, 120) color: inherit {"dp":"/manage/probation","o":"http://localhost:3000/manage/probation","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765311259486}
+[00:25:56.300] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"click"},"href":"http://localhost:3000/manage/probation","id":"v3-1765311219212-1856755787623","route":"/manage/probation","type":"INP","value":2952}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:37:40.988] Browser ERROR   ./app/manage/probation/page.tsx:41:57
 Parsing ecmascript source code failed
-  119 |
-  120 |     if (validCadetIds.length === 0 || !offenseTypeId) {
-> 121 |         setError("Please select at
-      |                  ^^^^^^^^^^^^^^^^^
+  39 |   
+  40 |   // Only fetch full cadet list if user can add people
+> 41 |   const cadetOptions = await getAllCadetsForSelection() : []
+     |                                                         ^
+  42 |
+  43 |   return (
+  44 |     <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
 
-Unterminated string constant
+Expected a semicolon
+[00:37:51.666] Server  LOG      ✓ Compiled in 33ms
+[00:54:53.429] Browser ERROR   ./app/manage/probation/actions.ts:59:37
+Parsing ecmascript source code failed
+  57 |       role:roles!inner(default_role_level)
+  58 |     `)
+> 59 |     .eq('role.default_role_level',  >10) // Selects ALL cadets
+     |                                     ^
+  60 |     .order('last_name')
+  61 |
+  62 |   if (error) {
 
-Import traces:
-  Client Component Browser:
-    ./app/submit/page.tsx [Client Component Browser]
-    ./app/submit/page.tsx [Server Component]
+Expression expected
 
-  Client Component SSR:
-    ./app/submit/page.tsx [Client Component SSR]
-    ./app/submit/page.tsx [Server Component]
-[00:05:04.233] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765294461492}
-[00:05:14.365] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"keyup"},"href":"http://localhost:3000/","id":"v3-1765294170884-3321834228050","route":"/","type":"INP","value":496}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:06:03.719] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/daily color: rgb(120, 120, 120) color: inherit {"dp":"/reports/daily","o":"http://localhost:3000/reports/daily","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765294520995}
+Import trace:
+  Server Component:
+    ./app/manage/probation/actions.ts
+    ./app/manage/probation/page.tsx
+[00:57:01.727] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765313288168}
+[00:57:04.414] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765313290856}
+[00:57:23.679] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765313310112}
+[00:57:42.894] Server  LOG      ✓ Compiled in 50ms
+[00:57:53.898] Server  LOG      ✓ Compiled in 134ms
+[00:57:58.475] Server  LOG      ✓ Compiled in 71ms
+[00:58:14.441] Server  LOG      ✓ Compiled in 61ms
+[00:58:22.858] Server  LOG      ✓ Compiled in 52ms
+[00:58:24.497] Server  LOG      ✓ Compiled in 79ms
+[00:58:33.898] Server  LOG      ✓ Compiled in 73ms
+[00:58:43.946] Server  LOG      ✓ Compiled in 57ms
+[00:58:53.545] Server  LOG      ✓ Compiled in 66ms
+[00:58:54.881] Server  LOG      ✓ Compiled in 78ms
+[00:58:57.243] Server  LOG      ✓ Compiled in 71ms
+[00:59:20.296] Server  LOG      ✓ Compiled in 45ms
+[00:59:27.744] Server  LOG      ✓ Compiled in 46ms
+[00:59:36.966] Server  LOG      ✓ Compiled in 46ms
+[00:59:43.200] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage/probation color: rgb(120, 120, 120) color: inherit {"dp":"/manage/probation","o":"http://localhost:3000/manage/probation","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765313449638}
+[01:02:54.780] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765313641215}
+[01:02:59.918] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"keyup"},"href":"http://localhost:3000/","id":"v3-1765311219212-1856755787623","route":"/","type":"INP","value":472}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}

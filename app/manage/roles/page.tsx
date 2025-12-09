@@ -36,11 +36,6 @@ export default async function RolesConfigurationPage() {
   // *** NEW: Extract Viewer Level ***
   const viewerRoleLevel = userPermissions.default_role_level || 0;
 
-  // 2. Authorization Check
-  if (viewerRoleLevel < 50) {
-      return <div className="max-w-7xl mx-auto p-8 text-red-500">Permission Denied: You must be Staff (Level 50+) or higher to configure the Chain of Command.</div>
-  }
-
   // 3. Fetch companies
   const { data: allCompanies } = await supabase
     .from('companies')

@@ -1,0 +1,50 @@
+{
+  "node": {
+    "008fbc271881ddee72adfba1676c6cc41077ba8b77": {
+      "workers": {
+        "app/manage/probation/page": {
+          "moduleId": "[project]/.next-internal/server/app/manage/probation/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/probation/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getAllCadetsForSelection",
+          "filename": "app/manage/probation/actions.ts"
+        }
+      },
+      "layer": {
+        "app/manage/probation/page": "rsc"
+      },
+      "exportedName": "getAllCadetsForSelection",
+      "filename": "app/manage/probation/actions.ts"
+    },
+    "00fdd36ebe821b6e761053b3c7bc8507c31cafecbf": {
+      "workers": {
+        "app/manage/probation/page": {
+          "moduleId": "[project]/.next-internal/server/app/manage/probation/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/probation/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getProbationList",
+          "filename": "app/manage/probation/actions.ts"
+        }
+      },
+      "layer": {
+        "app/manage/probation/page": "rsc"
+      },
+      "exportedName": "getProbationList",
+      "filename": "app/manage/probation/actions.ts"
+    },
+    "70071ecd57b17bfb5f2dc2705ccda0a55905c97ca6": {
+      "workers": {
+        "app/manage/probation/page": {
+          "moduleId": "[project]/.next-internal/server/app/manage/probation/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/probation/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "updateCadetProbation",
+          "filename": "app/manage/probation/actions.ts"
+        }
+      },
+      "layer": {
+        "app/manage/probation/page": "action-browser"
+      },
+      "exportedName": "updateCadetProbation",
+      "filename": "app/manage/probation/actions.ts"
+    }
+  },
+  "edge": {}
+}

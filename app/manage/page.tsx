@@ -8,7 +8,7 @@ import RosterClient, { RosterCadet } from './RosterClient'
 import { EDIT_AUTHORIZED_ROLES } from '@/app/profile/constants' 
 import { bulkAssignCompany, bulkAssignRole } from './actions'
 
-// --- Types ---
+// ... (Rest of imports and Types remain exactly the same)
 type Company = { id: string; company_name: string }
 type Role = { id: string; role_name: string; default_role_level: number; company_id: string | null }
 
@@ -27,6 +27,7 @@ type SortKey = 'name' | 'created_at' | 'company' | 'role'
 type SortDirection = 'asc' | 'desc'
 
 export default function ManagePage() {
+  // ... (All State setup remains exactly the same)
   const supabase = createClient()
   const router = useRouter()
   
@@ -41,9 +42,10 @@ export default function ManagePage() {
   const [facultyData, setFacultyData] = useState<RosterCadet[]>([]) 
   
   const [canEditProfiles, setCanEditProfiles] = useState(false)
-  // NEW: Explicit Manage Permission State
   const [canManage, setCanManage] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
+  // *** NEW: State for Probation Access ***
+  const [canViewProbation, setCanViewProbation] = useState(false)
 
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
   
@@ -91,13 +93,15 @@ export default function ManagePage() {
           return;
       }
 
+      // *** UPDATE: Check Probation Permissions (Level 30+) ***
+      setCanViewProbation(roleLevel >= 30);
+
       const viewerCompanyName = (viewerProfile?.company as any)?.company_name
 
       const isSiteAdmin = roleName === 'Admin' || roleLevel >= 90;
       setIsAdmin(isSiteAdmin);
       setCanEditProfiles(EDIT_AUTHORIZED_ROLES.includes(roleName) || roleName.includes('TAC') || isSiteAdmin)
       
-      // Set Manage Permission
       setCanManage(canManageAll || canManageOwn || isSiteAdmin)
 
       const promises = [
@@ -113,6 +117,7 @@ export default function ManagePage() {
 
       const results = await Promise.all(promises)
       
+      // ... (Rest of data handling remains exactly the same)
       const companiesRes = results[0]
       const rolesRes = results[1]
       const unassignedRes = results[2]
@@ -148,6 +153,7 @@ export default function ManagePage() {
     fetchData()
   }, [fetchData])
 
+  // ... (All Helper functions like handleSort, handleSelectRow, etc. remain the same)
   const sortedUnassigned = useMemo(() => {
     const sorted = [...unassigned]
     sorted.sort((a, b) => {
@@ -279,14 +285,25 @@ export default function ManagePage() {
             <p className="text-gray-500 dark:text-gray-400 mt-1">Assign cadets to roles.</p>
           </div>
 
-          <Link href="/manage/roles" className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors font-medium shadow-sm">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
-            </svg>
-            Configure Chain of Command
-          </Link>
+          <div className="flex gap-3">
+            {/* *** NEW: Link to Probation Page *** */}
+            {canViewProbation && (
+                <Link href="/manage/probation" className="flex items-center gap-2 px-4 py-2 bg-red-50 dark:bg-red-950 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-100 rounded-md hover:bg-red-200 dark:hover:bg-red-800 transition-colors font-medium shadow-sm">
+                    <svg className="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                    Manage Probation
+                </Link>
+            )}
+
+            <Link href="/manage/roles" className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors font-medium shadow-sm">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                </svg>
+                Configure Chain of Command
+            </Link>
+          </div>
         </div>
         
+        {/* ... (Rest of the JSX remains exactly the same) ... */}
         <div id="tour-roster-filters" className="mb-6 border-b border-gray-200 dark:border-gray-700 no-print">
           <nav className="-mb-px flex space-x-8" aria-label="Tabs">
             <button onClick={() => setActiveTab('roster')} className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'roster' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`}>
@@ -313,15 +330,7 @@ export default function ManagePage() {
           <div className="flex justify-end mb-4 no-print">
             <button onClick={handlePrintRoster} className="text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 underline">Print Roster</button>
           </div>
-          {/* PASSED canManage PROP */}
-          <RosterClient 
-            initialData={rosterData} 
-            canEditProfiles={canEditProfiles} 
-            canManage={canManage} 
-            companies={companies} 
-            onReassign={handleReassign} 
-            variant="cadet" 
-          />
+          <RosterClient initialData={rosterData} canEditProfiles={canEditProfiles} canManage={canManage} companies={companies} onReassign={handleReassign} variant="cadet" />
         </div>
 
         {/* --- TAB 2: FACULTY --- */}
@@ -338,7 +347,6 @@ export default function ManagePage() {
 
         {/* --- TAB 3: UNASSIGNED --- */}
         <div className={`no-print ${activeTab === 'unassigned' ? '' : 'hidden'}`}>
-          {/* ... Unassigned table logic ... */}
            <div className="bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
             <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row justify-between items-center gap-4 bg-gray-50 dark:bg-gray-900/50">
               <div className="flex items-center gap-2">
