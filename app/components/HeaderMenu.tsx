@@ -6,6 +6,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import { createClient } from '@/utils/supabase/client'
 import ThemeToggleButton from './ThemeToggleButton'
 import FeedbackButton from './FeedbackButton'
+import { isFloat32Array } from 'util/types'
 
 type HeaderMenuProps = {
   canManage: boolean
@@ -92,6 +93,11 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, is
              <Link href="/action-items" id="nav-approval" className="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
                 Action Items
             </Link>
+            </>
+        )}
+
+        {canManage && roleLevel >= 50 || (
+            <>
             <Link href="/manage" id="nav-roster" className="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
                 Roster
             </Link>

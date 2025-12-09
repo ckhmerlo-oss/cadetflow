@@ -37,14 +37,14 @@ export const GRADE_LEVELS = [
 
 // Roles authorized to EDIT profiles
 export const EDIT_AUTHORIZED_ROLES = [
-  'S1', 
-  'Command Sergeant Major', 
-  'TAC Officer', 
-  'Deputy Commandant', 
-  'Commandant', 
-  'Admin'
-];
-
+    'Admin',
+    'Commandant',
+    'Deputy Commandant',
+    'Assistant Commandant',
+    'TAC Officer',
+    'Alpha CO',
+    'First Sergeant'
+  ]
 // Roles authorized to manage Star Tours
 export const STAR_TOUR_AUTHORIZED_ROLES = [
   'Commandant', 

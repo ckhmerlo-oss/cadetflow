@@ -99,12 +99,13 @@ const GRADE_LEVELS = [
     'PG'
 ];
 const EDIT_AUTHORIZED_ROLES = [
-    'S1',
-    'Command Sergeant Major',
-    'TAC Officer',
-    'Deputy Commandant',
+    'Admin',
     'Commandant',
-    'Admin'
+    'Deputy Commandant',
+    'Assistant Commandant',
+    'TAC Officer',
+    'Alpha CO',
+    'First Sergeant'
 ];
 const STAR_TOUR_AUTHORIZED_ROLES = [
     'Commandant',

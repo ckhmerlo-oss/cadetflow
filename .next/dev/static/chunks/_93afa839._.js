@@ -129,12 +129,13 @@ const GRADE_LEVELS = [
     'PG'
 ];
 const EDIT_AUTHORIZED_ROLES = [
-    'S1',
-    'Command Sergeant Major',
-    'TAC Officer',
-    'Deputy Commandant',
+    'Admin',
     'Commandant',
-    'Admin'
+    'Deputy Commandant',
+    'Assistant Commandant',
+    'TAC Officer',
+    'Alpha CO',
+    'First Sergeant'
 ];
 const STAR_TOUR_AUTHORIZED_ROLES = [
     'Commandant',
@@ -165,10 +166,20 @@ var _s = __turbopack_context__.k.signature();
 ;
 ;
 ;
-function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSportData, calculatedConduct }) {
+function ProfileClient({ profile, ledger, canEdit// <--- New Prop
+ }) {
     _s();
+    const supabase = createClient();
+    const router = useRouter();
     const [isEditing, setIsEditing] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    const [isSaving, setIsSaving] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [formData, setFormData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
+        phone_number: profile.phone_number || '',
+        room_number: profile.room_number || '',
+        grade_level: profile.grade_level || '',
+        cadet_rank: profile.cadet_rank || '',
+        gender: profile.gender || ''
+    });
+    const [saving, setSaving] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     // Adjustment State
     const [adjAmount, setAdjAmount] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(0);
     const [adjReason, setAdjReason] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
@@ -232,7 +243,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                    lineNumber: 85,
+                                    lineNumber: 102,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -245,7 +256,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                             children: "Cancel"
                                         }, void 0, false, {
                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                            lineNumber: 87,
+                                            lineNumber: 104,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -255,19 +266,19 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                             children: isSaving ? 'Saving...' : 'Save Changes'
                                         }, void 0, false, {
                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                            lineNumber: 88,
+                                            lineNumber: 105,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                    lineNumber: 86,
+                                    lineNumber: 103,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                            lineNumber: 84,
+                            lineNumber: 101,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -280,7 +291,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                     options: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$profile$2f$constants$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CADET_RANKS"]
                                 }, void 0, false, {
                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                    lineNumber: 95,
+                                    lineNumber: 112,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SelectField, {
@@ -290,7 +301,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                     options: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$profile$2f$constants$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["GRADE_LEVELS"]
                                 }, void 0, false, {
                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                    lineNumber: 96,
+                                    lineNumber: 113,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -301,7 +312,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                             children: "Room Number"
                                         }, void 0, false, {
                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                            lineNumber: 99,
+                                            lineNumber: 116,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -311,13 +322,13 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                             className: "block w-full rounded-md border-gray-300 dark:bg-gray-700 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2.5 border"
                                         }, void 0, false, {
                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                            lineNumber: 100,
+                                            lineNumber: 117,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                    lineNumber: 98,
+                                    lineNumber: 115,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -328,7 +339,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                             children: "Years Attended"
                                         }, void 0, false, {
                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                            lineNumber: 104,
+                                            lineNumber: 121,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -338,13 +349,13 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                             className: "block w-full rounded-md border-gray-300 dark:bg-gray-700 dark:border-gray-600 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2.5 border"
                                         }, void 0, false, {
                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                            lineNumber: 105,
+                                            lineNumber: 122,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                    lineNumber: 103,
+                                    lineNumber: 120,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SelectField, {
@@ -354,7 +365,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                     options: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$profile$2f$constants$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PROBATION_STATUSES"]
                                 }, void 0, false, {
                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                    lineNumber: 108,
+                                    lineNumber: 125,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -365,7 +376,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                             children: "Disciplinary Status"
                                         }, void 0, false, {
                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                            lineNumber: 111,
+                                            lineNumber: 128,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -380,7 +391,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                                     className: "h-5 w-5 rounded text-red-600 focus:ring-red-500 border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:checked:bg-red-600 disabled:opacity-50"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                    lineNumber: 113,
+                                                    lineNumber: 130,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
@@ -389,19 +400,19 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                                     children: "Cadet is on * Tours"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                    lineNumber: 121,
+                                                    lineNumber: 138,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                            lineNumber: 112,
+                                            lineNumber: 129,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                    lineNumber: 110,
+                                    lineNumber: 127,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -412,7 +423,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                             children: "Athletics"
                                         }, void 0, false, {
                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                            lineNumber: 128,
+                                            lineNumber: 145,
                                             columnNumber: 16
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -425,7 +436,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                                     options: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$profile$2f$constants$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FALL_SPORTS"]
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                    lineNumber: 130,
+                                                    lineNumber: 147,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SelectField, {
@@ -435,7 +446,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                                     options: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$profile$2f$constants$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["WINTER_SPORTS"]
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                    lineNumber: 131,
+                                                    lineNumber: 148,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SelectField, {
@@ -445,31 +456,31 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                                     options: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$profile$2f$constants$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SPRING_SPORTS"]
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                    lineNumber: 132,
+                                                    lineNumber: 149,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                            lineNumber: 129,
+                                            lineNumber: 146,
                                             columnNumber: 16
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                    lineNumber: 127,
+                                    lineNumber: 144,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                            lineNumber: 94,
+                            lineNumber: 111,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                    lineNumber: 82,
+                    lineNumber: 99,
                     columnNumber: 9
                 }, this),
                 canManageStarTours && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -483,7 +494,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                     children: "Manual Tour Adjustment"
                                 }, void 0, false, {
                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                    lineNumber: 142,
+                                    lineNumber: 159,
                                     columnNumber: 21
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -491,13 +502,13 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                     children: "Directly manipulate the ledger. Positive adds penalty, negative removes/serves."
                                 }, void 0, false, {
                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                    lineNumber: 143,
+                                    lineNumber: 160,
                                     columnNumber: 21
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                            lineNumber: 141,
+                            lineNumber: 158,
                             columnNumber: 17
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -510,7 +521,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                             children: "Adjustment Amount"
                                         }, void 0, false, {
                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                            lineNumber: 147,
+                                            lineNumber: 164,
                                             columnNumber: 25
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -521,13 +532,13 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                             placeholder: "e.g. 5 or -5"
                                         }, void 0, false, {
                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                            lineNumber: 148,
+                                            lineNumber: 165,
                                             columnNumber: 25
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                    lineNumber: 146,
+                                    lineNumber: 163,
                                     columnNumber: 21
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -538,7 +549,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                             children: "Reason"
                                         }, void 0, false, {
                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                            lineNumber: 157,
+                                            lineNumber: 174,
                                             columnNumber: 25
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -549,13 +560,13 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                             placeholder: "Administrative Adjustment"
                                         }, void 0, false, {
                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                            lineNumber: 158,
+                                            lineNumber: 175,
                                             columnNumber: 25
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                    lineNumber: 156,
+                                    lineNumber: 173,
                                     columnNumber: 21
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -567,30 +578,30 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                         children: isAdjusting ? 'Applying...' : 'Apply Adjustment'
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 167,
+                                        lineNumber: 184,
                                         columnNumber: 25
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                    lineNumber: 166,
+                                    lineNumber: 183,
                                     columnNumber: 21
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                            lineNumber: 145,
+                            lineNumber: 162,
                             columnNumber: 17
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                    lineNumber: 140,
+                    lineNumber: 157,
                     columnNumber: 13
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-            lineNumber: 81,
+            lineNumber: 98,
             columnNumber: 7
         }, this);
     }
@@ -605,7 +616,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                         className: "h-32 bg-indigo-600 dark:bg-indigo-900"
                     }, void 0, false, {
                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                        lineNumber: 189,
+                        lineNumber: 206,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -627,12 +638,12 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                    lineNumber: 194,
+                                                    lineNumber: 211,
                                                     columnNumber: 17
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 193,
+                                                lineNumber: 210,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -643,7 +654,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                                         children: fullName
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 199,
+                                                        lineNumber: 216,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -654,7 +665,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                                                 children: profile.cadet_rank || 'Cadet'
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                                lineNumber: 201,
+                                                                lineNumber: 218,
                                                                 columnNumber: 19
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -666,25 +677,25 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                                lineNumber: 204,
+                                                                lineNumber: 221,
                                                                 columnNumber: 19
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 200,
+                                                        lineNumber: 217,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 198,
+                                                lineNumber: 215,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 192,
+                                        lineNumber: 209,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -696,7 +707,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                                 children: "Edit Profile"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 213,
+                                                lineNumber: 230,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -705,19 +716,19 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                                 children: "View Ledger"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 217,
+                                                lineNumber: 234,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 211,
+                                        lineNumber: 228,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                lineNumber: 191,
+                                lineNumber: 208,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -728,7 +739,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                         value: profile.grade_level
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 224,
+                                        lineNumber: 241,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(StatItem, {
@@ -736,7 +747,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                         value: profile.room_number
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 225,
+                                        lineNumber: 242,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(StatItem, {
@@ -744,7 +755,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                         value: profile.years_attended ? `${profile.years_attended} yrs` : '-'
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 226,
+                                        lineNumber: 243,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(StatItem, {
@@ -753,25 +764,25 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                         isBad: profile.total_demerits > 0
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 227,
+                                        lineNumber: 244,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                lineNumber: 223,
+                                lineNumber: 240,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                        lineNumber: 190,
+                        lineNumber: 207,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                lineNumber: 188,
+                lineNumber: 205,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -785,7 +796,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                 children: "Status & Conduct"
                             }, void 0, false, {
                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                lineNumber: 234,
+                                lineNumber: 251,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -799,7 +810,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                                 children: "Disciplinary Status"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 239,
+                                                lineNumber: 256,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -811,26 +822,26 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                                         children: "∗"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 242,
+                                                        lineNumber: 259,
                                                         columnNumber: 19
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                         children: " TOURS ASSIGNED"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 243,
+                                                        lineNumber: 260,
                                                         columnNumber: 19
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 240,
+                                                lineNumber: 257,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 238,
+                                        lineNumber: 255,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -840,7 +851,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                                 children: "Conduct Status (Auto)"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 249,
+                                                lineNumber: 266,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -848,13 +859,13 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                                 children: calculatedConduct
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 250,
+                                                lineNumber: 267,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 248,
+                                        lineNumber: 265,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -865,7 +876,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                                 children: "Probation Status"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 256,
+                                                lineNumber: 273,
                                                 columnNumber: 15
                                             }, this),
                                             isProbation ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -873,20 +884,20 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                                 children: probationStatus
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 258,
+                                                lineNumber: 275,
                                                 columnNumber: 17
                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                 className: "text-sm font-medium text-gray-900 dark:text-white bg-gray-100 dark:bg-gray-700 px-3 py-1 rounded-full border dark:border-gray-600",
                                                 children: "None"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 262,
+                                                lineNumber: 279,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 255,
+                                        lineNumber: 272,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -899,7 +910,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                                         children: "Term Demerits"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 270,
+                                                        lineNumber: 287,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -907,13 +918,13 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                                         children: stats?.term_demerits || 0
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 271,
+                                                        lineNumber: 288,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 269,
+                                                lineNumber: 286,
                                                 columnNumber: 15
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -923,7 +934,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                                         children: "Year Demerits"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 274,
+                                                        lineNumber: 291,
                                                         columnNumber: 17
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -931,31 +942,31 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                                         children: stats?.year_demerits || 0
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 275,
+                                                        lineNumber: 292,
                                                         columnNumber: 17
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 273,
+                                                lineNumber: 290,
                                                 columnNumber: 15
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 268,
+                                        lineNumber: 285,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                lineNumber: 236,
+                                lineNumber: 253,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                        lineNumber: 233,
+                        lineNumber: 250,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -966,7 +977,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                 children: "Athletics & Activities"
                             }, void 0, false, {
                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                lineNumber: 282,
+                                lineNumber: 299,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -978,7 +989,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                         active: currentSportData.season === 'Fall Sport'
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 284,
+                                        lineNumber: 301,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SportCard, {
@@ -987,7 +998,7 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                         active: currentSportData.season === 'Winter Sport'
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 285,
+                                        lineNumber: 302,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SportCard, {
@@ -996,35 +1007,35 @@ function ProfileClient({ profile, stats, canEdit, canManageStarTours, currentSpo
                                         active: currentSportData.season === 'Spring Sport'
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 286,
+                                        lineNumber: 303,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                lineNumber: 283,
+                                lineNumber: 300,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                        lineNumber: 281,
+                        lineNumber: 298,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                lineNumber: 232,
+                lineNumber: 249,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-        lineNumber: 185,
+        lineNumber: 202,
         columnNumber: 5
     }, this);
 }
-_s(ProfileClient, "CWfI0ieXu9OLGDkwC6senM8dIPk=");
+_s(ProfileClient, "XX75lwcDDFYTIPpSVRxVpzl8di0=", true);
 _c = ProfileClient;
 function StatItem({ label, value, isBad }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1035,7 +1046,7 @@ function StatItem({ label, value, isBad }) {
                 children: label
             }, void 0, false, {
                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                lineNumber: 297,
+                lineNumber: 314,
                 columnNumber: 11
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1043,13 +1054,13 @@ function StatItem({ label, value, isBad }) {
                 children: value || '-'
             }, void 0, false, {
                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                lineNumber: 298,
+                lineNumber: 315,
                 columnNumber: 11
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-        lineNumber: 296,
+        lineNumber: 313,
         columnNumber: 9
     }, this);
 }
@@ -1062,7 +1073,7 @@ function SelectField({ label, name, defaultValue, options }) {
                 children: label
             }, void 0, false, {
                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                lineNumber: 308,
+                lineNumber: 325,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -1075,7 +1086,7 @@ function SelectField({ label, name, defaultValue, options }) {
                         children: "Select..."
                     }, void 0, false, {
                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                        lineNumber: 310,
+                        lineNumber: 327,
                         columnNumber: 17
                     }, this),
                     options.map((opt)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1083,19 +1094,19 @@ function SelectField({ label, name, defaultValue, options }) {
                             children: opt
                         }, opt, false, {
                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                            lineNumber: 311,
+                            lineNumber: 328,
                             columnNumber: 37
                         }, this))
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                lineNumber: 309,
+                lineNumber: 326,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-        lineNumber: 307,
+        lineNumber: 324,
         columnNumber: 9
     }, this);
 }
@@ -1116,18 +1127,18 @@ function SportCard({ title, sport, active }) {
                             children: "•"
                         }, void 0, false, {
                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                            lineNumber: 328,
+                            lineNumber: 345,
                             columnNumber: 24
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                    lineNumber: 325,
+                    lineNumber: 342,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                lineNumber: 324,
+                lineNumber: 341,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1135,13 +1146,13 @@ function SportCard({ title, sport, active }) {
                 children: sport || 'None'
             }, void 0, false, {
                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                lineNumber: 331,
+                lineNumber: 348,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-        lineNumber: 319,
+        lineNumber: 336,
         columnNumber: 7
     }, this);
 }

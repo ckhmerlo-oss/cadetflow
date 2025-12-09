@@ -1,96 +1,86 @@
 import { createClient } from '@/utils/supabase/server'
 import { notFound, redirect } from 'next/navigation'
 import ProfileClient from './ProfileClient'
-import { EDIT_AUTHORIZED_ROLES, STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
 
-type LedgerStats = {
-  term_demerits: number;
-  year_demerits: number;
-  total_tours_marched: number;
-  current_tour_balance: number;
+// Define the shape of your Audit Log RPC response
+type AuditLogEntry = {
+  event_date: string
+  event_type: string
+  title: string
+  details: string
+  demerits_issued: number
+  tour_change: number
+  actor_name: string
+  status: string
+  report_id: string | null
 }
 
-function getCurrentSport(profile: any) {
-  const month = new Date().getMonth() 
-  if (month >= 7 && month <= 10) return { season: 'Fall Sport', sport: profile.sport_fall }
-  else if (month === 11 || month <= 2) return { season: 'Winter Sport', sport: profile.sport_winter }
-  else return { season: 'Spring Sport', sport: profile.sport_spring }
-}
-
-function calculateConductStatus(termDemerits: number, yearDemerits: number): string {
-    if (termDemerits >= 43 || yearDemerits >= 211) return 'Unsatisfactory';
-    if (termDemerits >= 31 || yearDemerits >= 151) return 'Deficient';
-    if (termDemerits >= 19 || yearDemerits >= 91)  return 'Satisfactory';
-    if (termDemerits >= 7  || yearDemerits >= 31)  return 'Commendable';
-    return 'Exemplary';
+type CadetStats = {
+  term_demerits: number
+  year_demerits: number
+  current_tour_balance: number
 }
 
 export default async function ProfilePage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params
   const supabase = createClient()
+  const resolvedParams = await params
+  const { id } = resolvedParams
 
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return redirect('/login')
+  if (!user) redirect('/login')
 
+  // Fetch Viewer
   const { data: viewerProfile } = await supabase
     .from('profiles')
-    .select('id, company_id, role:role_id (role_name, default_role_level, can_manage_all_rosters, can_manage_own_company_roster)')
+    .select(`id, company_id, is_site_admin, role:role_id (default_role_level, can_manage_all_rosters, can_manage_own_company_roster)`)
     .eq('id', user.id)
     .single()
 
-  if (!viewerProfile) return redirect('/login')
+  // Fetch Profile
+  const { data: profile, error } = await supabase
+    .from('profiles')
+    .select(`*, company:companies(id, company_name), role:roles(id, role_name, default_role_level)`)
+    .eq('id', id)
+    .single()
 
-  // Viewer Permissions
-  const viewerRole = viewerProfile.role as any
-  const viewerRoleLevel = viewerRole?.default_role_level || 0
-  const viewerRoleName = viewerRole?.role_name || ''
+  if (error || !profile) notFound()
+
+  // Calculate Stats
+  const { data: rawStats } = await supabase.rpc('get_cadet_ledger_stats', { p_cadet_id: profile.id }).single()
+  const stats = rawStats as CadetStats;
+  
+  const fullProfile = {
+      ...profile,
+      term_demerits: stats?.term_demerits || 0,
+      year_demerits: stats?.year_demerits || 0,
+      // Use the calculation function for accuracy, or fallback to cache
+      current_tour_balance: profile.cached_tour_balance, 
+      is_on_probation: profile.probation_status !== 'None' && profile.probation_status !== null,
+      conduct_status: (stats?.term_demerits || 0) >= 100 ? 'Unsatisfactory' : (stats?.term_demerits || 0) >= 60 ? 'Deficient' : 'Satisfactory'
+  }
+
+  // Permissions
+  const viewerRole = viewerProfile?.role as any
   const canManageAll = viewerRole?.can_manage_all_rosters || false
   const canManageOwn = viewerRole?.can_manage_own_company_roster || false
-  const viewerCompanyId = viewerProfile.company_id
-  
-  const [profileRes, statsRes] = await Promise.all([
-      supabase.from('profiles').select(`*, company:company_id (company_name), role:role_id (role_name, default_role_level)`).eq('id', id).single(),
-      supabase.rpc('get_cadet_ledger_stats', { p_cadet_id: id }).single()
-  ])
+  const isSiteAdmin = viewerProfile?.is_site_admin || false
 
-  const profile = profileRes.data
-  const stats = statsRes.data as LedgerStats | null
+  let canEdit = false;
+  if (isSiteAdmin || canManageAll) canEdit = true;
+  else if (canManageOwn && profile.company_id && profile.company_id === viewerProfile?.company_id) canEdit = true;
 
-  if (profileRes.error || !profile) return notFound()
-
-  const targetRoleLevel = (profile.role as any)?.default_role_level || 0
-  const isSelf = user.id === id
-  const isAdmin = viewerRoleName === 'Admin'
-  
-  // 1. Rank Check
-  if (!isSelf && !isAdmin && (viewerRoleLevel < targetRoleLevel)) {
-     return <div className="max-w-md mx-auto mt-20 p-6 bg-white dark:bg-gray-800 rounded-lg shadow text-center border border-gray-200 dark:border-gray-700"><h2 className="text-2xl font-bold text-red-600 mb-2">Unauthorized</h2><p className="text-gray-600 dark:text-gray-300">You do not have sufficient rank to view this profile.</p></div>
-  }
-
-  // 2. Company Isolation Check (NEW)
-  // If you have "Manage Own" but NOT "Manage All", you can only see profiles in your company
-  if (!isSelf && !isAdmin && !canManageAll && canManageOwn) {
-     if (viewerCompanyId !== profile.company_id) {
-         return <div className="max-w-md mx-auto mt-20 p-6 bg-white dark:bg-gray-800 rounded-lg shadow text-center border border-gray-200 dark:border-gray-700"><h2 className="text-2xl font-bold text-red-600 mb-2">Unauthorized</h2><p className="text-gray-600 dark:text-gray-300">You can only view profiles within your own company.</p></div>
-     }
-  }
-
-  const canEdit = EDIT_AUTHORIZED_ROLES.includes(viewerRoleName) || viewerRoleName.includes('TAC') || isAdmin
-  const canManageStarTours = STAR_TOUR_AUTHORIZED_ROLES.includes(viewerRoleName)
-
-  const currentSportData = getCurrentSport(profile)
-  const calculatedConduct = calculateConductStatus(stats?.term_demerits || 0, stats?.year_demerits || 0)
+  // *** FIX: Fetch from the correct RPC ***
+  const { data: auditLog } = await supabase
+    .rpc('get_cadet_audit_log', { p_cadet_id: profile.id })
 
   return (
     <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-       <ProfileClient 
-            profile={profile}
-            stats={stats}
-            canEdit={canEdit}
-            canManageStarTours={canManageStarTours}
-            currentSportData={currentSportData}
-            calculatedConduct={calculatedConduct}
-       />
+      <ProfileClient 
+        profile={fullProfile} 
+        auditLog={auditLog || []} // Pass the audit log instead of 'ledger'
+        canEdit={canEdit} 
+        viewerRoleLevel={viewerRole?.default_role_level || 0} 
+      />
     </div>
   )
 }

@@ -83,6 +83,14 @@ export default function ManagePage() {
       const roleLevel = roleData?.default_role_level || 0
       const canManageAll = roleData?.can_manage_all_rosters || false
       const canManageOwn = roleData?.can_manage_own_company_roster || false
+      const isViewer = roleLevel >= 50 || canManageAll || canManageOwn;
+      
+      if (!isViewer) {
+          setError("Unauthorized.");
+          setLoading(false);
+          return;
+      }
+
       const viewerCompanyName = (viewerProfile?.company as any)?.company_name
 
       const isSiteAdmin = roleName === 'Admin' || roleLevel >= 90;

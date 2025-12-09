@@ -272,46 +272,59 @@ const getAdmin = ()=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$node_mo
 async function dispatchEmail(type, payload) {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
     const { data: { session } } = await supabase.auth.getSession();
-    // 1. Check Settings (Skipped for 'test')
+    // 1. Check Settings
     let settingKey = '';
     if (type === 'greensheet') settingKey = 'enable_email_blasts';
-    if (type === 'alert') settingKey = 'enable_alert_ed';
+    if (type === 'alert') settingKey = 'enable_alert_ed'; // General bucket for alerts
     if (settingKey) {
         const { data: setting } = await supabase.from('system_settings').select('value').eq('key', settingKey).single();
         if (setting && setting.value === false) {
             console.log(`🚫 Email blocked by setting: ${settingKey}`);
             return {
                 success: false,
-                reason: 'Disabled globally'
+                error: 'Disabled globally in settings'
             };
         }
     }
     // 2. Send via Edge Function
-    const response = await fetch(`${("TURBOPACK compile-time value", "https://ejzvpknayvkggswejgkm.supabase.co")}/functions/v1/send-email`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${session?.access_token || ("TURBOPACK compile-time value", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVqenZwa25heXZrZ2dzd2VqZ2ttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE4Mzc1ODMsImV4cCI6MjA3NzQxMzU4M30.Bmf6dl5raXm1Y4Mrdctz6d8kfFOKkiCFmrm85YgKoJ8")}`
-        },
-        body: JSON.stringify({
-            type,
-            ...payload
-        })
-    });
-    if (!response.ok) {
-        const err = await response.text();
-        console.error("Email Dispatch Failed:", err);
+    try {
+        const response = await fetch(`${("TURBOPACK compile-time value", "https://ejzvpknayvkggswejgkm.supabase.co")}/functions/v1/send-email`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${session?.access_token || ("TURBOPACK compile-time value", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVqenZwa25heXZrZ2dzd2VqZ2ttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE4Mzc1ODMsImV4cCI6MjA3NzQxMzU4M30.Bmf6dl5raXm1Y4Mrdctz6d8kfFOKkiCFmrm85YgKoJ8")}`
+            },
+            body: JSON.stringify({
+                type,
+                ...payload
+            })
+        });
+        if (!response.ok) {
+            const err = await response.text();
+            console.error("Email Dispatch Failed:", err);
+            return {
+                success: false,
+                error: err
+            };
+        }
+        return {
+            success: true
+        };
+    } catch (err) {
         return {
             success: false,
-            error: err
+            error: err.message
         };
     }
-    return {
-        success: true
-    };
+}
+// --- HELPER: Filter IDs by Preference ---
+async function filterRecipientsByPreference(userIds, preferenceCol) {
+    const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
+    const { data: validPreferences } = await supabase.from('user_preferences').select('user_id').in('user_id', userIds).eq(preferenceCol, true);
+    if (!validPreferences) return [];
+    return validPreferences.map((p)=>p.user_id);
 }
 async function sendTestEmail(recipientsStr, subject, body) {
-    // 1. Parse Recipients
     const recipients = recipientsStr.split(',').map((e)=>e.trim()).filter((e)=>e.length > 0 && e.includes('@'));
     if (recipients.length === 0) return {
         success: false,
@@ -321,7 +334,6 @@ async function sendTestEmail(recipientsStr, subject, body) {
         success: false,
         error: "Subject is required."
     };
-    // 2. Dispatch
     return dispatchEmail('test', {
         recipients,
         subject: `[TEST] ${subject}`,
@@ -335,33 +347,35 @@ async function sendTestEmail(recipientsStr, subject, body) {
         `
     });
 }
-// ... (Existing Trigger Functions: triggerGreenSheetBlast, triggerTourSheetAlert, triggerActionItemAlert remain unchanged) ...
-// --- RE-EXPORTING EXISTING FUNCTIONS TO MAINTAIN FILE INTEGRITY ---
-async function filterRecipientsByPreference(userIds, preferenceCol) {
-    const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
-    const { data: validPreferences } = await supabase.from('user_preferences').select('user_id').in('user_id', userIds).eq(preferenceCol, true);
-    if (!validPreferences) return [];
-    return validPreferences.map((p)=>p.user_id);
-}
 async function triggerGreenSheetBlast() {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
     const admin = getAdmin();
-    const { data: html } = await supabase.rpc('generate_daily_email_html');
-    if (!html) return {
-        error: "Failed to generate HTML"
+    // 1. Get Content
+    const { data: html, error: htmlError } = await supabase.rpc('generate_daily_email_html');
+    if (htmlError || !html) return {
+        success: false,
+        error: "Failed to generate report HTML"
     };
-    const { data: facultyIds } = await supabase.rpc('get_faculty_user_ids');
-    if (!facultyIds || facultyIds.length === 0) return {
+    // 2. Get Faculty IDs
+    const { data: facultyIds, error: facultyError } = await supabase.rpc('get_faculty_user_ids');
+    if (facultyError || !facultyIds || facultyIds.length === 0) return {
+        success: false,
         error: "No faculty found"
     };
     const candidateIds = facultyIds.map((f)=>f.id);
+    // 3. Check Preferences
     const authorizedIds = await filterRecipientsByPreference(candidateIds, 'email_green_sheet');
     if (authorizedIds.length === 0) return {
         success: true,
         message: "No faculty have opted in."
     };
+    // 4. Map to Emails
     const { data: users } = await admin.auth.admin.listUsers();
     const recipients = users.users.filter((u)=>authorizedIds.includes(u.id)).map((u)=>u.email).filter(Boolean);
+    if (recipients.length === 0) return {
+        success: false,
+        error: "No valid emails found for authorized faculty."
+    };
     return dispatchEmail('greensheet', {
         recipients,
         subject: `Daily Report - ${new Date().toLocaleDateString()}`,
@@ -371,28 +385,48 @@ async function triggerGreenSheetBlast() {
 async function triggerTourSheetAlert() {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
     const admin = getAdmin();
-    const { data: debtors } = await supabase.rpc('get_tour_sheet_debtors');
+    // 1. Get Debtors
+    const { data: debtors, error: dbError } = await supabase.rpc('get_tour_sheet_debtors');
+    if (dbError) return {
+        success: false,
+        error: dbError.message
+    };
     if (!debtors || debtors.length === 0) return {
         success: true,
         message: "No one on the tour sheet."
     };
+    // 2. Check Preferences
     const debtorIds = debtors.map((d)=>d.id);
     const authorizedIds = await filterRecipientsByPreference(debtorIds, 'email_tour_reminder');
+    // 3. Map & Send
     const { data: users } = await admin.auth.admin.listUsers();
     let sentCount = 0;
+    let lastError = null;
     for (const debtor of debtors){
         if (!authorizedIds.includes(debtor.id)) continue;
         const user = users.users.find((u)=>u.id === debtor.id);
         if (user?.email) {
-            await dispatchEmail('alert', {
+            const res = await dispatchEmail('alert', {
                 recipients: [
                     user.email
                 ],
                 subject: `Action Required: You are on the Tour Sheet`,
-                htmlContent: `<h3>Tour Sheet Notification</h3><p>You currently have a balance of <strong>${debtor.balance} Tours</strong>.</p><p>You are required to march until this balance is cleared.</p>`
+                htmlContent: `
+                <h3>Tour Sheet Notification</h3>
+                <p>You currently have a balance of <strong>${debtor.balance} Tours</strong>.</p>
+                <p>You are required to march until this balance is cleared.</p>
+              `
             });
-            sentCount++;
+            if (res.success) sentCount++;
+            else lastError = res.error;
         }
+    }
+    // If we sent some, consider it a success, otherwise report error if 0 sent but people existed
+    if (sentCount === 0 && authorizedIds.length > 0 && lastError) {
+        return {
+            success: false,
+            error: lastError
+        };
     }
     return {
         success: true,
@@ -402,31 +436,52 @@ async function triggerTourSheetAlert() {
 async function triggerActionItemAlert() {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
     const admin = getAdmin();
-    const { data: activeUsers } = await supabase.rpc('get_users_with_pending_actions');
+    const { data: activeUsers, error: dbError } = await supabase.rpc('get_users_with_pending_actions');
+    if (dbError) return {
+        success: false,
+        error: dbError.message
+    };
     if (!activeUsers || activeUsers.length === 0) return {
         success: true,
         message: "No pending actions."
     };
     const { data: users } = await admin.auth.admin.listUsers();
     let sentCount = 0;
+    let lastError = null;
     for (const record of activeUsers){
+        // Check Preferences (Manual check since logic is complex 'OR')
         const { data: prefs } = await supabase.from('user_preferences').select('email_new_report, email_status_change').eq('user_id', record.user_id).single();
-        if (!prefs || prefs.email_new_report === 'off' && prefs.email_status_change === 'off') continue;
+        // If both are OFF, skip. If either is 'immediate' or 'digest', we nudge them.
+        if (!prefs || prefs.email_new_report === 'off' && prefs.email_status_change === 'off') {
+            continue;
+        }
         const user = users.users.find((u)=>u.id === record.user_id);
         if (user?.email) {
             const items = [];
             if (record.approval_count > 0) items.push(`${record.approval_count} reports to approve`);
             if (record.revision_count > 0) items.push(`${record.revision_count} reports returned for revision`);
             if (record.appeal_count > 0) items.push(`${record.appeal_count} appeal updates`);
-            await dispatchEmail('alert', {
+            const res = await dispatchEmail('alert', {
                 recipients: [
                     user.email
                 ],
                 subject: `CadetFlow: You have ${record.approval_count + record.revision_count + record.appeal_count} Action Items`,
-                htmlContent: `<h3>Action Required</h3><p>You have pending items in your CadetFlow dashboard:</p><ul>${items.map((i)=>`<li>${i}</li>`).join('')}</ul><p><a href="${process.env.NEXT_PUBLIC_SITE_URL}">Go to Dashboard</a></p>`
+                htmlContent: `
+                <h3>Action Required</h3>
+                <p>You have pending items in your CadetFlow dashboard:</p>
+                <ul>${items.map((i)=>`<li>${i}</li>`).join('')}</ul>
+                <p><a href="${process.env.NEXT_PUBLIC_SITE_URL}">Go to Dashboard</a></p>
+              `
             });
-            sentCount++;
+            if (res.success) sentCount++;
+            else lastError = res.error;
         }
+    }
+    if (sentCount === 0 && lastError) {
+        return {
+            success: false,
+            error: lastError
+        };
     }
     return {
         success: true,

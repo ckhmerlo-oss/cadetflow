@@ -59,7 +59,7 @@ export default async function Dashboard() {
   let cadetStats: CadetStats | null = null; 
   let allCompletedReports: ReportWithNames[] = []; 
 
-  if (isFaculty) {
+  if (isFaculty) { // Removed '&& canManageAll'
     const { data: facultyData } = await supabase.rpc('get_all_pending_reports_for_faculty')
     allPendingReports = facultyData?.map((item: any) => ({ ...item, subject: item.subject, submitter: item.submitter, group: item.group, offense_type: { offense_name: item.title } })) as ReportWithNames[] || [];
 
@@ -151,7 +151,7 @@ export default async function Dashboard() {
             </div>
         )}
         
-        {isFaculty && canManageAll && (
+        {isFaculty && (
             <DashboardSection 
                 title="All In-Progress Reports" 
                 items={allPendingReports} 
