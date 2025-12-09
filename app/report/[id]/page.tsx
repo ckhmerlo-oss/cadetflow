@@ -6,7 +6,7 @@ import { notFound, redirect } from 'next/navigation'
 import ReportDetailsClient from './ReportDetailsClient'
 import { User } from '@supabase/supabase-js'
 
-// ... (All Type definitions remain the same)
+// ... Types (Report, Log, OffenseType, Appeal) remain identical ...
 type Report = {
   id: string;
   status: string;
@@ -53,15 +53,10 @@ type Appeal = {
   final_comment: string | null;
 }
 
-
-/**
- * Server-side data fetching function
- */
 async function getReportData(reportId: string, user: User) {
   const supabase = createClient()
 
   // 1. Fetch main report, logs, and appeal in parallel
-  // ... (Data fetching logic remains the same)
   const [reportResult, logResult, appealResult] = await Promise.all([
     supabase
       .from('demerit_reports') 
@@ -72,7 +67,8 @@ async function getReportData(reportId: string, user: User) {
       .from('approval_log')
       .select('*, actor:actor_id(first_name, last_name)')
       .eq('report_id', reportId)
-      .order('created_at', { ascending: false }),
+      // *** FIX: Changed to ascending: true for chronological order (Oldest -> Newest) ***
+      .order('created_at', { ascending: true }),
     supabase
       .from('appeals')
       .select('id, status, justification, current_assignee_id, current_group_id, issuer_comment, chain_comment, final_comment')
@@ -83,7 +79,7 @@ async function getReportData(reportId: string, user: User) {
   // --- Error Handling ---
   if (reportResult.error) {
     console.error('Report fetch error:', reportResult.error.message)
-    return notFound() // Triggers the 404 page
+    return notFound()
   }
 
   const report = reportResult.data as unknown as Report
@@ -91,7 +87,6 @@ async function getReportData(reportId: string, user: User) {
   const appeal = (appealResult.data || null) as Appeal | null
 
   // 2. Conditionally fetch data needed for interactions
-  // ... (Conditional fetching logic remains the same)
   let offenses: OffenseType[] = []
   if (report.submitted_by === user.id && report.status === 'needs_revision') {
     const { data } = await supabase.from('offense_types').select('*').order('offense_group').order('offense_name')
@@ -105,8 +100,6 @@ async function getReportData(reportId: string, user: User) {
   }
 
   // 3. Check all user permissions in parallel
-  
-  // Fetch viewer role for Staff check
   const { data: viewerProfile } = await supabase
     .from('profiles')
     .select('role:role_id (default_role_level)')
@@ -114,9 +107,6 @@ async function getReportData(reportId: string, user: User) {
     .single()
   
   const viewerRoleLevel = (viewerProfile?.role as any)?.default_role_level || 0
-  
-  // *** UPDATE: Changed threshold from 50 to 90 ***
-  // This matches the new SQL policy: only Commandant/Admins (90+) can pull reports they didn't write.
   const isCommandantStaff = viewerRoleLevel >= 90
 
   let isApprover = false
@@ -131,28 +121,20 @@ async function getReportData(reportId: string, user: User) {
   if (appeal && user) {
       if (appeal.status === 'pending_issuer' && appeal.current_assignee_id === user.id) {
           canActOnAppeal = true;
-      } 
-      // *** FIX: Added check for isCommandantStaff when status is pending_commandant ***
-      else if (['pending_chain', 'pending_commandant'].includes(appeal.status)) {
-           // If it's pending commandant, staff can act regardless of specific group ID
+      } else if (['pending_chain', 'pending_commandant'].includes(appeal.status)) {
            if (appeal.status === 'pending_commandant' && isCommandantStaff) {
                canActOnAppeal = true;
-           } 
-           // Otherwise check group membership
-           else if (appeal.current_group_id) {
+           } else if (appeal.current_group_id) {
                const { data: hasPerm } = await supabase.rpc('is_member_of_approver_group', { p_group_id: appeal.current_group_id });
                if (hasPerm) canActOnAppeal = true;
            }
       }
   }
 
-  // --- Calculate canPull ---
   const isSubmitter = report.submitted_by === user.id
   const isCompleted = report.status === 'completed'
   const isPending = report.status === 'pending_approval'
   
-  // *** UPDATE: Use isCommandantStaff instead of isStaff ***
-  // Allow pulling if (submitter OR Commandant Staff) AND (report is completed OR pending)
   const canPull = (isSubmitter || isCommandantStaff) && (isCompleted || isPending)
 
   return {
@@ -171,29 +153,16 @@ async function getReportData(reportId: string, user: User) {
   }
 }
 
-
-/**
- * The new Server Component Page
- */
-// ... (The default export function ReportDetailsPage remains exactly the same)
 export default async function ReportDetailsPage({ params: paramsPromise }: { params: Promise<{ id: string }> }) {
-  
   const params = await paramsPromise; 
-  
   const supabase = createClient()
-
   const { data: { user } } = await supabase.auth.getUser()
-  if (!user) {
-    return redirect('/login')
-  }
+  if (!user) return redirect('/login')
 
-  if (!params.id || params.id === 'undefined' || params.id === 'null') {
-    return notFound()
-  }
+  if (!params.id || params.id === 'undefined' || params.id === 'null') return notFound()
 
   const data = await getReportData(params.id, user)
   
-  // Pass all server-fetched data to the client component
   return (
     <ReportDetailsClient
       user={user}

@@ -15,50 +15,20 @@
       "filename": "app/report/[id]/actions.ts",
       "exportedName": "pullReportAction"
     },
-    "603a47877742303afc33baf0bf80c9229af4e52ef8": {
+    "00bbeb251e9c0d92f5c1d1ca0bd9f7292fb081a58d": {
       "workers": {
-        "app/manage/page": {
-          "moduleId": "[project]/.next-internal/server/app/manage/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/reports/daily/page": {
+          "moduleId": "[project]/.next-internal/server/app/reports/daily/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/lib/server.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "bulkAssignCompany",
-          "filename": "app/manage/actions.ts"
+          "exportedName": "triggerGreenSheetBlast",
+          "filename": "app/lib/server.ts"
         }
       },
       "layer": {
-        "app/manage/page": "action-browser"
+        "app/reports/daily/page": "action-browser"
       },
-      "filename": "app/manage/actions.ts",
-      "exportedName": "bulkAssignCompany"
-    },
-    "60532683f7b9907727bf29a27c70ffe98877d06a86": {
-      "workers": {
-        "app/manage/page": {
-          "moduleId": "[project]/.next-internal/server/app/manage/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "bulkAssignRole",
-          "filename": "app/manage/actions.ts"
-        }
-      },
-      "layer": {
-        "app/manage/page": "action-browser"
-      },
-      "filename": "app/manage/actions.ts",
-      "exportedName": "bulkAssignRole"
-    },
-    "60e5c7fb23ffb8c9c0e2856c0fd39d4c9a2aa7ebfd": {
-      "workers": {
-        "app/reports/history/page": {
-          "moduleId": "[project]/.next-internal/server/app/reports/history/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/reports/history/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "fetchReportHistory",
-          "filename": "app/reports/history/actions.ts"
-        }
-      },
-      "layer": {
-        "app/reports/history/page": "action-browser"
-      },
-      "filename": "app/reports/history/actions.ts",
-      "exportedName": "fetchReportHistory"
+      "filename": "app/lib/server.ts",
+      "exportedName": "triggerGreenSheetBlast"
     }
   },
   "edge": {},
