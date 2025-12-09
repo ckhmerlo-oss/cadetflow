@@ -131,9 +131,18 @@ async function getReportData(reportId: string, user: User) {
   if (appeal && user) {
       if (appeal.status === 'pending_issuer' && appeal.current_assignee_id === user.id) {
           canActOnAppeal = true;
-      } else if (['pending_chain', 'pending_commandant'].includes(appeal.status) && appeal.current_group_id) {
-           const { data: hasPerm } = await supabase.rpc('is_member_of_approver_group', { p_group_id: appeal.current_group_id });
-           if (hasPerm) canActOnAppeal = true;
+      } 
+      // *** FIX: Added check for isCommandantStaff when status is pending_commandant ***
+      else if (['pending_chain', 'pending_commandant'].includes(appeal.status)) {
+           // If it's pending commandant, staff can act regardless of specific group ID
+           if (appeal.status === 'pending_commandant' && isCommandantStaff) {
+               canActOnAppeal = true;
+           } 
+           // Otherwise check group membership
+           else if (appeal.current_group_id) {
+               const { data: hasPerm } = await supabase.rpc('is_member_of_approver_group', { p_group_id: appeal.current_group_id });
+               if (hasPerm) canActOnAppeal = true;
+           }
       }
   }
 

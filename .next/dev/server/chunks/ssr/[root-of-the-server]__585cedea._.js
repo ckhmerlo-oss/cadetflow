@@ -127,11 +127,16 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$report$2f5b$id$5d2f$R
         } else if ([
             'pending_chain',
             'pending_commandant'
-        ].includes(appeal.status) && appeal.current_group_id) {
-            const { data: hasPerm } = await supabase.rpc('is_member_of_approver_group', {
-                p_group_id: appeal.current_group_id
-            });
-            if (hasPerm) canActOnAppeal = true;
+        ].includes(appeal.status)) {
+            // If it's pending commandant, staff can act regardless of specific group ID
+            if (appeal.status === 'pending_commandant' && isCommandantStaff) {
+                canActOnAppeal = true;
+            } else if (appeal.current_group_id) {
+                const { data: hasPerm } = await supabase.rpc('is_member_of_approver_group', {
+                    p_group_id: appeal.current_group_id
+                });
+                if (hasPerm) canActOnAppeal = true;
+            }
         }
     }
     // --- Calculate canPull ---
@@ -178,7 +183,7 @@ async function ReportDetailsPage({ params: paramsPromise }) {
         permissions: data.permissions
     }, void 0, false, {
         fileName: "[project]/app/report/[id]/page.tsx",
-        lineNumber: 189,
+        lineNumber: 198,
         columnNumber: 5
     }, this);
 }

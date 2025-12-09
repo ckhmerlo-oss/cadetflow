@@ -38,10 +38,9 @@ type Profile = {
   parent_phone?: string
 }
 
-// Matches your get_cadet_audit_log RPC return type
 type AuditLogEntry = {
   event_date: string
-  event_type: string // 'demerit', 'served', 'adjustment'
+  event_type: string
   title: string
   details: string
   demerits_issued: number
@@ -53,7 +52,7 @@ type AuditLogEntry = {
 
 export default function ProfileClient({ 
   profile, 
-  auditLog, // Renamed from ledger
+  auditLog, 
   canEdit,
   viewerRoleLevel 
 }: { 
@@ -83,6 +82,11 @@ export default function ProfileClient({
     manual_tour_balance: profile.current_tour_balance
   })
 
+  // *** PERMISSION CHECK ***
+  // Only Commandant Staff (90+) can edit disciplinary fields (Probation, Tours, Star Status)
+  const isCommandant = viewerRoleLevel >= 90;
+  const isFaculty = viewerRoleLevel >= 50;
+
   const formatDate = (dateString: string) => new Date(dateString).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
 
   const getStatusColor = (status: string) => {
@@ -94,25 +98,31 @@ export default function ProfileClient({
   const handleSave = async () => {
       setSaving(true)
       
-      // 1. Update Profile Fields
+      // 1. Prepare Update Object
+      // We only include disciplinary fields if the user has permission to change them
+      const updates: any = {
+          room_number: formData.room_number,
+          grade_level: formData.grade_level,
+          cadet_rank: formData.cadet_rank,
+          sport_fall: formData.sport_fall === 'None' ? null : formData.sport_fall,
+          sport_winter: formData.sport_winter === 'None' ? null : formData.sport_winter,
+          sport_spring: formData.sport_spring === 'None' ? null : formData.sport_spring,
+          extracurriculars: formData.extracurriculars,
+          is_in_band: formData.is_in_band,
+      };
+
+      if (isCommandant) {
+          updates.probation_status = formData.probation_status;
+          updates.has_star_tours = formData.has_star_tours;
+      }
+
       const { error: profileError } = await supabase
           .from('profiles')
-          .update({
-              room_number: formData.room_number,
-              grade_level: formData.grade_level,
-              cadet_rank: formData.cadet_rank,
-              sport_fall: formData.sport_fall === 'None' ? null : formData.sport_fall,
-              sport_winter: formData.sport_winter === 'None' ? null : formData.sport_winter,
-              sport_spring: formData.sport_spring === 'None' ? null : formData.sport_spring,
-              extracurriculars: formData.extracurriculars,
-              is_in_band: formData.is_in_band,
-              probation_status: formData.probation_status,
-              has_star_tours: formData.has_star_tours
-          })
+          .update(updates)
           .eq('id', profile.id)
 
-      // 2. Update Tour Balance (via RPC if changed)
-      if (formData.manual_tour_balance !== profile.current_tour_balance) {
+      // 2. Update Tour Balance (via RPC if changed AND user has permission)
+      if (isCommandant && formData.manual_tour_balance !== profile.current_tour_balance) {
           const { error: tourError } = await supabase.rpc('set_tour_balance', {
               p_cadet_id: profile.id,
               p_new_balance: formData.manual_tour_balance,
@@ -125,8 +135,6 @@ export default function ProfileClient({
       if (profileError) alert(`Error: ${profileError.message}`)
       else { setIsEditing(false); router.refresh(); }
   }
-
-  const isFaculty = viewerRoleLevel >= 50;
 
   const getSportIcon = (sportName: string | null | undefined) => {
       const lower = (sportName || '').toLowerCase();
@@ -201,8 +209,8 @@ export default function ProfileClient({
                 </div>
             </div>
 
-            {/* Probation */}
-            {isEditing ? (
+            {/* Probation: ONLY Editable if isCommandant */}
+            {isEditing && isCommandant ? (
                 <div className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-200 dark:border-gray-600">
                     <label className="text-xs font-bold uppercase text-gray-500 block mb-1">Probation</label>
                     <select value={formData.probation_status} onChange={e => setFormData({...formData, probation_status: e.target.value})} className="w-full border rounded p-1 text-sm dark:bg-gray-900 dark:text-white">
@@ -218,8 +226,8 @@ export default function ProfileClient({
                 </div>
             )}
 
-            {/* Tours (Editable) */}
-            {isEditing ? (
+            {/* Tours: ONLY Editable if isCommandant */}
+            {isEditing && isCommandant ? (
                 <div className="p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-200 dark:border-gray-600">
                     <label className="text-xs font-bold uppercase text-gray-500 block mb-1">Tour Balance</label>
                     <div className="flex gap-2">

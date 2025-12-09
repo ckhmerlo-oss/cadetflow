@@ -69,6 +69,9 @@ async function ActionItemsPage() {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["redirect"])('/login');
+    // *** ADDED: Fetch Viewer Role Level for Commandant Check ***
+    const { data: viewerProfile } = await supabase.from('profiles').select('role:role_id (default_role_level)').eq('id', user.id).single();
+    const viewerRoleLevel = viewerProfile?.role?.default_role_level || 0;
     // 1. Fetch All Involved Reports
     const { data: rpcData, error } = await supabase.rpc('get_my_dashboard_reports');
     if (error) {
@@ -78,7 +81,7 @@ async function ActionItemsPage() {
             children: "Error loading action items."
         }, void 0, false, {
             fileName: "[project]/app/action-items/page.tsx",
-            lineNumber: 45,
+            lineNumber: 53,
             columnNumber: 12
         }, this);
     }
@@ -87,7 +90,8 @@ async function ActionItemsPage() {
     const allReportIds = allInvolvedReports.map((r)=>r.id);
     let appealsMap = {};
     if (allReportIds.length > 0) {
-        const { data: appealsData } = await supabase.from('appeals').select('id, report_id, status, justification, issuer_comment, chain_comment').in('report_id', allReportIds);
+        const { data: appealsData } = await supabase.from('appeals').select('id, report_id, status, justification, issuer_comment, chain_comment, current_assignee_id') // Added current_assignee_id
+        .in('report_id', allReportIds);
         if (appealsData) {
             appealsData.forEach((app)=>{
                 appealsMap[app.report_id] = app;
@@ -98,24 +102,39 @@ async function ActionItemsPage() {
     let filteredReports = allInvolvedReports.filter((report)=>{
         if (report.status === 'pulled') return false;
         // Pending Approval (Standard)
-        if (report.status === 'pending_approval' && report.current_approver_group_id !== null) return true;
+        // Check if I am an approver (RPC handles most of this, but safely assume if group is set and I'm not subject)
+        if (report.status === 'pending_approval' && report.current_approver_group_id !== null) {
+            // Double check I'm not the submitter waiting
+            return report.submitted_by !== user.id;
+        }
         // Needs Revision
         if (report.status === 'needs_revision' && report.submitted_by === user.id) return true;
         // Appeal Actions
-        // Check RPC status OR the fetched map status
-        const appealStatus = report.appeal_status || appealsMap[report.id]?.status;
+        const appealData = appealsMap[report.id];
+        const appealStatus = report.appeal_status || appealData?.status;
         if (appealStatus) {
             // If I am the subject, I act if it was rejected (to escalate)
-            if (report.subject_cadet_id === user.id) return [
-                'rejected_by_issuer',
-                'rejected_by_chain'
-            ].includes(appealStatus);
-            // If I am authority, I act if it is pending
-            return [
-                'pending_issuer',
-                'pending_chain',
-                'pending_commandant'
-            ].includes(appealStatus);
+            if (report.subject_cadet_id === user.id) {
+                return [
+                    'rejected_by_issuer',
+                    'rejected_by_chain'
+                ].includes(appealStatus);
+            }
+            // If I am authority, check specific stages
+            if (appealStatus === 'pending_issuer') {
+                // Strict check: Am I the assignee?
+                return appealData?.current_assignee_id === user.id;
+            }
+            if (appealStatus === 'pending_chain') {
+                // If I submitted the report, I shouldn't see it when it's at the Chain level 
+                // (unless I am coincidentally in that chain group, but to be safe/clean for the submitter...)
+                if (report.submitted_by === user.id) return false;
+                return true;
+            }
+            if (appealStatus === 'pending_commandant') {
+                // Only Commandant Staff (90+) should see this as an action item
+                return viewerRoleLevel >= 90;
+            }
         }
         return false;
     });
@@ -190,7 +209,7 @@ async function ActionItemsPage() {
                             children: "Action Items"
                         }, void 0, false, {
                             fileName: "[project]/app/action-items/page.tsx",
-                            lineNumber: 159,
+                            lineNumber: 189,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -198,18 +217,18 @@ async function ActionItemsPage() {
                             children: "Reports requiring your immediate attention. Select rows to perform bulk actions."
                         }, void 0, false, {
                             fileName: "[project]/app/action-items/page.tsx",
-                            lineNumber: 160,
+                            lineNumber: 190,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/action-items/page.tsx",
-                    lineNumber: 158,
+                    lineNumber: 188,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/action-items/page.tsx",
-                lineNumber: 157,
+                lineNumber: 187,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$action$2d$items$2f$ActionItemsClient$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
@@ -217,13 +236,13 @@ async function ActionItemsPage() {
                 currentUserId: user.id
             }, void 0, false, {
                 fileName: "[project]/app/action-items/page.tsx",
-                lineNumber: 166,
+                lineNumber: 196,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/action-items/page.tsx",
-        lineNumber: 156,
+        lineNumber: 186,
         columnNumber: 5
     }, this);
 }

@@ -6,7 +6,6 @@ import { useRouter, usePathname } from 'next/navigation'
 import { createClient } from '@/utils/supabase/client'
 import ThemeToggleButton from './ThemeToggleButton'
 import FeedbackButton from './FeedbackButton'
-import { isFloat32Array } from 'util/types'
 
 type HeaderMenuProps = {
   canManage: boolean
@@ -48,10 +47,7 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, is
     router.refresh()
   }
 
-  // If we are on the login page, render ONLY the Theme Toggle (and maybe a Login link if strictly requested, but redundant here)
-  // The user asked for "Logo, Theme Button, and Login Button".
-  // Logo is in Layout. Theme Button is here. Since we are ON the login page, the "Login" button is implied or can be omitted.
-  // To be safe/clean, we'll just show the Theme Toggle.
+  // If we are on the login page, render ONLY the Theme Toggle
   if (isLoginPage) {
       return (
         <div className="flex items-center justify-end space-x-3">
@@ -89,19 +85,19 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, is
         )}
 
         {canManage && (
-            <>
              <Link href="/action-items" id="nav-approval" className="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
                 Action Items
             </Link>
-            </>
         )}
 
-        {canManage && roleLevel >= 50 || (
-            <>
+        {/* ROSTER VISIBILITY:
+            - Faculty (Level 50+) can see it (Read Only unless they have explicit manage rights)
+            - Cadets with Management Rights (canManage) can see it (Managed Scope)
+        */}
+        {(canManage || roleLevel >= 50) && (
             <Link href="/manage" id="nav-roster" className="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
                 Roster
             </Link>
-            </>
         )}
 
         {isSiteAdmin && (
@@ -139,12 +135,15 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, is
             {isLoggedIn && roleLevel >= 15 && ( <Link href="/submit" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Submit Report</Link> )}
             {isLoggedIn && roleLevel >= 50 && ( <Link href="/reports/history" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Report History</Link> )}
             {showDailyReports && ( <Link href="/reports/daily" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Green Sheet</Link> )}
+            
             {canManage && (
-                <>
                 <Link href="/action-items" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Action Items</Link>
-                <Link href="/manage" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Roster</Link>
-                </>
             )}
+            
+            {(canManage || roleLevel >= 50) && (
+                <Link href="/manage" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Roster</Link>
+            )}
+
             {isSiteAdmin && ( <Link href="/admin" className="block px-3 py-2 rounded-md text-base font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20">Admin</Link> )}
           </div>
 

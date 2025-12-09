@@ -3,7 +3,6 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 
 // --- 1. UPDATED TYPE DEFINITION ---
-// We need to ensure 'appeal_status' is optional (?) string
 type ReportWithNames = {
   id: string
   status: string
@@ -16,7 +15,7 @@ type ReportWithNames = {
   submitter: { first_name: string; last_name: string } | null
   group: { group_name: string } | null
   offense_type: { offense_name: string } | null
-  // The new field
+  // Optional field from RPC
   appeal_status?: string | null 
 }
 
@@ -42,7 +41,6 @@ export default async function Dashboard() {
 
   const role = profile?.role as any
   const role_level = role?.default_role_level || 0
-  const canManageAll = role?.can_manage_all_rosters || false
   const isFaculty = role_level >= 50 || false
   const groupName = role?.approval_group?.group_name || 'Personal Dashboard'
 
@@ -59,7 +57,7 @@ export default async function Dashboard() {
   let cadetStats: CadetStats | null = null; 
   let allCompletedReports: ReportWithNames[] = []; 
 
-  if (isFaculty) { // Removed '&& canManageAll'
+  if (isFaculty) { 
     const { data: facultyData } = await supabase.rpc('get_all_pending_reports_for_faculty')
     allPendingReports = facultyData?.map((item: any) => ({ ...item, subject: item.subject, submitter: item.submitter, group: item.group, offense_type: { offense_name: item.title } })) as ReportWithNames[] || [];
 
@@ -77,32 +75,47 @@ export default async function Dashboard() {
     if (statsData) cadetStats = statsData;
   }
     
-  // --- 2. FILTER LOGIC (Includes Commandant Check) ---
+  // --- 2. FILTER LOGIC (Matched to Action Items Page) ---
   const actionItems = allInvolvedReports.filter(report => {
       if (report.status === 'pulled') return false; 
       
       // A. Standard Approvals
-      if (report.status === 'pending_approval' && report.current_approver_group_id !== null) return true;
+      // If report is pending approval and assigned to a group, we assume the RPC returned it because we are in that group.
+      // We exclude our own submissions to avoid approving ourselves (unless auto-approved, but then status wouldn't be pending).
+      if (report.status === 'pending_approval' && report.current_approver_group_id !== null) {
+          return report.submitted_by !== user.id;
+      }
       
       // B. Revisions
       if (report.status === 'needs_revision' && report.submitted_by === user.id) return true;
       
       // C. Appeals
       if (report.appeal_status) {
-          // Cadet (Subject) sees rejections
+          
+          // 1. Commandant Actions (Highest Priority)
+          // If I am Commandant Staff (90+) and it's on my desk, I see it.
+          if (role_level >= 90 && report.appeal_status === 'pending_commandant') {
+              return true;
+          }
+
+          // 2. Subject Actions (Escalation)
           if (report.subject_cadet_id === user.id) {
               return ['rejected_by_issuer', 'rejected_by_chain'].includes(report.appeal_status);
           }
-          // Issuer sees their step
-          if (report.submitted_by === user.id) {
-               return report.appeal_status === 'pending_issuer';
+
+          // 3. Issuer Actions
+          if (report.appeal_status === 'pending_issuer') {
+              // Only the submitter (issuer) acts here
+              return report.submitted_by === user.id;
           }
-          // Commandant sees final review
-          if (role_level >= 90) {
-              return report.appeal_status === 'pending_commandant';
+
+          // 4. Chain Actions
+          if (report.appeal_status === 'pending_chain') {
+              // If I submitted it, I don't review it at chain level
+              if (report.submitted_by === user.id) return false;
+              // Otherwise, if RPC returned it, I'm likely in the group
+              return true; 
           }
-          // Chain members
-          return report.appeal_status === 'pending_chain'; 
       }
       return false;
   }) || []

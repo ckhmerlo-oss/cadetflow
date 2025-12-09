@@ -152,7 +152,7 @@ export default function RosterClient({ initialData, canEditProfiles, companies, 
       <div id="roster-controls" className="p-4 grid grid-cols-1 md:grid-cols-4 gap-4 border-b border-gray-200 dark:border-gray-700 no-print">
         <input type="text" value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} placeholder={variant === 'cadet' ? "Search..." : "Search email..."} className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-800 dark:text-white" />
         <select value={filterCompany} onChange={(e) => setFilterCompany(e.target.value)} className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-800 dark:text-white">
-          <option value="all">All Cos</option>
+          <option value="all">All Companies</option>
           {uniqueCompanies.map(co => <option key={String(co)} value={String(co)}>{String(co)}</option>)}
         </select>
         

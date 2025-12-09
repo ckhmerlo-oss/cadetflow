@@ -37,7 +37,6 @@ async function Dashboard() {
     if (profile && profile.company_id === null && profile.first_name === 'New') return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["redirect"])('/onboarding');
     const role = profile?.role;
     const role_level = role?.default_role_level || 0;
-    const canManageAll = role?.can_manage_all_rosters || false;
     const isFaculty = role_level >= 50 || false;
     const groupName = role?.approval_group?.group_name || 'Personal Dashboard';
     if (role_level === 10) {
@@ -77,32 +76,43 @@ async function Dashboard() {
         }).single();
         if (statsData) cadetStats = statsData;
     }
-    // --- 2. FILTER LOGIC (Includes Commandant Check) ---
+    // --- 2. FILTER LOGIC (Matched to Action Items Page) ---
     const actionItems = allInvolvedReports.filter((report)=>{
         if (report.status === 'pulled') return false;
         // A. Standard Approvals
-        if (report.status === 'pending_approval' && report.current_approver_group_id !== null) return true;
+        // If report is pending approval and assigned to a group, we assume the RPC returned it because we are in that group.
+        // We exclude our own submissions to avoid approving ourselves (unless auto-approved, but then status wouldn't be pending).
+        if (report.status === 'pending_approval' && report.current_approver_group_id !== null) {
+            return report.submitted_by !== user.id;
+        }
         // B. Revisions
         if (report.status === 'needs_revision' && report.submitted_by === user.id) return true;
         // C. Appeals
         if (report.appeal_status) {
-            // Cadet (Subject) sees rejections
+            // 1. Commandant Actions (Highest Priority)
+            // If I am Commandant Staff (90+) and it's on my desk, I see it.
+            if (role_level >= 90 && report.appeal_status === 'pending_commandant') {
+                return true;
+            }
+            // 2. Subject Actions (Escalation)
             if (report.subject_cadet_id === user.id) {
                 return [
                     'rejected_by_issuer',
                     'rejected_by_chain'
                 ].includes(report.appeal_status);
             }
-            // Issuer sees their step
-            if (report.submitted_by === user.id) {
-                return report.appeal_status === 'pending_issuer';
+            // 3. Issuer Actions
+            if (report.appeal_status === 'pending_issuer') {
+                // Only the submitter (issuer) acts here
+                return report.submitted_by === user.id;
             }
-            // Commandant sees final review
-            if (role_level >= 90) {
-                return report.appeal_status === 'pending_commandant';
+            // 4. Chain Actions
+            if (report.appeal_status === 'pending_chain') {
+                // If I submitted it, I don't review it at chain level
+                if (report.submitted_by === user.id) return false;
+                // Otherwise, if RPC returned it, I'm likely in the group
+                return true;
             }
-            // Chain members
-            return report.appeal_status === 'pending_chain';
         }
         return false;
     }) || [];
@@ -123,7 +133,7 @@ async function Dashboard() {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 116,
+                                lineNumber: 129,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -131,13 +141,13 @@ async function Dashboard() {
                                 children: groupName
                             }, void 0, false, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 117,
+                                lineNumber: 130,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 115,
+                        lineNumber: 128,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -149,18 +159,18 @@ async function Dashboard() {
                             children: "Submit New Report"
                         }, void 0, false, {
                             fileName: "[project]/app/page.tsx",
-                            lineNumber: 122,
+                            lineNumber: 135,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 120,
+                        lineNumber: 133,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 114,
+                lineNumber: 127,
                 columnNumber: 8
             }, this),
             !isFaculty && cadetStats && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -174,17 +184,17 @@ async function Dashboard() {
                                 stats: cadetStats
                             }, void 0, false, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 131,
+                                lineNumber: 144,
                                 columnNumber: 97
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/page.tsx",
-                            lineNumber: 131,
+                            lineNumber: 144,
                             columnNumber: 42
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 131,
+                        lineNumber: 144,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -195,18 +205,18 @@ async function Dashboard() {
                             children: "View Full Record →"
                         }, void 0, false, {
                             fileName: "[project]/app/page.tsx",
-                            lineNumber: 133,
+                            lineNumber: 146,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 132,
+                        lineNumber: 145,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 130,
+                lineNumber: 143,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -222,12 +232,12 @@ async function Dashboard() {
                             viewAllHref: "/action-items"
                         }, void 0, false, {
                             fileName: "[project]/app/page.tsx",
-                            lineNumber: 144,
+                            lineNumber: 157,
                             columnNumber: 17
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 143,
+                        lineNumber: 156,
                         columnNumber: 13
                     }, this),
                     isFaculty && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(DashboardSection, {
@@ -238,7 +248,7 @@ async function Dashboard() {
                         viewAllHref: "/reports/pending"
                     }, void 0, false, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 155,
+                        lineNumber: 168,
                         columnNumber: 13
                     }, this),
                     role_level >= 15 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(DashboardSection, {
@@ -249,7 +259,7 @@ async function Dashboard() {
                         viewAllHref: "/reports/submitted"
                     }, void 0, false, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 165,
+                        lineNumber: 178,
                         columnNumber: 13
                     }, this),
                     isFaculty && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(DashboardSection, {
@@ -260,19 +270,19 @@ async function Dashboard() {
                         viewAllHref: "/reports/history"
                     }, void 0, false, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 175,
+                        lineNumber: 188,
                         columnNumber: 13
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 140,
+                lineNumber: 153,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/page.tsx",
-        lineNumber: 113,
+        lineNumber: 126,
         columnNumber: 5
     }, this);
 }
@@ -284,7 +294,7 @@ function CadetStatsHeader({ stats }) {
                 value: stats.term_demerits
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 191,
+                lineNumber: 204,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(StatCard, {
@@ -292,7 +302,7 @@ function CadetStatsHeader({ stats }) {
                 value: stats.year_demerits
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 192,
+                lineNumber: 205,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(StatCard, {
@@ -300,7 +310,7 @@ function CadetStatsHeader({ stats }) {
                 value: stats.current_tour_balance
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 193,
+                lineNumber: 206,
                 columnNumber: 7
             }, this)
         ]
@@ -315,7 +325,7 @@ function StatCard({ title, value }) {
                 children: title
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 201,
+                lineNumber: 214,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -323,13 +333,13 @@ function StatCard({ title, value }) {
                 children: value
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 202,
+                lineNumber: 215,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/page.tsx",
-        lineNumber: 200,
+        lineNumber: 213,
         columnNumber: 5
     }, this);
 }
@@ -349,7 +359,7 @@ function DashboardSection({ title, items, emptyMessage, showSubject = false, sho
                                 children: title
                             }, void 0, false, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 227,
+                                lineNumber: 240,
                                 columnNumber: 17
                             }, this) : title,
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -361,13 +371,13 @@ function DashboardSection({ title, items, emptyMessage, showSubject = false, sho
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 231,
+                                lineNumber: 244,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 225,
+                        lineNumber: 238,
                         columnNumber: 11
                     }, this),
                     viewAllHref && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
@@ -376,13 +386,13 @@ function DashboardSection({ title, items, emptyMessage, showSubject = false, sho
                         children: "View all →"
                     }, void 0, false, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 235,
+                        lineNumber: 248,
                         columnNumber: 13
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 224,
+                lineNumber: 237,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -393,25 +403,25 @@ function DashboardSection({ title, items, emptyMessage, showSubject = false, sho
                         showSubmitter: showSubmitter
                     }, report.id, false, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 244,
+                        lineNumber: 257,
                         columnNumber: 17
                     }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                     className: "text-gray-500 dark:text-gray-400 p-4",
                     children: emptyMessage
                 }, void 0, false, {
                     fileName: "[project]/app/page.tsx",
-                    lineNumber: 252,
+                    lineNumber: 265,
                     columnNumber: 13
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 241,
+                lineNumber: 254,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/page.tsx",
-        lineNumber: 223,
+        lineNumber: 236,
         columnNumber: 5
     }, this);
 }
@@ -445,7 +455,7 @@ function ReportCard({ report, showSubject, showSubmitter }) {
                 children: "Appeal Granted"
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 283,
+                lineNumber: 296,
                 columnNumber: 18
             }, this);
         } else if (status === 'rejected_final') {
@@ -454,7 +464,7 @@ function ReportCard({ report, showSubject, showSubmitter }) {
                 children: "Appeal Denied"
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 285,
+                lineNumber: 298,
                 columnNumber: 18
             }, this);
         } else {
@@ -464,7 +474,7 @@ function ReportCard({ report, showSubject, showSubmitter }) {
                 children: "Appeal In Progress"
             }, void 0, false, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 288,
+                lineNumber: 301,
                 columnNumber: 19
             }, this);
         }
@@ -484,14 +494,14 @@ function ReportCard({ report, showSubject, showSubmitter }) {
                                 children: title
                             }, void 0, false, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 299,
+                                lineNumber: 312,
                                 columnNumber: 14
                             }, this),
                             report.appeal_status && getAppealBadge(report.appeal_status)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 298,
+                        lineNumber: 311,
                         columnNumber: 9
                     }, this),
                     (!report.appeal_status || report.appeal_status === 'approved' || report.appeal_status === 'rejected_final') && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -499,13 +509,13 @@ function ReportCard({ report, showSubject, showSubmitter }) {
                         children: formatStatus(report.status)
                     }, void 0, false, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 305,
+                        lineNumber: 318,
                         columnNumber: 13
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 297,
+                lineNumber: 310,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -519,13 +529,13 @@ function ReportCard({ report, showSubject, showSubmitter }) {
                                 children: formatName(report.subject)
                             }, void 0, false, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 311,
+                                lineNumber: 324,
                                 columnNumber: 37
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 311,
+                        lineNumber: 324,
                         columnNumber: 25
                     }, this),
                     showSubmitter && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -536,13 +546,13 @@ function ReportCard({ report, showSubject, showSubmitter }) {
                                 children: formatName(report.submitter)
                             }, void 0, false, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 312,
+                                lineNumber: 325,
                                 columnNumber: 41
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 312,
+                        lineNumber: 325,
                         columnNumber: 27
                     }, this),
                     report.status === 'pending_approval' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -553,25 +563,25 @@ function ReportCard({ report, showSubject, showSubmitter }) {
                                 children: report.group?.group_name || 'N/A'
                             }, void 0, false, {
                                 fileName: "[project]/app/page.tsx",
-                                lineNumber: 313,
+                                lineNumber: 326,
                                 columnNumber: 66
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/page.tsx",
-                        lineNumber: 313,
+                        lineNumber: 326,
                         columnNumber: 50
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/page.tsx",
-                lineNumber: 310,
+                lineNumber: 323,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/page.tsx",
-        lineNumber: 293,
+        lineNumber: 306,
         columnNumber: 5
     }, this);
 }

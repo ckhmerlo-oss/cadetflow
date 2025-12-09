@@ -37,6 +37,14 @@ export default async function ActionItemsPage() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return redirect('/login')
 
+  // *** ADDED: Fetch Viewer Role Level for Commandant Check ***
+  const { data: viewerProfile } = await supabase
+    .from('profiles')
+    .select('role:role_id (default_role_level)')
+    .eq('id', user.id)
+    .single()
+  const viewerRoleLevel = (viewerProfile?.role as any)?.default_role_level || 0;
+
   // 1. Fetch All Involved Reports
   const { data: rpcData, error } = await supabase.rpc('get_my_dashboard_reports')
   
@@ -54,7 +62,7 @@ export default async function ActionItemsPage() {
   if (allReportIds.length > 0) {
       const { data: appealsData } = await supabase
         .from('appeals')
-        .select('id, report_id, status, justification, issuer_comment, chain_comment')
+        .select('id, report_id, status, justification, issuer_comment, chain_comment, current_assignee_id') // Added current_assignee_id
         .in('report_id', allReportIds);
         
       if (appealsData) {
@@ -69,20 +77,42 @@ export default async function ActionItemsPage() {
       if (report.status === 'pulled') return false;
       
       // Pending Approval (Standard)
-      if (report.status === 'pending_approval' && report.current_approver_group_id !== null) return true;
+      // Check if I am an approver (RPC handles most of this, but safely assume if group is set and I'm not subject)
+      if (report.status === 'pending_approval' && report.current_approver_group_id !== null) {
+          // Double check I'm not the submitter waiting
+          return report.submitted_by !== user.id;
+      }
       
       // Needs Revision
       if (report.status === 'needs_revision' && report.submitted_by === user.id) return true;
       
       // Appeal Actions
-      // Check RPC status OR the fetched map status
-      const appealStatus = report.appeal_status || appealsMap[report.id]?.status;
+      const appealData = appealsMap[report.id];
+      const appealStatus = report.appeal_status || appealData?.status;
       
       if (appealStatus) {
           // If I am the subject, I act if it was rejected (to escalate)
-          if (report.subject_cadet_id === user.id) return ['rejected_by_issuer', 'rejected_by_chain'].includes(appealStatus);
-          // If I am authority, I act if it is pending
-          return ['pending_issuer', 'pending_chain', 'pending_commandant'].includes(appealStatus);
+          if (report.subject_cadet_id === user.id) {
+              return ['rejected_by_issuer', 'rejected_by_chain'].includes(appealStatus);
+          }
+
+          // If I am authority, check specific stages
+          if (appealStatus === 'pending_issuer') {
+              // Strict check: Am I the assignee?
+              return appealData?.current_assignee_id === user.id;
+          }
+          
+          if (appealStatus === 'pending_chain') {
+              // If I submitted the report, I shouldn't see it when it's at the Chain level 
+              // (unless I am coincidentally in that chain group, but to be safe/clean for the submitter...)
+              if (report.submitted_by === user.id) return false;
+              return true;
+          }
+
+          if (appealStatus === 'pending_commandant') {
+              // Only Commandant Staff (90+) should see this as an action item
+              return viewerRoleLevel >= 90;
+          }
       }
       return false;
   });

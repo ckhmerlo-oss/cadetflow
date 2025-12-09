@@ -608,12 +608,12 @@ const HamburgerIcon = ()=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$p
             d: "M4 6h16M4 12h16m-7 6h7"
         }, void 0, false, {
             fileName: "[project]/app/components/HeaderMenu.tsx",
-            lineNumber: 22,
+            lineNumber: 21,
             columnNumber: 5
         }, ("TURBOPACK compile-time value", void 0))
     }, void 0, false, {
         fileName: "[project]/app/components/HeaderMenu.tsx",
-        lineNumber: 21,
+        lineNumber: 20,
         columnNumber: 3
     }, ("TURBOPACK compile-time value", void 0));
 const CloseIcon = ()=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
@@ -628,12 +628,12 @@ const CloseIcon = ()=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$proje
             d: "M6 18L18 6M6 6l12 12"
         }, void 0, false, {
             fileName: "[project]/app/components/HeaderMenu.tsx",
-            lineNumber: 27,
+            lineNumber: 26,
             columnNumber: 5
         }, ("TURBOPACK compile-time value", void 0))
     }, void 0, false, {
         fileName: "[project]/app/components/HeaderMenu.tsx",
-        lineNumber: 26,
+        lineNumber: 25,
         columnNumber: 3
     }, ("TURBOPACK compile-time value", void 0));
 function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, roleLevel }) {
@@ -653,21 +653,18 @@ function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, role
         router.push('/login');
         router.refresh();
     };
-    // If we are on the login page, render ONLY the Theme Toggle (and maybe a Login link if strictly requested, but redundant here)
-    // The user asked for "Logo, Theme Button, and Login Button".
-    // Logo is in Layout. Theme Button is here. Since we are ON the login page, the "Login" button is implied or can be omitted.
-    // To be safe/clean, we'll just show the Theme Toggle.
+    // If we are on the login page, render ONLY the Theme Toggle
     if (isLoginPage) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             className: "flex items-center justify-end space-x-3",
             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$ThemeToggleButton$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/app/components/HeaderMenu.tsx",
-                lineNumber: 58,
+                lineNumber: 54,
                 columnNumber: 13
             }, this)
         }, void 0, false, {
             fileName: "[project]/app/components/HeaderMenu.tsx",
-            lineNumber: 57,
+            lineNumber: 53,
             columnNumber: 9
         }, this);
     }
@@ -683,7 +680,7 @@ function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, role
                         children: "Dashboard"
                     }, void 0, false, {
                         fileName: "[project]/app/components/HeaderMenu.tsx",
-                        lineNumber: 68,
+                        lineNumber: 64,
                         columnNumber: 13
                     }, this),
                     isLoggedIn && roleLevel >= 15 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -693,7 +690,7 @@ function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, role
                         children: "Submit Report"
                     }, void 0, false, {
                         fileName: "[project]/app/components/HeaderMenu.tsx",
-                        lineNumber: 74,
+                        lineNumber: 70,
                         columnNumber: 13
                     }, this),
                     isLoggedIn && roleLevel >= 50 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -703,7 +700,7 @@ function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, role
                         children: "Report History"
                     }, void 0, false, {
                         fileName: "[project]/app/components/HeaderMenu.tsx",
-                        lineNumber: 80,
+                        lineNumber: 76,
                         columnNumber: 13
                     }, this),
                     showDailyReports && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -713,33 +710,29 @@ function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, role
                         children: "Green Sheet"
                     }, void 0, false, {
                         fileName: "[project]/app/components/HeaderMenu.tsx",
-                        lineNumber: 86,
+                        lineNumber: 82,
                         columnNumber: 14
                     }, this),
-                    canManage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                            href: "/action-items",
-                            id: "nav-approval",
-                            className: "text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors",
-                            children: "Action Items"
-                        }, void 0, false, {
-                            fileName: "[project]/app/components/HeaderMenu.tsx",
-                            lineNumber: 93,
-                            columnNumber: 14
-                        }, this)
-                    }, void 0, false),
-                    canManage && roleLevel >= 50 || /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
-                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                            href: "/manage",
-                            id: "nav-roster",
-                            className: "text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors",
-                            children: "Roster"
-                        }, void 0, false, {
-                            fileName: "[project]/app/components/HeaderMenu.tsx",
-                            lineNumber: 101,
-                            columnNumber: 13
-                        }, this)
-                    }, void 0, false),
+                    canManage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                        href: "/action-items",
+                        id: "nav-approval",
+                        className: "text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                        children: "Action Items"
+                    }, void 0, false, {
+                        fileName: "[project]/app/components/HeaderMenu.tsx",
+                        lineNumber: 88,
+                        columnNumber: 14
+                    }, this),
+                    (canManage || roleLevel >= 50) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                        href: "/manage",
+                        id: "nav-roster",
+                        className: "text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors",
+                        children: "Roster"
+                    }, void 0, false, {
+                        fileName: "[project]/app/components/HeaderMenu.tsx",
+                        lineNumber: 98,
+                        columnNumber: 13
+                    }, this),
                     isSiteAdmin && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                         href: "/admin",
                         id: "nav-admin",
@@ -747,12 +740,12 @@ function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, role
                         children: "Admin"
                     }, void 0, false, {
                         fileName: "[project]/app/components/HeaderMenu.tsx",
-                        lineNumber: 108,
+                        lineNumber: 104,
                         columnNumber: 13
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$ThemeToggleButton$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                         fileName: "[project]/app/components/HeaderMenu.tsx",
-                        lineNumber: 113,
+                        lineNumber: 109,
                         columnNumber: 9
                     }, this),
                     isLoggedIn ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -762,7 +755,7 @@ function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, role
                                 variant: "icon"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/HeaderMenu.tsx",
-                                lineNumber: 117,
+                                lineNumber: 113,
                                 columnNumber: 14
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -772,13 +765,13 @@ function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, role
                                 children: "Sign Out"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/HeaderMenu.tsx",
-                                lineNumber: 118,
+                                lineNumber: 114,
                                 columnNumber: 14
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/HeaderMenu.tsx",
-                        lineNumber: 116,
+                        lineNumber: 112,
                         columnNumber: 11
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                         href: "/login",
@@ -786,13 +779,13 @@ function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, role
                         children: "Login"
                     }, void 0, false, {
                         fileName: "[project]/app/components/HeaderMenu.tsx",
-                        lineNumber: 123,
+                        lineNumber: 119,
                         columnNumber: 14
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/HeaderMenu.tsx",
-                lineNumber: 66,
+                lineNumber: 62,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -800,7 +793,7 @@ function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, role
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$ThemeToggleButton$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                         fileName: "[project]/app/components/HeaderMenu.tsx",
-                        lineNumber: 129,
+                        lineNumber: 125,
                         columnNumber: 10
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -808,22 +801,22 @@ function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, role
                         className: "bg-white dark:bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none ml-2",
                         children: isMobileMenuOpen ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(CloseIcon, {}, void 0, false, {
                             fileName: "[project]/app/components/HeaderMenu.tsx",
-                            lineNumber: 131,
+                            lineNumber: 127,
                             columnNumber: 31
                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(HamburgerIcon, {}, void 0, false, {
                             fileName: "[project]/app/components/HeaderMenu.tsx",
-                            lineNumber: 131,
+                            lineNumber: 127,
                             columnNumber: 47
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/components/HeaderMenu.tsx",
-                        lineNumber: 130,
+                        lineNumber: 126,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/HeaderMenu.tsx",
-                lineNumber: 128,
+                lineNumber: 124,
                 columnNumber: 7
             }, this),
             isMobileMenuOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -838,7 +831,7 @@ function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, role
                                 children: "Dashboard"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/HeaderMenu.tsx",
-                                lineNumber: 138,
+                                lineNumber: 134,
                                 columnNumber: 35
                             }, this),
                             isLoggedIn && roleLevel >= 15 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -847,7 +840,7 @@ function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, role
                                 children: "Submit Report"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/HeaderMenu.tsx",
-                                lineNumber: 139,
+                                lineNumber: 135,
                                 columnNumber: 49
                             }, this),
                             isLoggedIn && roleLevel >= 50 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -856,7 +849,7 @@ function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, role
                                 children: "Report History"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/HeaderMenu.tsx",
-                                lineNumber: 140,
+                                lineNumber: 136,
                                 columnNumber: 49
                             }, this),
                             showDailyReports && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -865,44 +858,40 @@ function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, role
                                 children: "Green Sheet"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/HeaderMenu.tsx",
-                                lineNumber: 141,
+                                lineNumber: 137,
                                 columnNumber: 36
                             }, this),
-                            canManage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                        href: "/action-items",
-                                        className: "block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700",
-                                        children: "Action Items"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/HeaderMenu.tsx",
-                                        lineNumber: 144,
-                                        columnNumber: 17
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                        href: "/manage",
-                                        className: "block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700",
-                                        children: "Roster"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/components/HeaderMenu.tsx",
-                                        lineNumber: 145,
-                                        columnNumber: 17
-                                    }, this)
-                                ]
-                            }, void 0, true),
+                            canManage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                                href: "/action-items",
+                                className: "block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700",
+                                children: "Action Items"
+                            }, void 0, false, {
+                                fileName: "[project]/app/components/HeaderMenu.tsx",
+                                lineNumber: 140,
+                                columnNumber: 17
+                            }, this),
+                            (canManage || roleLevel >= 50) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                                href: "/manage",
+                                className: "block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700",
+                                children: "Roster"
+                            }, void 0, false, {
+                                fileName: "[project]/app/components/HeaderMenu.tsx",
+                                lineNumber: 144,
+                                columnNumber: 17
+                            }, this),
                             isSiteAdmin && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                 href: "/admin",
                                 className: "block px-3 py-2 rounded-md text-base font-medium text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20",
                                 children: "Admin"
                             }, void 0, false, {
                                 fileName: "[project]/app/components/HeaderMenu.tsx",
-                                lineNumber: 148,
+                                lineNumber: 147,
                                 columnNumber: 31
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/HeaderMenu.tsx",
-                        lineNumber: 137,
+                        lineNumber: 133,
                         columnNumber: 11
                     }, this),
                     isLoggedIn ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -916,12 +905,12 @@ function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, role
                                         variant: "text"
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/HeaderMenu.tsx",
-                                        lineNumber: 155,
+                                        lineNumber: 154,
                                         columnNumber: 21
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/HeaderMenu.tsx",
-                                    lineNumber: 154,
+                                    lineNumber: 153,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -930,18 +919,18 @@ function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, role
                                     children: "Sign out"
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/HeaderMenu.tsx",
-                                    lineNumber: 157,
+                                    lineNumber: 156,
                                     columnNumber: 17
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/components/HeaderMenu.tsx",
-                            lineNumber: 153,
+                            lineNumber: 152,
                             columnNumber: 15
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/components/HeaderMenu.tsx",
-                        lineNumber: 152,
+                        lineNumber: 151,
                         columnNumber: 13
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "px-5 pb-4",
@@ -951,18 +940,18 @@ function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, role
                             children: "Login"
                         }, void 0, false, {
                             fileName: "[project]/app/components/HeaderMenu.tsx",
-                            lineNumber: 162,
+                            lineNumber: 161,
                             columnNumber: 18
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/components/HeaderMenu.tsx",
-                        lineNumber: 161,
+                        lineNumber: 160,
                         columnNumber: 14
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/HeaderMenu.tsx",
-                lineNumber: 136,
+                lineNumber: 132,
                 columnNumber: 9
             }, this)
         ]
