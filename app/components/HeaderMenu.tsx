@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Link from 'next/link'
 import { useRouter, usePathname } from 'next/navigation'
 import { createClient } from '@/utils/supabase/client'
@@ -26,20 +26,39 @@ const CloseIcon = () => (
     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
   </svg>
 )
+const UserIcon = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A7.501 7.501 0 014.501 20.118z" />
+  </svg>
+)
 
 export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, roleLevel }: HeaderMenuProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
+  const userMenuRef = useRef<HTMLDivElement>(null)
   
   const supabase = createClient()
   const router = useRouter()
   const pathname = usePathname()
 
-  // *** NEW: Minimal Mode Check ***
   const isLoginPage = pathname === '/login';
 
+  // Close menus on navigation
   useEffect(() => {
     setIsMobileMenuOpen(false)
+    setIsUserMenuOpen(false)
   }, [pathname])
+
+  // Click outside handler for User Dropdown
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setIsUserMenuOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
 
   const handleSignOut = async () => {
     await supabase.auth.signOut()
@@ -47,7 +66,7 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, is
     router.refresh()
   }
 
-  // If we are on the login page, render ONLY the Theme Toggle
+  // Login Page View: Only Theme Toggle
   if (isLoginPage) {
       return (
         <div className="flex items-center justify-end space-x-3">
@@ -65,18 +84,8 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, is
                 Dashboard
             </Link>
         )}
-        
-        {isLoggedIn && roleLevel >= 15 && (
-            <Link href="/submit" id="nav-submit" className="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
-                Submit Report
-            </Link>
-        )}
 
-        {isLoggedIn && roleLevel >= 50 && (
-            <Link href="/reports/history" id="nav-reports" className="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
-                Report History
-            </Link>
-        )}
+        {/* Removed: Submit Report, Report History, Action Items (Available on Home) */}
 
         {showDailyReports && (
              <Link href="/reports/daily" id="nav-daily" className="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
@@ -84,16 +93,13 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, is
             </Link>
         )}
 
-        {canManage && (
-             <Link href="/action-items" id="nav-approval" className="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
-                Action Items
+        {/* NEW: Sports Button */}
+        {isLoggedIn && (
+             <Link href="/sports" id="nav-sports" className="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                Sports
             </Link>
         )}
 
-        {/* ROSTER VISIBILITY:
-            - Faculty (Level 50+) can see it (Read Only unless they have explicit manage rights)
-            - Cadets with Management Rights (canManage) can see it (Managed Scope)
-        */}
         {(canManage || roleLevel >= 50) && (
             <Link href="/manage" id="nav-roster" className="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
                 Roster
@@ -106,14 +112,41 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, is
             </Link>
         )}
 
-        <ThemeToggleButton />
-
         {isLoggedIn ? (
           <div className="flex items-center gap-2 ml-3">
              <FeedbackButton variant="icon" />
-             <button id="nav-signout" onClick={handleSignOut} className="bg-indigo-50 text-indigo-700 dark:bg-indigo-900/30 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/50 px-3 py-1.5 rounded-md text-sm font-medium transition-colors">
-                Sign Out
-             </button>
+             
+             {/* USER MENU DROPDOWN */}
+             <div className="relative" ref={userMenuRef}>
+                <button 
+                  onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
+                  className="p-2 rounded-full text-gray-600 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-700 transition-colors focus:outline-none focus:ring-2 focus:ring-indigo-500"
+                >
+                  <UserIcon />
+                </button>
+
+                {isUserMenuOpen && (
+                  <div className="absolute right-0 mt-2 w-56 bg-white dark:bg-gray-800 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 py-1 z-50 animate-in fade-in zoom-in duration-200">
+                    <Link href="/preferences" className="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-700">
+                      Preferences
+                    </Link>
+                    
+                    <div className="px-4 py-2 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-700">
+                      <span className="text-sm text-gray-700 dark:text-gray-200">Theme</span>
+                      <ThemeToggleButton />
+                    </div>
+                    
+                    <div className="border-t border-gray-100 dark:border-gray-700 my-1"></div>
+                    
+                    <button 
+                      onClick={handleSignOut} 
+                      className="block w-full text-left px-4 py-2 text-sm text-red-600 dark:text-red-400 hover:bg-gray-100 dark:hover:bg-gray-700"
+                    >
+                      Sign Out
+                    </button>
+                  </div>
+                )}
+             </div>
           </div>
         ) : (
              <Link href="/login" className="text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-300 font-medium">Login</Link>
@@ -122,7 +155,6 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, is
 
       {/* --- MOBILE MENU --- */}
       <div className="-mr-2 flex md:hidden">
-         <ThemeToggleButton />
         <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="bg-white dark:bg-gray-800 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none ml-2">
           {isMobileMenuOpen ? <CloseIcon /> : <HamburgerIcon />}
         </button>
@@ -132,14 +164,13 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, is
         <div className="md:hidden absolute top-16 inset-x-0 z-50 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 shadow-lg">
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
             {roleLevel >= 15 && ( <Link href="/" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Dashboard</Link> )}
-            {isLoggedIn && roleLevel >= 15 && ( <Link href="/submit" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Submit Report</Link> )}
-            {isLoggedIn && roleLevel >= 50 && ( <Link href="/reports/history" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Report History</Link> )}
+            
             {showDailyReports && ( <Link href="/reports/daily" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Green Sheet</Link> )}
             
-            {canManage && (
-                <Link href="/action-items" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Action Items</Link>
+            {isLoggedIn && (
+                <Link href="/sports" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Sports</Link>
             )}
-            
+
             {(canManage || roleLevel >= 50) && (
                 <Link href="/manage" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Roster</Link>
             )}
@@ -150,6 +181,13 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, is
           {isLoggedIn ? (
             <div className="pt-4 pb-4 border-t border-gray-200 dark:border-gray-700">
               <div className="px-2 space-y-1">
+                <Link href="/preferences" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Preferences</Link>
+                
+                <div className="flex items-center justify-between px-3 py-2 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700">
+                    <span className="text-base font-medium text-gray-700 dark:text-gray-200">Theme</span>
+                    <ThemeToggleButton />
+                </div>
+
                 <div className="px-3 py-2">
                     <FeedbackButton variant="text" />
                 </div>
