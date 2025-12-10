@@ -1,13 +1,10 @@
-// in app/report/[id]/page.tsx
-// NO 'use client' - This is now a Server Component
-
 import { createClient } from '@/utils/supabase/server'
 import { notFound, redirect } from 'next/navigation'
 import ReportDetailsClient from './ReportDetailsClient'
 import { User } from '@supabase/supabase-js'
-import Link from 'next/link' // <--- NEW IMPORT
+import Link from 'next/link' // Added for the button
 
-// ... Types (Report, Log, OffenseType, Appeal) remain identical ...
+// ... Types (Report, Log, OffenseType, Appeal) ...
 type Report = {
   id: string;
   status: string;
@@ -18,6 +15,7 @@ type Report = {
   date_of_offense: string;
   offense_type_id: string;
   demerits_effective: number;
+  linked_incident_id: string | null; // <--- NEW FIELD
   subject: { first_name: string, last_name: string }; 
   submitter: { first_name: string, last_name: string };
   offense_type: {
@@ -61,14 +59,14 @@ async function getReportData(reportId: string, user: User) {
   const [reportResult, logResult, appealResult] = await Promise.all([
     supabase
       .from('demerit_reports') 
-      .select(`*, subject:subject_cadet_id ( first_name, last_name ), submitter:submitted_by ( first_name, last_name ), offense_type:offense_type_id ( * )`)
+      // Added linked_incident_id to select
+      .select(`*, linked_incident_id, subject:subject_cadet_id ( first_name, last_name ), submitter:submitted_by ( first_name, last_name ), offense_type:offense_type_id ( * )`)
       .eq('id', reportId)
       .single(),
     supabase
       .from('approval_log')
       .select('*, actor:actor_id(first_name, last_name)')
       .eq('report_id', reportId)
-      // *** FIX: Changed to ascending: true for chronological order (Oldest -> Newest) ***
       .order('created_at', { ascending: true }),
     supabase
       .from('appeals')
@@ -96,8 +94,8 @@ async function getReportData(reportId: string, user: User) {
 
   let escalationTarget: string | null = null
   if (appeal && ['rejected_by_issuer', 'rejected_by_chain'].includes(appeal.status)) {
-     const { data } = await supabase.rpc('get_next_escalation_target', { p_appeal_id: appeal.id });
-     if (data) escalationTarget = data as string
+      const { data } = await supabase.rpc('get_next_escalation_target', { p_appeal_id: appeal.id });
+      if (data) escalationTarget = data as string
   }
 
   // 3. Check all user permissions in parallel
@@ -109,6 +107,7 @@ async function getReportData(reportId: string, user: User) {
   
   const viewerRoleLevel = (viewerProfile?.role as any)?.default_role_level || 0
   const isCommandantStaff = viewerRoleLevel >= 90
+  const isStaff = viewerRoleLevel >= 50 // <--- NEW CHECK
 
   let isApprover = false
   if (report.current_approver_group_id) {
@@ -135,84 +134,48 @@ async function getReportData(reportId: string, user: User) {
   const isSubmitter = report.submitted_by === user.id
   const isCompleted = report.status === 'completed'
   const isPending = report.status === 'pending_approval'
-  
   const canPull = (isSubmitter || isCommandantStaff) && (isCompleted || isPending)
 
   return {
-    report,
-    logs,
-    appeal,
-    offenses,
-    escalationTarget,
-    permissions: {
-      isSubmitter: isSubmitter,
-      isSubject: report.subject_cadet_id === user.id,
-      isApprover,
-      canActOnAppeal,
-      canPull: !!canPull, 
-    }
+    report, logs, appeal, offenses, escalationTarget,
+    isStaff, // <--- PASS THIS
+    permissions: { isSubmitter, isSubject: report.subject_cadet_id === user.id, isApprover, canActOnAppeal, canPull }
   }
 }
-
-export default async function ReportDetailPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params
+  
+export default async function ReportDetailsPage({ params: paramsPromise }: { params: Promise<{ id: string }> }) {
+  const params = await paramsPromise; 
   const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
-  
   if (!user) return redirect('/login')
 
-  // 1. Fetch Report with Incident Link
-  const { data: reportData } = await supabase
-    .from('demerit_reports')
-    .select(`
-        *,
-        subject:profiles!subject_cadet_id(first_name, last_name, company:companies(company_name)),
-        submitter:profiles!submitted_by(first_name, last_name),
-        offense_type(offense_name, demerits),
-        linked_incident_id
-    `) // <--- CLEANED STRING (No comments)
-    .eq('id', id)
-    .single()
+  if (!params.id || params.id === 'undefined' || params.id === 'null') return notFound()
 
-  if (!reportData) return notFound()
-
-  // Cast to any to prevent TypeScript errors on the deep joins
-  const report = reportData as any;
-
-  // 2. Check Viewer Role
-  const { data: profile } = await supabase.from('profiles').select('role:roles(default_role_level)').eq('id', user.id).single()
-  const roleLevel = (profile?.role as any)?.default_role_level || 0
-  const isStaff = roleLevel >= 50
-
+  const data = await getReportData(params.id, user)
+  
   return (
-    <div className="max-w-4xl mx-auto p-4 sm:p-6">
-        {/* HEADER */}
-        <div className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl font-bold dark:text-white">Report Details</h1>
-            <div className="flex gap-2">
-                
-                {/* NEW: Incident Link Button */}
-                {isStaff && report.linked_incident_id && (
-                    <Link 
-                        href={`/incidents/${report.linked_incident_id}`}
-                        className="bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200 px-3 py-2 rounded-md text-sm font-bold border border-orange-200 hover:bg-orange-200 transition-colors flex items-center gap-2"
-                    >
-                        <span>⚠️ View Original Incident</span>
-                    </Link>
-                )}
-
-                <Link href="/" className="text-gray-500 hover:text-gray-700 px-3 py-2">Back</Link>
+    <div className="relative">
+        {/* NEW: View Original Incident Button (Injected at Top) */}
+        {data.isStaff && data.report.linked_incident_id && (
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 -mb-4 flex justify-end">
+                <Link 
+                    href={`/incidents/${data.report.linked_incident_id}`}
+                    className="bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200 px-4 py-2 rounded-md text-sm font-bold border border-orange-200 hover:bg-orange-200 dark:hover:bg-orange-800 transition-colors flex items-center gap-2 shadow-sm"
+                >
+                    <span>⚠️ View Original Incident</span>
+                </Link>
             </div>
-        </div>
+        )}
 
-        {/* ... Rest of your existing Report Details UI ... */}
-        <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
-            {/* Example content */}
-            <h2 className="text-xl font-bold mb-4">{report.offense_type?.offense_name}</h2>
-            <p><strong>Cadet:</strong> {report.subject.last_name}, {report.subject.first_name}</p>
-            <p><strong>Submitted By:</strong> {report.submitter.last_name}, {report.submitter.first_name}</p>
-            {/* ... */}
-        </div>
+        <ReportDetailsClient
+            user={user}
+            initialReport={data.report}
+            initialLogs={data.logs}
+            initialAppeal={data.appeal}
+            offenses={data.offenses}
+            escalationTarget={data.escalationTarget}
+            permissions={data.permissions}
+        />
     </div>
   )
 }

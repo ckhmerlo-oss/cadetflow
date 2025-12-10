@@ -52,8 +52,6 @@ __turbopack_context__.n(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$r
 "[project]/app/report/[id]/page.tsx [app-rsc] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
-// in app/report/[id]/page.tsx
-// NO 'use client' - This is now a Server Component
 __turbopack_context__.s([
     "default",
     ()=>ReportDetailsPage
@@ -63,6 +61,8 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$api$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/next/dist/api/navigation.react-server.js [app-rsc] (ecmascript) <locals>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/components/navigation.react-server.js [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$report$2f5b$id$5d2f$ReportDetailsClient$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/report/[id]/ReportDetailsClient.tsx [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.react-server.js [app-rsc] (ecmascript)"); // Added for the button
+;
 ;
 ;
 ;
@@ -71,9 +71,9 @@ async function getReportData(reportId, user) {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
     // 1. Fetch main report, logs, and appeal in parallel
     const [reportResult, logResult, appealResult] = await Promise.all([
-        supabase.from('demerit_reports').select(`*, subject:subject_cadet_id ( first_name, last_name ), submitter:submitted_by ( first_name, last_name ), offense_type:offense_type_id ( * )`).eq('id', reportId).single(),
-        supabase.from('approval_log').select('*, actor:actor_id(first_name, last_name)').eq('report_id', reportId)// *** FIX: Changed to ascending: true for chronological order (Oldest -> Newest) ***
-        .order('created_at', {
+        supabase.from('demerit_reports')// Added linked_incident_id to select
+        .select(`*, linked_incident_id, subject:subject_cadet_id ( first_name, last_name ), submitter:submitted_by ( first_name, last_name ), offense_type:offense_type_id ( * )`).eq('id', reportId).single(),
+        supabase.from('approval_log').select('*, actor:actor_id(first_name, last_name)').eq('report_id', reportId).order('created_at', {
             ascending: true
         }),
         supabase.from('appeals').select('id, status, justification, current_assignee_id, current_group_id, issuer_comment, chain_comment, final_comment').eq('report_id', reportId).maybeSingle()
@@ -106,6 +106,8 @@ async function getReportData(reportId, user) {
     const { data: viewerProfile } = await supabase.from('profiles').select('role:role_id (default_role_level)').eq('id', user.id).single();
     const viewerRoleLevel = viewerProfile?.role?.default_role_level || 0;
     const isCommandantStaff = viewerRoleLevel >= 90;
+    const isStaff = viewerRoleLevel >= 50 // <--- NEW CHECK
+    ;
     let isApprover = false;
     if (report.current_approver_group_id) {
         const { data: isMember } = await supabase.rpc('is_member_of_approver_group', {
@@ -141,12 +143,13 @@ async function getReportData(reportId, user) {
         appeal,
         offenses,
         escalationTarget,
+        isStaff,
         permissions: {
-            isSubmitter: isSubmitter,
+            isSubmitter,
             isSubject: report.subject_cadet_id === user.id,
             isApprover,
             canActOnAppeal,
-            canPull: !!canPull
+            canPull
         }
     };
 }
@@ -157,17 +160,48 @@ async function ReportDetailsPage({ params: paramsPromise }) {
     if (!user) return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["redirect"])('/login');
     if (!params.id || params.id === 'undefined' || params.id === 'null') return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["notFound"])();
     const data = await getReportData(params.id, user);
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$report$2f5b$id$5d2f$ReportDetailsClient$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
-        user: user,
-        initialReport: data.report,
-        initialLogs: data.logs,
-        initialAppeal: data.appeal,
-        offenses: data.offenses,
-        escalationTarget: data.escalationTarget,
-        permissions: data.permissions
-    }, void 0, false, {
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "relative",
+        children: [
+            data.isStaff && data.report.linked_incident_id && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 -mb-4 flex justify-end",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                    href: `/incidents/${data.report.linked_incident_id}`,
+                    className: "bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200 px-4 py-2 rounded-md text-sm font-bold border border-orange-200 hover:bg-orange-200 dark:hover:bg-orange-800 transition-colors flex items-center gap-2 shadow-sm",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                        children: "⚠️ View Original Incident"
+                    }, void 0, false, {
+                        fileName: "[project]/app/report/[id]/page.tsx",
+                        lineNumber: 165,
+                        columnNumber: 21
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/app/report/[id]/page.tsx",
+                    lineNumber: 161,
+                    columnNumber: 17
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/report/[id]/page.tsx",
+                lineNumber: 160,
+                columnNumber: 13
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$report$2f5b$id$5d2f$ReportDetailsClient$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                user: user,
+                initialReport: data.report,
+                initialLogs: data.logs,
+                initialAppeal: data.appeal,
+                offenses: data.offenses,
+                escalationTarget: data.escalationTarget,
+                permissions: data.permissions
+            }, void 0, false, {
+                fileName: "[project]/app/report/[id]/page.tsx",
+                lineNumber: 170,
+                columnNumber: 9
+            }, this)
+        ]
+    }, void 0, true, {
         fileName: "[project]/app/report/[id]/page.tsx",
-        lineNumber: 167,
+        lineNumber: 157,
         columnNumber: 5
     }, this);
 }

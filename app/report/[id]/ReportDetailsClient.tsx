@@ -65,6 +65,8 @@ interface ReportDetailsClientProps {
   initialAppeal: Appeal | null;
   offenses: OffenseType[];
   escalationTarget: string | null;
+  linkedIncidentId?: string | null; // <--- NEW
+  isStaff?: boolean;                // <--- NEW
   permissions: {
     isSubmitter: boolean;
     isSubject: boolean;
@@ -72,6 +74,7 @@ interface ReportDetailsClientProps {
     canActOnAppeal: boolean;
     canPull: boolean; // <-- ADDED
   }
+  
 }
 
 /**
@@ -479,6 +482,7 @@ export default function ReportDetailsClient({
           <p className="mt-2 text-sm text-gray-800 dark:text-gray-200 bg-gray-50 dark:bg-gray-700/50 p-4 rounded-md whitespace-pre-wrap">
             {report.notes || "No notes provided."}
           </p>
+          
 
           {/* --- APPEAL ACTION BOX --- */}
           {canActOnAppeal && !isEditing && (

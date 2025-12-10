@@ -295,7 +295,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                             children: "Edit Report"
                         }, void 0, false, {
                             fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                            lineNumber: 312,
+                            lineNumber: 315,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -308,7 +308,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                             children: "Date"
                                         }, void 0, false, {
                                             fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                            lineNumber: 315,
+                                            lineNumber: 318,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -319,13 +319,13 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                             className: "mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm"
                                         }, void 0, false, {
                                             fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                            lineNumber: 316,
+                                            lineNumber: 319,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 314,
+                                    lineNumber: 317,
                                     columnNumber: 16
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -335,7 +335,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                             children: "Time"
                                         }, void 0, false, {
                                             fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                            lineNumber: 319,
+                                            lineNumber: 322,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -346,19 +346,19 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                             className: "mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm"
                                         }, void 0, false, {
                                             fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                            lineNumber: 320,
+                                            lineNumber: 323,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 318,
+                                    lineNumber: 321,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                            lineNumber: 313,
+                            lineNumber: 316,
                             columnNumber: 14
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -368,7 +368,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                     children: "Offense"
                                 }, void 0, false, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 324,
+                                    lineNumber: 327,
                                     columnNumber: 16
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -388,23 +388,23 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                                     ]
                                                 }, o.id, true, {
                                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                                    lineNumber: 327,
+                                                    lineNumber: 330,
                                                     columnNumber: 71
                                                 }, this))
                                         }, group, false, {
                                             fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                            lineNumber: 327,
+                                            lineNumber: 330,
                                             columnNumber: 20
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 325,
+                                    lineNumber: 328,
                                     columnNumber: 16
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                            lineNumber: 323,
+                            lineNumber: 326,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -414,7 +414,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                     children: "Notes"
                                 }, void 0, false, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 332,
+                                    lineNumber: 335,
                                     columnNumber: 16
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -424,13 +424,13 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                     className: "mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm"
                                 }, void 0, false, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 333,
+                                    lineNumber: 336,
                                     columnNumber: 16
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                            lineNumber: 331,
+                            lineNumber: 334,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -444,7 +444,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 336,
+                                    lineNumber: 339,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -454,24 +454,24 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                     children: isActionLoading ? 'Saving...' : 'Resubmit'
                                 }, void 0, false, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 337,
+                                    lineNumber: 340,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                            lineNumber: 335,
+                            lineNumber: 338,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                    lineNumber: 311,
+                    lineNumber: 314,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                lineNumber: 310,
+                lineNumber: 313,
                 columnNumber: 9
             }, this) : isAppealing ? // ... (JSX remains the same)
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -485,7 +485,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                             children: "Appeal this Report"
                         }, void 0, false, {
                             fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                            lineNumber: 348,
+                            lineNumber: 351,
                             columnNumber: 18
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -496,14 +496,14 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                     children: formatName(report.submitter)
                                 }, void 0, false, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 350,
+                                    lineNumber: 353,
                                     columnNumber: 74
                                 }, this),
                                 " for review."
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                            lineNumber: 349,
+                            lineNumber: 352,
                             columnNumber: 18
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -514,7 +514,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                     children: "Justification / Defense"
                                 }, void 0, false, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 353,
+                                    lineNumber: 356,
                                     columnNumber: 22
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -527,13 +527,13 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                     placeholder: "I respectfully appeal this report because..."
                                 }, void 0, false, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 354,
+                                    lineNumber: 357,
                                     columnNumber: 22
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                            lineNumber: 352,
+                            lineNumber: 355,
                             columnNumber: 18
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -547,7 +547,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 357,
+                                    lineNumber: 360,
                                     columnNumber: 22
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -557,24 +557,24 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                     children: isActionLoading ? 'Submitting...' : 'Submit Appeal'
                                 }, void 0, false, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 358,
+                                    lineNumber: 361,
                                     columnNumber: 22
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                            lineNumber: 356,
+                            lineNumber: 359,
                             columnNumber: 18
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                    lineNumber: 347,
+                    lineNumber: 350,
                     columnNumber: 14
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                lineNumber: 346,
+                lineNumber: 349,
                 columnNumber: 10
             }, this) : isEscalating && appeal ? // ... (JSX remains the same)
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -588,7 +588,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                             children: "Escalate Appeal"
                         }, void 0, false, {
                             fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                            lineNumber: 369,
+                            lineNumber: 372,
                             columnNumber: 18
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -597,7 +597,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                 "You are escalating this appeal to the next level in the chain of command:",
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 372,
+                                    lineNumber: 375,
                                     columnNumber: 21
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
@@ -605,13 +605,13 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                     children: escalationTarget || 'Loading next step...'
                                 }, void 0, false, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 373,
+                                    lineNumber: 376,
                                     columnNumber: 21
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                            lineNumber: 370,
+                            lineNumber: 373,
                             columnNumber: 18
                         }, this),
                         appeal.issuer_comment && appeal.status === 'rejected_by_issuer' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -622,7 +622,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                     children: "Issuer's Reason for Rejection:"
                                 }, void 0, false, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 380,
+                                    lineNumber: 383,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -634,13 +634,13 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 381,
+                                    lineNumber: 384,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                            lineNumber: 379,
+                            lineNumber: 382,
                             columnNumber: 21
                         }, this),
                         appeal.chain_comment && appeal.status === 'rejected_by_chain' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -651,7 +651,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                     children: "Chain of Command's Reason for Rejection:"
                                 }, void 0, false, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 386,
+                                    lineNumber: 389,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -663,13 +663,13 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 387,
+                                    lineNumber: 390,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                            lineNumber: 385,
+                            lineNumber: 388,
                             columnNumber: 21
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -680,7 +680,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                     children: "Update Justification (Optional)"
                                 }, void 0, false, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 392,
+                                    lineNumber: 395,
                                     columnNumber: 22
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -692,13 +692,13 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                     className: "mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm"
                                 }, void 0, false, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 393,
+                                    lineNumber: 396,
                                     columnNumber: 22
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                            lineNumber: 391,
+                            lineNumber: 394,
                             columnNumber: 18
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -712,7 +712,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 396,
+                                    lineNumber: 399,
                                     columnNumber: 22
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -722,24 +722,24 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                     children: isActionLoading ? 'Escalating...' : 'Confirm Escalation'
                                 }, void 0, false, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 397,
+                                    lineNumber: 400,
                                     columnNumber: 22
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                            lineNumber: 395,
+                            lineNumber: 398,
                             columnNumber: 18
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                    lineNumber: 368,
+                    lineNumber: 371,
                     columnNumber: 14
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                lineNumber: 367,
+                lineNumber: 370,
                 columnNumber: 10
             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "bg-white dark:bg-gray-800 p-6 rounded-lg shadow",
@@ -752,7 +752,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                 children: report.offense_type.offense_name
                             }, void 0, false, {
                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                lineNumber: 408,
+                                lineNumber: 411,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -760,13 +760,13 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                 children: formatStatus(report.status)
                             }, void 0, false, {
                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                lineNumber: 409,
+                                lineNumber: 412,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                        lineNumber: 407,
+                        lineNumber: 410,
                         columnNumber: 11
                     }, this),
                     appeal && // ... (JSX remains the same)
@@ -783,7 +783,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                             children: "Appeal Status"
                                         }, void 0, false, {
                                             fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                            lineNumber: 425,
+                                            lineNumber: 428,
                                             columnNumber: 27
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -791,18 +791,18 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                             children: formatAppealStatus(appeal.status)
                                         }, void 0, false, {
                                             fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                            lineNumber: 426,
+                                            lineNumber: 429,
                                             columnNumber: 27
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 424,
+                                    lineNumber: 427,
                                     columnNumber: 23
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                lineNumber: 423,
+                                lineNumber: 426,
                                 columnNumber: 19
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -813,7 +813,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                         children: "Appeal Record"
                                     }, void 0, false, {
                                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                        lineNumber: 433,
+                                        lineNumber: 436,
                                         columnNumber: 23
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -824,7 +824,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                                 children: "Cadet Justification"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                                lineNumber: 435,
+                                                lineNumber: 438,
                                                 columnNumber: 27
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -832,13 +832,13 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                                 children: appeal.justification
                                             }, void 0, false, {
                                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                                lineNumber: 436,
+                                                lineNumber: 439,
                                                 columnNumber: 27
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                        lineNumber: 434,
+                                        lineNumber: 437,
                                         columnNumber: 23
                                     }, this),
                                     appeal.issuer_comment && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -849,7 +849,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                                 children: "Issuer Note"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                                lineNumber: 440,
+                                                lineNumber: 443,
                                                 columnNumber: 31
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -857,13 +857,13 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                                 children: appeal.issuer_comment
                                             }, void 0, false, {
                                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                                lineNumber: 441,
+                                                lineNumber: 444,
                                                 columnNumber: 31
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                        lineNumber: 439,
+                                        lineNumber: 442,
                                         columnNumber: 27
                                     }, this),
                                     appeal.chain_comment && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -874,7 +874,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                                 children: "Chain of Command Note"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                                lineNumber: 446,
+                                                lineNumber: 449,
                                                 columnNumber: 31
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -882,13 +882,13 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                                 children: appeal.chain_comment
                                             }, void 0, false, {
                                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                                lineNumber: 447,
+                                                lineNumber: 450,
                                                 columnNumber: 31
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                        lineNumber: 445,
+                                        lineNumber: 448,
                                         columnNumber: 27
                                     }, this),
                                     appeal.final_comment && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -899,7 +899,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                                 children: "Final Decision"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                                lineNumber: 452,
+                                                lineNumber: 455,
                                                 columnNumber: 31
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -907,25 +907,25 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                                 children: appeal.final_comment
                                             }, void 0, false, {
                                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                                lineNumber: 455,
+                                                lineNumber: 458,
                                                 columnNumber: 31
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                        lineNumber: 451,
+                                        lineNumber: 454,
                                         columnNumber: 27
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                lineNumber: 432,
+                                lineNumber: 435,
                                 columnNumber: 19
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                        lineNumber: 422,
+                        lineNumber: 425,
                         columnNumber: 15
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -938,7 +938,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                         children: "Subject"
                                     }, void 0, false, {
                                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                        lineNumber: 464,
+                                        lineNumber: 467,
                                         columnNumber: 18
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -946,13 +946,13 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                         children: formatName(report.subject)
                                     }, void 0, false, {
                                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                        lineNumber: 464,
+                                        lineNumber: 467,
                                         columnNumber: 99
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                lineNumber: 464,
+                                lineNumber: 467,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -962,7 +962,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                         children: "Submitted By"
                                     }, void 0, false, {
                                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                        lineNumber: 465,
+                                        lineNumber: 468,
                                         columnNumber: 18
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -970,13 +970,13 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                         children: formatName(report.submitter)
                                     }, void 0, false, {
                                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                        lineNumber: 465,
+                                        lineNumber: 468,
                                         columnNumber: 104
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                lineNumber: 465,
+                                lineNumber: 468,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -986,7 +986,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                         children: "Date & Time"
                                     }, void 0, false, {
                                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                        lineNumber: 466,
+                                        lineNumber: 469,
                                         columnNumber: 18
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1000,13 +1000,13 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                         })
                                     }, void 0, false, {
                                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                        lineNumber: 466,
+                                        lineNumber: 469,
                                         columnNumber: 103
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                lineNumber: 466,
+                                lineNumber: 469,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1016,7 +1016,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                         children: "Category"
                                     }, void 0, false, {
                                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                        lineNumber: 467,
+                                        lineNumber: 470,
                                         columnNumber: 18
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1027,13 +1027,13 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                        lineNumber: 467,
+                                        lineNumber: 470,
                                         columnNumber: 100
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                lineNumber: 467,
+                                lineNumber: 470,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1043,7 +1043,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                         children: "Demerits"
                                     }, void 0, false, {
                                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                        lineNumber: 469,
+                                        lineNumber: 472,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1055,7 +1055,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                                     children: report.offense_type.demerits
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                                    lineNumber: 472,
+                                                    lineNumber: 475,
                                                     columnNumber: 27
                                                 }, this),
                                                 report.demerits_effective
@@ -1063,19 +1063,19 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                         }, void 0, true) : report.demerits_effective
                                     }, void 0, false, {
                                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                        lineNumber: 470,
+                                        lineNumber: 473,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                lineNumber: 468,
+                                lineNumber: 471,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                        lineNumber: 462,
+                        lineNumber: 465,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -1083,7 +1083,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                         children: "Notes:"
                     }, void 0, false, {
                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                        lineNumber: 478,
+                        lineNumber: 481,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1091,7 +1091,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                         children: report.notes || "No notes provided."
                     }, void 0, false, {
                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                        lineNumber: 479,
+                        lineNumber: 482,
                         columnNumber: 11
                     }, this),
                     canActOnAppeal && !isEditing && // ... (JSX remains the same)
@@ -1103,7 +1103,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                 children: "Appeal Action Required"
                             }, void 0, false, {
                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                lineNumber: 487,
+                                lineNumber: 491,
                                 columnNumber: 19
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -1114,7 +1114,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                 rows: 3
                             }, void 0, false, {
                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                lineNumber: 488,
+                                lineNumber: 492,
                                 columnNumber: 19
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1127,7 +1127,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                         children: appeal?.status === 'pending_commandant' ? 'Final Approval (Grant Appeal)' : 'Grant & Forward to Next Level'
                                     }, void 0, false, {
                                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                        lineNumber: 490,
+                                        lineNumber: 494,
                                         columnNumber: 23
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1137,19 +1137,19 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                         children: "Reject Appeal"
                                     }, void 0, false, {
                                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                        lineNumber: 493,
+                                        lineNumber: 497,
                                         columnNumber: 23
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                lineNumber: 489,
+                                lineNumber: 493,
                                 columnNumber: 19
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                        lineNumber: 486,
+                        lineNumber: 490,
                         columnNumber: 15
                     }, this),
                     (canAppeal || canEscalate || canPull) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1162,7 +1162,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                         children: "If you believe this report was issued in error, you may submit an appeal."
                                     }, void 0, false, {
                                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                        lineNumber: 504,
+                                        lineNumber: 508,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1171,13 +1171,13 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                         children: "Appeal this Report"
                                     }, void 0, false, {
                                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                        lineNumber: 505,
+                                        lineNumber: 509,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                lineNumber: 503,
+                                lineNumber: 507,
                                 columnNumber: 22
                             }, this),
                             canEscalate && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1187,7 +1187,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                         children: "Your appeal was rejected. You may accept this decision or escalate it."
                                     }, void 0, false, {
                                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                        lineNumber: 510,
+                                        lineNumber: 514,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1199,13 +1199,13 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                         children: "Escalate Appeal"
                                     }, void 0, false, {
                                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                        lineNumber: 511,
+                                        lineNumber: 515,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                lineNumber: 509,
+                                lineNumber: 513,
                                 columnNumber: 23
                             }, this),
                             canPull && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1215,7 +1215,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                         children: "You can pull this report. This is a final action and should be used for reports submitted or approved in error."
                                     }, void 0, false, {
                                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                        lineNumber: 517,
+                                        lineNumber: 521,
                                         columnNumber: 26
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1224,25 +1224,25 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                         children: "Pull Report"
                                     }, void 0, false, {
                                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                        lineNumber: 518,
+                                        lineNumber: 522,
                                         columnNumber: 26
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                lineNumber: 516,
+                                lineNumber: 520,
                                 columnNumber: 23
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                        lineNumber: 501,
+                        lineNumber: 505,
                         columnNumber: 15
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                lineNumber: 405,
+                lineNumber: 408,
                 columnNumber: 9
             }, this),
             showActionBox && // ... (JSX remains the same)
@@ -1254,7 +1254,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                         children: "Actions"
                     }, void 0, false, {
                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                        lineNumber: 537,
+                        lineNumber: 541,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -1265,7 +1265,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                         rows: 3
                     }, void 0, false, {
                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                        lineNumber: 538,
+                        lineNumber: 542,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1278,7 +1278,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                 children: "Approve"
                             }, void 0, false, {
                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                lineNumber: 540,
+                                lineNumber: 544,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1288,7 +1288,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                 children: "Kick-back"
                             }, void 0, false, {
                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                lineNumber: 541,
+                                lineNumber: 545,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1298,19 +1298,19 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                 children: "Reject"
                             }, void 0, false, {
                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                lineNumber: 542,
+                                lineNumber: 546,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                        lineNumber: 539,
+                        lineNumber: 543,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                lineNumber: 536,
+                lineNumber: 540,
                 columnNumber: 9
             }, this),
             showRevisionBox && // ... (JSX remains the same)
@@ -1322,7 +1322,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                         children: "Needs Revision"
                     }, void 0, false, {
                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                        lineNumber: 550,
+                        lineNumber: 554,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1331,13 +1331,13 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                         children: "Edit Report"
                     }, void 0, false, {
                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                        lineNumber: 551,
+                        lineNumber: 555,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                lineNumber: 549,
+                lineNumber: 553,
                 columnNumber: 9
             }, this),
             !isEditing && !isAppealing && !isEscalating && // ... (JSX remains the same)
@@ -1349,7 +1349,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                         children: "History"
                     }, void 0, false, {
                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                        lineNumber: 559,
+                        lineNumber: 563,
                         columnNumber: 13
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
@@ -1367,7 +1367,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                                         children: formatName(log.actor)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                                        lineNumber: 564,
+                                                        lineNumber: 568,
                                                         columnNumber: 89
                                                     }, this),
                                                     ": ",
@@ -1375,7 +1375,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                                lineNumber: 564,
+                                                lineNumber: 568,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1383,13 +1383,13 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                                 children: new Date(log.created_at).toLocaleString()
                                             }, void 0, false, {
                                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                                lineNumber: 565,
+                                                lineNumber: 569,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                        lineNumber: 563,
+                                        lineNumber: 567,
                                         columnNumber: 19
                                     }, this),
                                     log.comment && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1401,31 +1401,31 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                        lineNumber: 567,
+                                        lineNumber: 571,
                                         columnNumber: 35
                                     }, this)
                                 ]
                             }, log.id, true, {
                                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                lineNumber: 562,
+                                lineNumber: 566,
                                 columnNumber: 17
                             }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                             className: "text-gray-500 dark:text-gray-400",
                             children: "No history yet."
                         }, void 0, false, {
                             fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                            lineNumber: 569,
+                            lineNumber: 573,
                             columnNumber: 20
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                        lineNumber: 560,
+                        lineNumber: 564,
                         columnNumber: 13
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                lineNumber: 558,
+                lineNumber: 562,
                 columnNumber: 11
             }, this),
             isPullModalOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1438,7 +1438,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                             children: "Pull Report"
                         }, void 0, false, {
                             fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                            lineNumber: 578,
+                            lineNumber: 582,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1449,14 +1449,14 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                     children: "0"
                                 }, void 0, false, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 580,
+                                    lineNumber: 584,
                                     columnNumber: 92
                                 }, this),
                                 " and remove any associated tours. This action is logged and cannot be undone."
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                            lineNumber: 579,
+                            lineNumber: 583,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1468,7 +1468,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                     children: "Reason / Comment (Required)"
                                 }, void 0, false, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 584,
+                                    lineNumber: 588,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -1480,13 +1480,13 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                     placeholder: "e.g., 'Pulled per discussion with cadet and issuer.'"
                                 }, void 0, false, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 587,
+                                    lineNumber: 591,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                            lineNumber: 583,
+                            lineNumber: 587,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1500,7 +1500,7 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 598,
+                                    lineNumber: 602,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -1511,30 +1511,30 @@ function ReportDetailsClient({ user, initialReport, initialLogs, initialAppeal, 
                                     children: isActionLoading ? 'Pulling...' : 'Confirm Pull'
                                 }, void 0, false, {
                                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                                    lineNumber: 606,
+                                    lineNumber: 610,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                            lineNumber: 597,
+                            lineNumber: 601,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                    lineNumber: 577,
+                    lineNumber: 581,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-                lineNumber: 576,
+                lineNumber: 580,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/report/[id]/ReportDetailsClient.tsx",
-        lineNumber: 305,
+        lineNumber: 308,
         columnNumber: 5
     }, this);
 }

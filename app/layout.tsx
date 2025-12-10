@@ -56,13 +56,20 @@ export default async function RootLayout({
     hasSeenTour = profile?.has_seen_tour || false;
 
     // Dynamic Logo Logic
-    if (roleLevel >= 60 || (roles?.role_name && roles.role_name.includes('TAC'))) {
+    if (roles?.role_name && roles.role_name.includes('Band Director')) {
+      logoText = "BandSucks"
+      logoColor = "text-yellow-900 hover:text-red-900"
+    } else if (roleLevel >= 60 || (roles?.role_name && roles.role_name.includes('TAC'))) {
       logoText = "TACFlow";
       logoColor = "text-red-600 hover:text-red-700";
     } else if (company?.company_name === 'Battalion Staff') { 
       logoText = "StaffFlow";
       logoColor = "text-yellow-600 hover:text-yellow-700";
+    } else if (roleLevel == 50) {
+      logoText = "TeacherFlow"
+      logoColor = "text-sky-400 hover:text-sky-500"
     }
+
   }
   
   return (

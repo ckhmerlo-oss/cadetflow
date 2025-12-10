@@ -1,16 +1,9 @@
 {
-  "/action-items/page": "app/action-items/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
   "/incidents/[id]/page": "app/incidents/[id]/page.js",
   "/incidents/create/page": "app/incidents/create/page.js",
   "/incidents/page": "app/incidents/page.js",
-  "/ledger/[id]/page": "app/ledger/[id]/page.js",
   "/login/page": "app/login/page.js",
-  "/manage/page": "app/manage/page.js",
   "/page": "app/page.js",
-  "/profile/[id]/page": "app/profile/[id]/page.js",
-  "/report/[id]/page": "app/report/[id]/page.js",
-  "/reports/daily/page": "app/reports/daily/page.js",
-  "/reports/pending/page": "app/reports/pending/page.js",
-  "/sports/page": "app/sports/page.js",
-  "/submit/page": "app/submit/page.js"
+  "/report/[id]/page": "app/report/[id]/page.js"
 }

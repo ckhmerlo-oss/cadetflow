@@ -144,19 +144,24 @@ export async function resolveAsHandled(incidentId: string, notes: string, handle
 }
 
 // 2. UPDATED: Convert with Submitter Swap
+// ... imports
+
+// 2. UPDATED: Convert to Demerit
 export async function convertToDemerit(incidentId: string, offenseTypeId: string, notes: string) {
     const supabase = createClient()
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return { error: 'Unauthorized' }
 
+    // 1. Get Incident
     const { data: incident } = await supabase.from('incident_reports').select('*').eq('id', incidentId).single()
     if (!incident) return { error: "Incident not found" }
 
+    // 2. Prepare Timestamps (Safe Handling)
     const incidentTime = new Date(incident.incident_time).getTime()
     const nowTime = new Date().getTime()
     const safeTimestamp = (incidentTime > nowTime) ? new Date().toISOString() : incident.incident_time;
 
-    // A. Create Report (Default submitter is TAC)
+    // 3. Create Report (Initially owned by TAC)
     const { error: rpcError } = await supabase.rpc('create_new_report', {
         p_subject_cadet_id: incident.subject_cadet_id,
         p_offense_type_id: offenseTypeId,
@@ -164,31 +169,42 @@ export async function convertToDemerit(incidentId: string, offenseTypeId: string
         p_offense_timestamp: safeTimestamp
     })
 
-    if (rpcError) return { error: "Failed to create report: " + rpcError.message }
+    if (rpcError) {
+        console.error("RPC Error:", rpcError);
+        return { error: "Failed to create report: " + rpcError.message }
+    }
 
-    // B. Find the new report
+    // 4. Find the report we just created
+    // We assume the most recent report by this TAC for this Student is the one.
     const { data: newReport } = await supabase
         .from('demerit_reports')
         .select('id')
-        .eq('submitted_by', user.id) // It was just created by me
+        .eq('submitted_by', user.id)
         .eq('subject_cadet_id', incident.subject_cadet_id)
         .order('created_at', { ascending: false })
         .limit(1)
         .single()
 
     if (newReport) {
-        // C. SWAP SUBMITTER & Link Incident
-        // We set submitted_by to the ORIGINAL reporter (The Teacher)
-        await supabase
+        // 5. CRITICAL: Swap Submitter to Original Reporter
+        // Note: The TAC must have UPDATE permission on 'demerit_reports' for this to work.
+        const { error: updateError } = await supabase
             .from('demerit_reports')
             .update({ 
                 linked_incident_id: incidentId,
-                submitted_by: incident.reporter_id 
+                submitted_by: incident.reporter_id // <--- The Teacher's ID
             })
             .eq('id', newReport.id)
+        
+        if (updateError) {
+            console.error("Failed to swap submitter:", updateError);
+            // We don't abort, but we log it. The report exists, just attributed to TAC.
+        }
+    } else {
+        console.error("Could not find the newly created report to link.");
     }
 
-    // D. Close Incident
+    // 6. Close Incident
     await supabase
         .from('incident_reports')
         .update({

@@ -13,7 +13,7 @@ var pullReportAction = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$proj
 }),
 "[project]/app/report/[id]/ReportDetailsClient.tsx [app-ssr] (ecmascript)", ((__turbopack_context__, module, exports) => {
 
-const e = new Error("Could not parse module '[project]/app/report/[id]/ReportDetailsClient.tsx'\n\nExpected ',', got 'of'");
+const e = new Error("Could not parse module '[project]/app/report/[id]/ReportDetailsClient.tsx'\n\nExpression expected");
 e.code = 'MODULE_UNPARSABLE';
 throw e;
 }),
