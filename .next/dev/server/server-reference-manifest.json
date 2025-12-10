@@ -1,290 +1,257 @@
 {
   "node": {
-    "0056f82085b8a9696d7538953646288bff9ffd913c": {
+    "00e4f1a0ba0cc7d8a046021ef05aa736acf6732c44": {
       "workers": {
-        "app/sports/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/action-items/page": {
+          "moduleId": "[project]/.next-internal/server/app/action-items/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "getGlobalUpcomingEvents",
-          "filename": "app/sports/actions.ts"
+          "exportedName": "getFacultyList",
+          "filename": "app/incidents/actions.ts"
         },
-        "app/sports/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/incidents/[id]/page": {
+          "moduleId": "[project]/.next-internal/server/app/incidents/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "getGlobalUpcomingEvents",
-          "filename": "app/sports/actions.ts"
+          "exportedName": "getFacultyList",
+          "filename": "app/incidents/actions.ts"
+        },
+        "app/incidents/page": {
+          "moduleId": "[project]/.next-internal/server/app/incidents/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getFacultyList",
+          "filename": "app/incidents/actions.ts"
+        },
+        "app/page": {
+          "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getFacultyList",
+          "filename": "app/incidents/actions.ts"
         }
       },
       "layer": {
-        "app/sports/[id]/page": "rsc",
-        "app/sports/page": "rsc"
+        "app/action-items/page": "rsc",
+        "app/incidents/[id]/page": "rsc",
+        "app/incidents/page": "action-browser",
+        "app/page": "rsc"
       },
-      "filename": "app/sports/actions.ts",
-      "exportedName": "getGlobalUpcomingEvents"
+      "filename": "app/incidents/actions.ts",
+      "exportedName": "getFacultyList"
     },
-    "4020939cefe5ed57a621e116e4fae7b42139699381": {
+    "406e64145935d3c85c96a65916dd8989009b3202e5": {
       "workers": {
-        "app/sports/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/action-items/page": {
+          "moduleId": "[project]/.next-internal/server/app/action-items/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "claimHeadCoach",
-          "filename": "app/sports/actions.ts"
+          "exportedName": "getIncidents",
+          "filename": "app/incidents/actions.ts"
         },
-        "app/sports/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/incidents/[id]/page": {
+          "moduleId": "[project]/.next-internal/server/app/incidents/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "claimHeadCoach",
-          "filename": "app/sports/actions.ts"
+          "exportedName": "getIncidents",
+          "filename": "app/incidents/actions.ts"
+        },
+        "app/incidents/page": {
+          "moduleId": "[project]/.next-internal/server/app/incidents/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getIncidents",
+          "filename": "app/incidents/actions.ts"
+        },
+        "app/page": {
+          "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getIncidents",
+          "filename": "app/incidents/actions.ts"
         }
       },
       "layer": {
-        "app/sports/[id]/page": "action-browser",
-        "app/sports/page": "rsc"
+        "app/action-items/page": "rsc",
+        "app/incidents/[id]/page": "rsc",
+        "app/incidents/page": "rsc",
+        "app/page": "rsc"
       },
-      "filename": "app/sports/actions.ts",
-      "exportedName": "claimHeadCoach"
+      "filename": "app/incidents/actions.ts",
+      "exportedName": "getIncidents"
     },
-    "4054e673984498214f2c0017bd88e2e13ce72d3eee": {
+    "408344156e4ed25a1fde2a16b1330b0e00502be22b": {
       "workers": {
-        "app/sports/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/action-items/page": {
+          "moduleId": "[project]/.next-internal/server/app/action-items/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "getSportDetail",
-          "filename": "app/sports/actions.ts"
+          "exportedName": "getIncident",
+          "filename": "app/incidents/actions.ts"
         },
-        "app/sports/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/incidents/[id]/page": {
+          "moduleId": "[project]/.next-internal/server/app/incidents/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "getSportDetail",
-          "filename": "app/sports/actions.ts"
+          "exportedName": "getIncident",
+          "filename": "app/incidents/actions.ts"
+        },
+        "app/incidents/page": {
+          "moduleId": "[project]/.next-internal/server/app/incidents/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getIncident",
+          "filename": "app/incidents/actions.ts"
+        },
+        "app/page": {
+          "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getIncident",
+          "filename": "app/incidents/actions.ts"
         }
       },
       "layer": {
-        "app/sports/[id]/page": "rsc",
-        "app/sports/page": "rsc"
+        "app/action-items/page": "rsc",
+        "app/incidents/[id]/page": "rsc",
+        "app/incidents/page": "rsc",
+        "app/page": "rsc"
       },
-      "filename": "app/sports/actions.ts",
-      "exportedName": "getSportDetail"
+      "filename": "app/incidents/actions.ts",
+      "exportedName": "getIncident"
     },
-    "406da3cc3a7863d208c65296d2a20a9d8453b4070e": {
+    "40ea4824ebb15e230302cbedc00d4d62f0c65d0aa6": {
       "workers": {
-        "app/sports/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/action-items/page": {
+          "moduleId": "[project]/.next-internal/server/app/action-items/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "searchCadets",
-          "filename": "app/sports/actions.ts"
+          "exportedName": "submitIncident",
+          "filename": "app/incidents/actions.ts"
         },
-        "app/sports/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/incidents/[id]/page": {
+          "moduleId": "[project]/.next-internal/server/app/incidents/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "searchCadets",
-          "filename": "app/sports/actions.ts"
+          "exportedName": "submitIncident",
+          "filename": "app/incidents/actions.ts"
+        },
+        "app/incidents/create/page": {
+          "moduleId": "[project]/.next-internal/server/app/incidents/create/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "submitIncident",
+          "filename": "app/incidents/actions.ts"
+        },
+        "app/incidents/page": {
+          "moduleId": "[project]/.next-internal/server/app/incidents/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "submitIncident",
+          "filename": "app/incidents/actions.ts"
+        },
+        "app/page": {
+          "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "submitIncident",
+          "filename": "app/incidents/actions.ts"
         }
       },
       "layer": {
-        "app/sports/[id]/page": "action-browser",
-        "app/sports/page": "rsc"
+        "app/action-items/page": "rsc",
+        "app/incidents/[id]/page": "rsc",
+        "app/incidents/create/page": "action-browser",
+        "app/incidents/page": "rsc",
+        "app/page": "rsc"
       },
-      "filename": "app/sports/actions.ts",
-      "exportedName": "searchCadets"
+      "filename": "app/incidents/actions.ts",
+      "exportedName": "submitIncident"
     },
-    "408fdd430e78ed2c34877d73295eaadcfb25b907ca": {
+    "7035c2aaaf1773684eb282a8a9910abbd39397ec48": {
       "workers": {
-        "app/sports/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/action-items/page": {
+          "moduleId": "[project]/.next-internal/server/app/action-items/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "getSportsList",
-          "filename": "app/sports/actions.ts"
+          "exportedName": "resolveAsHandled",
+          "filename": "app/incidents/actions.ts"
         },
-        "app/sports/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/incidents/[id]/page": {
+          "moduleId": "[project]/.next-internal/server/app/incidents/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "getSportsList",
-          "filename": "app/sports/actions.ts"
+          "exportedName": "resolveAsHandled",
+          "filename": "app/incidents/actions.ts"
+        },
+        "app/incidents/page": {
+          "moduleId": "[project]/.next-internal/server/app/incidents/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "resolveAsHandled",
+          "filename": "app/incidents/actions.ts"
+        },
+        "app/page": {
+          "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "resolveAsHandled",
+          "filename": "app/incidents/actions.ts"
         }
       },
       "layer": {
-        "app/sports/[id]/page": "rsc",
-        "app/sports/page": "rsc"
+        "app/action-items/page": "rsc",
+        "app/incidents/[id]/page": "action-browser",
+        "app/incidents/page": "action-browser",
+        "app/page": "rsc"
       },
-      "filename": "app/sports/actions.ts",
-      "exportedName": "getSportsList"
+      "filename": "app/incidents/actions.ts",
+      "exportedName": "resolveAsHandled"
     },
-    "40945801c6a903306bf62a35b89a8a584588570bbc": {
+    "7076eee2a0cf223033228c5b7d0ef86c0eebc0d9f7": {
       "workers": {
-        "app/sports/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/action-items/page": {
+          "moduleId": "[project]/.next-internal/server/app/action-items/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "getUnassignedCadets",
-          "filename": "app/sports/actions.ts"
+          "exportedName": "convertToDemerit",
+          "filename": "app/incidents/actions.ts"
         },
-        "app/sports/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/incidents/[id]/page": {
+          "moduleId": "[project]/.next-internal/server/app/incidents/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "getUnassignedCadets",
-          "filename": "app/sports/actions.ts"
+          "exportedName": "convertToDemerit",
+          "filename": "app/incidents/actions.ts"
+        },
+        "app/incidents/page": {
+          "moduleId": "[project]/.next-internal/server/app/incidents/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "convertToDemerit",
+          "filename": "app/incidents/actions.ts"
+        },
+        "app/page": {
+          "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "convertToDemerit",
+          "filename": "app/incidents/actions.ts"
         }
       },
       "layer": {
-        "app/sports/[id]/page": "rsc",
-        "app/sports/page": "rsc"
+        "app/action-items/page": "rsc",
+        "app/incidents/[id]/page": "action-browser",
+        "app/incidents/page": "action-browser",
+        "app/page": "rsc"
       },
-      "filename": "app/sports/actions.ts",
-      "exportedName": "getUnassignedCadets"
+      "filename": "app/incidents/actions.ts",
+      "exportedName": "convertToDemerit"
     },
-    "40eadd2b43fd360d4359d65c22f03ac48ffbe4b0e9": {
+    "601825c1ce798c77ae07c6930e3a294bdc9c1e2f2a": {
       "workers": {
-        "app/sports/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/report/[id]/page": {
+          "moduleId": "[project]/.next-internal/server/app/report/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/report/[id]/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "searchFaculty",
-          "filename": "app/sports/actions.ts"
-        },
-        "app/sports/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "searchFaculty",
-          "filename": "app/sports/actions.ts"
+          "exportedName": "pullReportAction",
+          "filename": "app/report/[id]/actions.ts"
         }
       },
       "layer": {
-        "app/sports/[id]/page": "action-browser",
-        "app/sports/page": "rsc"
+        "app/report/[id]/page": "action-browser"
       },
-      "filename": "app/sports/actions.ts",
-      "exportedName": "searchFaculty"
+      "filename": "app/report/[id]/actions.ts",
+      "exportedName": "pullReportAction"
     },
-    "6060891285bef1542b3c8ef70074a0a73715b21da1": {
+    "00bbeb251e9c0d92f5c1d1ca0bd9f7292fb081a58d": {
       "workers": {
-        "app/sports/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/reports/daily/page": {
+          "moduleId": "[project]/.next-internal/server/app/reports/daily/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/lib/server.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "removeCoach",
-          "filename": "app/sports/actions.ts"
-        },
-        "app/sports/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "removeCoach",
-          "filename": "app/sports/actions.ts"
+          "exportedName": "triggerGreenSheetBlast",
+          "filename": "app/lib/server.ts"
         }
       },
       "layer": {
-        "app/sports/[id]/page": "action-browser",
-        "app/sports/page": "rsc"
+        "app/reports/daily/page": "action-browser"
       },
-      "filename": "app/sports/actions.ts",
-      "exportedName": "removeCoach"
-    },
-    "6068b5e3a8a240c51dad114b9fc718ae2b8a54d71d": {
-      "workers": {
-        "app/sports/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "removeEvent",
-          "filename": "app/sports/actions.ts"
-        },
-        "app/sports/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "removeEvent",
-          "filename": "app/sports/actions.ts"
-        }
-      },
-      "layer": {
-        "app/sports/[id]/page": "action-browser",
-        "app/sports/page": "rsc"
-      },
-      "filename": "app/sports/actions.ts",
-      "exportedName": "removeEvent"
-    },
-    "60c86d0ef03983751c53ba7082803f97a5eb86c01e": {
-      "workers": {
-        "app/sports/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "addEvent",
-          "filename": "app/sports/actions.ts"
-        },
-        "app/sports/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "addEvent",
-          "filename": "app/sports/actions.ts"
-        }
-      },
-      "layer": {
-        "app/sports/[id]/page": "action-browser",
-        "app/sports/page": "rsc"
-      },
-      "filename": "app/sports/actions.ts",
-      "exportedName": "addEvent"
-    },
-    "60dc33324981360b154f2062090e84adbdad188b7a": {
-      "workers": {
-        "app/sports/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "removeFromRoster",
-          "filename": "app/sports/actions.ts"
-        },
-        "app/sports/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "removeFromRoster",
-          "filename": "app/sports/actions.ts"
-        }
-      },
-      "layer": {
-        "app/sports/[id]/page": "action-browser",
-        "app/sports/page": "rsc"
-      },
-      "filename": "app/sports/actions.ts",
-      "exportedName": "removeFromRoster"
-    },
-    "701e58f962f41130ecac5fe0e31518c93f33a2d7d4": {
-      "workers": {
-        "app/sports/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "addToRoster",
-          "filename": "app/sports/actions.ts"
-        },
-        "app/sports/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "addToRoster",
-          "filename": "app/sports/actions.ts"
-        }
-      },
-      "layer": {
-        "app/sports/[id]/page": "action-browser",
-        "app/sports/page": "rsc"
-      },
-      "filename": "app/sports/actions.ts",
-      "exportedName": "addToRoster"
-    },
-    "70301ed3650afacdc4e176b675b530fd7678292649": {
-      "workers": {
-        "app/sports/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "addAssistantCoach",
-          "filename": "app/sports/actions.ts"
-        },
-        "app/sports/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "addAssistantCoach",
-          "filename": "app/sports/actions.ts"
-        }
-      },
-      "layer": {
-        "app/sports/[id]/page": "action-browser",
-        "app/sports/page": "rsc"
-      },
-      "filename": "app/sports/actions.ts",
-      "exportedName": "addAssistantCoach"
+      "filename": "app/lib/server.ts",
+      "exportedName": "triggerGreenSheetBlast"
     },
     "603a47877742303afc33baf0bf80c9229af4e52ef8": {
       "workers": {
@@ -316,35 +283,215 @@
       "filename": "app/manage/actions.ts",
       "exportedName": "bulkAssignRole"
     },
-    "60e5c7fb23ffb8c9c0e2856c0fd39d4c9a2aa7ebfd": {
+    "601965a4035ba6a536f826c0aa7efe7c152e3c9d1f": {
       "workers": {
-        "app/reports/history/page": {
-          "moduleId": "[project]/.next-internal/server/app/reports/history/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/reports/history/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/reports/pending/page": {
+          "moduleId": "[project]/.next-internal/server/app/reports/pending/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/reports/pending/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "fetchReportHistory",
-          "filename": "app/reports/history/actions.ts"
+          "exportedName": "fetchPendingReports",
+          "filename": "app/reports/pending/actions.ts"
         }
       },
       "layer": {
-        "app/reports/history/page": "action-browser"
+        "app/reports/pending/page": "action-browser"
       },
-      "filename": "app/reports/history/actions.ts",
-      "exportedName": "fetchReportHistory"
+      "filename": "app/reports/pending/actions.ts",
+      "exportedName": "fetchPendingReports"
     },
-    "00bbeb251e9c0d92f5c1d1ca0bd9f7292fb081a58d": {
+    "0056f82085b8a9696d7538953646288bff9ffd913c": {
       "workers": {
-        "app/reports/daily/page": {
-          "moduleId": "[project]/.next-internal/server/app/reports/daily/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/lib/server.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/sports/page": {
+          "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "triggerGreenSheetBlast",
-          "filename": "app/lib/server.ts"
+          "exportedName": "getGlobalUpcomingEvents",
+          "filename": "app/sports/actions.ts"
         }
       },
       "layer": {
-        "app/reports/daily/page": "action-browser"
+        "app/sports/page": "rsc"
       },
-      "filename": "app/lib/server.ts",
-      "exportedName": "triggerGreenSheetBlast"
+      "filename": "app/sports/actions.ts",
+      "exportedName": "getGlobalUpcomingEvents"
+    },
+    "4020939cefe5ed57a621e116e4fae7b42139699381": {
+      "workers": {
+        "app/sports/page": {
+          "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "claimHeadCoach",
+          "filename": "app/sports/actions.ts"
+        }
+      },
+      "layer": {
+        "app/sports/page": "rsc"
+      },
+      "filename": "app/sports/actions.ts",
+      "exportedName": "claimHeadCoach"
+    },
+    "4054e673984498214f2c0017bd88e2e13ce72d3eee": {
+      "workers": {
+        "app/sports/page": {
+          "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getSportDetail",
+          "filename": "app/sports/actions.ts"
+        }
+      },
+      "layer": {
+        "app/sports/page": "rsc"
+      },
+      "filename": "app/sports/actions.ts",
+      "exportedName": "getSportDetail"
+    },
+    "406da3cc3a7863d208c65296d2a20a9d8453b4070e": {
+      "workers": {
+        "app/sports/page": {
+          "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "searchCadets",
+          "filename": "app/sports/actions.ts"
+        }
+      },
+      "layer": {
+        "app/sports/page": "rsc"
+      },
+      "filename": "app/sports/actions.ts",
+      "exportedName": "searchCadets"
+    },
+    "408fdd430e78ed2c34877d73295eaadcfb25b907ca": {
+      "workers": {
+        "app/sports/page": {
+          "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getSportsList",
+          "filename": "app/sports/actions.ts"
+        }
+      },
+      "layer": {
+        "app/sports/page": "rsc"
+      },
+      "filename": "app/sports/actions.ts",
+      "exportedName": "getSportsList"
+    },
+    "40945801c6a903306bf62a35b89a8a584588570bbc": {
+      "workers": {
+        "app/sports/page": {
+          "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getUnassignedCadets",
+          "filename": "app/sports/actions.ts"
+        }
+      },
+      "layer": {
+        "app/sports/page": "rsc"
+      },
+      "filename": "app/sports/actions.ts",
+      "exportedName": "getUnassignedCadets"
+    },
+    "40eadd2b43fd360d4359d65c22f03ac48ffbe4b0e9": {
+      "workers": {
+        "app/sports/page": {
+          "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "searchFaculty",
+          "filename": "app/sports/actions.ts"
+        }
+      },
+      "layer": {
+        "app/sports/page": "rsc"
+      },
+      "filename": "app/sports/actions.ts",
+      "exportedName": "searchFaculty"
+    },
+    "6060891285bef1542b3c8ef70074a0a73715b21da1": {
+      "workers": {
+        "app/sports/page": {
+          "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "removeCoach",
+          "filename": "app/sports/actions.ts"
+        }
+      },
+      "layer": {
+        "app/sports/page": "rsc"
+      },
+      "filename": "app/sports/actions.ts",
+      "exportedName": "removeCoach"
+    },
+    "6068b5e3a8a240c51dad114b9fc718ae2b8a54d71d": {
+      "workers": {
+        "app/sports/page": {
+          "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "removeEvent",
+          "filename": "app/sports/actions.ts"
+        }
+      },
+      "layer": {
+        "app/sports/page": "rsc"
+      },
+      "filename": "app/sports/actions.ts",
+      "exportedName": "removeEvent"
+    },
+    "60c86d0ef03983751c53ba7082803f97a5eb86c01e": {
+      "workers": {
+        "app/sports/page": {
+          "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "addEvent",
+          "filename": "app/sports/actions.ts"
+        }
+      },
+      "layer": {
+        "app/sports/page": "rsc"
+      },
+      "filename": "app/sports/actions.ts",
+      "exportedName": "addEvent"
+    },
+    "60dc33324981360b154f2062090e84adbdad188b7a": {
+      "workers": {
+        "app/sports/page": {
+          "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "removeFromRoster",
+          "filename": "app/sports/actions.ts"
+        }
+      },
+      "layer": {
+        "app/sports/page": "rsc"
+      },
+      "filename": "app/sports/actions.ts",
+      "exportedName": "removeFromRoster"
+    },
+    "701e58f962f41130ecac5fe0e31518c93f33a2d7d4": {
+      "workers": {
+        "app/sports/page": {
+          "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "addToRoster",
+          "filename": "app/sports/actions.ts"
+        }
+      },
+      "layer": {
+        "app/sports/page": "rsc"
+      },
+      "filename": "app/sports/actions.ts",
+      "exportedName": "addToRoster"
+    },
+    "70301ed3650afacdc4e176b675b530fd7678292649": {
+      "workers": {
+        "app/sports/page": {
+          "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "addAssistantCoach",
+          "filename": "app/sports/actions.ts"
+        }
+      },
+      "layer": {
+        "app/sports/page": "rsc"
+      },
+      "filename": "app/sports/actions.ts",
+      "exportedName": "addAssistantCoach"
     }
   },
   "edge": {},

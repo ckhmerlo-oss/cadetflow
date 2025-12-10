@@ -100,6 +100,13 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, is
             </Link>
         )}
 
+        {/* NEW: Incidents Button (Faculty & Staff) */}
+        {roleLevel >= 50 && (
+             <Link href="/incidents" id="nav-incidents" className="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                Incidents
+            </Link>
+        )}
+
         {(canManage || roleLevel >= 50) && (
             <Link href="/manage" id="nav-roster" className="text-gray-600 hover:text-indigo-600 dark:text-gray-300 dark:hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
                 Roster
@@ -169,6 +176,13 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, is
             
             {isLoggedIn && (
                 <Link href="/sports" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">Sports</Link>
+            )}
+
+            {/* NEW: Incidents Button (Mobile) */}
+            {roleLevel >= 50 && ( 
+                <Link href="/incidents" className="block px-3 py-2 rounded-md text-base font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700">
+                    Incidents
+                </Link> 
             )}
 
             {(canManage || roleLevel >= 50) && (

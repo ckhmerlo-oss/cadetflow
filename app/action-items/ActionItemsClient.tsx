@@ -45,6 +45,8 @@ export default function ActionItemsClient({ initialReports, currentUserId }: { i
   }
   
   const getTaskType = (r: ActionItemReport) => {
+      if (r.type === 'incident') return 'Incident Review'; // <--- NEW CHECK
+      
       if (r.appeal_status && ['pending_issuer', 'pending_chain', 'pending_commandant'].includes(r.appeal_status)) return 'Appeal Review';
       if (r.appeal_status && ['rejected_by_issuer', 'rejected_by_chain'].includes(r.appeal_status) && r.subject_cadet_id === currentUserId) return 'Appeal Decision';
       if (r.status === 'needs_revision') return 'Revision Needed';
@@ -237,6 +239,7 @@ export default function ActionItemsClient({ initialReports, currentUserId }: { i
       const type = getTaskType(r);
       const styles: Record<string, string> = {
           'Approval Needed': 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100',
+          'Incident Review': 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200', // <--- NEW STYLE
           'Revision Needed': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100',
           'Appeal Review': 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
           'Appeal Decision': 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200',
@@ -449,36 +452,54 @@ export default function ActionItemsClient({ initialReports, currentUserId }: { i
 
                                 {/* RIGHT COLUMN: Actions */}
                                 <div className="md:w-72 flex-shrink-0 p-6 bg-gray-50 dark:bg-gray-800/50 flex flex-col gap-4 border-l border-gray-200 dark:border-gray-700">
-                                    <div>
-                                        <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-2">
-                                            {isAppeal ? 'Appeal Decision Note' : 'Review Comment'}
-                                        </label>
-                                        <textarea
-                                            placeholder={isAppeal ? "Reason for decision (visible to cadet)..." : "Reason for decision..."}
-                                            className="w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm text-sm p-2"
-                                            rows={4}
-                                            value={singleComment}
-                                            onChange={e => setSingleComment(e.target.value)}
-                                        />
-                                    </div>
-                                    <div className="flex flex-col gap-2">
-                                        <button onClick={() => handleSingleAction(item, 'approve')} disabled={isLoading} className="w-full py-2 bg-green-600 hover:bg-green-700 text-white rounded text-sm font-medium disabled:opacity-50 transition-colors shadow-sm">
-                                            {isAppeal ? 'Grant / Forward Appeal' : 'Approve'}
-                                        </button>
-                                        <div className="flex gap-2">
-                                            {!isAppeal && (
-                                                <button onClick={() => handleSingleAction(item, 'kickback')} disabled={isLoading || !singleComment.trim()} className="flex-1 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded text-sm font-medium disabled:opacity-50 transition-colors shadow-sm">
-                                                    Kick-Back
-                                                </button>
-                                            )}
-                                            <button onClick={() => handleSingleAction(item, 'reject')} disabled={isLoading || !singleComment.trim()} className={`flex-1 py-2 ${isAppeal ? 'w-full' : ''} bg-red-600 hover:bg-red-700 text-white rounded text-sm font-medium disabled:opacity-50 transition-colors shadow-sm`}>
-                                                {isAppeal ? 'Reject Appeal' : 'Reject'}
-                                            </button>
+                                    {/* NEW: Check if Incident */}
+                                    {item.type === 'incident' ? (
+                                        <div className="flex flex-col gap-3">
+                                            <p className="text-sm text-gray-600 dark:text-gray-300">
+                                                Incidents require detailed review and cannot be quick-approved.
+                                            </p>
+                                            <Link 
+                                                href={`/incidents/${item.id}`} 
+                                                className="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded text-sm font-bold text-center shadow-sm"
+                                            >
+                                                Process Incident &rarr;
+                                            </Link>
                                         </div>
-                                    </div>
-                                    <Link href={`/report/${item.id}`} className="text-center text-xs text-indigo-600 dark:text-indigo-400 hover:underline mt-2 font-medium">
-                                        Open Full Report Page &rarr;
-                                    </Link>
+                                    ) : (
+                                        /* STANDARD REPORT ACTIONS */
+                                        <>
+                                            <div>
+                                                <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-2">
+                                                    {isAppeal ? 'Appeal Decision Note' : 'Review Comment'}
+                                                </label>
+                                                <textarea
+                                                    placeholder={isAppeal ? "Reason (visible to cadet)..." : "Reason..."}
+                                                    className="w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm text-sm p-2"
+                                                    rows={4}
+                                                    value={singleComment}
+                                                    onChange={e => setSingleComment(e.target.value)}
+                                                />
+                                            </div>
+                                            <div className="flex flex-col gap-2">
+                                                <button onClick={() => handleSingleAction(item, 'approve')} disabled={isLoading} className="w-full py-2 bg-green-600 hover:bg-green-700 text-white rounded text-sm font-medium disabled:opacity-50 transition-colors shadow-sm">
+                                                    {isAppeal ? 'Grant / Forward Appeal' : 'Approve'}
+                                                </button>
+                                                <div className="flex gap-2">
+                                                    {!isAppeal && (
+                                                        <button onClick={() => handleSingleAction(item, 'kickback')} disabled={isLoading || !singleComment.trim()} className="flex-1 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded text-sm font-medium disabled:opacity-50 transition-colors shadow-sm">
+                                                            Kick-Back
+                                                        </button>
+                                                    )}
+                                                    <button onClick={() => handleSingleAction(item, 'reject')} disabled={isLoading || !singleComment.trim()} className={`flex-1 py-2 ${isAppeal ? 'w-full' : ''} bg-red-600 hover:bg-red-700 text-white rounded text-sm font-medium disabled:opacity-50 transition-colors shadow-sm`}>
+                                                        {isAppeal ? 'Reject Appeal' : 'Reject'}
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <Link href={`/report/${item.id}`} className="text-center text-xs text-indigo-600 dark:text-indigo-400 hover:underline mt-2 font-medium">
+                                                Open Full Report Page &rarr;
+                                            </Link>
+                                        </>
+                                    )}
                                 </div>
 
                             </div>

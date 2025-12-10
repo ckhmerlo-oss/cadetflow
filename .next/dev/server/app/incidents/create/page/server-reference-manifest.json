@@ -1,0 +1,20 @@
+{
+  "node": {
+    "40ea4824ebb15e230302cbedc00d4d62f0c65d0aa6": {
+      "workers": {
+        "app/incidents/create/page": {
+          "moduleId": "[project]/.next-internal/server/app/incidents/create/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "submitIncident",
+          "filename": "app/incidents/actions.ts"
+        }
+      },
+      "layer": {
+        "app/incidents/create/page": "action-browser"
+      },
+      "exportedName": "submitIncident",
+      "filename": "app/incidents/actions.ts"
+    }
+  },
+  "edge": {}
+}

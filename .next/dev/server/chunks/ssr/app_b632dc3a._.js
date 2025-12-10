@@ -298,12 +298,18 @@ function SubmitReport() {
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         async function getFormData() {
+            // 1. CHECK PERMISSIONS
             const { data: { user } } = await supabase.auth.getUser();
             if (user) {
                 const { data: profile } = await supabase.from('profiles').select('role:role_id(default_role_level)').eq('id', user.id).single();
                 const roleLevel = profile?.role?.default_role_level || 0;
                 if (roleLevel < 15) {
                     router.replace(`/ledger/${user.id}`);
+                    return;
+                }
+                // *** NEW: Redirect Faculty to Incidents ***
+                if (roleLevel >= 50 && roleLevel < 65) {
+                    router.replace('/incidents/create');
                     return;
                 }
             }
@@ -411,7 +417,7 @@ function SubmitReport() {
                                 children: "Submit New Report"
                             }, void 0, false, {
                                 fileName: "[project]/app/submit/page.tsx",
-                                lineNumber: 160,
+                                lineNumber: 168,
                                 columnNumber: 14
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -422,13 +428,13 @@ function SubmitReport() {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/submit/page.tsx",
-                                lineNumber: 161,
+                                lineNumber: 169,
                                 columnNumber: 14
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/submit/page.tsx",
-                        lineNumber: 159,
+                        lineNumber: 167,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -439,7 +445,7 @@ function SubmitReport() {
                                 children: "Subject Cadet(s)"
                             }, void 0, false, {
                                 fileName: "[project]/app/submit/page.tsx",
-                                lineNumber: 167,
+                                lineNumber: 175,
                                 columnNumber: 15
                             }, this),
                             subjectCadetIds.map((id, index)=>// *** FIX: Changed items-start to items-center for better alignment ***
@@ -457,12 +463,12 @@ function SubmitReport() {
                                                 required: index === 0
                                             }, void 0, false, {
                                                 fileName: "[project]/app/submit/page.tsx",
-                                                lineNumber: 172,
+                                                lineNumber: 180,
                                                 columnNumber: 25
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/submit/page.tsx",
-                                            lineNumber: 171,
+                                            lineNumber: 179,
                                             columnNumber: 23
                                         }, this),
                                         subjectCadetIds.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -483,23 +489,23 @@ function SubmitReport() {
                                                     d: "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/submit/page.tsx",
-                                                    lineNumber: 189,
+                                                    lineNumber: 197,
                                                     columnNumber: 110
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/submit/page.tsx",
-                                                lineNumber: 189,
+                                                lineNumber: 197,
                                                 columnNumber: 31
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/submit/page.tsx",
-                                            lineNumber: 182,
+                                            lineNumber: 190,
                                             columnNumber: 27
                                         }, this)
                                     ]
                                 }, index, true, {
                                     fileName: "[project]/app/submit/page.tsx",
-                                    lineNumber: 170,
+                                    lineNumber: 178,
                                     columnNumber: 19
                                 }, this)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -519,25 +525,25 @@ function SubmitReport() {
                                             d: "M12 4v16m8-8H4"
                                         }, void 0, false, {
                                             fileName: "[project]/app/submit/page.tsx",
-                                            lineNumber: 199,
+                                            lineNumber: 207,
                                             columnNumber: 98
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/submit/page.tsx",
-                                        lineNumber: 199,
+                                        lineNumber: 207,
                                         columnNumber: 19
                                     }, this),
                                     "Add another cadet"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/submit/page.tsx",
-                                lineNumber: 194,
+                                lineNumber: 202,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/submit/page.tsx",
-                        lineNumber: 166,
+                        lineNumber: 174,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -551,7 +557,7 @@ function SubmitReport() {
                                         children: "Date"
                                     }, void 0, false, {
                                         fileName: "[project]/app/submit/page.tsx",
-                                        lineNumber: 206,
+                                        lineNumber: 214,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -563,13 +569,13 @@ function SubmitReport() {
                                         className: "block w-full rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm py-2 px-3"
                                     }, void 0, false, {
                                         fileName: "[project]/app/submit/page.tsx",
-                                        lineNumber: 207,
+                                        lineNumber: 215,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/submit/page.tsx",
-                                lineNumber: 205,
+                                lineNumber: 213,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -580,7 +586,7 @@ function SubmitReport() {
                                         children: "Time (approx)"
                                     }, void 0, false, {
                                         fileName: "[project]/app/submit/page.tsx",
-                                        lineNumber: 213,
+                                        lineNumber: 221,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -592,19 +598,19 @@ function SubmitReport() {
                                         className: "block w-full rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm py-2 px-3"
                                     }, void 0, false, {
                                         fileName: "[project]/app/submit/page.tsx",
-                                        lineNumber: 214,
+                                        lineNumber: 222,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/submit/page.tsx",
-                                lineNumber: 212,
+                                lineNumber: 220,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/submit/page.tsx",
-                        lineNumber: 204,
+                        lineNumber: 212,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$SearchableSelect$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -616,7 +622,7 @@ function SubmitReport() {
                         required: true
                     }, void 0, false, {
                         fileName: "[project]/app/submit/page.tsx",
-                        lineNumber: 221,
+                        lineNumber: 229,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -627,7 +633,7 @@ function SubmitReport() {
                                 children: "Notes (Optional)"
                             }, void 0, false, {
                                 fileName: "[project]/app/submit/page.tsx",
-                                lineNumber: 231,
+                                lineNumber: 239,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -639,13 +645,13 @@ function SubmitReport() {
                                 placeholder: "Provide specific details of the incident..."
                             }, void 0, false, {
                                 fileName: "[project]/app/submit/page.tsx",
-                                lineNumber: 232,
+                                lineNumber: 240,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/submit/page.tsx",
-                        lineNumber: 230,
+                        lineNumber: 238,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -656,12 +662,12 @@ function SubmitReport() {
                             children: loading ? 'Submitting...' : 'Submit Report'
                         }, void 0, false, {
                             fileName: "[project]/app/submit/page.tsx",
-                            lineNumber: 243,
+                            lineNumber: 251,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/submit/page.tsx",
-                        lineNumber: 242,
+                        lineNumber: 250,
                         columnNumber: 11
                     }, this),
                     error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -669,23 +675,23 @@ function SubmitReport() {
                         children: error
                     }, void 0, false, {
                         fileName: "[project]/app/submit/page.tsx",
-                        lineNumber: 252,
+                        lineNumber: 260,
                         columnNumber: 21
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/submit/page.tsx",
-                lineNumber: 158,
+                lineNumber: 166,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/app/submit/page.tsx",
-            lineNumber: 157,
+            lineNumber: 165,
             columnNumber: 9
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/submit/page.tsx",
-        lineNumber: 156,
+        lineNumber: 164,
         columnNumber: 5
     }, this);
 }

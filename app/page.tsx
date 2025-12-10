@@ -1,22 +1,20 @@
 import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
+import { getIncidents, IncidentReport } from './incidents/actions'
 
-// --- 1. UPDATED TYPE DEFINITION ---
-type ReportWithNames = {
+type DashboardItem = {
   id: string
+  type: 'report' | 'incident'
   status: string
   created_at: string
-  subject_cadet_id: string
-  submitted_by: string
-  current_approver_group_id: string | null
-  // JSON objects returned from SQL
   subject: { first_name: string; last_name: string } | null
-  submitter: { first_name: string; last_name: string } | null
-  group: { group_name: string } | null
-  offense_type: { offense_name: string } | null
-  // Optional field from RPC
-  appeal_status?: string | null 
+  title: string
+  submitted_by?: string
+  submitter?: { first_name: string; last_name: string } | null
+  group?: { group_name: string } | null
+  appeal_status?: string | null
+  reporter?: { first_name: string; last_name: string }
 }
 
 type CadetStats = {
@@ -25,15 +23,38 @@ type CadetStats = {
   current_tour_balance: number
 }
 
+type ReportWithNames = {
+  id: string
+  status: string
+  created_at: string
+  submitted_by: string
+  subject: { first_name: string; last_name: string } | null
+  submitter: { first_name: string; last_name: string } | null
+  group?: { group_name: string } | null
+  offense_type?: { offense_name: string }
+  title?: string
+  appeal_status?: string | null
+}
+
 export default async function Dashboard() {
   const supabase = createClient()
 
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return redirect('/login')
 
+  // 1. Fetch Profile + Group ID
   const { data: profile } = await supabase
     .from('profiles')
-    .select(`first_name, last_name, company_id, role:role_id (default_role_level, can_manage_all_rosters, approval_group:approval_group_id (group_name))`)
+    .select(`
+        first_name, 
+        last_name, 
+        company_id, 
+        role:role_id (
+            default_role_level, 
+            can_manage_all_rosters, 
+            approval_group:approval_group_id (id, group_name)
+        )
+    `)
     .eq('id', user.id)
     .single()
 
@@ -41,17 +62,22 @@ export default async function Dashboard() {
 
   const role = profile?.role as any
   const role_level = role?.default_role_level || 0
-  const isFaculty = role_level >= 50 || false
   const groupName = role?.approval_group?.group_name || 'Personal Dashboard'
+  const groupId = role?.approval_group?.id || null; // <--- Group ID
 
-  if (role_level === 10) {
-    redirect(`/ledger/${user.id}`);
+  const isFaculty = role_level >= 50
+  const isTac = role_level >= 65 && role_level < 90; // TAC Only (Excludes Admin)
+
+  if (role_level === 10) redirect(`/ledger/${user.id}`);
+
+  const { data: rpcData } = await supabase.rpc('get_my_dashboard_reports')
+  const allInvolvedReports = rpcData || [];
+
+  // 2. Fetch Incidents (TAC Only)
+  let pendingIncidents: IncidentReport[] = []
+  if (isTac) {
+      pendingIncidents = await getIncidents('pending')
   }
-
-  const { data: rpcData, error } = await supabase.rpc('get_my_dashboard_reports')
-  if (error) console.error("Error fetching reports:", error.message)
-  
-  const allInvolvedReports: ReportWithNames[] = rpcData || [];
 
   let allPendingReports: ReportWithNames[] = [];
   let cadetStats: CadetStats | null = null; 
@@ -75,52 +101,67 @@ export default async function Dashboard() {
     if (statsData) cadetStats = statsData;
   }
     
-  // --- 2. FILTER LOGIC (Matched to Action Items Page) ---
-  const actionItems = allInvolvedReports.filter(report => {
-      if (report.status === 'pulled') return false; 
+  // --- 3. FILTER ACTION ITEMS ---
+  const actionItems: DashboardItem[] = []
+  
+  allInvolvedReports.forEach((report: any) => {
+      if (report.status === 'pulled') return; 
       
-      // A. Standard Approvals
-      // If report is pending approval and assigned to a group, we assume the RPC returned it because we are in that group.
-      // We exclude our own submissions to avoid approving ourselves (unless auto-approved, but then status wouldn't be pending).
+      let isAction = false;
+
+      // A. Standard Approvals (Strict Group Match)
       if (report.status === 'pending_approval' && report.current_approver_group_id !== null) {
-          return report.submitted_by !== user.id;
+          if (report.current_approver_group_id === groupId && report.submitted_by !== user.id) {
+              isAction = true;
+          }
       }
       
       // B. Revisions
-      if (report.status === 'needs_revision' && report.submitted_by === user.id) return true;
+      if (report.status === 'needs_revision' && report.submitted_by === user.id) isAction = true;
       
       // C. Appeals
       if (report.appeal_status) {
-          
-          // 1. Commandant Actions (Highest Priority)
-          // If I am Commandant Staff (90+) and it's on my desk, I see it.
-          if (role_level >= 90 && report.appeal_status === 'pending_commandant') {
-              return true;
-          }
-
-          // 2. Subject Actions (Escalation)
-          if (report.subject_cadet_id === user.id) {
-              return ['rejected_by_issuer', 'rejected_by_chain'].includes(report.appeal_status);
-          }
-
-          // 3. Issuer Actions
-          if (report.appeal_status === 'pending_issuer') {
-              // Only the submitter (issuer) acts here
-              return report.submitted_by === user.id;
-          }
-
-          // 4. Chain Actions
-          if (report.appeal_status === 'pending_chain') {
-              // If I submitted it, I don't review it at chain level
-              if (report.submitted_by === user.id) return false;
-              // Otherwise, if RPC returned it, I'm likely in the group
-              return true; 
-          }
+          if (role_level >= 90 && report.appeal_status === 'pending_commandant') isAction = true;
+          else if (report.subject_cadet_id === user.id && ['rejected_by_issuer', 'rejected_by_chain'].includes(report.appeal_status)) isAction = true;
+          else if (report.appeal_status === 'pending_issuer' && report.submitted_by === user.id) isAction = true;
+          else if (report.appeal_status === 'pending_chain' && report.submitted_by !== user.id) isAction = true;
       }
-      return false;
-  }) || []
 
-  const mySubmittedReports = allInvolvedReports.filter(report => report.submitted_by === user.id) || []
+      if (isAction) {
+          actionItems.push({
+              id: report.id,
+              type: 'report',
+              status: report.status,
+              created_at: report.created_at,
+              subject: report.subject,
+              title: report.offense_type?.offense_name || report.title || 'Report',
+              submitted_by: report.submitted_by,
+              submitter: report.submitter,
+              group: report.group,
+              appeal_status: report.appeal_status
+          })
+      }
+  })
+
+  // Add Incidents
+  pendingIncidents.forEach((i) => {
+      actionItems.push({
+          id: i.id,
+          type: 'incident',
+          status: 'pending',
+          created_at: i.created_at,
+          subject: i.subject,
+          title: 'Incident Report',
+          reporter: i.reporter
+      })
+  })
+
+  actionItems.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+
+  const mySubmittedReports = allInvolvedReports.filter((report: any) => report.submitted_by === user.id) || []
+
+  const submitLink = (role_level >= 50 && role_level < 65) ? '/incidents/create' : '/submit';
+  const submitLabel = (role_level >= 50 && role_level < 65) ? 'Report Incident' : 'Submit New Report';
 
   return (
     <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 animate-in fade-in duration-500">
@@ -132,13 +173,16 @@ export default async function Dashboard() {
         
         <div className="flex gap-3">
           {(role_level >= 15) && (
-            <Link href="/submit" id="dashboard-submit-btn" className="py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-colors">
-              Submit New Report
+            <Link 
+                href={submitLink} 
+                className="py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-colors"
+            >
+              {submitLabel}
             </Link>
           )}
         </div>
       </div>
-
+      
       {!isFaculty && cadetStats && (
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="md:col-span-2"><div className="grid grid-cols-1 md:grid-cols-3 gap-4"><CadetStatsHeader stats={cadetStats} /></div></div>
@@ -156,7 +200,7 @@ export default async function Dashboard() {
             <div id="dashboard-action-items">
                 <DashboardSection 
                     title="Action Items" 
-                    items={actionItems} 
+                    items={actionItems as any} 
                     emptyMessage="No action items in your queue. Great job!" 
                     showSubject 
                     viewAllHref="/action-items"
@@ -198,6 +242,7 @@ export default async function Dashboard() {
   )
 }
 
+// ... (Helper Components CadetStatsHeader, StatCard, DashboardSection, ReportCard remain same as your current file) ...
 function CadetStatsHeader({ stats }: { stats: CadetStats }) {
   return (
     <>
@@ -226,7 +271,7 @@ function DashboardSection({
     viewAllHref 
 }: { 
     title: string; 
-    items: ReportWithNames[]; 
+    items: any[]; 
     emptyMessage: string; 
     showSubject?: boolean; 
     showSubmitter?: boolean;
@@ -253,10 +298,10 @@ function DashboardSection({
       
       <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm space-y-3 h-96 overflow-y-auto flex-grow">
         {items && items.length > 0 ? (
-            items.map(report => (
+            items.map((item, idx) => (
                 <ReportCard 
-                    key={report.id} 
-                    report={report} 
+                    key={item.id || idx} 
+                    report={item} 
                     showSubject={showSubject} 
                     showSubmitter={showSubmitter} 
                 />
@@ -269,7 +314,7 @@ function DashboardSection({
   )
 }
 
-function ReportCard({ report, showSubject, showSubmitter }: { report: ReportWithNames; showSubject?: boolean; showSubmitter?: boolean }) {
+function ReportCard({ report, showSubject, showSubmitter }: { report: any; showSubject?: boolean; showSubmitter?: boolean }) {
   
   const getStatusColor = () => {
     switch (report.status) {
@@ -285,11 +330,14 @@ function ReportCard({ report, showSubject, showSubmitter }: { report: ReportWith
   const formatName = (person: { first_name: string, last_name: string } | null) => person ? `${person.last_name}, ${person.first_name.charAt(0)}.` : 'N/A';
   
   const formatStatus = (status: string) => {
+    if (!status) return 'Unknown';
     if (status === 'pulled') return 'Pulled';
     return status.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
   }
   
-  const title = report.offense_type?.offense_name || 'Untitled Report';
+  const isIncident = report.type === 'incident';
+  const title = report.title || report.offense_type?.offense_name || 'Report';
+  const href = isIncident ? `/incidents/${report.id}` : `/report/${report.id}`;
 
   const getAppealBadge = (status: string) => {
       if (status === 'approved') {
@@ -297,23 +345,22 @@ function ReportCard({ report, showSubject, showSubmitter }: { report: ReportWith
       } else if (status === 'rejected_final') {
           return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200 ml-2">Appeal Denied</span>
       } else {
-           // Covers: pending_issuer, pending_chain, pending_commandant
            return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 ml-2">Appeal In Progress</span>
       }
   }
 
   return (
     <Link 
-      href={`/report/${report.id}`} 
-      className="block p-4 border border-gray-200 dark:border-gray-700 rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors"
+      href={href} 
+      className={`block p-4 border rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${isIncident ? 'border-orange-200 dark:border-orange-900 bg-orange-50 dark:bg-orange-900/10' : 'border-gray-200 dark:border-gray-700'}`}
     >
       <div className="flex justify-between items-center">
         <div className="truncate flex items-center flex-1 mr-2">
              <span className={`font-medium ${report.status === 'pulled' ? 'text-gray-500 line-through' : 'text-indigo-600 dark:text-indigo-400'}`}>{title}</span>
+             {isIncident && <span className="ml-2 bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200 text-xs px-2 py-0.5 rounded font-bold">INCIDENT</span>}
              {report.appeal_status && getAppealBadge(report.appeal_status)}
         </div>
         
-        {/* HIDE 'Completed' badge if Appeal is active to avoid confusion */}
         {(!report.appeal_status || report.appeal_status === 'approved' || report.appeal_status === 'rejected_final') && (
             <span className={`text-xs font-medium px-2 py-0.5 rounded-full flex-shrink-0 ${getStatusColor()}`}>
             {formatStatus(report.status)}

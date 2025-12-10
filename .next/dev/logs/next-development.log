@@ -1,920 +1,425 @@
-[00:00:02.467] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:02.701] Server  LOG      ✓ Ready in 2.2s
-[00:00:10.487] Server  LOG      ○ Compiling / ...
-[00:00:13.792] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:14.044] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:14.044] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:14.044] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
-[00:00:14.044] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765317817126}
-[00:00:28.809] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:28.981] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:28.981] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:28.981] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/sports","route":"/sports"}
-[00:00:28.981] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765317832060}
-[00:00:34.888] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/sports","id":"v3-1765317832059-1533354446120","route":"/sports","type":"FCP","value":1302},{"href":"http://localhost:3000/sports","id":"v3-1765317832059-5148621842216","route":"/sports","type":"TTFB","value":1147},{"attribution":{"eventTarget":"div.max-w-7xl.mx-auto.p-4.sm:p-6.lg:p-8>h1.text-3xl.font-bold.text-gray-900.dark:text-white.mb-6"},"href":"http://localhost:3000/sports","id":"v3-1765317832059-7219257602648","route":"/sports","type":"LCP","value":1302},{"attribution":{"eventTarget":"p.text-sm.text-gray-500.dark:text-gray-400.mt-1","eventType":"pointerdown"},"href":"http://localhost:3000/sports","id":"v3-1765317832058-6992708290029","route":"/sports","type":"FID","value":10}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:00:34.888] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765317837963}
-[00:00:41.992] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765317845080}
-[00:00:43.366] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765317846443}
-[00:00:44.681] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765317847759}
-[00:00:47.968] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765317851056}
-[00:00:48.468] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765317851541}
-[00:00:48.468] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765317851559}
-[00:00:49.173] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765317852252}
-[00:00:55.103] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"pointerdown"},"href":"http://localhost:3000/sports","id":"v3-1765317832059-2324518165412","route":"/sports","type":"INP","value":16}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:05:39.056] Server  LOG      ✓ Compiled in 119ms
-[00:05:39.903] Browser ERROR   ./app/sports/[id]/SportClient.tsx:4:1
-Export joinCoachingStaff doesn't exist in target module
-  2 |
-  3 | import { useState } from 'react'
-> 4 | import { SportDetail, joinCoachingStaff, addEvent, addToRoster } from '../actions'
-    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  5 | import SearchableSelect from '@/app/components/SearchableSelect' // Reuse your component!
-  6 |
-  7 | export default function SportClient({ 
+[00:00:06.364] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:07.016] Server  LOG      ✓ Ready in 5.5s
+[00:00:17.194] Server  LOG      ○ Compiling / ...
+[00:00:25.663] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:25.946] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:25.946] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:25.947] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:00:25.947] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378820564}
+[00:00:38.393] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1765378820562-4696237938033","route":"/","type":"FCP","value":2368366},{"href":"http://localhost:3000/","id":"v3-1765378820562-8974090510161","route":"/","type":"TTFB","value":2368064},{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className>main","eventType":"pointerdown"},"href":"http://localhost:3000/","id":"v3-1765378820561-3585884773343","route":"/","type":"FID","value":7},{"attribution":{"eventTarget":"div.flex.justify-between.items-center.mb-8>div>h1.text-3xl.font-bold.text-gray-900.dark:text-white"},"href":"http://localhost:3000/","id":"v3-1765378820561-9947798460600","route":"/","type":"LCP","value":2368366}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:00:38.393] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378833004}
+[00:00:40.805] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378835419}
+[00:00:41.625] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378836233}
+[00:00:45.743] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378840353}
+[00:00:50.183] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:50.425] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:50.425] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:50.426] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:00:50.426] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378845037}
+[00:00:52.458] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1765378845025-9996142625168","route":"/","type":"FCP","value":1129},{"href":"http://localhost:3000/","id":"v3-1765378845025-8488651524402","route":"/","type":"TTFB","value":754},{"attribution":{"eventTarget":"div.flex.justify-between.items-end>h2.text-2xl.font-semibold.text-gray-800.dark:text-gray-100"},"href":"http://localhost:3000/","id":"v3-1765378845025-1146181992821","route":"/","type":"LCP","value":1129},{"attribution":{"eventTarget":"#dashboard-action-items>div.space-y-4.flex.flex-col.h-full>div.flex.justify-between.items-end","eventType":"pointerdown"},"href":"http://localhost:3000/","id":"v3-1765378845025-9429999514065","route":"/","type":"FID","value":12}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:00:52.458] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378847071}
+[00:00:55.234] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378849847}
+[00:01:01.131] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:01.384] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:01:01.384] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:01:01.384] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:01:01.384] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378856006}
+[00:01:04.322] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1765378856005-9351688016941","route":"/","type":"FCP","value":1266},{"href":"http://localhost:3000/","id":"v3-1765378856005-5576498226750","route":"/","type":"TTFB","value":933},{"attribution":{"eventTarget":"div.flex.justify-between.items-end>h2.text-2xl.font-semibold.text-gray-800.dark:text-gray-100"},"href":"http://localhost:3000/","id":"v3-1765378856005-2569933432196","route":"/","type":"LCP","value":1266},{"attribution":{"eventTarget":"#dashboard-submit-btn","eventType":"pointerdown"},"href":"http://localhost:3000/","id":"v3-1765378856005-4428776166657","route":"/","type":"FID","value":17}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:01:04.322] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/submit color: rgb(120, 120, 120) color: inherit {"dp":"/submit","o":"http://localhost:3000/submit","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378858941}
+[00:01:06.092] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents/create color: rgb(120, 120, 120) color: inherit {"dp":"/incidents/create","o":"http://localhost:3000/incidents/create","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378860703}
+[00:01:08.966] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"input.block.w-full.rounded-md.border.bg-white.dark:bg-gray-900.py-2.pl-3.pr-10.text-sm.shadow-sm.focus:border-indigo-500.focus:outline-none.focus:ring-1.focus:ring-indigo-500.dark:text-white.border-gray-300.dark:border-gray-600","eventType":"keydown"},"href":"http://localhost:3000/incidents/create","id":"v3-1765378856005-8871173500681","route":"/incidents/create","type":"INP","value":320}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:01:28.216] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"div>textarea.w-full.border.rounded.p-2.dark:bg-gray-900.dark:text-white.dark:border-gray-600","eventType":"keyup"},"href":"http://localhost:3000/incidents/create","id":"v3-1765378856005-8871173500681","route":"/incidents/create","type":"INP","value":496}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:01:28.216] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents color: rgb(120, 120, 120) color: inherit {"dp":"/incidents","o":"http://localhost:3000/incidents","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378881919}
+[00:01:37.798] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378892399}
+[00:01:40.350] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents color: rgb(120, 120, 120) color: inherit {"dp":"/incidents","o":"http://localhost:3000/incidents","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378894948}
+[00:01:45.813] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378900424}
+[00:01:49.912] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:01:50.127] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:01:50.127] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:01:50.127] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:01:50.128] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378904748}
+[00:01:51.991] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1765378904747-5388256793893","route":"/","type":"FCP","value":1099},{"href":"http://localhost:3000/","id":"v3-1765378904747-6723813990295","route":"/","type":"TTFB","value":774},{"attribution":{"eventTarget":"div.flex.justify-between.items-center.mb-8>div>h1.text-3xl.font-bold.text-gray-900.dark:text-white"},"href":"http://localhost:3000/","id":"v3-1765378904747-9242187676720","route":"/","type":"LCP","value":1099},{"attribution":{"eventTarget":"a.text-sm.font-medium.text-indigo-600.dark:text-indigo-400.hover:underline.pb-1","eventType":"pointerdown"},"href":"http://localhost:3000/","id":"v3-1765378904747-6423669286200","route":"/","type":"FID","value":20}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:01:51.991] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378906600}
+[00:01:53.322] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378907924}
+[00:01:54.007] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378908620}
+[00:02:06.766] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents/442c284e-6971-4855-8754-b1b22ad59f04 color: rgb(120, 120, 120) color: inherit {"dp":"/incidents/[id]","o":"http://localhost:3000/incidents/442c284e-6971-4855-8754-b1b22ad59f04","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378921372}
+[00:02:13.479] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378928094}
+[00:02:17.215] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents/442c284e-6971-4855-8754-b1b22ad59f04 color: rgb(120, 120, 120) color: inherit {"dp":"/incidents/[id]","o":"http://localhost:3000/incidents/442c284e-6971-4855-8754-b1b22ad59f04","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378931826}
+[00:02:43.140] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378957751}
+[00:02:48.583] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:02:48.856] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:02:48.856] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:02:48.856] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:02:48.856] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378963473}
+[00:02:50.215] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1765378963472-3119659888147","route":"/","type":"FCP","value":1627},{"href":"http://localhost:3000/","id":"v3-1765378963472-9870572987476","route":"/","type":"TTFB","value":1382},{"attribution":{"eventTarget":"div.flex.justify-between.items-end>h2.text-2xl.font-semibold.text-gray-800.dark:text-gray-100"},"href":"http://localhost:3000/","id":"v3-1765378963472-9224961131882","route":"/","type":"LCP","value":1627},{"attribution":{"eventTarget":"#dashboard-submit-btn","eventType":"pointerdown"},"href":"http://localhost:3000/","id":"v3-1765378963471-9675772334246","route":"/","type":"FID","value":7}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:02:50.215] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/submit color: rgb(120, 120, 120) color: inherit {"dp":"/submit","o":"http://localhost:3000/submit","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378964833}
+[00:02:50.940] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents/create color: rgb(120, 120, 120) color: inherit {"dp":"/incidents/create","o":"http://localhost:3000/incidents/create","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378965537}
+[00:03:12.357] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents color: rgb(120, 120, 120) color: inherit {"dp":"/incidents","o":"http://localhost:3000/incidents","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378986960}
+[00:03:16.223] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378990832}
+[00:03:22.814] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:03:23.031] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:03:23.031] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:03:23.031] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:03:23.031] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378997649}
+[00:03:25.120] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1765378997647-7669831804910","route":"/","type":"FCP","value":1380},{"href":"http://localhost:3000/","id":"v3-1765378997647-1823780842565","route":"/","type":"TTFB","value":785},{"attribution":{"eventTarget":"div.flex.justify-between.items-end>h2.text-2xl.font-semibold.text-gray-800.dark:text-gray-100"},"href":"http://localhost:3000/","id":"v3-1765378997647-9160592985210","route":"/","type":"LCP","value":1380},{"attribution":{"eventTarget":"a.text-sm.font-medium.text-indigo-600.dark:text-indigo-400.hover:underline.pb-1","eventType":"pointerdown"},"href":"http://localhost:3000/","id":"v3-1765378997647-7502402673863","route":"/","type":"FID","value":8}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:03:25.120] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765378999739}
+[00:03:33.826] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents/bda566eb-c006-45be-b51c-567fde6e7075 color: rgb(120, 120, 120) color: inherit {"dp":"/incidents/[id]","o":"http://localhost:3000/incidents/bda566eb-c006-45be-b51c-567fde6e7075","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765379008440}
+[00:04:28.928] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents color: rgb(120, 120, 120) color: inherit {"dp":"/incidents","o":"http://localhost:3000/incidents","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765379063534}
+[00:04:32.378] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765379066991}
+[00:04:37.693] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ledger/bc79b87e-b9df-43b4-8e52-62fe7cbe7f97 color: rgb(120, 120, 120) color: inherit {"dp":"/ledger/[id]","o":"http://localhost:3000/ledger/bc79b87e-b9df-43b4-8e52-62fe7cbe7f97","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765379072306}
+[00:04:38.296] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765379072910}
+[00:04:47.340] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/167d1699-db3e-425c-8990-662f00e39d36 color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/167d1699-db3e-425c-8990-662f00e39d36","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765379081958}
+[00:05:01.009] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"keyup"},"href":"http://localhost:3000/report/167d1699-db3e-425c-8990-662f00e39d36","id":"v3-1765378997647-9124384247158","route":"/report/[id]","type":"INP","value":496}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:21:07.040] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765380061647}
+[00:25:28.891] Server  ERROR   C:\Users\ckhme\my-workflow-app\.next\dev\server\chunks\ssr\[root-of-the-server]__1222724e._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:25:28.899] Server  ERROR    ⨯ ReferenceError: allPendingReports is not defined
+[00:25:29.314] Browser ERROR   uncaughtError: ReferenceError: allPendingReports is not defined
+[00:25:30.274] Server  LOG      ✓ Compiled in 220ms
+[00:25:32.360] Server  ERROR   C:\Users\ckhme\my-workflow-app\.next\dev\server\chunks\ssr\[root-of-the-server]__1222724e._.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:25:32.439] Server  ERROR    ⨯ ReferenceError: allPendingReports is not defined
+[00:25:32.998] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:25:33.567] Browser ERROR   uncaughtError: ReferenceError: allPendingReports is not defined
+[00:25:37.983] Server  LOG      ✓ Compiled in 156ms
+[00:25:40.784] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:25:42.285] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:25:42.285] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:25:42.285] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:25:42.285] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765380335676}
+[00:25:43.336] Browser ERROR   ./app/page.tsx:61:10
+Parsing ecmascript source code failed
+  59 |   if (error) console.error("Error fetching reports:", error.message)
+  60 |   
+> 61 |   cconst allInvolvedReports = rpcData || [];
+     |          ^^^^^^^^^^^^^^^^^^
+  62 |
+  63 |   // 2. NEW: Fetch Incidents (TAC Only)
+  64 |   let pendingIncidents = []
 
-The export joinCoachingStaff was not found in module [project]/app/sports/actions.ts [app-client] (ecmascript).
-Did you mean to import removeCoach?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Expected ';', '}' or <eof>
+[00:25:46.194] Server  LOG      ✓ Compiled in 355ms
+[00:28:58.323] Server  LOG      ✓ Compiled in 131ms
+[00:29:24.307] Server  LOG      ✓ Compiled in 166ms
+[00:41:35.335] Server  LOG      ✓ Compiled in 132ms
+[00:46:35.953] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1765380335672-6562435040760","route":"/","type":"TTFB","value":2069}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:46:39.443] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:46:39.736] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:46:39.736] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:46:39.737] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:46:39.737] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765381594348}
+[00:46:42.617] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1765381594346-3765932641070","route":"/","type":"FCP","value":2085},{"href":"http://localhost:3000/","id":"v3-1765381594347-4655452299486","route":"/","type":"TTFB","value":1852},{"attribution":{"eventTarget":"div.flex.justify-between.items-end>h2.text-2xl.font-semibold.text-gray-800.dark:text-gray-100"},"href":"http://localhost:3000/","id":"v3-1765381594346-5895241818477","route":"/","type":"LCP","value":2085},{"attribution":{"eventTarget":"div.bg-white.dark:bg-gray-800.p-4.rounded-lg.shadow-sm.space-y-3.h-96.overflow-y-auto.flex-grow","eventType":"pointerdown"},"href":"http://localhost:3000/","id":"v3-1765381594346-5470704643174","route":"/","type":"FID","value":14}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:46:42.617] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents/442c284e-6971-4855-8754-b1b22ad59f04 color: rgb(120, 120, 120) color: inherit {"dp":"/incidents/[id]","o":"http://localhost:3000/incidents/442c284e-6971-4855-8754-b1b22ad59f04","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765381597229}
+[00:47:02.575] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents color: rgb(120, 120, 120) color: inherit {"dp":"/incidents","o":"http://localhost:3000/incidents","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765381617172}
+[00:47:05.415] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/daily color: rgb(120, 120, 120) color: inherit {"dp":"/reports/daily","o":"http://localhost:3000/reports/daily","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765381620027}
+[00:47:10.033] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765381624649}
+[00:47:14.628] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:47:14.909] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:47:14.909] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:47:14.910] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:47:14.910] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765381629520}
+[00:47:17.805] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1765381629518-6605856730132","route":"/","type":"FCP","value":2029},{"href":"http://localhost:3000/","id":"v3-1765381629518-4509824757967","route":"/","type":"TTFB","value":1720},{"attribution":{"eventTarget":"div.flex.justify-between.items-end>h2.text-2xl.font-semibold.text-gray-800.dark:text-gray-100"},"href":"http://localhost:3000/","id":"v3-1765381629518-3030365545608","route":"/","type":"LCP","value":2029},{"attribution":{"eventTarget":"div.mt-2.text-sm.text-gray-500.dark:text-gray-400>p","eventType":"pointerdown"},"href":"http://localhost:3000/","id":"v3-1765381629518-2954292485388","route":"/","type":"FID","value":17}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:47:17.805] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/24827a9b-c53d-43d0-93a8-9543dfe84395 color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/24827a9b-c53d-43d0-93a8-9543dfe84395","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765381632418}
+[00:47:30.252] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"pointerdown"},"href":"http://localhost:3000/report/24827a9b-c53d-43d0-93a8-9543dfe84395","id":"v3-1765381629518-8254596412586","route":"/report/[id]","type":"INP","value":32}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:51:50.187] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765381904794}
+[00:51:58.525] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765381913144}
+[00:52:02.610] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:52:02.874] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:52:02.874] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:52:02.874] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[00:52:02.874] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765381917484}
+[00:52:09.540] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1765381917482-9605664372547","route":"/","type":"FCP","value":1502},{"href":"http://localhost:3000/","id":"v3-1765381917482-1869416427753","route":"/","type":"TTFB","value":1094},{"attribution":{"eventTarget":"div.flex.justify-between.items-end>h2.text-2xl.font-semibold.text-gray-800.dark:text-gray-100"},"href":"http://localhost:3000/","id":"v3-1765381917482-6034819296969","route":"/","type":"LCP","value":1502}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:58:51.616] Server  LOG      ✓ Compiled in 133ms
+[01:00:18.936] Server  LOG      ✓ Compiled in 301ms
+[01:13:25.389] Server  LOG      ✓ Compiled in 95ms
+[01:13:27.207] Server  LOG      ✓ Compiled in 216ms
+[01:13:47.842] Browser ERROR   ./app/incidents/[id]/page.tsx:40:2
+Parsing ecmascript source code failed
+  38 |     />
+  39 |   )
+> 40 | }
+     |  ^
 
-Import trace:
-  Server Component:
-    ./app/sports/[id]/SportClient.tsx
-    ./app/sports/[id]/page.tsx
-[00:05:39.903] Browser ERROR   ./app/sports/[id]/SportClient.tsx:4:1
-Export joinCoachingStaff doesn't exist in target module
-  2 |
-  3 | import { useState } from 'react'
-> 4 | import { SportDetail, joinCoachingStaff, addEvent, addToRoster } from '../actions'
-    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  5 | import SearchableSelect from '@/app/components/SearchableSelect' // Reuse your component!
-  6 |
-  7 | export default function SportClient({ 
+Expected '}', got '<eof>'
+[01:16:13.464] Browser ERROR   ./app/incidents/[id]/page.tsx:40:2
+Parsing ecmascript source code failed
+  38 |     />
+  39 |   )
+> 40 | }
+     |  ^
 
-The export joinCoachingStaff was not found in module [project]/app/sports/actions.ts [app-ssr] (ecmascript).
-Did you mean to import removeCoach?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Expected '}', got '<eof>'
+[01:16:13.465] Browser ERROR   ./app/report/[id]/page.tsx:8:10
+Ecmascript file had an error
+   6 | import ReportDetailsClient from './ReportDetailsClient'
+   7 | import { User } from '@supabase/supabase-js'
+>  8 | import { createClient } from '@/utils/supabase/server'
+     |          ^^^^^^^^^^^^
+   9 | import { notFound, redirect } from 'next/navigation'
+  10 | import Link from 'next/link' // <--- NEW IMPORT
+  11 |
 
-Import trace:
-  Server Component:
-    ./app/sports/[id]/SportClient.tsx
-    ./app/sports/[id]/page.tsx
-[00:05:47.277] Browser ERROR   ./app/sports/[id]/SportClient.tsx:4:1
-Export joinCoachingStaff doesn't exist in target module
-  2 |
-  3 | import { useState } from 'react'
-> 4 | import { SportDetail, joinCoachingStaff, addEvent, addToRoster } from '../actions'
-    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  5 | import SearchableSelect from '@/app/components/SearchableSelect' // Reuse your component!
-  6 |
-  7 | export default function SportClient({ 
+the name `createClient` is defined multiple times
+[01:16:13.465] Browser ERROR   ./app/report/[id]/page.tsx:9:10
+Ecmascript file had an error
+   7 | import { User } from '@supabase/supabase-js'
+   8 | import { createClient } from '@/utils/supabase/server'
+>  9 | import { notFound, redirect } from 'next/navigation'
+     |          ^^^^^^^^
+  10 | import Link from 'next/link' // <--- NEW IMPORT
+  11 |
+  12 | // ... Types (Report, Log, OffenseType, Appeal) remain identical ...
 
-The export joinCoachingStaff was not found in module [project]/app/sports/actions.ts [app-client] (ecmascript).
-Did you mean to import removeCoach?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+the name `notFound` is defined multiple times
+[01:16:13.465] Browser ERROR   ./app/report/[id]/page.tsx:9:20
+Ecmascript file had an error
+   7 | import { User } from '@supabase/supabase-js'
+   8 | import { createClient } from '@/utils/supabase/server'
+>  9 | import { notFound, redirect } from 'next/navigation'
+     |                    ^^^^^^^^
+  10 | import Link from 'next/link' // <--- NEW IMPORT
+  11 |
+  12 | // ... Types (Report, Log, OffenseType, Appeal) remain identical ...
 
-Import trace:
-  Server Component:
-    ./app/sports/[id]/SportClient.tsx
-    ./app/sports/[id]/page.tsx
-[00:05:47.277] Browser ERROR   ./app/sports/[id]/SportClient.tsx:4:1
-Export joinCoachingStaff doesn't exist in target module
-  2 |
-  3 | import { useState } from 'react'
-> 4 | import { SportDetail, joinCoachingStaff, addEvent, addToRoster } from '../actions'
-    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  5 | import SearchableSelect from '@/app/components/SearchableSelect' // Reuse your component!
-  6 |
-  7 | export default function SportClient({ 
+the name `redirect` is defined multiple times
+[01:16:14.323] Server  LOG      ✓ Compiled in 137ms
+[01:16:15.189] Browser ERROR   ./app/incidents/[id]/page.tsx:40:2
+Parsing ecmascript source code failed
+  38 |     />
+  39 |   )
+> 40 | }
+     |  ^
 
-The export joinCoachingStaff was not found in module [project]/app/sports/actions.ts [app-ssr] (ecmascript).
-Did you mean to import removeCoach?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Expected '}', got '<eof>'
+[01:16:18.704] Browser ERROR   ./app/incidents/[id]/page.tsx:40:2
+Parsing ecmascript source code failed
+  38 |     />
+  39 |   )
+> 40 | }
+     |  ^
 
-Import trace:
-  Server Component:
-    ./app/sports/[id]/SportClient.tsx
-    ./app/sports/[id]/page.tsx
-[00:06:10.156] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765318173238}
-[00:06:27.099] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765318190176}
-[00:06:28.405] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/0421c87d-1faf-44bc-9ba1-a1d668a561c6 color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/0421c87d-1faf-44bc-9ba1-a1d668a561c6","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765318191478}
-[00:06:29.954] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765318193032}
-[00:06:33.115] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/707b55d2-ba61-4add-8b48-97a5e9d47f20 color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/707b55d2-ba61-4add-8b48-97a5e9d47f20","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765318196194}
-[00:06:35.014] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765318198089}
-[00:06:35.910] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/84454b9e-2058-406d-b5a9-c58f16b4408e color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/84454b9e-2058-406d-b5a9-c58f16b4408e","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765318198995}
-[00:06:36.557] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765318199633}
-[00:06:38.382] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/33f4d6c3-9f7a-4a90-967e-5f6d0ddceb6a color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/33f4d6c3-9f7a-4a90-967e-5f6d0ddceb6a","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765318201471}
-[00:06:46.447] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765318209520}
-[00:06:47.505] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765318210584}
-[00:07:44.586] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className","eventType":"keyup"},"href":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","id":"v3-1765317832059-2324518165412","route":"/sports/[id]","type":"INP","value":40}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:11:51.577] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:11:51.942] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:11:51.942] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:11:51.942] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/sports/246ef759-b63c-430d-8605-5b5003cb14ff","route":"/sports/[id]"}
-[00:11:51.942] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765318515023}
-[00:11:58.828] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","id":"v3-1765318515023-3966925658156","route":"/sports/[id]","type":"FCP","value":1154},{"href":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","id":"v3-1765318515023-6369634822068","route":"/sports/[id]","type":"TTFB","value":1045},{"attribution":{"eventTarget":"div>h1.text-3xl.font-bold.text-gray-900.dark:text-white"},"href":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","id":"v3-1765318515023-9070100527824","route":"/sports/[id]","type":"LCP","value":1154},{"attribution":{"eventTarget":"button.text-sm.bg-white.dark:bg-gray-700.border.border-gray-300.dark:border-gray-600.px-3.py-1.5.rounded.hover:bg-gray-50.dark:hover:bg-gray-600","eventType":"pointerdown"},"href":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","id":"v3-1765318515023-5858602733188","route":"/sports/[id]","type":"FID","value":7}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:11:59.135] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765318522209}
-[00:12:20.694] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"pointerdown"},"href":"http://localhost:3000/sports","id":"v3-1765318515023-3747913278543","route":"/sports","type":"INP","value":16}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:12:28.962] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765318552048}
-[00:12:37.764] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765318560841}
-[00:12:44.115] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/profile/40235712-3ea8-46b3-bfb6-8a23672bbd88 color: rgb(120, 120, 120) color: inherit {"dp":"/profile/[id]","o":"http://localhost:3000/profile/40235712-3ea8-46b3-bfb6-8a23672bbd88","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765318567198}
-[00:12:46.727] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765318569808}
-[00:12:48.017] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765318571094}
-[00:15:12.026] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765318715105}
-[00:20:48.940] Server  WARN     ⚠ Fast Refresh had to perform a full reload when ./app/sports/[id]/SportClient.tsx changed. Read more: https://nextjs.org/docs/messages/fast-refresh-reload
-[00:20:48.949] Server  LOG      ✓ Compiled in 150ms
-[00:20:50.022] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:20:50.731] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:20:50.731] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:20:50.731] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/sports","route":"/sports"}
-[00:20:50.731] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319053342}
-[00:21:03.653] Server  LOG      ✓ Compiled in 54ms
-[00:22:00.416] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/sports","id":"v3-1765319053341-5321894482275","route":"/sports","type":"TTFB","value":695}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:22:02.771] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319125859}
-[00:22:10.039] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319133117}
-[00:22:11.295] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/0421c87d-1faf-44bc-9ba1-a1d668a561c6 color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/0421c87d-1faf-44bc-9ba1-a1d668a561c6","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319134382}
-[00:22:11.906] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319134984}
-[00:22:14.249] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/33f4d6c3-9f7a-4a90-967e-5f6d0ddceb6a color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/33f4d6c3-9f7a-4a90-967e-5f6d0ddceb6a","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319137335}
-[00:22:15.194] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319138277}
-[00:22:16.210] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319139284}
-[00:22:20.847] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"pointerdown"},"href":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","id":"v3-1765319053341-9363422883206","route":"/sports/[id]","type":"INP","value":24}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:22:53.017] Server  LOG      ✓ Compiled in 42ms
-[00:22:55.554] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319178629}
-[00:22:58.333] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:22:58.497] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:22:58.497] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:22:58.497] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/sports","route":"/sports"}
-[00:22:58.497] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319181586}
-[00:23:24.029] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/sports","id":"v3-1765319181585-8388674631253","route":"/sports","type":"FCP","value":594},{"href":"http://localhost:3000/sports","id":"v3-1765319181585-3273201881692","route":"/sports","type":"TTFB","value":449},{"attribution":{"eventTarget":"div.max-w-7xl.mx-auto.p-4.sm:p-6.lg:p-8>h1.text-3xl.font-bold.text-gray-900.dark:text-white.mb-2"},"href":"http://localhost:3000/sports","id":"v3-1765319181585-2500722631730","route":"/sports","type":"LCP","value":594},{"attribution":{"eventTarget":"div.p-3.border-b.dark:border-gray-700.flex.justify-between.items-center.hover:bg-gray-50.dark:hover:bg-gray-700/50","eventType":"pointerdown"},"href":"http://localhost:3000/sports","id":"v3-1765319181585-6263863354508","route":"/sports","type":"FID","value":19}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:23:24.029] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319207114}
-[00:24:14.413] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319257497}
-[00:24:19.157] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/history color: rgb(120, 120, 120) color: inherit {"dp":"/reports/history","o":"http://localhost:3000/reports/history","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319262237}
-[00:24:20.844] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/action-items color: rgb(120, 120, 120) color: inherit {"dp":"/action-items","o":"http://localhost:3000/action-items","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319263935}
-[00:24:21.029] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/history color: rgb(120, 120, 120) color: inherit {"dp":"/reports/history","o":"http://localhost:3000/reports/history","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319264102}
-[00:24:21.588] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319264669}
-[00:24:22.178] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319265257}
-[00:25:08.443] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319311524}
-[00:25:10.312] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:25:10.478] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:25:10.478] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:25:10.478] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/sports","route":"/sports"}
-[00:25:10.478] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319313569}
-[00:25:15.380] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/sports","id":"v3-1765319313569-3688574800714","route":"/sports","type":"FCP","value":397},{"href":"http://localhost:3000/sports","id":"v3-1765319313569-5334946403716","route":"/sports","type":"TTFB","value":247},{"attribution":{"eventTarget":"div.max-w-7xl.mx-auto.p-4.sm:p-6.lg:p-8>h1.text-3xl.font-bold.text-gray-900.dark:text-white.mb-2"},"href":"http://localhost:3000/sports","id":"v3-1765319313569-3550134151100","route":"/sports","type":"LCP","value":397},{"attribution":{"eventTarget":"div.col-span-3.p-8.bg-gray-50.dark:bg-gray-800.rounded-xl.border.border-dashed.border-gray-300.dark:border-gray-700.text-center.text-gray-500","eventType":"pointerdown"},"href":"http://localhost:3000/sports","id":"v3-1765319313569-4810400379296","route":"/sports","type":"FID","value":13}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:25:15.380] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319318468}
-[00:25:49.553] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319352641}
-[00:25:51.476] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:25:51.626] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:25:51.626] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:25:51.626] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/sports","route":"/sports"}
-[00:25:51.626] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319354714}
-[00:25:54.323] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/sports","id":"v3-1765319354714-3895726957771","route":"/sports","type":"FCP","value":352},{"href":"http://localhost:3000/sports","id":"v3-1765319354714-3312951864205","route":"/sports","type":"TTFB","value":253},{"attribution":{"eventTarget":"div.max-w-7xl.mx-auto.p-4.sm:p-6.lg:p-8>h1.text-3xl.font-bold.text-gray-900.dark:text-white.mb-2"},"href":"http://localhost:3000/sports","id":"v3-1765319354714-8275708495032","route":"/sports","type":"LCP","value":352}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:26:44.755] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319407840}
-[00:27:15.806] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319438892}
-[00:28:14.672] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/c3760e8d-df29-45c2-b7f7-273ea7c48fce color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/c3760e8d-df29-45c2-b7f7-273ea7c48fce","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319497753}
-[00:28:15.471] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319498548}
-[00:28:17.003] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319500079}
-[00:28:19.358] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"keyup"},"href":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","id":"v3-1765319354714-7462893288965","route":"/sports/[id]","type":"INP","value":1128}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:29:10.878] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765319553953}
-[00:35:45.955] Server  LOG      ✓ Compiled in 62ms
-[00:35:49.716] Server  LOG      ✓ Compiled in 55ms
-[00:36:12.048] Server  LOG      ✓ Compiled in 54ms
-[00:36:31.750] Server  LOG      ✓ Compiled in 73ms
-[00:37:04.358] Server  ERROR   Roster fetch error: {}
-[00:37:04.576] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/63d4e476-6931-4877-bdd3-40053b725ffb color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/63d4e476-6931-4877-bdd3-40053b725ffb","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765320027657}
-[00:37:05.197] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765320028275}
-[00:37:06.331] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/63d4e476-6931-4877-bdd3-40053b725ffb color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/63d4e476-6931-4877-bdd3-40053b725ffb","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765320029409}
-[00:37:06.956] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765320030030}
-[00:37:07.544] Server  ERROR   Roster fetch error: {}
-[00:37:07.723] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765320030810}
-[00:37:34.107] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765320057182}
-[00:37:37.127] Server  ERROR   Roster fetch error: {}
-[00:37:37.349] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765320060421}
-[00:38:07.465] Server  ERROR   Roster fetch error: {}
-[00:38:10.157] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765320093249}
-[01:27:23.454] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"keyup"},"href":"http://localhost:3000/sports","id":"v3-1765319354714-7462893288965","route":"/sports","type":"INP","value":1864}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[01:27:46.452] Server  LOG      ✓ Compiled in 157ms
-[01:27:47.268] Browser ERROR   ./app/sports/page.tsx:2:1
-Export getUnassignedCadets doesn't exist in target module
-  1 | import { createClient } from '@/utils/supabase/server'
-> 2 | import { getSportsList, getUnassignedCadets, getGlobalUpcomingEvents } from './actions'
-    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  3 | import SportsDashboardClient from './SportsDashboardClient'
-  4 |
-  5 | export default async function SportsDashboardPage() {
+Expected '}', got '<eof>'
+[01:16:18.704] Browser ERROR   ./app/report/[id]/page.tsx:5:10
+Ecmascript file had an error
+  3 |
+  4 | import { createClient } from '@/utils/supabase/server'
+> 5 | import { createClient } from '@/utils/supabase/server'
+    |          ^^^^^^^^^^^^
+  6 | import { notFound, redirect } from 'next/navigation'
+  7 | import Link from 'next/link' // <--- NEW IMPORT
+  8 | import ReportDetailsClient from './ReportDetailsClient'
 
-The export getUnassignedCadets was not found in module [project]/app/sports/actions.ts [app-rsc] (ecmascript).
-Did you mean to import getGlobalUpcomingEvents?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-[01:28:19.036] Server  LOG      ✓ Compiled in 160ms
-[01:28:19.848] Browser ERROR   ./app/sports/page.tsx:2:1
-Export getUnassignedCadets doesn't exist in target module
-  1 | import { createClient } from '@/utils/supabase/server'
-> 2 | import { getSportsList, getUnassignedCadets, getGlobalUpcomingEvents } from './actions'
-    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  3 | import SportsDashboardClient from './SportsDashboardClient'
-  4 |
-  5 | export default async function SportsDashboardPage() {
+the name `createClient` is defined multiple times
+[01:16:58.027] Server  LOG      ✓ Compiled in 165ms
+[01:16:58.872] Browser ERROR   ./app/incidents/[id]/page.tsx:40:2
+Parsing ecmascript source code failed
+  38 |     />
+  39 |   )
+> 40 | }
+     |  ^
 
-The export getUnassignedCadets was not found in module [project]/app/sports/actions.ts [app-rsc] (ecmascript).
-Did you mean to import getGlobalUpcomingEvents?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-[01:28:21.702] Server  LOG      ✓ Compiled in 135ms
-[01:28:35.528] Server  LOG      ✓ Compiled in 664ms
-[01:28:37.018] Browser ERROR   ./app/sports/page.tsx:2:1
-Export getGlobalUpcomingEvents doesn't exist in target module
-  1 | import { createClient } from '@/utils/supabase/server'
-> 2 | import { getSportsList, getUnassignedCadets, getGlobalUpcomingEvents } from './actions'
-    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  3 | import SportsDashboardClient from './SportsDashboardClient'
-  4 |
-  5 | export default async function SportsDashboardPage() {
+Expected '}', got '<eof>'
+[01:17:00.557] Server  LOG      ✓ Compiled in 122ms
+[01:17:01.437] Browser ERROR   ./app/incidents/[id]/page.tsx:40:2
+Parsing ecmascript source code failed
+  38 |     />
+  39 |   )
+> 40 | }
+     |  ^
 
-The export getGlobalUpcomingEvents was not found in module [project]/app/sports/actions.ts [app-rsc] (ecmascript).
-Did you mean to import getUnassignedCadets?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-[01:28:37.018] Browser ERROR   ./app/sports/page.tsx:2:1
-Export getSportsList doesn't exist in target module
-  1 | import { createClient } from '@/utils/supabase/server'
-> 2 | import { getSportsList, getUnassignedCadets, getGlobalUpcomingEvents } from './actions'
-    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  3 | import SportsDashboardClient from './SportsDashboardClient'
-  4 |
-  5 | export default async function SportsDashboardPage() {
+Expected '}', got '<eof>'
+[01:17:53.017] Server  LOG      ✓ Compiled in 137ms
+[01:17:53.887] Browser ERROR   ./app/incidents/[id]/page.tsx:40:2
+Parsing ecmascript source code failed
+  38 |     />
+  39 |   )
+> 40 | }
+     |  ^
 
-The export getSportsList was not found in module [project]/app/sports/actions.ts [app-rsc] (ecmascript).
-Did you mean to import getUnassignedCadets?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-[01:28:37.018] Browser ERROR   ./app/sports/[id]/SportClient.tsx:4:1
-Export addAssistantCoach doesn't exist in target module
-   2 |
-   3 | import { useState, useEffect } from 'react'
->  4 | import { 
-     | ^^^^^^^^^
->  5 |     SportDetail, 
-     | ^^^^^^^^^^^^^^^^^
->  6 |     claimHeadCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  7 |     addAssistantCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  8 |     removeCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  9 |     addToRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 10 |     removeFromRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 11 |     addEvent, 
-     | ^^^^^^^^^^^^^^^^^
-> 12 |     removeEvent,
-     | ^^^^^^^^^^^^^^^^^
-> 13 |     searchCadets,
-     | ^^^^^^^^^^^^^^^^^
-> 14 |     searchFaculty
-     | ^^^^^^^^^^^^^^^^^
-> 15 | } from '../actions'
-     | ^^^^^^^^^^^^^^^^^^^^
-  16 | import SearchableSelect, { SelectOption } from '@/app/components/SearchableSelect'
-  17 |
-  18 | export default function SportClient({ 
+Expected '}', got '<eof>'
+[01:18:26.634] Browser ERROR   ./app/incidents/[id]/page.tsx:40:2
+Parsing ecmascript source code failed
+  38 |     />
+  39 |   )
+> 40 | }
+     |  ^
 
-The export addAssistantCoach was not found in module [project]/app/sports/actions.ts [app-client] (ecmascript).
-Did you mean to import getUnassignedCadets?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+Expected '}', got '<eof>'
+[01:18:41.269] Server  LOG      ✓ Compiled in 154ms
+[01:18:42.422] Server  LOG      ✓ Compiled in 85ms
+[01:18:51.283] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:18:51.533] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:18:51.533] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:18:51.533] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:18:51.533] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765383526153}
+[01:18:54.373] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1765383526153-7097097314701","route":"/","type":"FCP","value":2777},{"href":"http://localhost:3000/","id":"v3-1765383526153-3097199713790","route":"/","type":"TTFB","value":2541},{"attribution":{"eventTarget":"div.flex.justify-between.items-end>h2.text-2xl.font-semibold.text-gray-800.dark:text-gray-100"},"href":"http://localhost:3000/","id":"v3-1765383526153-8221186203422","route":"/","type":"LCP","value":2777},{"attribution":{"eventTarget":"svg.w-6.h-6","eventType":"pointerdown"},"href":"http://localhost:3000/","id":"v3-1765383526153-4410656477902","route":"/","type":"FID","value":17}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:18:54.373] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765383528982}
+[01:18:59.399] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:18:59.642] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:18:59.642] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:18:59.642] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:18:59.642] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765383534253}
+[01:19:01.344] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1765383534250-3817364604079","route":"/","type":"FCP","value":1472},{"href":"http://localhost:3000/","id":"v3-1765383534250-4487499099476","route":"/","type":"TTFB","value":1154},{"attribution":{"eventTarget":"div.flex.justify-between.items-end>h2.text-2xl.font-semibold.text-gray-800.dark:text-gray-100"},"href":"http://localhost:3000/","id":"v3-1765383534250-1050217766374","route":"/","type":"LCP","value":1472},{"attribution":{"eventTarget":"a.py-2.px-4.rounded-md.shadow-sm.text-sm.font-medium.text-white.bg-indigo-600.hover:bg-indigo-700.transition-colors","eventType":"pointerdown"},"href":"http://localhost:3000/","id":"v3-1765383534250-3193920863662","route":"/","type":"FID","value":15}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:19:01.344] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents/create color: rgb(120, 120, 120) color: inherit {"dp":"/incidents/create","o":"http://localhost:3000/incidents/create","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765383535939}
+[01:19:20.444] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents color: rgb(120, 120, 120) color: inherit {"dp":"/incidents","o":"http://localhost:3000/incidents","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765383555053}
+[01:19:33.900] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765383568520}
+[01:19:39.361] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:19:39.618] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:19:39.618] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:19:39.618] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:19:39.618] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765383574233}
+[01:19:41.650] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1765383574232-8985756681204","route":"/","type":"FCP","value":1765},{"href":"http://localhost:3000/","id":"v3-1765383574232-7807250023336","route":"/","type":"TTFB","value":1448},{"attribution":{"eventTarget":"div.flex.justify-between.items-end>h2.text-2xl.font-semibold.text-gray-800.dark:text-gray-100"},"href":"http://localhost:3000/","id":"v3-1765383574232-3350372789153","route":"/","type":"LCP","value":1765},{"attribution":{"eventTarget":"div.flex.justify-between.items-center>div.truncate.flex.items-center.flex-1.mr-2","eventType":"pointerdown"},"href":"http://localhost:3000/","id":"v3-1765383574232-5825546049033","route":"/","type":"FID","value":12}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:19:41.650] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents/1a0756ba-456f-41c5-93ae-529f7694b059 color: rgb(120, 120, 120) color: inherit {"dp":"/incidents/[id]","o":"http://localhost:3000/incidents/1a0756ba-456f-41c5-93ae-529f7694b059","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765383576263}
+[01:19:54.276] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"textarea.w-full.border.rounded.p-2.dark:bg-gray-900.dark:text-white","eventType":"keydown"},"href":"http://localhost:3000/incidents/1a0756ba-456f-41c5-93ae-529f7694b059","id":"v3-1765383574232-9747571317736","route":"/incidents/[id]","type":"INP","value":112}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:20:29.061] Server  LOG      ✓ Compiled in 133ms
+[01:20:29.945] Browser ERROR   ./app/incidents/[id]/IncidentDetailsClient.tsx:26:9
+Parsing ecmascript source code failed
+  24 |   // Form State
+  25 |   const [notes, setNotes] = useState('')
+> 26 |   const [handledBy, setHandledBy] //= useState(incident.reporter_id) // Default to reporter
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  27 |   const [offenseId, setOffenseId] = useState('')
+  28 |
+  29 |   const handleResolve = async () => {
 
-Import trace:
-  Server Component:
-    ./app/sports/[id]/SportClient.tsx
-    ./app/sports/[id]/page.tsx
-[01:28:37.018] Browser ERROR   ./app/sports/[id]/SportClient.tsx:4:1
-Export addAssistantCoach doesn't exist in target module
-   2 |
-   3 | import { useState, useEffect } from 'react'
->  4 | import { 
-     | ^^^^^^^^^
->  5 |     SportDetail, 
-     | ^^^^^^^^^^^^^^^^^
->  6 |     claimHeadCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  7 |     addAssistantCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  8 |     removeCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  9 |     addToRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 10 |     removeFromRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 11 |     addEvent, 
-     | ^^^^^^^^^^^^^^^^^
-> 12 |     removeEvent,
-     | ^^^^^^^^^^^^^^^^^
-> 13 |     searchCadets,
-     | ^^^^^^^^^^^^^^^^^
-> 14 |     searchFaculty
-     | ^^^^^^^^^^^^^^^^^
-> 15 | } from '../actions'
-     | ^^^^^^^^^^^^^^^^^^^^
-  16 | import SearchableSelect, { SelectOption } from '@/app/components/SearchableSelect'
-  17 |
-  18 | export default function SportClient({ 
-
-The export addAssistantCoach was not found in module [project]/app/sports/actions.ts [app-ssr] (ecmascript).
-Did you mean to import getUnassignedCadets?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+'const' declarations must be initialized
 
 Import trace:
   Server Component:
-    ./app/sports/[id]/SportClient.tsx
-    ./app/sports/[id]/page.tsx
-[01:28:37.018] Browser ERROR   ./app/sports/[id]/SportClient.tsx:4:1
-Export addEvent doesn't exist in target module
-   2 |
-   3 | import { useState, useEffect } from 'react'
->  4 | import { 
-     | ^^^^^^^^^
->  5 |     SportDetail, 
-     | ^^^^^^^^^^^^^^^^^
->  6 |     claimHeadCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  7 |     addAssistantCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  8 |     removeCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  9 |     addToRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 10 |     removeFromRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 11 |     addEvent, 
-     | ^^^^^^^^^^^^^^^^^
-> 12 |     removeEvent,
-     | ^^^^^^^^^^^^^^^^^
-> 13 |     searchCadets,
-     | ^^^^^^^^^^^^^^^^^
-> 14 |     searchFaculty
-     | ^^^^^^^^^^^^^^^^^
-> 15 | } from '../actions'
-     | ^^^^^^^^^^^^^^^^^^^^
-  16 | import SearchableSelect, { SelectOption } from '@/app/components/SearchableSelect'
-  17 |
-  18 | export default function SportClient({ 
+    ./app/incidents/[id]/IncidentDetailsClient.tsx
+    ./app/incidents/[id]/page.tsx
+[01:20:32.301] Server  LOG      ✓ Compiled in 101ms
+[01:20:38.974] Server  LOG      ✓ Compiled in 115ms
+[01:20:39.985] Browser ERROR   uncaughtError: ReferenceError: NULL is not defined
+[01:20:43.432] Server  LOG      ✓ Compiled in 185ms
+[01:20:44.244] Browser ERROR   ./app/incidents/[id]/IncidentDetailsClient.tsx:26:9
+Parsing ecmascript source code failed
+  24 |   // Form State
+  25 |   const [notes, setNotes] = useState('')
+> 26 |   const [handledBy, setHandledBy] //= useState(incident.reporter_id) // Default to reporter
+     |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+  27 |   const [offenseId, setOffenseId] = useState('')
+  28 |
+  29 |   const handleResolve = async () => {
 
-The export addEvent was not found in module [project]/app/sports/actions.ts [app-client] (ecmascript).
-Did you mean to import getUnassignedCadets?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+'const' declarations must be initialized
 
 Import trace:
   Server Component:
-    ./app/sports/[id]/SportClient.tsx
-    ./app/sports/[id]/page.tsx
-[01:28:37.018] Browser ERROR   ./app/sports/[id]/SportClient.tsx:4:1
-Export addEvent doesn't exist in target module
-   2 |
-   3 | import { useState, useEffect } from 'react'
->  4 | import { 
-     | ^^^^^^^^^
->  5 |     SportDetail, 
-     | ^^^^^^^^^^^^^^^^^
->  6 |     claimHeadCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  7 |     addAssistantCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  8 |     removeCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  9 |     addToRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 10 |     removeFromRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 11 |     addEvent, 
-     | ^^^^^^^^^^^^^^^^^
-> 12 |     removeEvent,
-     | ^^^^^^^^^^^^^^^^^
-> 13 |     searchCadets,
-     | ^^^^^^^^^^^^^^^^^
-> 14 |     searchFaculty
-     | ^^^^^^^^^^^^^^^^^
-> 15 | } from '../actions'
-     | ^^^^^^^^^^^^^^^^^^^^
-  16 | import SearchableSelect, { SelectOption } from '@/app/components/SearchableSelect'
-  17 |
-  18 | export default function SportClient({ 
-
-The export addEvent was not found in module [project]/app/sports/actions.ts [app-ssr] (ecmascript).
-Did you mean to import getUnassignedCadets?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import trace:
-  Server Component:
-    ./app/sports/[id]/SportClient.tsx
-    ./app/sports/[id]/page.tsx
-[01:28:37.018] Browser ERROR   ./app/sports/[id]/SportClient.tsx:4:1
-Export addToRoster doesn't exist in target module
-   2 |
-   3 | import { useState, useEffect } from 'react'
->  4 | import { 
-     | ^^^^^^^^^
->  5 |     SportDetail, 
-     | ^^^^^^^^^^^^^^^^^
->  6 |     claimHeadCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  7 |     addAssistantCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  8 |     removeCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  9 |     addToRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 10 |     removeFromRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 11 |     addEvent, 
-     | ^^^^^^^^^^^^^^^^^
-> 12 |     removeEvent,
-     | ^^^^^^^^^^^^^^^^^
-> 13 |     searchCadets,
-     | ^^^^^^^^^^^^^^^^^
-> 14 |     searchFaculty
-     | ^^^^^^^^^^^^^^^^^
-> 15 | } from '../actions'
-     | ^^^^^^^^^^^^^^^^^^^^
-  16 | import SearchableSelect, { SelectOption } from '@/app/components/SearchableSelect'
-  17 |
-  18 | export default function SportClient({ 
-
-The export addToRoster was not found in module [project]/app/sports/actions.ts [app-client] (ecmascript).
-Did you mean to import getUnassignedCadets?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import trace:
-  Server Component:
-    ./app/sports/[id]/SportClient.tsx
-    ./app/sports/[id]/page.tsx
-[01:28:37.018] Browser ERROR   ./app/sports/[id]/SportClient.tsx:4:1
-Export addToRoster doesn't exist in target module
-   2 |
-   3 | import { useState, useEffect } from 'react'
->  4 | import { 
-     | ^^^^^^^^^
->  5 |     SportDetail, 
-     | ^^^^^^^^^^^^^^^^^
->  6 |     claimHeadCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  7 |     addAssistantCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  8 |     removeCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  9 |     addToRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 10 |     removeFromRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 11 |     addEvent, 
-     | ^^^^^^^^^^^^^^^^^
-> 12 |     removeEvent,
-     | ^^^^^^^^^^^^^^^^^
-> 13 |     searchCadets,
-     | ^^^^^^^^^^^^^^^^^
-> 14 |     searchFaculty
-     | ^^^^^^^^^^^^^^^^^
-> 15 | } from '../actions'
-     | ^^^^^^^^^^^^^^^^^^^^
-  16 | import SearchableSelect, { SelectOption } from '@/app/components/SearchableSelect'
-  17 |
-  18 | export default function SportClient({ 
-
-The export addToRoster was not found in module [project]/app/sports/actions.ts [app-ssr] (ecmascript).
-Did you mean to import getUnassignedCadets?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import trace:
-  Server Component:
-    ./app/sports/[id]/SportClient.tsx
-    ./app/sports/[id]/page.tsx
-[01:28:37.018] Browser ERROR   ./app/sports/[id]/SportClient.tsx:4:1
-Export claimHeadCoach doesn't exist in target module
-   2 |
-   3 | import { useState, useEffect } from 'react'
->  4 | import { 
-     | ^^^^^^^^^
->  5 |     SportDetail, 
-     | ^^^^^^^^^^^^^^^^^
->  6 |     claimHeadCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  7 |     addAssistantCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  8 |     removeCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  9 |     addToRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 10 |     removeFromRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 11 |     addEvent, 
-     | ^^^^^^^^^^^^^^^^^
-> 12 |     removeEvent,
-     | ^^^^^^^^^^^^^^^^^
-> 13 |     searchCadets,
-     | ^^^^^^^^^^^^^^^^^
-> 14 |     searchFaculty
-     | ^^^^^^^^^^^^^^^^^
-> 15 | } from '../actions'
-     | ^^^^^^^^^^^^^^^^^^^^
-  16 | import SearchableSelect, { SelectOption } from '@/app/components/SearchableSelect'
-  17 |
-  18 | export default function SportClient({ 
-
-The export claimHeadCoach was not found in module [project]/app/sports/actions.ts [app-client] (ecmascript).
-Did you mean to import getUnassignedCadets?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import trace:
-  Server Component:
-    ./app/sports/[id]/SportClient.tsx
-    ./app/sports/[id]/page.tsx
-[01:28:37.018] Browser ERROR   ./app/sports/[id]/SportClient.tsx:4:1
-Export claimHeadCoach doesn't exist in target module
-   2 |
-   3 | import { useState, useEffect } from 'react'
->  4 | import { 
-     | ^^^^^^^^^
->  5 |     SportDetail, 
-     | ^^^^^^^^^^^^^^^^^
->  6 |     claimHeadCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  7 |     addAssistantCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  8 |     removeCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  9 |     addToRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 10 |     removeFromRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 11 |     addEvent, 
-     | ^^^^^^^^^^^^^^^^^
-> 12 |     removeEvent,
-     | ^^^^^^^^^^^^^^^^^
-> 13 |     searchCadets,
-     | ^^^^^^^^^^^^^^^^^
-> 14 |     searchFaculty
-     | ^^^^^^^^^^^^^^^^^
-> 15 | } from '../actions'
-     | ^^^^^^^^^^^^^^^^^^^^
-  16 | import SearchableSelect, { SelectOption } from '@/app/components/SearchableSelect'
-  17 |
-  18 | export default function SportClient({ 
-
-The export claimHeadCoach was not found in module [project]/app/sports/actions.ts [app-ssr] (ecmascript).
-Did you mean to import getUnassignedCadets?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import trace:
-  Server Component:
-    ./app/sports/[id]/SportClient.tsx
-    ./app/sports/[id]/page.tsx
-[01:28:37.018] Browser ERROR   ./app/sports/[id]/page.tsx:2:1
-Export getSportDetail doesn't exist in target module
-  1 | import { createClient } from '@/utils/supabase/server'
-> 2 | import { getSportDetail } from '../actions'
-    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  3 | import { notFound } from 'next/navigation'
-  4 | import SportClient from './SportClient'
-  5 |
-
-The export getSportDetail was not found in module [project]/app/sports/actions.ts [app-rsc] (ecmascript).
-Did you mean to import getUnassignedCadets?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-[01:28:37.018] Browser ERROR   ./app/sports/[id]/SportClient.tsx:4:1
-Export removeEvent doesn't exist in target module
-   2 |
-   3 | import { useState, useEffect } from 'react'
->  4 | import { 
-     | ^^^^^^^^^
->  5 |     SportDetail, 
-     | ^^^^^^^^^^^^^^^^^
->  6 |     claimHeadCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  7 |     addAssistantCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  8 |     removeCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  9 |     addToRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 10 |     removeFromRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 11 |     addEvent, 
-     | ^^^^^^^^^^^^^^^^^
-> 12 |     removeEvent,
-     | ^^^^^^^^^^^^^^^^^
-> 13 |     searchCadets,
-     | ^^^^^^^^^^^^^^^^^
-> 14 |     searchFaculty
-     | ^^^^^^^^^^^^^^^^^
-> 15 | } from '../actions'
-     | ^^^^^^^^^^^^^^^^^^^^
-  16 | import SearchableSelect, { SelectOption } from '@/app/components/SearchableSelect'
-  17 |
-  18 | export default function SportClient({ 
-
-The export removeEvent was not found in module [project]/app/sports/actions.ts [app-client] (ecmascript).
-Did you mean to import getUnassignedCadets?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import trace:
-  Server Component:
-    ./app/sports/[id]/SportClient.tsx
-    ./app/sports/[id]/page.tsx
-[01:28:37.018] Browser ERROR   ./app/sports/[id]/SportClient.tsx:4:1
-Export removeEvent doesn't exist in target module
-   2 |
-   3 | import { useState, useEffect } from 'react'
->  4 | import { 
-     | ^^^^^^^^^
->  5 |     SportDetail, 
-     | ^^^^^^^^^^^^^^^^^
->  6 |     claimHeadCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  7 |     addAssistantCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  8 |     removeCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  9 |     addToRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 10 |     removeFromRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 11 |     addEvent, 
-     | ^^^^^^^^^^^^^^^^^
-> 12 |     removeEvent,
-     | ^^^^^^^^^^^^^^^^^
-> 13 |     searchCadets,
-     | ^^^^^^^^^^^^^^^^^
-> 14 |     searchFaculty
-     | ^^^^^^^^^^^^^^^^^
-> 15 | } from '../actions'
-     | ^^^^^^^^^^^^^^^^^^^^
-  16 | import SearchableSelect, { SelectOption } from '@/app/components/SearchableSelect'
-  17 |
-  18 | export default function SportClient({ 
-
-The export removeEvent was not found in module [project]/app/sports/actions.ts [app-ssr] (ecmascript).
-Did you mean to import getUnassignedCadets?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import trace:
-  Server Component:
-    ./app/sports/[id]/SportClient.tsx
-    ./app/sports/[id]/page.tsx
-[01:28:37.018] Browser ERROR   ./app/sports/[id]/SportClient.tsx:4:1
-Export removeFromRoster doesn't exist in target module
-   2 |
-   3 | import { useState, useEffect } from 'react'
->  4 | import { 
-     | ^^^^^^^^^
->  5 |     SportDetail, 
-     | ^^^^^^^^^^^^^^^^^
->  6 |     claimHeadCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  7 |     addAssistantCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  8 |     removeCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  9 |     addToRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 10 |     removeFromRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 11 |     addEvent, 
-     | ^^^^^^^^^^^^^^^^^
-> 12 |     removeEvent,
-     | ^^^^^^^^^^^^^^^^^
-> 13 |     searchCadets,
-     | ^^^^^^^^^^^^^^^^^
-> 14 |     searchFaculty
-     | ^^^^^^^^^^^^^^^^^
-> 15 | } from '../actions'
-     | ^^^^^^^^^^^^^^^^^^^^
-  16 | import SearchableSelect, { SelectOption } from '@/app/components/SearchableSelect'
-  17 |
-  18 | export default function SportClient({ 
-
-The export removeFromRoster was not found in module [project]/app/sports/actions.ts [app-client] (ecmascript).
-Did you mean to import getUnassignedCadets?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import trace:
-  Server Component:
-    ./app/sports/[id]/SportClient.tsx
-    ./app/sports/[id]/page.tsx
-[01:28:37.018] Browser ERROR   ./app/sports/[id]/SportClient.tsx:4:1
-Export removeFromRoster doesn't exist in target module
-   2 |
-   3 | import { useState, useEffect } from 'react'
->  4 | import { 
-     | ^^^^^^^^^
->  5 |     SportDetail, 
-     | ^^^^^^^^^^^^^^^^^
->  6 |     claimHeadCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  7 |     addAssistantCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  8 |     removeCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  9 |     addToRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 10 |     removeFromRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 11 |     addEvent, 
-     | ^^^^^^^^^^^^^^^^^
-> 12 |     removeEvent,
-     | ^^^^^^^^^^^^^^^^^
-> 13 |     searchCadets,
-     | ^^^^^^^^^^^^^^^^^
-> 14 |     searchFaculty
-     | ^^^^^^^^^^^^^^^^^
-> 15 | } from '../actions'
-     | ^^^^^^^^^^^^^^^^^^^^
-  16 | import SearchableSelect, { SelectOption } from '@/app/components/SearchableSelect'
-  17 |
-  18 | export default function SportClient({ 
-
-The export removeFromRoster was not found in module [project]/app/sports/actions.ts [app-ssr] (ecmascript).
-Did you mean to import getUnassignedCadets?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import trace:
-  Server Component:
-    ./app/sports/[id]/SportClient.tsx
-    ./app/sports/[id]/page.tsx
-[01:28:37.018] Browser ERROR   ./app/sports/[id]/SportClient.tsx:4:1
-Export searchCadets doesn't exist in target module
-   2 |
-   3 | import { useState, useEffect } from 'react'
->  4 | import { 
-     | ^^^^^^^^^
->  5 |     SportDetail, 
-     | ^^^^^^^^^^^^^^^^^
->  6 |     claimHeadCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  7 |     addAssistantCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  8 |     removeCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  9 |     addToRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 10 |     removeFromRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 11 |     addEvent, 
-     | ^^^^^^^^^^^^^^^^^
-> 12 |     removeEvent,
-     | ^^^^^^^^^^^^^^^^^
-> 13 |     searchCadets,
-     | ^^^^^^^^^^^^^^^^^
-> 14 |     searchFaculty
-     | ^^^^^^^^^^^^^^^^^
-> 15 | } from '../actions'
-     | ^^^^^^^^^^^^^^^^^^^^
-  16 | import SearchableSelect, { SelectOption } from '@/app/components/SearchableSelect'
-  17 |
-  18 | export default function SportClient({ 
-
-The export searchCadets was not found in module [project]/app/sports/actions.ts [app-client] (ecmascript).
-Did you mean to import getUnassignedCadets?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import trace:
-  Server Component:
-    ./app/sports/[id]/SportClient.tsx
-    ./app/sports/[id]/page.tsx
-[01:28:37.018] Browser ERROR   ./app/sports/[id]/SportClient.tsx:4:1
-Export searchCadets doesn't exist in target module
-   2 |
-   3 | import { useState, useEffect } from 'react'
->  4 | import { 
-     | ^^^^^^^^^
->  5 |     SportDetail, 
-     | ^^^^^^^^^^^^^^^^^
->  6 |     claimHeadCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  7 |     addAssistantCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  8 |     removeCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  9 |     addToRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 10 |     removeFromRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 11 |     addEvent, 
-     | ^^^^^^^^^^^^^^^^^
-> 12 |     removeEvent,
-     | ^^^^^^^^^^^^^^^^^
-> 13 |     searchCadets,
-     | ^^^^^^^^^^^^^^^^^
-> 14 |     searchFaculty
-     | ^^^^^^^^^^^^^^^^^
-> 15 | } from '../actions'
-     | ^^^^^^^^^^^^^^^^^^^^
-  16 | import SearchableSelect, { SelectOption } from '@/app/components/SearchableSelect'
-  17 |
-  18 | export default function SportClient({ 
-
-The export searchCadets was not found in module [project]/app/sports/actions.ts [app-ssr] (ecmascript).
-Did you mean to import getUnassignedCadets?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import trace:
-  Server Component:
-    ./app/sports/[id]/SportClient.tsx
-    ./app/sports/[id]/page.tsx
-[01:28:37.018] Browser ERROR   ./app/sports/[id]/SportClient.tsx:4:1
-Export searchFaculty doesn't exist in target module
-   2 |
-   3 | import { useState, useEffect } from 'react'
->  4 | import { 
-     | ^^^^^^^^^
->  5 |     SportDetail, 
-     | ^^^^^^^^^^^^^^^^^
->  6 |     claimHeadCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  7 |     addAssistantCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  8 |     removeCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  9 |     addToRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 10 |     removeFromRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 11 |     addEvent, 
-     | ^^^^^^^^^^^^^^^^^
-> 12 |     removeEvent,
-     | ^^^^^^^^^^^^^^^^^
-> 13 |     searchCadets,
-     | ^^^^^^^^^^^^^^^^^
-> 14 |     searchFaculty
-     | ^^^^^^^^^^^^^^^^^
-> 15 | } from '../actions'
-     | ^^^^^^^^^^^^^^^^^^^^
-  16 | import SearchableSelect, { SelectOption } from '@/app/components/SearchableSelect'
-  17 |
-  18 | export default function SportClient({ 
-
-The export searchFaculty was not found in module [project]/app/sports/actions.ts [app-client] (ecmascript).
-Did you mean to import getUnassignedCadets?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import trace:
-  Server Component:
-    ./app/sports/[id]/SportClient.tsx
-    ./app/sports/[id]/page.tsx
-[01:28:37.018] Browser ERROR   ./app/sports/[id]/SportClient.tsx:4:1
-Export searchFaculty doesn't exist in target module
-   2 |
-   3 | import { useState, useEffect } from 'react'
->  4 | import { 
-     | ^^^^^^^^^
->  5 |     SportDetail, 
-     | ^^^^^^^^^^^^^^^^^
->  6 |     claimHeadCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  7 |     addAssistantCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  8 |     removeCoach, 
-     | ^^^^^^^^^^^^^^^^^
->  9 |     addToRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 10 |     removeFromRoster, 
-     | ^^^^^^^^^^^^^^^^^
-> 11 |     addEvent, 
-     | ^^^^^^^^^^^^^^^^^
-> 12 |     removeEvent,
-     | ^^^^^^^^^^^^^^^^^
-> 13 |     searchCadets,
-     | ^^^^^^^^^^^^^^^^^
-> 14 |     searchFaculty
-     | ^^^^^^^^^^^^^^^^^
-> 15 | } from '../actions'
-     | ^^^^^^^^^^^^^^^^^^^^
-  16 | import SearchableSelect, { SelectOption } from '@/app/components/SearchableSelect'
-  17 |
-  18 | export default function SportClient({ 
-
-The export searchFaculty was not found in module [project]/app/sports/actions.ts [app-ssr] (ecmascript).
-Did you mean to import getUnassignedCadets?
-All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-
-Import trace:
-  Server Component:
-    ./app/sports/[id]/SportClient.tsx
-    ./app/sports/[id]/page.tsx
-[01:28:43.193] Server  LOG      ✓ Compiled in 354ms
-[01:28:44.672] Server  LOG      ✓ Compiled in 145ms
-[01:30:23.750] Server  LOG      ✓ Compiled in 127ms
-[01:30:39.045] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765323242106}
-[01:30:44.424] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/daily color: rgb(120, 120, 120) color: inherit {"dp":"/reports/daily","o":"http://localhost:3000/reports/daily","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765323247493}
-[01:30:48.239] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765323251278}
-[01:30:48.950] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765323252038}
-[01:30:50.263] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765323253329}
-[01:30:59.155] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765323262227}
-[01:31:19.426] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/c196c90b-87e8-4524-b7aa-658409b56183 color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/c196c90b-87e8-4524-b7aa-658409b56183","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765323282512}
-[01:31:23.007] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765323286092}
-[01:31:50.662] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/0421c87d-1faf-44bc-9ba1-a1d668a561c6 color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/0421c87d-1faf-44bc-9ba1-a1d668a561c6","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765323313749}
-[01:31:54.127] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765323317206}
-[01:31:55.929] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765323318996}
-[01:31:59.219] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765323322297}
-[01:32:04.188] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"keyup"},"href":"http://localhost:3000/sports","id":"v3-1765319354714-7462893288965","route":"/sports","type":"INP","value":1688}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[01:37:07.646] Server  LOG      ✓ Compiled in 196ms
-[01:37:24.403] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/preferences color: rgb(120, 120, 120) color: inherit {"dp":"/preferences","o":"http://localhost:3000/preferences","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765323647484}
-[01:40:19.992] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"keyup"},"href":"http://localhost:3000/preferences","id":"v3-1765319354714-7462893288965","route":"/preferences","type":"INP","value":1128}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[01:40:32.891] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765323835962}
-[01:40:36.990] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765323840058}
-[01:50:23.111] Server  LOG      ✓ Compiled in 213ms
-[01:50:27.916] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/preferences color: rgb(120, 120, 120) color: inherit {"dp":"/preferences","o":"http://localhost:3000/preferences","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765324430994}
+    ./app/incidents/[id]/IncidentDetailsClient.tsx
+    ./app/incidents/[id]/page.tsx
+[01:20:45.289] Server  LOG      ✓ Compiled in 253ms
+[01:20:47.023] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:20:47.568] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:20:47.568] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:20:47.568] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/incidents/1a0756ba-456f-41c5-93ae-529f7694b059","route":"/incidents/[id]"}
+[01:20:47.568] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents/1a0756ba-456f-41c5-93ae-529f7694b059 color: rgb(120, 120, 120) color: inherit {"dp":"/incidents/[id]","o":"http://localhost:3000/incidents/1a0756ba-456f-41c5-93ae-529f7694b059","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765383641850}
+[01:20:48.566] Server  LOG      ✓ Compiled in 127ms
+[01:20:53.543] Server  LOG      ✓ Compiled in 117ms
+[01:20:54.677] Server  LOG      ✓ Compiled in 134ms
+[01:20:55.115] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/incidents/1a0756ba-456f-41c5-93ae-529f7694b059","id":"v3-1765383641848-9936219516733","route":"/incidents/[id]","type":"TTFB","value":1237}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:21:16.020] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765383670628}
+[01:21:18.948] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"pointerdown"},"href":"http://localhost:3000/login","id":"v3-1765383641848-9310760431371","route":"/login","type":"INP","value":40}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:21:22.914] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:21:23.204] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:21:23.204] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:21:23.204] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:21:23.204] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765383677821}
+[01:21:26.873] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1765383677818-5857590552718","route":"/","type":"FCP","value":2061},{"href":"http://localhost:3000/","id":"v3-1765383677818-7429098117855","route":"/","type":"TTFB","value":1756},{"attribution":{"eventTarget":"div.flex.justify-between.items-end>h2.text-2xl.font-semibold.text-gray-800.dark:text-gray-100"},"href":"http://localhost:3000/","id":"v3-1765383677818-8687993425517","route":"/","type":"LCP","value":2061},{"attribution":{"eventTarget":"div.mt-2.text-sm.text-gray-500.dark:text-gray-400>p","eventType":"pointerdown"},"href":"http://localhost:3000/","id":"v3-1765383677818-1835324532662","route":"/","type":"FID","value":10}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:21:26.873] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents/1a0756ba-456f-41c5-93ae-529f7694b059 color: rgb(120, 120, 120) color: inherit {"dp":"/incidents/[id]","o":"http://localhost:3000/incidents/1a0756ba-456f-41c5-93ae-529f7694b059","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765383681479}
+[01:21:28.706] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765383683314}
+[01:21:36.507] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"pointerdown"},"href":"http://localhost:3000/","id":"v3-1765383677818-9442185949843","route":"/","type":"INP","value":16}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:22:02.751] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765383717363}
+[01:22:04.503] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"click"},"href":"http://localhost:3000/login","id":"v3-1765383677818-9442185949843","route":"/login","type":"INP","value":40}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:22:41.072] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:22:41.332] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:22:41.332] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:22:41.332] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:22:41.332] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765383755943}
+[01:22:43.543] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1765383755942-7941389341754","route":"/","type":"FCP","value":1628},{"href":"http://localhost:3000/","id":"v3-1765383755942-4221757854741","route":"/","type":"TTFB","value":1308},{"attribution":{"eventTarget":"div.flex.justify-between.items-end>h2.text-2xl.font-semibold.text-gray-800.dark:text-gray-100"},"href":"http://localhost:3000/","id":"v3-1765383755942-8378473886694","route":"/","type":"LCP","value":1628}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:22:51.581] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765383766184}
+[01:23:08.267] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"click"},"href":"http://localhost:3000/manage","id":"v3-1765383755942-8467317761455","route":"/manage","type":"INP","value":72}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:29:06.418] Server  LOG      ✓ Compiled in 85ms
+[01:29:33.668] Server  LOG      ✓ Compiled in 170ms
+[01:29:39.578] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765384174187}
+[01:29:43.729] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765384178307}
+[01:29:48.002] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:29:48.301] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:29:48.301] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:29:48.301] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:29:48.301] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765384182924}
+[01:29:50.954] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1765384182923-7718399576831","route":"/","type":"FCP","value":1604},{"href":"http://localhost:3000/","id":"v3-1765384182923-4765534057316","route":"/","type":"TTFB","value":1289},{"attribution":{"eventTarget":"div.flex.justify-between.items-end>h2.text-2xl.font-semibold.text-gray-800.dark:text-gray-100"},"href":"http://localhost:3000/","id":"v3-1765384182923-7864228441368","route":"/","type":"LCP","value":1604},{"attribution":{"eventTarget":"button.p-2.rounded-full.text-gray-600.hover:bg-gray-100.dark:text-gray-300.dark:hover:bg-gray-700.transition-colors.focus:outline-none.focus:ring-2.focus:ring-indigo-500","eventType":"pointerdown"},"href":"http://localhost:3000/","id":"v3-1765384182923-8107613304633","route":"/","type":"FID","value":6}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:29:50.954] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765384185565}
+[01:29:55.283] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:29:55.524] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:29:55.524] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:29:55.524] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:29:55.524] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765384190147}
+[01:29:57.026] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1765384190145-9713001861054","route":"/","type":"FCP","value":1303},{"href":"http://localhost:3000/","id":"v3-1765384190145-8067923474267","route":"/","type":"TTFB","value":984},{"attribution":{"eventTarget":"div.flex.justify-between.items-end>h2.text-2xl.font-semibold.text-gray-800.dark:text-gray-100"},"href":"http://localhost:3000/","id":"v3-1765384190145-2494494565466","route":"/","type":"LCP","value":1303},{"attribution":{"eventTarget":"div.mt-2.text-sm.text-gray-500.dark:text-gray-400>p","eventType":"pointerdown"},"href":"http://localhost:3000/","id":"v3-1765384190145-5607638465070","route":"/","type":"FID","value":13}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:29:57.026] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents/1a0756ba-456f-41c5-93ae-529f7694b059 color: rgb(120, 120, 120) color: inherit {"dp":"/incidents/[id]","o":"http://localhost:3000/incidents/1a0756ba-456f-41c5-93ae-529f7694b059","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765384191634}
+[01:30:03.904] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"input.block.w-full.rounded-md.border.bg-white.dark:bg-gray-900.py-2.pl-3.pr-10.text-sm.shadow-sm.focus:border-indigo-500.focus:outline-none.focus:ring-1.focus:ring-indigo-500.dark:text-white.border-gray-300.dark:border-gray-600","eventType":"keydown"},"href":"http://localhost:3000/incidents/1a0756ba-456f-41c5-93ae-529f7694b059","id":"v3-1765384190145-9171552776853","route":"/incidents/[id]","type":"INP","value":120}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:30:29.059] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:30:29.270] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:30:29.270] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:30:29.270] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/incidents/1a0756ba-456f-41c5-93ae-529f7694b059","route":"/incidents/[id]"}
+[01:30:29.270] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents/1a0756ba-456f-41c5-93ae-529f7694b059 color: rgb(120, 120, 120) color: inherit {"dp":"/incidents/[id]","o":"http://localhost:3000/incidents/1a0756ba-456f-41c5-93ae-529f7694b059","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765384223892}
+[01:30:38.601] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/incidents/1a0756ba-456f-41c5-93ae-529f7694b059","id":"v3-1765384223891-8981629072436","route":"/incidents/[id]","type":"FCP","value":1671},{"href":"http://localhost:3000/incidents/1a0756ba-456f-41c5-93ae-529f7694b059","id":"v3-1765384223891-4604264965423","route":"/incidents/[id]","type":"TTFB","value":1371},{"attribution":{"eventTarget":"div>h1.text-2xl.font-bold.text-gray-900.dark:text-white"},"href":"http://localhost:3000/incidents/1a0756ba-456f-41c5-93ae-529f7694b059","id":"v3-1765384223891-1814290060626","route":"/incidents/[id]","type":"LCP","value":1671},{"attribution":{"eventTarget":"","eventType":"pointerdown"},"href":"http://localhost:3000/incidents/1a0756ba-456f-41c5-93ae-529f7694b059","id":"v3-1765384223891-5386947863013","route":"/incidents/[id]","type":"FID","value":8},{"attribution":{"eventTarget":"","eventType":"pointerdown"},"href":"http://localhost:3000/incidents/1a0756ba-456f-41c5-93ae-529f7694b059","id":"v3-1765384223891-8120520539496","route":"/incidents/[id]","type":"INP","value":48}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:32:32.275] Server  LOG      ✓ Compiled in 113ms
+[01:32:42.136] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents color: rgb(120, 120, 120) color: inherit {"dp":"/incidents","o":"http://localhost:3000/incidents","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765384356741}
+[01:32:49.615] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765384364225}
+[01:32:58.588] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/pending color: rgb(120, 120, 120) color: inherit {"dp":"/reports/pending","o":"http://localhost:3000/reports/pending","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765384373195}
+[01:33:00.213] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765384374804}
+[01:33:07.704] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:33:08.097] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:33:08.097] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:33:08.098] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/incidents","route":"/incidents"}
+[01:33:08.098] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents color: rgb(120, 120, 120) color: inherit {"dp":"/incidents","o":"http://localhost:3000/incidents","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765384382718}
+[01:33:13.186] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/incidents","id":"v3-1765384382715-6639151663407","route":"/incidents","type":"FCP","value":1418},{"href":"http://localhost:3000/incidents","id":"v3-1765384382715-1970333067720","route":"/incidents","type":"TTFB","value":1148},{"attribution":{"eventTarget":"div.flex.justify-between.items-center.mb-8>div>h1.text-3xl.font-bold.text-gray-900.dark:text-white"},"href":"http://localhost:3000/incidents","id":"v3-1765384382715-4487687971492","route":"/incidents","type":"LCP","value":1418},{"attribution":{"eventTarget":"tr.hover:bg-gray-50.dark:hover:bg-gray-700/50.cursor-pointer>td.px-6.py-4.text-sm.text-gray-500","eventType":"pointerdown"},"href":"http://localhost:3000/incidents","id":"v3-1765384382715-9707663640595","route":"/incidents","type":"FID","value":9}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:33:13.186] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765384387804}
+[01:33:16.713] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:33:16.914] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:33:16.914] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:33:16.914] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:33:16.914] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765384391590}
+[01:33:18.893] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:33:19.191] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:33:19.191] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:33:19.191] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[01:33:19.191] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765384393802}
+[01:33:21.230] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1765384393800-2113367868807","route":"/","type":"FCP","value":1561},{"href":"http://localhost:3000/","id":"v3-1765384393800-2805810356292","route":"/","type":"TTFB","value":1226}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:33:22.742] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents color: rgb(120, 120, 120) color: inherit {"dp":"/incidents","o":"http://localhost:3000/incidents","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765384397344}
+[01:33:40.980] Server  ERROR   Ledger logging failed: {}
+[01:33:49.620] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"div.flex.justify-between.items-center.mb-8>div>h1.text-3xl.font-bold.text-gray-900.dark:text-white"},"href":"http://localhost:3000/incidents","id":"v3-1765384393799-6906571285445","route":"/incidents","type":"LCP","value":5521},{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className>main>div.max-w-7xl.mx-auto.p-4.sm:p-6.lg:p-8","eventType":"pointerdown"},"href":"http://localhost:3000/incidents","id":"v3-1765384393799-4075535068594","route":"/incidents","type":"FID","value":3}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:33:49.620] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765384424186}
+[01:33:57.051] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/profile/40235712-3ea8-46b3-bfb6-8a23672bbd88 color: rgb(120, 120, 120) color: inherit {"dp":"/profile/[id]","o":"http://localhost:3000/profile/40235712-3ea8-46b3-bfb6-8a23672bbd88","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765384431657}
+[01:33:59.721] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765384434331}
+[01:34:01.941] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ledger/abe8e389-4310-4bad-80ea-655141a33b1e color: rgb(120, 120, 120) color: inherit {"dp":"/ledger/[id]","o":"http://localhost:3000/ledger/abe8e389-4310-4bad-80ea-655141a33b1e","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765384436552}
+[01:34:04.010] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/manage color: rgb(120, 120, 120) color: inherit {"dp":"/manage","o":"http://localhost:3000/manage","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765384438624}
+[01:34:08.207] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ledger/40235712-3ea8-46b3-bfb6-8a23672bbd88 color: rgb(120, 120, 120) color: inherit {"dp":"/ledger/[id]","o":"http://localhost:3000/ledger/40235712-3ea8-46b3-bfb6-8a23672bbd88","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765384442815}
+[01:34:12.510] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"keyup"},"href":"http://localhost:3000/ledger/40235712-3ea8-46b3-bfb6-8a23672bbd88","id":"v3-1765384393800-3381700135919","route":"/ledger/[id]","type":"INP","value":448}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:36:49.382] Server  LOG      ✓ Compiled in 168ms
+[01:36:56.285] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[01:36:56.659] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:36:56.659] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[01:36:56.659] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/incidents","route":"/incidents"}
+[01:36:56.659] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents color: rgb(120, 120, 120) color: inherit {"dp":"/incidents","o":"http://localhost:3000/incidents","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765384611275}
+[01:36:59.180] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/incidents","id":"v3-1765384611274-4425533214546","route":"/incidents","type":"FCP","value":1677},{"href":"http://localhost:3000/incidents","id":"v3-1765384611274-5998948965556","route":"/incidents","type":"TTFB","value":1368},{"attribution":{"eventTarget":"div.flex.justify-between.items-center.mb-8>div>h1.text-3xl.font-bold.text-gray-900.dark:text-white"},"href":"http://localhost:3000/incidents","id":"v3-1765384611274-1293871992066","route":"/incidents","type":"LCP","value":1677},{"attribution":{"eventTarget":"a.bg-indigo-600.text-white.px-4.py-2.rounded.shadow.hover:bg-indigo-700.font-bold","eventType":"pointerdown"},"href":"http://localhost:3000/incidents","id":"v3-1765384611274-2798510814176","route":"/incidents","type":"FID","value":4}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:36:59.180] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents/create color: rgb(120, 120, 120) color: inherit {"dp":"/incidents/create","o":"http://localhost:3000/incidents/create","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765384613786}
+[01:37:12.401] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents color: rgb(120, 120, 120) color: inherit {"dp":"/incidents","o":"http://localhost:3000/incidents","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765384627004}
+[01:37:38.790] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"keyup"},"href":"http://localhost:3000/incidents","id":"v3-1765384611274-8242020106870","route":"/incidents","type":"INP","value":480}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[01:39:32.649] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765384767262}
+[02:31:59.364] Server  LOG      ✓ Compiled in 238ms
+[02:32:25.899] Server  LOG      ✓ Compiled in 90ms
+[02:32:45.053] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents color: rgb(120, 120, 120) color: inherit {"dp":"/incidents","o":"http://localhost:3000/incidents","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765387959665}
+[02:32:48.554] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765387963169}
+[02:32:53.792] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[02:32:54.064] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:32:54.064] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[02:32:54.064] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
+[02:32:54.064] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765387968672}
+[02:32:58.107] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1765387968671-2026480098450","route":"/","type":"FCP","value":1905},{"href":"http://localhost:3000/","id":"v3-1765387968671-3021872800633","route":"/","type":"TTFB","value":1552},{"attribution":{"eventTarget":"div.flex.justify-between.items-end>h2.text-2xl.font-semibold.text-gray-800.dark:text-gray-100"},"href":"http://localhost:3000/","id":"v3-1765387968671-9379362941698","route":"/","type":"LCP","value":1905}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[02:33:29.879] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents color: rgb(120, 120, 120) color: inherit {"dp":"/incidents","o":"http://localhost:3000/incidents","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765388004474}
+[02:33:30.659] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765388005266}
+[02:33:32.906] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents/create color: rgb(120, 120, 120) color: inherit {"dp":"/incidents/create","o":"http://localhost:3000/incidents/create","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765388007525}
+[02:33:34.992] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765388009603}
+[02:33:38.276] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/incidents/create color: rgb(120, 120, 120) color: inherit {"dp":"/incidents/create","o":"http://localhost:3000/incidents/create","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765388012895}
+[02:33:43.710] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765388018329}
+[02:33:46.975] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"#nav-incidents","eventType":"click"},"href":"http://localhost:3000/","id":"v3-1765387968671-1934075069231","route":"/","type":"INP","value":64}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}

@@ -46,6 +46,7 @@ export default function SubmitReport() {
 
   useEffect(() => {
     async function getFormData() {
+      // 1. CHECK PERMISSIONS
       const { data: { user } } = await supabase.auth.getUser()
       if (user) {
           const { data: profile } = await supabase
@@ -55,8 +56,15 @@ export default function SubmitReport() {
             .single()
           
           const roleLevel = (profile?.role as any)?.default_role_level || 0;
+          
           if (roleLevel < 15) {
               router.replace(`/ledger/${user.id}`)
+              return
+          }
+
+          // *** NEW: Redirect Faculty to Incidents ***
+          if (roleLevel >= 50 && roleLevel < 65) {
+              router.replace('/incidents/create')
               return
           }
       }

@@ -49,6 +49,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
         return `${p.last_name}, ${p.first_name}`;
     };
     const getTaskType = (r)=>{
+        if (r.type === 'incident') return 'Incident Review'; // <--- NEW CHECK
         if (r.appeal_status && [
             'pending_issuer',
             'pending_chain',
@@ -312,7 +313,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
             children: "↕"
         }, void 0, false, {
             fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-            lineNumber: 232,
+            lineNumber: 234,
             columnNumber: 27
         }, this);
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -320,7 +321,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
             children: direction === 'asc' ? '↑' : '↓'
         }, void 0, false, {
             fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-            lineNumber: 233,
+            lineNumber: 235,
             columnNumber: 14
         }, this);
     };
@@ -328,6 +329,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
         const type = getTaskType(r);
         const styles = {
             'Approval Needed': 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100',
+            'Incident Review': 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200',
             'Revision Needed': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100',
             'Appeal Review': 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
             'Appeal Decision': 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200'
@@ -337,7 +339,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
             children: type
         }, void 0, false, {
             fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-            lineNumber: 244,
+            lineNumber: 247,
             columnNumber: 14
         }, this);
     };
@@ -359,7 +361,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                     children: "Quick Search"
                                 }, void 0, false, {
                                     fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                    lineNumber: 259,
+                                    lineNumber: 262,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -377,17 +379,17 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                     clipRule: "evenodd"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                    lineNumber: 262,
+                                                    lineNumber: 265,
                                                     columnNumber: 104
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                lineNumber: 262,
+                                                lineNumber: 265,
                                                 columnNumber: 25
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                            lineNumber: 261,
+                                            lineNumber: 264,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -398,19 +400,19 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                             onChange: (e)=>setSearchTerm(e.target.value)
                                         }, void 0, false, {
                                             fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                            lineNumber: 264,
+                                            lineNumber: 267,
                                             columnNumber: 21
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                    lineNumber: 260,
+                                    lineNumber: 263,
                                     columnNumber: 17
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                            lineNumber: 258,
+                            lineNumber: 261,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -424,7 +426,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                             children: "Filter By"
                                         }, void 0, false, {
                                             fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                            lineNumber: 277,
+                                            lineNumber: 280,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -437,7 +439,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                     children: "None"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                    lineNumber: 283,
+                                                    lineNumber: 286,
                                                     columnNumber: 25
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -445,7 +447,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                     children: "Date Range"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                    lineNumber: 284,
+                                                    lineNumber: 287,
                                                     columnNumber: 25
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -453,7 +455,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                     children: "Subject"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                    lineNumber: 285,
+                                                    lineNumber: 288,
                                                     columnNumber: 25
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -461,7 +463,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                     children: "Submitter"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                    lineNumber: 286,
+                                                    lineNumber: 289,
                                                     columnNumber: 25
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -469,7 +471,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                     children: "Infraction"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                    lineNumber: 287,
+                                                    lineNumber: 290,
                                                     columnNumber: 25
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -477,19 +479,19 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                     children: "Action Type"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                    lineNumber: 288,
+                                                    lineNumber: 291,
                                                     columnNumber: 25
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                            lineNumber: 278,
+                                            lineNumber: 281,
                                             columnNumber: 21
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                    lineNumber: 276,
+                                    lineNumber: 279,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -505,7 +507,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                         children: "From"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                        lineNumber: 297,
+                                                        lineNumber: 300,
                                                         columnNumber: 33
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -515,13 +517,13 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                         className: "block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm py-2 px-3"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                        lineNumber: 298,
+                                                        lineNumber: 301,
                                                         columnNumber: 33
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                lineNumber: 296,
+                                                lineNumber: 299,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -532,7 +534,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                         children: "To"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                        lineNumber: 301,
+                                                        lineNumber: 304,
                                                         columnNumber: 33
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -542,19 +544,19 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                         className: "block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm py-2 px-3"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                        lineNumber: 302,
+                                                        lineNumber: 305,
                                                         columnNumber: 33
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                lineNumber: 300,
+                                                lineNumber: 303,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                        lineNumber: 295,
+                                        lineNumber: 298,
                                         columnNumber: 25
                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         children: [
@@ -563,7 +565,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                 children: filterCategory === 'all' ? 'Select Filter Type First' : 'Select Value'
                                             }, void 0, false, {
                                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                lineNumber: 307,
+                                                lineNumber: 310,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -577,7 +579,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                         children: filterCategory === 'all' ? '—' : 'Select...'
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                        lineNumber: 316,
+                                                        lineNumber: 319,
                                                         columnNumber: 33
                                                     }, this),
                                                     filterCategory === 'subject' && uniqueSubjects.map((s)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -585,7 +587,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                             children: s
                                                         }, s, false, {
                                                             fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                            lineNumber: 317,
+                                                            lineNumber: 320,
                                                             columnNumber: 90
                                                         }, this)),
                                                     filterCategory === 'submitter' && uniqueSubmitters.map((s)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -593,7 +595,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                             children: s
                                                         }, s, false, {
                                                             fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                            lineNumber: 318,
+                                                            lineNumber: 321,
                                                             columnNumber: 94
                                                         }, this)),
                                                     filterCategory === 'offense' && uniqueOffenses.map((s)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -601,7 +603,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                             children: s
                                                         }, s, false, {
                                                             fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                            lineNumber: 319,
+                                                            lineNumber: 322,
                                                             columnNumber: 90
                                                         }, this)),
                                                     filterCategory === 'type' && uniqueTypes.map((s)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -609,41 +611,41 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                             children: s
                                                         }, s, false, {
                                                             fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                            lineNumber: 320,
+                                                            lineNumber: 323,
                                                             columnNumber: 84
                                                         }, this))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                lineNumber: 310,
+                                                lineNumber: 313,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                        lineNumber: 306,
+                                        lineNumber: 309,
                                         columnNumber: 25
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                    lineNumber: 292,
+                                    lineNumber: 295,
                                     columnNumber: 17
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                            lineNumber: 275,
+                            lineNumber: 278,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                    lineNumber: 255,
+                    lineNumber: 258,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                lineNumber: 254,
+                lineNumber: 257,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -657,7 +659,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                        lineNumber: 331,
+                        lineNumber: 334,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -671,12 +673,12 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                             className: "block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm py-2 px-3 disabled:bg-gray-200 dark:disabled:bg-gray-700/50"
                         }, void 0, false, {
                             fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                            lineNumber: 335,
+                            lineNumber: 338,
                             columnNumber: 14
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                        lineNumber: 334,
+                        lineNumber: 337,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -689,7 +691,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                 children: "Approve"
                             }, void 0, false, {
                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                lineNumber: 338,
+                                lineNumber: 341,
                                 columnNumber: 14
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -699,19 +701,19 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                 children: "Reject"
                             }, void 0, false, {
                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                lineNumber: 339,
+                                lineNumber: 342,
                                 columnNumber: 14
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                        lineNumber: 337,
+                        lineNumber: 340,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                lineNumber: 330,
+                lineNumber: 333,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -735,12 +737,12 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                 disabled: bulkableCount === 0
                                             }, void 0, false, {
                                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                lineNumber: 350,
+                                                lineNumber: 353,
                                                 columnNumber: 25
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                            lineNumber: 349,
+                                            lineNumber: 352,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -753,13 +755,13 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                     direction: sortConfig.direction
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                    lineNumber: 358,
+                                                    lineNumber: 361,
                                                     columnNumber: 222
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                            lineNumber: 358,
+                                            lineNumber: 361,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -772,13 +774,13 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                     direction: sortConfig.direction
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                    lineNumber: 359,
+                                                    lineNumber: 362,
                                                     columnNumber: 222
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                            lineNumber: 359,
+                                            lineNumber: 362,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -786,7 +788,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                             children: "Infraction"
                                         }, void 0, false, {
                                             fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                            lineNumber: 360,
+                                            lineNumber: 363,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -799,24 +801,24 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                     direction: sortConfig.direction
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                    lineNumber: 361,
+                                                    lineNumber: 364,
                                                     columnNumber: 218
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                            lineNumber: 361,
+                                            lineNumber: 364,
                                             columnNumber: 21
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                    lineNumber: 348,
+                                    lineNumber: 351,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                lineNumber: 347,
+                                lineNumber: 350,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -840,18 +842,18 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                             onChange: ()=>handleSelect(item.id)
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                            lineNumber: 374,
+                                                            lineNumber: 377,
                                                             columnNumber: 33
                                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                             className: "block w-4 h-4"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                            lineNumber: 380,
+                                                            lineNumber: 383,
                                                             columnNumber: 33
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                        lineNumber: 372,
+                                                        lineNumber: 375,
                                                         columnNumber: 25
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -859,7 +861,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                         children: new Date(item.created_at).toLocaleDateString()
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                        lineNumber: 382,
+                                                        lineNumber: 385,
                                                         columnNumber: 25
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -870,7 +872,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                                 children: formatName(item.subject)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                lineNumber: 383,
+                                                                lineNumber: 386,
                                                                 columnNumber: 69
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -881,13 +883,13 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                lineNumber: 383,
+                                                                lineNumber: 386,
                                                                 columnNumber: 168
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                        lineNumber: 383,
+                                                        lineNumber: 386,
                                                         columnNumber: 25
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -895,7 +897,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                         children: item.offense_type.offense_name
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                        lineNumber: 384,
+                                                        lineNumber: 387,
                                                         columnNumber: 25
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -903,13 +905,13 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                         children: getTaskBadge(item)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                        lineNumber: 385,
+                                                        lineNumber: 388,
                                                         columnNumber: 25
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                lineNumber: 371,
+                                                lineNumber: 374,
                                                 columnNumber: 25
                                             }, this),
                                             expandedRowId === item.id && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
@@ -933,7 +935,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                                                         children: "Submitted By"
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                        lineNumber: 397,
+                                                                                        lineNumber: 400,
                                                                                         columnNumber: 46
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -941,13 +943,13 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                                                         children: formatName(item.submitter)
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                        lineNumber: 397,
+                                                                                        lineNumber: 400,
                                                                                         columnNumber: 131
                                                                                     }, this)
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                lineNumber: 397,
+                                                                                lineNumber: 400,
                                                                                 columnNumber: 41
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -957,7 +959,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                                                         children: "Time"
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                        lineNumber: 398,
+                                                                                        lineNumber: 401,
                                                                                         columnNumber: 46
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -965,19 +967,19 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                                                         children: new Date(item.created_at).toLocaleTimeString()
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                        lineNumber: 398,
+                                                                                        lineNumber: 401,
                                                                                         columnNumber: 123
                                                                                     }, this)
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                lineNumber: 398,
+                                                                                lineNumber: 401,
                                                                                 columnNumber: 41
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                        lineNumber: 396,
+                                                                        lineNumber: 399,
                                                                         columnNumber: 37
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -987,7 +989,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                                                 children: "Original Report Notes"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                lineNumber: 402,
+                                                                                lineNumber: 405,
                                                                                 columnNumber: 41
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -997,18 +999,18 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                                                     children: "No notes provided."
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                    lineNumber: 404,
+                                                                                    lineNumber: 407,
                                                                                     columnNumber: 60
                                                                                 }, this)
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                lineNumber: 403,
+                                                                                lineNumber: 406,
                                                                                 columnNumber: 41
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                        lineNumber: 401,
+                                                                        lineNumber: 404,
                                                                         columnNumber: 37
                                                                     }, this),
                                                                     isAppeal ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1019,7 +1021,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                                                 children: "Appeal Case File"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                lineNumber: 411,
+                                                                                lineNumber: 414,
                                                                                 columnNumber: 45
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1030,7 +1032,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                                                         children: "Cadet Justification"
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                        lineNumber: 414,
+                                                                                        lineNumber: 417,
                                                                                         columnNumber: 49
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1038,13 +1040,13 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                                                         children: item.appeal_justification
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                        lineNumber: 415,
+                                                                                        lineNumber: 418,
                                                                                         columnNumber: 49
                                                                                     }, this)
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                lineNumber: 413,
+                                                                                lineNumber: 416,
                                                                                 columnNumber: 45
                                                                             }, this),
                                                                             item.appeal_issuer_comment && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1055,7 +1057,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                                                         children: "Issuer Rebuttal"
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                        lineNumber: 420,
+                                                                                        lineNumber: 423,
                                                                                         columnNumber: 53
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1063,13 +1065,13 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                                                         children: item.appeal_issuer_comment
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                        lineNumber: 421,
+                                                                                        lineNumber: 424,
                                                                                         columnNumber: 53
                                                                                     }, this)
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                lineNumber: 419,
+                                                                                lineNumber: 422,
                                                                                 columnNumber: 49
                                                                             }, this),
                                                                             item.appeal_chain_comment && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1080,7 +1082,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                                                         children: "Chain of Command Note"
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                        lineNumber: 427,
+                                                                                        lineNumber: 430,
                                                                                         columnNumber: 53
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1088,19 +1090,19 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                                                         children: item.appeal_chain_comment
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                        lineNumber: 428,
+                                                                                        lineNumber: 431,
                                                                                         columnNumber: 53
                                                                                     }, this)
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                lineNumber: 426,
+                                                                                lineNumber: 429,
                                                                                 columnNumber: 49
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                        lineNumber: 410,
+                                                                        lineNumber: 413,
                                                                         columnNumber: 41
                                                                     }, this) : /* --- STANDARD HISTORY VIEW --- */ /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                         children: [
@@ -1109,7 +1111,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                                                 children: "History"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                lineNumber: 435,
+                                                                                lineNumber: 438,
                                                                                 columnNumber: 45
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1122,7 +1124,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                                                                 children: log.actor_name
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                                lineNumber: 439,
+                                                                                                lineNumber: 442,
                                                                                                 columnNumber: 57
                                                                                             }, this),
                                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1130,7 +1132,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                                                                 children: log.action
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                                lineNumber: 440,
+                                                                                                lineNumber: 443,
                                                                                                 columnNumber: 57
                                                                                             }, this),
                                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1138,7 +1140,7 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                                                                 children: new Date(log.created_at).toLocaleDateString()
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                                lineNumber: 441,
+                                                                                                lineNumber: 444,
                                                                                                 columnNumber: 57
                                                                                             }, this),
                                                                                             log.comment && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1150,145 +1152,172 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                                                                                 ]
                                                                                             }, void 0, true, {
                                                                                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                                lineNumber: 442,
+                                                                                                lineNumber: 445,
                                                                                                 columnNumber: 73
                                                                                             }, this)
                                                                                         ]
                                                                                     }, idx, true, {
                                                                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                        lineNumber: 438,
+                                                                                        lineNumber: 441,
                                                                                         columnNumber: 53
                                                                                     }, this))
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                lineNumber: 436,
+                                                                                lineNumber: 439,
                                                                                 columnNumber: 45
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                        lineNumber: 434,
+                                                                        lineNumber: 437,
                                                                         columnNumber: 41
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                lineNumber: 395,
+                                                                lineNumber: 398,
                                                                 columnNumber: 33
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                 className: "md:w-72 flex-shrink-0 p-6 bg-gray-50 dark:bg-gray-800/50 flex flex-col gap-4 border-l border-gray-200 dark:border-gray-700",
-                                                                children: [
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        children: [
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                                                className: "block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-2",
-                                                                                children: isAppeal ? 'Appeal Decision Note' : 'Review Comment'
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                lineNumber: 453,
-                                                                                columnNumber: 41
-                                                                            }, this),
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
-                                                                                placeholder: isAppeal ? "Reason for decision (visible to cadet)..." : "Reason for decision...",
-                                                                                className: "w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm text-sm p-2",
-                                                                                rows: 4,
-                                                                                value: singleComment,
-                                                                                onChange: (e)=>setSingleComment(e.target.value)
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                lineNumber: 456,
-                                                                                columnNumber: 41
-                                                                            }, this)
-                                                                        ]
-                                                                    }, void 0, true, {
-                                                                        fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                        lineNumber: 452,
-                                                                        columnNumber: 37
-                                                                    }, this),
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "flex flex-col gap-2",
-                                                                        children: [
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                                onClick: ()=>handleSingleAction(item, 'approve'),
-                                                                                disabled: isLoading,
-                                                                                className: "w-full py-2 bg-green-600 hover:bg-green-700 text-white rounded text-sm font-medium disabled:opacity-50 transition-colors shadow-sm",
-                                                                                children: isAppeal ? 'Grant / Forward Appeal' : 'Approve'
-                                                                            }, void 0, false, {
-                                                                                fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                lineNumber: 465,
-                                                                                columnNumber: 41
-                                                                            }, this),
-                                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                className: "flex gap-2",
-                                                                                children: [
-                                                                                    !isAppeal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                                        onClick: ()=>handleSingleAction(item, 'kickback'),
-                                                                                        disabled: isLoading || !singleComment.trim(),
-                                                                                        className: "flex-1 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded text-sm font-medium disabled:opacity-50 transition-colors shadow-sm",
-                                                                                        children: "Kick-Back"
-                                                                                    }, void 0, false, {
-                                                                                        fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                        lineNumber: 470,
-                                                                                        columnNumber: 49
-                                                                                    }, this),
-                                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                                                        onClick: ()=>handleSingleAction(item, 'reject'),
-                                                                                        disabled: isLoading || !singleComment.trim(),
-                                                                                        className: `flex-1 py-2 ${isAppeal ? 'w-full' : ''} bg-red-600 hover:bg-red-700 text-white rounded text-sm font-medium disabled:opacity-50 transition-colors shadow-sm`,
-                                                                                        children: isAppeal ? 'Reject Appeal' : 'Reject'
-                                                                                    }, void 0, false, {
-                                                                                        fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                        lineNumber: 474,
-                                                                                        columnNumber: 45
-                                                                                    }, this)
-                                                                                ]
-                                                                            }, void 0, true, {
-                                                                                fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                                lineNumber: 468,
-                                                                                columnNumber: 41
-                                                                            }, this)
-                                                                        ]
-                                                                    }, void 0, true, {
-                                                                        fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                        lineNumber: 464,
-                                                                        columnNumber: 37
-                                                                    }, this),
-                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
-                                                                        href: `/report/${item.id}`,
-                                                                        className: "text-center text-xs text-indigo-600 dark:text-indigo-400 hover:underline mt-2 font-medium",
-                                                                        children: "Open Full Report Page →"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                        lineNumber: 479,
-                                                                        columnNumber: 37
-                                                                    }, this)
-                                                                ]
-                                                            }, void 0, true, {
+                                                                children: item.type === 'incident' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                    className: "flex flex-col gap-3",
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                                            className: "text-sm text-gray-600 dark:text-gray-300",
+                                                                            children: "Incidents require detailed review and cannot be quick-approved."
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/action-items/ActionItemsClient.tsx",
+                                                                            lineNumber: 458,
+                                                                            columnNumber: 45
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                                            href: `/incidents/${item.id}`,
+                                                                            className: "w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded text-sm font-bold text-center shadow-sm",
+                                                                            children: "Process Incident →"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/action-items/ActionItemsClient.tsx",
+                                                                            lineNumber: 461,
+                                                                            columnNumber: 45
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true, {
+                                                                    fileName: "[project]/app/action-items/ActionItemsClient.tsx",
+                                                                    lineNumber: 457,
+                                                                    columnNumber: 41
+                                                                }, this) : /* STANDARD REPORT ACTIONS */ /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
+                                                                    children: [
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                            children: [
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                                                    className: "block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-2",
+                                                                                    children: isAppeal ? 'Appeal Decision Note' : 'Review Comment'
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/app/action-items/ActionItemsClient.tsx",
+                                                                                    lineNumber: 472,
+                                                                                    columnNumber: 49
+                                                                                }, this),
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
+                                                                                    placeholder: isAppeal ? "Reason (visible to cadet)..." : "Reason...",
+                                                                                    className: "w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm text-sm p-2",
+                                                                                    rows: 4,
+                                                                                    value: singleComment,
+                                                                                    onChange: (e)=>setSingleComment(e.target.value)
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/app/action-items/ActionItemsClient.tsx",
+                                                                                    lineNumber: 475,
+                                                                                    columnNumber: 49
+                                                                                }, this)
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/app/action-items/ActionItemsClient.tsx",
+                                                                            lineNumber: 471,
+                                                                            columnNumber: 45
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                            className: "flex flex-col gap-2",
+                                                                            children: [
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                                    onClick: ()=>handleSingleAction(item, 'approve'),
+                                                                                    disabled: isLoading,
+                                                                                    className: "w-full py-2 bg-green-600 hover:bg-green-700 text-white rounded text-sm font-medium disabled:opacity-50 transition-colors shadow-sm",
+                                                                                    children: isAppeal ? 'Grant / Forward Appeal' : 'Approve'
+                                                                                }, void 0, false, {
+                                                                                    fileName: "[project]/app/action-items/ActionItemsClient.tsx",
+                                                                                    lineNumber: 484,
+                                                                                    columnNumber: 49
+                                                                                }, this),
+                                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                                    className: "flex gap-2",
+                                                                                    children: [
+                                                                                        !isAppeal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                                            onClick: ()=>handleSingleAction(item, 'kickback'),
+                                                                                            disabled: isLoading || !singleComment.trim(),
+                                                                                            className: "flex-1 py-2 bg-yellow-600 hover:bg-yellow-700 text-white rounded text-sm font-medium disabled:opacity-50 transition-colors shadow-sm",
+                                                                                            children: "Kick-Back"
+                                                                                        }, void 0, false, {
+                                                                                            fileName: "[project]/app/action-items/ActionItemsClient.tsx",
+                                                                                            lineNumber: 489,
+                                                                                            columnNumber: 57
+                                                                                        }, this),
+                                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                                                            onClick: ()=>handleSingleAction(item, 'reject'),
+                                                                                            disabled: isLoading || !singleComment.trim(),
+                                                                                            className: `flex-1 py-2 ${isAppeal ? 'w-full' : ''} bg-red-600 hover:bg-red-700 text-white rounded text-sm font-medium disabled:opacity-50 transition-colors shadow-sm`,
+                                                                                            children: isAppeal ? 'Reject Appeal' : 'Reject'
+                                                                                        }, void 0, false, {
+                                                                                            fileName: "[project]/app/action-items/ActionItemsClient.tsx",
+                                                                                            lineNumber: 493,
+                                                                                            columnNumber: 53
+                                                                                        }, this)
+                                                                                    ]
+                                                                                }, void 0, true, {
+                                                                                    fileName: "[project]/app/action-items/ActionItemsClient.tsx",
+                                                                                    lineNumber: 487,
+                                                                                    columnNumber: 49
+                                                                                }, this)
+                                                                            ]
+                                                                        }, void 0, true, {
+                                                                            fileName: "[project]/app/action-items/ActionItemsClient.tsx",
+                                                                            lineNumber: 483,
+                                                                            columnNumber: 45
+                                                                        }, this),
+                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
+                                                                            href: `/report/${item.id}`,
+                                                                            className: "text-center text-xs text-indigo-600 dark:text-indigo-400 hover:underline mt-2 font-medium",
+                                                                            children: "Open Full Report Page →"
+                                                                        }, void 0, false, {
+                                                                            fileName: "[project]/app/action-items/ActionItemsClient.tsx",
+                                                                            lineNumber: 498,
+                                                                            columnNumber: 45
+                                                                        }, this)
+                                                                    ]
+                                                                }, void 0, true)
+                                                            }, void 0, false, {
                                                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                                lineNumber: 451,
+                                                                lineNumber: 454,
                                                                 columnNumber: 33
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                        lineNumber: 392,
+                                                        lineNumber: 395,
                                                         columnNumber: 29
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                    lineNumber: 391,
+                                                    lineNumber: 394,
                                                     columnNumber: 29
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                                lineNumber: 390,
+                                                lineNumber: 393,
                                                 columnNumber: 25
                                             }, this)
                                         ]
                                     }, item.id, true, {
                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                        lineNumber: 370,
+                                        lineNumber: 373,
                                         columnNumber: 21
                                     }, this);
                                 }) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
@@ -1298,39 +1327,39 @@ function ActionItemsClient({ initialReports, currentUserId }) {
                                         children: "No pending items found."
                                     }, void 0, false, {
                                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                        lineNumber: 491,
+                                        lineNumber: 512,
                                         columnNumber: 25
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                    lineNumber: 491,
+                                    lineNumber: 512,
                                     columnNumber: 21
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                                lineNumber: 364,
+                                lineNumber: 367,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                        lineNumber: 346,
+                        lineNumber: 349,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                    lineNumber: 345,
+                    lineNumber: 348,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-                lineNumber: 344,
+                lineNumber: 347,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/action-items/ActionItemsClient.tsx",
-        lineNumber: 251,
+        lineNumber: 254,
         columnNumber: 5
     }, this);
 }

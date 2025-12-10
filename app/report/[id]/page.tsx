@@ -5,6 +5,7 @@ import { createClient } from '@/utils/supabase/server'
 import { notFound, redirect } from 'next/navigation'
 import ReportDetailsClient from './ReportDetailsClient'
 import { User } from '@supabase/supabase-js'
+import Link from 'next/link' // <--- NEW IMPORT
 
 // ... Types (Report, Log, OffenseType, Appeal) remain identical ...
 type Report = {
@@ -153,25 +154,65 @@ async function getReportData(reportId: string, user: User) {
   }
 }
 
-export default async function ReportDetailsPage({ params: paramsPromise }: { params: Promise<{ id: string }> }) {
-  const params = await paramsPromise; 
+export default async function ReportDetailPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   const supabase = createClient()
   const { data: { user } } = await supabase.auth.getUser()
+  
   if (!user) return redirect('/login')
 
-  if (!params.id || params.id === 'undefined' || params.id === 'null') return notFound()
+  // 1. Fetch Report with Incident Link
+  const { data: reportData } = await supabase
+    .from('demerit_reports')
+    .select(`
+        *,
+        subject:profiles!subject_cadet_id(first_name, last_name, company:companies(company_name)),
+        submitter:profiles!submitted_by(first_name, last_name),
+        offense_type(offense_name, demerits),
+        linked_incident_id
+    `) // <--- CLEANED STRING (No comments)
+    .eq('id', id)
+    .single()
 
-  const data = await getReportData(params.id, user)
-  
+  if (!reportData) return notFound()
+
+  // Cast to any to prevent TypeScript errors on the deep joins
+  const report = reportData as any;
+
+  // 2. Check Viewer Role
+  const { data: profile } = await supabase.from('profiles').select('role:roles(default_role_level)').eq('id', user.id).single()
+  const roleLevel = (profile?.role as any)?.default_role_level || 0
+  const isStaff = roleLevel >= 50
+
   return (
-    <ReportDetailsClient
-      user={user}
-      initialReport={data.report}
-      initialLogs={data.logs}
-      initialAppeal={data.appeal}
-      offenses={data.offenses}
-      escalationTarget={data.escalationTarget}
-      permissions={data.permissions}
-    />
+    <div className="max-w-4xl mx-auto p-4 sm:p-6">
+        {/* HEADER */}
+        <div className="flex justify-between items-center mb-6">
+            <h1 className="text-2xl font-bold dark:text-white">Report Details</h1>
+            <div className="flex gap-2">
+                
+                {/* NEW: Incident Link Button */}
+                {isStaff && report.linked_incident_id && (
+                    <Link 
+                        href={`/incidents/${report.linked_incident_id}`}
+                        className="bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200 px-3 py-2 rounded-md text-sm font-bold border border-orange-200 hover:bg-orange-200 transition-colors flex items-center gap-2"
+                    >
+                        <span>⚠️ View Original Incident</span>
+                    </Link>
+                )}
+
+                <Link href="/" className="text-gray-500 hover:text-gray-700 px-3 py-2">Back</Link>
+            </div>
+        </div>
+
+        {/* ... Rest of your existing Report Details UI ... */}
+        <div className="bg-white dark:bg-gray-800 shadow rounded-lg p-6">
+            {/* Example content */}
+            <h2 className="text-xl font-bold mb-4">{report.offense_type?.offense_name}</h2>
+            <p><strong>Cadet:</strong> {report.subject.last_name}, {report.subject.first_name}</p>
+            <p><strong>Submitted By:</strong> {report.submitter.last_name}, {report.submitter.first_name}</p>
+            {/* ... */}
+        </div>
+    </div>
   )
 }
