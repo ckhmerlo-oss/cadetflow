@@ -236,7 +236,7 @@ export default function DailyReportsPage() {
   }
   function closeModal() { setModalOpen(false); setSelectedCadet(null); }
   const formatDate = (d: string) => new Date(new Date(d).getTime() + new Date(d).getTimezoneOffset() * 60000).toLocaleDateString('en-US', { month: '2-digit', day: '2-digit' });
-  const canPost = ['Commandant', 'Deputy Commandant', 'Admin'].includes(userRole);
+  const canPost = ['Commandant', 'Deputy Commandant', 'Admin', 'Administrative Assistant to the Commandant'].includes(userRole);
   const canLog = userRole.includes('TAC') || canPost;
 
   // ... (Keep Clipboard Logic) ...
