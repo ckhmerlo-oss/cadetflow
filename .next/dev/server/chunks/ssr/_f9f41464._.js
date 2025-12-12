@@ -13,7 +13,7 @@ var triggerGreenSheetBlast = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5
 }),
 "[project]/app/reports/daily/page.tsx [app-ssr] (ecmascript)", ((__turbopack_context__, module, exports) => {
 
-const e = new Error("Could not parse module '[project]/app/reports/daily/page.tsx'\n\nExpected '</', got ''");
+const e = new Error("Could not parse module '[project]/app/reports/daily/page.tsx'\n\nExpected '</', got '('");
 e.code = 'MODULE_UNPARSABLE';
 throw e;
 }),

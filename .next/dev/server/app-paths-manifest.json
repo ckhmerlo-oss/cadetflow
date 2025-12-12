@@ -1,6 +1,3 @@
 {
-  "/page": "app/page.js",
-  "/report/[id]/page": "app/report/[id]/page.js",
-  "/reports/daily/page": "app/reports/daily/page.js",
-  "/submit/page": "app/submit/page.js"
+  "/reports/daily/page": "app/reports/daily/page.js"
 }

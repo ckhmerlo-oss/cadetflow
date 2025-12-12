@@ -16,7 +16,7 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 }),
 "[project]/app/reports/daily/page.tsx [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
 
-const e = new Error("Could not parse module '[project]/app/reports/daily/page.tsx'\n\nExpected '</', got ''");
+const e = new Error("Could not parse module '[project]/app/reports/daily/page.tsx'\n\nExpected '</', got '('");
 e.code = 'MODULE_UNPARSABLE';
 throw e;
 }),
