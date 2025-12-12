@@ -1,7 +1,5 @@
 {
-  "/admin/page": "app/admin/page.js",
-  "/ledger/[id]/page": "app/ledger/[id]/page.js",
-  "/login/page": "app/login/page.js",
-  "/onboarding/page": "app/onboarding/page.js",
-  "/page": "app/page.js"
+  "/page": "app/page.js",
+  "/sports/[id]/page": "app/sports/[id]/page.js",
+  "/sports/page": "app/sports/page.js"
 }

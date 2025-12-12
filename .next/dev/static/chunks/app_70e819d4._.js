@@ -345,7 +345,8 @@ function DailyReportsPage() {
     const canPost = [
         'Commandant',
         'Deputy Commandant',
-        'Admin'
+        'Admin',
+        'Administrative Assistant to the Commandant'
     ].includes(userRole);
     const canLog = userRole.includes('TAC') || canPost;
     // ... (Keep Clipboard Logic) ...

@@ -111,7 +111,8 @@ async function getSportDetail(sportId) {
 }
 async function searchCadets(query) {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
-    const { data } = await supabase.from('profiles').select('id, first_name, last_name, company:companies(company_name), role:roles!inner(default_role_level)').ilike('last_name', `${query}%`).lt('role.default_role_level', 50).limit(10);
+    const { data } = await supabase.from('profiles').select('id, first_name, last_name, company:companies(company_name), role:roles!inner(default_role_level)').ilike('last_name', `${query}%`).lt('role.default_role_level', 50);
+    //.limit(10)
     return data?.map((p)=>({
             id: p.id,
             label: `${p.last_name}, ${p.first_name} (${p.company?.company_name || 'N/A'})`
@@ -119,7 +120,8 @@ async function searchCadets(query) {
 }
 async function searchFaculty(query) {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
-    const { data } = await supabase.from('profiles').select('id, first_name, last_name, role:roles!inner(default_role_level)').ilike('last_name', `${query}%`).gte('role.default_role_level', 50).limit(10);
+    const { data } = await supabase.from('profiles').select('id, first_name, last_name, role:roles!inner(default_role_level)').ilike('last_name', `${query}%`).gte('role.default_role_level', 50);
+    //.limit(10)
     return data?.map((p)=>({
             id: p.id,
             label: `${p.last_name}, ${p.first_name} (Faculty)`

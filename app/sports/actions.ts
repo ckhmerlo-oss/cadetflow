@@ -131,7 +131,7 @@ export async function searchCadets(query: string) {
         .select('id, first_name, last_name, company:companies(company_name), role:roles!inner(default_role_level)')
         .ilike('last_name', `${query}%`)
         .lt('role.default_role_level', 50) 
-        .limit(10)
+        //.limit(10)
     
     return data?.map((p: any) => ({
         id: p.id,
@@ -146,7 +146,7 @@ export async function searchFaculty(query: string) {
         .select('id, first_name, last_name, role:roles!inner(default_role_level)')
         .ilike('last_name', `${query}%`)
         .gte('role.default_role_level', 50)
-        .limit(10)
+        //.limit(10)
 
     return data?.map((p: any) => ({
         id: p.id,
