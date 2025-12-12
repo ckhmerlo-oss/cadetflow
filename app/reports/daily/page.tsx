@@ -333,7 +333,7 @@ export default function DailyReportsPage() {
                     </thead>
                     <tbody className="bg-white dark:bg-gray-800">
                         {processedGreenSheet.length > 0 ? processedGreenSheet.map(r => (
-                        <tr key={r.report_id} onClick={() => router.push(`/report/${r.report_id}`)} className="cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50">
+                        <tr key={r.report_id} onClick={() => router.push(`/report/${r.report_id}`)} className="cursor-pointer hover:bg-red-50 dark:hover:bg-gray-700/50">
                             <td className="p-2 text-sm font-medium text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600">{r.subject_name}</td>
                             <td className="hidden md:table-cell p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">{r.company_name || '-'}</td>
                             <td className="p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">{r.offense_name}</td>
@@ -356,23 +356,23 @@ export default function DailyReportsPage() {
                         <tr>
                         {canLog && <th className="p-2 w-10 col-check no-print"><input type="checkbox" onChange={handleSelectAllTourRows} checked={processedTourSheet.length > 0 && selectedTourCadets.size === processedTourSheet.filter(c => !c.tours_logged_today).length}/></th>}
                         <th onClick={() => handleSort('subject')} className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border col-tour-cadet cursor-pointer">Cadet <SortIcon column="subject"/></th>
-                        <th onClick={() => handleSort('company')} className="hidden md:table-cell p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border col-tour-co cursor-pointer">Co <SortIcon column="company"/></th>
+                        <th onClick={() => handleSort('company')} className="hidden md:table-cell p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border col-tour-co cursor-pointer">Company <SortIcon column="company"/></th>
                         <th onClick={() => handleSort('total_tours')} className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border col-tour-total cursor-pointer">Total <SortIcon column="total_tours"/></th>
-                        <th className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border col-tour-served">Served</th>
-                        <th className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border col-tour-notes">Notes</th>
+                        {/* <th className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border col-tour-served">Served</th> */}
+                        {/* <th className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border col-tour-notes">Notes</th> */}
                         <th className="p-2 no-print border w-auto"></th>
                         </tr>
                     </thead>
                     <tbody className="bg-white dark:bg-gray-800">
                         {processedTourSheet.length > 0 ? processedTourSheet.map(c => (
-                        <tr key={c.cadet_id} className={c.tours_logged_today ? 'opacity-50 bg-gray-50' : ''}>
+                        <tr key={c.cadet_id} className={c.tours_logged_today ? 'opacity-50 bg-gray-900' : 'hover:bg-red-50 dark:hover:bg-gray-700/50'}>
                             {canLog && <td className="p-2 text-center border col-check no-print"><input type="checkbox" checked={selectedTourCadets.has(c.cadet_id)} onChange={() => handleSelectTourRow(c.cadet_id)} disabled={c.tours_logged_today}/></td>}
-                            <td className="p-2 text-sm font-medium text-gray-900 dark:text-white border">{c.last_name}, {c.first_name} {c.has_star_tours && <span className="text-red-600 font-bold">*</span>}</td>
+                            <td className="p-2 text-sm font-medium text-gray-900 dark:text-white border">{c.last_name}, {c.first_name} {c.has_star_tours && <span className="text-red-400 font-bold">*</span>}</td>
                             <td className="hidden md:table-cell p-2 text-sm text-gray-500 border">{c.company_name || '-'}</td>
                             <td className="p-2 text-sm font-bold text-red-600 border">{c.has_star_tours ? '*' : c.total_tours}</td>
                             <td className="p-2 border hidden print:table-cell"></td>
                             <td className="p-2 border hidden print:table-cell"></td>
-                            <td className="p-2 text-right no-print border">{canLog && <button onClick={() => openTourModal(c)} className="text-indigo-600 hover:underline">Log</button>}</td>
+                            <td className="p-2 text-right no-print border">{canLog && <button onClick={() => openTourModal(c)} className="text-amber-400 hover:underline">Log</button>}</td>
                         </tr>
                         )) : <tr className="no-print"><td colSpan={7} className="p-4 text-center text-gray-500">No cadets on ED.</td></tr>}
                     </tbody>

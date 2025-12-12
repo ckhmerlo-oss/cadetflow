@@ -1,16 +1,65 @@
-[00:00:05.718] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:06.379] Server  LOG      ✓ Ready in 5.1s
-[00:00:11.350] Server  LOG      ○ Compiling / ...
-[00:00:20.276] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:21.055] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:21.055] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:21.055] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
-[00:00:21.055] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765554089729}
-[00:00:26.858] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1765554089728-9793713415939","route":"/","type":"FCP","value":14498},{"href":"http://localhost:3000/","id":"v3-1765554089728-6259763748650","route":"/","type":"TTFB","value":14046},{"attribution":{"eventTarget":"div.flex.justify-between.items-end>h2.text-2xl.font-semibold.text-gray-800.dark:text-gray-100"},"href":"http://localhost:3000/","id":"v3-1765554089728-9125088405722","route":"/","type":"LCP","value":14498},{"attribution":{"eventTarget":"#nav-sports","eventType":"pointerdown"},"href":"http://localhost:3000/","id":"v3-1765554089728-4435902562741","route":"/","type":"FID","value":5}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:00:26.858] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765554095584}
-[00:00:32.638] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/246ef759-b63c-430d-8605-5b5003cb14ff","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765554101357}
-[00:00:37.771] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports color: rgb(120, 120, 120) color: inherit {"dp":"/sports","o":"http://localhost:3000/sports","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765554106483}
-[00:00:40.427] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/sports/0421c87d-1faf-44bc-9ba1-a1d668a561c6 color: rgb(120, 120, 120) color: inherit {"dp":"/sports/[id]","o":"http://localhost:3000/sports/0421c87d-1faf-44bc-9ba1-a1d668a561c6","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765554109144}
-[00:01:04.204] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"","eventType":"click"},"href":"http://localhost:3000/sports/0421c87d-1faf-44bc-9ba1-a1d668a561c6","id":"v3-1765554089728-8601320220195","route":"/sports/[id]","type":"INP","value":1608}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:04:25.985] Server  LOG      ✓ Compiled in 206ms
-[00:04:55.278] Server  LOG      ✓ Compiled in 142ms
+[00:00:06.601] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:07.283] Server  LOG      ✓ Ready in 5.7s
+[00:00:12.418] Server  LOG      ○ Compiling /report/[id] ...
+[00:00:23.370] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:23.707] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:23.707] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:23.707] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/report/0dcdc8bd-69e3-42fe-aabe-7aa5cd4940a3","route":"/report/[id]"}
+[00:00:23.707] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/report/0dcdc8bd-69e3-42fe-aabe-7aa5cd4940a3 color: rgb(120, 120, 120) color: inherit {"dp":"/report/[id]","o":"http://localhost:3000/report/0dcdc8bd-69e3-42fe-aabe-7aa5cd4940a3","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765571902864}
+[00:00:29.535] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/report/0dcdc8bd-69e3-42fe-aabe-7aa5cd4940a3","id":"v3-1765571902862-3408959057355","route":"/report/[id]","type":"FCP","value":1712},{"href":"http://localhost:3000/report/0dcdc8bd-69e3-42fe-aabe-7aa5cd4940a3","id":"v3-1765571902862-7814832217218","route":"/report/[id]","type":"TTFB","value":1351},{"attribution":{"eventTarget":"p.text-sm.text-gray-800.dark:text-gray-200.whitespace-pre-wrap"},"href":"http://localhost:3000/report/0dcdc8bd-69e3-42fe-aabe-7aa5cd4940a3","id":"v3-1765571902862-1221398489344","route":"/report/[id]","type":"LCP","value":1712},{"attribution":{"eventTarget":"h4.font-medium.text-gray-900.dark:text-white.mb-2","eventType":"pointerdown"},"href":"http://localhost:3000/report/0dcdc8bd-69e3-42fe-aabe-7aa5cd4940a3","id":"v3-1765571902862-3053448303408","route":"/report/[id]","type":"FID","value":7}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:00:29.536] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765571908694}
+[00:00:30.891] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/daily color: rgb(120, 120, 120) color: inherit {"dp":"/reports/daily","o":"http://localhost:3000/reports/daily","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765571910045}
+[00:01:06.869] Server  LOG      ✓ Compiled in 320ms
+[00:01:14.408] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className","eventType":"keydown"},"href":"http://localhost:3000/reports/daily","id":"v3-1765571902862-4642071829176","route":"/reports/daily","type":"INP","value":152}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:01:24.021] Server  LOG      ✓ Compiled in 264ms
+[00:02:10.593] Server  LOG      ✓ Compiled in 272ms
+[00:02:15.152] Server  LOG      ✓ Compiled in 246ms
+[00:02:19.754] Server  LOG      ✓ Compiled in 163ms
+[00:02:21.410] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"html.dark>body.inter_5972bc34-module__OU16Qa__className","eventType":"keydown"},"href":"http://localhost:3000/reports/daily","id":"v3-1765571902862-4642071829176","route":"/reports/daily","type":"INP","value":192}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:02:34.574] Server  LOG      ✓ Compiled in 199ms
+[00:02:39.278] Server  LOG      ✓ Compiled in 171ms
+[00:02:40.630] Server  LOG      ✓ Compiled in 167ms
+[00:02:43.639] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765572042798}
+[00:02:44.320] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/daily color: rgb(120, 120, 120) color: inherit {"dp":"/reports/daily","o":"http://localhost:3000/reports/daily","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765572043465}
+[00:02:51.292] Server  LOG      ✓ Compiled in 174ms
+[00:02:55.162] Server  LOG      ✓ Compiled in 212ms
+[00:05:36.292] Server  LOG      ✓ Compiled in 235ms
+[00:05:39.323] Server  LOG      ✓ Compiled in 209ms
+[00:05:41.969] Server  LOG      ✓ Compiled in 121ms
+[00:05:44.469] Server  LOG      ✓ Compiled in 182ms
+[00:05:49.044] Server  LOG      ✓ Compiled in 208ms
+[00:06:01.027] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765572240180}
+[00:06:03.497] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/submit color: rgb(120, 120, 120) color: inherit {"dp":"/submit","o":"http://localhost:3000/submit","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765572242646}
+[00:06:19.386] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765572258541}
+[00:06:20.439] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/daily color: rgb(120, 120, 120) color: inherit {"dp":"/reports/daily","o":"http://localhost:3000/reports/daily","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1765572259602}
+[00:07:27.886] Server  LOG      ✓ Compiled in 156ms
+[00:08:12.314] Server  LOG      ✓ Compiled in 232ms
+[00:08:12.439] Browser ERROR   ./app/reports/daily/page.tsx:356:98
+Parsing ecmascript source code failed
+  354 |             <div className="mt-4 flow-root"><div className="-mx-2 -my-2 overflow-x-auto"><div className="inline-block min-w-full py-2"><table className="min-w-full printable-table border-collapse border border-gray-300 dark:border-gray-700">
+  355 |                     <thead className="bg-gray-50 dark:bg-gray-700">
+> 356 |                         <tr className="cursor-pointer hover:bg-red-50 dark:hover:bg-gray-700/50"x``>
+      |                                                                                                  ^^
+  357 |                         {canLog && <th className="p-2 w-10 col-check no-print"><input type="checkbox" onChange={handleSelectAllTourRows} checked={processedTourSheet.length > 0 && selectedTourCadets.size === processedTourSheet.filter(c => !c.tours_logged_today).length}/></th>}
+  358 |                         <th onClick={() => handleSort('subject')} className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border col-tour-cadet cursor-pointer">Cadet <SortIcon column="subject"/></th>
+  359 |                         <th onClick={() => handleSort('company')} className="hidden md:table-cell p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border col-tour-co cursor-pointer">Company <SortIcon column="company"/></th>
+
+Expected '</', got ''
+
+Import traces:
+  Client Component Browser:
+    ./app/reports/daily/page.tsx [Client Component Browser]
+    ./app/reports/daily/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/reports/daily/page.tsx [Client Component SSR]
+    ./app/reports/daily/page.tsx [Server Component]
+[00:08:14.253] Server  LOG      ✓ Compiled in 149ms
+[00:08:42.964] Server  LOG      ✓ Compiled in 109ms
+[00:08:59.919] Server  LOG      ✓ Compiled in 102ms
+[00:09:06.126] Server  LOG      ✓ Compiled in 131ms
+[00:09:08.033] Server  LOG      ✓ Compiled in 149ms
+[00:09:21.655] Server  LOG      ✓ Compiled in 150ms
+[00:09:37.651] Server  LOG      ✓ Compiled in 204ms
+[00:09:49.276] Server  LOG      ✓ Compiled in 202ms
+[00:09:53.151] Server  LOG      ✓ Compiled in 140ms
