@@ -3,7 +3,8 @@
 import { createClient } from '@/utils/supabase/client'
 import { useState, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
-import { triggerGreenSheetBlast } from '@/app/lib/server' // <--- Import the server action
+import Link from 'next/link' // <--- Added Import
+import { triggerGreenSheetBlast } from '@/app/lib/server' 
 
 // ... (Keep existing Types: GreenSheetReport, TourSheetCadet, SortKey, SortDirection) ...
 type GreenSheetReport = {
@@ -46,7 +47,6 @@ export default function DailyReportsPage() {
   
   const [isPosting, setIsPosting] = useState(false)
   const [isLoggingTours, setIsLoggingTours] = useState(false)
-  // NEW: State for email sending
   const [isSendingEmail, setIsSendingEmail] = useState(false)
   
   const [modalOpen, setModalOpen] = useState(false)
@@ -189,15 +189,12 @@ export default function DailyReportsPage() {
     setIsPosting(false)
   }
 
-  // --- NEW: Email Blast Handler ---
   async function handleEmailBlast() {
       if (!confirm("Are you sure you want to email the current Green Sheet to the distribution list?")) return;
       
       setIsSendingEmail(true);
       try {
-          // Call the server action
           const result = await triggerGreenSheetBlast();
-          
           if (result?.success) {
               alert("Email blast sent successfully!");
           } else {
@@ -210,7 +207,6 @@ export default function DailyReportsPage() {
   }
 
   async function handleLogTours() {
-    // ... (existing logic unchanged)
     if (toursToLog <= 0) return;
     if (selectedCadet && !selectedTourCadets.size) {
         if (toursToLog > selectedCadet.total_tours && !selectedCadet.has_star_tours) { alert(`Cannot log ${toursToLog} tours.`); return; }
@@ -350,7 +346,24 @@ export default function DailyReportsPage() {
 
             {/* TOUR SHEET TABLE */}
             <section className={`mt-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow printable-section ${activeTab === 'tour' ? 'print-active' : 'hidden no-print'}`}>
-            <div className="flex justify-between items-center no-print mb-4"><h2 className="text-2xl font-semibold text-gray-800 dark:text-white">Tour Sheet</h2>{canLog && selectedTourCadets.size > 0 && <button onClick={() => openTourModal()} className="py-2 px-4 bg-indigo-600 text-white rounded shadow-sm">Bulk Log ({selectedTourCadets.size})</button>}</div>
+            {/* UPDATED HEADER with BUTTON */}
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center no-print mb-4 gap-4">
+                <div>
+                    <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">Tour Sheet</h2>
+                    <p className="text-sm text-gray-500 dark:text-gray-400">Active tour balances.</p>
+                </div>
+                <div className="flex items-center gap-2">
+                    <Link 
+                        href="/tours" 
+                        className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 text-sm font-bold rounded shadow-sm hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+                    >
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
+                        View Full Ledger
+                    </Link>
+                    {canLog && selectedTourCadets.size > 0 && <button onClick={() => openTourModal()} className="py-2 px-4 bg-indigo-600 text-white rounded shadow-sm font-bold">Bulk Log ({selectedTourCadets.size})</button>}
+                </div>
+            </div>
+
             <div className="mt-4 flow-root"><div className="-mx-2 -my-2 overflow-x-auto"><div className="inline-block min-w-full py-2"><table className="min-w-full printable-table border-collapse border border-gray-300 dark:border-gray-700">
                     <thead className="bg-gray-50 dark:bg-gray-700">
                         <tr>
@@ -358,8 +371,6 @@ export default function DailyReportsPage() {
                         <th onClick={() => handleSort('subject')} className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border col-tour-cadet cursor-pointer">Cadet <SortIcon column="subject"/></th>
                         <th onClick={() => handleSort('company')} className="hidden md:table-cell p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border col-tour-co cursor-pointer">Company <SortIcon column="company"/></th>
                         <th onClick={() => handleSort('total_tours')} className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border col-tour-total cursor-pointer">Total <SortIcon column="total_tours"/></th>
-                        {/* <th className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border col-tour-served">Served</th> */}
-                        {/* <th className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border col-tour-notes">Notes</th> */}
                         <th className="p-2 no-print border w-auto"></th>
                         </tr>
                     </thead>

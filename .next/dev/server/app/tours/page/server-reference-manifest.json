@@ -1,0 +1,20 @@
+{
+  "node": {
+    "00dc6738ea2cdae7f1ccc0e1f8d6b98c6212ede619": {
+      "workers": {
+        "app/tours/page": {
+          "moduleId": "[project]/.next-internal/server/app/tours/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/tours/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getAllTourLogs",
+          "filename": "app/tours/actions.ts"
+        }
+      },
+      "layer": {
+        "app/tours/page": "rsc"
+      },
+      "exportedName": "getAllTourLogs",
+      "filename": "app/tours/actions.ts"
+    }
+  },
+  "edge": {}
+}

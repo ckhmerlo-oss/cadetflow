@@ -14,6 +14,141 @@
       },
       "filename": "app/lib/server.ts",
       "exportedName": "triggerGreenSheetBlast"
+    },
+    "00dc6738ea2cdae7f1ccc0e1f8d6b98c6212ede619": {
+      "workers": {
+        "app/tours/page": {
+          "moduleId": "[project]/.next-internal/server/app/tours/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/tours/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getAllTourLogs",
+          "filename": "app/tours/actions.ts"
+        }
+      },
+      "layer": {
+        "app/tours/page": "rsc"
+      },
+      "filename": "app/tours/actions.ts",
+      "exportedName": "getAllTourLogs"
+    },
+    "603a47877742303afc33baf0bf80c9229af4e52ef8": {
+      "workers": {
+        "app/manage/page": {
+          "moduleId": "[project]/.next-internal/server/app/manage/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "bulkAssignCompany",
+          "filename": "app/manage/actions.ts"
+        }
+      },
+      "layer": {
+        "app/manage/page": "action-browser"
+      },
+      "filename": "app/manage/actions.ts",
+      "exportedName": "bulkAssignCompany"
+    },
+    "60532683f7b9907727bf29a27c70ffe98877d06a86": {
+      "workers": {
+        "app/manage/page": {
+          "moduleId": "[project]/.next-internal/server/app/manage/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "bulkAssignRole",
+          "filename": "app/manage/actions.ts"
+        }
+      },
+      "layer": {
+        "app/manage/page": "action-browser"
+      },
+      "filename": "app/manage/actions.ts",
+      "exportedName": "bulkAssignRole"
+    },
+    "00e4f1a0ba0cc7d8a046021ef05aa736acf6732c44": {
+      "workers": {
+        "app/page": {
+          "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getFacultyList",
+          "filename": "app/incidents/actions.ts"
+        }
+      },
+      "layer": {
+        "app/page": "rsc"
+      },
+      "filename": "app/incidents/actions.ts",
+      "exportedName": "getFacultyList"
+    },
+    "406e64145935d3c85c96a65916dd8989009b3202e5": {
+      "workers": {
+        "app/page": {
+          "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getIncidents",
+          "filename": "app/incidents/actions.ts"
+        }
+      },
+      "layer": {
+        "app/page": "rsc"
+      },
+      "filename": "app/incidents/actions.ts",
+      "exportedName": "getIncidents"
+    },
+    "408344156e4ed25a1fde2a16b1330b0e00502be22b": {
+      "workers": {
+        "app/page": {
+          "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "getIncident",
+          "filename": "app/incidents/actions.ts"
+        }
+      },
+      "layer": {
+        "app/page": "rsc"
+      },
+      "filename": "app/incidents/actions.ts",
+      "exportedName": "getIncident"
+    },
+    "40ea4824ebb15e230302cbedc00d4d62f0c65d0aa6": {
+      "workers": {
+        "app/page": {
+          "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "submitIncident",
+          "filename": "app/incidents/actions.ts"
+        }
+      },
+      "layer": {
+        "app/page": "rsc"
+      },
+      "filename": "app/incidents/actions.ts",
+      "exportedName": "submitIncident"
+    },
+    "7035c2aaaf1773684eb282a8a9910abbd39397ec48": {
+      "workers": {
+        "app/page": {
+          "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "resolveAsHandled",
+          "filename": "app/incidents/actions.ts"
+        }
+      },
+      "layer": {
+        "app/page": "rsc"
+      },
+      "filename": "app/incidents/actions.ts",
+      "exportedName": "resolveAsHandled"
+    },
+    "7076eee2a0cf223033228c5b7d0ef86c0eebc0d9f7": {
+      "workers": {
+        "app/page": {
+          "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "convertToDemerit",
+          "filename": "app/incidents/actions.ts"
+        }
+      },
+      "layer": {
+        "app/page": "rsc"
+      },
+      "filename": "app/incidents/actions.ts",
+      "exportedName": "convertToDemerit"
     }
   },
   "edge": {},
