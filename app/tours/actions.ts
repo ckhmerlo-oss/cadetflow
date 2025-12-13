@@ -15,7 +15,7 @@ export type TourLogEntry = {
 export async function getAllTourLogs() {
   const supabase = createClient()
   
-  // Fetch all ledger entries, ordered by newest first
+  // Fetch all ledger entries
   const { data, error } = await supabase
     .from('tour_ledger')
     .select(`
@@ -28,7 +28,6 @@ export async function getAllTourLogs() {
       staff:profiles!staff_id (first_name, last_name)
     `)
     .order('created_at', { ascending: false })
-    // Optional: Limit to recent 500 entries to prevent massive page loads
     .limit(500)
 
   if (error) {
@@ -36,5 +35,19 @@ export async function getAllTourLogs() {
     return []
   }
 
-  return data as TourLogEntry[]
+  // FIX: Map the raw data to handle Supabase returning arrays for relations
+  // We cast 'data' to 'any[]' first to stop TypeScript from complaining about the mismatch
+  // between the raw array response and our desired TourLogEntry type.
+  const formattedData = (data as any[]).map((entry) => ({
+    id: entry.id,
+    created_at: entry.created_at,
+    amount: entry.amount,
+    comment: entry.comment,
+    action: entry.action,
+    // Check if it's an array and grab the first item, otherwise use it as is
+    cadet: Array.isArray(entry.cadet) ? entry.cadet[0] : entry.cadet,
+    staff: Array.isArray(entry.staff) ? entry.staff[0] : entry.staff
+  }))
+
+  return formattedData as TourLogEntry[]
 }
