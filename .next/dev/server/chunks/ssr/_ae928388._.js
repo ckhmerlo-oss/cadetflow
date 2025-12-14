@@ -189,245 +189,251 @@ function LedgerPage({ params: paramsPromise }) {
             router.push(`/report/${event.report_id}`);
         }
     };
+    // --- TEXT TRUNCATION HELPER ---
+    const truncateText = (text, limit)=>{
+        if (!text) return null;
+        if (text.length <= limit) return text;
+        return text.substring(0, limit) + '...';
+    };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$styled$2d$jsx$2f$style$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                id: "232061ed4b032336",
-                children: "@media print{body{color:#000!important;background-color:#fff!important}header,.no-print{display:none!important}.print-container{max-width:100%!important;margin:0!important;padding:0!important}.print-card{break-inside:avoid;box-shadow:none!important;border:1px solid #ccc!important}table{border-collapse:collapse!important;width:100%!important;font-size:9pt!important}th,td{border:1px solid #999!important;padding:4px!important}.print-hidden{display:none!important}.col-status{width:15%!important}.no-print-break{break-inside:avoid}}"
+                id: "3c778d6f63caea8c",
+                children: "@media print{body{color:#000!important;background-color:#fff!important}header,.no-print{display:none!important}.print-container{max-width:100%!important;margin:0!important;padding:0!important}.print-card{break-inside:avoid;box-shadow:none!important;border:1px solid #ccc!important}table{border-collapse:collapse!important;width:100%!important;font-size:9pt!important}th,td{border:1px solid #999!important;padding:4px!important}.print-hidden{display:none!important}.col-status{width:15%!important}.no-print-break{break-inside:avoid}.col-title-details{text-overflow:ellipsis!important;white-space:nowrap!important;max-width:250px!important;overflow:hidden!important}}"
             }, void 0, false, void 0, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "jsx-232061ed4b032336" + " " + "max-w-6xl mx-auto p-4 sm:p-6 lg:p-8 print-container",
+                className: "jsx-3c778d6f63caea8c" + " " + "max-w-6xl mx-auto p-4 sm:p-6 lg:p-8 print-container",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-232061ed4b032336" + " " + "flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6",
+                        className: "jsx-3c778d6f63caea8c" + " " + "flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "jsx-232061ed4b032336",
+                                className: "jsx-3c778d6f63caea8c",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                        className: "jsx-232061ed4b032336" + " " + "text-3xl font-bold text-gray-900 dark:text-white",
+                                        className: "jsx-3c778d6f63caea8c" + " " + "text-3xl font-bold text-gray-900 dark:text-white",
                                         children: "Ledger"
                                     }, void 0, false, {
                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                        lineNumber: 201,
+                                        lineNumber: 210,
                                         columnNumber: 13
                                     }, this),
                                     cadetProfile && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "jsx-232061ed4b032336" + " " + "mt-1 text-lg text-gray-600 dark:text-gray-400",
+                                        className: "jsx-3c778d6f63caea8c" + " " + "mt-1 text-lg text-gray-600 dark:text-gray-400",
                                         children: [
                                             cadetProfile.last_name,
                                             ", ",
                                             cadetProfile.first_name,
                                             " ",
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "jsx-232061ed4b032336" + " " + "text-sm bg-gray-100 px-2 py-0.5 rounded dark:bg-gray-700",
+                                                className: "jsx-3c778d6f63caea8c" + " " + "text-sm bg-gray-100 px-2 py-0.5 rounded dark:bg-gray-700",
                                                 children: cadetProfile.role?.role_name || 'Unassigned'
                                             }, void 0, false, {
                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                lineNumber: 204,
+                                                lineNumber: 213,
                                                 columnNumber: 70
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                        lineNumber: 203,
+                                        lineNumber: 212,
                                         columnNumber: 16
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                lineNumber: 200,
+                                lineNumber: 209,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "jsx-232061ed4b032336" + " " + "flex flex-wrap gap-2 no-print w-full md:w-auto items-center",
+                                className: "jsx-3c778d6f63caea8c" + " " + "flex flex-wrap gap-2 no-print w-full md:w-auto items-center",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                         value: selectedTermId,
                                         onChange: (e)=>setSelectedTermId(e.target.value),
-                                        className: "jsx-232061ed4b032336" + " " + "block w-full sm:w-40 rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm sm:text-sm py-2",
+                                        className: "jsx-3c778d6f63caea8c" + " " + "block w-full sm:w-40 rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm sm:text-sm py-2",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                 value: "all",
-                                                className: "jsx-232061ed4b032336",
+                                                className: "jsx-3c778d6f63caea8c",
                                                 children: "All Terms"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                lineNumber: 213,
-                                                columnNumber: 17
-                                            }, this),
-                                            terms.map((term)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                    value: term.id,
-                                                    className: "jsx-232061ed4b032336",
-                                                    children: term.term_name
-                                                }, term.id, false, {
-                                                    fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                    lineNumber: 214,
-                                                    columnNumber: 37
-                                                }, this))
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/app/ledger/[id]/page.tsx",
-                                        lineNumber: 211,
-                                        columnNumber: 14
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                        value: filterType,
-                                        onChange: (e)=>setFilterType(e.target.value),
-                                        className: "jsx-232061ed4b032336" + " " + "block w-full sm:w-32 rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm sm:text-sm py-2",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                value: "all",
-                                                className: "jsx-232061ed4b032336",
-                                                children: "All Types"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                lineNumber: 219,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                value: "1",
-                                                className: "jsx-232061ed4b032336",
-                                                children: "Cat 1"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                lineNumber: 220,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                value: "2",
-                                                className: "jsx-232061ed4b032336",
-                                                children: "Cat 2"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                lineNumber: 221,
-                                                columnNumber: 17
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                value: "3",
-                                                className: "jsx-232061ed4b032336",
-                                                children: "Cat 3"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
                                                 lineNumber: 222,
                                                 columnNumber: 17
                                             }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
-                                                value: "tours",
-                                                className: "jsx-232061ed4b032336",
-                                                children: "Tours Only"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                lineNumber: 223,
-                                                columnNumber: 17
-                                            }, this)
+                                            terms.map((term)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                    value: term.id,
+                                                    className: "jsx-3c778d6f63caea8c",
+                                                    children: term.term_name
+                                                }, term.id, false, {
+                                                    fileName: "[project]/app/ledger/[id]/page.tsx",
+                                                    lineNumber: 223,
+                                                    columnNumber: 37
+                                                }, this))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                        lineNumber: 217,
-                                        columnNumber: 15
+                                        lineNumber: 220,
+                                        columnNumber: 14
                                     }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        role: "group",
-                                        className: "jsx-232061ed4b032336" + " " + "hidden sm:flex rounded-md shadow-sm",
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                        value: filterType,
+                                        onChange: (e)=>setFilterType(e.target.value),
+                                        className: "jsx-3c778d6f63caea8c" + " " + "block w-full sm:w-32 rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm sm:text-sm py-2",
                                         children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                type: "button",
-                                                onClick: ()=>setViewMode('cards'),
-                                                className: "jsx-232061ed4b032336" + " " + `px-4 py-2 text-sm font-medium border rounded-l-lg ${viewMode === 'cards' ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 dark:bg-gray-800 dark:text-white dark:border-gray-600'}`,
-                                                children: "Cards"
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                value: "all",
+                                                className: "jsx-3c778d6f63caea8c",
+                                                children: "All Types"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
                                                 lineNumber: 228,
                                                 columnNumber: 17
                                             }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                type: "button",
-                                                onClick: ()=>setViewMode('list'),
-                                                className: "jsx-232061ed4b032336" + " " + `px-4 py-2 text-sm font-medium border rounded-r-lg ${viewMode === 'list' ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 dark:bg-gray-800 dark:text-white dark:border-gray-600'}`,
-                                                children: "List"
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                value: "1",
+                                                className: "jsx-3c778d6f63caea8c",
+                                                children: "Cat 1"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/ledger/[id]/page.tsx",
+                                                lineNumber: 229,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                value: "2",
+                                                className: "jsx-3c778d6f63caea8c",
+                                                children: "Cat 2"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/ledger/[id]/page.tsx",
+                                                lineNumber: 230,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                value: "3",
+                                                className: "jsx-3c778d6f63caea8c",
+                                                children: "Cat 3"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
                                                 lineNumber: 231,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                value: "tours",
+                                                className: "jsx-3c778d6f63caea8c",
+                                                children: "Tours Only"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/ledger/[id]/page.tsx",
+                                                lineNumber: 232,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                        lineNumber: 227,
+                                        lineNumber: 226,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        role: "group",
+                                        className: "jsx-3c778d6f63caea8c" + " " + "hidden sm:flex rounded-md shadow-sm",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                type: "button",
+                                                onClick: ()=>setViewMode('cards'),
+                                                className: "jsx-3c778d6f63caea8c" + " " + `px-4 py-2 text-sm font-medium border rounded-l-lg ${viewMode === 'cards' ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 dark:bg-gray-800 dark:text-white dark:border-gray-600'}`,
+                                                children: "Cards"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/ledger/[id]/page.tsx",
+                                                lineNumber: 237,
+                                                columnNumber: 17
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                type: "button",
+                                                onClick: ()=>setViewMode('list'),
+                                                className: "jsx-3c778d6f63caea8c" + " " + `px-4 py-2 text-sm font-medium border rounded-r-lg ${viewMode === 'list' ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 dark:bg-gray-800 dark:text-white dark:border-gray-600'}`,
+                                                children: "List"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/ledger/[id]/page.tsx",
+                                                lineNumber: 240,
+                                                columnNumber: 17
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/ledger/[id]/page.tsx",
+                                        lineNumber: 236,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         onClick: ()=>window.print(),
-                                        className: "jsx-232061ed4b032336" + " " + "ml-2 py-2 px-4 rounded-md shadow-sm text-sm font-bold text-white bg-gray-700 hover:bg-gray-800 flex items-center gap-2",
+                                        className: "jsx-3c778d6f63caea8c" + " " + "ml-2 py-2 px-4 rounded-md shadow-sm text-sm font-bold text-white bg-gray-700 hover:bg-gray-800 flex items-center gap-2",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                                                 fill: "none",
                                                 stroke: "currentColor",
                                                 viewBox: "0 0 24 24",
-                                                className: "jsx-232061ed4b032336" + " " + "w-4 h-4",
+                                                className: "jsx-3c778d6f63caea8c" + " " + "w-4 h-4",
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
                                                     strokeLinecap: "round",
                                                     strokeLinejoin: "round",
                                                     strokeWidth: 2,
                                                     d: "M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z",
-                                                    className: "jsx-232061ed4b032336"
+                                                    className: "jsx-3c778d6f63caea8c"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                    lineNumber: 237,
+                                                    lineNumber: 246,
                                                     columnNumber: 95
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                lineNumber: 237,
+                                                lineNumber: 246,
                                                 columnNumber: 16
                                             }, this),
                                             "Print"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                        lineNumber: 236,
+                                        lineNumber: 245,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                lineNumber: 210,
+                                lineNumber: 219,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                        lineNumber: 199,
+                        lineNumber: 208,
                         columnNumber: 9
                     }, this),
                     loading && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                        className: "jsx-232061ed4b032336" + " " + "text-gray-500 dark:text-gray-400",
+                        className: "jsx-3c778d6f63caea8c" + " " + "text-gray-500 dark:text-gray-400",
                         children: "Loading..."
                     }, void 0, false, {
                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                        lineNumber: 243,
+                        lineNumber: 252,
                         columnNumber: 21
                     }, this),
                     error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                        className: "jsx-232061ed4b032336" + " " + "text-red-600 dark:text-red-400",
+                        className: "jsx-3c778d6f63caea8c" + " " + "text-red-600 dark:text-red-400",
                         children: error
                     }, void 0, false, {
                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                        lineNumber: 244,
+                        lineNumber: 253,
                         columnNumber: 19
                     }, this),
                     !loading && !error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                         children: [
                             stats && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "jsx-232061ed4b032336" + " " + "grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 print:mb-4 no-print-break",
+                                className: "jsx-3c778d6f63caea8c" + " " + "grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 print:mb-4 no-print-break",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(StatBox, {
                                         label: "Term Demerits",
                                         value: stats.term_demerits
                                     }, void 0, false, {
                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                        lineNumber: 250,
+                                        lineNumber: 259,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(StatBox, {
@@ -435,7 +441,7 @@ function LedgerPage({ params: paramsPromise }) {
                                         value: stats.year_demerits
                                     }, void 0, false, {
                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                        lineNumber: 251,
+                                        lineNumber: 260,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(StatBox, {
@@ -443,7 +449,7 @@ function LedgerPage({ params: paramsPromise }) {
                                         value: stats.total_tours_marched
                                     }, void 0, false, {
                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                        lineNumber: 252,
+                                        lineNumber: 261,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(StatBox, {
@@ -452,77 +458,77 @@ function LedgerPage({ params: paramsPromise }) {
                                         highlight: true
                                     }, void 0, false, {
                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                        lineNumber: 253,
+                                        lineNumber: 262,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                lineNumber: 249,
+                                lineNumber: 258,
                                 columnNumber: 15
                             }, this),
                             displayedLog.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "jsx-232061ed4b032336" + " " + "text-center py-10 text-gray-500 border rounded-lg border-dashed",
+                                className: "jsx-3c778d6f63caea8c" + " " + "text-center py-10 text-gray-500 border rounded-lg border-dashed",
                                 children: "No entries found for this filter."
                             }, void 0, false, {
                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                lineNumber: 258,
+                                lineNumber: 267,
                                 columnNumber: 17
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "jsx-232061ed4b032336" + " " + `${viewMode === 'cards' ? 'block' : 'hidden sm:hidden'} flow-root`,
+                                        className: "jsx-3c778d6f63caea8c" + " " + `${viewMode === 'cards' ? 'block' : 'hidden sm:hidden'} flow-root`,
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
                                             role: "list",
-                                            className: "jsx-232061ed4b032336" + " " + "-mb-8",
+                                            className: "jsx-3c778d6f63caea8c" + " " + "-mb-8",
                                             children: displayedLog.map((event, eventIdx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                                    className: "jsx-232061ed4b032336",
+                                                    className: "jsx-3c778d6f63caea8c",
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "jsx-232061ed4b032336" + " " + "relative pb-8 print:pb-4",
+                                                        className: "jsx-3c778d6f63caea8c" + " " + "relative pb-8 print:pb-4",
                                                         children: [
                                                             eventIdx !== displayedLog.length - 1 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                 "aria-hidden": "true",
-                                                                className: "jsx-232061ed4b032336" + " " + "absolute left-5 top-5 -ml-px h-full w-0.5 bg-gray-300 dark:bg-gray-700"
+                                                                className: "jsx-3c778d6f63caea8c" + " " + "absolute left-5 top-5 -ml-px h-full w-0.5 bg-gray-300 dark:bg-gray-700"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                lineNumber: 268,
+                                                                lineNumber: 276,
                                                                 columnNumber: 69
                                                             }, this) : null,
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                className: "jsx-232061ed4b032336" + " " + "relative flex items-start space-x-3",
+                                                                className: "jsx-3c778d6f63caea8c" + " " + "relative flex items-start space-x-3",
                                                                 children: [
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "jsx-232061ed4b032336" + " " + "no-print",
+                                                                        className: "jsx-3c778d6f63caea8c" + " " + "no-print",
                                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                            className: "jsx-232061ed4b032336" + " " + `h-10 w-10 rounded-full flex items-center justify-center ring-8 ring-white dark:ring-gray-900 ${event.event_type === 'demerit' ? 'bg-red-600' : 'bg-green-500'}`,
+                                                                            className: "jsx-3c778d6f63caea8c" + " " + `h-10 w-10 rounded-full flex items-center justify-center ring-8 ring-white dark:ring-gray-900 ${event.event_type === 'demerit' ? 'bg-red-600' : 'bg-green-500'}`,
                                                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                className: "jsx-232061ed4b032336" + " " + "text-white font-bold",
+                                                                                className: "jsx-3c778d6f63caea8c" + " " + "text-white font-bold",
                                                                                 children: event.event_type === 'demerit' ? 'D' : 'T'
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                lineNumber: 272,
+                                                                                lineNumber: 280,
                                                                                 columnNumber: 37
                                                                             }, this)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                            lineNumber: 271,
+                                                                            lineNumber: 279,
                                                                             columnNumber: 33
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                        lineNumber: 270,
+                                                                        lineNumber: 278,
                                                                         columnNumber: 33
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "jsx-232061ed4b032336" + " " + "min-w-0 flex-1 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border dark:border-gray-700 print-card",
+                                                                        className: "jsx-3c778d6f63caea8c" + " " + "min-w-0 flex-1 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border dark:border-gray-700 print-card",
                                                                         children: [
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                className: "jsx-232061ed4b032336" + " " + "flex justify-between items-start",
+                                                                                className: "jsx-3c778d6f63caea8c" + " " + "flex justify-between items-start",
                                                                                 children: [
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                        className: "jsx-232061ed4b032336",
+                                                                                        className: "jsx-3c778d6f63caea8c",
                                                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                                                                            className: "jsx-232061ed4b032336" + " " + "text-lg font-medium text-gray-900 dark:text-white flex items-center flex-wrap gap-2",
+                                                                                            className: "jsx-3c778d6f63caea8c" + " " + "text-lg font-medium text-gray-900 dark:text-white flex items-center flex-wrap gap-2",
                                                                                             children: [
                                                                                                 event.event_type === 'demerit' && event.report_id ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                                                                                     href: `/report/${event.report_id}`,
@@ -530,15 +536,15 @@ function LedgerPage({ params: paramsPromise }) {
                                                                                                     children: event.title
                                                                                                 }, void 0, false, {
                                                                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                                    lineNumber: 281,
+                                                                                                    lineNumber: 289,
                                                                                                     columnNumber: 45
                                                                                                 }, this) : event.title,
                                                                                                 event.appeal_status === 'approved' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                                    className: "jsx-232061ed4b032336" + " " + "inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800",
+                                                                                                    className: "jsx-3c778d6f63caea8c" + " " + "inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800",
                                                                                                     children: "Appeal Granted"
                                                                                                 }, void 0, false, {
                                                                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                                    lineNumber: 286,
+                                                                                                    lineNumber: 294,
                                                                                                     columnNumber: 80
                                                                                                 }, this),
                                                                                                 [
@@ -546,144 +552,144 @@ function LedgerPage({ params: paramsPromise }) {
                                                                                                     'pending_chain',
                                                                                                     'pending_commandant'
                                                                                                 ].includes(event.appeal_status || '') && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                                    className: "jsx-232061ed4b032336" + " " + "inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800",
+                                                                                                    className: "jsx-3c778d6f63caea8c" + " " + "inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800",
                                                                                                     children: "Appeal Pending"
                                                                                                 }, void 0, false, {
                                                                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                                    lineNumber: 287,
+                                                                                                    lineNumber: 295,
                                                                                                     columnNumber: 139
                                                                                                 }, this)
                                                                                             ]
                                                                                         }, void 0, true, {
                                                                                             fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                            lineNumber: 279,
+                                                                                            lineNumber: 287,
                                                                                             columnNumber: 41
                                                                                         }, this)
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                        lineNumber: 278,
+                                                                                        lineNumber: 286,
                                                                                         columnNumber: 37
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                        className: "jsx-232061ed4b032336" + " " + `text-xs font-medium px-2 py-0.5 rounded-full flex-shrink-0 ${event.event_type === 'served' ? 'bg-green-100 text-green-800' : getDisplayStatusColor(event)}`,
+                                                                                        className: "jsx-3c778d6f63caea8c" + " " + `text-xs font-medium px-2 py-0.5 rounded-full flex-shrink-0 ${event.event_type === 'served' ? 'bg-green-100 text-green-800' : getDisplayStatusColor(event)}`,
                                                                                         children: event.event_type === 'served' ? 'Completed' : formatStatus(event.status)
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                        lineNumber: 290,
+                                                                                        lineNumber: 298,
                                                                                         columnNumber: 37
                                                                                     }, this)
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                lineNumber: 277,
+                                                                                lineNumber: 285,
                                                                                 columnNumber: 33
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                className: "jsx-232061ed4b032336" + " " + "mt-1 text-sm text-gray-500 dark:text-gray-400 flex flex-wrap gap-4",
+                                                                                className: "jsx-3c778d6f63caea8c" + " " + "mt-1 text-sm text-gray-500 dark:text-gray-400 flex flex-wrap gap-4",
                                                                                 children: [
                                                                                     event.event_type === 'demerit' && event.date_of_offense && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                        className: "jsx-232061ed4b032336",
+                                                                                        className: "jsx-3c778d6f63caea8c",
                                                                                         children: [
                                                                                             "Offense: ",
                                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                                className: "jsx-232061ed4b032336" + " " + "font-medium",
+                                                                                                className: "jsx-3c778d6f63caea8c" + " " + "font-medium",
                                                                                                 children: formatDateTime(event.date_of_offense)
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                                lineNumber: 296,
+                                                                                                lineNumber: 304,
                                                                                                 columnNumber: 112
                                                                                             }, this)
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                        lineNumber: 296,
+                                                                                        lineNumber: 304,
                                                                                         columnNumber: 97
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                        className: "jsx-232061ed4b032336",
+                                                                                        className: "jsx-3c778d6f63caea8c",
                                                                                         children: [
                                                                                             "Logged: ",
                                                                                             formatDateTime(event.event_date)
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                        lineNumber: 297,
+                                                                                        lineNumber: 305,
                                                                                         columnNumber: 37
                                                                                     }, this)
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                lineNumber: 295,
+                                                                                lineNumber: 303,
                                                                                 columnNumber: 33
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                className: "jsx-232061ed4b032336" + " " + "mt-3 grid grid-cols-2 gap-4",
+                                                                                className: "jsx-3c778d6f63caea8c" + " " + "mt-3 grid grid-cols-2 gap-4",
                                                                                 children: event.event_type === 'demerit' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                    className: "jsx-232061ed4b032336",
+                                                                                    className: "jsx-3c778d6f63caea8c",
                                                                                     children: [
                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                                            className: "jsx-232061ed4b032336" + " " + "text-xs uppercase font-semibold text-gray-500",
+                                                                                            className: "jsx-3c778d6f63caea8c" + " " + "text-xs uppercase font-semibold text-gray-500",
                                                                                             children: "Demerits"
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                            lineNumber: 303,
+                                                                                            lineNumber: 311,
                                                                                             columnNumber: 41
                                                                                         }, this),
                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                                            className: "jsx-232061ed4b032336" + " " + `text-base font-bold ${event.status === 'rejected' || event.status === 'pulled' || event.appeal_status === 'approved' ? 'line-through text-gray-400' : 'text-red-600'}`,
+                                                                                            className: "jsx-3c778d6f63caea8c" + " " + `text-base font-bold ${event.status === 'rejected' || event.status === 'pulled' || event.appeal_status === 'approved' ? 'line-through text-gray-400' : 'text-red-600'}`,
                                                                                             children: event.demerits_issued
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                            lineNumber: 304,
+                                                                                            lineNumber: 312,
                                                                                             columnNumber: 41
                                                                                         }, this)
                                                                                     ]
                                                                                 }, void 0, true, {
                                                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                    lineNumber: 302,
+                                                                                    lineNumber: 310,
                                                                                     columnNumber: 37
                                                                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                    className: "jsx-232061ed4b032336",
+                                                                                    className: "jsx-3c778d6f63caea8c",
                                                                                     children: [
                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                                            className: "jsx-232061ed4b032336" + " " + "text-xs uppercase font-semibold text-gray-500",
+                                                                                            className: "jsx-3c778d6f63caea8c" + " " + "text-xs uppercase font-semibold text-gray-500",
                                                                                             children: "Tours Served"
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                            lineNumber: 308,
+                                                                                            lineNumber: 316,
                                                                                             columnNumber: 41
                                                                                         }, this),
                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                                            className: "jsx-232061ed4b032336" + " " + "text-base font-bold text-green-600",
+                                                                                            className: "jsx-3c778d6f63caea8c" + " " + "text-base font-bold text-green-600",
                                                                                             children: Math.abs(event.tour_change || 0)
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                            lineNumber: 309,
+                                                                                            lineNumber: 317,
                                                                                             columnNumber: 41
                                                                                         }, this)
                                                                                     ]
                                                                                 }, void 0, true, {
                                                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                    lineNumber: 307,
+                                                                                    lineNumber: 315,
                                                                                     columnNumber: 37
                                                                                 }, this)
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                lineNumber: 300,
+                                                                                lineNumber: 308,
                                                                                 columnNumber: 33
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                className: "jsx-232061ed4b032336" + " " + "mt-3 pt-3 border-t dark:border-gray-700 text-sm",
+                                                                                className: "jsx-3c778d6f63caea8c" + " " + "mt-3 pt-3 border-t dark:border-gray-700 text-sm",
                                                                                 children: [
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                                        className: "jsx-232061ed4b032336" + " " + "text-gray-700 dark:text-gray-300",
+                                                                                        className: "jsx-3c778d6f63caea8c" + " " + "text-gray-700 dark:text-gray-300",
                                                                                         children: [
                                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                                className: "jsx-232061ed4b032336" + " " + "font-medium",
+                                                                                                className: "jsx-3c778d6f63caea8c" + " " + "font-medium",
                                                                                                 children: event.event_type === 'demerit' ? 'By:' : 'Logged By:'
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                                lineNumber: 315,
+                                                                                                lineNumber: 323,
                                                                                                 columnNumber: 85
                                                                                             }, this),
                                                                                             " ",
@@ -691,11 +697,11 @@ function LedgerPage({ params: paramsPromise }) {
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                        lineNumber: 315,
+                                                                                        lineNumber: 323,
                                                                                         columnNumber: 37
                                                                                     }, this),
                                                                                     event.details && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                                        className: "jsx-232061ed4b032336" + " " + "text-gray-600 dark:text-gray-400 italic mt-1",
+                                                                                        className: "jsx-3c778d6f63caea8c" + " " + "text-gray-600 dark:text-gray-400 italic mt-1",
                                                                                         children: [
                                                                                             '"',
                                                                                             event.details,
@@ -703,18 +709,18 @@ function LedgerPage({ params: paramsPromise }) {
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                        lineNumber: 316,
+                                                                                        lineNumber: 324,
                                                                                         columnNumber: 55
                                                                                     }, this),
                                                                                     event.appeal_note && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                        className: "jsx-232061ed4b032336" + " " + "mt-2 text-orange-800 bg-orange-50 p-2 rounded text-xs",
+                                                                                        className: "jsx-3c778d6f63caea8c" + " " + "mt-2 text-orange-800 bg-orange-50 p-2 rounded text-xs",
                                                                                         children: [
                                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
-                                                                                                className: "jsx-232061ed4b032336",
+                                                                                                className: "jsx-3c778d6f63caea8c",
                                                                                                 children: "Appeal Note:"
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                                lineNumber: 317,
+                                                                                                lineNumber: 325,
                                                                                                 columnNumber: 131
                                                                                             }, this),
                                                                                             " ",
@@ -722,219 +728,219 @@ function LedgerPage({ params: paramsPromise }) {
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                        lineNumber: 317,
+                                                                                        lineNumber: 325,
                                                                                         columnNumber: 60
                                                                                     }, this)
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                lineNumber: 314,
+                                                                                lineNumber: 322,
                                                                                 columnNumber: 33
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                        lineNumber: 276,
+                                                                        lineNumber: 284,
                                                                         columnNumber: 33
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                lineNumber: 269,
+                                                                lineNumber: 277,
                                                                 columnNumber: 29
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                        lineNumber: 267,
+                                                        lineNumber: 275,
                                                         columnNumber: 29
                                                     }, this)
                                                 }, eventIdx, false, {
                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                    lineNumber: 266,
+                                                    lineNumber: 274,
                                                     columnNumber: 25
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/app/ledger/[id]/page.tsx",
-                                            lineNumber: 264,
+                                            lineNumber: 272,
                                             columnNumber: 21
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                        lineNumber: 263,
+                                        lineNumber: 271,
                                         columnNumber: 17
                                     }, this),
                                     viewMode === 'list' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "jsx-232061ed4b032336" + " " + "hidden sm:block overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700",
+                                        className: "jsx-3c778d6f63caea8c" + " " + "hidden sm:block overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                                            className: "jsx-232061ed4b032336" + " " + "min-w-full divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-800 text-sm table-fixed",
+                                            className: "jsx-3c778d6f63caea8c" + " " + "min-w-full divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-800 text-sm table-fixed",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
-                                                    className: "jsx-232061ed4b032336" + " " + "bg-gray-50 dark:bg-gray-700",
+                                                    className: "jsx-3c778d6f63caea8c" + " " + "bg-gray-50 dark:bg-gray-700",
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                        className: "jsx-232061ed4b032336",
+                                                        className: "jsx-3c778d6f63caea8c",
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                className: "jsx-232061ed4b032336" + " " + "px-2 py-3 text-left font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider w-24",
+                                                                className: "jsx-3c778d6f63caea8c" + " " + "px-2 py-3 text-left font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider w-24",
                                                                 children: "Date"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                lineNumber: 334,
+                                                                lineNumber: 341,
                                                                 columnNumber: 37
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                className: "jsx-232061ed4b032336" + " " + "px-2 py-3 text-left font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider",
+                                                                className: "jsx-3c778d6f63caea8c" + " " + "px-2 py-3 text-left font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider col-title-details",
                                                                 children: "Title/Details"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                lineNumber: 336,
+                                                                lineNumber: 342,
                                                                 columnNumber: 37
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                className: "jsx-232061ed4b032336" + " " + "px-2 py-3 text-center font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider w-16",
+                                                                className: "jsx-3c778d6f63caea8c" + " " + "px-2 py-3 text-center font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider w-16",
                                                                 children: "Value"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                lineNumber: 337,
+                                                                lineNumber: 343,
                                                                 columnNumber: 37
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                className: "jsx-232061ed4b032336" + " " + "px-2 py-3 text-left font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider w-28",
+                                                                className: "jsx-3c778d6f63caea8c" + " " + "px-2 py-3 text-left font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider w-28",
                                                                 children: "By"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                lineNumber: 338,
+                                                                lineNumber: 344,
                                                                 columnNumber: 37
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                                className: "jsx-232061ed4b032336" + " " + "px-2 py-3 text-center font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider w-32 col-status",
+                                                                className: "jsx-3c778d6f63caea8c" + " " + "px-2 py-3 text-center font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider w-32 col-status",
                                                                 children: "Status"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                lineNumber: 339,
+                                                                lineNumber: 345,
                                                                 columnNumber: 37
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                        lineNumber: 333,
+                                                        lineNumber: 340,
                                                         columnNumber: 33
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                    lineNumber: 332,
+                                                    lineNumber: 339,
                                                     columnNumber: 29
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
-                                                    className: "jsx-232061ed4b032336" + " " + "divide-y divide-gray-200 dark:divide-gray-700",
+                                                    className: "jsx-3c778d6f63caea8c" + " " + "divide-y divide-gray-200 dark:divide-gray-700",
                                                     children: displayedLog.map((event, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                                             onClick: ()=>handleRowClick(event),
-                                                            className: "jsx-232061ed4b032336" + " " + `hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors ${event.event_type === 'demerit' && event.report_id ? 'cursor-pointer' : ''}`,
+                                                            className: "jsx-3c778d6f63caea8c" + " " + `hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors ${event.event_type === 'demerit' && event.report_id ? 'cursor-pointer' : ''}`,
                                                             children: [
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: "jsx-232061ed4b032336" + " " + "px-2 py-2 whitespace-nowrap text-gray-900 dark:text-white truncate",
+                                                                    className: "jsx-3c778d6f63caea8c" + " " + "px-2 py-2 whitespace-nowrap text-gray-900 dark:text-white truncate",
                                                                     children: formatDateTime(event.event_date, false)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                    lineNumber: 350,
+                                                                    lineNumber: 356,
                                                                     columnNumber: 41
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: "jsx-232061ed4b032336" + " " + "px-2 py-2 text-gray-700 dark:text-gray-300 truncate",
+                                                                    className: "jsx-3c778d6f63caea8c" + " " + "px-2 py-2 text-gray-700 dark:text-gray-300 col-title-details",
                                                                     children: [
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                             title: event.title,
-                                                                            className: "jsx-232061ed4b032336" + " " + "font-medium text-gray-900 dark:text-white truncate",
+                                                                            className: "jsx-3c778d6f63caea8c" + " " + "font-medium text-gray-900 dark:text-white truncate max-w-[200px] sm:max-w-[300px] print:max-w-[250px]",
                                                                             children: event.title
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                            lineNumber: 358,
+                                                                            lineNumber: 362,
                                                                             columnNumber: 45
                                                                         }, this),
                                                                         event.details && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                             title: event.details,
-                                                                            className: "jsx-232061ed4b032336" + " " + "text-xs text-gray-500 truncate",
-                                                                            children: event.details
+                                                                            className: "jsx-3c778d6f63caea8c" + " " + "text-xs text-gray-500 truncate max-w-[200px] sm:max-w-[300px] print:max-w-[250px]",
+                                                                            children: truncateText(event.details, 70)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                            lineNumber: 359,
-                                                                            columnNumber: 63
+                                                                            lineNumber: 366,
+                                                                            columnNumber: 49
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                    lineNumber: 357,
+                                                                    lineNumber: 361,
                                                                     columnNumber: 41
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: "jsx-232061ed4b032336" + " " + "px-2 py-2 text-center whitespace-nowrap",
+                                                                    className: "jsx-3c778d6f63caea8c" + " " + "px-2 py-2 text-center whitespace-nowrap",
                                                                     children: event.event_type === 'demerit' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                        className: "jsx-232061ed4b032336" + " " + `font-bold ${event.status === 'rejected' || event.status === 'pulled' || event.appeal_status === 'approved' ? 'line-through text-gray-400' : 'text-red-600'}`,
+                                                                        className: "jsx-3c778d6f63caea8c" + " " + `font-bold ${event.status === 'rejected' || event.status === 'pulled' || event.appeal_status === 'approved' ? 'line-through text-gray-400' : 'text-red-600'}`,
                                                                         children: event.demerits_issued
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                        lineNumber: 365,
+                                                                        lineNumber: 376,
                                                                         columnNumber: 51
                                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                        className: "jsx-232061ed4b032336" + " " + "font-bold text-green-600",
+                                                                        className: "jsx-3c778d6f63caea8c" + " " + "font-bold text-green-600",
                                                                         children: [
                                                                             "-",
                                                                             Math.abs(event.tour_change || 0)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                        lineNumber: 366,
+                                                                        lineNumber: 377,
                                                                         columnNumber: 51
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                    lineNumber: 363,
+                                                                    lineNumber: 374,
                                                                     columnNumber: 41
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                                     title: event.actor_name,
-                                                                    className: "jsx-232061ed4b032336" + " " + "px-2 py-2 whitespace-nowrap text-gray-500 dark:text-gray-400 truncate",
+                                                                    className: "jsx-3c778d6f63caea8c" + " " + "px-2 py-2 whitespace-nowrap text-gray-500 dark:text-gray-400 truncate",
                                                                     children: formatActorShort(event.actor_name)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                    lineNumber: 371,
+                                                                    lineNumber: 382,
                                                                     columnNumber: 41
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                    className: "jsx-232061ed4b032336" + " " + "px-2 py-2 text-center whitespace-nowrap col-status",
+                                                                    className: "jsx-3c778d6f63caea8c" + " " + "px-2 py-2 text-center whitespace-nowrap col-status",
                                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                        className: "jsx-232061ed4b032336" + " " + `inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${event.event_type === 'served' ? 'bg-gray-100 text-gray-800' : getDisplayStatusColor(event)}`,
+                                                                        className: "jsx-3c778d6f63caea8c" + " " + `inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${event.event_type === 'served' ? 'bg-gray-100 text-gray-800' : getDisplayStatusColor(event)}`,
                                                                         children: event.event_type === 'served' ? 'Logged' : event.appeal_status === 'approved' ? 'Appeal Granted' : formatStatus(event.status)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                        lineNumber: 377,
+                                                                        lineNumber: 388,
                                                                         columnNumber: 45
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                    lineNumber: 376,
+                                                                    lineNumber: 387,
                                                                     columnNumber: 41
                                                                 }, this)
                                                             ]
                                                         }, idx, true, {
                                                             fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                            lineNumber: 344,
+                                                            lineNumber: 350,
                                                             columnNumber: 37
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                    lineNumber: 342,
+                                                    lineNumber: 348,
                                                     columnNumber: 29
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/ledger/[id]/page.tsx",
-                                            lineNumber: 331,
+                                            lineNumber: 338,
                                             columnNumber: 25
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                        lineNumber: 330,
+                                        lineNumber: 337,
                                         columnNumber: 21
                                     }, this)
                                 ]
@@ -944,7 +950,7 @@ function LedgerPage({ params: paramsPromise }) {
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                lineNumber: 197,
+                lineNumber: 206,
                 columnNumber: 7
             }, this)
         ]
@@ -959,7 +965,7 @@ function StatBox({ label, value, highlight = false }) {
                 children: label
             }, void 0, false, {
                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                lineNumber: 399,
+                lineNumber: 410,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -967,13 +973,13 @@ function StatBox({ label, value, highlight = false }) {
                 children: value
             }, void 0, false, {
                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                lineNumber: 402,
+                lineNumber: 413,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/ledger/[id]/page.tsx",
-        lineNumber: 398,
+        lineNumber: 409,
         columnNumber: 5
     }, this);
 }

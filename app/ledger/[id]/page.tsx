@@ -178,6 +178,13 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
     }
   }
 
+  // --- TEXT TRUNCATION HELPER ---
+  const truncateText = (text: string | null, limit: number) => {
+      if (!text) return null;
+      if (text.length <= limit) return text;
+      return text.substring(0, limit) + '...';
+  }
+
   return (
     <>
       <style jsx global>{`
@@ -191,6 +198,8 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
           .print-hidden { display: none !important; }
           .col-status { width: 15% !important; } 
           .no-print-break { break-inside: avoid; }
+          /* Ensure title column doesn't blow out page width */
+          .col-title-details { max-width: 250px !important; overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important; }
         }
       `}</style>
 
@@ -223,7 +232,7 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
                 <option value="tours">Tours Only</option>
               </select>
 
-            {/* View Toggle (Hidden on Mobile to enforce Card View) */}
+            {/* View Toggle */}
             <div className="hidden sm:flex rounded-md shadow-sm" role="group">
                 <button type="button" onClick={() => setViewMode('cards')} className={`px-4 py-2 text-sm font-medium border rounded-l-lg ${viewMode === 'cards' ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 dark:bg-gray-800 dark:text-white dark:border-gray-600'}`}>
                     Cards
@@ -259,7 +268,6 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
             ) : (
                 <>
                 {/* --- CARD VIEW (Default on Mobile) --- */}
-                {/* On mobile (default), we always show this. On sm+, we respect viewMode */}
                 <div className={`${viewMode === 'cards' ? 'block' : 'hidden sm:hidden'} flow-root`}>
                     <ul role="list" className="-mb-8">
                         {displayedLog.map((event, eventIdx) => (
@@ -282,7 +290,7 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
                                             {event.title}
                                             </Link>
                                         ) : event.title}
-                                        {/* Removed Category Badge Here as Requested */}
+                                        {/* No Category Badge Here */}
                                         {event.appeal_status === 'approved' && <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800">Appeal Granted</span>}
                                         {['pending_issuer', 'pending_chain', 'pending_commandant'].includes(event.appeal_status || '') && <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">Appeal Pending</span>}
                                         </h3>
@@ -325,15 +333,13 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
                 </div>
 
                 {/* --- LIST / TABLE VIEW --- */}
-                {/* Hidden on mobile, shown on sm+ if viewMode is list */}
                 {viewMode === 'list' && (
                     <div className="hidden sm:block overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
                         <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-800 text-sm table-fixed">
                             <thead className="bg-gray-50 dark:bg-gray-700">
                                 <tr>
                                     <th className="px-2 py-3 text-left font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider w-24">Date</th>
-                                    {/* Removed Type Column Header */}
-                                    <th className="px-2 py-3 text-left font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">Title/Details</th>
+                                    <th className="px-2 py-3 text-left font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider col-title-details">Title/Details</th>
                                     <th className="px-2 py-3 text-center font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider w-16">Value</th>
                                     <th className="px-2 py-3 text-left font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider w-28">By</th>
                                     <th className="px-2 py-3 text-center font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider w-32 col-status">Status</th>
@@ -351,12 +357,17 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
                                             {formatDateTime(event.event_date, false)}
                                         </td>
                                         
-                                        {/* Removed Type Column Cell */}
-                                        
-                                        {/* Title/Details */}
-                                        <td className="px-2 py-2 text-gray-700 dark:text-gray-300 truncate">
-                                            <div className="font-medium text-gray-900 dark:text-white truncate" title={event.title}>{event.title}</div>
-                                            {event.details && <div className="text-xs text-gray-500 truncate" title={event.details}>{event.details}</div>}
+                                        {/* Title/Details - CONSTRAINED */}
+                                        <td className="px-2 py-2 text-gray-700 dark:text-gray-300 col-title-details">
+                                            <div className="font-medium text-gray-900 dark:text-white truncate max-w-[200px] sm:max-w-[300px] print:max-w-[250px]" title={event.title}>
+                                                {event.title}
+                                            </div>
+                                            {event.details && (
+                                                <div className="text-xs text-gray-500 truncate max-w-[200px] sm:max-w-[300px] print:max-w-[250px]" title={event.details}>
+                                                    {/* Double safeguard: Truncate by char count to force margin safety */}
+                                                    {truncateText(event.details, 70)}
+                                                </div>
+                                            )}
                                         </td>
                                         
                                         {/* Value */}
@@ -367,7 +378,7 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
                                             }
                                         </td>
                                         
-                                        {/* By (Truncated Name) */}
+                                        {/* By */}
                                         <td className="px-2 py-2 whitespace-nowrap text-gray-500 dark:text-gray-400 truncate" title={event.actor_name}>
                                             {formatActorShort(event.actor_name)}
                                         </td>
