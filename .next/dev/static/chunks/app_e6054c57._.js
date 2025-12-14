@@ -288,9 +288,15 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$client$
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$SearchableSelect$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/components/SearchableSelect.tsx [app-client] (ecmascript)");
+(()=>{
+    const e = new Error("Cannot find module './actions'");
+    e.code = 'MODULE_NOT_FOUND';
+    throw e;
+})();
 ;
 var _s = __turbopack_context__.k.signature();
 'use client';
+;
 ;
 ;
 ;
@@ -310,7 +316,9 @@ function SubmitReport() {
         ''
     ]);
     const [offenseTypeId, setOffenseTypeId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
-    const [notes, setNotes] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    // NEW: State for the two different note fields
+    const [greenSheetNotes, setGreenSheetNotes] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const [reportExplanation, setReportExplanation] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
     const [dateOfOffense, setDateOfOffense] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(getLocalDate());
     const [timeOfOffense, setTimeOfOffense] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(new Date().toTimeString().slice(0, 5));
     const [cadets, setCadets] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
@@ -329,7 +337,6 @@ function SubmitReport() {
                         router.replace(`/ledger/${user.id}`);
                         return;
                     }
-                    // *** NEW: Redirect Faculty to Incidents ***
                     if (roleLevel >= 50 && roleLevel < 65) {
                         router.replace('/incidents/create');
                         return;
@@ -414,18 +421,20 @@ function SubmitReport() {
         }
         setLoading(true);
         setError(null);
-        const localDateTime = new Date(`${dateOfOffense}T${timeOfOffense}:00`);
-        const fullTimestamp = localDateTime.toISOString();
         try {
-            const promises = validCadetIds.map((cadetId)=>supabase.rpc('create_new_report', {
-                    p_subject_cadet_id: cadetId,
-                    p_offense_type_id: offenseTypeId,
-                    p_notes: notes,
-                    p_offense_timestamp: fullTimestamp
+            // UPDATED: Use the Server Action instead of RPC
+            // This allows us to insert the new 'report_explanation' column securely
+            const promises = validCadetIds.map((cadetId)=>submitReport({
+                    cadetId,
+                    offenseTypeId,
+                    dateOfOffense,
+                    notes: greenSheetNotes,
+                    explanation: reportExplanation // Full Narrative
                 }));
             const results = await Promise.all(promises);
-            const firstError = results.find((r)=>r.error)?.error;
-            if (firstError) throw firstError;
+            // Server actions return { success: boolean, error?: string }
+            const firstError = results.find((r)=>!r.success)?.error;
+            if (firstError) throw new Error(firstError);
             router.push('/');
             router.refresh();
         } catch (err) {
@@ -450,7 +459,7 @@ function SubmitReport() {
                                 children: "Submit New Report"
                             }, void 0, false, {
                                 fileName: "[project]/app/submit/page.tsx",
-                                lineNumber: 168,
+                                lineNumber: 173,
                                 columnNumber: 14
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -461,13 +470,13 @@ function SubmitReport() {
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/submit/page.tsx",
-                                lineNumber: 169,
+                                lineNumber: 174,
                                 columnNumber: 14
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/submit/page.tsx",
-                        lineNumber: 167,
+                        lineNumber: 172,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -478,11 +487,10 @@ function SubmitReport() {
                                 children: "Subject Cadet(s)"
                             }, void 0, false, {
                                 fileName: "[project]/app/submit/page.tsx",
-                                lineNumber: 175,
+                                lineNumber: 181,
                                 columnNumber: 15
                             }, this),
-                            subjectCadetIds.map((id, index)=>// *** FIX: Changed items-start to items-center for better alignment ***
-                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                            subjectCadetIds.map((id, index)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "flex gap-2 items-center animate-in fade-in slide-in-from-top-1 duration-200",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -496,18 +504,17 @@ function SubmitReport() {
                                                 required: index === 0
                                             }, void 0, false, {
                                                 fileName: "[project]/app/submit/page.tsx",
-                                                lineNumber: 180,
+                                                lineNumber: 185,
                                                 columnNumber: 25
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/submit/page.tsx",
-                                            lineNumber: 179,
+                                            lineNumber: 184,
                                             columnNumber: 23
                                         }, this),
                                         subjectCadetIds.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             type: "button",
                                             onClick: ()=>removeCadetSlot(index),
-                                            // *** FIX: Removed mt-1 since items-center handles vertical centering now ***
                                             className: "p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition-colors",
                                             title: "Remove this cadet",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
@@ -522,23 +529,23 @@ function SubmitReport() {
                                                     d: "M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/submit/page.tsx",
-                                                    lineNumber: 197,
+                                                    lineNumber: 201,
                                                     columnNumber: 110
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/submit/page.tsx",
-                                                lineNumber: 197,
+                                                lineNumber: 201,
                                                 columnNumber: 31
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/submit/page.tsx",
-                                            lineNumber: 190,
+                                            lineNumber: 195,
                                             columnNumber: 27
                                         }, this)
                                     ]
                                 }, index, true, {
                                     fileName: "[project]/app/submit/page.tsx",
-                                    lineNumber: 178,
+                                    lineNumber: 183,
                                     columnNumber: 19
                                 }, this)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -558,25 +565,25 @@ function SubmitReport() {
                                             d: "M12 4v16m8-8H4"
                                         }, void 0, false, {
                                             fileName: "[project]/app/submit/page.tsx",
-                                            lineNumber: 207,
+                                            lineNumber: 211,
                                             columnNumber: 98
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/submit/page.tsx",
-                                        lineNumber: 207,
+                                        lineNumber: 211,
                                         columnNumber: 19
                                     }, this),
                                     "Add another cadet"
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/submit/page.tsx",
-                                lineNumber: 202,
+                                lineNumber: 206,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/submit/page.tsx",
-                        lineNumber: 174,
+                        lineNumber: 180,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -590,7 +597,7 @@ function SubmitReport() {
                                         children: "Date"
                                     }, void 0, false, {
                                         fileName: "[project]/app/submit/page.tsx",
-                                        lineNumber: 214,
+                                        lineNumber: 219,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -602,13 +609,13 @@ function SubmitReport() {
                                         className: "block w-full rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm py-2 px-3"
                                     }, void 0, false, {
                                         fileName: "[project]/app/submit/page.tsx",
-                                        lineNumber: 215,
+                                        lineNumber: 220,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/submit/page.tsx",
-                                lineNumber: 213,
+                                lineNumber: 218,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -619,7 +626,7 @@ function SubmitReport() {
                                         children: "Time (approx)"
                                     }, void 0, false, {
                                         fileName: "[project]/app/submit/page.tsx",
-                                        lineNumber: 221,
+                                        lineNumber: 226,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -631,19 +638,19 @@ function SubmitReport() {
                                         className: "block w-full rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm py-2 px-3"
                                     }, void 0, false, {
                                         fileName: "[project]/app/submit/page.tsx",
-                                        lineNumber: 222,
+                                        lineNumber: 227,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/submit/page.tsx",
-                                lineNumber: 220,
+                                lineNumber: 225,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/submit/page.tsx",
-                        lineNumber: 212,
+                        lineNumber: 217,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$SearchableSelect$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -655,36 +662,83 @@ function SubmitReport() {
                         required: true
                     }, void 0, false, {
                         fileName: "[project]/app/submit/page.tsx",
-                        lineNumber: 229,
+                        lineNumber: 235,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "border-t border-gray-200 dark:border-gray-700 pt-4",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                htmlFor: "explanation",
+                                className: "block text-sm font-bold text-gray-700 dark:text-gray-200 mb-1",
+                                children: "Report Explanation (Full Narrative)"
+                            }, void 0, false, {
+                                fileName: "[project]/app/submit/page.tsx",
+                                lineNumber: 246,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "text-xs text-gray-500 dark:text-gray-400 mb-2",
+                                children: "Detailed account of the event. Visible to Staff, Faculty, and the Subject Cadet."
+                            }, void 0, false, {
+                                fileName: "[project]/app/submit/page.tsx",
+                                lineNumber: 249,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
+                                id: "explanation",
+                                value: reportExplanation,
+                                onChange: (e)=>setReportExplanation(e.target.value),
+                                rows: 5,
+                                className: "block w-full rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm py-2 px-3",
+                                placeholder: "Describe the who, what, where, and when..."
+                            }, void 0, false, {
+                                fileName: "[project]/app/submit/page.tsx",
+                                lineNumber: 252,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/submit/page.tsx",
+                        lineNumber: 245,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                 htmlFor: "notes",
-                                className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
-                                children: "Notes (Optional)"
+                                className: "block text-sm font-bold text-gray-700 dark:text-gray-200 mb-1",
+                                children: "Green Sheet Summary (Public Notes)"
                             }, void 0, false, {
                                 fileName: "[project]/app/submit/page.tsx",
-                                lineNumber: 239,
+                                lineNumber: 264,
                                 columnNumber: 13
                             }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
-                                id: "notes",
-                                value: notes,
-                                onChange: (e)=>setNotes(e.target.value),
-                                rows: 4,
-                                className: "block w-full rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm py-2 px-3",
-                                placeholder: "Provide specific details of the incident..."
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "text-xs text-amber-600 dark:text-amber-400 mb-2 font-medium",
+                                children: "⚠️ This text appears on the public Green Sheet. Keep it brief."
                             }, void 0, false, {
                                 fileName: "[project]/app/submit/page.tsx",
-                                lineNumber: 240,
+                                lineNumber: 267,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                type: "text",
+                                id: "notes",
+                                value: greenSheetNotes,
+                                onChange: (e)=>setGreenSheetNotes(e.target.value),
+                                maxLength: 100,
+                                className: "block w-full rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm py-2 px-3",
+                                placeholder: "Ex: Late to formation; Unshaven; Disrespect"
+                            }, void 0, false, {
+                                fileName: "[project]/app/submit/page.tsx",
+                                lineNumber: 270,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/submit/page.tsx",
-                        lineNumber: 238,
+                        lineNumber: 263,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -695,12 +749,12 @@ function SubmitReport() {
                             children: loading ? 'Submitting...' : 'Submit Report'
                         }, void 0, false, {
                             fileName: "[project]/app/submit/page.tsx",
-                            lineNumber: 251,
+                            lineNumber: 282,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/submit/page.tsx",
-                        lineNumber: 250,
+                        lineNumber: 281,
                         columnNumber: 11
                     }, this),
                     error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -708,27 +762,27 @@ function SubmitReport() {
                         children: error
                     }, void 0, false, {
                         fileName: "[project]/app/submit/page.tsx",
-                        lineNumber: 260,
+                        lineNumber: 291,
                         columnNumber: 21
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/submit/page.tsx",
-                lineNumber: 166,
+                lineNumber: 171,
                 columnNumber: 9
             }, this)
         }, void 0, false, {
             fileName: "[project]/app/submit/page.tsx",
-            lineNumber: 165,
+            lineNumber: 170,
             columnNumber: 9
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/submit/page.tsx",
-        lineNumber: 164,
+        lineNumber: 169,
         columnNumber: 5
     }, this);
 }
-_s(SubmitReport, "1cBdpJKgrF8+f2/C3qST77l7WMQ=", false, function() {
+_s(SubmitReport, "oZEtGq+M9PxBkn2oiO05QjY253s=", false, function() {
     return [
         __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useRouter"]
     ];

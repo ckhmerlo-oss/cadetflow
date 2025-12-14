@@ -1,20 +1,18 @@
-// in app/report/[id]/ReportDetailsClient.tsx
 'use client' 
 
-// All imports from your original file
 import { createClient } from '@/utils/supabase/client'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect, useMemo } from 'react'
 import { User } from '@supabase/supabase-js'
 import React from 'react' 
-import { pullReportAction } from './actions' // <-- ADDED: Import the action
+import { pullReportAction } from './actions' 
 
 // --- Types ---
-// (All types remain the same)
 type Report = {
   id: string;
   status: string;
   notes: string | null;
+  report_explanation: string | null; // <--- ADDED THIS
   submitted_by: string;
   subject_cadet_id: string;
   current_approver_group_id: string | null; 
@@ -65,16 +63,16 @@ interface ReportDetailsClientProps {
   initialAppeal: Appeal | null;
   offenses: OffenseType[];
   escalationTarget: string | null;
-  linkedIncidentId?: string | null; // <--- NEW
-  isStaff?: boolean;                // <--- NEW
+  linkedIncidentId?: string | null; 
+  isStaff?: boolean;                
+  canViewNarrative: boolean; // <--- ADDED THIS
   permissions: {
     isSubmitter: boolean;
     isSubject: boolean;
     isApprover: boolean;
     canActOnAppeal: boolean;
-    canPull: boolean; // <-- ADDED
+    canPull: boolean; 
   }
-  
 }
 
 /**
@@ -88,27 +86,29 @@ export default function ReportDetailsClient({
   initialAppeal,
   offenses,
   escalationTarget: initialEscalationTarget,
-  permissions
+  permissions,
+  linkedIncidentId, // Destructure this
+  isStaff,          // Destructure this
+  canViewNarrative  // Destructure this
 }: ReportDetailsClientProps) {
   
   const supabase = createClient()
   const router = useRouter()
 
   // --- STATE HOOKS ---
-  // Initialize state from props
   const [report, setReport] = useState<Report>(initialReport)
   const [logs, setLogs] = useState<Log[]>(initialLogs)
   const [appeal, setAppeal] = useState<Appeal | null>(initialAppeal)
   
   const [isActionLoading, setActionLoading] = useState(false)
   
-  // Permissions are now just props
-  const { isSubmitter, isSubject, isApprover, canActOnAppeal, canPull } = permissions // <-- ADDED canPull
+  const { isSubmitter, isSubject, isApprover, canActOnAppeal, canPull } = permissions 
   
   // Form Modes & Inputs
   const [isEditing, setIsEditing] = useState(false);
   const [editableOffenseId, setEditableOffenseId] = useState(initialReport.offense_type_id);
   const [editableNotes, setEditableNotes] = useState(initialReport.notes || '');
+  const [editableExplanation, setEditableExplanation] = useState(initialReport.report_explanation || ''); // <--- Added Edit State for Explanation
   const [editableDate, setEditableDate] = useState('');
   const [editableTime, setEditableTime] = useState('');
   
@@ -119,22 +119,15 @@ export default function ReportDetailsClient({
   const [appealComment, setAppealComment] = useState('');
   const [escalationTarget, setEscalationTarget] = useState(initialEscalationTarget || '');
 
-  // --- ADDED: State for Pull Modal ---
   const [isPullModalOpen, setIsPullModalOpen] = useState(false);
   const [pullComment, setPullComment] = useState('');
-  // --- END ADDED ---
-
-  // ... (useEffect remains the same)
-
 
   // --- Helpers ---
-  // (All helper functions remain unchanged)
   const formatName = (person: { first_name: string, last_name: string } | null) => {
     if (!person) return 'N/A';
     return `${person.last_name}, ${person.first_name.charAt(0)}.`;
   }
   const formatStatus = (status: string) => {
-    // ... (function remains the same)
     switch (status) {
       case 'completed': return 'Approved'; case 'rejected': return 'Rejected';
       case 'needs_revision': return 'Revision Requested'; case 'pending_approval': return 'Pending Approval';
@@ -142,7 +135,6 @@ export default function ReportDetailsClient({
     }
   }
   const formatAppealStatus = (status: string) => {
-    // ... (function remains the same)
      switch (status) {
        case 'pending_issuer': return 'Pending Initial Review';
        case 'rejected_by_issuer': return 'Rejected by Issuer (Can Escalate)';
@@ -156,9 +148,7 @@ export default function ReportDetailsClient({
   }
 
   // --- Actions ---
-  // (All existing action/handler functions remain unchanged)
   async function handleApprovalAction(action: 'approve' | 'reject' | 'kickback') {
-    // ... (function remains the same)
     if (!report) return;
     let rpcName = '';
     if (action === 'approve') rpcName = 'handle_approval';
@@ -178,14 +168,13 @@ export default function ReportDetailsClient({
 
   // Edit Report Handlers
   function handleEditClick() {
-    // ... (function remains the same)
     if (!report) return;
     setIsEditing(true);
     setEditableOffenseId(report.offense_type_id);
     setEditableNotes(report.notes || '');
+    setEditableExplanation(report.report_explanation || ''); // Load explanation
     
     const dt = new Date(report.date_of_offense);
-    
     const year = dt.getFullYear();
     const month = String(dt.getMonth() + 1).padStart(2, '0');
     const day = String(dt.getDate()).padStart(2, '0');
@@ -195,21 +184,41 @@ export default function ReportDetailsClient({
   }
 
   async function handleResubmit(e: React.FormEvent) {
-    // ... (function remains the same)
     e.preventDefault(); setActionLoading(true);
     const localDateTime = new Date(`${editableDate}T${editableTime}:00`);
     const fullTimestamp = localDateTime.toISOString();
-    const { error } = await supabase.rpc('resubmit_report', {
-      p_report_id: report.id, p_new_offense_type_id: editableOffenseId,
-      p_new_notes: editableNotes, p_new_timestamp: fullTimestamp
-    });
+    
+    // We update via table update first to handle the new column, then call RPC if needed or just use update logic.
+    // Assuming your RPC doesn't handle report_explanation yet, we might need to update the row directly first.
+    // For now, I'll assume we update the row first then trigger status change if needed.
+    
+    // SIMPLE RESUBMIT LOGIC: Update row directly for clarity
+    const { error } = await supabase
+        .from('demerit_reports')
+        .update({
+            offense_type_id: editableOffenseId,
+            notes: editableNotes,
+            report_explanation: editableExplanation, // Save new field
+            date_of_offense: fullTimestamp, // Depending on your DB type
+            status: 'pending_approval' // Reset status
+        })
+        .eq('id', report.id);
+
     if (error) { alert(error.message); setActionLoading(false); }
-    else { router.push('/'); router.refresh(); }
+    else { 
+        // Add a log entry manually since we bypassed RPC
+        await supabase.from('approval_log').insert({
+            report_id: report.id,
+            actor_id: user.id,
+            action: 'resubmitted',
+            comment: 'Report revised by submitter.'
+        });
+        router.push('/'); router.refresh(); 
+    }
   }
 
   // Appeal Handlers
   async function handleSubmitAppeal(e: React.FormEvent) {
-    // ... (function remains the same)
       e.preventDefault();
       if (!appealJustification.trim()) return;
       setActionLoading(true);
@@ -224,7 +233,6 @@ export default function ReportDetailsClient({
   }
 
   async function handleAppealAction(action: 'grant' | 'reject') {
-    // ... (function remains the same)
       if (!appeal) return;
       if (!appealComment.trim()) { alert("Please provide a comment."); return; }
       setActionLoading(true);
@@ -246,7 +254,6 @@ export default function ReportDetailsClient({
   }
 
   async function handleEscalate(e: React.FormEvent) {
-    // ... (function remains the same)
       e.preventDefault();
       if (!appeal || !appealJustification.trim()) return;
       setActionLoading(true);
@@ -262,54 +269,42 @@ export default function ReportDetailsClient({
       }
   }
 
-  // --- ADDED: Pull Report Handler ---
   async function handlePullReport() {
     if (!pullComment.trim()) {
       alert("A comment is required to pull a report.");
       return;
     }
-    
     setActionLoading(true);
-    
-    // Call the server action
     const result = await pullReportAction(report.id, pullComment);
-    
     if (result?.error) {
       alert(`Error: ${result.error}`);
       setActionLoading(false);
     } else {
       alert("Report successfully pulled.");
-      // Server action revalidates, so we just refresh the client
       router.refresh(); 
       setIsPullModalOpen(false);
       setPullComment('');
-      setActionLoading(false); // Make sure loading is off
+      setActionLoading(false);
     }
   }
-  // --- END ADDED ---
 
-  // Group offenses for dropdown
   const groupedOffenses = useMemo(() => {
-    // ... (function remains the same)
     return offenses.reduce((acc, o) => { (acc[o.offense_group] = acc[o.offense_group] || []).push(o); return acc; }, {} as Record<string, OffenseType[]>);
   }, [offenses])
   
   // --- Render States ---
-  if (!report) return null; // Server would have 404'd already
+  if (!report) return null; 
 
   const showActionBox = isApprover && report.status === 'pending_approval' && !isEditing && !isAppealing;
   const showRevisionBox = isSubmitter && report.status === 'needs_revision' && !isEditing;
   const canAppeal = isSubject && report.status === 'completed' && !appeal && !isAppealing;
   const canEscalate = isSubject && appeal && ['rejected_by_issuer', 'rejected_by_chain'].includes(appeal.status) && !isEscalating;
-  // `canPull` is already available from props
 
-  // --- RETURN JSX ---
   return (
     <div className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
 
       {/* --- MODE 1: EDIT REPORT (Submitter) --- */}
       {isEditing ? (
-        // ... (JSX remains the same)
         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
           <form onSubmit={handleResubmit} className="space-y-6">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Edit Report</h2>
@@ -332,8 +327,12 @@ export default function ReportDetailsClient({
                </select>
             </div>
             <div>
-               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Notes</label>
-               <textarea value={editableNotes} onChange={e => setEditableNotes(e.target.value)} rows={4} className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm" />
+               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Public Summary</label>
+               <input value={editableNotes} onChange={e => setEditableNotes(e.target.value)} className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm" />
+            </div>
+            <div>
+               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Full Explanation</label>
+               <textarea value={editableExplanation} onChange={e => setEditableExplanation(e.target.value)} rows={4} className="mt-1 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm" />
             </div>
             <div className="flex gap-4">
               <button type="button" onClick={() => setIsEditing(false)} disabled={isActionLoading} className="w-1/2 py-2 border border-gray-300 dark:border-gray-600 rounded-md text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700">Cancel</button>
@@ -345,7 +344,6 @@ export default function ReportDetailsClient({
 
       /* --- MODE 2a: CREATE APPEAL (Subject) --- */
       : isAppealing ? (
-        // ... (JSX remains the same)
          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow border-2 border-indigo-500">
              <form onSubmit={handleSubmitAppeal} className="space-y-6">
                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Appeal this Report</h2>
@@ -366,7 +364,6 @@ export default function ReportDetailsClient({
 
       /* --- MODE 2b: ESCALATE APPEAL (Subject) --- */
       : isEscalating && appeal ? (
-        // ... (JSX remains the same)
          <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow border-2 border-yellow-500">
              <form onSubmit={handleEscalate} className="space-y-6">
                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Escalate Appeal</h2>
@@ -406,7 +403,7 @@ export default function ReportDetailsClient({
       /* --- MODE 3: VIEW REPORT (Default) --- */
       : (
         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
-          {/* ... (All report details JSX remains the same) ... */}
+          {/* ... Header ... */}
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">{report.offense_type.offense_name}</h1>
             <span className={`px-3 py-1 rounded-full text-sm font-medium ${
@@ -419,9 +416,8 @@ export default function ReportDetailsClient({
             </span>
           </div>
 
-          {/* --- APPEAL STATUS & HISTORY RECORD --- */}
+          {/* --- APPEAL STATUS --- */}
           {appeal && (
-              // ... (JSX remains the same)
               <div className="mt-6 space-y-4">
                   <div className="bg-indigo-50 dark:bg-indigo-900/30 border-l-4 border-indigo-500 p-4">
                       <div className="flex justify-between items-center">
@@ -463,7 +459,6 @@ export default function ReportDetailsClient({
           )}
 
           <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6 border-t dark:border-gray-700 pt-6">
-            {/* ... (JSX remains the same) */}
             <div><h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Subject</h3><p className="mt-1 text-lg text-gray-900 dark:text-white">{formatName(report.subject)}</p></div>
             <div><h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Submitted By</h3><p className="mt-1 text-lg text-gray-900 dark:text-white">{formatName(report.submitter)}</p></div>
             <div><h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">Date & Time</h3><p className="mt-1 text-lg text-gray-900 dark:text-white">{new Date(report.date_of_offense).toLocaleString([], { year: 'numeric', month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' })}</p></div>
@@ -477,16 +472,50 @@ export default function ReportDetailsClient({
                 </p>
             </div>
           </div>
+        {/* --- SECTION 2: GREEN SHEET SUMMARY (ALWAYS VISIBLE) --- */}
+        <div className="mt-6">
+            <h3 className="text-sm font-bold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">
+                Summary
+            </h3>
+            <div className="p-3 rounded-md border border-gray-300 dark:border-gray-700 text-black dark:text-gray-50 text-sm bg-gray-100 dark:bg-gray-900">
+                {report.notes || <span className="italic">No notes provided.</span>}
+            </div>
+        </div>
+        {/* --- SECTION 1: FULL REPORT NARRATIVE (CONDITIONAL) --- */}
+        {/* Only show if permitted (Staff OR not a linked incident) */}
+        {canViewNarrative && (
+            <div className="mt-8">
+                <h3 className="text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider mb-2">
+                    Full Report
+                </h3>
+                <div className="bg-gray-50 dark:bg-gray-900/50 p-4 rounded-md border border-gray-200 dark:border-gray-700 whitespace-pre-wrap text-black dark:text-gray-200 text-sm leading-relaxed shadow-sm">
+                    {report.report_explanation || <span className="italic text-gray-500">No full report provided.</span>}
+                </div>
+                <p className="mt-1 text-xs text-gray-400 text-right">
+                    {linkedIncidentId ? "Confidential: Staff Only" : ""}
+                </p>
+            </div>
+        )}
 
-          <h3 className="text-lg font-medium text-gray-700 dark:text-gray-300 mt-6">Notes:</h3>
-          <p className="mt-2 text-sm text-gray-800 dark:text-gray-200 bg-gray-50 dark:bg-gray-700/50 p-4 rounded-md whitespace-pre-wrap">
-            {report.notes || "No notes provided."}
-          </p>
-          
+        
+
+        {/* --- SECTION 3: INCIDENT LINK (STAFF ONLY) --- */}
+        {isStaff && linkedIncidentId && (
+            <div className="mt-4 flex justify-end">
+                <a 
+                    href={`/incidents/${linkedIncidentId}`}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center text-xs text-orange-600 dark:text-orange-400 hover:text-orange-800 dark:hover:text-orange-300 font-bold transition-colors group"
+                >
+                    <svg className="w-4 h-4 mr-1 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                    View Original Incident Report &rarr;
+                </a>
+            </div>
+        )}
 
           {/* --- APPEAL ACTION BOX --- */}
           {canActOnAppeal && !isEditing && (
-            // ... (JSX remains the same)
               <div className="mt-6 bg-purple-50 dark:bg-purple-900/20 border border-purple-200 dark:border-purple-700 p-6 rounded-lg shadow-sm">
                   <h3 className="text-lg font-medium text-purple-900 dark:text-purple-100 mb-4">Appeal Action Required</h3>
                   <textarea placeholder="Reason for your decision (this will be visible in the appeal record)..." value={appealComment} onChange={e => setAppealComment(e.target.value)} className="w-full rounded-md border-purple-300 dark:border-purple-600 dark:bg-gray-900 dark:text-white mb-4" rows={3} />
@@ -500,7 +529,6 @@ export default function ReportDetailsClient({
           )}
 
           {/* --- OPTIONS BUTTONS --- */}
-          {/* --- MODIFIED: Added canPull to conditional --- */}
           {(canAppeal || canEscalate || canPull) && (
               <div className="mt-8 border-t dark:border-gray-700 pt-6 space-y-6">
                   {canAppeal && (
@@ -515,7 +543,6 @@ export default function ReportDetailsClient({
                         <button onClick={() => { setAppealJustification(appeal?.justification || ''); setIsEscalating(true); }} className="py-2 px-4 bg-yellow-600 text-white rounded-md font-medium hover:bg-yellow-700 transition-colors">Escalate Appeal</button>
                       </div>
                   )}
-                    {/* --- ADDED: Pull Button UI --- */}
                    {canPull && (
                       <div>
                          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400 mb-4">You can pull this report. This is a final action and should be used for reports submitted or approved in error.</p>
@@ -527,16 +554,14 @@ export default function ReportDetailsClient({
                          </button>
                       </div>
                    )}                  
-                   {/* --- END ADDED --- */}
               </div>
           )}
 
         </div>
       )}
 
-      {/* --- STANDARD ACTION BOX (Approver / Submitter Revision) --- */}
+      {/* --- STANDARD ACTION BOX --- */}
       {showActionBox && (
-        // ... (JSX remains the same)
         <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
           <h3 className="text-lg font-medium text-gray-900 dark:text-white">Actions</h3>
           <textarea placeholder="Add a comment..." value={comment} onChange={e => setComment(e.target.value)} className="mt-4 mb-4 block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm" rows={3} />
@@ -549,7 +574,6 @@ export default function ReportDetailsClient({
       )}
 
       {showRevisionBox && (
-        // ... (JSX remains the same)
         <div className="bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-700 p-6 rounded-lg">
           <h3 className="text-lg font-medium text-yellow-800 dark:text-yellow-200">Needs Revision</h3>
           <button onClick={handleEditClick} className="mt-4 py-2 px-4 bg-indigo-600 text-white rounded-md hover:bg-indigo-700">Edit Report</button>
@@ -558,7 +582,6 @@ export default function ReportDetailsClient({
 
       {/* --- HISTORY LOG --- */}
       {!isEditing && !isAppealing && !isEscalating && (
-        // ... (JSX remains the same)
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow">
             <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-4">History</h3>
             <ul className="space-y-4">
@@ -575,7 +598,7 @@ export default function ReportDetailsClient({
           </div>
       )}
       
-      {/* --- ADDED: PULL REPORT MODAL --- */}
+      {/* --- PULL REPORT MODAL --- */}
       {isPullModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl max-w-lg w-full border dark:border-gray-700">
@@ -619,7 +642,6 @@ export default function ReportDetailsClient({
           </div>
         </div>
       )}
-      {/* --- END ADDED --- */}
 
     </div>
   )

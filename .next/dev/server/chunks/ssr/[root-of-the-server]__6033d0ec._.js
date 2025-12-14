@@ -133,7 +133,7 @@ async function TourLogsPage() {
                                 children: dayLogs.map((log)=>{
                                     const isReduction = log.amount < 0;
                                     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4 flex flex-col justify-between hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors",
+                                        className: "bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4 flex flex-col justify-between transition-colors",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "flex justify-between items-start mb-3",
@@ -145,11 +145,12 @@ async function TourLogsPage() {
                                                                 children: "Cadet"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/tours/page.tsx",
-                                                                lineNumber: 82,
+                                                                lineNumber: 81,
                                                                 columnNumber: 43
                                                             }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                className: "text-base font-bold text-gray-900 dark:text-white line-clamp-1",
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                                                                href: `/ledger/${log.cadet_id}`,
+                                                                className: "text-base font-bold text-indigo-600 dark:text-indigo-400 hover:underline line-clamp-1",
                                                                 children: formatName(log.cadet)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/tours/page.tsx",
@@ -159,7 +160,7 @@ async function TourLogsPage() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/tours/page.tsx",
-                                                        lineNumber: 81,
+                                                        lineNumber: 80,
                                                         columnNumber: 39
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -167,13 +168,13 @@ async function TourLogsPage() {
                                                         children: log.amount > 0 ? `+${log.amount}` : log.amount
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/tours/page.tsx",
-                                                        lineNumber: 87,
+                                                        lineNumber: 90,
                                                         columnNumber: 39
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/tours/page.tsx",
-                                                lineNumber: 80,
+                                                lineNumber: 79,
                                                 columnNumber: 35
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -184,7 +185,7 @@ async function TourLogsPage() {
                                                         children: "Notes"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/tours/page.tsx",
-                                                        lineNumber: 98,
+                                                        lineNumber: 101,
                                                         columnNumber: 39
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -194,18 +195,18 @@ async function TourLogsPage() {
                                                             children: "No notes provided."
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/tours/page.tsx",
-                                                            lineNumber: 100,
+                                                            lineNumber: 103,
                                                             columnNumber: 59
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/tours/page.tsx",
-                                                        lineNumber: 99,
+                                                        lineNumber: 102,
                                                         columnNumber: 39
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/tours/page.tsx",
-                                                lineNumber: 97,
+                                                lineNumber: 100,
                                                 columnNumber: 35
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -218,14 +219,14 @@ async function TourLogsPage() {
                                                                 children: "Logged By:"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/tours/page.tsx",
-                                                                lineNumber: 107,
+                                                                lineNumber: 110,
                                                                 columnNumber: 43
                                                             }, this),
                                                             formatName(log.staff)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/tours/page.tsx",
-                                                        lineNumber: 106,
+                                                        lineNumber: 109,
                                                         columnNumber: 39
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -235,31 +236,31 @@ async function TourLogsPage() {
                                                         })
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/tours/page.tsx",
-                                                        lineNumber: 110,
+                                                        lineNumber: 113,
                                                         columnNumber: 39
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/tours/page.tsx",
-                                                lineNumber: 105,
+                                                lineNumber: 108,
                                                 columnNumber: 35
                                             }, this)
                                         ]
                                     }, log.id, true, {
                                         fileName: "[project]/app/tours/page.tsx",
-                                        lineNumber: 77,
+                                        lineNumber: 76,
                                         columnNumber: 31
                                     }, this);
                                 })
                             }, void 0, false, {
                                 fileName: "[project]/app/tours/page.tsx",
-                                lineNumber: 73,
+                                lineNumber: 72,
                                 columnNumber: 19
                             }, this)
                         ]
                     }, date, true, {
                         fileName: "[project]/app/tours/page.tsx",
-                        lineNumber: 64,
+                        lineNumber: 65,
                         columnNumber: 15
                     }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "text-center py-12 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700",
@@ -268,17 +269,17 @@ async function TourLogsPage() {
                         children: "No tour logs found."
                     }, void 0, false, {
                         fileName: "[project]/app/tours/page.tsx",
-                        lineNumber: 121,
+                        lineNumber: 124,
                         columnNumber: 19
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/app/tours/page.tsx",
-                    lineNumber: 120,
+                    lineNumber: 123,
                     columnNumber: 15
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/tours/page.tsx",
-                lineNumber: 62,
+                lineNumber: 63,
                 columnNumber: 7
             }, this)
         ]

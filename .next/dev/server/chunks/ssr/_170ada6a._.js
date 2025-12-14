@@ -27,10 +27,15 @@ async function getIncidents(filter = 'pending') {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return [];
+    // Get Viewer Profile
+    const { data: viewer } = await supabase.from('profiles').select('company_id, role:roles!inner(default_role_level)').eq('id', user.id).single();
+    const roleLevel = viewer?.role?.default_role_level || 0;
+    const viewerCompanyId = viewer?.company_id;
+    // Base Query
     let query = supabase.from('incident_reports').select(`
       *,
       reporter:profiles!reporter_id(first_name, last_name),
-      subject:profiles!subject_cadet_id(first_name, last_name, company:companies(company_name)),
+      subject:profiles!subject_cadet_id(first_name, last_name, company_id, company:companies(company_name)),
       resolver:profiles!resolved_by(first_name, last_name),
       handler:profiles!handled_by_id(first_name, last_name)
     `).order('created_at', {
@@ -46,7 +51,13 @@ async function getIncidents(filter = 'pending') {
         console.error('Error fetching incidents:', error);
         return [];
     }
-    return data;
+    let result = data;
+    // FILTER: If TAC (65-89), only show own company
+    // Admins (90+) see all. Faculty (50-64) see own submissions (handled by RLS usually, but safe to filter here too).
+    if (roleLevel >= 65 && roleLevel < 90) {
+        result = result.filter((r)=>r.subject?.company_id === viewerCompanyId);
+    }
+    return result;
 }
 async function submitIncident(payload) {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
@@ -103,36 +114,79 @@ async function resolveAsHandled(incidentId, notes, handledById) {
         success: true
     };
 }
-async function convertToDemerit(incidentId, offenseTypeId, notes) {
+async function convertToDemerit(incidentId, offenseTypeId, greenSheetSummary) {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return {
         error: 'Unauthorized'
     };
+    // 1. Get Incident Data
     const { data: incident } = await supabase.from('incident_reports').select('*').eq('id', incidentId).single();
     if (!incident) return {
         error: "Incident not found"
     };
-    const incidentTime = new Date(incident.incident_time).getTime();
-    const nowTime = new Date().getTime();
-    const safeTimestamp = incidentTime > nowTime ? new Date().toISOString() : incident.incident_time;
-    const { error: rpcError } = await supabase.rpc('create_new_report', {
-        p_subject_cadet_id: incident.subject_cadet_id,
-        p_offense_type_id: offenseTypeId,
-        p_notes: notes,
-        p_offense_timestamp: safeTimestamp
-    });
-    if (rpcError) return {
-        error: "Failed to create report: " + rpcError.message
+    // 2. Get Offense Details
+    const { data: offense } = await supabase.from('offense_types').select('demerits').eq('id', offenseTypeId).single();
+    if (!offense) return {
+        error: "Offense type not found"
     };
-    const { data: newReport } = await supabase.from('demerit_reports').select('id').eq('submitted_by', user.id).eq('subject_cadet_id', incident.subject_cadet_id).order('created_at', {
-        ascending: false
-    }).limit(1).single();
-    if (newReport) {
-        await supabase.from('demerit_reports').update({
-            linked_incident_id: incidentId
-        }).eq('id', newReport.id);
+    // 3. FETCH APPROVAL CHAIN (Double-Hop)
+    const { data: userProfile } = await supabase.from('profiles').select('role:role_id (approval_group_id)').eq('id', user.id).single();
+    const myGroupId = userProfile?.role?.approval_group_id;
+    let nextGroupId = null;
+    if (myGroupId) {
+        const { data: myGroup } = await supabase.from('approval_groups').select('next_approver_group_id').eq('id', myGroupId).single();
+        nextGroupId = myGroup?.next_approver_group_id || null;
     }
+    // --- FIX: FORCE EASTERN TIME DATE STRING ---
+    // We create a date object from the incident time
+    const incidentDateObj = new Date(incident.incident_time);
+    // We format it specifically to 'en-CA' (which gives YYYY-MM-DD) 
+    // AND force the timeZone to New York. This ensures 8pm EST is still "Today", not "Tomorrow" (UTC).
+    const safeDateOfOffense = incidentDateObj.toLocaleDateString('en-CA', {
+        timeZone: 'America/New_York',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    });
+    // --------------------------------
+    // 4. Create Report
+    const { data: newReport, error: insertError } = await supabase.from('demerit_reports').insert({
+        subject_cadet_id: incident.subject_cadet_id,
+        offense_type_id: offenseTypeId,
+        submitted_by: incident.reporter_id,
+        date_of_offense: safeDateOfOffense,
+        notes: greenSheetSummary,
+        report_explanation: incident.description,
+        demerits_effective: offense.demerits,
+        status: 'pending_approval',
+        linked_incident_id: incidentId,
+        current_approver_group_id: nextGroupId
+    }).select('id').single();
+    if (insertError || !newReport) {
+        console.error("Conversion Error:", insertError);
+        return {
+            error: "Failed to create report: " + insertError?.message
+        };
+    }
+    // 5. INSERT LOGS
+    // A. "Submitted" Log (Backdated)
+    await supabase.from('approval_log').insert({
+        report_id: newReport.id,
+        actor_id: incident.reporter_id,
+        action: 'submitted',
+        comment: 'Original Incident Report filed.',
+        created_at: incident.created_at
+    });
+    // B. "Converted" Log (Current Time)
+    await supabase.from('approval_log').insert({
+        report_id: newReport.id,
+        actor_id: user.id,
+        action: 'converted',
+        comment: `Converted to demerit report. (Explanation moved to private narrative)`,
+        created_at: new Date().toISOString()
+    });
+    // 6. Close Incident
     await supabase.from('incident_reports').update({
         status: 'converted',
         resolved_by: user.id,
@@ -146,17 +200,17 @@ async function convertToDemerit(incidentId, offenseTypeId, notes) {
 }
 async function getFacultyList() {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
-    // Explicitly join roles table and filter by level >= 50
+    // Fetch everyone level 50+ (Faculty, TACs, Admin)
     const { data } = await supabase.from('profiles').select(`
             id, 
             first_name, 
             last_name, 
-            role:roles!inner(default_role_level)
+            role:roles!inner(default_role_level, role_name)
         `).gte('role.default_role_level', 50).order('last_name');
     return data?.map((p)=>({
             id: p.id,
-            // Optional: Include role info in label if desired, e.g. "Smith, John (TAC)"
-            label: `${p.last_name}, ${p.first_name}`
+            // Label includes role to verify who is who
+            label: `${p.last_name}, ${p.first_name} (${p.role.role_name})`
         })) || [];
 }
 async function getIncident(id) {

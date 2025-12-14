@@ -2,20 +2,20 @@ import { createClient } from '@/utils/supabase/server'
 import { notFound, redirect } from 'next/navigation'
 import ReportDetailsClient from './ReportDetailsClient'
 import { User } from '@supabase/supabase-js'
-import Link from 'next/link' // Added for the button
 
-// ... Types (Report, Log, OffenseType, Appeal) ...
+// 1. UPDATE TYPE DEFINITION
 type Report = {
   id: string;
   status: string;
-  notes: string | null;
+  notes: string | null;            // Green Sheet Summary
+  report_explanation: string | null; // Full Narrative (NEW)
   submitted_by: string;
   subject_cadet_id: string;
   current_approver_group_id: string | null; 
   date_of_offense: string;
   offense_type_id: string;
   demerits_effective: number;
-  linked_incident_id: string | null; // <--- NEW FIELD
+  linked_incident_id: string | null;
   subject: { first_name: string, last_name: string }; 
   submitter: { first_name: string, last_name: string };
   offense_type: {
@@ -55,12 +55,17 @@ type Appeal = {
 async function getReportData(reportId: string, user: User) {
   const supabase = createClient()
 
-  // 1. Fetch main report, logs, and appeal in parallel
   const [reportResult, logResult, appealResult] = await Promise.all([
     supabase
       .from('demerit_reports') 
-      // Added linked_incident_id to select
-      .select(`*, linked_incident_id, subject:subject_cadet_id ( first_name, last_name ), submitter:submitted_by ( first_name, last_name ), offense_type:offense_type_id ( * )`)
+      .select(`
+        *, 
+        report_explanation, 
+        linked_incident_id, 
+        subject:subject_cadet_id ( first_name, last_name ), 
+        submitter:submitted_by ( first_name, last_name ), 
+        offense_type:offense_type_id ( * )
+      `)
       .eq('id', reportId)
       .single(),
     supabase
@@ -75,7 +80,6 @@ async function getReportData(reportId: string, user: User) {
       .maybeSingle()
   ])
 
-  // --- Error Handling ---
   if (reportResult.error) {
     console.error('Report fetch error:', reportResult.error.message)
     return notFound()
@@ -85,46 +89,45 @@ async function getReportData(reportId: string, user: User) {
   const logs = (logResult.data || []) as Log[]
   const appeal = (appealResult.data || null) as Appeal | null
 
-  // 2. Conditionally fetch data needed for interactions
-  let offenses: OffenseType[] = []
+  // ... (Keep Offense / Escalation Logic) ...
+  let offenses: any[] = []
   if (report.submitted_by === user.id && report.status === 'needs_revision') {
     const { data } = await supabase.from('offense_types').select('*').order('offense_group').order('offense_name')
-    if (data) offenses = data as OffenseType[]
+    if (data) offenses = data
   }
-
   let escalationTarget: string | null = null
   if (appeal && ['rejected_by_issuer', 'rejected_by_chain'].includes(appeal.status)) {
       const { data } = await supabase.rpc('get_next_escalation_target', { p_appeal_id: appeal.id });
       if (data) escalationTarget = data as string
   }
 
-  // 3. Check all user permissions in parallel
-  const { data: viewerProfile } = await supabase
-    .from('profiles')
-    .select('role:role_id (default_role_level)')
-    .eq('id', user.id)
-    .single()
-  
+  // Check Role
+  const { data: viewerProfile } = await supabase.from('profiles').select('role:role_id (default_role_level)').eq('id', user.id).single()
   const viewerRoleLevel = (viewerProfile?.role as any)?.default_role_level || 0
+  
   const isCommandantStaff = viewerRoleLevel >= 90
-  const isStaff = viewerRoleLevel >= 50 // <--- NEW CHECK
+  const isStaff = viewerRoleLevel >= 50 
 
-  let isApprover = false
+  // --- VISIBILITY LOGIC ---
+  const isLinkedReport = !!report.linked_incident_id;
+  
+  // If it is a Linked Incident (Teacher Source), ONLY Staff can see the narrative.
+  // If it is a Standard Report (Cadet Source), Everyone involved can see it.
+  const canViewNarrative = !isLinkedReport || isStaff;
+  // ------------------------
+
+  // ... (Keep Permission Logic) ...
+  let isApprover = false; 
   if (report.current_approver_group_id) {
-    const { data: isMember } = await supabase.rpc('is_member_of_approver_group', {
-      p_group_id: report.current_approver_group_id
-    })
+    const { data: isMember } = await supabase.rpc('is_member_of_approver_group', { p_group_id: report.current_approver_group_id })
     isApprover = !!isMember
   }
-
-  let canActOnAppeal = false
+  let canActOnAppeal = false; // (Simplified check, keep your existing one)
   if (appeal && user) {
-      if (appeal.status === 'pending_issuer' && appeal.current_assignee_id === user.id) {
-          canActOnAppeal = true;
-      } else if (['pending_chain', 'pending_commandant'].includes(appeal.status)) {
-           if (appeal.status === 'pending_commandant' && isCommandantStaff) {
-               canActOnAppeal = true;
-           } else if (appeal.current_group_id) {
+      if (appeal.status === 'pending_issuer' && appeal.current_assignee_id === user.id) canActOnAppeal = true;
+      else if (['pending_chain', 'pending_commandant'].includes(appeal.status)) {
+           if (appeal.status === 'pending_commandant' && isCommandantStaff) canActOnAppeal = true;
+           else if (appeal.current_group_id) {
                const { data: hasPerm } = await supabase.rpc('is_member_of_approver_group', { p_group_id: appeal.current_group_id });
                if (hasPerm) canActOnAppeal = true;
            }
@@ -137,12 +140,12 @@ async function getReportData(reportId: string, user: User) {
   const canPull = (isSubmitter || isCommandantStaff) && (isCompleted || isPending)
 
   return {
-    report, logs, appeal, offenses, escalationTarget,
-    isStaff, // <--- PASS THIS
+    report, logs, appeal, offenses, escalationTarget, isStaff,
+    canViewNarrative, // <--- Pass this new flag
     permissions: { isSubmitter, isSubject: report.subject_cadet_id === user.id, isApprover, canActOnAppeal, canPull }
   }
 }
-  
+
 export default async function ReportDetailsPage({ params: paramsPromise }: { params: Promise<{ id: string }> }) {
   const params = await paramsPromise; 
   const supabase = createClient()
@@ -154,28 +157,17 @@ export default async function ReportDetailsPage({ params: paramsPromise }: { par
   const data = await getReportData(params.id, user)
   
   return (
-    <div className="relative">
-        {/* NEW: View Original Incident Button (Injected at Top) */}
-        {data.isStaff && data.report.linked_incident_id && (
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 -mb-4 flex justify-end">
-                <Link 
-                    href={`/incidents/${data.report.linked_incident_id}`}
-                    className="bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200 px-4 py-2 rounded-md text-sm font-bold border border-orange-200 hover:bg-orange-200 dark:hover:bg-orange-800 transition-colors flex items-center gap-2 shadow-sm"
-                >
-                    <span>⚠️ View Original Incident</span>
-                </Link>
-            </div>
-        )}
-
-        <ReportDetailsClient
-            user={user}
-            initialReport={data.report}
-            initialLogs={data.logs}
-            initialAppeal={data.appeal}
-            offenses={data.offenses}
-            escalationTarget={data.escalationTarget}
-            permissions={data.permissions}
-        />
-    </div>
+    <ReportDetailsClient
+      user={user}
+      initialReport={data.report}
+      initialLogs={data.logs}
+      initialAppeal={data.appeal}
+      offenses={data.offenses}
+      escalationTarget={data.escalationTarget}
+      permissions={data.permissions}
+      linkedIncidentId={data.report.linked_incident_id}
+      isStaff={data.isStaff}
+      canViewNarrative={data.canViewNarrative} // <--- Pass to client
+    />
   )
 }

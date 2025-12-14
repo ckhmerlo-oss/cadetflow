@@ -4,6 +4,7 @@ import { createClient } from '@/utils/supabase/client'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect, useMemo } from 'react'
 import SearchableSelect, { SelectOption } from '@/app/components/SearchableSelect'
+import { submitReport } from './actions' // Import the server action
 
 type CadetProfile = {
   id: string;
@@ -35,7 +36,11 @@ export default function SubmitReport() {
   const [subjectCadetIds, setSubjectCadetIds] = useState<string[]>(['']) 
   
   const [offenseTypeId, setOffenseTypeId] = useState('')
-  const [notes, setNotes] = useState('')
+  
+  // NEW: State for the two different note fields
+  const [greenSheetNotes, setGreenSheetNotes] = useState('') 
+  const [reportExplanation, setReportExplanation] = useState('') 
+
   const [dateOfOffense, setDateOfOffense] = useState(getLocalDate())
   const [timeOfOffense, setTimeOfOffense] = useState(new Date().toTimeString().slice(0, 5)) 
   const [cadets, setCadets] = useState<CadetProfile[]>([])
@@ -62,7 +67,6 @@ export default function SubmitReport() {
               return
           }
 
-          // *** NEW: Redirect Faculty to Incidents ***
           if (roleLevel >= 50 && roleLevel < 65) {
               router.replace('/incidents/create')
               return
@@ -120,6 +124,8 @@ export default function SubmitReport() {
       setSubjectCadetIds(newIds);
   }
 
+  // ... inside app/submit/page.tsx
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault() 
     
@@ -133,23 +139,22 @@ export default function SubmitReport() {
     setLoading(true)
     setError(null)
 
-    const localDateTime = new Date(`${dateOfOffense}T${timeOfOffense}:00`);
-    const fullTimestamp = localDateTime.toISOString();
-
     try {
         const promises = validCadetIds.map(cadetId => 
-            supabase.rpc('create_new_report', {
-                p_subject_cadet_id: cadetId,
-                p_offense_type_id: offenseTypeId,
-                p_notes: notes,
-                p_offense_timestamp: fullTimestamp 
+            submitReport({
+                cadetId,
+                offenseTypeId,
+                dateOfOffense, 
+                timeOfOffense, // <--- ADD THIS PARAMETER
+                notes: greenSheetNotes,          
+                explanation: reportExplanation   
             })
         );
 
         const results = await Promise.all(promises);
         
-        const firstError = results.find(r => r.error)?.error;
-        if (firstError) throw firstError;
+        const firstError = results.find(r => !r.success)?.error;
+        if (firstError) throw new Error(firstError);
 
         router.push('/') 
         router.refresh()
@@ -171,10 +176,10 @@ export default function SubmitReport() {
              </span>
           </div>
 
+          {/* 1. CADET SELECTOR */}
           <div className="space-y-3">
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Subject Cadet(s)</label>
               {subjectCadetIds.map((id, index) => (
-                  // *** FIX: Changed items-start to items-center for better alignment ***
                   <div key={index} className="flex gap-2 items-center animate-in fade-in slide-in-from-top-1 duration-200">
                       <div className="flex-1">
                         <SearchableSelect
@@ -190,7 +195,6 @@ export default function SubmitReport() {
                           <button 
                             type="button" 
                             onClick={() => removeCadetSlot(index)}
-                            // *** FIX: Removed mt-1 since items-center handles vertical centering now ***
                             className="p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition-colors"
                             title="Remove this cadet"
                           >
@@ -209,6 +213,7 @@ export default function SubmitReport() {
               </button>
           </div>
 
+          {/* 2. DATE & TIME */}
           <div className="grid grid-cols-2 gap-4 border-t dark:border-gray-700 pt-4">
             <div>
               <label htmlFor="date" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Date</label>
@@ -226,6 +231,7 @@ export default function SubmitReport() {
             </div>
           </div>
           
+          {/* 3. OFFENSE SELECTOR */}
           <SearchableSelect
             label="Infraction"
             options={offenseOptions}
@@ -235,17 +241,43 @@ export default function SubmitReport() {
             required
           />
 
+          {/* 5. GREEN SHEET SUMMARY (PUBLIC) - UPDATED */}
           <div>
-            <label htmlFor="notes" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Notes (Optional)</label>
-            <textarea 
+            <label htmlFor="notes" className="block text-sm font-bold text-gray-700 dark:text-gray-200 mb-1">
+                Report Summary
+            </label>
+            <p className="text-xs text-amber-600 dark:text-amber-400 mb-2 font-medium">
+                ⚠️ This text will appear on the Green Sheet. Keep it brief.
+            </p>
+            <input 
+              type="text"
               id="notes"
-              value={notes} 
-              onChange={(e) => setNotes(e.target.value)} 
-              rows={4}
+              value={greenSheetNotes} 
+              onChange={(e) => setGreenSheetNotes(e.target.value)} 
+              maxLength={100}
               className="block w-full rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm py-2 px-3"
-              placeholder="Provide specific details of the incident..."
+              placeholder="Ex: Late to formation; Unshaven; Disrespect"
             />
           </div>
+
+          {/* 4. REPORT EXPLANATION (FULL NARRATIVE) - NEW */}
+          <div className="border-t border-gray-200 dark:border-gray-700 pt-4">
+            <label htmlFor="explanation" className="block text-sm font-bold text-gray-700 dark:text-gray-200 mb-1">
+                Report Details
+            </label>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mb-2">
+                Detailed account of the event, if not fully captured in the summary. Visible to Staff, Faculty, Approvers, and the Subject Cadet.
+            </p>
+            <textarea 
+              id="explanation"
+              value={reportExplanation} 
+              onChange={(e) => setReportExplanation(e.target.value)} 
+              rows={5}
+              className="block w-full rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm py-2 px-3"
+              placeholder="Describe the who, what, where, and when..."
+            />
+          </div>
+
 
           <div>
             <button 

@@ -8,6 +8,7 @@ export type TourLogEntry = {
   amount: number
   comment: string | null
   action: string
+  cadet_id: string // <--- Added
   cadet: { first_name: string; last_name: string } | null
   staff: { first_name: string; last_name: string } | null
 }
@@ -24,6 +25,7 @@ export async function getAllTourLogs() {
       amount,
       comment,
       action,
+      cadet_id, 
       cadet:profiles!cadet_id (first_name, last_name),
       staff:profiles!staff_id (first_name, last_name)
     `)
@@ -35,16 +37,14 @@ export async function getAllTourLogs() {
     return []
   }
 
-  // FIX: Map the raw data to handle Supabase returning arrays for relations
-  // We cast 'data' to 'any[]' first to stop TypeScript from complaining about the mismatch
-  // between the raw array response and our desired TourLogEntry type.
+  // Flatten the response
   const formattedData = (data as any[]).map((entry) => ({
     id: entry.id,
     created_at: entry.created_at,
     amount: entry.amount,
     comment: entry.comment,
     action: entry.action,
-    // Check if it's an array and grab the first item, otherwise use it as is
+    cadet_id: entry.cadet_id, // <--- Map it
     cadet: Array.isArray(entry.cadet) ? entry.cadet[0] : entry.cadet,
     staff: Array.isArray(entry.staff) ? entry.staff[0] : entry.staff
   }))

@@ -59,30 +59,33 @@ export default async function TourLogsPage() {
       </div>
 
       {/* LOGS LIST */}
+      {/* LOGS LIST */}
       <div className="space-y-8">
           {Object.keys(groupedLogs).length > 0 ? Object.entries(groupedLogs).map(([date, dayLogs]) => (
               <div key={date} className="space-y-3">
-                  {/* DATE HEADER */}
                   <div className="sticky top-0 z-10 bg-gray-50/95 dark:bg-gray-900/95 backdrop-blur py-2 border-b border-gray-200 dark:border-gray-700">
                       <h2 className="text-lg font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
                           {date}
                       </h2>
                   </div>
 
-                  {/* CARDS GRID */}
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                       {dayLogs.map(log => {
                           const isReduction = log.amount < 0;
                           return (
-                              <div key={log.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4 flex flex-col justify-between hover:border-indigo-300 dark:hover:border-indigo-700 transition-colors">
+                              <div key={log.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4 flex flex-col justify-between transition-colors">
                                   
                                   {/* Top Row: Name & Badge */}
                                   <div className="flex justify-between items-start mb-3">
                                       <div>
                                           <span className="block text-xs font-bold text-gray-500 uppercase">Cadet</span>
-                                          <span className="text-base font-bold text-gray-900 dark:text-white line-clamp-1">
+                                          {/* LINK TO LEDGER */}
+                                          <Link 
+                                            href={`/ledger/${log.cadet_id}`}
+                                            className="text-base font-bold text-indigo-600 dark:text-indigo-400 hover:underline line-clamp-1"
+                                          >
                                               {formatName(log.cadet)}
-                                          </span>
+                                          </Link>
                                       </div>
                                       <span className={`px-2 py-1 rounded text-xs font-bold ${
                                           isReduction 

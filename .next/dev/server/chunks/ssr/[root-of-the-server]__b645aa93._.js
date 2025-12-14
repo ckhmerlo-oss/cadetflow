@@ -250,8 +250,8 @@ async function RootLayout({ children }) {
         hasSeenTour = profile?.has_seen_tour || false;
         // Dynamic Logo Logic
         if (roles?.role_name && roles.role_name.includes('Band Director')) {
-            logoText = "John Warren's Lolipop Guild";
-            logoColor = "text-pink-500 hover:text-fuchsia-500";
+            logoText = "It's Just A Mango";
+            logoColor = "text-pink-500 hover:text-amber-400";
         } else if (roleLevel >= 60 || roles?.role_name && roles.role_name.includes('TAC')) {
             logoText = "TACFlow";
             logoColor = "text-red-600 hover:text-red-700";

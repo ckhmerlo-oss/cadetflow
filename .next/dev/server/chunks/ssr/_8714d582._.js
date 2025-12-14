@@ -13,24 +13,35 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 ;
 async function getAllTourLogs() {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
-    // Fetch all ledger entries, ordered by newest first
+    // Fetch all ledger entries
     const { data, error } = await supabase.from('tour_ledger').select(`
       id,
       created_at,
       amount,
       comment,
       action,
+      cadet_id, 
       cadet:profiles!cadet_id (first_name, last_name),
       staff:profiles!staff_id (first_name, last_name)
     `).order('created_at', {
         ascending: false
-    })// Optional: Limit to recent 500 entries to prevent massive page loads
-    .limit(500);
+    }).limit(500);
     if (error) {
         console.error('Error fetching tour logs:', error);
         return [];
     }
-    return data;
+    // Flatten the response
+    const formattedData = data.map((entry)=>({
+            id: entry.id,
+            created_at: entry.created_at,
+            amount: entry.amount,
+            comment: entry.comment,
+            action: entry.action,
+            cadet_id: entry.cadet_id,
+            cadet: Array.isArray(entry.cadet) ? entry.cadet[0] : entry.cadet,
+            staff: Array.isArray(entry.staff) ? entry.staff[0] : entry.staff
+        }));
+    return formattedData;
 }
 ;
 (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$action$2d$validate$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["ensureServerEntryExports"])([

@@ -61,7 +61,6 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$api$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/next/dist/api/navigation.react-server.js [app-rsc] (ecmascript) <locals>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/components/navigation.react-server.js [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$action$2d$items$2f$ActionItemsClient$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/action-items/ActionItemsClient.tsx [app-rsc] (ecmascript)");
-// FIX 1: Import the IncidentReport type
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$incidents$2f$actions$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/incidents/actions.ts [app-rsc] (ecmascript)");
 ;
 ;
@@ -72,20 +71,26 @@ async function ActionItemsPage() {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["redirect"])('/login');
-    const { data: viewerProfile } = await supabase.from('profiles').select('role:role_id (default_role_level)').eq('id', user.id).single();
-    const viewerRoleLevel = viewerProfile?.role?.default_role_level || 0;
-    const isTac = viewerRoleLevel >= 65;
-    // 1. Fetch Reports
+    // 1. Fetch Profile with Group ID
+    const { data: viewerProfile } = await supabase.from('profiles').select(`
+        role:role_id (
+            default_role_level, 
+            approval_group:approval_group_id (id, group_name)
+        )
+    `).eq('id', user.id).single();
+    const roleData = viewerProfile?.role;
+    const viewerRoleLevel = roleData?.default_role_level || 0;
+    const viewerGroupId = roleData?.approval_group?.id || null; // <--- Captured ID
+    // LOGIC: Only TACs (65-89) see incidents. Admins (90+) do NOT see pending incidents.
+    const isTac = viewerRoleLevel >= 65 && viewerRoleLevel < 90;
     const { data: rpcData, error } = await supabase.rpc('get_my_dashboard_reports');
     if (error) console.error("Error fetching reports:", error.message);
     let allInvolvedReports = rpcData || [];
-    // 2. Fetch Incidents (If TAC)
-    // FIX 2: Explicitly type this array
+    // 2. Fetch Incidents (TACs Only)
     let incidents = [];
     if (isTac) {
         incidents = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$incidents$2f$actions$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getIncidents"])('pending');
     }
-    // 3. Fetch Appeals Context
     const allReportIds = allInvolvedReports.map((r)=>r.id);
     let appealsMap = {};
     if (allReportIds.length > 0) {
@@ -96,7 +101,6 @@ async function ActionItemsPage() {
             });
         }
     }
-    // 4. Fetch Logs
     let logsMap = {};
     if (allReportIds.length > 0) {
         const { data: logsData } = await supabase.from('approval_log').select('report_id, action, comment, created_at, actor:actor_id(first_name, last_name)').in('report_id', allReportIds).order('created_at', {
@@ -115,15 +119,21 @@ async function ActionItemsPage() {
             });
         }
     }
-    // 5. Merge Everything
-    // FIX 3: Explicitly type the final array
     const finalItems = [];
-    // A. Add Reports
+    // 3. Process Reports with Strict Filtering
     allInvolvedReports.forEach((report)=>{
         let include = false;
         if (report.status === 'pulled') return;
-        if (report.status === 'pending_approval' && report.current_approver_group_id !== null && report.submitted_by !== user.id) include = true;
+        // A. Approvals: Strict Group Matching
+        if (report.status === 'pending_approval' && report.current_approver_group_id !== null) {
+            // You must be in the assigned group AND not be the submitter
+            if (report.current_approver_group_id === viewerGroupId && report.submitted_by !== user.id) {
+                include = true;
+            }
+        }
+        // B. Revisions: Submitter Only
         if (report.status === 'needs_revision' && report.submitted_by === user.id) include = true;
+        // C. Appeals: Logic based on role/assignee
         const appealData = appealsMap[report.id];
         const appealStatus = report.appeal_status || appealData?.status;
         if (appealStatus) {
@@ -172,7 +182,7 @@ async function ActionItemsPage() {
             });
         }
     });
-    // B. Add Incidents (TAC Only)
+    // 4. Add Incidents
     incidents.forEach((inc)=>{
         finalItems.push({
             id: inc.id,
@@ -211,7 +221,7 @@ async function ActionItemsPage() {
                             children: "Action Items"
                         }, void 0, false, {
                             fileName: "[project]/app/action-items/page.tsx",
-                            lineNumber: 193,
+                            lineNumber: 192,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -219,18 +229,18 @@ async function ActionItemsPage() {
                             children: "Reports and Incidents requiring your immediate attention."
                         }, void 0, false, {
                             fileName: "[project]/app/action-items/page.tsx",
-                            lineNumber: 194,
+                            lineNumber: 193,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/action-items/page.tsx",
-                    lineNumber: 192,
+                    lineNumber: 191,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/action-items/page.tsx",
-                lineNumber: 191,
+                lineNumber: 190,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$action$2d$items$2f$ActionItemsClient$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
@@ -238,13 +248,13 @@ async function ActionItemsPage() {
                 currentUserId: user.id
             }, void 0, false, {
                 fileName: "[project]/app/action-items/page.tsx",
-                lineNumber: 200,
+                lineNumber: 198,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/action-items/page.tsx",
-        lineNumber: 190,
+        lineNumber: 189,
         columnNumber: 5
     }, this);
 }

@@ -146,63 +146,100 @@ export async function resolveAsHandled(incidentId: string, notes: string, handle
 // 2. UPDATED: Convert with Submitter Swap
 // ... imports
 
-// 2. UPDATED: Convert to Demerit
-export async function convertToDemerit(incidentId: string, offenseTypeId: string, notes: string) {
+export async function convertToDemerit(incidentId: string, offenseTypeId: string, greenSheetSummary: string) {
     const supabase = createClient()
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return { error: 'Unauthorized' }
 
-    // 1. Get Incident
+    // 1. Get Incident Data
     const { data: incident } = await supabase.from('incident_reports').select('*').eq('id', incidentId).single()
     if (!incident) return { error: "Incident not found" }
 
-    // 2. Prepare Timestamps (Safe Handling)
-    const incidentTime = new Date(incident.incident_time).getTime()
-    const nowTime = new Date().getTime()
-    const safeTimestamp = (incidentTime > nowTime) ? new Date().toISOString() : incident.incident_time;
+    // 2. Get Offense Details
+    const { data: offense } = await supabase
+        .from('offense_types')
+        .select('demerits')
+        .eq('id', offenseTypeId)
+        .single()
+    
+    if (!offense) return { error: "Offense type not found" }
 
-    // 3. Create Report (Initially owned by TAC)
-    const { error: rpcError } = await supabase.rpc('create_new_report', {
-        p_subject_cadet_id: incident.subject_cadet_id,
-        p_offense_type_id: offenseTypeId,
-        p_notes: notes, 
-        p_offense_timestamp: safeTimestamp
-    })
+    // 3. FETCH APPROVAL CHAIN (Double-Hop)
+    const { data: userProfile } = await supabase
+        .from('profiles')
+        .select('role:role_id (approval_group_id)')
+        .eq('id', user.id)
+        .single()
+    
+    const myGroupId = (userProfile?.role as any)?.approval_group_id
+    let nextGroupId = null;
 
-    if (rpcError) {
-        console.error("RPC Error:", rpcError);
-        return { error: "Failed to create report: " + rpcError.message }
+    if (myGroupId) {
+        const { data: myGroup } = await supabase
+            .from('approval_groups')
+            .select('next_approver_group_id')
+            .eq('id', myGroupId)
+            .single()
+        nextGroupId = myGroup?.next_approver_group_id || null;
     }
 
-    // 4. Find the report we just created
-    // We assume the most recent report by this TAC for this Student is the one.
-    const { data: newReport } = await supabase
+    // --- FIX: FORCE EASTERN TIME DATE STRING ---
+    // We create a date object from the incident time
+    const incidentDateObj = new Date(incident.incident_time);
+    
+    // We format it specifically to 'en-CA' (which gives YYYY-MM-DD) 
+    // AND force the timeZone to New York. This ensures 8pm EST is still "Today", not "Tomorrow" (UTC).
+    const safeDateOfOffense = incidentDateObj.toLocaleDateString('en-CA', {
+        timeZone: 'America/New_York',
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit'
+    });
+    // --------------------------------
+
+    // 4. Create Report
+    const { data: newReport, error: insertError } = await supabase
         .from('demerit_reports')
+        .insert({
+            subject_cadet_id: incident.subject_cadet_id,
+            offense_type_id: offenseTypeId,
+            submitted_by: incident.reporter_id, 
+            
+            date_of_offense: safeDateOfOffense, // <--- Now reliably '2025-12-14' (or whatever local date is)
+            
+            notes: greenSheetSummary,                 
+            report_explanation: incident.description, 
+            demerits_effective: offense.demerits,
+            status: 'pending_approval',
+            linked_incident_id: incidentId,
+            current_approver_group_id: nextGroupId
+        })
         .select('id')
-        .eq('submitted_by', user.id)
-        .eq('subject_cadet_id', incident.subject_cadet_id)
-        .order('created_at', { ascending: false })
-        .limit(1)
         .single()
 
-    if (newReport) {
-        // 5. CRITICAL: Swap Submitter to Original Reporter
-        // Note: The TAC must have UPDATE permission on 'demerit_reports' for this to work.
-        const { error: updateError } = await supabase
-            .from('demerit_reports')
-            .update({ 
-                linked_incident_id: incidentId,
-                submitted_by: incident.reporter_id // <--- The Teacher's ID
-            })
-            .eq('id', newReport.id)
-        
-        if (updateError) {
-            console.error("Failed to swap submitter:", updateError);
-            // We don't abort, but we log it. The report exists, just attributed to TAC.
-        }
-    } else {
-        console.error("Could not find the newly created report to link.");
+    if (insertError || !newReport) {
+        console.error("Conversion Error:", insertError)
+        return { error: "Failed to create report: " + insertError?.message }
     }
+
+    // 5. INSERT LOGS
+    // A. "Submitted" Log (Backdated)
+    await supabase.from('approval_log').insert({
+        report_id: newReport.id,
+        actor_id: incident.reporter_id,
+        action: 'submitted',
+        comment: 'Original Incident Report filed.',
+        created_at: incident.created_at
+    })
+
+    // B. "Converted" Log (Current Time)
+    await supabase.from('approval_log').insert({
+        report_id: newReport.id,
+        actor_id: user.id,
+        action: 'converted',
+        comment: `Converted to demerit report. (Explanation moved to private narrative)`,
+        created_at: new Date().toISOString()
+    })
 
     // 6. Close Incident
     await supabase
