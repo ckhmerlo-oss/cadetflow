@@ -37,8 +37,6 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
     const getCompanyAbbr = (name)=>{
         if (!name) return '-';
         if (name === 'Battalion Staff') return 'BN';
-        // Band Company -> B? Or Band? Usually 'Band' is short enough, but 'B' fits the pattern.
-        // Assuming First Letter for standard companies
         return name.charAt(0);
     };
     const filteredAndSortedCadets = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>{
@@ -83,12 +81,12 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
     };
     const getSortIndicator = (key)=>sortConfig.key === key ? sortConfig.direction === 'ascending' ? ' ▲' : ' ▼' : null;
     const getConductColor = (status)=>{
-        if (!status) return 'bg-gray-100 text-gray-800';
+        if (!status) return 'bg-muted text-muted-foreground';
         if (status === 'Exemplary') return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200';
         if (status === 'Commendable') return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
         if (status === 'Satisfactory') return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200';
         if (status === 'Deficient') return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200';
-        return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200';
+        return 'bg-destructive/10 text-destructive';
     };
     const formatTimeAgo = (dateStr)=>{
         const date = new Date(dateStr);
@@ -117,34 +115,34 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
         initialData
     ]);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden",
+        className: "bg-card shadow-sm border border-border rounded-lg overflow-hidden",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 id: "roster-controls",
-                className: "p-4 grid grid-cols-1 md:grid-cols-4 gap-4 border-b border-gray-200 dark:border-gray-700 no-print",
+                className: "p-4 grid grid-cols-1 md:grid-cols-4 gap-4 border-b border-border no-print",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                         type: "text",
                         value: searchTerm,
                         onChange: (e)=>setSearchTerm(e.target.value),
                         placeholder: variant === 'cadet' ? "Search..." : "Search email...",
-                        className: "w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-800 dark:text-white"
+                        className: "w-full p-2 border border-input rounded-md bg-background text-foreground"
                     }, void 0, false, {
                         fileName: "[project]/app/manage/RosterClient.tsx",
-                        lineNumber: 153,
+                        lineNumber: 151,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                         value: filterCompany,
                         onChange: (e)=>setFilterCompany(e.target.value),
-                        className: "w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-800 dark:text-white",
+                        className: "w-full p-2 border border-input rounded-md bg-background text-foreground",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                 value: "all",
                                 children: "All Companies"
                             }, void 0, false, {
                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                lineNumber: 155,
+                                lineNumber: 153,
                                 columnNumber: 11
                             }, this),
                             uniqueCompanies.map((co)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -152,13 +150,13 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                     children: String(co)
                                 }, String(co), false, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 156,
+                                    lineNumber: 154,
                                     columnNumber: 38
                                 }, this))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/manage/RosterClient.tsx",
-                        lineNumber: 154,
+                        lineNumber: 152,
                         columnNumber: 9
                     }, this),
                     variant === 'cadet' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -166,14 +164,14 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                 value: filterGrade,
                                 onChange: (e)=>setFilterGrade(e.target.value),
-                                className: "w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-800 dark:text-white",
+                                className: "w-full p-2 border border-input rounded-md bg-background text-foreground",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                         value: "all",
                                         children: "All Grades"
                                     }, void 0, false, {
                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                        lineNumber: 162,
+                                        lineNumber: 160,
                                         columnNumber: 15
                                     }, this),
                                     uniqueGrades.map((g)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -181,26 +179,26 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                             children: String(g)
                                         }, String(g), false, {
                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                            lineNumber: 163,
+                                            lineNumber: 161,
                                             columnNumber: 38
                                         }, this))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                lineNumber: 161,
+                                lineNumber: 159,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                 value: filterConduct,
                                 onChange: (e)=>setFilterConduct(e.target.value),
-                                className: "w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md dark:bg-gray-800 dark:text-white",
+                                className: "w-full p-2 border border-input rounded-md bg-background text-foreground",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                         value: "all",
                                         children: "All Conduct"
                                     }, void 0, false, {
                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                        lineNumber: 166,
+                                        lineNumber: 164,
                                         columnNumber: 15
                                     }, this),
                                     CONDUCT_ORDER.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -208,13 +206,13 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                             children: c
                                         }, c, false, {
                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                            lineNumber: 167,
+                                            lineNumber: 165,
                                             columnNumber: 39
                                         }, this))
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                lineNumber: 165,
+                                lineNumber: 163,
                                 columnNumber: 13
                             }, this)
                         ]
@@ -222,20 +220,20 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/manage/RosterClient.tsx",
-                lineNumber: 152,
+                lineNumber: 150,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
                 id: "roster-table-content",
-                className: "min-w-full divide-y divide-gray-200 dark:divide-gray-700 printable-table",
+                className: "min-w-full divide-y divide-border printable-table",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
-                        className: "bg-gray-50 dark:bg-gray-700/50",
+                        className: "bg-muted/50",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                             children: [
                                 variant === 'cadet' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                     scope: "col",
-                                    className: "hidden md:table-cell px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer",
+                                    className: "hidden md:table-cell px-6 py-3 text-left text-xs font-bold text-muted-foreground uppercase tracking-wider cursor-pointer hover:text-foreground",
                                     onClick: ()=>requestSort('cadet_rank'),
                                     children: [
                                         "Rank ",
@@ -243,11 +241,11 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 178,
+                                    lineNumber: 176,
                                     columnNumber: 17
                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                     scope: "col",
-                                    className: "hidden md:table-cell px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer",
+                                    className: "hidden md:table-cell px-6 py-3 text-left text-xs font-bold text-muted-foreground uppercase tracking-wider cursor-pointer hover:text-foreground",
                                     onClick: ()=>requestSort('email'),
                                     children: [
                                         "Email ",
@@ -255,12 +253,12 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 180,
+                                    lineNumber: 178,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                     scope: "col",
-                                    className: "px-4 md:px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer",
+                                    className: "px-4 md:px-6 py-3 text-left text-xs font-bold text-muted-foreground uppercase tracking-wider cursor-pointer hover:text-foreground",
                                     onClick: ()=>requestSort('last_name'),
                                     children: [
                                         "Name ",
@@ -268,12 +266,12 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 184,
+                                    lineNumber: 182,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                     scope: "col",
-                                    className: "px-2 md:px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer",
+                                    className: "px-2 md:px-6 py-3 text-left text-xs font-bold text-muted-foreground uppercase tracking-wider cursor-pointer hover:text-foreground",
                                     onClick: ()=>requestSort('company_name'),
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -281,7 +279,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                             children: "Co"
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                            lineNumber: 188,
+                                            lineNumber: 186,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -289,19 +287,19 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                             children: "Company"
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                            lineNumber: 189,
+                                            lineNumber: 187,
                                             columnNumber: 17
                                         }, this),
                                         getSortIndicator('company_name')
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 187,
+                                    lineNumber: 185,
                                     columnNumber: 13
                                 }, this),
                                 variant === 'cadet' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                     scope: "col",
-                                    className: "px-2 md:px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer",
+                                    className: "px-2 md:px-6 py-3 text-left text-xs font-bold text-muted-foreground uppercase tracking-wider cursor-pointer hover:text-foreground",
                                     onClick: ()=>requestSort('grade_level'),
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -309,7 +307,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                             children: "Gr"
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                            lineNumber: 196,
+                                            lineNumber: 194,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -317,19 +315,19 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                             children: "Grade"
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                            lineNumber: 197,
+                                            lineNumber: 195,
                                             columnNumber: 17
                                         }, this),
                                         getSortIndicator('grade_level')
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 195,
+                                    lineNumber: 193,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                     scope: "col",
-                                    className: "hidden lg:table-cell px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer",
+                                    className: "hidden lg:table-cell px-6 py-3 text-left text-xs font-bold text-muted-foreground uppercase tracking-wider cursor-pointer hover:text-foreground",
                                     onClick: ()=>requestSort('role_name'),
                                     children: [
                                         "Role ",
@@ -337,14 +335,14 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 203,
+                                    lineNumber: 201,
                                     columnNumber: 13
                                 }, this),
                                 variant === 'cadet' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                             scope: "col",
-                                            className: "hidden xl:table-cell px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer",
+                                            className: "hidden xl:table-cell px-6 py-3 text-left text-xs font-bold text-muted-foreground uppercase tracking-wider cursor-pointer hover:text-foreground",
                                             onClick: ()=>requestSort('room_number'),
                                             children: [
                                                 "Room ",
@@ -352,12 +350,12 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                            lineNumber: 208,
+                                            lineNumber: 206,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                             scope: "col",
-                                            className: "hidden md:table-cell px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer",
+                                            className: "hidden md:table-cell px-6 py-3 text-left text-xs font-bold text-muted-foreground uppercase tracking-wider cursor-pointer hover:text-foreground",
                                             onClick: ()=>requestSort('conduct_status'),
                                             children: [
                                                 "Conduct ",
@@ -365,7 +363,7 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                            lineNumber: 211,
+                                            lineNumber: 209,
                                             columnNumber: 17
                                         }, this)
                                     ]
@@ -378,27 +376,27 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                         children: "Expand"
                                     }, void 0, false, {
                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                        lineNumber: 216,
+                                        lineNumber: 214,
                                         columnNumber: 68
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                    lineNumber: 216,
+                                    lineNumber: 214,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/manage/RosterClient.tsx",
-                            lineNumber: 175,
+                            lineNumber: 173,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/manage/RosterClient.tsx",
-                        lineNumber: 174,
+                        lineNumber: 172,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
-                        className: "divide-y divide-gray-200 dark:divide-gray-700",
+                        className: "divide-y divide-border",
                         children: filteredAndSortedCadets.map((person)=>{
                             const isAdmin = variant === 'faculty' && (person.role_level || 0) >= 90;
                             return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].Fragment, {
@@ -406,28 +404,28 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                         onClick: ()=>handleRowClick(person.id),
                                         className: `
-                    hover:bg-gray-50 dark:hover:bg-gray-700/50 cursor-pointer transition-colors
+                    hover:bg-accent cursor-pointer transition-colors
                     ${isAdmin ? 'bg-amber-50/50 dark:bg-amber-900/10 border-l-4 border-amber-400' : ''}
-                    ${openCadetId === person.id ? 'bg-gray-50 dark:bg-gray-700/50' : ''}
+                    ${openCadetId === person.id ? 'bg-muted/50' : ''}
                 `,
                                         children: [
                                             variant === 'cadet' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                className: "hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-800 dark:text-gray-200",
+                                                className: "hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm font-medium text-foreground",
                                                 children: person.cadet_rank || '-'
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/manage/RosterClient.tsx",
+                                                lineNumber: 233,
+                                                columnNumber: 21
+                                            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                className: "hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-muted-foreground font-mono",
+                                                children: person.email || '-'
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/RosterClient.tsx",
                                                 lineNumber: 235,
                                                 columnNumber: 21
-                                            }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                className: "hidden md:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400 font-mono",
-                                                children: person.email || '-'
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/manage/RosterClient.tsx",
-                                                lineNumber: 237,
-                                                columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                className: "px-4 md:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white",
+                                                className: "px-4 md:px-6 py-4 whitespace-nowrap text-sm font-medium text-foreground",
                                                 children: [
                                                     person.last_name,
                                                     ", ",
@@ -437,24 +435,24 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                         children: "Admin"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                        lineNumber: 243,
+                                                        lineNumber: 241,
                                                         columnNumber: 33
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                lineNumber: 241,
+                                                lineNumber: 239,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                className: "px-2 md:px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400",
+                                                className: "px-2 md:px-6 py-4 whitespace-nowrap text-sm text-muted-foreground",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                         className: "md:hidden font-bold",
                                                         children: getCompanyAbbr(person.company_name)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                        lineNumber: 248,
+                                                        lineNumber: 246,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -462,41 +460,41 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                         children: person.company_name || '-'
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                        lineNumber: 249,
+                                                        lineNumber: 247,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                lineNumber: 247,
+                                                lineNumber: 245,
                                                 columnNumber: 17
                                             }, this),
                                             variant === 'cadet' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "px-2 md:px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400",
+                                                    className: "px-2 md:px-6 py-4 whitespace-nowrap text-sm text-muted-foreground",
                                                     children: person.grade_level || '-'
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                                    lineNumber: 255,
+                                                    lineNumber: 253,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                className: "hidden lg:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400",
+                                                className: "hidden lg:table-cell px-6 py-4 whitespace-nowrap text-sm text-muted-foreground",
                                                 children: person.role_name
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                lineNumber: 260,
+                                                lineNumber: 258,
                                                 columnNumber: 17
                                             }, this),
                                             variant === 'cadet' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "hidden xl:table-cell px-6 py-4 whitespace-nowrap text-sm text-gray-600 dark:text-gray-400",
+                                                        className: "hidden xl:table-cell px-6 py-4 whitespace-nowrap text-sm text-muted-foreground",
                                                         children: person.room_number || '-'
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                        lineNumber: 265,
+                                                        lineNumber: 263,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -506,12 +504,12 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                             children: person.conduct_status
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                                            lineNumber: 268,
+                                                            lineNumber: 266,
                                                             columnNumber: 94
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                        lineNumber: 268,
+                                                        lineNumber: 266,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
@@ -519,26 +517,26 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                 className: "px-4 md:px-6 py-4 whitespace-nowrap text-right text-sm font-medium",
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                    className: "text-gray-400",
+                                                    className: "text-muted-foreground",
                                                     children: openCadetId === person.id ? '▲' : '▼'
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                                    lineNumber: 274,
+                                                    lineNumber: 272,
                                                     columnNumber: 20
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                lineNumber: 273,
+                                                lineNumber: 271,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                        lineNumber: 225,
+                                        lineNumber: 223,
                                         columnNumber: 15
                                     }, this),
                                     openCadetId === person.id && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                        className: "bg-gray-50 dark:bg-gray-700/30 print-hide",
+                                        className: "bg-muted/30 print-hide",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                             colSpan: variant === 'cadet' ? 8 : 5,
                                             className: "px-3 md:px-6 py-4 md:py-6",
@@ -549,125 +547,125 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                         className: "space-y-2",
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                                                className: "text-xs font-bold text-gray-500 uppercase tracking-wider",
+                                                                className: "text-xs font-bold text-muted-foreground uppercase tracking-wider",
                                                                 children: variant === 'cadet' ? 'Key Metrics' : 'Faculty Info'
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                lineNumber: 288,
+                                                                lineNumber: 286,
                                                                 columnNumber: 25
                                                             }, this),
                                                             variant === 'cadet' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                 className: "grid grid-cols-3 md:grid-cols-1 gap-2",
                                                                 children: [
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "p-2 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600 text-center md:text-left md:flex md:justify-between md:items-center",
+                                                                        className: "p-2 bg-card rounded border border-border text-center md:text-left md:flex md:justify-between md:items-center",
                                                                         children: [
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                className: "block md:inline text-[10px] md:text-sm text-gray-500 dark:text-gray-400 uppercase md:normal-case",
+                                                                                className: "block md:inline text-[10px] md:text-sm text-muted-foreground uppercase md:normal-case",
                                                                                 children: "Term"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                lineNumber: 294,
+                                                                                lineNumber: 292,
                                                                                 columnNumber: 31
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                className: "block md:inline text-sm md:text-base font-bold text-gray-900 dark:text-white",
+                                                                                className: "block md:inline text-sm md:text-base font-bold text-foreground",
                                                                                 children: person.term_demerits
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                lineNumber: 295,
+                                                                                lineNumber: 293,
                                                                                 columnNumber: 31
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 293,
+                                                                        lineNumber: 291,
                                                                         columnNumber: 29
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "p-2 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600 text-center md:text-left md:flex md:justify-between md:items-center",
+                                                                        className: "p-2 bg-card rounded border border-border text-center md:text-left md:flex md:justify-between md:items-center",
                                                                         children: [
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                className: "block md:inline text-[10px] md:text-sm text-gray-500 dark:text-gray-400 uppercase md:normal-case",
+                                                                                className: "block md:inline text-[10px] md:text-sm text-muted-foreground uppercase md:normal-case",
                                                                                 children: "Year"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                lineNumber: 298,
+                                                                                lineNumber: 296,
                                                                                 columnNumber: 31
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                className: "block md:inline text-sm md:text-base font-bold text-gray-900 dark:text-white",
+                                                                                className: "block md:inline text-sm md:text-base font-bold text-foreground",
                                                                                 children: person.year_demerits
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                lineNumber: 299,
+                                                                                lineNumber: 297,
                                                                                 columnNumber: 31
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 297,
+                                                                        lineNumber: 295,
                                                                         columnNumber: 29
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "p-2 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600 text-center md:text-left md:flex md:justify-between md:items-center",
+                                                                        className: "p-2 bg-card rounded border border-border text-center md:text-left md:flex md:justify-between md:items-center",
                                                                         children: [
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                className: "block md:inline text-[10px] md:text-sm text-gray-500 dark:text-gray-400 uppercase md:normal-case",
+                                                                                className: "block md:inline text-[10px] md:text-sm text-muted-foreground uppercase md:normal-case",
                                                                                 children: "Tours"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                lineNumber: 302,
+                                                                                lineNumber: 300,
                                                                                 columnNumber: 31
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                className: `block md:inline text-sm md:text-base font-bold ${person.has_star_tours || (person.current_tour_balance || 0) > 0 ? 'text-red-600 dark:text-red-400' : 'text-gray-900 dark:text-white'}`,
+                                                                                className: `block md:inline text-sm md:text-base font-bold ${person.has_star_tours || (person.current_tour_balance || 0) > 0 ? 'text-destructive' : 'text-foreground'}`,
                                                                                 children: person.has_star_tours ? '*' : person.current_tour_balance
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                lineNumber: 303,
+                                                                                lineNumber: 301,
                                                                                 columnNumber: 31
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 301,
+                                                                        lineNumber: 299,
                                                                         columnNumber: 29
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                lineNumber: 292,
+                                                                lineNumber: 290,
                                                                 columnNumber: 27
                                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                className: "p-3 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600 text-sm",
+                                                                className: "p-3 bg-card rounded border border-border text-sm",
                                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                    className: "truncate",
+                                                                    className: "truncate text-foreground",
                                                                     children: [
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
                                                                             children: "Email:"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                            lineNumber: 310,
-                                                                            columnNumber: 53
+                                                                            lineNumber: 308,
+                                                                            columnNumber: 69
                                                                         }, this),
                                                                         " ",
                                                                         person.email
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                    lineNumber: 310,
+                                                                    lineNumber: 308,
                                                                     columnNumber: 29
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                lineNumber: 309,
+                                                                lineNumber: 307,
                                                                 columnNumber: 27
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                        lineNumber: 287,
+                                                        lineNumber: 285,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -675,15 +673,15 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                         children: variant === 'cadet' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                                                             children: [
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                                                    className: "text-xs font-bold text-gray-500 uppercase tracking-wider",
+                                                                    className: "text-xs font-bold text-muted-foreground uppercase tracking-wider",
                                                                     children: "Recent Activity"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                    lineNumber: 319,
+                                                                    lineNumber: 317,
                                                                     columnNumber: 29
                                                                 }, this),
                                                                 person.recent_reports && person.recent_reports.length > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                    className: "bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600 divide-y divide-gray-100 dark:divide-gray-700",
+                                                                    className: "bg-card rounded border border-border divide-y divide-border",
                                                                     children: person.recent_reports.map((report)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                             className: "p-2 flex justify-between items-center text-xs",
                                                                             children: [
@@ -691,69 +689,69 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                                                     className: "truncate pr-2",
                                                                                     children: [
                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                            className: "font-medium text-gray-800 dark:text-gray-200",
+                                                                                            className: "font-medium text-foreground",
                                                                                             children: report.offense_name
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                            lineNumber: 325,
+                                                                                            lineNumber: 323,
                                                                                             columnNumber: 39
                                                                                         }, this),
                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                            className: "ml-2 text-gray-400 uppercase text-[10px]",
+                                                                                            className: "ml-2 text-muted-foreground uppercase text-[10px]",
                                                                                             children: report.status.replace('_', ' ')
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                            lineNumber: 326,
+                                                                                            lineNumber: 324,
                                                                                             columnNumber: 39
                                                                                         }, this)
                                                                                     ]
                                                                                 }, void 0, true, {
                                                                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                    lineNumber: 324,
+                                                                                    lineNumber: 322,
                                                                                     columnNumber: 37
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                    className: "text-gray-500 whitespace-nowrap",
+                                                                                    className: "text-muted-foreground whitespace-nowrap",
                                                                                     children: formatTimeAgo(report.created_at)
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                                    lineNumber: 328,
+                                                                                    lineNumber: 326,
                                                                                     columnNumber: 37
                                                                                 }, this)
                                                                             ]
                                                                         }, report.id, true, {
                                                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                            lineNumber: 323,
+                                                                            lineNumber: 321,
                                                                             columnNumber: 35
                                                                         }, this))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                    lineNumber: 321,
+                                                                    lineNumber: 319,
                                                                     columnNumber: 31
                                                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                    className: "p-3 bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-600 text-center text-xs text-gray-400 italic",
+                                                                    className: "p-3 bg-card rounded border border-border text-center text-xs text-muted-foreground italic",
                                                                     children: "No recent reports."
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                    lineNumber: 333,
+                                                                    lineNumber: 331,
                                                                     columnNumber: 31
                                                                 }, this)
                                                             ]
                                                         }, void 0, true)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                        lineNumber: 316,
+                                                        lineNumber: 314,
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "space-y-2",
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                                                className: "text-xs font-bold text-gray-500 uppercase tracking-wider",
+                                                                className: "text-xs font-bold text-muted-foreground uppercase tracking-wider",
                                                                 children: "Actions"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                lineNumber: 343,
+                                                                lineNumber: 341,
                                                                 columnNumber: 25
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -761,20 +759,20 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                                 children: [
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                                                         href: `/profile/${person.id}`,
-                                                                        className: "block w-full text-center py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-sm font-medium rounded shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700",
+                                                                        className: "block w-full text-center py-2 bg-card border border-border text-foreground text-sm font-medium rounded shadow-sm hover:bg-accent",
                                                                         children: "View Profile"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 345,
+                                                                        lineNumber: 343,
                                                                         columnNumber: 27
                                                                     }, this),
                                                                     variant === 'cadet' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                                                         href: `/ledger/${person.id}`,
-                                                                        className: "block w-full text-center py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-200 text-sm font-medium rounded shadow-sm hover:bg-gray-50 dark:hover:bg-gray-700",
+                                                                        className: "block w-full text-center py-2 bg-card border border-border text-foreground text-sm font-medium rounded shadow-sm hover:bg-accent",
                                                                         children: "View Ledger"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 349,
+                                                                        lineNumber: 347,
                                                                         columnNumber: 29
                                                                     }, this),
                                                                     (canManage || canEditProfiles) && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -782,63 +780,63 @@ function RosterClient({ initialData, canEditProfiles, companies, onReassign, var
                                                                             e.stopPropagation();
                                                                             onReassign(person.id);
                                                                         },
-                                                                        className: "block w-full text-center py-2 bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-200 dark:border-indigo-700 text-indigo-700 dark:text-indigo-300 text-sm font-medium rounded shadow-sm hover:bg-indigo-100 dark:hover:bg-indigo-900/40",
+                                                                        className: "block w-full text-center py-2 bg-primary/10 border border-primary/20 text-primary text-sm font-medium rounded shadow-sm hover:bg-primary/20",
                                                                         children: "Re-Assign"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                        lineNumber: 354,
+                                                                        lineNumber: 352,
                                                                         columnNumber: 29
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                                lineNumber: 344,
+                                                                lineNumber: 342,
                                                                 columnNumber: 25
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                                        lineNumber: 342,
+                                                        lineNumber: 340,
                                                         columnNumber: 23
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                                lineNumber: 284,
+                                                lineNumber: 282,
                                                 columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/RosterClient.tsx",
-                                            lineNumber: 283,
+                                            lineNumber: 281,
                                             columnNumber: 19
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/manage/RosterClient.tsx",
-                                        lineNumber: 282,
+                                        lineNumber: 280,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, person.id, true, {
                                 fileName: "[project]/app/manage/RosterClient.tsx",
-                                lineNumber: 224,
+                                lineNumber: 222,
                                 columnNumber: 13
                             }, this);
                         })
                     }, void 0, false, {
                         fileName: "[project]/app/manage/RosterClient.tsx",
-                        lineNumber: 219,
+                        lineNumber: 217,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/manage/RosterClient.tsx",
-                lineNumber: 173,
+                lineNumber: 171,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/manage/RosterClient.tsx",
-        lineNumber: 149,
+        lineNumber: 147,
         columnNumber: 5
     }, this);
 }
@@ -1157,7 +1155,7 @@ function ManagePage() {
     };
     const SortIcon = ({ column })=>{
         if (sortConfig.key !== column) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-            className: "text-gray-300 ml-1",
+            className: "text-muted-foreground/30 ml-1",
             children: "⇅"
         }, void 0, false, {
             fileName: "[project]/app/manage/page.tsx",
@@ -1165,7 +1163,7 @@ function ManagePage() {
             columnNumber: 43
         }, this);
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-            className: "text-indigo-600 dark:text-indigo-400 ml-1",
+            className: "text-primary ml-1",
             children: sortConfig.direction === 'asc' ? '↑' : '↓'
         }, void 0, false, {
             fileName: "[project]/app/manage/page.tsx",
@@ -1245,7 +1243,7 @@ function ManagePage() {
     };
     if (loading && unassigned.length === 0 && rosterData.length === 0) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "max-w-7xl mx-auto p-8 text-center text-gray-500",
+            className: "max-w-7xl mx-auto p-8 text-center text-muted-foreground",
             children: "Loading roster data..."
         }, void 0, false, {
             fileName: "[project]/app/manage/page.tsx",
@@ -1269,7 +1267,7 @@ function ManagePage() {
                                 className: "jsx-21e72d2f241fbad9",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                        className: "jsx-21e72d2f241fbad9" + " " + "text-3xl font-bold text-gray-900 dark:text-white",
+                                        className: "jsx-21e72d2f241fbad9" + " " + "text-3xl font-bold text-primary",
                                         children: "Roster Management"
                                     }, void 0, false, {
                                         fileName: "[project]/app/manage/page.tsx",
@@ -1277,7 +1275,7 @@ function ManagePage() {
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "jsx-21e72d2f241fbad9" + " " + "text-gray-500 dark:text-gray-400 mt-1",
+                                        className: "jsx-21e72d2f241fbad9" + " " + "text-muted-foreground mt-1",
                                         children: "Assign cadets to roles."
                                     }, void 0, false, {
                                         fileName: "[project]/app/manage/page.tsx",
@@ -1295,13 +1293,13 @@ function ManagePage() {
                                 children: [
                                     canViewProbation && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                         href: "/manage/probation",
-                                        className: "flex items-center gap-2 px-4 py-2 bg-red-50 dark:bg-red-950 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-100 rounded-md hover:bg-red-200 dark:hover:bg-red-800 transition-colors font-medium shadow-sm",
+                                        className: "flex items-center gap-2 px-4 py-2 bg-destructive/5 text-destructive border border-destructive/20 rounded-md hover:bg-destructive/10 transition-colors font-medium shadow-sm",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                                                 fill: "none",
                                                 stroke: "currentColor",
                                                 viewBox: "0 0 24 24",
-                                                className: "jsx-21e72d2f241fbad9" + " " + "w-5 h-5 text-red-400",
+                                                className: "jsx-21e72d2f241fbad9" + " " + "w-5 h-5",
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
                                                     strokeLinecap: "round",
                                                     strokeLinejoin: "round",
@@ -1310,12 +1308,12 @@ function ManagePage() {
                                                     className: "jsx-21e72d2f241fbad9"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/manage/page.tsx",
-                                                    lineNumber: 292,
-                                                    columnNumber: 113
+                                                    lineNumber: 295,
+                                                    columnNumber: 100
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/page.tsx",
-                                                lineNumber: 292,
+                                                lineNumber: 295,
                                                 columnNumber: 21
                                             }, this),
                                             "Manage Probation"
@@ -1327,7 +1325,7 @@ function ManagePage() {
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                         href: "/manage/roles",
-                                        className: "flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors font-medium shadow-sm",
+                                        className: "btn-primary flex items-center gap-2",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                                                 xmlns: "http://www.w3.org/2000/svg",
@@ -1343,19 +1341,19 @@ function ManagePage() {
                                                     className: "jsx-21e72d2f241fbad9"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/manage/page.tsx",
-                                                    lineNumber: 299,
+                                                    lineNumber: 302,
                                                     columnNumber: 17
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/page.tsx",
-                                                lineNumber: 298,
+                                                lineNumber: 301,
                                                 columnNumber: 17
                                             }, this),
                                             "Configure Chain of Command"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/manage/page.tsx",
-                                        lineNumber: 297,
+                                        lineNumber: 300,
                                         columnNumber: 13
                                     }, this)
                                 ]
@@ -1372,32 +1370,32 @@ function ManagePage() {
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         id: "tour-roster-filters",
-                        className: "jsx-21e72d2f241fbad9" + " " + "mb-6 border-b border-gray-200 dark:border-gray-700 no-print",
+                        className: "jsx-21e72d2f241fbad9" + " " + "mb-6 border-b border-border no-print",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
                             "aria-label": "Tabs",
                             className: "jsx-21e72d2f241fbad9" + " " + "-mb-px flex space-x-8",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     onClick: ()=>setActiveTab('roster'),
-                                    className: "jsx-21e72d2f241fbad9" + " " + `whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'roster' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`,
+                                    className: "jsx-21e72d2f241fbad9" + " " + `whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors ${activeTab === 'roster' ? 'border-primary text-primary' : 'border-transparent text-muted-foreground hover:text-foreground'}`,
                                     children: "Cadet Roster"
                                 }, void 0, false, {
                                     fileName: "[project]/app/manage/page.tsx",
-                                    lineNumber: 309,
+                                    lineNumber: 312,
                                     columnNumber: 13
                                 }, this),
                                 isAdmin && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     onClick: ()=>setActiveTab('faculty'),
-                                    className: "jsx-21e72d2f241fbad9" + " " + `whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'faculty' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`,
+                                    className: "jsx-21e72d2f241fbad9" + " " + `whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors ${activeTab === 'faculty' ? 'border-primary text-primary' : 'border-transparent text-muted-foreground hover:text-foreground'}`,
                                     children: "Faculty & Staff"
                                 }, void 0, false, {
                                     fileName: "[project]/app/manage/page.tsx",
-                                    lineNumber: 314,
+                                    lineNumber: 320,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     onClick: ()=>setActiveTab('unassigned'),
-                                    className: "jsx-21e72d2f241fbad9" + " " + `whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'unassigned' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`,
+                                    className: "jsx-21e72d2f241fbad9" + " " + `whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors ${activeTab === 'unassigned' ? 'border-primary text-primary' : 'border-transparent text-muted-foreground hover:text-foreground'}`,
                                     children: [
                                         "Unassigned",
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -1405,35 +1403,35 @@ function ManagePage() {
                                             children: unassigned.length
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/page.tsx",
-                                            lineNumber: 321,
+                                            lineNumber: 333,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/page.tsx",
-                                    lineNumber: 319,
+                                    lineNumber: 328,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/manage/page.tsx",
-                            lineNumber: 308,
+                            lineNumber: 311,
                             columnNumber: 11
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/manage/page.tsx",
-                        lineNumber: 307,
+                        lineNumber: 310,
                         columnNumber: 9
                     }, this),
                     error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "jsx-21e72d2f241fbad9" + " " + "mb-6 p-4 text-center text-red-600 bg-red-50 rounded-lg border border-red-200",
+                        className: "jsx-21e72d2f241fbad9" + " " + "mb-6 p-4 text-center text-destructive bg-destructive/10 rounded-lg border border-destructive/20",
                         children: [
                             "Error: ",
                             error
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/manage/page.tsx",
-                        lineNumber: 326,
+                        lineNumber: 338,
                         columnNumber: 19
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1444,16 +1442,16 @@ function ManagePage() {
                                 className: "jsx-21e72d2f241fbad9" + " " + "flex justify-end mb-4 no-print",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     onClick: handlePrintRoster,
-                                    className: "jsx-21e72d2f241fbad9" + " " + "text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 underline",
+                                    className: "jsx-21e72d2f241fbad9" + " " + "text-sm text-muted-foreground hover:text-primary underline",
                                     children: "Print Roster"
                                 }, void 0, false, {
                                     fileName: "[project]/app/manage/page.tsx",
-                                    lineNumber: 331,
+                                    lineNumber: 343,
                                     columnNumber: 13
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/manage/page.tsx",
-                                lineNumber: 330,
+                                lineNumber: 342,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$manage$2f$RosterClient$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1465,13 +1463,13 @@ function ManagePage() {
                                 variant: "cadet"
                             }, void 0, false, {
                                 fileName: "[project]/app/manage/page.tsx",
-                                lineNumber: 333,
+                                lineNumber: 345,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/manage/page.tsx",
-                        lineNumber: 329,
+                        lineNumber: 341,
                         columnNumber: 9
                     }, this),
                     isAdmin && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1487,19 +1485,19 @@ function ManagePage() {
                                             children: "Restricted View:"
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/page.tsx",
-                                            lineNumber: 341,
+                                            lineNumber: 353,
                                             columnNumber: 19
                                         }, this),
                                         " You are viewing the Faculty & Staff roster. This data is only visible to role level 90+."
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/page.tsx",
-                                    lineNumber: 340,
+                                    lineNumber: 352,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/manage/page.tsx",
-                                lineNumber: 339,
+                                lineNumber: 351,
                                 columnNumber: 14
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$manage$2f$RosterClient$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1511,22 +1509,22 @@ function ManagePage() {
                                 variant: "faculty"
                             }, void 0, false, {
                                 fileName: "[project]/app/manage/page.tsx",
-                                lineNumber: 344,
+                                lineNumber: 356,
                                 columnNumber: 14
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/manage/page.tsx",
-                        lineNumber: 338,
+                        lineNumber: 350,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "jsx-21e72d2f241fbad9" + " " + `no-print ${activeTab === 'unassigned' ? '' : 'hidden'}`,
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "jsx-21e72d2f241fbad9" + " " + "bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden",
+                            className: "jsx-21e72d2f241fbad9" + " " + "bg-card shadow-sm border border-border rounded-lg overflow-hidden",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "jsx-21e72d2f241fbad9" + " " + "p-4 border-b border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row justify-between items-center gap-4 bg-gray-50 dark:bg-gray-900/50",
+                                    className: "jsx-21e72d2f241fbad9" + " " + "p-4 border-b border-border flex flex-col sm:flex-row justify-between items-center gap-4 bg-muted/30",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "jsx-21e72d2f241fbad9" + " " + "flex items-center gap-2",
@@ -1535,27 +1533,27 @@ function ManagePage() {
                                                     type: "checkbox",
                                                     checked: unassigned.length > 0 && selectedIds.size === unassigned.length,
                                                     onChange: handleSelectAll,
-                                                    className: "jsx-21e72d2f241fbad9" + " " + "rounded border-gray-300 dark:border-gray-600"
+                                                    className: "jsx-21e72d2f241fbad9" + " " + "rounded border-input text-primary focus:ring-primary"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/manage/page.tsx",
-                                                    lineNumber: 353,
+                                                    lineNumber: 365,
                                                     columnNumber: 17
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                    className: "jsx-21e72d2f241fbad9" + " " + "text-sm font-medium text-gray-700 dark:text-gray-300",
+                                                    className: "jsx-21e72d2f241fbad9" + " " + "text-sm font-medium text-foreground",
                                                     children: [
                                                         selectedIds.size,
                                                         " selected"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/manage/page.tsx",
-                                                    lineNumber: 354,
+                                                    lineNumber: 366,
                                                     columnNumber: 17
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/manage/page.tsx",
-                                            lineNumber: 352,
+                                            lineNumber: 364,
                                             columnNumber: 15
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1563,38 +1561,38 @@ function ManagePage() {
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                 onClick: openModal,
                                                 disabled: selectedIds.size === 0,
-                                                className: "jsx-21e72d2f241fbad9" + " " + "px-4 py-2 bg-indigo-600 text-white rounded-md text-sm font-medium hover:bg-indigo-700 disabled:opacity-50 shadow-sm flex items-center gap-2",
+                                                className: "jsx-21e72d2f241fbad9" + " " + "px-4 py-2 bg-primary text-primary-foreground rounded-md text-sm font-medium hover:bg-primary/90 disabled:opacity-50 shadow-sm flex items-center gap-2",
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                     className: "jsx-21e72d2f241fbad9",
                                                     children: "Assign Selected..."
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/manage/page.tsx",
-                                                    lineNumber: 357,
-                                                    columnNumber: 231
+                                                    lineNumber: 369,
+                                                    columnNumber: 241
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/page.tsx",
-                                                lineNumber: 357,
+                                                lineNumber: 369,
                                                 columnNumber: 17
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/page.tsx",
-                                            lineNumber: 356,
+                                            lineNumber: 368,
                                             columnNumber: 15
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/page.tsx",
-                                    lineNumber: 351,
+                                    lineNumber: 363,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "jsx-21e72d2f241fbad9" + " " + "overflow-x-auto",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                                        className: "jsx-21e72d2f241fbad9" + " " + "min-w-full divide-y divide-gray-200 dark:divide-gray-700",
+                                        className: "jsx-21e72d2f241fbad9" + " " + "min-w-full divide-y divide-border",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
-                                                className: "jsx-21e72d2f241fbad9" + " " + "bg-gray-50 dark:bg-gray-700/50",
+                                                className: "jsx-21e72d2f241fbad9" + " " + "bg-muted/50",
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                                     className: "jsx-21e72d2f241fbad9",
                                                     children: [
@@ -1603,13 +1601,13 @@ function ManagePage() {
                                                             className: "jsx-21e72d2f241fbad9" + " " + "w-12 px-6 py-3"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 364,
+                                                            lineNumber: 376,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                             scope: "col",
                                                             onClick: ()=>handleSort('name'),
-                                                            className: "jsx-21e72d2f241fbad9" + " " + "px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600",
+                                                            className: "jsx-21e72d2f241fbad9" + " " + "px-6 py-3 text-left text-xs font-bold text-muted-foreground uppercase tracking-wider cursor-pointer hover:bg-accent hover:text-foreground",
                                                             children: [
                                                                 "Name ",
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
@@ -1617,19 +1615,19 @@ function ManagePage() {
                                                                     className: "jsx-21e72d2f241fbad9"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 365,
-                                                                    columnNumber: 241
+                                                                    lineNumber: 377,
+                                                                    columnNumber: 227
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 365,
+                                                            lineNumber: 377,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                             scope: "col",
                                                             onClick: ()=>handleSort('created_at'),
-                                                            className: "jsx-21e72d2f241fbad9" + " " + "px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600",
+                                                            className: "jsx-21e72d2f241fbad9" + " " + "px-6 py-3 text-left text-xs font-bold text-muted-foreground uppercase tracking-wider cursor-pointer hover:bg-accent hover:text-foreground",
                                                             children: [
                                                                 "Date Joined ",
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
@@ -1637,19 +1635,19 @@ function ManagePage() {
                                                                     className: "jsx-21e72d2f241fbad9"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 366,
-                                                                    columnNumber: 254
+                                                                    lineNumber: 378,
+                                                                    columnNumber: 240
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 366,
+                                                            lineNumber: 378,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                             scope: "col",
                                                             onClick: ()=>handleSort('company'),
-                                                            className: "jsx-21e72d2f241fbad9" + " " + "px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600",
+                                                            className: "jsx-21e72d2f241fbad9" + " " + "px-6 py-3 text-left text-xs font-bold text-muted-foreground uppercase tracking-wider cursor-pointer hover:bg-accent hover:text-foreground",
                                                             children: [
                                                                 "Company ",
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
@@ -1657,19 +1655,19 @@ function ManagePage() {
                                                                     className: "jsx-21e72d2f241fbad9"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 367,
-                                                                    columnNumber: 247
+                                                                    lineNumber: 379,
+                                                                    columnNumber: 233
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 367,
+                                                            lineNumber: 379,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                             scope: "col",
                                                             onClick: ()=>handleSort('role'),
-                                                            className: "jsx-21e72d2f241fbad9" + " " + "px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600",
+                                                            className: "jsx-21e72d2f241fbad9" + " " + "px-6 py-3 text-left text-xs font-bold text-muted-foreground uppercase tracking-wider cursor-pointer hover:bg-accent hover:text-foreground",
                                                             children: [
                                                                 "Role ",
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
@@ -1677,28 +1675,28 @@ function ManagePage() {
                                                                     className: "jsx-21e72d2f241fbad9"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 368,
-                                                                    columnNumber: 241
+                                                                    lineNumber: 380,
+                                                                    columnNumber: 227
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 368,
+                                                            lineNumber: 380,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/manage/page.tsx",
-                                                    lineNumber: 363,
+                                                    lineNumber: 375,
                                                     columnNumber: 19
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/page.tsx",
-                                                lineNumber: 362,
+                                                lineNumber: 374,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
-                                                className: "jsx-21e72d2f241fbad9" + " " + "bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700",
+                                                className: "jsx-21e72d2f241fbad9" + " " + "bg-card divide-y divide-border",
                                                 children: sortedUnassigned.length > 0 ? sortedUnassigned.map((u)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                                         onClick: ()=>{
                                                             setSelectedIds(new Set([
@@ -1706,7 +1704,7 @@ function ManagePage() {
                                                             ]));
                                                             openModal();
                                                         },
-                                                        className: "jsx-21e72d2f241fbad9" + " " + "hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors cursor-pointer",
+                                                        className: "jsx-21e72d2f241fbad9" + " " + "hover:bg-accent transition-colors cursor-pointer",
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                                 onClick: (e)=>e.stopPropagation(),
@@ -1716,19 +1714,19 @@ function ManagePage() {
                                                                     checked: selectedIds.has(u.user_id),
                                                                     onChange: ()=>handleSelectRow(u.user_id),
                                                                     onClick: (e)=>e.stopPropagation(),
-                                                                    className: "jsx-21e72d2f241fbad9" + " " + "rounded border-gray-300 dark:border-gray-600 h-4 w-4 text-indigo-600"
+                                                                    className: "jsx-21e72d2f241fbad9" + " " + "rounded border-input text-primary focus:ring-primary h-4 w-4"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 379,
+                                                                    lineNumber: 391,
                                                                     columnNumber: 25
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/manage/page.tsx",
-                                                                lineNumber: 378,
+                                                                lineNumber: 390,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                className: "jsx-21e72d2f241fbad9" + " " + "px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white",
+                                                                className: "jsx-21e72d2f241fbad9" + " " + "px-6 py-4 whitespace-nowrap text-sm font-medium text-foreground",
                                                                 children: [
                                                                     u.last_name,
                                                                     ", ",
@@ -1736,15 +1734,15 @@ function ManagePage() {
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/manage/page.tsx",
-                                                                lineNumber: 381,
+                                                                lineNumber: 393,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                                className: "jsx-21e72d2f241fbad9" + " " + "px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400",
+                                                                className: "jsx-21e72d2f241fbad9" + " " + "px-6 py-4 whitespace-nowrap text-sm text-muted-foreground",
                                                                 children: new Date(u.created_at).toLocaleDateString()
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/manage/page.tsx",
-                                                                lineNumber: 382,
+                                                                lineNumber: 394,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1754,19 +1752,19 @@ function ManagePage() {
                                                                     children: u.company_name
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 383,
+                                                                    lineNumber: 395,
                                                                     columnNumber: 93
                                                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                    className: "jsx-21e72d2f241fbad9" + " " + "text-red-500 dark:text-red-400 text-xs italic",
+                                                                    className: "jsx-21e72d2f241fbad9" + " " + "text-destructive text-xs italic",
                                                                     children: "Unassigned"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 383,
+                                                                    lineNumber: 395,
                                                                     columnNumber: 271
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/manage/page.tsx",
-                                                                lineNumber: 383,
+                                                                lineNumber: 395,
                                                                 columnNumber: 23
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1776,67 +1774,67 @@ function ManagePage() {
                                                                     children: u.role_name
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 384,
+                                                                    lineNumber: 396,
                                                                     columnNumber: 90
                                                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                    className: "jsx-21e72d2f241fbad9" + " " + "text-red-500 dark:text-red-400 text-xs italic",
+                                                                    className: "jsx-21e72d2f241fbad9" + " " + "text-destructive text-xs italic",
                                                                     children: "Unassigned"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 384,
+                                                                    lineNumber: 396,
                                                                     columnNumber: 273
                                                                 }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/manage/page.tsx",
-                                                                lineNumber: 384,
+                                                                lineNumber: 396,
                                                                 columnNumber: 23
                                                             }, this)
                                                         ]
                                                     }, u.user_id, true, {
                                                         fileName: "[project]/app/manage/page.tsx",
-                                                        lineNumber: 373,
+                                                        lineNumber: 385,
                                                         columnNumber: 21
                                                     }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                                     className: "jsx-21e72d2f241fbad9",
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                         colSpan: 5,
-                                                        className: "jsx-21e72d2f241fbad9" + " " + "px-6 py-10 text-center text-sm text-gray-500 dark:text-gray-400",
+                                                        className: "jsx-21e72d2f241fbad9" + " " + "px-6 py-10 text-center text-sm text-muted-foreground",
                                                         children: "No unassigned profiles found."
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/manage/page.tsx",
-                                                        lineNumber: 386,
+                                                        lineNumber: 398,
                                                         columnNumber: 28
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/manage/page.tsx",
-                                                    lineNumber: 386,
+                                                    lineNumber: 398,
                                                     columnNumber: 24
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/page.tsx",
-                                                lineNumber: 371,
+                                                lineNumber: 383,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/manage/page.tsx",
-                                        lineNumber: 361,
+                                        lineNumber: 373,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/manage/page.tsx",
-                                    lineNumber: 360,
+                                    lineNumber: 372,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/manage/page.tsx",
-                            lineNumber: 350,
+                            lineNumber: 362,
                             columnNumber: 12
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/manage/page.tsx",
-                        lineNumber: 349,
+                        lineNumber: 361,
                         columnNumber: 9
                     }, this)
                 ]
@@ -1855,17 +1853,17 @@ function ManagePage() {
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             onClick: ()=>setModalOpen(false),
-                            className: "jsx-21e72d2f241fbad9" + " " + "fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+                            className: "jsx-21e72d2f241fbad9" + " " + "fixed inset-0 bg-background/80 backdrop-blur-sm transition-opacity"
                         }, void 0, false, {
                             fileName: "[project]/app/manage/page.tsx",
-                            lineNumber: 399,
+                            lineNumber: 411,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "jsx-21e72d2f241fbad9" + " " + "relative inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full",
+                            className: "jsx-21e72d2f241fbad9" + " " + "relative inline-block align-bottom bg-card rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full border border-border",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "jsx-21e72d2f241fbad9" + " " + "bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4",
+                                    className: "jsx-21e72d2f241fbad9" + " " + "bg-card px-4 pt-5 pb-4 sm:p-6 sm:pb-4",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "jsx-21e72d2f241fbad9" + " " + "sm:flex sm:items-start mb-4",
@@ -1874,17 +1872,17 @@ function ManagePage() {
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
                                                         id: "modal-title",
-                                                        className: "jsx-21e72d2f241fbad9" + " " + "text-lg leading-6 font-medium text-gray-900 dark:text-white",
+                                                        className: "jsx-21e72d2f241fbad9" + " " + "text-lg leading-6 font-medium text-foreground",
                                                         children: getModalTitle()
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/manage/page.tsx",
-                                                        lineNumber: 404,
+                                                        lineNumber: 416,
                                                         columnNumber: 21
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                         className: "jsx-21e72d2f241fbad9" + " " + "mt-2",
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                            className: "jsx-21e72d2f241fbad9" + " " + "text-sm text-gray-500 dark:text-gray-400",
+                                                            className: "jsx-21e72d2f241fbad9" + " " + "text-sm text-muted-foreground",
                                                             children: [
                                                                 "Assigning ",
                                                                 selectedIds.size,
@@ -1892,23 +1890,23 @@ function ManagePage() {
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 407,
+                                                            lineNumber: 419,
                                                             columnNumber: 43
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/manage/page.tsx",
-                                                        lineNumber: 407,
+                                                        lineNumber: 419,
                                                         columnNumber: 21
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/manage/page.tsx",
-                                                lineNumber: 403,
+                                                lineNumber: 415,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/page.tsx",
-                                            lineNumber: 402,
+                                            lineNumber: 414,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1918,17 +1916,17 @@ function ManagePage() {
                                                     className: "jsx-21e72d2f241fbad9",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                            className: "jsx-21e72d2f241fbad9" + " " + "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
+                                                            className: "jsx-21e72d2f241fbad9" + " " + "block text-sm font-medium text-foreground mb-1",
                                                             children: "Company"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 412,
+                                                            lineNumber: 424,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                                             value: targetCompanyId,
                                                             onChange: (e)=>setTargetCompanyId(e.target.value),
-                                                            className: "jsx-21e72d2f241fbad9" + " " + "block w-full pl-3 pr-10 py-2 text-base border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md",
+                                                            className: "jsx-21e72d2f241fbad9" + " " + "input-base",
                                                             children: [
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                     value: "",
@@ -1936,7 +1934,7 @@ function ManagePage() {
                                                                     children: "-- No Change --"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 414,
+                                                                    lineNumber: 426,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 companies.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1945,36 +1943,36 @@ function ManagePage() {
                                                                         children: c.company_name
                                                                     }, c.id, false, {
                                                                         fileName: "[project]/app/manage/page.tsx",
-                                                                        lineNumber: 415,
+                                                                        lineNumber: 427,
                                                                         columnNumber: 43
                                                                     }, this))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 413,
+                                                            lineNumber: 425,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/manage/page.tsx",
-                                                    lineNumber: 411,
+                                                    lineNumber: 423,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     className: "jsx-21e72d2f241fbad9",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                            className: "jsx-21e72d2f241fbad9" + " " + "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
+                                                            className: "jsx-21e72d2f241fbad9" + " " + "block text-sm font-medium text-foreground mb-1",
                                                             children: "Role"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 419,
+                                                            lineNumber: 431,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                                             value: targetRoleId,
                                                             onChange: (e)=>handleRoleChange(e.target.value),
-                                                            className: "jsx-21e72d2f241fbad9" + " " + "block w-full pl-3 pr-10 py-2 text-base border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md",
+                                                            className: "jsx-21e72d2f241fbad9" + " " + "input-base",
                                                             children: [
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                     value: "",
@@ -1982,7 +1980,7 @@ function ManagePage() {
                                                                     children: "-- No Change --"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/manage/page.tsx",
-                                                                    lineNumber: 421,
+                                                                    lineNumber: 433,
                                                                     columnNumber: 23
                                                                 }, this),
                                                                 availableRoles.map((r)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1996,86 +1994,86 @@ function ManagePage() {
                                                                         ]
                                                                     }, r.id, true, {
                                                                         fileName: "[project]/app/manage/page.tsx",
-                                                                        lineNumber: 422,
+                                                                        lineNumber: 434,
                                                                         columnNumber: 48
                                                                     }, this))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 420,
+                                                            lineNumber: 432,
                                                             columnNumber: 21
                                                         }, this),
                                                         targetCompanyId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                            className: "jsx-21e72d2f241fbad9" + " " + "mt-1 text-xs text-gray-500",
+                                                            className: "jsx-21e72d2f241fbad9" + " " + "mt-1 text-xs text-muted-foreground",
                                                             children: "Showing only roles available for this company (and global roles)."
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/manage/page.tsx",
-                                                            lineNumber: 424,
+                                                            lineNumber: 436,
                                                             columnNumber: 41
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/manage/page.tsx",
-                                                    lineNumber: 418,
+                                                    lineNumber: 430,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/manage/page.tsx",
-                                            lineNumber: 410,
+                                            lineNumber: 422,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/page.tsx",
-                                    lineNumber: 401,
+                                    lineNumber: 413,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "jsx-21e72d2f241fbad9" + " " + "bg-gray-50 dark:bg-gray-700/30 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse",
+                                    className: "jsx-21e72d2f241fbad9" + " " + "bg-muted/30 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse border-t border-border",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             type: "button",
                                             disabled: isSubmitting,
                                             onClick: handleSubmitAssignment,
-                                            className: "jsx-21e72d2f241fbad9" + " " + "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50",
+                                            className: "jsx-21e72d2f241fbad9" + " " + "w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary text-base font-medium text-primary-foreground hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50",
                                             children: isSubmitting ? 'Saving...' : 'Save Assignments'
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/page.tsx",
-                                            lineNumber: 429,
+                                            lineNumber: 441,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             type: "button",
                                             onClick: ()=>setModalOpen(false),
-                                            className: "jsx-21e72d2f241fbad9" + " " + "mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 dark:border-gray-600 shadow-sm px-4 py-2 bg-white dark:bg-gray-800 text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm",
+                                            className: "jsx-21e72d2f241fbad9" + " " + "mt-3 w-full inline-flex justify-center rounded-md border border-input shadow-sm px-4 py-2 bg-background text-base font-medium text-foreground hover:bg-accent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm",
                                             children: "Cancel"
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/page.tsx",
-                                            lineNumber: 430,
+                                            lineNumber: 442,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/page.tsx",
-                                    lineNumber: 428,
+                                    lineNumber: 440,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/manage/page.tsx",
-                            lineNumber: 400,
+                            lineNumber: 412,
                             columnNumber: 13
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/manage/page.tsx",
-                    lineNumber: 398,
+                    lineNumber: 410,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/manage/page.tsx",
-                lineNumber: 397,
+                lineNumber: 409,
                 columnNumber: 9
             }, this)
         ]

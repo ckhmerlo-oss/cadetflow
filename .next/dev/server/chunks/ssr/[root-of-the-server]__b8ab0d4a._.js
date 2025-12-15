@@ -71,7 +71,7 @@ async function ActionItemsPage() {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["redirect"])('/login');
-    // 1. Fetch Profile with Group ID
+    // 1. Fetch Profile
     const { data: viewerProfile } = await supabase.from('profiles').select(`
         role:role_id (
             default_role_level, 
@@ -80,29 +80,28 @@ async function ActionItemsPage() {
     `).eq('id', user.id).single();
     const roleData = viewerProfile?.role;
     const viewerRoleLevel = roleData?.default_role_level || 0;
-    const viewerGroupId = roleData?.approval_group?.id || null; // <--- Captured ID
-    // LOGIC: Only TACs (65-89) see incidents. Admins (90+) do NOT see pending incidents.
+    const viewerGroupId = roleData?.approval_group?.id || null;
     const isTac = viewerRoleLevel >= 65 && viewerRoleLevel < 90;
+    // 2. Fetch Reports
     const { data: rpcData, error } = await supabase.rpc('get_my_dashboard_reports');
     if (error) console.error("Error fetching reports:", error.message);
     let allInvolvedReports = rpcData || [];
-    // 2. Fetch Incidents (TACs Only)
+    // 3. Fetch Incidents (TACs Only)
     let incidents = [];
     if (isTac) {
         incidents = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$incidents$2f$actions$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getIncidents"])('pending');
     }
+    // 4. Fetch Appeals & Logs Data
     const allReportIds = allInvolvedReports.map((r)=>r.id);
     let appealsMap = {};
-    if (allReportIds.length > 0) {
-        const { data: appealsData } = await supabase.from('appeals').select('id, report_id, status, justification, issuer_comment, chain_comment, current_assignee_id').in('report_id', allReportIds);
-        if (appealsData) {
-            appealsData.forEach((app)=>{
-                appealsMap[app.report_id] = app;
-            });
-        }
-    }
     let logsMap = {};
     if (allReportIds.length > 0) {
+        // Appeals
+        const { data: appealsData } = await supabase.from('appeals').select('id, report_id, status, justification, issuer_comment, chain_comment, current_assignee_id').in('report_id', allReportIds);
+        if (appealsData) appealsData.forEach((app)=>{
+            appealsMap[app.report_id] = app;
+        });
+        // Logs
         const { data: logsData } = await supabase.from('approval_log').select('report_id, action, comment, created_at, actor:actor_id(first_name, last_name)').in('report_id', allReportIds).order('created_at', {
             ascending: false
         });
@@ -120,20 +119,19 @@ async function ActionItemsPage() {
         }
     }
     const finalItems = [];
-    // 3. Process Reports with Strict Filtering
+    // 5. Process & Filter Logic
     allInvolvedReports.forEach((report)=>{
         let include = false;
         if (report.status === 'pulled') return;
-        // A. Approvals: Strict Group Matching
+        // Filter A: Standard Approval
         if (report.status === 'pending_approval' && report.current_approver_group_id !== null) {
-            // You must be in the assigned group AND not be the submitter
             if (report.current_approver_group_id === viewerGroupId && report.submitted_by !== user.id) {
                 include = true;
             }
         }
-        // B. Revisions: Submitter Only
+        // Filter B: Revisions
         if (report.status === 'needs_revision' && report.submitted_by === user.id) include = true;
-        // C. Appeals: Logic based on role/assignee
+        // Filter C: Appeals
         const appealData = appealsMap[report.id];
         const appealStatus = report.appeal_status || appealData?.status;
         if (appealStatus) {
@@ -182,7 +180,7 @@ async function ActionItemsPage() {
             });
         }
     });
-    // 4. Add Incidents
+    // 6. Add Incidents
     incidents.forEach((inc)=>{
         finalItems.push({
             id: inc.id,
@@ -209,38 +207,40 @@ async function ActionItemsPage() {
         });
     });
     finalItems.sort((a, b)=>new Date(b.created_at).getTime() - new Date(a.created_at).getTime());
-    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "max-w-7xl mx-auto p-4 sm:p-6 lg:p-8",
+    // --- UI RENDER ---
+    return(// Added 'animate-in' for smooth transition and standard padding
+    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 animate-in fade-in duration-500",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "flex justify-between items-center mb-6",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                            className: "text-3xl font-bold text-gray-900 dark:text-white",
+                            className: "text-3xl font-bold tracking-tight text-primary mb-2",
                             children: "Action Items"
                         }, void 0, false, {
                             fileName: "[project]/app/action-items/page.tsx",
-                            lineNumber: 192,
+                            lineNumber: 191,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                            className: "mt-1 text-sm text-gray-500 dark:text-gray-400",
+                            className: "text-sm text-muted-foreground",
                             children: "Reports and Incidents requiring your immediate attention."
                         }, void 0, false, {
                             fileName: "[project]/app/action-items/page.tsx",
-                            lineNumber: 193,
+                            lineNumber: 196,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/action-items/page.tsx",
-                    lineNumber: 191,
+                    lineNumber: 189,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/action-items/page.tsx",
-                lineNumber: 190,
+                lineNumber: 188,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$action$2d$items$2f$ActionItemsClient$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
@@ -248,15 +248,15 @@ async function ActionItemsPage() {
                 currentUserId: user.id
             }, void 0, false, {
                 fileName: "[project]/app/action-items/page.tsx",
-                lineNumber: 198,
+                lineNumber: 203,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/action-items/page.tsx",
-        lineNumber: 189,
+        lineNumber: 187,
         columnNumber: 5
-    }, this);
+    }, this));
 }
 }),
 "[project]/app/action-items/page.tsx [app-rsc] (ecmascript, Next.js Server Component)", ((__turbopack_context__) => {

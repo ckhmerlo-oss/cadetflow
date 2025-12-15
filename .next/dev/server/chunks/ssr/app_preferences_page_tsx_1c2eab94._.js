@@ -71,7 +71,7 @@ function PreferencesPage() {
         timeOptions.push(`${h}:00`, `${h}:30`);
     }
     if (loading) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "p-8 text-center text-gray-500",
+        className: "p-8 text-center text-muted-foreground",
         children: "Loading settings..."
     }, void 0, false, {
         fileName: "[project]/app/preferences/page.tsx",
@@ -79,7 +79,7 @@ function PreferencesPage() {
         columnNumber: 23
     }, this);
     if (!prefs) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "p-8 text-center text-red-500",
+        className: "p-8 text-center text-destructive",
         children: "Error loading preferences."
     }, void 0, false, {
         fileName: "[project]/app/preferences/page.tsx",
@@ -90,7 +90,7 @@ function PreferencesPage() {
         className: "max-w-3xl mx-auto p-6",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                className: "text-3xl font-bold text-gray-900 dark:text-white mb-2",
+                className: "text-3xl font-bold text-foreground mb-2",
                 children: "Notification Settings"
             }, void 0, false, {
                 fileName: "[project]/app/preferences/page.tsx",
@@ -98,7 +98,7 @@ function PreferencesPage() {
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                className: "text-gray-500 mb-8",
+                className: "text-muted-foreground mb-8",
                 children: "Control what emails you receive and when."
             }, void 0, false, {
                 fileName: "[project]/app/preferences/page.tsx",
@@ -109,10 +109,10 @@ function PreferencesPage() {
                 className: "space-y-8",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-white dark:bg-gray-800 p-6 rounded-lg shadow border dark:border-gray-700 space-y-6",
+                        className: "bg-card p-6 rounded-lg shadow-sm border border-border space-y-6",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                className: "text-lg font-bold text-gray-800 dark:text-gray-200 border-b pb-2 dark:border-gray-700",
+                                className: "text-lg font-bold text-foreground border-b border-border pb-2",
                                 children: "General Alerts"
                             }, void 0, false, {
                                 fileName: "[project]/app/preferences/page.tsx",
@@ -165,10 +165,10 @@ function PreferencesPage() {
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-white dark:bg-gray-800 p-6 rounded-lg shadow border dark:border-gray-700 space-y-6",
+                        className: "bg-card p-6 rounded-lg shadow-sm border border-border space-y-6",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                className: "text-lg font-bold text-gray-800 dark:text-gray-200 border-b pb-2 dark:border-gray-700",
+                                className: "text-lg font-bold text-foreground border-b border-border pb-2",
                                 children: "Digest Schedule"
                             }, void 0, false, {
                                 fileName: "[project]/app/preferences/page.tsx",
@@ -176,7 +176,7 @@ function PreferencesPage() {
                                 columnNumber: 14
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-sm text-gray-500 -mt-4",
+                                className: "text-sm text-muted-foreground -mt-4",
                                 children: 'If you selected "Daily Digest" for any category above, this controls when you receive that email.'
                             }, void 0, false, {
                                 fileName: "[project]/app/preferences/page.tsx",
@@ -190,7 +190,7 @@ function PreferencesPage() {
                                         className: "w-1/2",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
+                                                className: "block text-sm font-medium text-foreground mb-1",
                                                 children: "Frequency"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/preferences/page.tsx",
@@ -203,7 +203,7 @@ function PreferencesPage() {
                                                         ...prefs,
                                                         digest_frequency: e.target.value
                                                     }),
-                                                className: "block w-full rounded-md border-gray-300 dark:bg-gray-900 dark:border-gray-600 p-2",
+                                                className: "input-base",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         value: "daily",
@@ -245,7 +245,7 @@ function PreferencesPage() {
                                         className: "w-1/2",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
+                                                className: "block text-sm font-medium text-foreground mb-1",
                                                 children: "Delivery Time (UTC)"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/preferences/page.tsx",
@@ -258,7 +258,7 @@ function PreferencesPage() {
                                                         ...prefs,
                                                         digest_time: e.target.value
                                                     }),
-                                                className: "block w-full rounded-md border-gray-300 dark:bg-gray-900 dark:border-gray-600 p-2",
+                                                className: "input-base",
                                                 children: timeOptions.map((t)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         value: t,
                                                         children: t
@@ -291,10 +291,10 @@ function PreferencesPage() {
                         columnNumber: 9
                     }, this),
                     coachedSports.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-white dark:bg-gray-800 p-6 rounded-lg shadow border dark:border-gray-700 space-y-4",
+                        className: "bg-card p-6 rounded-lg shadow-sm border border-border space-y-4",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                className: "text-lg font-bold text-gray-800 dark:text-gray-200 border-b pb-2 dark:border-gray-700",
+                                className: "text-lg font-bold text-foreground border-b border-border pb-2",
                                 children: "Coaching Alerts"
                             }, void 0, false, {
                                 fileName: "[project]/app/preferences/page.tsx",
@@ -302,7 +302,7 @@ function PreferencesPage() {
                                 columnNumber: 17
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-sm text-gray-500 -mt-2",
+                                className: "text-sm text-muted-foreground -mt-2",
                                 children: "Enable alerts for specific teams you coach."
                             }, void 0, false, {
                                 fileName: "[project]/app/preferences/page.tsx",
@@ -312,12 +312,12 @@ function PreferencesPage() {
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "grid grid-cols-1 md:grid-cols-2 gap-4",
                                 children: coachedSports.map((sport, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-900/50 rounded-lg border dark:border-gray-600",
+                                        className: "flex items-center justify-between p-3 bg-muted/30 rounded-lg border border-border",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                                        className: "font-bold text-gray-900 dark:text-white",
+                                                        className: "font-bold text-foreground",
                                                         children: sport.sport_name
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/preferences/page.tsx",
@@ -325,7 +325,7 @@ function PreferencesPage() {
                                                         columnNumber: 33
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: "text-xs uppercase text-gray-500",
+                                                        className: "text-xs uppercase text-muted-foreground",
                                                         children: sport.season
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/preferences/page.tsx",
@@ -358,10 +358,10 @@ function PreferencesPage() {
                                                         columnNumber: 33
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "w-11 h-6 bg-gray-200 peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"
+                                                        className: "w-11 h-6 bg-muted peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/preferences/page.tsx",
-                                                        lineNumber: 188,
+                                                        lineNumber: 189,
                                                         columnNumber: 33
                                                     }, this)
                                                 ]
@@ -392,16 +392,16 @@ function PreferencesPage() {
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                             onClick: handleSave,
                             disabled: saving,
-                            className: "px-8 py-3 bg-indigo-600 text-white font-bold rounded-lg hover:bg-indigo-700 disabled:opacity-50 shadow-md transition-transform hover:scale-105",
+                            className: "btn-primary px-8 py-3 font-bold shadow-md transition-transform hover:scale-105",
                             children: saving ? 'Saving...' : 'Save All Preferences'
                         }, void 0, false, {
                             fileName: "[project]/app/preferences/page.tsx",
-                            lineNumber: 198,
+                            lineNumber: 199,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/preferences/page.tsx",
-                        lineNumber: 197,
+                        lineNumber: 198,
                         columnNumber: 9
                     }, this)
                 ]
@@ -425,38 +425,38 @@ function SettingRow({ title, desc, value, onChange }) {
                 className: "mb-2 sm:mb-0 max-w-md",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                        className: "font-medium text-gray-900 dark:text-white",
+                        className: "font-medium text-foreground",
                         children: title
                     }, void 0, false, {
                         fileName: "[project]/app/preferences/page.tsx",
-                        lineNumber: 212,
+                        lineNumber: 217,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                        className: "text-xs text-gray-500",
+                        className: "text-xs text-muted-foreground",
                         children: desc
                     }, void 0, false, {
                         fileName: "[project]/app/preferences/page.tsx",
-                        lineNumber: 213,
+                        lineNumber: 218,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/preferences/page.tsx",
-                lineNumber: 211,
+                lineNumber: 216,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                 value: value,
                 onChange: (e)=>onChange(e.target.value),
-                className: "rounded-md border-gray-300 dark:bg-gray-900 dark:border-gray-600 text-sm p-2 w-full sm:w-auto",
+                className: "input-base w-full sm:w-auto",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                         value: "immediate",
                         children: "Immediate Email"
                     }, void 0, false, {
                         fileName: "[project]/app/preferences/page.tsx",
-                        lineNumber: 220,
+                        lineNumber: 225,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -464,7 +464,7 @@ function SettingRow({ title, desc, value, onChange }) {
                         children: "Digest Summary"
                     }, void 0, false, {
                         fileName: "[project]/app/preferences/page.tsx",
-                        lineNumber: 221,
+                        lineNumber: 226,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -472,19 +472,19 @@ function SettingRow({ title, desc, value, onChange }) {
                         children: "Don't Notify"
                     }, void 0, false, {
                         fileName: "[project]/app/preferences/page.tsx",
-                        lineNumber: 222,
+                        lineNumber: 227,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/preferences/page.tsx",
-                lineNumber: 215,
+                lineNumber: 220,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/preferences/page.tsx",
-        lineNumber: 210,
+        lineNumber: 215,
         columnNumber: 9
     }, this);
 }

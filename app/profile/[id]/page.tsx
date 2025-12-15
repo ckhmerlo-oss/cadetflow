@@ -69,7 +69,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
   if (isSiteAdmin || canManageAll) canEdit = true;
   else if (canManageOwn && profile.company_id && profile.company_id === viewerProfile?.company_id) canEdit = true;
 
-  // *** FIX: Fetch from the correct RPC ***
+  // Fetch Audit Log
   const { data: auditLog } = await supabase
     .rpc('get_cadet_audit_log', { p_cadet_id: profile.id })
 
@@ -77,7 +77,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
     <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
       <ProfileClient 
         profile={fullProfile} 
-        auditLog={auditLog || []} // Pass the audit log instead of 'ledger'
+        auditLog={auditLog || []} 
         canEdit={canEdit} 
         viewerRoleLevel={viewerRole?.default_role_level || 0} 
       />

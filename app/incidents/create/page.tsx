@@ -74,21 +74,21 @@ export default function CreateIncidentPage() {
 
   return (
     <div className="max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
-        <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">Report an Incident</h1>
+      <div className="bg-card p-6 rounded-lg shadow-sm border border-border">
+        <h1 className="text-2xl font-bold text-foreground mb-6">Report an Incident</h1>
         
         <form onSubmit={handleSubmit} className="space-y-6">
             
             {/* 1. WHO */}
             <div>
-                <label className="block text-sm font-bold text-gray-700 dark:text-gray-300 mb-2">Who was involved?</label>
+                <label className="block text-sm font-bold text-foreground mb-2">Who was involved?</label>
                 <div className="flex flex-wrap gap-2 mb-2">
                     {selectedCadets.map(id => {
                         const c = cadets.find(x => x.id === id)
                         return c ? (
-                            <span key={id} className="bg-indigo-100 text-indigo-800 text-sm px-2 py-1 rounded-full flex items-center gap-1">
+                            <span key={id} className="bg-primary/10 text-primary text-sm px-2 py-1 rounded-full flex items-center gap-1 border border-primary/20">
                                 {c.label}
-                                <button type="button" onClick={() => removeCadet(id)} className="hover:text-red-600 font-bold ml-1">×</button>
+                                <button type="button" onClick={() => removeCadet(id)} className="hover:text-destructive font-bold ml-1 transition-colors">×</button>
                             </span>
                         ) : null
                     })}
@@ -105,33 +105,33 @@ export default function CreateIncidentPage() {
             {/* 2. WHEN & WHERE */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Date</label>
-                    <input type="date" required value={formData.date} onChange={e => setFormData({...formData, date: e.target.value})} className="w-full border rounded p-2 dark:bg-gray-900 dark:text-white dark:border-gray-600" />
+                    <label className="block text-sm font-medium text-foreground mb-1">Date</label>
+                    <input type="date" required value={formData.date} onChange={e => setFormData({...formData, date: e.target.value})} className="input-base" />
                 </div>
                 <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Time</label>
-                    <input type="time" required value={formData.time} onChange={e => setFormData({...formData, time: e.target.value})} className="w-full border rounded p-2 dark:bg-gray-900 dark:text-white dark:border-gray-600" />
+                    <label className="block text-sm font-medium text-foreground mb-1">Time</label>
+                    <input type="time" required value={formData.time} onChange={e => setFormData({...formData, time: e.target.value})} className="input-base" />
                 </div>
                 <div className="md:col-span-2">
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Location</label>
-                    <input type="text" required placeholder="e.g. Mess Hall, Science Lab 2" value={formData.location} onChange={e => setFormData({...formData, location: e.target.value})} className="w-full border rounded p-2 dark:bg-gray-900 dark:text-white dark:border-gray-600" />
+                    <label className="block text-sm font-medium text-foreground mb-1">Location</label>
+                    <input type="text" required placeholder="e.g. Mess Hall, Science Lab 2" value={formData.location} onChange={e => setFormData({...formData, location: e.target.value})} className="input-base" />
                 </div>
             </div>
 
             {/* 3. WHAT */}
             <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Description of Event</label>
-                <textarea required rows={4} placeholder="Describe exactly what happened..." value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} className="w-full border rounded p-2 dark:bg-gray-900 dark:text-white dark:border-gray-600" />
+                <label className="block text-sm font-medium text-foreground mb-1">Description of Event</label>
+                <textarea required rows={4} placeholder="Describe exactly what happened..." value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} className="input-base" />
             </div>
 
             {/* 4. ACTION TAKEN */}
             <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Action Taken (Optional)</label>
-                <textarea rows={2} placeholder="Did you correct them on the spot? Assign cleaning?" value={formData.action_taken} onChange={e => setFormData({...formData, action_taken: e.target.value})} className="w-full border rounded p-2 dark:bg-gray-900 dark:text-white dark:border-gray-600" />
+                <label className="block text-sm font-medium text-foreground mb-1">Action Taken (Optional)</label>
+                <textarea rows={2} placeholder="Did you correct them on the spot? Assign cleaning?" value={formData.action_taken} onChange={e => setFormData({...formData, action_taken: e.target.value})} className="input-base" />
             </div>
 
             <div className="flex justify-end pt-4">
-                <button type="submit" disabled={loading} className="bg-indigo-600 text-white px-6 py-2 rounded shadow font-bold hover:bg-indigo-700 disabled:opacity-50">
+                <button type="submit" disabled={loading} className="btn-primary font-bold">
                     {loading ? 'Submitting...' : 'Submit Incident'}
                 </button>
             </div>

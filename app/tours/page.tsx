@@ -43,8 +43,8 @@ export default async function TourLogsPage() {
       {/* HEADER */}
       <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Tour Ledger</h1>
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+          <h1 className="text-3xl font-bold text-primary">Tour Ledger</h1>
+          <p className="mt-1 text-sm text-muted-foreground">
             Daily record of tour assignments and reductions.
           </p>
         </div>
@@ -52,19 +52,18 @@ export default async function TourLogsPage() {
         {/* UPDATED BACK BUTTON */}
         <Link 
             href="/reports/daily" // This goes back to Roster
-            className="px-4 py-2 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-700 rounded-md text-sm font-medium text-gray-700 dark:text-gray-200 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center gap-2"
+            className="px-4 py-2 bg-card border border-input rounded-md text-sm font-medium text-foreground hover:bg-accent transition-colors flex items-center gap-2"
         >
             <span>&larr;</span> Back to Tour Sheet
         </Link>
       </div>
 
       {/* LOGS LIST */}
-      {/* LOGS LIST */}
       <div className="space-y-8">
           {Object.keys(groupedLogs).length > 0 ? Object.entries(groupedLogs).map(([date, dayLogs]) => (
               <div key={date} className="space-y-3">
-                  <div className="sticky top-0 z-10 bg-gray-50/95 dark:bg-gray-900/95 backdrop-blur py-2 border-b border-gray-200 dark:border-gray-700">
-                      <h2 className="text-lg font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide">
+                  <div className="sticky top-0 z-10 bg-background/95 backdrop-blur py-2 border-b border-border">
+                      <h2 className="text-lg font-bold text-muted-foreground uppercase tracking-wide">
                           {date}
                       </h2>
                   </div>
@@ -73,24 +72,24 @@ export default async function TourLogsPage() {
                       {dayLogs.map(log => {
                           const isReduction = log.amount < 0;
                           return (
-                              <div key={log.id} className="bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 p-4 flex flex-col justify-between transition-colors">
+                              <div key={log.id} className="bg-card rounded-lg shadow-sm border border-border p-4 flex flex-col justify-between transition-colors">
                                   
                                   {/* Top Row: Name & Badge */}
                                   <div className="flex justify-between items-start mb-3">
                                       <div>
-                                          <span className="block text-xs font-bold text-gray-500 uppercase">Cadet</span>
+                                          <span className="block text-xs font-bold text-muted-foreground uppercase">Cadet</span>
                                           {/* LINK TO LEDGER */}
                                           <Link 
                                             href={`/ledger/${log.cadet_id}`}
-                                            className="text-base font-bold text-indigo-600 dark:text-indigo-400 hover:underline line-clamp-1"
+                                            className="text-base font-bold text-primary hover:underline line-clamp-1"
                                           >
                                               {formatName(log.cadet)}
                                           </Link>
                                       </div>
                                       <span className={`px-2 py-1 rounded text-xs font-bold ${
                                           isReduction 
-                                          ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200' 
-                                          : 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200'
+                                          ? 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-200' 
+                                          : 'bg-destructive/10 text-destructive'
                                       }`}>
                                           {log.amount > 0 ? `+${log.amount}` : log.amount}
                                       </span>
@@ -98,14 +97,14 @@ export default async function TourLogsPage() {
 
                                   {/* Middle: Notes */}
                                   <div className="flex-grow mb-4">
-                                      <span className="block text-xs font-bold text-gray-400 uppercase mb-1">Notes</span>
-                                      <p className="text-sm text-gray-700 dark:text-gray-300 bg-gray-50 dark:bg-gray-900/50 p-2 rounded border border-gray-100 dark:border-gray-700 min-h-[3rem]">
-                                          {log.comment || <span className="italic text-gray-400">No notes provided.</span>}
+                                      <span className="block text-xs font-bold text-muted-foreground uppercase mb-1">Notes</span>
+                                      <p className="text-sm text-foreground bg-muted/50 p-2 rounded border border-border min-h-[3rem]">
+                                          {log.comment || <span className="italic text-muted-foreground">No notes provided.</span>}
                                       </p>
                                   </div>
 
                                   {/* Bottom: Staff & Time */}
-                                  <div className="pt-3 border-t border-gray-100 dark:border-gray-700 flex justify-between items-center text-xs text-gray-500">
+                                  <div className="pt-3 border-t border-border flex justify-between items-center text-xs text-muted-foreground">
                                       <div>
                                           <span className="font-bold mr-1">Logged By:</span>
                                           {formatName(log.staff)}
@@ -120,8 +119,8 @@ export default async function TourLogsPage() {
                   </div>
               </div>
           )) : (
-              <div className="text-center py-12 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700">
-                  <p className="text-gray-500">No tour logs found.</p>
+              <div className="text-center py-12 bg-card rounded-lg border border-border">
+                  <p className="text-muted-foreground">No tour logs found.</p>
               </div>
           )}
       </div>

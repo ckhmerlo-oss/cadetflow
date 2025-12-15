@@ -91,19 +91,19 @@ export default function PreferencesPage() {
       timeOptions.push(`${h}:00`, `${h}:30`)
   }
 
-  if (loading) return <div className="p-8 text-center text-gray-500">Loading settings...</div>
-  if (!prefs) return <div className="p-8 text-center text-red-500">Error loading preferences.</div>
+  if (loading) return <div className="p-8 text-center text-muted-foreground">Loading settings...</div>
+  if (!prefs) return <div className="p-8 text-center text-destructive">Error loading preferences.</div>
 
   return (
     <div className="max-w-3xl mx-auto p-6">
-      <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Notification Settings</h1>
-      <p className="text-gray-500 mb-8">Control what emails you receive and when.</p>
+      <h1 className="text-3xl font-bold text-foreground mb-2">Notification Settings</h1>
+      <p className="text-muted-foreground mb-8">Control what emails you receive and when.</p>
 
       <div className="space-y-8">
         
         {/* --- SECTION 1: GLOBAL SETTINGS --- */}
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow border dark:border-gray-700 space-y-6">
-            <h2 className="text-lg font-bold text-gray-800 dark:text-gray-200 border-b pb-2 dark:border-gray-700">General Alerts</h2>
+        <div className="bg-card p-6 rounded-lg shadow-sm border border-border space-y-6">
+            <h2 className="text-lg font-bold text-foreground border-b border-border pb-2">General Alerts</h2>
             
             <SettingRow 
                 title="New Reports" 
@@ -126,19 +126,19 @@ export default function PreferencesPage() {
         </div>
 
         {/* --- SECTION 2: DIGEST SCHEDULE --- */}
-        <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow border dark:border-gray-700 space-y-6">
-             <h2 className="text-lg font-bold text-gray-800 dark:text-gray-200 border-b pb-2 dark:border-gray-700">Digest Schedule</h2>
-             <p className="text-sm text-gray-500 -mt-4">
+        <div className="bg-card p-6 rounded-lg shadow-sm border border-border space-y-6">
+             <h2 className="text-lg font-bold text-foreground border-b border-border pb-2">Digest Schedule</h2>
+             <p className="text-sm text-muted-foreground -mt-4">
                  If you selected "Daily Digest" for any category above, this controls when you receive that email.
              </p>
 
              <div className="flex gap-4">
                 <div className="w-1/2">
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Frequency</label>
+                    <label className="block text-sm font-medium text-foreground mb-1">Frequency</label>
                     <select 
                         value={prefs.digest_frequency}
                         onChange={(e) => setPrefs({ ...prefs, digest_frequency: e.target.value as any })}
-                        className="block w-full rounded-md border-gray-300 dark:bg-gray-900 dark:border-gray-600 p-2"
+                        className="input-base"
                     >
                         <option value="daily">Daily</option>
                         <option value="hourly">Hourly</option>
@@ -148,11 +148,11 @@ export default function PreferencesPage() {
                 
                 {prefs.digest_frequency === 'daily' && (
                     <div className="w-1/2">
-                        <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Delivery Time (UTC)</label>
+                        <label className="block text-sm font-medium text-foreground mb-1">Delivery Time (UTC)</label>
                         <select 
                             value={prefs.digest_time}
                             onChange={(e) => setPrefs({ ...prefs, digest_time: e.target.value })}
-                            className="block w-full rounded-md border-gray-300 dark:bg-gray-900 dark:border-gray-600 p-2"
+                            className="input-base"
                         >
                             {timeOptions.map(t => <option key={t} value={t}>{t}</option>)}
                         </select>
@@ -163,16 +163,16 @@ export default function PreferencesPage() {
 
         {/* --- SECTION 3: COACHING ALERTS --- */}
         {coachedSports.length > 0 && (
-            <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow border dark:border-gray-700 space-y-4">
-                <h2 className="text-lg font-bold text-gray-800 dark:text-gray-200 border-b pb-2 dark:border-gray-700">Coaching Alerts</h2>
-                <p className="text-sm text-gray-500 -mt-2">Enable alerts for specific teams you coach.</p>
+            <div className="bg-card p-6 rounded-lg shadow-sm border border-border space-y-4">
+                <h2 className="text-lg font-bold text-foreground border-b border-border pb-2">Coaching Alerts</h2>
+                <p className="text-sm text-muted-foreground -mt-2">Enable alerts for specific teams you coach.</p>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {coachedSports.map((sport, idx) => (
-                        <div key={sport.id} className="flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-900/50 rounded-lg border dark:border-gray-600">
+                        <div key={sport.id} className="flex items-center justify-between p-3 bg-muted/30 rounded-lg border border-border">
                             <div>
-                                <h4 className="font-bold text-gray-900 dark:text-white">{sport.sport_name}</h4>
-                                <span className="text-xs uppercase text-gray-500">{sport.season}</span>
+                                <h4 className="font-bold text-foreground">{sport.sport_name}</h4>
+                                <span className="text-xs uppercase text-muted-foreground">{sport.season}</span>
                             </div>
                             <label className="relative inline-flex items-center cursor-pointer">
                                 <input 
@@ -185,7 +185,8 @@ export default function PreferencesPage() {
                                     }} 
                                     className="sr-only peer" 
                                 />
-                                <div className="w-11 h-6 bg-gray-200 peer-focus:ring-4 peer-focus:ring-indigo-300 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-indigo-600"></div>
+                                {/* Toggle Switch updated to use Primary/Muted colors */}
+                                <div className="w-11 h-6 bg-muted peer-focus:ring-4 peer-focus:ring-primary/20 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-border after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
                             </label>
                         </div>
                     ))}
@@ -195,7 +196,11 @@ export default function PreferencesPage() {
 
         {/* --- SAVE BAR --- */}
         <div className="flex justify-end pt-4">
-            <button onClick={handleSave} disabled={saving} className="px-8 py-3 bg-indigo-600 text-white font-bold rounded-lg hover:bg-indigo-700 disabled:opacity-50 shadow-md transition-transform hover:scale-105">
+            <button 
+                onClick={handleSave} 
+                disabled={saving} 
+                className="btn-primary px-8 py-3 font-bold shadow-md transition-transform hover:scale-105"
+            >
                 {saving ? 'Saving...' : 'Save All Preferences'}
             </button>
         </div>
@@ -209,13 +214,13 @@ function SettingRow({ title, desc, value, onChange }: { title: string, desc: str
     return (
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
             <div className="mb-2 sm:mb-0 max-w-md">
-                <h3 className="font-medium text-gray-900 dark:text-white">{title}</h3>
-                <p className="text-xs text-gray-500">{desc}</p>
+                <h3 className="font-medium text-foreground">{title}</h3>
+                <p className="text-xs text-muted-foreground">{desc}</p>
             </div>
             <select 
                 value={value}
                 onChange={(e) => onChange(e.target.value)}
-                className="rounded-md border-gray-300 dark:bg-gray-900 dark:border-gray-600 text-sm p-2 w-full sm:w-auto"
+                className="input-base w-full sm:w-auto"
             >
                 <option value="immediate">Immediate Email</option>
                 <option value="digest">Digest Summary</option>

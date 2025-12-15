@@ -54,14 +54,14 @@ export default async function RolesConfigurationPage() {
   return (
     <div className="max-w-[95vw] mx-auto p-6">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Chain of Command Configuration</h1>
-        <p className="text-gray-500 dark:text-gray-400 mt-1">
+        <h1 className="text-3xl font-bold text-primary">Chain of Command Configuration</h1>
+        <p className="text-muted-foreground mt-1">
           Select a company to visualize and edit its specific approval flow.
         </p>
       </div>
       
       {filteredCompanies.length === 0 ? (
-          <div className="p-8 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-300 dark:border-yellow-800 rounded-lg">
+          <div className="p-8 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
               <h2 className="text-lg font-medium text-yellow-800 dark:text-yellow-200">No Companies Available</h2>
               <p className="text-sm text-yellow-700 dark:text-yellow-300">
                   Your current role does not grant permission to configure any company's approval chain.

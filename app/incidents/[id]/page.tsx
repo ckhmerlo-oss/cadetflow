@@ -23,14 +23,12 @@ export default async function IncidentDetailPage({ params }: { params: Promise<{
   if (!isReporter && !isStaff) return notFound()
 
   // 3. Fetch Data for Actions (Only if Staff & Pending)
-  // FIX: Explicit typing to prevent "implicitly any" errors
   let facultyList: {id: string, label: string}[] = [] 
   let offenseTypes: any[] = []
   
   if (roleLevel >= 65 && incident.status === 'pending') {
       facultyList = await getFacultyList()
       
-      // FIX: Ensure 'demerits' is selected
       const { data: offenses } = await supabase
         .from('offense_types')
         .select('id, offense_name, demerits, offense_group') 
@@ -44,7 +42,6 @@ export default async function IncidentDetailPage({ params }: { params: Promise<{
       incident={incident}
       userRoleLevel={roleLevel}
       facultyList={facultyList}
-      // FIX: Ensure demerits property is passed through spread
       offenseTypes={offenseTypes.map(o => ({
           ...o, 
           label: o.offense_name, 

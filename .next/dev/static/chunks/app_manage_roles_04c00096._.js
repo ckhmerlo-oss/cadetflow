@@ -43,15 +43,15 @@ function GroupNode({ node, onDelete, onAddParent, onAddSubordinate }) {
     const isFinal = node.is_final_authority;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: `
-      relative w-64 p-4 rounded-lg border-2 shadow-md transition-all hover:shadow-lg bg-white dark:bg-gray-800 group
-      ${isFinal ? 'border-yellow-500 dark:border-yellow-500 ring-2 ring-yellow-100 dark:ring-yellow-900/30' : 'border-gray-200 dark:border-gray-700'}
+      relative w-64 p-4 rounded-lg border-2 shadow-md transition-all hover:shadow-lg bg-card group
+      ${isFinal ? 'border-yellow-500 ring-2 ring-yellow-100 dark:ring-yellow-900/30' : 'border-border'}
     `,
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "flex justify-between items-start mb-2",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                        className: "font-bold text-gray-900 dark:text-white text-sm leading-tight",
+                        className: "font-bold text-foreground text-sm leading-tight",
                         children: node.group_name
                     }, void 0, false, {
                         fileName: "[project]/app/manage/roles/components/GroupNode.tsx",
@@ -60,7 +60,7 @@ function GroupNode({ node, onDelete, onAddParent, onAddSubordinate }) {
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         onClick: onDelete,
-                        className: "text-gray-400 hover:text-red-600 transition-colors opacity-0 group-hover:opacity-100",
+                        className: "text-muted-foreground hover:text-destructive transition-colors opacity-0 group-hover:opacity-100",
                         title: "Delete Group",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                             className: "w-4 h-4",
@@ -94,7 +94,7 @@ function GroupNode({ node, onDelete, onAddParent, onAddSubordinate }) {
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "text-xs text-gray-500 dark:text-gray-400 flex gap-2",
+                className: "text-xs text-muted-foreground flex gap-2",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                         children: [
@@ -107,7 +107,7 @@ function GroupNode({ node, onDelete, onAddParent, onAddSubordinate }) {
                         columnNumber: 9
                     }, this),
                     isFinal && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                        className: "text-yellow-600 font-semibold ml-auto",
+                        className: "text-yellow-600 dark:text-yellow-500 font-semibold ml-auto",
                         children: "Final Authority"
                     }, void 0, false, {
                         fileName: "[project]/app/manage/roles/components/GroupNode.tsx",
@@ -124,7 +124,7 @@ function GroupNode({ node, onDelete, onAddParent, onAddSubordinate }) {
                 className: "absolute -right-4 top-1/2 -translate-y-1/2 z-20",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                     onClick: onAddParent,
-                    className: "flex items-center justify-center w-8 h-8 bg-indigo-600 text-white rounded-full shadow-sm hover:bg-indigo-700 hover:scale-110 transition-all border-2 border-white dark:border-gray-800",
+                    className: "flex items-center justify-center w-8 h-8 bg-primary text-primary-foreground rounded-full shadow-sm hover:bg-primary/90 hover:scale-110 transition-all border-2 border-background",
                     title: "Add Next Approver (Parent)",
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                         className: "w-4 h-4",
@@ -160,7 +160,7 @@ function GroupNode({ node, onDelete, onAddParent, onAddSubordinate }) {
                 className: "absolute -left-4 top-1/2 -translate-y-1/2 z-20",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                     onClick: onAddSubordinate,
-                    className: "flex items-center justify-center w-8 h-8 bg-white dark:bg-gray-700 text-indigo-600 dark:text-indigo-300 rounded-full shadow-sm hover:bg-gray-50 dark:hover:bg-gray-600 hover:scale-110 transition-all border-2 border-indigo-200 dark:border-indigo-700",
+                    className: "flex items-center justify-center w-8 h-8 bg-card text-primary rounded-full shadow-sm hover:bg-accent hover:scale-110 transition-all border-2 border-primary",
                     title: "Add Feeder Group (Child)",
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                         className: "w-4 h-4",
@@ -336,12 +336,12 @@ function AddGroupModal({ isOpen, onClose, companyId, referenceGroupId, mode, onS
     };
     if (!isOpen) return null;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm",
+        className: "fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl w-96 border dark:border-gray-700",
+            className: "bg-card p-6 rounded-lg shadow-xl w-96 border border-border",
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                    className: "text-lg font-bold mb-2 text-gray-900 dark:text-white",
+                    className: "text-lg font-bold mb-2 text-foreground",
                     children: getTitle()
                 }, void 0, false, {
                     fileName: "[project]/app/manage/roles/components/AddGroupModal.tsx",
@@ -349,7 +349,7 @@ function AddGroupModal({ isOpen, onClose, companyId, referenceGroupId, mode, onS
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                    className: "text-sm text-gray-500 mb-4",
+                    className: "text-sm text-muted-foreground mb-4",
                     children: getDescription()
                 }, void 0, false, {
                     fileName: "[project]/app/manage/roles/components/AddGroupModal.tsx",
@@ -357,12 +357,12 @@ function AddGroupModal({ isOpen, onClose, companyId, referenceGroupId, mode, onS
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "flex border-b dark:border-gray-700 mb-4",
+                    className: "flex border-b border-border mb-4",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                             type: "button",
                             onClick: ()=>setTab('new'),
-                            className: `flex-1 pb-2 text-sm font-medium ${tab === 'new' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-gray-500'}`,
+                            className: `flex-1 pb-2 text-sm font-medium transition-colors ${tab === 'new' ? 'text-primary border-b-2 border-primary' : 'text-muted-foreground hover:text-foreground'}`,
                             children: "Create New"
                         }, void 0, false, {
                             fileName: "[project]/app/manage/roles/components/AddGroupModal.tsx",
@@ -372,7 +372,7 @@ function AddGroupModal({ isOpen, onClose, companyId, referenceGroupId, mode, onS
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                             type: "button",
                             onClick: ()=>setTab('existing'),
-                            className: `flex-1 pb-2 text-sm font-medium ${tab === 'existing' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-gray-500'}`,
+                            className: `flex-1 pb-2 text-sm font-medium transition-colors ${tab === 'existing' ? 'text-primary border-b-2 border-primary' : 'text-muted-foreground hover:text-foreground'}`,
                             children: "Select Existing"
                         }, void 0, false, {
                             fileName: "[project]/app/manage/roles/components/AddGroupModal.tsx",
@@ -392,7 +392,7 @@ function AddGroupModal({ isOpen, onClose, companyId, referenceGroupId, mode, onS
                             className: "mb-4",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
+                                    className: "block text-sm font-medium text-foreground mb-1",
                                     children: "Group Name"
                                 }, void 0, false, {
                                     fileName: "[project]/app/manage/roles/components/AddGroupModal.tsx",
@@ -404,7 +404,7 @@ function AddGroupModal({ isOpen, onClose, companyId, referenceGroupId, mode, onS
                                     value: name,
                                     onChange: (e)=>setName(e.target.value),
                                     placeholder: mode === 'genesis' ? "e.g. Squad Leaders" : "e.g. Commandant",
-                                    className: "w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white p-2",
+                                    className: "w-full rounded-md border-input bg-background text-foreground p-2 border",
                                     autoFocus: true
                                 }, void 0, false, {
                                     fileName: "[project]/app/manage/roles/components/AddGroupModal.tsx",
@@ -420,7 +420,7 @@ function AddGroupModal({ isOpen, onClose, companyId, referenceGroupId, mode, onS
                             className: "mb-4",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                    className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
+                                    className: "block text-sm font-medium text-foreground mb-1",
                                     children: "Select Group"
                                 }, void 0, false, {
                                     fileName: "[project]/app/manage/roles/components/AddGroupModal.tsx",
@@ -430,7 +430,7 @@ function AddGroupModal({ isOpen, onClose, companyId, referenceGroupId, mode, onS
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                     value: selectedGroupId,
                                     onChange: (e)=>setSelectedGroupId(e.target.value),
-                                    className: "w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white p-2",
+                                    className: "w-full rounded-md border-input bg-background text-foreground p-2 border",
                                     disabled: loadingOptions,
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -456,7 +456,7 @@ function AddGroupModal({ isOpen, onClose, companyId, referenceGroupId, mode, onS
                                     columnNumber: 17
                                 }, this),
                                 loadingOptions && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    className: "text-xs text-gray-500 mt-1",
+                                    className: "text-xs text-muted-foreground mt-1",
                                     children: "Loading list..."
                                 }, void 0, false, {
                                     fileName: "[project]/app/manage/roles/components/AddGroupModal.tsx",
@@ -475,7 +475,7 @@ function AddGroupModal({ isOpen, onClose, companyId, referenceGroupId, mode, onS
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     type: "button",
                                     onClick: onClose,
-                                    className: "px-3 py-1.5 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded",
+                                    className: "px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent rounded transition-colors",
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/app/manage/roles/components/AddGroupModal.tsx",
@@ -485,7 +485,7 @@ function AddGroupModal({ isOpen, onClose, companyId, referenceGroupId, mode, onS
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     type: "submit",
                                     disabled: isSubmitting || (tab === 'new' ? !name.trim() : !selectedGroupId),
-                                    className: "px-3 py-1.5 text-sm bg-indigo-600 text-white rounded hover:bg-indigo-700 disabled:opacity-50",
+                                    className: "px-3 py-1.5 text-sm bg-primary text-primary-foreground rounded hover:bg-primary/90 disabled:opacity-50 transition-colors",
                                     children: isSubmitting ? 'Saving...' : tab === 'new' ? 'Create' : 'Link Group'
                                 }, void 0, false, {
                                     fileName: "[project]/app/manage/roles/components/AddGroupModal.tsx",
@@ -671,19 +671,19 @@ function RoleListModal({ isOpen, onClose, onRoleUpdate, groupName, groupId, comp
     };
     if (!isOpen) return null;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4",
+        className: "fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm p-4",
         onClick: onClose,
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "bg-white dark:bg-gray-800 rounded-xl shadow-2xl max-w-lg w-full border dark:border-gray-700 flex flex-col max-h-[85vh]",
+            className: "bg-card rounded-xl shadow-2xl max-w-lg w-full border border-border flex flex-col max-h-[85vh]",
             onClick: (e)=>e.stopPropagation(),
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "p-6 border-b dark:border-gray-700 flex justify-between items-center",
+                    className: "p-6 border-b border-border flex justify-between items-center",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                    className: "text-xl font-bold text-gray-900 dark:text-white",
+                                    className: "text-xl font-bold text-foreground",
                                     children: groupName
                                 }, void 0, false, {
                                     fileName: "[project]/app/manage/roles/components/RoleListModal.tsx",
@@ -691,7 +691,7 @@ function RoleListModal({ isOpen, onClose, onRoleUpdate, groupName, groupId, comp
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                    className: "text-sm text-gray-500",
+                                    className: "text-sm text-muted-foreground",
                                     children: "Roles in this approval group"
                                 }, void 0, false, {
                                     fileName: "[project]/app/manage/roles/components/RoleListModal.tsx",
@@ -706,7 +706,7 @@ function RoleListModal({ isOpen, onClose, onRoleUpdate, groupName, groupId, comp
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                             onClick: onClose,
-                            className: "text-gray-400 hover:text-gray-600 dark:hover:text-gray-200",
+                            className: "text-muted-foreground hover:text-foreground transition-colors",
                             children: "✕"
                         }, void 0, false, {
                             fileName: "[project]/app/manage/roles/components/RoleListModal.tsx",
@@ -723,7 +723,7 @@ function RoleListModal({ isOpen, onClose, onRoleUpdate, groupName, groupId, comp
                     className: "flex-1 overflow-y-auto p-6 space-y-3",
                     children: [
                         loading && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "text-center text-gray-500 py-4",
+                            className: "text-center text-muted-foreground py-4",
                             children: "Loading..."
                         }, void 0, false, {
                             fileName: "[project]/app/manage/roles/components/RoleListModal.tsx",
@@ -731,7 +731,7 @@ function RoleListModal({ isOpen, onClose, onRoleUpdate, groupName, groupId, comp
                             columnNumber: 23
                         }, this),
                         !loading && currentRoles.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "text-center text-gray-500 py-8 italic",
+                            className: "text-center text-muted-foreground py-8 italic",
                             children: "No roles assigned yet."
                         }, void 0, false, {
                             fileName: "[project]/app/manage/roles/components/RoleListModal.tsx",
@@ -739,12 +739,12 @@ function RoleListModal({ isOpen, onClose, onRoleUpdate, groupName, groupId, comp
                             columnNumber: 13
                         }, this),
                         !loading && currentRoles.map((role)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-md border dark:border-gray-700",
+                                className: "flex items-center justify-between p-3 bg-muted/50 rounded-md border border-border",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "font-medium text-gray-800 dark:text-gray-200",
+                                                className: "font-medium text-foreground",
                                                 children: role.role_name
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/roles/components/RoleListModal.tsx",
@@ -752,7 +752,7 @@ function RoleListModal({ isOpen, onClose, onRoleUpdate, groupName, groupId, comp
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "text-xs text-gray-500",
+                                                className: "text-xs text-muted-foreground",
                                                 children: [
                                                     "Level: ",
                                                     role.default_role_level
@@ -770,7 +770,7 @@ function RoleListModal({ isOpen, onClose, onRoleUpdate, groupName, groupId, comp
                                     }, this),
                                     canModify && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         onClick: ()=>handleUnassign(role.id),
-                                        className: "text-red-500 hover:bg-red-50 dark:hover:bg-red-900/30 p-2 rounded text-sm",
+                                        className: "text-destructive hover:bg-destructive/10 p-2 rounded text-sm transition-colors",
                                         title: "Unassign Role",
                                         children: "Remove"
                                     }, void 0, false, {
@@ -791,10 +791,10 @@ function RoleListModal({ isOpen, onClose, onRoleUpdate, groupName, groupId, comp
                     columnNumber: 9
                 }, this),
                 canModify && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "p-6 border-t dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50 rounded-b-xl",
+                    className: "p-6 border-t border-border bg-muted/30 rounded-b-xl",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                            className: "text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wide mb-3",
+                            className: "text-sm font-bold text-muted-foreground uppercase tracking-wide mb-3",
                             children: "Add Role to Group"
                         }, void 0, false, {
                             fileName: "[project]/app/manage/roles/components/RoleListModal.tsx",
@@ -805,7 +805,7 @@ function RoleListModal({ isOpen, onClose, onRoleUpdate, groupName, groupId, comp
                             className: "flex gap-2",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                    className: "flex-1 rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white text-sm p-2",
+                                    className: "flex-1 rounded-md border border-input bg-background text-foreground text-sm p-2",
                                     value: selectedRoleId,
                                     onChange: (e)=>setSelectedRoleId(e.target.value),
                                     disabled: availableRoles.length === 0,
@@ -835,7 +835,7 @@ function RoleListModal({ isOpen, onClose, onRoleUpdate, groupName, groupId, comp
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     onClick: handleAssign,
                                     disabled: isAssigning || !selectedRoleId,
-                                    className: "px-4 py-2 bg-indigo-600 text-white rounded-md font-medium hover:bg-indigo-700 disabled:opacity-50 text-sm",
+                                    className: "px-4 py-2 bg-primary text-primary-foreground rounded-md font-medium hover:bg-primary/90 disabled:opacity-50 text-sm transition-colors",
                                     children: isAssigning ? 'Saving...' : 'Assign'
                                 }, void 0, false, {
                                     fileName: "[project]/app/manage/roles/components/RoleListModal.tsx",
@@ -849,7 +849,7 @@ function RoleListModal({ isOpen, onClose, onRoleUpdate, groupName, groupId, comp
                             columnNumber: 15
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                            className: "text-xs text-gray-500 mt-2",
+                            className: "text-xs text-muted-foreground mt-2",
                             children: [
                                 "Only unassigned roles for ",
                                 companyName,
@@ -867,7 +867,7 @@ function RoleListModal({ isOpen, onClose, onRoleUpdate, groupName, groupId, comp
                     columnNumber: 13
                 }, this),
                 !canModify && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "p-4 border-t dark:border-gray-700 bg-yellow-50 dark:bg-yellow-900/20 rounded-b-xl text-center",
+                    className: "p-4 border-t border-border bg-yellow-50 dark:bg-yellow-900/20 rounded-b-xl text-center",
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                         className: "text-xs text-yellow-800 dark:text-yellow-200",
                         children: "Contact your TAC Officer or Admin to change role assignments."
@@ -1092,27 +1092,27 @@ function ChainVisualizer({ initialCompanies, viewerRoleLevel }) {
         className: "space-y-6",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "flex flex-wrap items-center gap-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow z-10 relative",
+                className: "flex flex-wrap items-center gap-4 bg-card border border-border p-4 rounded-lg shadow-sm z-10 relative",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                        className: "font-medium text-gray-700 dark:text-gray-300",
+                        className: "font-medium text-foreground",
                         children: "Select Company:"
                     }, void 0, false, {
                         fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                        lineNumber: 170,
+                        lineNumber: 169,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                         value: selectedCompanyId,
                         onChange: (e)=>setSelectedCompanyId(e.target.value),
-                        className: "rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white p-2",
+                        className: "rounded-md border border-input bg-background text-foreground p-2",
                         children: [
                             initialCompanies.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                     value: c.id,
                                     children: c.company_name
                                 }, c.id, false, {
                                     fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                                    lineNumber: 176,
+                                    lineNumber: 175,
                                     columnNumber: 38
                                 }, this)),
                             initialCompanies.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1120,58 +1120,58 @@ function ChainVisualizer({ initialCompanies, viewerRoleLevel }) {
                                 children: "No Companies Available"
                             }, void 0, false, {
                                 fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                                lineNumber: 177,
+                                lineNumber: 176,
                                 columnNumber: 45
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                        lineNumber: 171,
+                        lineNumber: 170,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         onClick: fetchChain,
-                        className: "ml-auto text-sm text-indigo-600 hover:underline dark:text-indigo-400",
+                        className: "ml-auto text-sm text-primary hover:underline",
                         children: "Refresh"
                     }, void 0, false, {
                         fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                        lineNumber: 179,
+                        lineNumber: 178,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                lineNumber: 169,
+                lineNumber: 168,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "overflow-x-auto bg-gray-50 dark:bg-gray-900/50 rounded-xl border dark:border-gray-700 flex flex-col",
+                className: "overflow-x-auto bg-muted/20 rounded-xl border border-border flex flex-col",
                 style: {
                     height: '700px'
                 },
                 children: loading ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "flex items-center justify-center h-full text-gray-500",
+                    className: "flex items-center justify-center h-full text-muted-foreground",
                     children: "Loading Chain..."
                 }, void 0, false, {
                     fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                    lineNumber: 187,
+                    lineNumber: 186,
                     columnNumber: 11
                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "flex flex-col min-w-max h-full p-8 relative",
                     children: [
                         columns.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "flex gap-24 mb-4 border-b dark:border-gray-700 pb-2",
+                            className: "flex gap-24 mb-4 border-b border-border pb-2",
                             children: columns.map((_, colIndex)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "w-64 text-center text-xs font-bold text-gray-400 uppercase tracking-wider",
+                                    className: "w-64 text-center text-xs font-bold text-muted-foreground uppercase tracking-wider",
                                     children: colIndex === columns.length - 1 ? "Final Authority" : `Step ${columns.length - 1 - colIndex}`
                                 }, colIndex, false, {
                                     fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                                    lineNumber: 195,
+                                    lineNumber: 194,
                                     columnNumber: 21
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                            lineNumber: 193,
+                            lineNumber: 192,
                             columnNumber: 17
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1191,38 +1191,38 @@ function ChainVisualizer({ initialCompanies, viewerRoleLevel }) {
                                                 orient: "auto",
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("polygon", {
                                                     points: "0 0, 10 3.5, 0 7",
-                                                    fill: "#9CA3AF"
+                                                    className: "fill-muted-foreground"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                                                    lineNumber: 207,
+                                                    lineNumber: 206,
                                                     columnNumber: 21
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                                                lineNumber: 206,
+                                                lineNumber: 205,
                                                 columnNumber: 19
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                                            lineNumber: 205,
+                                            lineNumber: 204,
                                             columnNumber: 17
                                         }, this),
                                         connections.map((conn)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
                                                 d: conn.path,
-                                                stroke: "#9CA3AF",
+                                                stroke: "currentColor",
                                                 strokeWidth: "2",
                                                 fill: "none",
                                                 markerEnd: "url(#arrowhead)",
-                                                className: "opacity-60 transition-all duration-300"
+                                                className: "opacity-40 text-muted-foreground transition-all duration-300"
                                             }, conn.key, false, {
                                                 fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                                                lineNumber: 211,
+                                                lineNumber: 210,
                                                 columnNumber: 19
                                             }, this))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                                    lineNumber: 204,
+                                    lineNumber: 203,
                                     columnNumber: 15
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1249,64 +1249,64 @@ function ChainVisualizer({ initialCompanies, viewerRoleLevel }) {
                                                         }
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                                                        lineNumber: 228,
+                                                        lineNumber: 227,
                                                         columnNumber: 25
                                                     }, this)
                                                 }, node.id, false, {
                                                     fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                                                    lineNumber: 227,
+                                                    lineNumber: 226,
                                                     columnNumber: 23
                                                 }, this))
                                         }, colIndex, false, {
                                             fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                                            lineNumber: 225,
+                                            lineNumber: 224,
                                             columnNumber: 19
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                                    lineNumber: 223,
+                                    lineNumber: 222,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                            lineNumber: 203,
+                            lineNumber: 202,
                             columnNumber: 13
                         }, this),
                         !loading && columns.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                            className: "absolute inset-0 flex flex-col items-center justify-center text-gray-500 gap-4 z-20",
+                            className: "absolute inset-0 flex flex-col items-center justify-center text-muted-foreground gap-4 z-20",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                                     children: initialCompanies.length === 0 ? "Configuration error: No companies were loaded from the server." : "No approval groups found for this company."
                                 }, void 0, false, {
                                     fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                                    lineNumber: 244,
+                                    lineNumber: 243,
                                     columnNumber: 21
                                 }, this),
                                 initialCompanies.length > 0 && selectedCompanyId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     onClick: openGenesis,
-                                    className: "px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 transition-colors",
+                                    className: "px-4 py-2 bg-primary text-primary-foreground rounded-md shadow-sm hover:bg-primary/90 transition-colors",
                                     children: "+ Create First Group"
                                 }, void 0, false, {
                                     fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                                    lineNumber: 249,
+                                    lineNumber: 248,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                            lineNumber: 243,
+                            lineNumber: 242,
                             columnNumber: 18
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                    lineNumber: 189,
+                    lineNumber: 188,
                     columnNumber: 11
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                lineNumber: 182,
+                lineNumber: 181,
                 columnNumber: 7
             }, this),
             isAddModalOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$manage$2f$roles$2f$components$2f$AddGroupModal$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1321,7 +1321,7 @@ function ChainVisualizer({ initialCompanies, viewerRoleLevel }) {
                 }
             }, void 0, false, {
                 fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                lineNumber: 263,
+                lineNumber: 262,
                 columnNumber: 9
             }, this),
             selectedNodeForRoles && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$manage$2f$roles$2f$components$2f$RoleListModal$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
@@ -1335,13 +1335,13 @@ function ChainVisualizer({ initialCompanies, viewerRoleLevel }) {
                 viewerRoleLevel: viewerRoleLevel
             }, void 0, false, {
                 fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-                lineNumber: 277,
+                lineNumber: 276,
                 columnNumber: 9
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/manage/roles/components/ChainVisualizer.tsx",
-        lineNumber: 168,
+        lineNumber: 167,
         columnNumber: 5
     }, this);
 }

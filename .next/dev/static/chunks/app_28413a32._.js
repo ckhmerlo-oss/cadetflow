@@ -22,7 +22,7 @@ __turbopack_context__.s([
     ()=>GeneralSettingsTab
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)"); // <--- Updated Import
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$client$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/utils/supabase/client.ts [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2d$dom$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react-dom/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$admin$2f$data$3a$f032f4__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$text$2f$javascript$3e$__ = __turbopack_context__.i("[project]/app/admin/data:f032f4 [app-client] (ecmascript) <text/javascript>");
@@ -80,10 +80,10 @@ const TrashIcon = ()=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$proje
 _c1 = TrashIcon;
 function AdminSection({ title, children }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-        className: "bg-white dark:bg-gray-800 p-6 rounded-lg shadow",
+        className: "bg-card border border-border p-6 rounded-lg shadow-sm",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                className: "text-2xl font-semibold text-gray-900 dark:text-white border-b dark:border-gray-700 pb-4 mb-6",
+                className: "text-2xl font-semibold text-foreground border-b border-border pb-4 mb-6",
                 children: title
             }, void 0, false, {
                 fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
@@ -112,7 +112,7 @@ function ResetButton() {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
         type: "submit",
         disabled: pending,
-        className: "mt-2 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:bg-gray-400",
+        className: "mt-2 w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50",
         children: pending ? 'Resetting...' : 'Set New Password'
     }, void 0, false, {
         fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
@@ -140,7 +140,6 @@ function GeneralSettingsTab() {
     const [isUploading, setIsUploading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [uploadResult, setUploadResult] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [uploadError, setUploadError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
-    // *** FIX IS HERE: Switched to useActionState ***
     const [resetState, resetFormAction] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useActionState"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$admin$2f$data$3a$f032f4__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$text$2f$javascript$3e$__["adminResetPassword"], {
         error: null,
         success: false
@@ -213,15 +212,17 @@ function GeneralSettingsTab() {
         }
         setIsUploading(false);
     };
+    // Helper class for inputs
+    const inputClass = "rounded-md border-input bg-background text-foreground shadow-sm focus:border-primary focus:ring-primary";
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "space-y-8",
+        className: "space-y-8 animate-in fade-in duration-300",
         children: [
             dataError && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "p-4 text-red-700 bg-red-100 rounded-md",
+                className: "p-4 text-destructive-foreground bg-destructive/10 border border-destructive/20 rounded-md",
                 children: dataError
             }, void 0, false, {
                 fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                lineNumber: 100,
+                lineNumber: 102,
                 columnNumber: 21
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(AdminSection, {
@@ -229,223 +230,230 @@ function GeneralSettingsTab() {
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
                         onSubmit: handleCreateTerm,
-                        className: "grid grid-cols-1 md:grid-cols-4 gap-4 p-4 bg-gray-50 dark:bg-gray-800/50 rounded-lg border dark:border-gray-700",
+                        className: "grid grid-cols-1 md:grid-cols-4 gap-4 p-4 bg-muted/20 rounded-lg border border-border",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                 type: "text",
                                 placeholder: "Name (e.g. Fall 2025)",
                                 value: newTermName,
                                 onChange: (e)=>setNewTermName(e.target.value),
-                                className: "rounded-md border-gray-300 dark:bg-gray-900 dark:border-gray-600 dark:text-white",
-                                required: true
-                            }, void 0, false, {
-                                fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                                lineNumber: 104,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                type: "date",
-                                value: newTermStart,
-                                onChange: (e)=>setNewTermStart(e.target.value),
-                                className: "rounded-md border-gray-300 dark:bg-gray-900 dark:border-gray-600 dark:text-white",
-                                required: true
-                            }, void 0, false, {
-                                fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                                lineNumber: 105,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                type: "date",
-                                value: newTermEnd,
-                                onChange: (e)=>setNewTermEnd(e.target.value),
-                                className: "rounded-md border-gray-300 dark:bg-gray-900 dark:border-gray-600 dark:text-white",
+                                className: inputClass,
                                 required: true
                             }, void 0, false, {
                                 fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
                                 lineNumber: 106,
                                 columnNumber: 11
                             }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                type: "submit",
-                                disabled: isLoadingData,
-                                className: "py-2 px-4 bg-indigo-600 text-white rounded hover:bg-indigo-700 disabled:bg-gray-400",
-                                children: "Add Term"
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                type: "date",
+                                value: newTermStart,
+                                onChange: (e)=>setNewTermStart(e.target.value),
+                                className: inputClass,
+                                required: true
                             }, void 0, false, {
                                 fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
                                 lineNumber: 107,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                type: "date",
+                                value: newTermEnd,
+                                onChange: (e)=>setNewTermEnd(e.target.value),
+                                className: inputClass,
+                                required: true
+                            }, void 0, false, {
+                                fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
+                                lineNumber: 108,
+                                columnNumber: 11
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                type: "submit",
+                                disabled: isLoadingData,
+                                className: "py-2 px-4 bg-primary text-primary-foreground rounded hover:bg-primary/90 disabled:opacity-50",
+                                children: "Add Term"
+                            }, void 0, false, {
+                                fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
+                                lineNumber: 109,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                        lineNumber: 103,
+                        lineNumber: 105,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "mt-4 overflow-x-auto border rounded-lg dark:border-gray-700",
+                        className: "mt-4 overflow-x-auto border border-border rounded-lg",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                            className: "min-w-full divide-y divide-gray-200 dark:divide-gray-700",
+                            className: "min-w-full divide-y divide-border",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
-                                    className: "bg-gray-50 dark:bg-gray-800",
+                                    className: "bg-muted",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                className: "px-6 py-3 text-left text-xs font-medium uppercase text-gray-500",
+                                                className: "px-6 py-3 text-left text-xs font-medium uppercase text-muted-foreground",
                                                 children: "Term"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                                                lineNumber: 112,
-                                                columnNumber: 25
+                                                lineNumber: 115,
+                                                columnNumber: 23
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                className: "px-6 py-3 text-left text-xs font-medium uppercase text-gray-500",
+                                                className: "px-6 py-3 text-left text-xs font-medium uppercase text-muted-foreground",
                                                 children: "Start"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                                                lineNumber: 112,
-                                                columnNumber: 114
+                                                lineNumber: 116,
+                                                columnNumber: 23
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                className: "px-6 py-3 text-left text-xs font-medium uppercase text-gray-500",
+                                                className: "px-6 py-3 text-left text-xs font-medium uppercase text-muted-foreground",
                                                 children: "End"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                                                lineNumber: 112,
-                                                columnNumber: 204
+                                                lineNumber: 117,
+                                                columnNumber: 23
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                 className: "px-6 py-3"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                                                lineNumber: 112,
-                                                columnNumber: 292
+                                                lineNumber: 118,
+                                                columnNumber: 23
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                                        lineNumber: 112,
+                                        lineNumber: 114,
                                         columnNumber: 21
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                                    lineNumber: 111,
+                                    lineNumber: 113,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
-                                    className: "bg-white dark:bg-gray-800/50 divide-y divide-gray-200 dark:divide-gray-700",
+                                    className: "bg-card divide-y divide-border",
                                     children: terms.map((t)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "px-6 py-4 text-sm font-medium dark:text-white",
+                                                    className: "px-6 py-4 text-sm font-medium text-foreground",
                                                     children: t.term_name
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                                                    lineNumber: 117,
+                                                    lineNumber: 124,
                                                     columnNumber: 29
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "px-6 py-4 text-sm text-gray-500",
+                                                    className: "px-6 py-4 text-sm text-muted-foreground",
                                                     children: t.start_date
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                                                    lineNumber: 118,
+                                                    lineNumber: 125,
                                                     columnNumber: 29
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "px-6 py-4 text-sm text-gray-500",
+                                                    className: "px-6 py-4 text-sm text-muted-foreground",
                                                     children: t.end_date
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                                                    lineNumber: 119,
+                                                    lineNumber: 126,
                                                     columnNumber: 29
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                     className: "px-6 py-4 text-right",
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                         onClick: ()=>handleDeleteTerm(t.id),
-                                                        className: "text-red-600 hover:text-red-900",
+                                                        className: "text-destructive hover:text-destructive/80",
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(TrashIcon, {}, void 0, false, {
                                                             fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                                                            lineNumber: 120,
-                                                            columnNumber: 157
+                                                            lineNumber: 127,
+                                                            columnNumber: 168
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                                                        lineNumber: 120,
+                                                        lineNumber: 127,
                                                         columnNumber: 66
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                                                    lineNumber: 120,
+                                                    lineNumber: 127,
                                                     columnNumber: 29
                                                 }, this)
                                             ]
                                         }, t.id, true, {
                                             fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                                            lineNumber: 116,
+                                            lineNumber: 123,
                                             columnNumber: 25
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                                    lineNumber: 114,
+                                    lineNumber: 121,
                                     columnNumber: 17
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                            lineNumber: 110,
+                            lineNumber: 112,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                        lineNumber: 109,
+                        lineNumber: 111,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                lineNumber: 102,
+                lineNumber: 104,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(AdminSection, {
                 title: "Bulk User Upload",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                        className: "text-sm text-gray-600 dark:text-gray-400",
+                        className: "text-sm text-muted-foreground",
                         children: "CSV Columns: `email`, `first_name`, `last_name`, `password` (optional)."
                     }, void 0, false, {
                         fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                        lineNumber: 129,
+                        lineNumber: 136,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
-                        className: "mt-4 p-6 border dark:border-gray-700 rounded-lg",
+                        className: "mt-4 p-6 border border-border rounded-lg",
                         onSubmit: handleBulkAddSubmit,
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                className: "flex flex-col items-center justify-center w-full h-32 border-2 border-dashed rounded-lg cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800",
+                                className: "flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-border rounded-lg cursor-pointer hover:bg-muted/50 transition-colors",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "flex flex-col items-center justify-center pt-5 pb-6",
                                         children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(UploadIcon, {}, void 0, false, {
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "text-muted-foreground",
+                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(UploadIcon, {}, void 0, false, {
+                                                    fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
+                                                    lineNumber: 140,
+                                                    columnNumber: 58
+                                                }, this)
+                                            }, void 0, false, {
                                                 fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                                                lineNumber: 132,
-                                                columnNumber: 86
+                                                lineNumber: 140,
+                                                columnNumber: 19
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: "mb-2 text-sm text-gray-500",
+                                                className: "mb-2 text-sm text-muted-foreground",
                                                 children: csvFile ? csvFile.name : "Click to upload .csv"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                                                lineNumber: 132,
-                                                columnNumber: 100
+                                                lineNumber: 141,
+                                                columnNumber: 19
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                                        lineNumber: 132,
+                                        lineNumber: 139,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -455,41 +463,41 @@ function GeneralSettingsTab() {
                                         onChange: (e)=>e.target.files && setCsvFile(e.target.files[0])
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                                        lineNumber: 133,
+                                        lineNumber: 143,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                                lineNumber: 131,
+                                lineNumber: 138,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 type: "submit",
                                 disabled: isUploading || !csvFile,
-                                className: "mt-4 w-full py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 disabled:bg-gray-400",
+                                className: "mt-4 w-full py-2 bg-primary text-primary-foreground rounded hover:bg-primary/90 disabled:opacity-50 transition-colors",
                                 children: isUploading ? 'Uploading...' : 'Upload'
                             }, void 0, false, {
                                 fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                                lineNumber: 135,
+                                lineNumber: 145,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                        lineNumber: 130,
+                        lineNumber: 137,
                         columnNumber: 9
                     }, this),
                     uploadError && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "mt-4 p-4 bg-red-100 text-red-700 rounded",
+                        className: "mt-4 p-4 bg-destructive/10 text-destructive rounded",
                         children: uploadError
                     }, void 0, false, {
                         fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                        lineNumber: 137,
+                        lineNumber: 147,
                         columnNumber: 25
                     }, this),
                     uploadResult && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "mt-4 p-4 bg-gray-100 dark:bg-gray-900 text-gray-700 dark:text-gray-300 rounded",
+                        className: "mt-4 p-4 bg-muted text-foreground rounded",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                             className: "font-bold text-green-600",
                             children: [
@@ -498,18 +506,18 @@ function GeneralSettingsTab() {
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                            lineNumber: 138,
-                            columnNumber: 122
+                            lineNumber: 148,
+                            columnNumber: 85
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                        lineNumber: 138,
+                        lineNumber: 148,
                         columnNumber: 26
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                lineNumber: 128,
+                lineNumber: 135,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(AdminSection, {
@@ -521,65 +529,65 @@ function GeneralSettingsTab() {
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                    className: "block text-sm font-medium dark:text-gray-300",
+                                    className: "block text-sm font-medium text-foreground",
                                     children: "User ID"
                                 }, void 0, false, {
                                     fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                                    lineNumber: 143,
+                                    lineNumber: 153,
                                     columnNumber: 18
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                     name: "userId",
                                     required: true,
-                                    className: "mt-1 block w-full rounded-md border-gray-300 dark:bg-gray-900 dark:border-gray-600 dark:text-white"
+                                    className: `mt-1 block w-full ${inputClass}`
                                 }, void 0, false, {
                                     fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                                    lineNumber: 143,
-                                    columnNumber: 97
+                                    lineNumber: 153,
+                                    columnNumber: 94
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                            lineNumber: 143,
+                            lineNumber: 153,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                    className: "block text-sm font-medium dark:text-gray-300",
+                                    className: "block text-sm font-medium text-foreground",
                                     children: "New Password"
                                 }, void 0, false, {
                                     fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                                    lineNumber: 144,
+                                    lineNumber: 154,
                                     columnNumber: 18
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                     name: "newPassword",
                                     type: "password",
                                     required: true,
-                                    className: "mt-1 block w-full rounded-md border-gray-300 dark:bg-gray-900 dark:border-gray-600 dark:text-white"
+                                    className: `mt-1 block w-full ${inputClass}`
                                 }, void 0, false, {
                                     fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                                    lineNumber: 144,
-                                    columnNumber: 102
+                                    lineNumber: 154,
+                                    columnNumber: 99
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                            lineNumber: 144,
+                            lineNumber: 154,
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(ResetButton, {}, void 0, false, {
                             fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                            lineNumber: 145,
+                            lineNumber: 155,
                             columnNumber: 13
                         }, this),
                         resetState.error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                            className: "text-red-600 text-sm",
+                            className: "text-destructive text-sm",
                             children: resetState.error
                         }, void 0, false, {
                             fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                            lineNumber: 146,
+                            lineNumber: 156,
                             columnNumber: 34
                         }, this),
                         resetState.success && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -587,24 +595,24 @@ function GeneralSettingsTab() {
                             children: "Password reset successful!"
                         }, void 0, false, {
                             fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                            lineNumber: 147,
+                            lineNumber: 157,
                             columnNumber: 36
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                    lineNumber: 142,
+                    lineNumber: 152,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-                lineNumber: 141,
+                lineNumber: 151,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/admin/tabs/GeneralSettingsTab.tsx",
-        lineNumber: 99,
+        lineNumber: 101,
         columnNumber: 5
     }, this);
 }
@@ -639,56 +647,56 @@ var _s = __turbopack_context__.k.signature();
 'use client';
 ;
 ;
-// Configuration for the Category System
+// CONFIG: Using opacity-based backgrounds to work on all themes (White, Dark, Christmas Green)
 const CATEGORY_CONFIG = {
     '0': {
         code: '0',
         label: 'Cat 0',
         demerits: 0,
         policy_cat: 0,
-        color: 'bg-grey-400 text-white border-gray-700'
+        color: 'bg-muted text-muted-foreground border-border'
     },
     '1': {
         code: '1',
         label: 'Cat 1',
         demerits: 3,
         policy_cat: 1,
-        color: 'bg-green-100 text-green-800 border-green-200'
+        color: 'bg-green-500/10 text-green-600 dark:text-green-400 border-green-500/20'
     },
     '2a': {
         code: '2a',
         label: 'Cat 2a',
         demerits: 6,
         policy_cat: 2,
-        color: 'bg-yellow-100 text-yellow-800 border-yellow-200'
+        color: 'bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 border-yellow-500/20'
     },
     '2b': {
         code: '2b',
         label: 'Cat 2b',
         demerits: 10,
         policy_cat: 2,
-        color: 'bg-orange-100 text-orange-800 border-orange-200'
+        color: 'bg-orange-500/10 text-orange-600 dark:text-orange-400 border-orange-500/20'
     },
     '3a': {
         code: '3a',
         label: 'Cat 3a',
         demerits: 15,
         policy_cat: 3,
-        color: 'bg-red-100 text-red-800 border-red-200'
+        color: 'bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20'
     },
     '3b': {
         code: '3b',
         label: 'Cat 3b',
         demerits: 25,
         policy_cat: 3,
-        color: 'bg-red-200 text-red-900 border-red-300'
+        color: 'bg-red-500/20 text-red-700 dark:text-red-300 border-red-500/30'
     },
     '3c': {
         code: '3c',
         label: 'Cat 3c',
         demerits: 35,
         policy_cat: 3,
-        color: 'bg-red-900 text-white border-red-700'
+        color: 'bg-destructive/20 text-destructive border-destructive/30'
     }
 };
 function InfractionsTab() {
@@ -696,17 +704,15 @@ function InfractionsTab() {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$client$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createClient"])();
     const [infractions, setInfractions] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
-    // Sorting State
     const [sortConfig, setSortConfig] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({
         key: 'category',
         direction: 'asc'
     });
-    // Edit State
+    // Edit & Create States
     const [editingId, setEditingId] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [editForm, setEditForm] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])({});
     const [editCategoryKey, setEditCategoryKey] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('1');
     const [isEditingCustomGroup, setIsEditingCustomGroup] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    // Create State
     const [isCreating, setIsCreating] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [createName, setCreateName] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
     const [createGroup, setCreateGroup] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
@@ -741,14 +747,10 @@ function InfractionsTab() {
             ];
             sorted.sort({
                 "InfractionsTab.useMemo[sortedInfractions]": (a, b)=>{
-                    let valA = '';
-                    let valB = '';
+                    let valA = '', valB = '';
                     switch(sortConfig.key){
                         case 'category':
-                            // Sort by Policy Category first, then Demerits
-                            if (a.policy_category !== b.policy_category) {
-                                return sortConfig.direction === 'asc' ? a.policy_category - b.policy_category : b.policy_category - a.policy_category;
-                            }
+                            if (a.policy_category !== b.policy_category) return sortConfig.direction === 'asc' ? a.policy_category - b.policy_category : b.policy_category - a.policy_category;
                             return sortConfig.direction === 'asc' ? a.demerits - b.demerits : b.demerits - a.demerits;
                         case 'name':
                             valA = a.offense_name.toLowerCase();
@@ -783,19 +785,19 @@ function InfractionsTab() {
     };
     const SortIcon = ({ column })=>{
         if (sortConfig.key !== column) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-            className: "text-gray-300 ml-1 text-[10px]",
+            className: "text-muted-foreground/30 ml-1 text-[10px]",
             children: "⇅"
         }, void 0, false, {
             fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-            lineNumber: 114,
+            lineNumber: 88,
             columnNumber: 43
         }, this);
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-            className: "text-indigo-600 dark:text-indigo-400 ml-1 text-[10px]",
+            className: "text-primary ml-1 text-[10px]",
             children: sortConfig.direction === 'asc' ? '▲' : '▼'
         }, void 0, false, {
             fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-            lineNumber: 115,
+            lineNumber: 89,
             columnNumber: 12
         }, this);
     };
@@ -817,9 +819,8 @@ function InfractionsTab() {
             p_offense_code: config.code,
             p_offense_group: createGroup
         });
-        if (error) {
-            alert(`Error creating: ${error.message}`);
-        } else {
+        if (error) alert(`Error creating: ${error.message}`);
+        else {
             setIsCreating(false);
             setCreateName('');
             setCreateGroup('');
@@ -829,21 +830,18 @@ function InfractionsTab() {
         }
     };
     const handleDelete = async (id)=>{
-        if (!confirm("Are you sure you want to delete this infraction? This cannot be undone.")) return;
+        if (!confirm("Are you sure you want to delete this infraction?")) return;
         const { error } = await supabase.rpc('admin_delete_infraction', {
             p_id: id
         });
-        if (error) {
-            alert(`Error deleting: ${error.message}`);
-        } else {
-            setInfractions((prev)=>prev.filter((i)=>i.id !== id));
-        }
+        if (error) alert(`Error deleting: ${error.message}`);
+        else setInfractions((prev)=>prev.filter((i)=>i.id !== id));
     };
     const startEdit = (infraction)=>{
         setEditingId(infraction.id);
         setEditForm(infraction);
         setEditCategoryKey(getCategoryKeyFromCode(infraction.offense_code));
-        setIsEditingCustomGroup(false); // Reset to dropdown mode initially
+        setIsEditingCustomGroup(false);
     };
     const saveEdit = async ()=>{
         if (!editingId) return;
@@ -856,9 +854,8 @@ function InfractionsTab() {
             p_offense_code: config.code,
             p_offense_group: editForm.offense_group
         });
-        if (error) {
-            alert(`Error updating: ${error.message}`);
-        } else {
+        if (error) alert(`Error updating: ${error.message}`);
+        else {
             setInfractions((prev)=>prev.map((item)=>item.id === editingId ? {
                         ...item,
                         offense_name: editForm.offense_name,
@@ -871,54 +868,56 @@ function InfractionsTab() {
         }
     };
     if (loading) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "p-8 text-gray-500",
+        className: "p-8 text-muted-foreground",
         children: "Loading infractions..."
     }, void 0, false, {
         fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-        lineNumber: 201,
+        lineNumber: 138,
         columnNumber: 23
     }, this);
+    // --- Styles ---
+    const inputClass = "w-full p-2 border border-input rounded text-sm bg-background text-foreground shadow-sm focus:border-primary focus:ring-primary";
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "space-y-6",
+        className: "space-y-6 animate-in fade-in duration-300",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "flex justify-between items-center",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                        className: "text-2xl font-bold text-gray-900 dark:text-white",
+                        className: "text-2xl font-bold text-foreground",
                         children: "Infraction Catalog"
                     }, void 0, false, {
                         fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                        lineNumber: 206,
+                        lineNumber: 146,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         onClick: ()=>setIsCreating(true),
                         disabled: isCreating,
-                        className: "px-4 py-2 bg-indigo-600 text-white rounded-md text-sm font-medium hover:bg-indigo-700 disabled:opacity-50",
+                        className: "btn-primary",
                         children: "+ Add Infraction"
                     }, void 0, false, {
                         fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                        lineNumber: 207,
+                        lineNumber: 147,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                lineNumber: 205,
+                lineNumber: 145,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "border rounded-lg overflow-hidden dark:border-gray-700",
+                className: "card-base",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                    className: "min-w-full divide-y divide-gray-200 dark:divide-gray-700",
+                    className: "min-w-full divide-y divide-border",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
-                            className: "bg-gray-50 dark:bg-gray-800",
+                            className: "bg-muted",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                        className: "px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase w-32 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700",
+                                        className: "px-6 py-3 text-left text-xs font-bold text-muted-foreground uppercase w-32 cursor-pointer hover:bg-muted/80",
                                         onClick: ()=>handleSort('category'),
                                         children: [
                                             "Category ",
@@ -926,17 +925,17 @@ function InfractionsTab() {
                                                 column: "category"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                lineNumber: 220,
-                                                columnNumber: 202
+                                                lineNumber: 156,
+                                                columnNumber: 187
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                        lineNumber: 220,
+                                        lineNumber: 156,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                        className: "px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700",
+                                        className: "px-6 py-3 text-left text-xs font-bold text-muted-foreground uppercase cursor-pointer hover:bg-muted/80",
                                         onClick: ()=>handleSort('name'),
                                         children: [
                                             "Offense Name ",
@@ -944,17 +943,17 @@ function InfractionsTab() {
                                                 column: "name"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                lineNumber: 221,
-                                                columnNumber: 197
+                                                lineNumber: 157,
+                                                columnNumber: 182
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                        lineNumber: 221,
+                                        lineNumber: 157,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                        className: "px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase w-48 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700",
+                                        className: "px-6 py-3 text-left text-xs font-bold text-muted-foreground uppercase w-48 cursor-pointer hover:bg-muted/80",
                                         onClick: ()=>handleSort('group'),
                                         children: [
                                             "Group ",
@@ -962,17 +961,17 @@ function InfractionsTab() {
                                                 column: "group"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                lineNumber: 222,
-                                                columnNumber: 196
+                                                lineNumber: 158,
+                                                columnNumber: 181
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                        lineNumber: 222,
+                                        lineNumber: 158,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                        className: "px-6 py-3 text-left text-xs font-bold text-gray-500 uppercase w-24 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700",
+                                        className: "px-6 py-3 text-left text-xs font-bold text-muted-foreground uppercase w-24 cursor-pointer hover:bg-muted/80",
                                         onClick: ()=>handleSort('demerits'),
                                         children: [
                                             "Demerits ",
@@ -980,44 +979,44 @@ function InfractionsTab() {
                                                 column: "demerits"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                lineNumber: 223,
-                                                columnNumber: 202
+                                                lineNumber: 159,
+                                                columnNumber: 187
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                        lineNumber: 223,
+                                        lineNumber: 159,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                        className: "px-6 py-3 text-right text-xs font-bold text-gray-500 uppercase w-48",
+                                        className: "px-6 py-3 text-right text-xs font-bold text-muted-foreground uppercase w-48",
                                         children: "Actions"
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                        lineNumber: 224,
+                                        lineNumber: 160,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                lineNumber: 219,
+                                lineNumber: 155,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                            lineNumber: 218,
+                            lineNumber: 154,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
-                            className: "bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700",
+                            className: "bg-card divide-y divide-border",
                             children: [
                                 isCreating && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                    className: "bg-indigo-50 dark:bg-indigo-900/20 border-l-4 border-indigo-500",
+                                    className: "bg-primary/5 border-l-4 border-primary",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                             className: "px-6 py-4 align-top",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                                className: "block w-full p-2 border rounded text-sm dark:bg-gray-800 dark:border-gray-600 dark:text-white",
+                                                className: inputClass,
                                                 value: createCategoryKey,
                                                 onChange: (e)=>setCreateCategoryKey(e.target.value),
                                                 children: Object.entries(CATEGORY_CONFIG).map(([key, conf])=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1025,35 +1024,35 @@ function InfractionsTab() {
                                                         children: conf.label
                                                     }, key, false, {
                                                         fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                        lineNumber: 239,
-                                                        columnNumber: 29
+                                                        lineNumber: 170,
+                                                        columnNumber: 81
                                                     }, this))
                                             }, void 0, false, {
                                                 fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                lineNumber: 233,
+                                                lineNumber: 169,
                                                 columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                            lineNumber: 232,
+                                            lineNumber: 168,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                             className: "px-6 py-4 align-top",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                 placeholder: "Offense Name...",
-                                                className: "w-full p-2 border rounded text-sm dark:bg-gray-800 dark:border-gray-600 dark:text-white",
+                                                className: inputClass,
                                                 value: createName,
                                                 onChange: (e)=>setCreateName(e.target.value),
                                                 autoFocus: true
                                             }, void 0, false, {
                                                 fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                lineNumber: 244,
+                                                lineNumber: 174,
                                                 columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                            lineNumber: 243,
+                                            lineNumber: 173,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1062,31 +1061,31 @@ function InfractionsTab() {
                                                 className: "flex gap-1",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                        placeholder: "New Group Name",
-                                                        className: "w-full p-2 border rounded text-sm dark:bg-gray-800 dark:border-gray-600 dark:text-white",
+                                                        placeholder: "New Group",
+                                                        className: inputClass,
                                                         value: createGroup,
                                                         onChange: (e)=>setCreateGroup(e.target.value)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                        lineNumber: 255,
+                                                        lineNumber: 179,
                                                         columnNumber: 29
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                         onClick: ()=>setIsCreatingCustomGroup(false),
-                                                        className: "text-xs text-blue-600 hover:underline",
+                                                        className: "text-xs text-primary hover:underline",
                                                         children: "List"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                        lineNumber: 261,
+                                                        lineNumber: 180,
                                                         columnNumber: 29
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                lineNumber: 254,
+                                                lineNumber: 178,
                                                 columnNumber: 25
                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                                className: "block w-full p-2 border rounded text-sm dark:bg-gray-800 dark:border-gray-600 dark:text-white",
+                                                className: inputClass,
                                                 value: createGroup,
                                                 onChange: (e)=>{
                                                     if (e.target.value === '__NEW__') {
@@ -1102,7 +1101,7 @@ function InfractionsTab() {
                                                         children: "Select Group..."
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                        lineNumber: 276,
+                                                        lineNumber: 186,
                                                         columnNumber: 29
                                                     }, this),
                                                     uniqueGroups.map((g)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1110,42 +1109,42 @@ function InfractionsTab() {
                                                             children: g
                                                         }, g, false, {
                                                             fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                            lineNumber: 277,
+                                                            lineNumber: 187,
                                                             columnNumber: 52
                                                         }, this)),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         value: "__NEW__",
-                                                        className: "text-indigo-600 font-bold",
-                                                        children: "+ Create New Group"
+                                                        className: "text-primary font-bold",
+                                                        children: "+ Create New"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                        lineNumber: 278,
+                                                        lineNumber: 188,
                                                         columnNumber: 29
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                lineNumber: 264,
+                                                lineNumber: 183,
                                                 columnNumber: 25
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                            lineNumber: 252,
+                                            lineNumber: 176,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                             className: "px-6 py-4 align-top",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "text-sm font-bold text-gray-500 pt-2",
+                                                className: "text-sm font-bold text-muted-foreground pt-2",
                                                 children: CATEGORY_CONFIG[createCategoryKey].demerits
                                             }, void 0, false, {
                                                 fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                lineNumber: 283,
+                                                lineNumber: 193,
                                                 columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                            lineNumber: 282,
+                                            lineNumber: 192,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1153,46 +1152,47 @@ function InfractionsTab() {
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                     onClick: handleCreate,
-                                                    className: "text-green-600 font-medium hover:text-green-800",
+                                                    className: "text-green-600 hover:text-green-700 font-medium text-sm",
                                                     children: "Save"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                    lineNumber: 288,
+                                                    lineNumber: 196,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                     onClick: ()=>setIsCreating(false),
-                                                    className: "text-gray-500 hover:text-gray-700",
+                                                    className: "text-muted-foreground hover:text-foreground text-sm",
                                                     children: "Cancel"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                    lineNumber: 289,
+                                                    lineNumber: 197,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                            lineNumber: 287,
+                                            lineNumber: 195,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                    lineNumber: 231,
+                                    lineNumber: 167,
                                     columnNumber: 15
                                 }, this),
                                 sortedInfractions.map((item)=>{
                                     const config = CATEGORY_CONFIG[item.offense_code || ''] || {
                                         label: item.offense_code || '?',
-                                        color: 'bg-gray-100 text-gray-800'
+                                        color: 'bg-muted text-muted-foreground'
                                     };
                                     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                        className: "hover:bg-muted/30 transition-colors",
                                         children: editingId === item.id ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                     className: "px-6 py-4 align-top",
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                                        className: "block w-full p-1 border rounded text-sm text-black",
+                                                        className: inputClass,
                                                         value: editCategoryKey,
                                                         onChange: (e)=>setEditCategoryKey(e.target.value),
                                                         children: Object.entries(CATEGORY_CONFIG).map(([key, conf])=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1200,23 +1200,23 @@ function InfractionsTab() {
                                                                 children: conf.label
                                                             }, key, false, {
                                                                 fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                                lineNumber: 309,
-                                                                columnNumber: 37
+                                                                lineNumber: 212,
+                                                                columnNumber: 89
                                                             }, this))
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                        lineNumber: 303,
+                                                        lineNumber: 211,
                                                         columnNumber: 29
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                    lineNumber: 302,
+                                                    lineNumber: 210,
                                                     columnNumber: 25
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                     className: "px-6 py-4 align-top",
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                        className: "w-full p-1 border rounded text-sm text-black",
+                                                        className: inputClass,
                                                         value: editForm.offense_name || '',
                                                         onChange: (e)=>setEditForm({
                                                                 ...editForm,
@@ -1224,12 +1224,12 @@ function InfractionsTab() {
                                                             })
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                        lineNumber: 314,
+                                                        lineNumber: 216,
                                                         columnNumber: 29
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                    lineNumber: 313,
+                                                    lineNumber: 215,
                                                     columnNumber: 25
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1238,7 +1238,7 @@ function InfractionsTab() {
                                                         className: "flex gap-1",
                                                         children: [
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                                className: "w-full p-1 border rounded text-sm text-black",
+                                                                className: inputClass,
                                                                 value: editForm.offense_group || '',
                                                                 onChange: (e)=>setEditForm({
                                                                         ...editForm,
@@ -1246,25 +1246,25 @@ function InfractionsTab() {
                                                                     })
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                                lineNumber: 323,
+                                                                lineNumber: 221,
                                                                 columnNumber: 37
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                                 onClick: ()=>setIsEditingCustomGroup(false),
-                                                                className: "text-xs text-blue-600",
+                                                                className: "text-xs text-primary",
                                                                 children: "List"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                                lineNumber: 328,
+                                                                lineNumber: 222,
                                                                 columnNumber: 37
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                        lineNumber: 322,
+                                                        lineNumber: 220,
                                                         columnNumber: 33
                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                                        className: "block w-full p-1 border rounded text-sm text-black",
+                                                        className: inputClass,
                                                         value: editForm.offense_group || '',
                                                         onChange: (e)=>{
                                                             if (e.target.value === '__NEW__') {
@@ -1286,7 +1286,7 @@ function InfractionsTab() {
                                                                 children: "Select..."
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                                lineNumber: 343,
+                                                                lineNumber: 228,
                                                                 columnNumber: 37
                                                             }, this),
                                                             uniqueGroups.map((g)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1294,35 +1294,35 @@ function InfractionsTab() {
                                                                     children: g
                                                                 }, g, false, {
                                                                     fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                                    lineNumber: 344,
+                                                                    lineNumber: 229,
                                                                     columnNumber: 60
                                                                 }, this)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                                 value: "__NEW__",
-                                                                className: "text-indigo-600 font-bold",
+                                                                className: "text-primary font-bold",
                                                                 children: "+ New Group"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                                lineNumber: 345,
+                                                                lineNumber: 230,
                                                                 columnNumber: 37
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                        lineNumber: 331,
+                                                        lineNumber: 225,
                                                         columnNumber: 33
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                    lineNumber: 320,
+                                                    lineNumber: 218,
                                                     columnNumber: 25
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-500 align-top pt-2",
+                                                    className: "px-6 py-4 whitespace-nowrap text-sm font-bold text-muted-foreground align-top pt-2",
                                                     children: CATEGORY_CONFIG[editCategoryKey].demerits
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                    lineNumber: 349,
+                                                    lineNumber: 234,
                                                     columnNumber: 25
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1330,26 +1330,26 @@ function InfractionsTab() {
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                             onClick: saveEdit,
-                                                            className: "text-green-600 font-medium hover:underline",
+                                                            className: "text-green-600 hover:underline text-sm font-medium",
                                                             children: "Save"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                            lineNumber: 353,
+                                                            lineNumber: 238,
                                                             columnNumber: 29
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                             onClick: ()=>setEditingId(null),
-                                                            className: "text-gray-500 hover:underline",
+                                                            className: "text-muted-foreground hover:underline text-sm",
                                                             children: "Cancel"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                            lineNumber: 354,
+                                                            lineNumber: 239,
                                                             columnNumber: 29
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                    lineNumber: 352,
+                                                    lineNumber: 237,
                                                     columnNumber: 25
                                                 }, this)
                                             ]
@@ -1362,43 +1362,43 @@ function InfractionsTab() {
                                                         children: config.label
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                        lineNumber: 360,
+                                                        lineNumber: 245,
                                                         columnNumber: 29
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                    lineNumber: 359,
+                                                    lineNumber: 244,
                                                     columnNumber: 25
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "px-6 py-4 text-sm font-medium text-gray-900 dark:text-white",
+                                                    className: "px-6 py-4 text-sm font-medium text-foreground",
                                                     children: item.offense_name
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                    lineNumber: 364,
+                                                    lineNumber: 249,
                                                     columnNumber: 25
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "px-6 py-4 text-sm text-gray-500 dark:text-gray-400",
+                                                    className: "px-6 py-4 text-sm text-muted-foreground",
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: "inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300",
+                                                        className: "inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-muted text-muted-foreground",
                                                         children: item.offense_group || 'General'
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                        lineNumber: 366,
+                                                        lineNumber: 251,
                                                         columnNumber: 29
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                    lineNumber: 365,
+                                                    lineNumber: 250,
                                                     columnNumber: 25
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "px-6 py-4 whitespace-nowrap text-sm font-bold text-gray-900 dark:text-white",
+                                                    className: "px-6 py-4 whitespace-nowrap text-sm font-bold text-foreground",
                                                     children: item.demerits
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                    lineNumber: 370,
+                                                    lineNumber: 255,
                                                     columnNumber: 25
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1406,57 +1406,57 @@ function InfractionsTab() {
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                             onClick: ()=>startEdit(item),
-                                                            className: "text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-200",
+                                                            className: "text-primary hover:text-primary/80 transition-colors",
                                                             children: "Edit"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                            lineNumber: 372,
+                                                            lineNumber: 257,
                                                             columnNumber: 27
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                             onClick: ()=>handleDelete(item.id),
-                                                            className: "text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-200",
+                                                            className: "text-destructive hover:text-destructive/80 transition-colors",
                                                             children: "Delete"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                            lineNumber: 373,
+                                                            lineNumber: 258,
                                                             columnNumber: 27
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                                    lineNumber: 371,
+                                                    lineNumber: 256,
                                                     columnNumber: 25
                                                 }, this)
                                             ]
                                         }, void 0, true)
                                     }, item.id, false, {
                                         fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                                        lineNumber: 299,
+                                        lineNumber: 207,
                                         columnNumber: 19
                                     }, this);
                                 })
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                            lineNumber: 227,
+                            lineNumber: 163,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                    lineNumber: 217,
+                    lineNumber: 153,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-                lineNumber: 216,
+                lineNumber: 152,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/admin/tabs/InfractionsTab.tsx",
-        lineNumber: 204,
+        lineNumber: 144,
         columnNumber: 5
     }, this);
 }
@@ -1561,18 +1561,18 @@ function RolesTab() {
         }
     }["RolesTab.useEffect"], []);
     async function fetchRoles() {
-        const { data, error } = await supabase.from('roles').select('*').order('default_role_level', {
+        const { data } = await supabase.from('roles').select('*').order('default_role_level', {
             ascending: false
         });
-        if (!error && data) setRoles(data);
+        if (data) setRoles(data);
     }
     async function fetchCompanies() {
-        const { data, error } = await supabase.from('companies').select('id, company_name').order('company_name');
-        if (!error && data) setCompanies(data);
+        const { data } = await supabase.from('companies').select('id, company_name').order('company_name');
+        if (data) setCompanies(data);
     }
     async function fetchGroups() {
-        const { data, error } = await supabase.from('approval_groups').select('id, group_name, company_id').order('group_name');
-        if (!error && data) setApprovalGroups(data);
+        const { data } = await supabase.from('approval_groups').select('id, group_name, company_id').order('group_name');
+        if (data) setApprovalGroups(data);
     }
     // --- Handlers ---
     const handleCreateCheck = (field, checked)=>{
@@ -1598,9 +1598,8 @@ function RolesTab() {
         if (createForm.can_manage_own_company_roster) formData.append('canManageOwn', 'on');
         if (createForm.can_manage_all_rosters) formData.append('canManageAll', 'on');
         const result = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$admin$2f$data$3a$7401c6__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$text$2f$javascript$3e$__["createAdminRoleAction"])(formData);
-        if (result?.error) {
-            alert(`Error: ${result.error}`);
-        } else {
+        if (result?.error) alert(`Error: ${result.error}`);
+        else {
             setIsCreating(false);
             setCreateForm({
                 default_role_level: 0,
@@ -1649,152 +1648,152 @@ function RolesTab() {
         if (result?.error) alert(result.error);
         else fetchRoles();
     };
-    // --- Filtering Helpers ---
     const getGroupsForCompany = (companyId)=>{
-        if (!companyId) return [] // Global roles usually don't have approval groups, or logic differs
-        ;
+        if (!companyId) return [];
         return approvalGroups.filter((g)=>g.company_id === companyId);
     };
     if (loading) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "p-8 text-gray-500",
+        className: "p-8 text-muted-foreground",
         children: "Loading roles..."
     }, void 0, false, {
         fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-        lineNumber: 140,
+        lineNumber: 80,
         columnNumber: 23
     }, this);
+    // Standard Styling
+    const inputClass = "w-full p-1 border border-input rounded text-sm bg-background text-foreground focus:ring-primary focus:border-primary";
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "space-y-6",
+        className: "space-y-6 animate-in fade-in duration-300",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "flex justify-between items-center",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                        className: "text-2xl font-bold text-gray-900 dark:text-white",
+                        className: "text-2xl font-bold text-foreground",
                         children: "Role Configuration"
                     }, void 0, false, {
                         fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                        lineNumber: 145,
+                        lineNumber: 88,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         onClick: ()=>setIsCreating(true),
                         disabled: isCreating,
-                        className: "px-4 py-2 bg-indigo-600 text-white rounded-md text-sm font-medium hover:bg-indigo-700 disabled:opacity-50",
+                        className: "btn-primary py-1",
                         children: "+ Add Role"
                     }, void 0, false, {
                         fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                        lineNumber: 146,
+                        lineNumber: 89,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                lineNumber: 144,
+                lineNumber: 87,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "bg-blue-50 dark:bg-blue-900/20 p-4 rounded-md border border-blue-200 dark:border-blue-800 text-sm text-blue-800 dark:text-blue-200",
+                className: "bg-primary/5 p-4 rounded-md border border-primary/20 text-sm text-primary",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
                             children: "Note:"
                         }, void 0, false, {
                             fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                            lineNumber: 150,
+                            lineNumber: 93,
                             columnNumber: 12
                         }, this),
                         ' "Approval Group" links a role to the Chain of Command. You must select a Company first.'
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                    lineNumber: 150,
+                    lineNumber: 93,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                lineNumber: 149,
+                lineNumber: 92,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "border rounded-lg overflow-x-auto dark:border-gray-700",
+                className: "card-base",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                    className: "min-w-full divide-y divide-gray-200 dark:divide-gray-700",
+                    className: "min-w-full divide-y divide-border",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
-                            className: "bg-gray-50 dark:bg-gray-800",
+                            className: "bg-muted",
                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                        className: "px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase",
+                                        className: "px-4 py-3 text-left text-xs font-bold text-muted-foreground uppercase",
                                         children: "Role Name"
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                        lineNumber: 157,
+                                        lineNumber: 100,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                        className: "px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase",
+                                        className: "px-4 py-3 text-left text-xs font-bold text-muted-foreground uppercase",
                                         children: "Company"
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                        lineNumber: 158,
+                                        lineNumber: 101,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                        className: "px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase",
+                                        className: "px-4 py-3 text-left text-xs font-bold text-muted-foreground uppercase",
                                         children: "Appr. Group"
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                        lineNumber: 159,
+                                        lineNumber: 102,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                        className: "px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase",
+                                        className: "px-4 py-3 text-left text-xs font-bold text-muted-foreground uppercase",
                                         children: "Lvl"
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                        lineNumber: 160,
+                                        lineNumber: 103,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                        className: "px-4 py-3 text-left text-xs font-bold text-gray-500 uppercase",
+                                        className: "px-4 py-3 text-left text-xs font-bold text-muted-foreground uppercase",
                                         children: "Perms"
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                        lineNumber: 161,
+                                        lineNumber: 104,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                        className: "px-4 py-3 text-right text-xs font-bold text-gray-500 uppercase",
+                                        className: "px-4 py-3 text-right text-xs font-bold text-muted-foreground uppercase",
                                         children: "Actions"
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                        lineNumber: 162,
+                                        lineNumber: 105,
                                         columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                lineNumber: 156,
+                                lineNumber: 99,
                                 columnNumber: 13
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                            lineNumber: 155,
+                            lineNumber: 98,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
-                            className: "bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700",
+                            className: "bg-card divide-y divide-border",
                             children: [
                                 isCreating && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                    className: "bg-indigo-50 dark:bg-indigo-900/20",
+                                    className: "bg-primary/5",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                             className: "px-4 py-4 align-top",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                 placeholder: "Role Name",
-                                                className: "w-full p-1 border rounded text-sm dark:bg-gray-800 dark:border-gray-600 dark:text-white",
+                                                className: inputClass,
                                                 value: createForm.role_name || '',
                                                 onChange: (e)=>setCreateForm({
                                                         ...createForm,
@@ -1802,18 +1801,18 @@ function RolesTab() {
                                                     })
                                             }, void 0, false, {
                                                 fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                lineNumber: 171,
-                                                columnNumber: 21
+                                                lineNumber: 113,
+                                                columnNumber: 53
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                            lineNumber: 170,
+                                            lineNumber: 113,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                             className: "px-4 py-4 align-top",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                                className: "w-full p-1 border rounded text-sm dark:bg-gray-800 dark:border-gray-600 dark:text-white",
+                                                className: inputClass,
                                                 value: createForm.company_id || '',
                                                 onChange: (e)=>setCreateForm({
                                                         ...createForm,
@@ -1826,7 +1825,7 @@ function RolesTab() {
                                                         children: "Global"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                        lineNumber: 175,
+                                                        lineNumber: 116,
                                                         columnNumber: 25
                                                     }, this),
                                                     companies.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1834,24 +1833,24 @@ function RolesTab() {
                                                             children: c.company_name
                                                         }, c.id, false, {
                                                             fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                            lineNumber: 176,
+                                                            lineNumber: 117,
                                                             columnNumber: 45
                                                         }, this))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                lineNumber: 174,
+                                                lineNumber: 115,
                                                 columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                            lineNumber: 173,
+                                            lineNumber: 114,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                             className: "px-4 py-4 align-top",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                                className: "w-full p-1 border rounded text-sm dark:bg-gray-800 dark:border-gray-600 dark:text-white",
+                                                className: inputClass,
                                                 value: createForm.approval_group_id || '',
                                                 onChange: (e)=>setCreateForm({
                                                         ...createForm,
@@ -1864,7 +1863,7 @@ function RolesTab() {
                                                         children: "None"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                        lineNumber: 181,
+                                                        lineNumber: 122,
                                                         columnNumber: 25
                                                     }, this),
                                                     getGroupsForCompany(createForm.company_id).map((g)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -1872,25 +1871,25 @@ function RolesTab() {
                                                             children: g.group_name
                                                         }, g.id, false, {
                                                             fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                            lineNumber: 182,
+                                                            lineNumber: 123,
                                                             columnNumber: 78
                                                         }, this))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                lineNumber: 180,
+                                                lineNumber: 121,
                                                 columnNumber: 21
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                            lineNumber: 179,
+                                            lineNumber: 120,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                             className: "px-4 py-4 align-top",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                 type: "number",
-                                                className: "w-12 p-1 border rounded text-sm dark:bg-gray-800 dark:border-gray-600 dark:text-white",
+                                                className: `w-12 ${inputClass}`,
                                                 value: createForm.default_role_level,
                                                 onChange: (e)=>setCreateForm({
                                                         ...createForm,
@@ -1898,19 +1897,19 @@ function RolesTab() {
                                                     })
                                             }, void 0, false, {
                                                 fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                lineNumber: 186,
-                                                columnNumber: 21
+                                                lineNumber: 126,
+                                                columnNumber: 53
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                            lineNumber: 185,
+                                            lineNumber: 126,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                             className: "px-4 py-4 align-top text-xs space-y-1",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                    className: "flex items-center gap-1",
+                                                    className: "flex items-center gap-1 text-foreground",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                             type: "checkbox",
@@ -1918,18 +1917,18 @@ function RolesTab() {
                                                             onChange: (e)=>handleCreateCheck('can_manage_own_company_roster', e.target.checked)
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                            lineNumber: 189,
-                                                            columnNumber: 64
+                                                            lineNumber: 128,
+                                                            columnNumber: 80
                                                         }, this),
                                                         " Own"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                    lineNumber: 189,
+                                                    lineNumber: 128,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                    className: "flex items-center gap-1",
+                                                    className: "flex items-center gap-1 text-foreground",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                             type: "checkbox",
@@ -1937,20 +1936,20 @@ function RolesTab() {
                                                             onChange: (e)=>handleCreateCheck('can_manage_all_rosters', e.target.checked)
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                            lineNumber: 190,
-                                                            columnNumber: 64
+                                                            lineNumber: 129,
+                                                            columnNumber: 80
                                                         }, this),
                                                         " All"
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                    lineNumber: 190,
+                                                    lineNumber: 129,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                            lineNumber: 188,
+                                            lineNumber: 127,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -1962,37 +1961,38 @@ function RolesTab() {
                                                     children: "Save"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                    lineNumber: 193,
+                                                    lineNumber: 132,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                     onClick: ()=>setIsCreating(false),
-                                                    className: "text-red-500 hover:underline text-xs",
+                                                    className: "text-destructive hover:underline text-xs",
                                                     children: "Cancel"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                    lineNumber: 194,
+                                                    lineNumber: 133,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                            lineNumber: 192,
+                                            lineNumber: 131,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                    lineNumber: 169,
+                                    lineNumber: 112,
                                     columnNumber: 15
                                 }, this),
                                 roles.map((role)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                        className: "hover:bg-muted/30 transition-colors",
                                         children: editingId === role.id ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                     className: "px-4 py-4 align-top",
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                        className: "w-full p-1 border rounded text-sm text-black",
+                                                        className: inputClass,
                                                         value: editForm.role_name || '',
                                                         onChange: (e)=>setEditForm({
                                                                 ...editForm,
@@ -2000,18 +2000,18 @@ function RolesTab() {
                                                             })
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                        lineNumber: 204,
+                                                        lineNumber: 143,
                                                         columnNumber: 57
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                    lineNumber: 204,
+                                                    lineNumber: 143,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                     className: "px-4 py-4 align-top",
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                                        className: "w-full p-1 border rounded text-sm text-black",
+                                                        className: inputClass,
                                                         value: editForm.company_id || '',
                                                         onChange: (e)=>setEditForm({
                                                                 ...editForm,
@@ -2024,7 +2024,7 @@ function RolesTab() {
                                                                 children: "Global"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                                lineNumber: 207,
+                                                                lineNumber: 146,
                                                                 columnNumber: 29
                                                             }, this),
                                                             companies.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -2032,24 +2032,24 @@ function RolesTab() {
                                                                     children: c.company_name
                                                                 }, c.id, false, {
                                                                     fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                                    lineNumber: 208,
+                                                                    lineNumber: 147,
                                                                     columnNumber: 49
                                                                 }, this))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                        lineNumber: 206,
+                                                        lineNumber: 145,
                                                         columnNumber: 25
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                    lineNumber: 205,
+                                                    lineNumber: 144,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                     className: "px-4 py-4 align-top",
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
-                                                        className: "w-full p-1 border rounded text-sm text-black",
+                                                        className: inputClass,
                                                         value: editForm.approval_group_id || '',
                                                         onChange: (e)=>setEditForm({
                                                                 ...editForm,
@@ -2062,7 +2062,7 @@ function RolesTab() {
                                                                 children: "None"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                                lineNumber: 213,
+                                                                lineNumber: 152,
                                                                 columnNumber: 29
                                                             }, this),
                                                             getGroupsForCompany(editForm.company_id).map((g)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -2070,25 +2070,25 @@ function RolesTab() {
                                                                     children: g.group_name
                                                                 }, g.id, false, {
                                                                     fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                                    lineNumber: 214,
+                                                                    lineNumber: 153,
                                                                     columnNumber: 80
                                                                 }, this))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                        lineNumber: 212,
+                                                        lineNumber: 151,
                                                         columnNumber: 25
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                    lineNumber: 211,
+                                                    lineNumber: 150,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                     className: "px-4 py-4 align-top",
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                         type: "number",
-                                                        className: "w-12 p-1 border rounded text-sm text-black",
+                                                        className: `w-12 ${inputClass}`,
                                                         value: editForm.default_role_level || 0,
                                                         onChange: (e)=>setEditForm({
                                                                 ...editForm,
@@ -2096,19 +2096,19 @@ function RolesTab() {
                                                             })
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                        lineNumber: 217,
+                                                        lineNumber: 156,
                                                         columnNumber: 57
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                    lineNumber: 217,
+                                                    lineNumber: 156,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                     className: "px-4 py-4 align-top text-xs space-y-1",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                            className: "flex items-center gap-1 text-black",
+                                                            className: "flex items-center gap-1 text-foreground",
                                                             children: [
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                                     type: "checkbox",
@@ -2116,18 +2116,18 @@ function RolesTab() {
                                                                     onChange: (e)=>handleEditCheck('can_manage_own_company_roster', e.target.checked)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                                    lineNumber: 219,
-                                                                    columnNumber: 79
+                                                                    lineNumber: 158,
+                                                                    columnNumber: 84
                                                                 }, this),
                                                                 " Own"
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                            lineNumber: 219,
+                                                            lineNumber: 158,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                            className: "flex items-center gap-1 text-black",
+                                                            className: "flex items-center gap-1 text-foreground",
                                                             children: [
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                                     type: "checkbox",
@@ -2135,20 +2135,20 @@ function RolesTab() {
                                                                     onChange: (e)=>handleEditCheck('can_manage_all_rosters', e.target.checked)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                                    lineNumber: 220,
-                                                                    columnNumber: 79
+                                                                    lineNumber: 159,
+                                                                    columnNumber: 84
                                                                 }, this),
                                                                 " All"
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                            lineNumber: 220,
+                                                            lineNumber: 159,
                                                             columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                    lineNumber: 218,
+                                                    lineNumber: 157,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2160,65 +2160,65 @@ function RolesTab() {
                                                             children: "Save"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                            lineNumber: 223,
+                                                            lineNumber: 162,
                                                             columnNumber: 25
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                             onClick: ()=>setEditingId(null),
-                                                            className: "text-gray-500 hover:underline text-xs",
+                                                            className: "text-muted-foreground hover:underline text-xs",
                                                             children: "Cancel"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                            lineNumber: 224,
+                                                            lineNumber: 163,
                                                             columnNumber: 25
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                    lineNumber: 222,
+                                                    lineNumber: 161,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "px-4 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white",
+                                                    className: "px-4 py-4 whitespace-nowrap text-sm font-medium text-foreground",
                                                     children: role.role_name
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                    lineNumber: 229,
+                                                    lineNumber: 168,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400",
+                                                    className: "px-4 py-4 whitespace-nowrap text-sm text-muted-foreground",
                                                     children: companies.find((c)=>c.id === role.company_id)?.company_name || '-'
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                    lineNumber: 230,
+                                                    lineNumber: 169,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "px-4 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400",
+                                                    className: "px-4 py-4 whitespace-nowrap text-sm text-muted-foreground",
                                                     children: approvalGroups.find((g)=>g.id === role.approval_group_id)?.group_name || '-'
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                    lineNumber: 231,
+                                                    lineNumber: 170,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "px-4 py-4 whitespace-nowrap text-sm text-gray-500",
+                                                    className: "px-4 py-4 whitespace-nowrap text-sm text-muted-foreground",
                                                     children: role.default_role_level
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                    lineNumber: 232,
+                                                    lineNumber: 171,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                    className: "px-4 py-4 text-xs text-gray-500",
+                                                    className: "px-4 py-4 text-xs text-muted-foreground",
                                                     children: role.can_manage_all_rosters ? 'All' : role.can_manage_own_company_roster ? 'Own' : '-'
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                    lineNumber: 233,
+                                                    lineNumber: 172,
                                                     columnNumber: 21
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -2226,60 +2226,60 @@ function RolesTab() {
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                             onClick: ()=>startEdit(role),
-                                                            className: "text-indigo-600 hover:text-indigo-900 dark:text-indigo-400 dark:hover:text-indigo-200 mr-2",
+                                                            className: "text-primary hover:text-primary/80 mr-2 transition-colors",
                                                             children: "Edit"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                            lineNumber: 237,
+                                                            lineNumber: 176,
                                                             columnNumber: 23
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                                             onClick: ()=>handleDelete(role.id),
-                                                            className: "text-red-600 hover:text-red-900 dark:text-red-400 dark:hover:text-red-200",
+                                                            className: "text-destructive hover:text-destructive/80 transition-colors",
                                                             children: "Delete"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                            lineNumber: 238,
+                                                            lineNumber: 177,
                                                             columnNumber: 23
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                                    lineNumber: 236,
+                                                    lineNumber: 175,
                                                     columnNumber: 21
                                                 }, this)
                                             ]
                                         }, void 0, true)
                                     }, role.id, false, {
                                         fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                                        lineNumber: 201,
+                                        lineNumber: 140,
                                         columnNumber: 15
                                     }, this))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                            lineNumber: 165,
+                            lineNumber: 108,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                    lineNumber: 154,
+                    lineNumber: 97,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-                lineNumber: 153,
+                lineNumber: 96,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/admin/tabs/RolesTab.tsx",
-        lineNumber: 143,
+        lineNumber: 86,
         columnNumber: 5
     }, this);
 }
-_s(RolesTab, "mRW1FD6UFJBZTYfZNHC/hINkN64=");
+_s(RolesTab, "abNozNHn+f6EX5tbO/RCtkwCN40=");
 _c = RolesTab;
 var _c;
 __turbopack_context__.k.register(_c, "RolesTab");
@@ -2349,12 +2349,12 @@ const TrashIcon = ()=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$proje
             d: "m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12.548 0A48.108 48.108 0 0 1 6.75 5.397m10.5-2.572V3.375c0-.621-.504-1.125-1.125-1.125H8.625c-.621 0-1.125.504-1.125 1.125v2.25"
         }, void 0, false, {
             fileName: "[project]/app/admin/tabs/CompaniesTab.tsx",
-            lineNumber: 13,
+            lineNumber: 10,
             columnNumber: 158
         }, ("TURBOPACK compile-time value", void 0))
     }, void 0, false, {
         fileName: "[project]/app/admin/tabs/CompaniesTab.tsx",
-        lineNumber: 13,
+        lineNumber: 10,
         columnNumber: 26
     }, ("TURBOPACK compile-time value", void 0));
 _c = TrashIcon;
@@ -2363,7 +2363,6 @@ function CompaniesTab() {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$client$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createClient"])();
     const [companies, setCompanies] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
-    // Form State
     const [newName, setNewName] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
     const [isSubmitting, setIsSubmitting] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
@@ -2386,9 +2385,8 @@ function CompaniesTab() {
         const formData = new FormData();
         formData.append('name', newName);
         const result = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$admin$2f$data$3a$bb2746__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$text$2f$javascript$3e$__["createCompanyAction"])(formData);
-        if (result?.error) {
-            alert(result.error);
-        } else {
+        if (result?.error) alert(result.error);
+        else {
             setNewName('');
             fetchCompanies();
         }
@@ -2396,104 +2394,100 @@ function CompaniesTab() {
     };
     const handleDelete = async (id)=>{
         if (!confirm("Are you sure you want to delete this company?")) return;
-        // Optimistic UI update could go here, but we'll wait for safety
         const result = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$admin$2f$data$3a$85eb12__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$text$2f$javascript$3e$__["deleteCompanyAction"])(id);
-        if (result?.error) {
-            alert(result.error);
-        } else {
-            fetchCompanies();
-        }
+        if (result?.error) alert(result.error);
+        else fetchCompanies();
     };
     if (loading) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "p-8 text-gray-500",
+        className: "p-8 text-muted-foreground",
         children: "Loading companies..."
     }, void 0, false, {
         fileName: "[project]/app/admin/tabs/CompaniesTab.tsx",
-        lineNumber: 71,
+        lineNumber: 43,
         columnNumber: 23
     }, this);
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "space-y-6",
+        className: "space-y-6 animate-in fade-in duration-300",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "flex justify-between items-center",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                    className: "text-2xl font-bold text-gray-900 dark:text-white",
+                    className: "text-2xl font-bold text-foreground",
                     children: "Company Units"
                 }, void 0, false, {
                     fileName: "[project]/app/admin/tabs/CompaniesTab.tsx",
-                    lineNumber: 76,
+                    lineNumber: 48,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/admin/tabs/CompaniesTab.tsx",
-                lineNumber: 75,
+                lineNumber: 47,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "grid grid-cols-1 md:grid-cols-2 gap-8",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-white dark:bg-gray-800 shadow-sm rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden",
+                        className: "bg-card shadow-sm rounded-lg border border-border overflow-hidden",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
-                            className: "divide-y divide-gray-200 dark:divide-gray-700",
+                            className: "divide-y divide-border",
                             children: companies.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                className: "p-4 text-center text-gray-500",
+                                className: "p-4 text-center text-muted-foreground",
                                 children: "No companies found."
                             }, void 0, false, {
                                 fileName: "[project]/app/admin/tabs/CompaniesTab.tsx",
-                                lineNumber: 85,
+                                lineNumber: 57,
                                 columnNumber: 21
                             }, this) : companies.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                    className: "p-4 flex justify-between items-center hover:bg-gray-50 dark:hover:bg-gray-700/50",
+                                    className: "p-4 flex justify-between items-center hover:bg-muted/50 transition-colors",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "font-medium text-gray-900 dark:text-white",
+                                            className: "font-medium text-foreground",
                                             children: c.company_name
                                         }, void 0, false, {
                                             fileName: "[project]/app/admin/tabs/CompaniesTab.tsx",
-                                            lineNumber: 89,
+                                            lineNumber: 61,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             onClick: ()=>handleDelete(c.id),
-                                            className: "text-gray-400 hover:text-red-600 transition-colors",
+                                            className: "text-muted-foreground hover:text-destructive transition-colors",
                                             title: "Delete Company",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(TrashIcon, {}, void 0, false, {
                                                 fileName: "[project]/app/admin/tabs/CompaniesTab.tsx",
-                                                lineNumber: 95,
+                                                lineNumber: 63,
                                                 columnNumber: 33
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/admin/tabs/CompaniesTab.tsx",
-                                            lineNumber: 90,
+                                            lineNumber: 62,
                                             columnNumber: 29
                                         }, this)
                                     ]
                                 }, c.id, true, {
                                     fileName: "[project]/app/admin/tabs/CompaniesTab.tsx",
-                                    lineNumber: 88,
+                                    lineNumber: 60,
                                     columnNumber: 25
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/app/admin/tabs/CompaniesTab.tsx",
-                            lineNumber: 83,
+                            lineNumber: 55,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/admin/tabs/CompaniesTab.tsx",
-                        lineNumber: 82,
+                        lineNumber: 54,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-indigo-50 dark:bg-indigo-900/20 p-6 rounded-lg border border-indigo-100 dark:border-indigo-800 h-fit",
+                        className: "bg-primary/5 p-6 rounded-lg border border-primary/20 h-fit",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                className: "text-lg font-semibold text-indigo-900 dark:text-indigo-200 mb-4",
+                                className: "text-lg font-semibold text-primary mb-4",
                                 children: "Add New Unit"
                             }, void 0, false, {
                                 fileName: "[project]/app/admin/tabs/CompaniesTab.tsx",
-                                lineNumber: 105,
+                                lineNumber: 73,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -2503,11 +2497,11 @@ function CompaniesTab() {
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                className: "block text-sm font-medium text-indigo-800 dark:text-indigo-300 mb-1",
+                                                className: "block text-sm font-medium text-foreground mb-1",
                                                 children: "Company Name"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/admin/tabs/CompaniesTab.tsx",
-                                                lineNumber: 108,
+                                                lineNumber: 76,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -2515,50 +2509,50 @@ function CompaniesTab() {
                                                 value: newName,
                                                 onChange: (e)=>setNewName(e.target.value),
                                                 placeholder: "e.g. Charlie Company",
-                                                className: "block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm p-2"
+                                                className: "block w-full rounded-md border-input bg-background text-foreground shadow-sm focus:border-primary focus:ring-primary sm:text-sm p-2"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/admin/tabs/CompaniesTab.tsx",
-                                                lineNumber: 109,
+                                                lineNumber: 77,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/admin/tabs/CompaniesTab.tsx",
-                                        lineNumber: 107,
+                                        lineNumber: 75,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         type: "submit",
                                         disabled: isSubmitting || !newName.trim(),
-                                        className: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none disabled:bg-indigo-400 dark:disabled:bg-indigo-800",
+                                        className: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 focus:outline-none disabled:opacity-50",
                                         children: isSubmitting ? 'Creating...' : 'Create Company'
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/tabs/CompaniesTab.tsx",
-                                        lineNumber: 117,
+                                        lineNumber: 85,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/admin/tabs/CompaniesTab.tsx",
-                                lineNumber: 106,
+                                lineNumber: 74,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/admin/tabs/CompaniesTab.tsx",
-                        lineNumber: 104,
+                        lineNumber: 72,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/admin/tabs/CompaniesTab.tsx",
-                lineNumber: 79,
+                lineNumber: 51,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/admin/tabs/CompaniesTab.tsx",
-        lineNumber: 74,
+        lineNumber: 46,
         columnNumber: 5
     }, this);
 }
@@ -2680,11 +2674,9 @@ function NotificationsTab() {
     const [settings, setSettings] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [scheduleTime, setScheduleTime] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('06:00');
     const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(true);
-    // Activity States
     const [sendingGreen, setSendingGreen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [sendingTour, setSendingTour] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [sendingActions, setSendingActions] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    // Test Email State
     const [testRecipients, setTestRecipients] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
     const [testSubject, setTestSubject] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
     const [testBody, setTestBody] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
@@ -2716,28 +2708,25 @@ function NotificationsTab() {
         }
     };
     const handleManualGreen = async ()=>{
-        if (!confirm("Email the Green Sheet to ALL Faculty/Staff?")) return;
+        if (!confirm("Email ALL Faculty/Staff?")) return;
         setSendingGreen(true);
         const res = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$data$3a$8ff977__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$text$2f$javascript$3e$__["triggerGreenSheetBlast"])();
         setSendingGreen(false);
-        if (res?.success) alert("Sent successfully.");
-        else alert(`Failed: ${res?.error}`);
+        alert(res?.success ? "Sent." : `Failed: ${res?.error}`);
     };
     const handleManualTour = async ()=>{
-        if (!confirm("Email all cadets currently on the Tour Sheet?")) return;
+        if (!confirm("Email Tour Sheet cadets?")) return;
         setSendingTour(true);
         const res = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$data$3a$b9bc8b__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$text$2f$javascript$3e$__["triggerTourSheetAlert"])();
         setSendingTour(false);
-        if (res?.success) alert(`Sent ${res.sent} alerts.`);
-        else alert(`Failed: ${res?.error}`);
+        alert(res?.success ? `Sent ${res.sent}.` : `Failed: ${res?.error}`);
     };
     const handleManualActions = async ()=>{
-        if (!confirm("Email everyone with pending Action Items?")) return;
+        if (!confirm("Email Action Item reminders?")) return;
         setSendingActions(true);
         const res = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$data$3a$7e13b9__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$text$2f$javascript$3e$__["triggerActionItemAlert"])();
         setSendingActions(false);
-        if (res?.success) alert(`Sent ${res.sent} reminders.`);
-        else alert(`Failed: ${res?.error}`);
+        alert(res?.success ? `Sent ${res.sent}.` : `Failed: ${res?.error}`);
     };
     const handleSendTest = async (e)=>{
         e.preventDefault();
@@ -2745,8 +2734,7 @@ function NotificationsTab() {
         setSendingTest(true);
         const res = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$data$3a$dd5afc__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$text$2f$javascript$3e$__["sendTestEmail"])(testRecipients, testSubject, testBody);
         setSendingTest(false);
-        if (res?.success) alert("Test email sent.");
-        else alert(`Failed: ${res?.error}`);
+        alert(res?.success ? "Sent." : `Failed: ${res?.error}`);
     };
     const saveSchedule = async ()=>{
         await supabase.from('system_settings').upsert({
@@ -2757,228 +2745,231 @@ function NotificationsTab() {
         alert("Schedule updated.");
     };
     if (loading) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "p-8 text-gray-500",
+        className: "p-8 text-muted-foreground",
         children: "Loading..."
     }, void 0, false, {
         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-        lineNumber: 100,
+        lineNumber: 59,
         columnNumber: 23
     }, this);
+    // Styles
+    const sectionClass = "card-base p-6";
+    const inputClass = "input-base";
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "space-y-8",
+        className: "space-y-8 animate-in fade-in duration-300",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-                className: "bg-white dark:bg-gray-800 p-6 rounded-lg shadow border dark:border-gray-700",
+                className: sectionClass,
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                        className: "text-xl font-bold text-gray-900 dark:text-white mb-4",
+                        className: "text-xl font-bold text-foreground mb-4",
                         children: "Notification Channels"
                     }, void 0, false, {
                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                        lineNumber: 107,
+                        lineNumber: 70,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "space-y-4",
                         children: settings.filter((s)=>s.key !== 'green_sheet_schedule_time').map((s)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex items-center justify-between p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg",
+                                className: "flex items-center justify-between p-3 bg-muted/30 rounded-lg",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: "font-medium text-gray-900 dark:text-white",
+                                                className: "font-medium text-foreground",
                                                 children: s.key.replace(/_/g, ' ').replace('enable ', '').toUpperCase()
                                             }, void 0, false, {
                                                 fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                                lineNumber: 112,
+                                                lineNumber: 75,
                                                 columnNumber: 27
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: "text-sm text-gray-500 dark:text-gray-400",
+                                                className: "text-sm text-muted-foreground",
                                                 children: s.description
                                             }, void 0, false, {
                                                 fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                                lineNumber: 113,
+                                                lineNumber: 76,
                                                 columnNumber: 27
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                        lineNumber: 111,
+                                        lineNumber: 74,
                                         columnNumber: 23
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         onClick: ()=>toggleSetting(s.key, s.value),
-                                        className: `relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${s.value ? 'bg-green-500' : 'bg-gray-300 dark:bg-gray-600'}`,
+                                        className: `relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${s.value ? 'bg-green-500' : 'bg-muted-foreground/30'}`,
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                             className: `inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${s.value ? 'translate-x-6' : 'translate-x-1'}`
                                         }, void 0, false, {
                                             fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                            lineNumber: 119,
+                                            lineNumber: 82,
                                             columnNumber: 27
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                        lineNumber: 115,
+                                        lineNumber: 78,
                                         columnNumber: 23
                                     }, this)
                                 ]
                             }, s.key, true, {
                                 fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                lineNumber: 110,
+                                lineNumber: 73,
                                 columnNumber: 19
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                        lineNumber: 108,
+                        lineNumber: 71,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                lineNumber: 106,
+                lineNumber: 69,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-                className: "bg-white dark:bg-gray-800 p-6 rounded-lg shadow border dark:border-gray-700",
+                className: sectionClass,
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                        className: "text-xl font-bold text-gray-900 dark:text-white mb-6",
+                        className: "text-xl font-bold text-foreground mb-6",
                         children: "Manual Broadcasts"
                     }, void 0, false, {
                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                        lineNumber: 128,
+                        lineNumber: 91,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "grid grid-cols-1 md:grid-cols-3 gap-4",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "p-4 border rounded-lg dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50",
+                                className: "p-4 border border-border rounded-lg bg-muted/10",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                        className: "font-bold text-gray-800 dark:text-gray-200 mb-2",
+                                        className: "font-bold text-foreground mb-2",
                                         children: "Daily Green Sheet"
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                        lineNumber: 132,
+                                        lineNumber: 96,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-xs text-gray-500 mb-4",
+                                        className: "text-xs text-muted-foreground mb-4",
                                         children: "Sends the daily summary to all Faculty/Staff."
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                        lineNumber: 133,
+                                        lineNumber: 97,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         onClick: handleManualGreen,
                                         disabled: sendingGreen,
-                                        className: "w-full flex items-center justify-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 disabled:opacity-50 text-sm",
+                                        className: "btn-primary w-full",
                                         children: sendingGreen ? 'Sending...' : 'Send to Faculty'
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                        lineNumber: 134,
+                                        lineNumber: 98,
                                         columnNumber: 19
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                lineNumber: 131,
+                                lineNumber: 95,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "p-4 border rounded-lg dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50",
+                                className: "p-4 border border-border rounded-lg bg-muted/10",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                        className: "font-bold text-gray-800 dark:text-gray-200 mb-2",
+                                        className: "font-bold text-foreground mb-2",
                                         children: "Tour Sheet Alerts"
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                        lineNumber: 140,
+                                        lineNumber: 105,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-xs text-gray-500 mb-4",
+                                        className: "text-xs text-muted-foreground mb-4",
                                         children: "Emails every cadet currently on the Tour Sheet."
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                        lineNumber: 141,
+                                        lineNumber: 106,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         onClick: handleManualTour,
                                         disabled: sendingTour,
-                                        className: "w-full flex items-center justify-center gap-2 px-4 py-2 bg-orange-600 text-white rounded-md hover:bg-orange-700 disabled:opacity-50 text-sm",
+                                        className: "btn-primary w-full bg-orange-600 hover:bg-orange-700",
                                         children: sendingTour ? 'Sending...' : 'Alert Debtors'
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                        lineNumber: 142,
+                                        lineNumber: 107,
                                         columnNumber: 19
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                lineNumber: 139,
+                                lineNumber: 104,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "p-4 border rounded-lg dark:border-gray-600 bg-gray-50 dark:bg-gray-900/50",
+                                className: "p-4 border border-border rounded-lg bg-muted/10",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                        className: "font-bold text-gray-800 dark:text-gray-200 mb-2",
+                                        className: "font-bold text-foreground mb-2",
                                         children: "Action Item Reminders"
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                        lineNumber: 148,
+                                        lineNumber: 114,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-xs text-gray-500 mb-4",
+                                        className: "text-xs text-muted-foreground mb-4",
                                         children: "Nudges anyone with pending approvals or revisions."
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                        lineNumber: 149,
+                                        lineNumber: 115,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         onClick: handleManualActions,
                                         disabled: sendingActions,
-                                        className: "w-full flex items-center justify-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 text-sm",
+                                        className: "btn-primary w-full bg-blue-600 hover:bg-blue-700",
                                         children: sendingActions ? 'Sending...' : 'Send Reminders'
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                        lineNumber: 150,
+                                        lineNumber: 116,
                                         columnNumber: 19
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                lineNumber: 147,
+                                lineNumber: 113,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                        lineNumber: 130,
+                        lineNumber: 93,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                lineNumber: 127,
+                lineNumber: 90,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-                className: "bg-white dark:bg-gray-800 p-6 rounded-lg shadow border dark:border-gray-700",
+                className: sectionClass,
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                        className: "text-xl font-bold text-gray-900 dark:text-white mb-4",
+                        className: "text-xl font-bold text-foreground mb-4",
                         children: "Daily Schedule"
                     }, void 0, false, {
                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                        lineNumber: 159,
+                        lineNumber: 125,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2987,67 +2978,67 @@ function NotificationsTab() {
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
+                                        className: "block text-sm font-medium text-foreground mb-1",
                                         children: "Send Time (UTC)"
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                        lineNumber: 162,
+                                        lineNumber: 128,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                         type: "time",
                                         value: scheduleTime,
                                         onChange: (e)=>setScheduleTime(e.target.value),
-                                        className: "rounded-md border-gray-300 dark:bg-gray-900 dark:text-white p-2"
+                                        className: `w-32 ${inputClass}`
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                        lineNumber: 163,
+                                        lineNumber: 129,
                                         columnNumber: 19
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                lineNumber: 161,
+                                lineNumber: 127,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 onClick: saveSchedule,
-                                className: "px-4 py-2 bg-gray-600 text-white rounded-md hover:bg-gray-700 text-sm font-medium",
+                                className: "btn-primary bg-muted-foreground hover:bg-muted-foreground/80",
                                 children: "Save Schedule"
                             }, void 0, false, {
                                 fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                lineNumber: 165,
+                                lineNumber: 131,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                        lineNumber: 160,
+                        lineNumber: 126,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                        className: "text-xs text-gray-500 mt-2",
-                        children: "This controls the automatic daily Green Sheet blast (requires pg_cron)."
+                        className: "text-xs text-muted-foreground mt-2",
+                        children: "This controls the automatic daily Green Sheet blast."
                     }, void 0, false, {
                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                        lineNumber: 167,
+                        lineNumber: 133,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                lineNumber: 158,
+                lineNumber: 124,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
-                className: "bg-indigo-50 dark:bg-indigo-900/20 p-6 rounded-lg border border-indigo-200 dark:border-indigo-800",
+                className: "bg-primary/5 p-6 rounded-lg border border-primary/20",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                        className: "text-xl font-bold text-indigo-900 dark:text-indigo-100 mb-4",
+                        className: "text-xl font-bold text-primary mb-4",
                         children: "System Test"
                     }, void 0, false, {
                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                        lineNumber: 172,
+                        lineNumber: 138,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -3057,11 +3048,11 @@ function NotificationsTab() {
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                        className: "block text-sm font-medium text-indigo-800 dark:text-indigo-300 mb-1",
+                                        className: "block text-sm font-medium text-foreground mb-1",
                                         children: "Recipients (Comma separated)"
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                        lineNumber: 175,
+                                        lineNumber: 141,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -3069,26 +3060,26 @@ function NotificationsTab() {
                                         value: testRecipients,
                                         onChange: (e)=>setTestRecipients(e.target.value),
                                         placeholder: "admin@fuma.org, test@fuma.org",
-                                        className: "w-full rounded-md border-indigo-300 dark:bg-gray-800 dark:border-indigo-700 dark:text-white p-2"
+                                        className: inputClass
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                        lineNumber: 176,
+                                        lineNumber: 142,
                                         columnNumber: 19
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                lineNumber: 174,
+                                lineNumber: 140,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                        className: "block text-sm font-medium text-indigo-800 dark:text-indigo-300 mb-1",
+                                        className: "block text-sm font-medium text-foreground mb-1",
                                         children: "Subject"
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                        lineNumber: 185,
+                                        lineNumber: 145,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -3096,26 +3087,26 @@ function NotificationsTab() {
                                         value: testSubject,
                                         onChange: (e)=>setTestSubject(e.target.value),
                                         placeholder: "Test Notification",
-                                        className: "w-full rounded-md border-indigo-300 dark:bg-gray-800 dark:border-indigo-700 dark:text-white p-2"
+                                        className: inputClass
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                        lineNumber: 186,
+                                        lineNumber: 146,
                                         columnNumber: 19
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                lineNumber: 184,
+                                lineNumber: 144,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                        className: "block text-sm font-medium text-indigo-800 dark:text-indigo-300 mb-1",
+                                        className: "block text-sm font-medium text-foreground mb-1",
                                         children: "Message Body"
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                        lineNumber: 195,
+                                        lineNumber: 149,
                                         columnNumber: 19
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -3123,16 +3114,16 @@ function NotificationsTab() {
                                         onChange: (e)=>setTestBody(e.target.value),
                                         rows: 3,
                                         placeholder: "Hello world...",
-                                        className: "w-full rounded-md border-indigo-300 dark:bg-gray-800 dark:border-indigo-700 dark:text-white p-2"
+                                        className: inputClass
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                        lineNumber: 196,
+                                        lineNumber: 150,
                                         columnNumber: 19
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                lineNumber: 194,
+                                lineNumber: 148,
                                 columnNumber: 15
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3140,42 +3131,49 @@ function NotificationsTab() {
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     type: "submit",
                                     disabled: sendingTest,
-                                    className: "px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 disabled:opacity-50 flex items-center gap-2",
+                                    className: "btn-primary",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(SendIcon, {}, void 0, false, {
                                             fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                            lineNumber: 206,
+                                            lineNumber: 154,
                                             columnNumber: 23
                                         }, this),
                                         " ",
-                                        sendingTest ? 'Sending...' : 'Send Test Email'
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: "ml-2",
+                                            children: sendingTest ? 'Sending...' : 'Send Test Email'
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
+                                            lineNumber: 154,
+                                            columnNumber: 36
+                                        }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                    lineNumber: 205,
+                                    lineNumber: 153,
                                     columnNumber: 19
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                                lineNumber: 204,
+                                lineNumber: 152,
                                 columnNumber: 15
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                        lineNumber: 173,
+                        lineNumber: 139,
                         columnNumber: 11
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-                lineNumber: 171,
+                lineNumber: 137,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/admin/tabs/NotificationsTab.tsx",
-        lineNumber: 103,
+        lineNumber: 66,
         columnNumber: 5
     }, this);
 }
@@ -3202,7 +3200,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$admin$2f$tabs$2f$Gene
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$admin$2f$tabs$2f$InfractionsTab$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/admin/tabs/InfractionsTab.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$admin$2f$tabs$2f$RolesTab$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/admin/tabs/RolesTab.tsx [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$admin$2f$tabs$2f$CompaniesTab$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/admin/tabs/CompaniesTab.tsx [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$admin$2f$tabs$2f$NotificationsTab$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/admin/tabs/NotificationsTab.tsx [app-client] (ecmascript)"); // <--- NEW IMPORT
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$admin$2f$tabs$2f$NotificationsTab$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/admin/tabs/NotificationsTab.tsx [app-client] (ecmascript)");
 ;
 var _s = __turbopack_context__.k.signature();
 'use client';
@@ -3220,7 +3218,7 @@ const LockIcon = ()=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$projec
         viewBox: "0 0 24 24",
         strokeWidth: 1.5,
         stroke: "currentColor",
-        className: "w-12 h-12 text-gray-400",
+        className: "w-12 h-12 text-muted-foreground",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
             strokeLinecap: "round",
             strokeLinejoin: "round",
@@ -3228,7 +3226,7 @@ const LockIcon = ()=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$projec
         }, void 0, false, {
             fileName: "[project]/app/admin/AdminClientComponent.tsx",
             lineNumber: 13,
-            columnNumber: 173
+            columnNumber: 181
         }, ("TURBOPACK compile-time value", void 0))
     }, void 0, false, {
         fileName: "[project]/app/admin/AdminClientComponent.tsx",
@@ -3259,9 +3257,9 @@ function AdminSettingsClient({ user }) {
     };
     if (!isVerified) {
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-            className: "flex min-h-[calc(100vh-64px)] items-center justify-center bg-gray-50 dark:bg-gray-900",
+            className: "flex min-h-[calc(100vh-64px)] items-center justify-center bg-background p-4",
             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "w-full max-w-md space-y-8 p-8 bg-white dark:bg-gray-800 shadow-lg rounded-xl",
+                className: "w-full max-w-md space-y-8 p-8 bg-card border border-border shadow-lg rounded-xl animate-in fade-in zoom-in-95",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "flex flex-col items-center",
@@ -3272,7 +3270,7 @@ function AdminSettingsClient({ user }) {
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                className: "mt-6 text-center text-2xl font-bold text-gray-900 dark:text-white",
+                                className: "mt-6 text-center text-2xl font-bold text-foreground",
                                 children: "Admin Access"
                             }, void 0, false, {
                                 fileName: "[project]/app/admin/AdminClientComponent.tsx",
@@ -3280,7 +3278,7 @@ function AdminSettingsClient({ user }) {
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "mt-2 text-sm text-gray-600 dark:text-gray-400",
+                                className: "mt-2 text-sm text-muted-foreground",
                                 children: "Verify password to continue."
                             }, void 0, false, {
                                 fileName: "[project]/app/admin/AdminClientComponent.tsx",
@@ -3300,23 +3298,23 @@ function AdminSettingsClient({ user }) {
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300",
+                                        className: "block text-sm font-medium text-foreground",
                                         children: "Password"
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/AdminClientComponent.tsx",
-                                        lineNumber: 44,
-                                        columnNumber: 18
+                                        lineNumber: 45,
+                                        columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                         type: "password",
                                         required: true,
                                         value: password,
                                         onChange: (e)=>setPassword(e.target.value),
-                                        className: "mt-1 block w-full rounded-md border-gray-300 dark:bg-gray-900 dark:border-gray-600 dark:text-white shadow-sm"
+                                        className: "mt-1 block w-full rounded-md border-input bg-background text-foreground shadow-sm focus:border-primary focus:ring-primary"
                                     }, void 0, false, {
                                         fileName: "[project]/app/admin/AdminClientComponent.tsx",
-                                        lineNumber: 44,
-                                        columnNumber: 112
+                                        lineNumber: 46,
+                                        columnNumber: 15
                                     }, this)
                                 ]
                             }, void 0, true, {
@@ -3325,21 +3323,21 @@ function AdminSettingsClient({ user }) {
                                 columnNumber: 13
                             }, this),
                             authError && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-sm text-red-600",
+                                className: "text-sm text-destructive",
                                 children: authError
                             }, void 0, false, {
                                 fileName: "[project]/app/admin/AdminClientComponent.tsx",
-                                lineNumber: 45,
+                                lineNumber: 54,
                                 columnNumber: 27
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 type: "submit",
                                 disabled: isLoading,
-                                className: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400",
+                                className: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 disabled:opacity-50 transition-colors",
                                 children: isLoading ? 'Verifying...' : 'Unlock'
                             }, void 0, false, {
                                 fileName: "[project]/app/admin/AdminClientComponent.tsx",
-                                lineNumber: 46,
+                                lineNumber: 55,
                                 columnNumber: 13
                             }, this)
                         ]
@@ -3361,98 +3359,72 @@ function AdminSettingsClient({ user }) {
         }, this);
     }
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "flex flex-col md:flex-row min-h-screen bg-gray-50 dark:bg-gray-900",
+        className: "flex flex-col md:flex-row min-h-screen bg-background transition-colors",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("aside", {
-                className: "w-full md:w-64 bg-white dark:bg-gray-800 border-r dark:border-gray-700 md:min-h-screen flex-shrink-0",
+                className: "w-full md:w-64 bg-card border-r border-border md:min-h-screen flex-shrink-0",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "p-6 border-b dark:border-gray-700",
+                        className: "p-6 border-b border-border",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                className: "text-xl font-bold text-gray-900 dark:text-white",
+                                className: "text-xl font-bold text-foreground",
                                 children: "Admin Settings"
                             }, void 0, false, {
                                 fileName: "[project]/app/admin/AdminClientComponent.tsx",
-                                lineNumber: 59,
+                                lineNumber: 74,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-xs text-gray-500 mt-1",
+                                className: "text-xs text-muted-foreground mt-1",
                                 children: "System Configuration"
                             }, void 0, false, {
                                 fileName: "[project]/app/admin/AdminClientComponent.tsx",
-                                lineNumber: 60,
+                                lineNumber: 75,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/admin/AdminClientComponent.tsx",
-                        lineNumber: 58,
+                        lineNumber: 73,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
                         className: "p-4 space-y-2",
                         children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                onClick: ()=>setActiveTab('general'),
-                                className: `w-full text-left px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'general' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-200' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'}`,
-                                children: "General"
-                            }, void 0, false, {
+                            'general',
+                            'infractions',
+                            'roles',
+                            'companies',
+                            'notifications'
+                        ].map((tab)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                onClick: ()=>setActiveTab(tab),
+                                className: `w-full text-left px-4 py-2 rounded-md text-sm font-medium transition-colors capitalize ${activeTab === tab ? 'bg-primary/10 text-primary' : 'text-muted-foreground hover:bg-muted hover:text-foreground'}`,
+                                children: [
+                                    tab === 'general' && 'General',
+                                    tab === 'infractions' && 'Infractions & Demerits',
+                                    tab === 'roles' && 'Roles & Hierarchy',
+                                    tab === 'companies' && 'Companies & Units',
+                                    tab === 'notifications' && 'Notifications & Alerts'
+                                ]
+                            }, tab, true, {
                                 fileName: "[project]/app/admin/AdminClientComponent.tsx",
-                                lineNumber: 64,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                onClick: ()=>setActiveTab('infractions'),
-                                className: `w-full text-left px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'infractions' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-200' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'}`,
-                                children: "Infractions & Demerits"
-                            }, void 0, false, {
-                                fileName: "[project]/app/admin/AdminClientComponent.tsx",
-                                lineNumber: 70,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                onClick: ()=>setActiveTab('roles'),
-                                className: `w-full text-left px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'roles' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-200' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'}`,
-                                children: "Roles & Hierarchy"
-                            }, void 0, false, {
-                                fileName: "[project]/app/admin/AdminClientComponent.tsx",
-                                lineNumber: 76,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                onClick: ()=>setActiveTab('companies'),
-                                className: `w-full text-left px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'companies' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-200' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'}`,
-                                children: "Companies & Units"
-                            }, void 0, false, {
-                                fileName: "[project]/app/admin/AdminClientComponent.tsx",
-                                lineNumber: 82,
-                                columnNumber: 11
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                onClick: ()=>setActiveTab('notifications'),
-                                className: `w-full text-left px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'notifications' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-200' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'}`,
-                                children: "Notifications & Alerts"
-                            }, void 0, false, {
-                                fileName: "[project]/app/admin/AdminClientComponent.tsx",
-                                lineNumber: 89,
-                                columnNumber: 11
-                            }, this)
-                        ]
-                    }, void 0, true, {
+                                lineNumber: 79,
+                                columnNumber: 13
+                            }, this))
+                    }, void 0, false, {
                         fileName: "[project]/app/admin/AdminClientComponent.tsx",
-                        lineNumber: 62,
+                        lineNumber: 77,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/admin/AdminClientComponent.tsx",
-                lineNumber: 57,
+                lineNumber: 72,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("main", {
-                className: "flex-grow p-6 md:p-10 overflow-y-auto",
+                className: "flex-grow p-6 md:p-10 overflow-y-auto bg-background/50",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "max-w-5xl mx-auto",
                     children: [
@@ -3495,7 +3467,7 @@ function AdminSettingsClient({ user }) {
         ]
     }, void 0, true, {
         fileName: "[project]/app/admin/AdminClientComponent.tsx",
-        lineNumber: 54,
+        lineNumber: 69,
         columnNumber: 5
     }, this);
 }

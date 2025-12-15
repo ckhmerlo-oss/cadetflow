@@ -3,10 +3,10 @@
 import { createClient } from '@/utils/supabase/client'
 import { useState, useEffect, useMemo } from 'react'
 import { useRouter } from 'next/navigation'
-import Link from 'next/link' // <--- Added Import
+import Link from 'next/link'
 import { triggerGreenSheetBlast } from '@/app/lib/server' 
 
-// ... (Keep existing Types: GreenSheetReport, TourSheetCadet, SortKey, SortDirection) ...
+// ... (Types remain the same)
 type GreenSheetReport = {
   report_id: string;
   subject_name: string;
@@ -60,7 +60,7 @@ export default function DailyReportsPage() {
   
   const [isCopied, setIsCopied] = useState(false)
 
-  // ... (Keep useEffects for Title and Data Fetching) ...
+  // ... (Keep useEffects) ...
   useEffect(() => {
     const updateTitle = () => {
         const date = new Date();
@@ -117,8 +117,8 @@ export default function DailyReportsPage() {
   }
   
   const SortIcon = ({ column }: { column: SortKey }) => {
-    if (sortConfig.key !== column) return <span className="text-gray-300 ml-1 print:hidden">⇅</span>
-    return <span className="text-indigo-600 dark:text-indigo-400 ml-1 print:hidden">{sortConfig.direction === 'asc' ? '↑' : '↓'}</span>
+    if (sortConfig.key !== column) return <span className="text-muted-foreground/30 ml-1 print:hidden">⇅</span>
+    return <span className="text-primary ml-1 print:hidden">{sortConfig.direction === 'asc' ? '↑' : '↓'}</span>
   }
   
   const handleSelectTourRow = (id: string) => {
@@ -257,8 +257,8 @@ export default function DailyReportsPage() {
     copyToClipboard(html);
   }
 
-  if (loading) return <div className="p-4 text-center text-gray-500 dark:text-gray-400">Loading...</div>
-  if (error) return <div className="p-4 text-center text-red-600 dark:text-red-400">{error}</div>
+  if (loading) return <div className="p-4 text-center text-muted-foreground">Loading...</div>
+  if (error) return <div className="p-4 text-center text-destructive">{error}</div>
 
   return (
     <>
@@ -283,109 +283,149 @@ export default function DailyReportsPage() {
         {/* Toolbar */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 no-print">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Reports</h1>
-            <p className="text-sm text-gray-500 dark:text-gray-400">Daily administrative summaries.</p>
+            <h1 className="text-3xl font-bold text-primary">Reports</h1>
+            <p className="text-sm text-muted-foreground">Daily administrative summaries.</p>
           </div>
           <div className="flex flex-col sm:flex-row gap-2 w-full sm:w-auto">
-             <input type="text" placeholder="Search..." className="block w-full sm:w-48 rounded-md border-gray-300 dark:bg-gray-800 dark:text-white py-2 px-3 text-sm" value={searchTerm} onChange={e => setSearchTerm(e.target.value)} />
+             <input 
+                type="text" 
+                placeholder="Search..." 
+                className="input-base w-full sm:w-48" 
+                value={searchTerm} 
+                onChange={e => setSearchTerm(e.target.value)} 
+             />
              
              {/* COPY BUTTON */}
-             <button onClick={activeTab === 'green' ? handleCopyGreenSheet : handleCopyTourSheet} disabled={isCopied} className={`py-2 px-4 rounded-md shadow-sm text-sm font-medium transition-colors duration-200 ${isCopied ? 'bg-green-100 text-green-800' : 'text-indigo-700 bg-indigo-100 hover:bg-indigo-200'}`}>{isCopied ? 'Copied!' : 'Copy to Clipboard'}</button>
+             <button 
+                onClick={activeTab === 'green' ? handleCopyGreenSheet : handleCopyTourSheet} 
+                disabled={isCopied} 
+                className={`py-2 px-4 rounded-md shadow-sm text-sm font-medium transition-colors duration-200 ${isCopied ? 'bg-green-100 text-green-800' : 'bg-secondary text-secondary-foreground hover:bg-secondary/80'}`}
+             >
+                {isCopied ? 'Copied!' : 'Copy to Clipboard'}
+             </button>
 
              {/* EMAIL BUTTON (Authorized Only) */}
              {canPost && (
-                 <button onClick={handleEmailBlast} disabled={isSendingEmail} className="py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 flex-shrink-0 transition-colors disabled:opacity-50">
+                 <button 
+                    onClick={handleEmailBlast} 
+                    disabled={isSendingEmail} 
+                    className="py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 flex-shrink-0 transition-colors disabled:opacity-50"
+                 >
                      {isSendingEmail ? 'Sending...' : 'Email Blast'}
                  </button>
              )}
 
-             <button onClick={() => window.print()} className="py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 flex-shrink-0 transition-colors">Print</button>
+             <button 
+                onClick={() => window.print()} 
+                className="btn-primary py-2 px-4 font-bold flex-shrink-0"
+             >
+                Print
+             </button>
           </div>
         </div>
 
-        <div id="daily-tabs" className="mt-6 border-b border-gray-200 dark:border-gray-700 no-print">
+        <div id="daily-tabs" className="mt-6 border-b border-border no-print">
           <nav className="-mb-px flex space-x-6" aria-label="Tabs">
-            <button onClick={() => setActiveTab('green')} className={`border-b-2 px-3 py-2 text-sm font-medium ${activeTab === 'green' ? 'border-indigo-600 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700'}`}>Green Sheet</button>
-            <button onClick={() => setActiveTab('tour')} className={`border-b-2 px-3 py-2 text-sm font-medium ${activeTab === 'tour' ? 'border-indigo-600 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700'}`}>Tour Sheet</button>
+            <button 
+                onClick={() => setActiveTab('green')} 
+                className={`border-b-2 px-3 py-2 text-sm font-medium transition-colors ${activeTab === 'green' ? 'border-primary text-primary' : 'border-transparent text-muted-foreground hover:text-foreground'}`}
+            >
+                Green Sheet
+            </button>
+            <button 
+                onClick={() => setActiveTab('tour')} 
+                className={`border-b-2 px-3 py-2 text-sm font-medium transition-colors ${activeTab === 'tour' ? 'border-primary text-primary' : 'border-transparent text-muted-foreground hover:text-foreground'}`}
+            >
+                Tour Sheet
+            </button>
           </nav>
         </div>
 
         <div id="daily-content-area">
             {/* GREEN SHEET TABLE */}
-            <section id="green-sheet-container" className={`mt-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow printable-section ${activeTab === 'green' ? 'print-active' : 'hidden no-print'}`}>
-             <div className="flex justify-between items-center no-print mb-4"><h2 className="text-2xl font-semibold text-gray-800 dark:text-white">Unposted Green Sheet</h2>{canPost && <button onClick={handleMarkAsPosted} disabled={isPosting} className="py-2 px-3 bg-green-600 text-white rounded text-sm">Mark All Posted</button>}</div>
-             <div className="mt-4 flow-root"><div className="-mx-2 -my-2 overflow-x-auto"><div className="inline-block min-w-full py-2"><table className="min-w-full printable-table border-collapse border border-gray-300 dark:border-gray-700">
-                    <thead className="bg-gray-50 dark:bg-gray-700">
+            <section id="green-sheet-container" className={`mt-6 bg-card p-4 rounded-lg shadow-sm border border-border printable-section ${activeTab === 'green' ? 'print-active' : 'hidden no-print'}`}>
+             <div className="flex justify-between items-center no-print mb-4">
+                <h2 className="text-2xl font-semibold text-foreground">Unposted Green Sheet</h2>
+                {canPost && (
+                    <button 
+                        onClick={handleMarkAsPosted} 
+                        disabled={isPosting} 
+                        className="py-2 px-3 bg-green-600 text-white rounded text-sm hover:bg-green-700 disabled:opacity-50 transition-colors"
+                    >
+                        Mark All Posted
+                    </button>
+                )}
+             </div>
+             <div className="mt-4 flow-root"><div className="-mx-2 -my-2 overflow-x-auto"><div className="inline-block min-w-full py-2"><table className="min-w-full printable-table border-collapse border border-border">
+                    <thead className="bg-muted/50">
                         <tr>
-                        <th onClick={() => handleSort('subject')} className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white col-cadet cursor-pointer">Cadet <SortIcon column="subject"/></th>
-                        <th onClick={() => handleSort('company')} className="hidden md:table-cell p-2 text-left text-sm font-semibold text-gray-900 dark:text-white col-co cursor-pointer">CO <SortIcon column="company"/></th>
-                        <th onClick={() => handleSort('offense')} className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white col-offense cursor-pointer">Offense <SortIcon column="offense"/></th>
-                        <th onClick={() => handleSort('cat')} className="hidden lg:table-cell p-2 text-left text-sm font-semibold text-gray-900 dark:text-white col-cat cursor-pointer">Cat <SortIcon column="cat"/></th>
-                        <th onClick={() => handleSort('demerits')} className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white col-demerits cursor-pointer">Dem <SortIcon column="demerits"/></th>
-                        <th onClick={() => handleSort('submitter')} className="hidden md:table-cell p-2 text-left text-sm font-semibold text-gray-900 dark:text-white col-submitter cursor-pointer">By <SortIcon column="submitter"/></th>
-                        <th className="hidden lg:table-cell p-2 text-left text-sm font-semibold text-gray-900 dark:text-white col-notes">Notes</th>
-                        <th onClick={() => handleSort('date')} className="hidden sm:table-cell p-2 text-left text-sm font-semibold text-gray-900 dark:text-white col-date cursor-pointer">Date <SortIcon column="date"/></th>
+                        <th onClick={() => handleSort('subject')} className="p-2 text-left text-sm font-semibold text-foreground col-cadet cursor-pointer">Cadet <SortIcon column="subject"/></th>
+                        <th onClick={() => handleSort('company')} className="hidden md:table-cell p-2 text-left text-sm font-semibold text-foreground col-co cursor-pointer">CO <SortIcon column="company"/></th>
+                        <th onClick={() => handleSort('offense')} className="p-2 text-left text-sm font-semibold text-foreground col-offense cursor-pointer">Offense <SortIcon column="offense"/></th>
+                        <th onClick={() => handleSort('cat')} className="hidden lg:table-cell p-2 text-left text-sm font-semibold text-foreground col-cat cursor-pointer">Cat <SortIcon column="cat"/></th>
+                        <th onClick={() => handleSort('demerits')} className="p-2 text-left text-sm font-semibold text-foreground col-demerits cursor-pointer">Dem <SortIcon column="demerits"/></th>
+                        <th onClick={() => handleSort('submitter')} className="hidden md:table-cell p-2 text-left text-sm font-semibold text-foreground col-submitter cursor-pointer">By <SortIcon column="submitter"/></th>
+                        <th className="hidden lg:table-cell p-2 text-left text-sm font-semibold text-foreground col-notes">Notes</th>
+                        <th onClick={() => handleSort('date')} className="hidden sm:table-cell p-2 text-left text-sm font-semibold text-foreground col-date cursor-pointer">Date <SortIcon column="date"/></th>
                         </tr>
                     </thead>
-                    <tbody className="bg-white dark:bg-gray-800">
+                    <tbody className="bg-card">
                         {processedGreenSheet.length > 0 ? processedGreenSheet.map(r => (
-                        <tr key={r.report_id} onClick={() => router.push(`/report/${r.report_id}`)} className="cursor-pointer hover:bg-red-50 dark:hover:bg-gray-700/50">
-                            <td className="p-2 text-sm font-medium text-gray-900 dark:text-white border border-gray-300 dark:border-gray-600">{r.subject_name}</td>
-                            <td className="hidden md:table-cell p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">{r.company_name || '-'}</td>
-                            <td className="p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">{r.offense_name}</td>
-                            <td className="hidden lg:table-cell p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">{r.policy_category}</td>
-                            <td className="p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">{r.demerits}</td>
-                            <td className="hidden md:table-cell p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">{r.submitter_name}</td>
-                            <td className="hidden lg:table-cell p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600 truncate max-w-xs">{r.notes}</td>
-                            <td className="hidden sm:table-cell p-2 text-sm text-gray-500 dark:text-gray-400 border border-gray-300 dark:border-gray-600">{formatDate(r.date_of_offense)}</td>
+                        <tr key={r.report_id} onClick={() => router.push(`/report/${r.report_id}`)} className="cursor-pointer hover:bg-muted/50 transition-colors">
+                            <td className="p-2 text-sm font-medium text-foreground border border-border">{r.subject_name}</td>
+                            <td className="hidden md:table-cell p-2 text-sm text-muted-foreground border border-border">{r.company_name || '-'}</td>
+                            <td className="p-2 text-sm text-muted-foreground border border-border">{r.offense_name}</td>
+                            <td className="hidden lg:table-cell p-2 text-sm text-muted-foreground border border-border">{r.policy_category}</td>
+                            <td className="p-2 text-sm text-muted-foreground border border-border">{r.demerits}</td>
+                            <td className="hidden md:table-cell p-2 text-sm text-muted-foreground border border-border">{r.submitter_name}</td>
+                            <td className="hidden lg:table-cell p-2 text-sm text-muted-foreground border border-border truncate max-w-xs">{r.notes}</td>
+                            <td className="hidden sm:table-cell p-2 text-sm text-muted-foreground border border-border">{formatDate(r.date_of_offense)}</td>
                         </tr>
-                        )) : <tr className="no-print"><td colSpan={8} className="p-4 text-center text-gray-500">No unposted demerits.</td></tr>}
+                        )) : <tr className="no-print"><td colSpan={8} className="p-4 text-center text-muted-foreground">No unposted demerits.</td></tr>}
                     </tbody>
                     </table></div></div></div>
             </section>
 
             {/* TOUR SHEET TABLE */}
-            <section className={`mt-6 bg-white dark:bg-gray-800 p-4 rounded-lg shadow printable-section ${activeTab === 'tour' ? 'print-active' : 'hidden no-print'}`}>
+            <section className={`mt-6 bg-card p-4 rounded-lg shadow-sm border border-border printable-section ${activeTab === 'tour' ? 'print-active' : 'hidden no-print'}`}>
             {/* UPDATED HEADER with BUTTON */}
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center no-print mb-4 gap-4">
                 <div>
-                    <h2 className="text-2xl font-semibold text-gray-800 dark:text-white">Tour Sheet</h2>
-                    <p className="text-sm text-gray-500 dark:text-gray-400">Active tour balances.</p>
+                    <h2 className="text-2xl font-semibold text-foreground">Tour Sheet</h2>
+                    <p className="text-sm text-muted-foreground">Active tour balances.</p>
                 </div>
                 <div className="flex items-center gap-2">
                     <Link 
                         href="/tours" 
-                        className="flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 text-sm font-bold rounded shadow-sm hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
+                        className="flex items-center gap-2 px-4 py-2 bg-card text-foreground border border-border text-sm font-bold rounded shadow-sm hover:bg-accent transition-colors"
                     >
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg>
                         View Full Ledger
                     </Link>
-                    {canLog && selectedTourCadets.size > 0 && <button onClick={() => openTourModal()} className="py-2 px-4 bg-indigo-600 text-white rounded shadow-sm font-bold">Bulk Log ({selectedTourCadets.size})</button>}
+                    {canLog && selectedTourCadets.size > 0 && <button onClick={() => openTourModal()} className="btn-primary py-2 px-4 font-bold">Bulk Log ({selectedTourCadets.size})</button>}
                 </div>
             </div>
 
-            <div className="mt-4 flow-root"><div className="-mx-2 -my-2 overflow-x-auto"><div className="inline-block min-w-full py-2"><table className="min-w-full printable-table border-collapse border border-gray-300 dark:border-gray-700">
-                    <thead className="bg-gray-50 dark:bg-gray-700">
+            <div className="mt-4 flow-root"><div className="-mx-2 -my-2 overflow-x-auto"><div className="inline-block min-w-full py-2"><table className="min-w-full printable-table border-collapse border border-border">
+                    <thead className="bg-muted/50">
                         <tr>
-                        {canLog && <th className="p-2 w-10 col-check no-print"><input type="checkbox" onChange={handleSelectAllTourRows} checked={processedTourSheet.length > 0 && selectedTourCadets.size === processedTourSheet.filter(c => !c.tours_logged_today).length}/></th>}
-                        <th onClick={() => handleSort('subject')} className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border col-tour-cadet cursor-pointer">Cadet <SortIcon column="subject"/></th>
-                        <th onClick={() => handleSort('company')} className="hidden md:table-cell p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border col-tour-co cursor-pointer">Company <SortIcon column="company"/></th>
-                        <th onClick={() => handleSort('total_tours')} className="p-2 text-left text-sm font-semibold text-gray-900 dark:text-white border col-tour-total cursor-pointer">Total <SortIcon column="total_tours"/></th>
-                        <th className="p-2 no-print border w-auto"></th>
+                        {canLog && <th className="p-2 w-10 col-check no-print"><input type="checkbox" className="rounded border-input text-primary focus:ring-primary" onChange={handleSelectAllTourRows} checked={processedTourSheet.length > 0 && selectedTourCadets.size === processedTourSheet.filter(c => !c.tours_logged_today).length}/></th>}
+                        <th onClick={() => handleSort('subject')} className="p-2 text-left text-sm font-semibold text-foreground border border-border col-tour-cadet cursor-pointer">Cadet <SortIcon column="subject"/></th>
+                        <th onClick={() => handleSort('company')} className="hidden md:table-cell p-2 text-left text-sm font-semibold text-foreground border border-border col-tour-co cursor-pointer">Company <SortIcon column="company"/></th>
+                        <th onClick={() => handleSort('total_tours')} className="p-2 text-left text-sm font-semibold text-foreground border border-border col-tour-total cursor-pointer">Total <SortIcon column="total_tours"/></th>
+                        <th className="p-2 no-print border border-border w-auto"></th>
                         </tr>
                     </thead>
-                    <tbody className="bg-white dark:bg-gray-800">
+                    <tbody className="bg-card">
                         {processedTourSheet.length > 0 ? processedTourSheet.map(c => (
-                        <tr key={c.cadet_id} className={c.tours_logged_today ? 'opacity-50 bg-gray-900' : 'hover:bg-red-50 dark:hover:bg-gray-700/50'}>
-                            {canLog && <td className="p-2 text-center border col-check no-print"><input type="checkbox" checked={selectedTourCadets.has(c.cadet_id)} onChange={() => handleSelectTourRow(c.cadet_id)} disabled={c.tours_logged_today}/></td>}
-                            <td className="p-2 text-sm font-medium text-gray-900 dark:text-white border">{c.last_name}, {c.first_name} {c.has_star_tours && <span className="text-red-400 font-bold">*</span>}</td>
-                            <td className="hidden md:table-cell p-2 text-sm text-gray-500 border">{c.company_name || '-'}</td>
-                            <td className="p-2 text-sm font-bold text-red-600 border">{c.has_star_tours ? '*' : c.total_tours}</td>
-                            <td className="p-2 border hidden print:table-cell"></td>
-                            <td className="p-2 border hidden print:table-cell"></td>
-                            <td className="p-2 text-right no-print border">{canLog && <button onClick={() => openTourModal(c)} className="text-amber-400 hover:underline">Log</button>}</td>
+                        <tr key={c.cadet_id} className={c.tours_logged_today ? 'opacity-50 bg-muted' : 'hover:bg-muted/50 transition-colors'}>
+                            {canLog && <td className="p-2 text-center border border-border col-check no-print"><input type="checkbox" className="rounded border-input text-primary focus:ring-primary" checked={selectedTourCadets.has(c.cadet_id)} onChange={() => handleSelectTourRow(c.cadet_id)} disabled={c.tours_logged_today}/></td>}
+                            <td className="p-2 text-sm font-medium text-foreground border border-border">{c.last_name}, {c.first_name} {c.has_star_tours && <span className="text-destructive font-bold">*</span>}</td>
+                            <td className="hidden md:table-cell p-2 text-sm text-muted-foreground border border-border">{c.company_name || '-'}</td>
+                            <td className="p-2 text-sm font-bold text-destructive border border-border">{c.has_star_tours ? '*' : c.total_tours}</td>
+                            <td className="p-2 text-right no-print border border-border">{canLog && <button onClick={() => openTourModal(c)} className="text-primary hover:underline">Log</button>}</td>
                         </tr>
-                        )) : <tr className="no-print"><td colSpan={7} className="p-4 text-center text-gray-500">No cadets on ED.</td></tr>}
+                        )) : <tr className="no-print"><td colSpan={7} className="p-4 text-center text-muted-foreground">No cadets on ED.</td></tr>}
                     </tbody>
                     </table></div></div></div>
             </section>
@@ -393,8 +433,41 @@ export default function DailyReportsPage() {
       </div>
       </div>
       
-      {/* Modal (Unchanged) */}
-      {modalOpen && <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"><div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl w-96"><h3 className="text-lg font-bold mb-4 dark:text-white">Log Tours</h3><input type="number" value={toursToLog} onChange={e=>setToursToLog(Number(e.target.value))} className="w-full border p-2 rounded mb-4 dark:bg-gray-700 dark:text-white"/><input type="text" placeholder="Notes" value={logComment} onChange={e=>setLogComment(e.target.value)} className="w-full border p-2 rounded mb-4 dark:bg-gray-700 dark:text-white"/><div className="flex justify-end gap-2"><button onClick={closeModal} className="px-4 py-2 border rounded bg-red-500 text-white dark:border-gray-700 hover:bg-red-900">Cancel</button><button onClick={handleLogTours} className="px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-800">Confirm</button></div></div></div>}
+      {/* Modal */}
+      {modalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm p-4">
+            <div className="bg-card p-6 rounded-lg shadow-xl w-full max-w-sm border border-border animate-in zoom-in-95 duration-200">
+                <h3 className="text-lg font-bold mb-4 text-foreground">Log Tours</h3>
+                <input 
+                    type="number" 
+                    value={toursToLog} 
+                    onChange={e=>setToursToLog(Number(e.target.value))} 
+                    className="input-base mb-4"
+                />
+                <input 
+                    type="text" 
+                    placeholder="Notes" 
+                    value={logComment} 
+                    onChange={e=>setLogComment(e.target.value)} 
+                    className="input-base mb-4"
+                />
+                <div className="flex justify-end gap-2">
+                    <button 
+                        onClick={closeModal} 
+                        className="px-4 py-2 border border-input rounded bg-background text-foreground hover:bg-accent transition-colors"
+                    >
+                        Cancel
+                    </button>
+                    <button 
+                        onClick={handleLogTours} 
+                        className="btn-primary px-4 py-2 font-medium"
+                    >
+                        Confirm
+                    </button>
+                </div>
+            </div>
+        </div>
+      )}
     </>
   )
 }

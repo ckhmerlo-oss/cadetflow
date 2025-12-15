@@ -177,7 +177,7 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
             year: 'numeric'
         });
     const getStatusColor = (status)=>{
-        if (status === 'Unsatisfactory') return 'bg-red-50 text-red-700 border-red-200 dark:bg-red-900/20 dark:text-red-300 dark:border-red-800';
+        if (status === 'Unsatisfactory') return 'bg-destructive/10 text-destructive border-destructive/20';
         if (status === 'Deficient') return 'bg-orange-50 text-orange-700 border-orange-200 dark:bg-orange-900/20 dark:text-orange-300 dark:border-orange-800';
         return 'bg-green-50 text-green-700 border-green-200 dark:bg-green-900/20 dark:text-green-300 dark:border-green-800';
     };
@@ -343,13 +343,13 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
         className: "space-y-6 animate-in fade-in duration-500 pb-12",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden",
+                className: "bg-card shadow-sm border border-border rounded-xl overflow-hidden",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "h-32 bg-gradient-to-r from-indigo-500 via-purple-600 to-indigo-800"
+                        className: "h-32 bg-primary"
                     }, void 0, false, {
                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                        lineNumber: 154,
+                        lineNumber: 155,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -358,19 +358,19 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "relative",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "w-32 h-32 rounded-full border-4 border-white dark:border-gray-800 bg-gray-200 dark:bg-gray-700 flex items-center justify-center text-4xl font-bold text-gray-400 dark:text-gray-500 shadow-md",
+                                    className: "w-32 h-32 rounded-full border-4 border-background bg-muted flex items-center justify-center text-4xl font-bold text-muted-foreground shadow-md",
                                     children: [
                                         profile.first_name[0],
                                         profile.last_name[0]
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                    lineNumber: 157,
+                                    lineNumber: 159,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                lineNumber: 156,
+                                lineNumber: 158,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -380,7 +380,7 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                         className: "flex items-center justify-center md:justify-start gap-3",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                                className: "text-3xl font-bold text-gray-900 dark:text-white",
+                                                className: "text-3xl font-bold text-foreground",
                                                 children: [
                                                     profile.cadet_rank || 'Cadet',
                                                     " ",
@@ -390,11 +390,11 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 164,
+                                                lineNumber: 166,
                                                 columnNumber: 21
                                             }, this),
                                             formData.is_in_band && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "bg-yellow-100 text-yellow-800 border border-yellow-200 text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1 shadow-sm",
+                                                className: "bg-yellow-100 text-yellow-800 border border-yellow-200 dark:bg-yellow-900/30 dark:text-yellow-200 dark:border-yellow-800 text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1 shadow-sm",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                                                         className: "w-3 h-3",
@@ -404,44 +404,44 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                                             d: "M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m9-6.032l-2-4.004V5.5a1 1 0 112 0v2.468z"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                            lineNumber: 168,
+                                                            lineNumber: 170,
                                                             columnNumber: 94
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 168,
+                                                        lineNumber: 170,
                                                         columnNumber: 29
                                                     }, this),
                                                     "BAND"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 167,
+                                                lineNumber: 169,
                                                 columnNumber: 25
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 163,
+                                        lineNumber: 165,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "flex flex-wrap justify-center md:justify-start gap-4 mt-2 text-sm font-medium text-gray-600 dark:text-gray-400",
+                                        className: "flex flex-wrap justify-center md:justify-start gap-4 mt-2 text-sm font-medium text-muted-foreground",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                 className: "flex items-center gap-1",
                                                 children: profile.company?.company_name || 'Unassigned'
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 175,
+                                                lineNumber: 177,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "hidden md:inline text-gray-300 dark:text-gray-600",
+                                                className: "hidden md:inline opacity-50",
                                                 children: "•"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 178,
+                                                lineNumber: 180,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -449,15 +449,15 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                                 children: profile.role?.role_name || 'No Role'
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 179,
+                                                lineNumber: 181,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "hidden md:inline text-gray-300 dark:text-gray-600",
+                                                className: "hidden md:inline opacity-50",
                                                 children: "•"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 182,
+                                                lineNumber: 184,
                                                 columnNumber: 21
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -465,41 +465,41 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                                 children: profile.email
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 183,
+                                                lineNumber: 185,
                                                 columnNumber: 21
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 174,
+                                        lineNumber: 176,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                lineNumber: 162,
+                                lineNumber: 164,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex gap-3 pb-2 w-full md:w-auto justify-center md:justify-end",
                                 children: canEdit && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     onClick: ()=>setIsEditing(!isEditing),
-                                    className: `px-4 py-2 rounded-md shadow-sm text-sm font-medium transition-colors ${isEditing ? 'bg-gray-200 text-gray-800 dark:bg-gray-700 dark:text-gray-200' : 'bg-indigo-600 text-white hover:bg-indigo-700'}`,
+                                    className: `px-4 py-2 rounded-md shadow-sm text-sm font-medium transition-colors ${isEditing ? 'bg-muted text-muted-foreground hover:bg-muted/80' : 'btn-primary'}`,
                                     children: isEditing ? 'Cancel Edit' : 'Edit Profile'
                                 }, void 0, false, {
                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                    lineNumber: 191,
+                                    lineNumber: 193,
                                     columnNumber: 21
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                lineNumber: 189,
+                                lineNumber: 191,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                        lineNumber: 155,
+                        lineNumber: 157,
                         columnNumber: 9
                     }, this)
                 ]
@@ -512,14 +512,14 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                 className: "grid grid-cols-1 md:grid-cols-3 gap-6",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-xl p-5 flex flex-col gap-4",
+                        className: "bg-card shadow-sm border border-border rounded-xl p-5 flex flex-col gap-4",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                className: "text-xs font-bold text-gray-500 uppercase tracking-wider",
+                                className: "text-xs font-bold text-muted-foreground uppercase tracking-wider",
                                 children: "Status"
                             }, void 0, false, {
                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                lineNumber: 203,
+                                lineNumber: 212,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -532,7 +532,7 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                             children: "Conduct"
                                         }, void 0, false, {
                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                            lineNumber: 207,
+                                            lineNumber: 216,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -540,29 +540,29 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                             children: profile.conduct_status
                                         }, void 0, false, {
                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                            lineNumber: 208,
+                                            lineNumber: 217,
                                             columnNumber: 21
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                    lineNumber: 206,
+                                    lineNumber: 215,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                lineNumber: 205,
+                                lineNumber: 214,
                                 columnNumber: 13
                             }, this),
                             isEditing && isCommandant ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-200 dark:border-gray-600",
+                                className: "p-3 bg-muted/30 rounded-lg border border-border",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                        className: "text-xs font-bold uppercase text-gray-500 block mb-1",
+                                        className: "text-xs font-bold uppercase text-muted-foreground block mb-1",
                                         children: "Probation"
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 215,
+                                        lineNumber: 224,
                                         columnNumber: 21
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -571,27 +571,27 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                                 ...formData,
                                                 probation_status: e.target.value
                                             }),
-                                        className: "w-full border rounded p-1 text-sm dark:bg-gray-900 dark:text-white",
+                                        className: "input-base text-sm py-1",
                                         children: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$profile$2f$constants$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["PROBATION_STATUSES"].map((s)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                 value: s,
                                                 children: s
                                             }, s, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 217,
+                                                lineNumber: 226,
                                                 columnNumber: 54
                                             }, this))
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 216,
+                                        lineNumber: 225,
                                         columnNumber: 21
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                lineNumber: 214,
+                                lineNumber: 223,
                                 columnNumber: 17
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: `p-3 rounded-lg border ${profile.probation_status && profile.probation_status !== 'None' ? 'bg-red-50 text-red-700 border-red-200 dark:bg-red-900/20 dark:text-red-300 dark:border-red-800' : 'bg-gray-50 text-gray-700 border-gray-200 dark:bg-gray-700/50 dark:text-gray-300 dark:border-gray-600'}`,
+                                className: `p-3 rounded-lg border ${profile.probation_status && profile.probation_status !== 'None' ? 'bg-destructive/10 text-destructive border-destructive/20' : 'bg-muted/50 text-foreground border-border'}`,
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "flex justify-between items-center",
                                     children: [
@@ -600,7 +600,7 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                             children: "Probation"
                                         }, void 0, false, {
                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                            lineNumber: 223,
+                                            lineNumber: 232,
                                             columnNumber: 25
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -608,29 +608,29 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                             children: profile.probation_status || 'None'
                                         }, void 0, false, {
                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                            lineNumber: 224,
+                                            lineNumber: 233,
                                             columnNumber: 25
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                    lineNumber: 222,
+                                    lineNumber: 231,
                                     columnNumber: 21
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                lineNumber: 221,
+                                lineNumber: 230,
                                 columnNumber: 17
                             }, this),
                             isEditing && isCommandant ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg border border-gray-200 dark:border-gray-600",
+                                className: "p-3 bg-muted/30 rounded-lg border border-border",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                        className: "text-xs font-bold uppercase text-gray-500 block mb-1",
+                                        className: "text-xs font-bold uppercase text-muted-foreground block mb-1",
                                         children: "Tour Balance"
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 232,
+                                        lineNumber: 241,
                                         columnNumber: 21
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -643,14 +643,14 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                                         ...formData,
                                                         manual_tour_balance: Number(e.target.value)
                                                     }),
-                                                className: "w-20 border rounded p-1 text-sm dark:bg-gray-900 dark:text-white"
+                                                className: "w-20 input-base text-sm py-1"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 234,
+                                                lineNumber: 243,
                                                 columnNumber: 25
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                className: "flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300 cursor-pointer",
+                                                className: "flex items-center gap-2 text-sm text-foreground cursor-pointer",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                         type: "checkbox",
@@ -659,72 +659,72 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                                                 ...formData,
                                                                 has_star_tours: e.target.checked
                                                             }),
-                                                        className: "rounded text-indigo-600"
+                                                        className: "rounded text-primary focus:ring-primary"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 236,
+                                                        lineNumber: 245,
                                                         columnNumber: 29
                                                     }, this),
                                                     "Star Tours"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 235,
+                                                lineNumber: 244,
                                                 columnNumber: 25
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 233,
+                                        lineNumber: 242,
                                         columnNumber: 21
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                lineNumber: 231,
+                                lineNumber: 240,
                                 columnNumber: 17
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex justify-between items-center p-3 bg-gray-50 dark:bg-gray-700/50 rounded-lg",
+                                className: "flex justify-between items-center p-3 bg-muted/50 rounded-lg border border-border",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "text-xs font-bold text-gray-500 uppercase",
+                                        className: "text-xs font-bold text-muted-foreground uppercase",
                                         children: "Tours Owed"
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 243,
+                                        lineNumber: 252,
                                         columnNumber: 21
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: `text-xl font-bold ${profile.current_tour_balance > 0 ? 'text-red-600 dark:text-red-400' : 'text-gray-900 dark:text-white'}`,
+                                        className: `text-xl font-bold ${profile.current_tour_balance > 0 ? 'text-destructive' : 'text-foreground'}`,
                                         children: profile.has_star_tours ? '*' : profile.current_tour_balance
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 244,
+                                        lineNumber: 253,
                                         columnNumber: 21
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                lineNumber: 242,
+                                lineNumber: 251,
                                 columnNumber: 17
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                        lineNumber: 202,
+                        lineNumber: 211,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-xl p-5 flex flex-col justify-between",
+                        className: "bg-card shadow-sm border border-border rounded-xl p-5 flex flex-col justify-between",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                        className: "text-xs font-bold text-gray-500 uppercase tracking-wider mb-4",
+                                        className: "text-xs font-bold text-muted-foreground uppercase tracking-wider mb-4",
                                         children: "Athletics"
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 254,
+                                        lineNumber: 263,
                                         columnNumber: 17
                                     }, this),
                                     isEditing ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -736,18 +736,18 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                                         ...formData,
                                                         sport_fall: e.target.value
                                                     }),
-                                                className: "w-full border rounded p-1 text-sm dark:bg-gray-900 dark:text-white",
+                                                className: "input-base text-sm py-1",
                                                 children: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$profile$2f$constants$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["FALL_SPORTS"].map((s)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         value: s,
                                                         children: s
                                                     }, s, false, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 258,
-                                                        columnNumber: 243
+                                                        lineNumber: 267,
+                                                        columnNumber: 200
                                                     }, this))
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 258,
+                                                lineNumber: 267,
                                                 columnNumber: 25
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -756,18 +756,18 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                                         ...formData,
                                                         sport_winter: e.target.value
                                                     }),
-                                                className: "w-full border rounded p-1 text-sm dark:bg-gray-900 dark:text-white",
+                                                className: "input-base text-sm py-1",
                                                 children: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$profile$2f$constants$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["WINTER_SPORTS"].map((s)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         value: s,
                                                         children: s
                                                     }, s, false, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 259,
-                                                        columnNumber: 249
+                                                        lineNumber: 268,
+                                                        columnNumber: 206
                                                     }, this))
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 259,
+                                                lineNumber: 268,
                                                 columnNumber: 25
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -776,24 +776,24 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                                         ...formData,
                                                         sport_spring: e.target.value
                                                     }),
-                                                className: "w-full border rounded p-1 text-sm dark:bg-gray-900 dark:text-white",
+                                                className: "input-base text-sm py-1",
                                                 children: __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$profile$2f$constants$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["SPRING_SPORTS"].map((s)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         value: s,
                                                         children: s
                                                     }, s, false, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 260,
-                                                        columnNumber: 249
+                                                        lineNumber: 269,
+                                                        columnNumber: 206
                                                     }, this))
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 260,
+                                                lineNumber: 269,
                                                 columnNumber: 25
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 257,
+                                        lineNumber: 266,
                                         columnNumber: 21
                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "space-y-3",
@@ -802,15 +802,15 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                                 className: "flex items-center gap-3",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: "w-12 text-xs font-bold text-gray-400 uppercase",
+                                                        className: "w-12 text-xs font-bold text-muted-foreground uppercase",
                                                         children: "Fall"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 265,
+                                                        lineNumber: 274,
                                                         columnNumber: 29
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-white",
+                                                        className: "flex items-center gap-2 text-sm font-medium text-foreground",
                                                         children: [
                                                             getSportIcon(profile.sport_fall),
                                                             " ",
@@ -818,28 +818,28 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 266,
+                                                        lineNumber: 275,
                                                         columnNumber: 29
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 264,
+                                                lineNumber: 273,
                                                 columnNumber: 25
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "flex items-center gap-3",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: "w-12 text-xs font-bold text-gray-400 uppercase",
+                                                        className: "w-12 text-xs font-bold text-muted-foreground uppercase",
                                                         children: "Winter"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 269,
+                                                        lineNumber: 278,
                                                         columnNumber: 29
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-white",
+                                                        className: "flex items-center gap-2 text-sm font-medium text-foreground",
                                                         children: [
                                                             getSportIcon(profile.sport_winter),
                                                             " ",
@@ -847,28 +847,28 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 270,
+                                                        lineNumber: 279,
                                                         columnNumber: 29
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 268,
+                                                lineNumber: 277,
                                                 columnNumber: 25
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 className: "flex items-center gap-3",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: "w-12 text-xs font-bold text-gray-400 uppercase",
+                                                        className: "w-12 text-xs font-bold text-muted-foreground uppercase",
                                                         children: "Spring"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 273,
+                                                        lineNumber: 282,
                                                         columnNumber: 29
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "flex items-center gap-2 text-sm font-medium text-gray-900 dark:text-white",
+                                                        className: "flex items-center gap-2 text-sm font-medium text-foreground",
                                                         children: [
                                                             getSportIcon(profile.sport_spring),
                                                             " ",
@@ -876,36 +876,36 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 274,
+                                                        lineNumber: 283,
                                                         columnNumber: 29
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 272,
+                                                lineNumber: 281,
                                                 columnNumber: 25
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 263,
+                                        lineNumber: 272,
                                         columnNumber: 21
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                lineNumber: 253,
+                                lineNumber: 262,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "mt-6 pt-6 border-t dark:border-gray-700",
+                                className: "mt-6 pt-6 border-t border-border",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                        className: "text-xs font-bold text-gray-500 uppercase tracking-wider mb-2",
+                                        className: "text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2",
                                         children: "Extracurriculars"
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 282,
+                                        lineNumber: 291,
                                         columnNumber: 17
                                     }, this),
                                     isEditing ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -917,16 +917,16 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                                         ...formData,
                                                         extracurriculars: e.target.value
                                                     }),
-                                                className: "w-full border rounded p-2 text-sm dark:bg-gray-900 dark:text-white",
+                                                className: "input-base text-sm",
                                                 rows: 2,
                                                 placeholder: "Clubs..."
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 285,
+                                                lineNumber: 294,
                                                 columnNumber: 25
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                className: "flex items-center gap-2 text-sm text-gray-700 dark:text-gray-300 cursor-pointer bg-gray-50 dark:bg-gray-700/50 p-2 rounded border border-gray-200 dark:border-gray-600",
+                                                className: "flex items-center gap-2 text-sm text-foreground cursor-pointer bg-muted/30 p-2 rounded border border-border",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                                         type: "checkbox",
@@ -935,53 +935,53 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                                                 ...formData,
                                                                 is_in_band: e.target.checked
                                                             }),
-                                                        className: "rounded text-indigo-600"
+                                                        className: "rounded text-primary focus:ring-primary"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 287,
+                                                        lineNumber: 296,
                                                         columnNumber: 29
                                                     }, this),
                                                     "Band Member"
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 286,
+                                                lineNumber: 295,
                                                 columnNumber: 25
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 284,
+                                        lineNumber: 293,
                                         columnNumber: 21
                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-sm text-gray-700 dark:text-gray-300 italic",
+                                        className: "text-sm text-foreground italic",
                                         children: profile.extracurriculars || 'None recorded.'
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 292,
+                                        lineNumber: 301,
                                         columnNumber: 21
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                lineNumber: 281,
+                                lineNumber: 290,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                        lineNumber: 252,
+                        lineNumber: 261,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-xl p-5",
+                        className: "bg-card shadow-sm border border-border rounded-xl p-5",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                className: "text-xs font-bold text-gray-500 uppercase tracking-wider mb-4",
+                                className: "text-xs font-bold text-muted-foreground uppercase tracking-wider mb-4",
                                 children: "Details"
                             }, void 0, false, {
                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                lineNumber: 299,
+                                lineNumber: 308,
                                 columnNumber: 13
                             }, this),
                             isEditing ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -990,11 +990,11 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                className: "text-xs font-medium text-gray-500",
+                                                className: "text-xs font-medium text-muted-foreground",
                                                 children: "Rank"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 302,
+                                                lineNumber: 311,
                                                 columnNumber: 26
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -1003,44 +1003,44 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                                         ...formData,
                                                         cadet_rank: e.target.value
                                                     }),
-                                                className: "w-full border rounded p-1 text-sm dark:bg-gray-900 dark:text-white",
+                                                className: "input-base text-sm py-1",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         value: "",
                                                         children: "Select Rank"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 302,
-                                                        columnNumber: 277
+                                                        lineNumber: 311,
+                                                        columnNumber: 242
                                                     }, this),
                                                     __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$profile$2f$constants$2e$ts__$5b$app$2d$client$5d$__$28$ecmascript$29$__["CADET_RANKS"].map((r)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                             value: r,
                                                             children: r
                                                         }, r, false, {
                                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                            lineNumber: 302,
-                                                            columnNumber: 336
+                                                            lineNumber: 311,
+                                                            columnNumber: 301
                                                         }, this))
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 302,
-                                                columnNumber: 91
+                                                lineNumber: 311,
+                                                columnNumber: 99
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 302,
+                                        lineNumber: 311,
                                         columnNumber: 21
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                className: "text-xs font-medium text-gray-500",
+                                                className: "text-xs font-medium text-muted-foreground",
                                                 children: "Room"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 303,
+                                                lineNumber: 312,
                                                 columnNumber: 26
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -1050,26 +1050,26 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                                         ...formData,
                                                         room_number: e.target.value
                                                     }),
-                                                className: "w-full border rounded p-1 text-sm dark:bg-gray-900 dark:text-white"
+                                                className: "input-base text-sm py-1"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 303,
-                                                columnNumber: 91
+                                                lineNumber: 312,
+                                                columnNumber: 99
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 303,
+                                        lineNumber: 312,
                                         columnNumber: 21
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                className: "text-xs font-medium text-gray-500",
+                                                className: "text-xs font-medium text-muted-foreground",
                                                 children: "Grade"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 304,
+                                                lineNumber: 313,
                                                 columnNumber: 26
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -1078,340 +1078,340 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                                         ...formData,
                                                         grade_level: e.target.value
                                                     }),
-                                                className: "w-full border rounded p-1 text-sm dark:bg-gray-900 dark:text-white",
+                                                className: "input-base text-sm py-1",
                                                 children: GRADE_LEVELS.map((g)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         value: g,
                                                         children: g
                                                     }, g, false, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 304,
-                                                        columnNumber: 303
+                                                        lineNumber: 313,
+                                                        columnNumber: 268
                                                     }, this))
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 304,
-                                                columnNumber: 92
+                                                lineNumber: 313,
+                                                columnNumber: 100
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 304,
+                                        lineNumber: 313,
                                         columnNumber: 21
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         onClick: handleSave,
                                         disabled: saving,
-                                        className: "w-full mt-4 py-2 bg-green-600 text-white rounded text-sm hover:bg-green-700 font-bold shadow",
+                                        className: "w-full mt-4 py-2 bg-green-600 text-white rounded text-sm hover:bg-green-700 font-bold shadow transition-colors",
                                         children: saving ? 'Saving...' : 'Save Changes'
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 305,
+                                        lineNumber: 314,
                                         columnNumber: 21
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                lineNumber: 301,
+                                lineNumber: 310,
                                 columnNumber: 17
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "space-y-4",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "flex justify-between border-b dark:border-gray-700 pb-2",
+                                        className: "flex justify-between border-b border-border pb-2",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "text-sm text-gray-500",
+                                                className: "text-sm text-muted-foreground",
                                                 children: "Company"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 309,
-                                                columnNumber: 94
+                                                lineNumber: 318,
+                                                columnNumber: 87
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "text-sm font-medium text-gray-900 dark:text-white",
+                                                className: "text-sm font-medium text-foreground",
                                                 children: profile.company?.company_name || '-'
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 309,
-                                                columnNumber: 148
+                                                lineNumber: 318,
+                                                columnNumber: 149
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 309,
+                                        lineNumber: 318,
                                         columnNumber: 21
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "flex justify-between border-b dark:border-gray-700 pb-2",
+                                        className: "flex justify-between border-b border-border pb-2",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "text-sm text-gray-500",
+                                                className: "text-sm text-muted-foreground",
                                                 children: "Room"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 310,
-                                                columnNumber: 94
+                                                lineNumber: 319,
+                                                columnNumber: 87
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "text-sm font-medium text-gray-900 dark:text-white",
+                                                className: "text-sm font-medium text-foreground",
                                                 children: profile.room_number || '-'
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 310,
-                                                columnNumber: 145
-                                            }, this)
-                                        ]
-                                    }, void 0, true, {
-                                        fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 310,
-                                        columnNumber: 21
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "flex justify-between border-b dark:border-gray-700 pb-2",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "text-sm text-gray-500",
-                                                children: "Grade"
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 311,
-                                                columnNumber: 94
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "text-sm font-medium text-gray-900 dark:text-white",
-                                                children: profile.grade_level || '-'
-                                            }, void 0, false, {
-                                                fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 311,
+                                                lineNumber: 319,
                                                 columnNumber: 146
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 311,
+                                        lineNumber: 319,
+                                        columnNumber: 21
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        className: "flex justify-between border-b border-border pb-2",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "text-sm text-muted-foreground",
+                                                children: "Grade"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
+                                                lineNumber: 320,
+                                                columnNumber: 87
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                className: "text-sm font-medium text-foreground",
+                                                children: profile.grade_level || '-'
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
+                                                lineNumber: 320,
+                                                columnNumber: 147
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
+                                        lineNumber: 320,
                                         columnNumber: 21
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "flex justify-between pb-2",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "text-sm text-gray-500",
+                                                className: "text-sm text-muted-foreground",
                                                 children: "Rank"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 312,
+                                                lineNumber: 321,
                                                 columnNumber: 64
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                className: "text-sm font-medium text-gray-900 dark:text-white",
+                                                className: "text-sm font-medium text-foreground",
                                                 children: profile.cadet_rank || '-'
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 312,
-                                                columnNumber: 115
+                                                lineNumber: 321,
+                                                columnNumber: 123
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 312,
+                                        lineNumber: 321,
                                         columnNumber: 21
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                lineNumber: 308,
+                                lineNumber: 317,
                                 columnNumber: 17
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                        lineNumber: 298,
+                        lineNumber: 307,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                lineNumber: 199,
+                lineNumber: 208,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                 className: "grid grid-cols-1 lg:grid-cols-2 gap-6",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden h-96 flex flex-col",
+                        className: "bg-card shadow-sm border border-border rounded-xl overflow-hidden h-96 flex flex-col",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "px-6 py-4 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-700/30",
+                                className: "px-6 py-4 border-b border-border bg-muted/30",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                    className: "text-sm font-bold text-gray-900 dark:text-white uppercase tracking-wider",
+                                    className: "text-sm font-bold text-foreground uppercase tracking-wider",
                                     children: "Disciplinary Record"
                                 }, void 0, false, {
                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                    lineNumber: 325,
+                                    lineNumber: 334,
                                     columnNumber: 15
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                lineNumber: 324,
+                                lineNumber: 333,
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "overflow-y-auto flex-1",
                                 children: auditLog && auditLog.length > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                                    className: "min-w-full divide-y divide-gray-200 dark:divide-gray-700",
+                                    className: "min-w-full divide-y divide-border",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
-                                            className: "bg-gray-50 dark:bg-gray-700/50 sticky top-0",
+                                            className: "bg-muted/50 sticky top-0",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                        className: "px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase",
+                                                        className: "px-4 py-2 text-left text-xs font-medium text-muted-foreground uppercase",
                                                         children: "Date"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 331,
+                                                        lineNumber: 340,
                                                         columnNumber: 29
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                        className: "px-4 py-2 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase",
+                                                        className: "px-4 py-2 text-left text-xs font-medium text-muted-foreground uppercase",
                                                         children: "Event"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 331,
-                                                        columnNumber: 137
+                                                        lineNumber: 340,
+                                                        columnNumber: 126
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                                        className: "px-4 py-2 text-center text-xs font-medium text-gray-500 dark:text-gray-300 uppercase",
+                                                        className: "px-4 py-2 text-center text-xs font-medium text-muted-foreground uppercase",
                                                         children: "Dem"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 331,
-                                                        columnNumber: 246
+                                                        lineNumber: 340,
+                                                        columnNumber: 224
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                         className: "px-4 py-2"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 331,
-                                                        columnNumber: 355
+                                                        lineNumber: 340,
+                                                        columnNumber: 322
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 331,
+                                                lineNumber: 340,
                                                 columnNumber: 25
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                            lineNumber: 330,
+                                            lineNumber: 339,
                                             columnNumber: 21
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
-                                            className: "divide-y divide-gray-200 dark:divide-gray-700",
+                                            className: "divide-y divide-border",
                                             children: auditLog.map((entry, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                    className: "hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors text-sm",
+                                                    className: "hover:bg-muted/50 transition-colors text-sm",
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                            className: "px-4 py-2 text-gray-600 dark:text-gray-300 whitespace-nowrap",
+                                                            className: "px-4 py-2 text-muted-foreground whitespace-nowrap",
                                                             children: formatDate(entry.event_date)
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                            lineNumber: 336,
+                                                            lineNumber: 345,
                                                             columnNumber: 29
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                            className: "px-4 py-2 text-gray-900 dark:text-white truncate max-w-[150px]",
+                                                            className: "px-4 py-2 text-foreground truncate max-w-[150px]",
                                                             children: entry.title
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                            lineNumber: 337,
+                                                            lineNumber: 346,
                                                             columnNumber: 29
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                            className: "px-4 py-2 text-center font-mono text-gray-900 dark:text-white",
+                                                            className: "px-4 py-2 text-center font-mono text-foreground",
                                                             children: entry.demerits_issued > 0 ? entry.demerits_issued : entry.tour_change !== 0 ? `${entry.tour_change}T` : '-'
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                            lineNumber: 338,
+                                                            lineNumber: 347,
                                                             columnNumber: 29
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                             className: "px-4 py-2 text-right",
                                                             children: entry.report_id && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                                                 href: `/report/${entry.report_id}`,
-                                                                className: "text-indigo-600 hover:underline text-xs",
+                                                                className: "text-primary hover:underline text-xs",
                                                                 children: "View"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                                lineNumber: 339,
+                                                                lineNumber: 348,
                                                                 columnNumber: 86
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                            lineNumber: 339,
+                                                            lineNumber: 348,
                                                             columnNumber: 29
                                                         }, this)
                                                     ]
                                                 }, idx, true, {
                                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                    lineNumber: 335,
+                                                    lineNumber: 344,
                                                     columnNumber: 25
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                            lineNumber: 333,
+                                            lineNumber: 342,
                                             columnNumber: 21
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                    lineNumber: 329,
+                                    lineNumber: 338,
                                     columnNumber: 17
                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "p-8 text-center text-gray-500 dark:text-gray-400 italic text-sm",
+                                    className: "p-8 text-center text-muted-foreground italic text-sm",
                                     children: "No disciplinary history recorded."
                                 }, void 0, false, {
                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                    lineNumber: 344,
+                                    lineNumber: 353,
                                     columnNumber: 21
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                lineNumber: 327,
+                                lineNumber: 336,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                        lineNumber: 323,
+                        lineNumber: 332,
                         columnNumber: 11
                     }, this),
                     isFaculty ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-xl overflow-hidden h-96 flex flex-col",
+                        className: "bg-card shadow-sm border border-border rounded-xl overflow-hidden h-96 flex flex-col",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "px-6 py-4 border-b border-gray-200 dark:border-gray-700 bg-amber-50 dark:bg-amber-900/20 flex justify-between items-center",
+                                className: "px-6 py-4 border-b border-border bg-yellow-50 dark:bg-yellow-900/10 flex justify-between items-center",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                        className: "text-sm font-bold text-amber-900 dark:text-amber-100 uppercase tracking-wider flex items-center gap-2",
+                                        className: "text-sm font-bold text-yellow-800 dark:text-yellow-200 uppercase tracking-wider flex items-center gap-2",
                                         children: "Parent / Guardian"
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 352,
+                                        lineNumber: 361,
                                         columnNumber: 21
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "text-[10px] font-bold bg-amber-200 text-amber-800 px-2 py-0.5 rounded uppercase",
+                                        className: "text-[10px] font-bold bg-yellow-200 text-yellow-800 px-2 py-0.5 rounded uppercase",
                                         children: "Faculty Only"
                                     }, void 0, false, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 353,
+                                        lineNumber: 362,
                                         columnNumber: 21
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                lineNumber: 351,
+                                lineNumber: 360,
                                 columnNumber: 17
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1421,26 +1421,26 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: "text-xs text-gray-500 uppercase font-bold mb-1",
+                                                className: "text-xs text-muted-foreground uppercase font-bold mb-1",
                                                 children: "Primary Contact"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 358,
+                                                lineNumber: 367,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: "text-lg font-bold text-gray-900 dark:text-white",
+                                                className: "text-lg font-bold text-foreground",
                                                 children: profile.parent_name || 'Not Listed'
                                             }, void 0, false, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 359,
+                                                lineNumber: 368,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "mt-2 flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300",
+                                                className: "mt-2 flex items-center gap-2 text-sm text-muted-foreground",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
-                                                        className: "w-4 h-4 text-gray-400",
+                                                        className: "w-4 h-4 text-muted-foreground",
                                                         fill: "none",
                                                         stroke: "currentColor",
                                                         viewBox: "0 0 24 24",
@@ -1451,26 +1451,26 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                                             d: "M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                            lineNumber: 361,
-                                                            columnNumber: 126
+                                                            lineNumber: 370,
+                                                            columnNumber: 134
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 361,
+                                                        lineNumber: 370,
                                                         columnNumber: 33
                                                     }, this),
                                                     profile.parent_phone || '(---) --- ----'
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 360,
+                                                lineNumber: 369,
                                                 columnNumber: 29
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "mt-1 flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300",
+                                                className: "mt-1 flex items-center gap-2 text-sm text-muted-foreground",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
-                                                        className: "w-4 h-4 text-gray-400",
+                                                        className: "w-4 h-4 text-muted-foreground",
                                                         fill: "none",
                                                         stroke: "currentColor",
                                                         viewBox: "0 0 24 24",
@@ -1481,54 +1481,54 @@ function ProfileClient({ profile, auditLog, canEdit, viewerRoleLevel }) {
                                                             d: "M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                            lineNumber: 365,
-                                                            columnNumber: 126
+                                                            lineNumber: 374,
+                                                            columnNumber: 134
                                                         }, this)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                        lineNumber: 365,
+                                                        lineNumber: 374,
                                                         columnNumber: 33
                                                     }, this),
                                                     profile.parent_email || 'No Email'
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                                lineNumber: 364,
+                                                lineNumber: 373,
                                                 columnNumber: 29
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                        lineNumber: 357,
+                                        lineNumber: 366,
                                         columnNumber: 25
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                    lineNumber: 356,
+                                    lineNumber: 365,
                                     columnNumber: 21
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                                lineNumber: 355,
+                                lineNumber: 364,
                                 columnNumber: 17
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                        lineNumber: 350,
+                        lineNumber: 359,
                         columnNumber: 15
                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-gray-50 dark:bg-gray-800/50 border border-dashed border-gray-300 dark:border-gray-700 rounded-xl h-96 flex items-center justify-center text-gray-400 dark:text-gray-600 text-sm",
+                        className: "bg-muted/10 border border-dashed border-border rounded-xl h-96 flex items-center justify-center text-muted-foreground text-sm",
                         children: "Restricted Access"
                     }, void 0, false, {
                         fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                        lineNumber: 373,
+                        lineNumber: 382,
                         columnNumber: 15
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/profile/[id]/ProfileClient.tsx",
-                lineNumber: 320,
+                lineNumber: 329,
                 columnNumber: 7
             }, this)
         ]

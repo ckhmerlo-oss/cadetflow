@@ -12,8 +12,8 @@ const formatName = (person: { first_name: string, last_name: string } | null) =>
 }
 
 const STATUS_COLORS: Record<string, string> = {
-  pending_approval: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
-  needs_revision: 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200',
+  pending_approval: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-200',
+  needs_revision: 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-200',
 }
 
 type SortKey = 'date' | 'status' | 'subject' | 'submitter' | 'offense' | 'demerits' | 'waiting'
@@ -58,8 +58,8 @@ export default function PendingReportsClient({ initialReports }: { initialReport
   }
 
   const SortIcon = ({ column }: { column: SortKey }) => {
-    if (sortConfig.key !== column) return <span className="text-gray-300 ml-1">⇅</span>
-    return <span className="text-indigo-600 dark:text-indigo-400 ml-1">{sortConfig.direction === 'asc' ? '↑' : '↓'}</span>
+    if (sortConfig.key !== column) return <span className="text-muted-foreground/30 ml-1">⇅</span>
+    return <span className="text-primary ml-1">{sortConfig.direction === 'asc' ? '↑' : '↓'}</span>
   }
 
   const getWaitingOn = (report: PendingReport) => {
@@ -112,21 +112,21 @@ export default function PendingReportsClient({ initialReports }: { initialReport
     <div className="space-y-6">
       
       {/* --- FLOATING FILTER CARD --- */}
-      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm">
+      <div className="bg-card p-4 rounded-lg border border-border shadow-sm">
           <div className="flex flex-col lg:flex-row gap-4 items-end">
             {/* 1. Search Bar (1/3 Width) */}
             <div className="w-full lg:w-1/3 relative">
-                <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Quick Search</label>
+                <label className="block text-xs font-bold text-muted-foreground uppercase mb-1">Quick Search</label>
                 <div className="relative">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                        <svg className="h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                        <svg className="h-5 w-5 text-muted-foreground" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                             <path fillRule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clipRule="evenodd" />
                         </svg>
                     </div>
                     <input 
                         type="text" 
                         placeholder="Search..." 
-                        className="block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm py-2 pl-10 pr-3 focus:ring-indigo-500 focus:border-indigo-500" 
+                        className="input-base pl-10 pr-3" 
                         value={searchTerm} 
                         onChange={e => setSearchTerm(e.target.value)} 
                     />
@@ -136,11 +136,11 @@ export default function PendingReportsClient({ initialReports }: { initialReport
             {/* 2. Filter Controls (2/3 Width) */}
             <div className="w-full lg:w-2/3 flex flex-col sm:flex-row gap-4">
                 <div className="w-full sm:w-1/3">
-                    <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">Filter By</label>
+                    <label className="block text-xs font-bold text-muted-foreground uppercase mb-1">Filter By</label>
                     <select 
                         value={filterType} 
                         onChange={e => handleFilterTypeChange(e.target.value as FilterType)}
-                        className="block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500"
+                        className="input-base"
                     >
                         <option value="all">None</option>
                         <option value="date_range">Date Range</option>
@@ -154,24 +154,24 @@ export default function PendingReportsClient({ initialReports }: { initialReport
                     {filterType === 'date_range' ? (
                         <div className="flex gap-2">
                             <div className="w-1/2">
-                                <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">From</label>
-                                <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} className="block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm py-2 px-3" />
+                                <label className="block text-xs font-bold text-muted-foreground uppercase mb-1">From</label>
+                                <input type="date" value={startDate} onChange={e => setStartDate(e.target.value)} className="input-base" />
                             </div>
                             <div className="w-1/2">
-                                <label className="block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1">To</label>
-                                <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} className="block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm py-2 px-3" />
+                                <label className="block text-xs font-bold text-muted-foreground uppercase mb-1">To</label>
+                                <input type="date" value={endDate} onChange={e => setEndDate(e.target.value)} className="input-base" />
                             </div>
                         </div>
                     ) : (
                         <div>
-                             <label className={`block text-xs font-bold uppercase mb-1 ${filterType === 'all' ? 'text-gray-300 dark:text-gray-600' : 'text-gray-500 dark:text-gray-400'}`}>
+                             <label className={`block text-xs font-bold uppercase mb-1 ${filterType === 'all' ? 'text-muted-foreground/50' : 'text-muted-foreground'}`}>
                                  {filterType === 'all' ? 'Select Filter Type First' : 'Select Value'}
                              </label>
                              <select 
                                 value={filterValue} 
                                 onChange={e => setFilterValue(e.target.value)} 
                                 disabled={filterType === 'all'} 
-                                className="block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm py-2 px-3 disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="input-base disabled:opacity-50"
                              >
                                 <option value="">{filterType === 'all' ? '—' : 'Select...'}</option>
                                 {filterType === 'subject' && uniqueSubjects.map(s => <option key={s} value={s}>{s}</option>)}
@@ -185,59 +185,59 @@ export default function PendingReportsClient({ initialReports }: { initialReport
           </div>
       </div>
 
-      <div className="bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700">
+      <div className="bg-card shadow-md rounded-lg overflow-hidden border border-border">
         <div className="overflow-x-auto">
-            <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead className="bg-gray-50 dark:bg-gray-800">
+            <table className="min-w-full divide-y divide-border">
+                <thead className="bg-muted/50">
                     <tr>
-                        <th onClick={() => handleSort('status')} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase cursor-pointer">Status <SortIcon column="status"/></th>
+                        <th onClick={() => handleSort('status')} className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase cursor-pointer hover:text-foreground">Status <SortIcon column="status"/></th>
                         {/* NEW: Waiting On Column */}
-                        <th onClick={() => handleSort('waiting')} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase cursor-pointer">Waiting On <SortIcon column="waiting"/></th>
-                        <th onClick={() => handleSort('subject')} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase cursor-pointer">Subject <SortIcon column="subject"/></th>
-                        <th onClick={() => handleSort('submitter')} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase cursor-pointer">Submitter <SortIcon column="submitter"/></th>
-                        <th onClick={() => handleSort('offense')} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase cursor-pointer">Infraction <SortIcon column="offense"/></th>
-                        <th onClick={() => handleSort('demerits')} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase cursor-pointer">Dem <SortIcon column="demerits"/></th>
-                        <th onClick={() => handleSort('date')} className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase cursor-pointer">Date <SortIcon column="date"/></th>
+                        <th onClick={() => handleSort('waiting')} className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase cursor-pointer hover:text-foreground">Waiting On <SortIcon column="waiting"/></th>
+                        <th onClick={() => handleSort('subject')} className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase cursor-pointer hover:text-foreground">Subject <SortIcon column="subject"/></th>
+                        <th onClick={() => handleSort('submitter')} className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase cursor-pointer hover:text-foreground">Submitter <SortIcon column="submitter"/></th>
+                        <th onClick={() => handleSort('offense')} className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase cursor-pointer hover:text-foreground">Infraction <SortIcon column="offense"/></th>
+                        <th onClick={() => handleSort('demerits')} className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase cursor-pointer hover:text-foreground">Dem <SortIcon column="demerits"/></th>
+                        <th onClick={() => handleSort('date')} className="px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase cursor-pointer hover:text-foreground">Date <SortIcon column="date"/></th>
                     </tr>
                 </thead>
-                <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                <tbody className="bg-card divide-y divide-border">
                     {processedReports.length > 0 ? processedReports.map(report => (
                         <React.Fragment key={report.id}>
-                            <tr onClick={() => setExpandedId(expandedId === report.id ? null : report.id)} className={`cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 ${expandedId === report.id ? 'bg-gray-50 dark:bg-gray-700/50' : ''}`}>
-                                <td className="px-6 py-4 whitespace-nowrap"><span className={`px-2 py-0.5 rounded-full text-xs font-bold ${STATUS_COLORS[report.status] || 'bg-gray-100 text-gray-800'}`}>{report.status.replace('_', ' ')}</span></td>
-                                <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-indigo-600 dark:text-indigo-400">{getWaitingOn(report)}</td>
-                                <td className="px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">{formatName(report.subject)}</td>
-                                <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">{formatName(report.submitter)}</td>
-                                <td className="px-6 py-4 text-sm text-gray-500 dark:text-gray-300">{report.offense_type.offense_name}</td>
-                                <td className="px-6 py-4 text-sm font-bold text-red-600">{report.demerits_effective}</td>
-                                <td className="px-6 py-4 text-sm text-gray-500">{new Date(report.created_at).toLocaleDateString()}</td>
+                            <tr onClick={() => setExpandedId(expandedId === report.id ? null : report.id)} className={`cursor-pointer hover:bg-accent transition-colors ${expandedId === report.id ? 'bg-muted/50' : ''}`}>
+                                <td className="px-6 py-4 whitespace-nowrap"><span className={`px-2 py-0.5 rounded-full text-xs font-bold ${STATUS_COLORS[report.status] || 'bg-muted text-muted-foreground'}`}>{report.status.replace('_', ' ')}</span></td>
+                                <td className="px-6 py-4 whitespace-nowrap text-sm font-bold text-primary">{getWaitingOn(report)}</td>
+                                <td className="px-6 py-4 text-sm font-medium text-foreground">{formatName(report.subject)}</td>
+                                <td className="px-6 py-4 text-sm text-muted-foreground">{formatName(report.submitter)}</td>
+                                <td className="px-6 py-4 text-sm text-muted-foreground">{report.offense_type.offense_name}</td>
+                                <td className="px-6 py-4 text-sm font-bold text-destructive">{report.demerits_effective}</td>
+                                <td className="px-6 py-4 text-sm text-muted-foreground">{new Date(report.created_at).toLocaleDateString()}</td>
                             </tr>
                             
                             {expandedId === report.id && (
-                                <tr className="bg-gray-50 dark:bg-gray-900/30 shadow-inner">
+                                <tr className="bg-muted/30 shadow-inner">
                                     <td colSpan={7} className="px-6 py-6">
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                                             <div className="space-y-4">
-                                                <h4 className="text-xs font-bold text-gray-500 uppercase">Report Details</h4>
-                                                <div className="bg-white dark:bg-gray-800 p-4 rounded border border-gray-200 dark:border-gray-700">
-                                                    <p className="text-sm text-gray-900 dark:text-white mb-2"><strong>Date of Offense:</strong> {new Date(report.date_of_offense).toLocaleString()}</p>
-                                                    <p className="text-xs text-gray-500 mb-1">Notes:</p>
-                                                    <p className="text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap">{report.notes || 'None'}</p>
-                                                    <div className="mt-4 pt-3 border-t border-gray-100 dark:border-gray-700">
-                                                        <Link href={`/report/${report.id}`} className="text-indigo-600 text-sm font-medium hover:underline">View Full Report &rarr;</Link>
+                                                <h4 className="text-xs font-bold text-muted-foreground uppercase">Report Details</h4>
+                                                <div className="bg-card p-4 rounded border border-border">
+                                                    <p className="text-sm text-foreground mb-2"><strong>Date of Offense:</strong> {new Date(report.date_of_offense).toLocaleString()}</p>
+                                                    <p className="text-xs text-muted-foreground mb-1">Notes:</p>
+                                                    <p className="text-sm text-foreground whitespace-pre-wrap">{report.notes || 'None'}</p>
+                                                    <div className="mt-4 pt-3 border-t border-border">
+                                                        <Link href={`/report/${report.id}`} className="text-primary text-sm font-medium hover:underline">View Full Report &rarr;</Link>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div className="space-y-4">
-                                                <h4 className="text-xs font-bold text-gray-500 uppercase">Timeline</h4>
-                                                <ul className="bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 divide-y divide-gray-100 dark:divide-gray-700">
+                                                <h4 className="text-xs font-bold text-muted-foreground uppercase">Timeline</h4>
+                                                <ul className="bg-card rounded border border-border divide-y divide-border">
                                                     {report.approval_log.map((log, i) => (
                                                         <li key={i} className="p-3 text-sm">
-                                                            <div className="flex justify-between font-medium text-gray-900 dark:text-white">
+                                                            <div className="flex justify-between font-medium text-foreground">
                                                                 <span>{formatName(log.actor)}</span>
-                                                                <span className="text-xs text-gray-500">{new Date(log.created_at).toLocaleDateString()}</span>
+                                                                <span className="text-xs text-muted-foreground">{new Date(log.created_at).toLocaleDateString()}</span>
                                                             </div>
-                                                            <p className="text-xs text-gray-600 mt-1"><span className="uppercase font-bold">{log.action}</span> {log.comment && `- "${log.comment}"`}</p>
+                                                            <p className="text-xs text-muted-foreground mt-1"><span className="uppercase font-bold">{log.action}</span> {log.comment && `- "${log.comment}"`}</p>
                                                         </li>
                                                     ))}
                                                 </ul>
@@ -247,11 +247,21 @@ export default function PendingReportsClient({ initialReports }: { initialReport
                                 </tr>
                             )}
                         </React.Fragment>
-                    )) : <tr><td colSpan={7} className="px-6 py-10 text-center text-gray-500">No pending reports found.</td></tr>}
+                    )) : <tr><td colSpan={7} className="px-6 py-10 text-center text-muted-foreground">No pending reports found.</td></tr>}
                 </tbody>
             </table>
         </div>
-        {hasMore && <div className="p-4 flex justify-center"><button onClick={handleLoadMore} disabled={isLoadingMore} className="px-6 py-2 bg-white border rounded-full shadow-sm text-indigo-600 text-sm font-medium">{isLoadingMore ? 'Loading...' : 'Load More'}</button></div>}
+        {hasMore && (
+            <div className="p-4 flex justify-center bg-muted/20 border-t border-border">
+                <button 
+                    onClick={handleLoadMore} 
+                    disabled={isLoadingMore} 
+                    className="px-6 py-2 bg-card border border-border rounded-full shadow-sm text-primary text-sm font-medium hover:bg-accent disabled:opacity-50"
+                >
+                    {isLoadingMore ? 'Loading...' : 'Load More'}
+                </button>
+            </div>
+        )}
       </div>
     </div>
   )

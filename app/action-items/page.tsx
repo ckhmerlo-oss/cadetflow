@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 import ActionItemsClient from './ActionItemsClient'
 import { getIncidents, IncidentReport } from '../incidents/actions'
 
+// --- Types (Kept exactly as you had them) ---
 export type ActionItemReport = {
   id: string;
   type: 'report' | 'incident';
@@ -35,7 +36,7 @@ export default async function ActionItemsPage() {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return redirect('/login')
 
-  // 1. Fetch Profile with Group ID
+  // 1. Fetch Profile
   const { data: viewerProfile } = await supabase
     .from('profiles')
     .select(`
@@ -49,45 +50,42 @@ export default async function ActionItemsPage() {
 
   const roleData = viewerProfile?.role as any
   const viewerRoleLevel = roleData?.default_role_level || 0;
-  const viewerGroupId = roleData?.approval_group?.id || null; // <--- Captured ID
+  const viewerGroupId = roleData?.approval_group?.id || null; 
   
-  // LOGIC: Only TACs (65-89) see incidents. Admins (90+) do NOT see pending incidents.
   const isTac = viewerRoleLevel >= 65 && viewerRoleLevel < 90; 
 
+  // 2. Fetch Reports
   const { data: rpcData, error } = await supabase.rpc('get_my_dashboard_reports')
   if (error) console.error("Error fetching reports:", error.message)
 
   let allInvolvedReports = (rpcData || []) as any[]
 
-  // 2. Fetch Incidents (TACs Only)
+  // 3. Fetch Incidents (TACs Only)
   let incidents: IncidentReport[] = []
   if (isTac) {
       incidents = await getIncidents('pending')
   }
 
+  // 4. Fetch Appeals & Logs Data
   const allReportIds = allInvolvedReports.map(r => r.id);
   let appealsMap: Record<string, any> = {};
+  let logsMap: Record<string, any[]> = {};
   
   if (allReportIds.length > 0) {
+      // Appeals
       const { data: appealsData } = await supabase
         .from('appeals')
         .select('id, report_id, status, justification, issuer_comment, chain_comment, current_assignee_id') 
         .in('report_id', allReportIds);
-        
-      if (appealsData) {
-          appealsData.forEach(app => { appealsMap[app.report_id] = app; });
-      }
-  }
+      if (appealsData) appealsData.forEach(app => { appealsMap[app.report_id] = app; });
 
-  let logsMap: Record<string, any[]> = {};
-  if (allReportIds.length > 0) {
-    const { data: logsData } = await supabase
+      // Logs
+      const { data: logsData } = await supabase
         .from('approval_log')
         .select('report_id, action, comment, created_at, actor:actor_id(first_name, last_name)')
         .in('report_id', allReportIds)
         .order('created_at', { ascending: false });
-        
-    if (logsData) {
+      if (logsData) {
         logsData.forEach(log => {
             if (!logsMap[log.report_id]) logsMap[log.report_id] = [];
             const actor = Array.isArray(log.actor) ? log.actor[0] : log.actor;
@@ -98,28 +96,26 @@ export default async function ActionItemsPage() {
                 comment: log.comment
             });
         });
-    }
+      }
   }
 
   const finalItems: ActionItemReport[] = []
 
-  // 3. Process Reports with Strict Filtering
+  // 5. Process & Filter Logic
   allInvolvedReports.forEach(report => {
       let include = false;
       if (report.status === 'pulled') return;
       
-      // A. Approvals: Strict Group Matching
+      // Filter A: Standard Approval
       if (report.status === 'pending_approval' && report.current_approver_group_id !== null) {
-          // You must be in the assigned group AND not be the submitter
           if (report.current_approver_group_id === viewerGroupId && report.submitted_by !== user.id) {
               include = true;
           }
       }
-      
-      // B. Revisions: Submitter Only
+      // Filter B: Revisions
       if (report.status === 'needs_revision' && report.submitted_by === user.id) include = true;
       
-      // C. Appeals: Logic based on role/assignee
+      // Filter C: Appeals
       const appealData = appealsMap[report.id];
       const appealStatus = report.appeal_status || appealData?.status;
       if (appealStatus) {
@@ -162,7 +158,7 @@ export default async function ActionItemsPage() {
       }
   })
 
-  // 4. Add Incidents
+  // 6. Add Incidents
   incidents.forEach(inc => {
       finalItems.push({
           id: inc.id,
@@ -185,16 +181,25 @@ export default async function ActionItemsPage() {
 
   finalItems.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
 
+  // --- UI RENDER ---
   return (
-    <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+    // Added 'animate-in' for smooth transition and standard padding
+    <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 animate-in fade-in duration-500">
       <div className="flex justify-between items-center mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Action Items</h1>
-          <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">
+          {/* SEMANTIC FIX: text-primary (Blue in Light, Red in Xmas) */}
+          <h1 className="text-3xl font-bold tracking-tight text-primary mb-2">
+            Action Items
+          </h1>
+          
+          {/* SEMANTIC FIX: text-muted-foreground (Gray in Light, Mint/Silver in Xmas) */}
+          <p className="text-sm text-muted-foreground">
             Reports and Incidents requiring your immediate attention.
           </p>
         </div>
       </div>
+      
+      {/* Client Component handles the table rendering */}
       <ActionItemsClient initialReports={finalItems} currentUserId={user.id} />
     </div>
   )

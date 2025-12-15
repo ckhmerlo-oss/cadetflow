@@ -82,12 +82,10 @@ async function IncidentDetailPage({ params }) {
     const isStaff = roleLevel >= 50;
     if (!isReporter && !isStaff) return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["notFound"])();
     // 3. Fetch Data for Actions (Only if Staff & Pending)
-    // FIX: Explicit typing to prevent "implicitly any" errors
     let facultyList = [];
     let offenseTypes = [];
     if (roleLevel >= 65 && incident.status === 'pending') {
         facultyList = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$incidents$2f$actions$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getFacultyList"])();
-        // FIX: Ensure 'demerits' is selected
         const { data: offenses } = await supabase.from('offense_types').select('id, offense_name, demerits, offense_group').order('offense_group');
         offenseTypes = offenses || [];
     }
@@ -95,7 +93,6 @@ async function IncidentDetailPage({ params }) {
         incident: incident,
         userRoleLevel: roleLevel,
         facultyList: facultyList,
-        // FIX: Ensure demerits property is passed through spread
         offenseTypes: offenseTypes.map((o)=>({
                 ...o,
                 label: o.offense_name,
@@ -103,7 +100,7 @@ async function IncidentDetailPage({ params }) {
             }))
     }, void 0, false, {
         fileName: "[project]/app/incidents/[id]/page.tsx",
-        lineNumber: 43,
+        lineNumber: 41,
         columnNumber: 5
     }, this);
 }

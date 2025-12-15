@@ -58,22 +58,22 @@ function SearchableSelect({ label, options, value, onChange, placeholder = 'Sele
         ref: containerRef,
         children: [
             label && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
+                className: "block text-sm font-medium text-foreground mb-1",
                 children: [
                     label,
                     " ",
                     required && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                        className: "text-red-500",
+                        className: "text-destructive",
                         children: "*"
                     }, void 0, false, {
                         fileName: "[project]/app/components/SearchableSelect.tsx",
-                        lineNumber: 79,
+                        lineNumber: 78,
                         columnNumber: 34
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/SearchableSelect.tsx",
-                lineNumber: 78,
+                lineNumber: 77,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -82,7 +82,7 @@ function SearchableSelect({ label, options, value, onChange, placeholder = 'Sele
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                         ref: inputRef,
                         type: "text",
-                        className: `block w-full rounded-md border bg-white dark:bg-gray-900 py-2 pl-3 pr-10 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:text-white ${error ? 'border-red-300 dark:border-red-700' : 'border-gray-300 dark:border-gray-600'} ${disabled ? 'bg-gray-100 dark:bg-gray-800 cursor-not-allowed' : ''}`,
+                        className: `block w-full rounded-md border bg-background py-2 pl-3 pr-10 text-sm shadow-sm focus:outline-none focus:ring-1 text-foreground placeholder:text-muted-foreground ${error ? 'border-destructive focus:border-destructive focus:ring-destructive' : 'border-input focus:border-primary focus:ring-primary'} ${disabled ? 'bg-muted opacity-50 cursor-not-allowed' : ''}`,
                         placeholder: placeholder,
                         value: search,
                         onChange: (e)=>{
@@ -94,7 +94,7 @@ function SearchableSelect({ label, options, value, onChange, placeholder = 'Sele
                         disabled: disabled
                     }, void 0, false, {
                         fileName: "[project]/app/components/SearchableSelect.tsx",
-                        lineNumber: 84,
+                        lineNumber: 83,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -103,7 +103,7 @@ function SearchableSelect({ label, options, value, onChange, placeholder = 'Sele
                             value && !disabled && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 type: "button",
                                 onClick: handleClear,
-                                className: "p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors",
+                                className: "p-1 text-muted-foreground hover:text-foreground rounded-full hover:bg-muted transition-colors",
                                 tabIndex: -1,
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                                     className: "h-4 w-4",
@@ -117,21 +117,21 @@ function SearchableSelect({ label, options, value, onChange, placeholder = 'Sele
                                         d: "M6 18L18 6M6 6l12 12"
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/SearchableSelect.tsx",
-                                        lineNumber: 109,
+                                        lineNumber: 110,
                                         columnNumber: 100
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/SearchableSelect.tsx",
-                                    lineNumber: 109,
+                                    lineNumber: 110,
                                     columnNumber: 21
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/components/SearchableSelect.tsx",
-                                lineNumber: 103,
+                                lineNumber: 104,
                                 columnNumber: 17
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "pointer-events-none text-gray-400",
+                                className: "pointer-events-none text-muted-foreground",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                                     className: "h-5 w-5",
                                     viewBox: "0 0 20 20",
@@ -143,54 +143,54 @@ function SearchableSelect({ label, options, value, onChange, placeholder = 'Sele
                                         clipRule: "evenodd"
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/SearchableSelect.tsx",
-                                        lineNumber: 115,
+                                        lineNumber: 116,
                                         columnNumber: 21
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/SearchableSelect.tsx",
-                                    lineNumber: 114,
+                                    lineNumber: 115,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/components/SearchableSelect.tsx",
-                                lineNumber: 113,
+                                lineNumber: 114,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/SearchableSelect.tsx",
-                        lineNumber: 101,
+                        lineNumber: 102,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/SearchableSelect.tsx",
-                lineNumber: 83,
+                lineNumber: 82,
                 columnNumber: 7
             }, this),
             isOpen && !disabled && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
-                className: "absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-gray-700 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm",
+                className: "absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-popover py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm border border-border animate-in fade-in zoom-in-95 duration-100",
                 children: filteredOptions.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                    className: "relative cursor-default select-none py-2 pl-3 pr-9 text-gray-500 dark:text-gray-300",
+                    className: "relative cursor-default select-none py-2 pl-3 pr-9 text-muted-foreground",
                     children: "No results found."
                 }, void 0, false, {
                     fileName: "[project]/app/components/SearchableSelect.tsx",
-                    lineNumber: 124,
+                    lineNumber: 125,
                     columnNumber: 13
                 }, this) : filteredOptions.map((option, index)=>{
                     const showGroupHeader = option.group && (index === 0 || option.group !== filteredOptions[index - 1].group);
                     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         children: [
                             showGroupHeader && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                className: "sticky top-0 z-10 bg-gray-100 dark:bg-gray-800 py-1 pl-2 pr-9 text-xs font-bold text-gray-500 dark:text-gray-400",
+                                className: "sticky top-0 z-10 bg-muted py-1 pl-2 pr-9 text-xs font-bold text-muted-foreground",
                                 children: option.group
                             }, void 0, false, {
                                 fileName: "[project]/app/components/SearchableSelect.tsx",
-                                lineNumber: 133,
+                                lineNumber: 134,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                className: `relative cursor-pointer select-none py-2 pr-9 text-gray-900 dark:text-white hover:bg-indigo-600 hover:text-white ${option.id === value ? 'bg-indigo-600 text-white' : ''} ${option.group ? 'pl-5' : 'pl-3'}`,
+                                className: `relative cursor-pointer select-none py-2 pr-9 transition-colors ${option.id === value ? 'bg-primary text-primary-foreground' : 'text-foreground hover:bg-accent hover:text-accent-foreground'} ${option.group ? 'pl-5' : 'pl-3'}`,
                                 onClick: ()=>{
                                     onChange(option.id);
                                     setSearch(option.label);
@@ -202,11 +202,11 @@ function SearchableSelect({ label, options, value, onChange, placeholder = 'Sele
                                         children: option.label
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/SearchableSelect.tsx",
-                                        lineNumber: 147,
+                                        lineNumber: 150,
                                         columnNumber: 21
                                     }, this),
                                     option.id === value && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "absolute inset-y-0 right-0 flex items-center pr-4 text-white",
+                                        className: "absolute inset-y-0 right-0 flex items-center pr-4 text-primary-foreground",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                                             className: "h-5 w-5",
                                             viewBox: "0 0 20 20",
@@ -218,35 +218,35 @@ function SearchableSelect({ label, options, value, onChange, placeholder = 'Sele
                                                 clipRule: "evenodd"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/SearchableSelect.tsx",
-                                                lineNumber: 153,
+                                                lineNumber: 156,
                                                 columnNumber: 29
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/SearchableSelect.tsx",
-                                            lineNumber: 152,
+                                            lineNumber: 155,
                                             columnNumber: 27
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/SearchableSelect.tsx",
-                                        lineNumber: 151,
+                                        lineNumber: 154,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/SearchableSelect.tsx",
-                                lineNumber: 137,
+                                lineNumber: 138,
                                 columnNumber: 19
                             }, this)
                         ]
                     }, option.id, true, {
                         fileName: "[project]/app/components/SearchableSelect.tsx",
-                        lineNumber: 131,
+                        lineNumber: 132,
                         columnNumber: 17
                     }, this);
                 })
             }, void 0, false, {
                 fileName: "[project]/app/components/SearchableSelect.tsx",
-                lineNumber: 122,
+                lineNumber: 123,
                 columnNumber: 9
             }, this)
         ]
@@ -420,7 +420,7 @@ function SubmitReport() {
         className: "relative max-w-2xl mx-auto p-4 sm:p-6 lg:p-8",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
             id: "tour-submit-form",
-            className: "bg-white dark:bg-gray-800 p-6 rounded-lg shadow-md",
+            className: "bg-card p-6 rounded-lg shadow-md border border-border",
             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
                 onSubmit: handleSubmit,
                 className: "space-y-6",
@@ -429,7 +429,7 @@ function SubmitReport() {
                         className: "flex justify-between items-center",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                                className: "text-2xl font-semibold text-gray-900 dark:text-white",
+                                className: "text-2xl font-semibold text-foreground",
                                 children: "Submit New Report"
                             }, void 0, false, {
                                 fileName: "[project]/app/submit/page.tsx",
@@ -437,7 +437,7 @@ function SubmitReport() {
                                 columnNumber: 14
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                className: "text-xs font-bold bg-indigo-100 text-indigo-700 px-2 py-1 rounded dark:bg-indigo-900/30 dark:text-indigo-300",
+                                className: "text-xs font-bold bg-primary/10 text-primary px-2 py-1 rounded border border-primary/20",
                                 children: [
                                     subjectCadetIds.filter((id)=>id).length,
                                     " Report(s)"
@@ -457,7 +457,7 @@ function SubmitReport() {
                         className: "space-y-3",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                className: "block text-sm font-medium text-gray-700 dark:text-gray-300",
+                                className: "block text-sm font-medium text-foreground",
                                 children: "Subject Cadet(s)"
                             }, void 0, false, {
                                 fileName: "[project]/app/submit/page.tsx",
@@ -489,7 +489,7 @@ function SubmitReport() {
                                         subjectCadetIds.length > 1 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             type: "button",
                                             onClick: ()=>removeCadetSlot(index),
-                                            className: "p-2 text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition-colors",
+                                            className: "p-2 text-muted-foreground hover:text-destructive hover:bg-destructive/10 rounded transition-colors",
                                             title: "Remove this cadet",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                                                 className: "w-5 h-5",
@@ -525,7 +525,7 @@ function SubmitReport() {
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 type: "button",
                                 onClick: addCadetSlot,
-                                className: "text-sm text-indigo-600 dark:text-indigo-400 font-medium hover:underline flex items-center gap-1",
+                                className: "text-sm text-primary font-medium hover:underline flex items-center gap-1 transition-colors",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                                         className: "w-4 h-4",
@@ -561,13 +561,13 @@ function SubmitReport() {
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "grid grid-cols-2 gap-4 border-t dark:border-gray-700 pt-4",
+                        className: "grid grid-cols-2 gap-4 border-t border-border pt-4",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                         htmlFor: "date",
-                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
+                                        className: "block text-sm font-medium text-foreground mb-1",
                                         children: "Date"
                                     }, void 0, false, {
                                         fileName: "[project]/app/submit/page.tsx",
@@ -580,7 +580,7 @@ function SubmitReport() {
                                         value: dateOfOffense,
                                         onChange: (e)=>setDateOfOffense(e.target.value),
                                         required: true,
-                                        className: "block w-full rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm py-2 px-3"
+                                        className: "input-base"
                                     }, void 0, false, {
                                         fileName: "[project]/app/submit/page.tsx",
                                         lineNumber: 220,
@@ -596,7 +596,7 @@ function SubmitReport() {
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                         htmlFor: "time",
-                                        className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
+                                        className: "block text-sm font-medium text-foreground mb-1",
                                         children: "Time (approx)"
                                     }, void 0, false, {
                                         fileName: "[project]/app/submit/page.tsx",
@@ -609,7 +609,7 @@ function SubmitReport() {
                                         value: timeOfOffense,
                                         onChange: (e)=>setTimeOfOffense(e.target.value),
                                         required: true,
-                                        className: "block w-full rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm py-2 px-3"
+                                        className: "input-base"
                                     }, void 0, false, {
                                         fileName: "[project]/app/submit/page.tsx",
                                         lineNumber: 227,
@@ -643,7 +643,7 @@ function SubmitReport() {
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                 htmlFor: "notes",
-                                className: "block text-sm font-bold text-gray-700 dark:text-gray-200 mb-1",
+                                className: "block text-sm font-bold text-foreground mb-1",
                                 children: "Report Summary"
                             }, void 0, false, {
                                 fileName: "[project]/app/submit/page.tsx",
@@ -664,7 +664,7 @@ function SubmitReport() {
                                 value: greenSheetNotes,
                                 onChange: (e)=>setGreenSheetNotes(e.target.value),
                                 maxLength: 100,
-                                className: "block w-full rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm py-2 px-3",
+                                className: "input-base",
                                 placeholder: "Ex: Late to formation; Unshaven; Disrespect"
                             }, void 0, false, {
                                 fileName: "[project]/app/submit/page.tsx",
@@ -678,11 +678,11 @@ function SubmitReport() {
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "border-t border-gray-200 dark:border-gray-700 pt-4",
+                        className: "border-t border-border pt-4",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
                                 htmlFor: "explanation",
-                                className: "block text-sm font-bold text-gray-700 dark:text-gray-200 mb-1",
+                                className: "block text-sm font-bold text-foreground mb-1",
                                 children: "Report Details"
                             }, void 0, false, {
                                 fileName: "[project]/app/submit/page.tsx",
@@ -690,7 +690,7 @@ function SubmitReport() {
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-xs text-gray-500 dark:text-gray-400 mb-2",
+                                className: "text-xs text-muted-foreground mb-2",
                                 children: "Detailed account of the event, if not fully captured in the summary. Visible to Staff, Faculty, Approvers, and the Subject Cadet."
                             }, void 0, false, {
                                 fileName: "[project]/app/submit/page.tsx",
@@ -702,7 +702,7 @@ function SubmitReport() {
                                 value: reportExplanation,
                                 onChange: (e)=>setReportExplanation(e.target.value),
                                 rows: 5,
-                                className: "block w-full rounded-md border border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm py-2 px-3",
+                                className: "input-base",
                                 placeholder: "Describe the who, what, where, and when..."
                             }, void 0, false, {
                                 fileName: "[project]/app/submit/page.tsx",
@@ -719,7 +719,7 @@ function SubmitReport() {
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                             type: "submit",
                             disabled: loading,
-                            className: "w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none disabled:bg-gray-400 transition-colors",
+                            className: "btn-primary w-full",
                             children: loading ? 'Submitting...' : 'Submit Report'
                         }, void 0, false, {
                             fileName: "[project]/app/submit/page.tsx",
@@ -732,7 +732,7 @@ function SubmitReport() {
                         columnNumber: 11
                     }, this),
                     error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                        className: "text-sm text-red-600 dark:text-red-400 bg-red-50 dark:bg-red-900/20 p-2 rounded",
+                        className: "text-sm text-destructive bg-destructive/10 p-2 rounded border border-destructive/20",
                         children: error
                     }, void 0, false, {
                         fileName: "[project]/app/submit/page.tsx",

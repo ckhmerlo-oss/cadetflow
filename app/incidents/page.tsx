@@ -22,7 +22,6 @@ export default async function IncidentsPage() {
   const incidents = await getIncidents('all')
   
   // Fetch Offense Types
-  // FIX: Ensure 'demerits' is selected so the dropdown shows the value
   const { data: offenseTypes } = await supabase
     .from('offense_types')
     .select('id, offense_name, offense_group, demerits') 
@@ -32,17 +31,17 @@ export default async function IncidentsPage() {
       id: o.id,
       label: o.offense_name,
       group: o.offense_group,
-      demerits: o.demerits // Pass explicit demerits
+      demerits: o.demerits
   })) || []
 
   return (
     <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
       <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Incident Reports</h1>
-            <p className="text-gray-500 dark:text-gray-400">Track and triage behavioral incidents.</p>
+            <h1 className="text-3xl font-bold text-primary">Incident Reports</h1>
+            <p className="text-muted-foreground">Track and triage behavioral incidents.</p>
           </div>
-          <Link href="/incidents/create" className="bg-indigo-600 text-white px-4 py-2 rounded shadow hover:bg-indigo-700 font-bold">
+          <Link href="/incidents/create" className="btn-primary font-bold">
             + New Incident
           </Link>
       </div>

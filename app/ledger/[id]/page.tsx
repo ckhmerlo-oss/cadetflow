@@ -6,7 +6,7 @@ import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
-// --- TYPES ---
+// ... (Types remain the same) ...
 type AuditLogEvent = {
   event_date: string
   event_type: 'demerit' | 'served' | 'adjustment'
@@ -55,7 +55,6 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
   const [terms, setTerms] = useState<AcademicTerm[]>([])
   const [cadetProfile, setCadetProfile] = useState<CadetProfile | null>(null)
   
-  // Filters & View Modes
   const [selectedTermId, setSelectedTermId] = useState<string>('all')
   const [filterType, setFilterType] = useState<string>('all') 
   const [viewMode, setViewMode] = useState<'cards' | 'list'>('cards')
@@ -63,7 +62,7 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  // --- DATA FETCHING ---
+  // --- DATA FETCHING (Unchanged) ---
   useEffect(() => {
     async function getData() {
       setLoading(true)
@@ -131,7 +130,6 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
   const displayedLog = useMemo(() => {
     let data = [...fullLog];
 
-    // 1. Filter by Term
     if (selectedTermId !== 'all') {
         const term = terms.find(t => t.id === selectedTermId)
         if (term) {
@@ -139,7 +137,6 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
         }
     }
 
-    // 2. Filter by Category/Type
     if (filterType !== 'all') {
         if (filterType === 'tours') {
             data = data.filter(e => e.event_type === 'served' || e.event_type === 'adjustment');
@@ -157,6 +154,8 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
     switch (status) { case 'completed': return 'Approved'; case 'rejected': return 'Rejected'; case 'pending_approval': return 'Pending'; case 'needs_revision': return 'Revision Needed'; case 'pulled': return 'Pulled'; default: return status; }
   }
   
+  // NOTE: Status colors are usually semantic (Green/Red/Yellow) regardless of theme, 
+  // so we keep standard colors but ensure text is legible.
   const getDisplayStatusColor = (event: AuditLogEvent) => {
      if (event.appeal_status === 'approved') return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200';
      switch (event.status) { case 'completed': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100'; case 'rejected': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100'; case 'pending_approval': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100'; case 'pulled': return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100'; default: return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100'; }
@@ -171,14 +170,12 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
       return name; 
   }
 
-  // Row Click Handler
   const handleRowClick = (event: AuditLogEvent) => {
     if (event.event_type === 'demerit' && event.report_id) {
         router.push(`/report/${event.report_id}`);
     }
   }
 
-  // --- TEXT TRUNCATION HELPER ---
   const truncateText = (text: string | null, limit: number) => {
       if (!text) return null;
       if (text.length <= limit) return text;
@@ -198,7 +195,6 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
           .print-hidden { display: none !important; }
           .col-status { width: 15% !important; } 
           .no-print-break { break-inside: avoid; }
-          /* Ensure title column doesn't blow out page width */
           .col-title-details { max-width: 250px !important; overflow: hidden !important; text-overflow: ellipsis !important; white-space: nowrap !important; }
         }
       `}</style>
@@ -207,24 +203,26 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
         {/* HEADER */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Ledger</h1>
+            {/* THEMED: Text Colors */}
+            <h1 className="text-3xl font-bold text-foreground">Ledger</h1>
             {cadetProfile && (
-               <p className="mt-1 text-lg text-gray-600 dark:text-gray-400">
-                 {cadetProfile.last_name}, {cadetProfile.first_name} <span className="text-sm bg-gray-100 px-2 py-0.5 rounded dark:bg-gray-700">{cadetProfile.role?.role_name || 'Unassigned'}</span>
+               <p className="mt-1 text-lg text-muted-foreground">
+                 {cadetProfile.last_name}, {cadetProfile.first_name} <span className="text-sm bg-muted text-muted-foreground px-2 py-0.5 rounded border border-border">{cadetProfile.role?.role_name || 'Unassigned'}</span>
                </p>
             )}
           </div>
           
           {/* CONTROLS */}
           <div className="flex flex-wrap gap-2 no-print w-full md:w-auto items-center">
+             {/* THEMED: Inputs / Selects */}
              <select value={selectedTermId} onChange={(e) => setSelectedTermId(e.target.value)}
-                className="block w-full sm:w-40 rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm sm:text-sm py-2">
+                className="block w-full sm:w-40 rounded-md border-input bg-background text-foreground shadow-sm sm:text-sm py-2 focus:ring-ring focus:border-ring">
                 <option value="all">All Terms</option>
                 {terms.map(term => (<option key={term.id} value={term.id}>{term.term_name}</option>))}
               </select>
 
               <select value={filterType} onChange={(e) => setFilterType(e.target.value)}
-                className="block w-full sm:w-32 rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-800 dark:text-white shadow-sm sm:text-sm py-2">
+                className="block w-full sm:w-32 rounded-md border-input bg-background text-foreground shadow-sm sm:text-sm py-2 focus:ring-ring focus:border-ring">
                 <option value="all">All Types</option>
                 <option value="1">Cat 1</option>
                 <option value="2">Cat 2</option>
@@ -234,23 +232,33 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
 
             {/* View Toggle */}
             <div className="hidden sm:flex rounded-md shadow-sm" role="group">
-                <button type="button" onClick={() => setViewMode('cards')} className={`px-4 py-2 text-sm font-medium border rounded-l-lg ${viewMode === 'cards' ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 dark:bg-gray-800 dark:text-white dark:border-gray-600'}`}>
+                <button type="button" onClick={() => setViewMode('cards')} 
+                    className={`px-4 py-2 text-sm font-medium border rounded-l-lg 
+                    ${viewMode === 'cards' 
+                        ? 'bg-primary text-primary-foreground border-primary' 
+                        : 'bg-background text-foreground border-input hover:bg-accent hover:text-accent-foreground'
+                    }`}>
                     Cards
                 </button>
-                <button type="button" onClick={() => setViewMode('list')} className={`px-4 py-2 text-sm font-medium border rounded-r-lg ${viewMode === 'list' ? 'bg-indigo-600 text-white border-indigo-600' : 'bg-white text-gray-700 border-gray-300 hover:bg-gray-50 dark:bg-gray-800 dark:text-white dark:border-gray-600'}`}>
+                <button type="button" onClick={() => setViewMode('list')} 
+                    className={`px-4 py-2 text-sm font-medium border rounded-r-lg 
+                    ${viewMode === 'list' 
+                        ? 'bg-primary text-primary-foreground border-primary' 
+                        : 'bg-background text-foreground border-input hover:bg-accent hover:text-accent-foreground'
+                    }`}>
                     List
                 </button>
             </div>
 
-            <button onClick={() => window.print()} className="ml-2 py-2 px-4 rounded-md shadow-sm text-sm font-bold text-white bg-gray-700 hover:bg-gray-800 flex items-center gap-2">
+            <button onClick={() => window.print()} className="ml-2 py-2 px-4 rounded-md shadow-sm text-sm font-bold text-primary-foreground bg-primary hover:bg-primary/90 flex items-center gap-2">
                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z" /></svg>
                Print
             </button>
           </div>
         </div>
 
-        {loading && <p className="text-gray-500 dark:text-gray-400">Loading...</p>}
-        {error && <p className="text-red-600 dark:text-red-400">{error}</p>}
+        {loading && <p className="text-muted-foreground">Loading...</p>}
+        {error && <p className="text-destructive">{error}</p>}
 
         {!loading && !error && (
           <>
@@ -264,33 +272,34 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
             )}
 
             {displayedLog.length === 0 ? (
-                <div className="text-center py-10 text-gray-500 border rounded-lg border-dashed">No entries found for this filter.</div>
+                <div className="text-center py-10 text-muted-foreground border border-border rounded-lg border-dashed">No entries found for this filter.</div>
             ) : (
                 <>
-                {/* --- CARD VIEW (Default on Mobile) --- */}
+                {/* --- CARD VIEW --- */}
                 <div className={`${viewMode === 'cards' ? 'block' : 'hidden sm:hidden'} flow-root`}>
                     <ul role="list" className="-mb-8">
                         {displayedLog.map((event, eventIdx) => (
                         <li key={eventIdx}>
                             <div className="relative pb-8 print:pb-4">
-                            {eventIdx !== displayedLog.length - 1 ? <span className="absolute left-5 top-5 -ml-px h-full w-0.5 bg-gray-300 dark:bg-gray-700" aria-hidden="true" /> : null}
+                            {eventIdx !== displayedLog.length - 1 ? <span className="absolute left-5 top-5 -ml-px h-full w-0.5 bg-border" aria-hidden="true" /> : null}
                             <div className="relative flex items-start space-x-3">
                                 <div className="no-print">
-                                <span className={`h-10 w-10 rounded-full flex items-center justify-center ring-8 ring-white dark:ring-gray-900 ${event.event_type === 'demerit' ? 'bg-red-600' : 'bg-green-500'}`}>
+                                <span className={`h-10 w-10 rounded-full flex items-center justify-center ring-8 ring-background ${event.event_type === 'demerit' ? 'bg-destructive' : 'bg-green-500'}`}>
                                     <span className="text-white font-bold">{event.event_type === 'demerit' ? 'D' : 'T'}</span>
                                 </span>
                                 </div>
                                 
-                                <div className="min-w-0 flex-1 bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm border dark:border-gray-700 print-card">
+                                {/* THEMED: Card Container */}
+                                <div className="min-w-0 flex-1 bg-card text-card-foreground p-4 rounded-lg shadow-sm border border-border print-card">
                                 <div className="flex justify-between items-start">
                                     <div>
-                                        <h3 className="text-lg font-medium text-gray-900 dark:text-white flex items-center flex-wrap gap-2">
+                                        <h3 className="text-lg font-medium text-foreground flex items-center flex-wrap gap-2">
                                         {event.event_type === 'demerit' && event.report_id ? (
-                                            <Link href={`/report/${event.report_id}`} className="hover:underline hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                                            <Link href={`/report/${event.report_id}`} className="hover:underline hover:text-primary transition-colors">
                                             {event.title}
                                             </Link>
                                         ) : event.title}
-                                        {/* No Category Badge Here */}
+                                        
                                         {event.appeal_status === 'approved' && <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800">Appeal Granted</span>}
                                         {['pending_issuer', 'pending_chain', 'pending_commandant'].includes(event.appeal_status || '') && <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800">Appeal Pending</span>}
                                         </h3>
@@ -300,7 +309,7 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
                                     </span>
                                 </div>
                                 
-                                <div className="mt-1 text-sm text-gray-500 dark:text-gray-400 flex flex-wrap gap-4">
+                                <div className="mt-1 text-sm text-muted-foreground flex flex-wrap gap-4">
                                     {event.event_type === 'demerit' && event.date_of_offense && <span>Offense: <span className="font-medium">{formatDateTime(event.date_of_offense)}</span></span>}
                                     <span>Logged: {formatDateTime(event.event_date)}</span>
                                 </div>
@@ -308,20 +317,20 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
                                 <div className="mt-3 grid grid-cols-2 gap-4">
                                     {event.event_type === 'demerit' ? (
                                     <div>
-                                        <p className="text-xs uppercase font-semibold text-gray-500">Demerits</p>
-                                        <p className={`text-base font-bold ${event.status === 'rejected' || event.status === 'pulled' || event.appeal_status === 'approved' ? 'line-through text-gray-400' : 'text-red-600'}`}>{event.demerits_issued}</p>
+                                        <p className="text-xs uppercase font-semibold text-muted-foreground">Demerits</p>
+                                        <p className={`text-base font-bold ${event.status === 'rejected' || event.status === 'pulled' || event.appeal_status === 'approved' ? 'line-through text-muted-foreground' : 'text-destructive'}`}>{event.demerits_issued}</p>
                                     </div>
                                     ) : (
                                     <div>
-                                        <p className="text-xs uppercase font-semibold text-gray-500">Tours Served</p>
+                                        <p className="text-xs uppercase font-semibold text-muted-foreground">Tours Served</p>
                                         <p className="text-base font-bold text-green-600">{Math.abs(event.tour_change || 0)}</p>
                                     </div>
                                     )}
                                 </div>
 
-                                <div className="mt-3 pt-3 border-t dark:border-gray-700 text-sm">
-                                    <p className="text-gray-700 dark:text-gray-300"><span className="font-medium">{event.event_type === 'demerit' ? 'By:' : 'Logged By:'}</span> {event.actor_name || 'System'}</p>
-                                    {event.details && <p className="text-gray-600 dark:text-gray-400 italic mt-1">"{event.details}"</p>}
+                                <div className="mt-3 pt-3 border-t border-border text-sm">
+                                    <p className="text-foreground"><span className="font-medium">{event.event_type === 'demerit' ? 'By:' : 'Logged By:'}</span> {event.actor_name || 'System'}</p>
+                                    {event.details && <p className="text-muted-foreground italic mt-1">"{event.details}"</p>}
                                     {event.appeal_note && (<div className="mt-2 text-orange-800 bg-orange-50 p-2 rounded text-xs"><strong>Appeal Note:</strong> {event.appeal_note}</div>)}
                                 </div>
                                 </div>
@@ -334,58 +343,53 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
 
                 {/* --- LIST / TABLE VIEW --- */}
                 {viewMode === 'list' && (
-                    <div className="hidden sm:block overflow-x-auto rounded-lg border border-gray-200 dark:border-gray-700">
-                        <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700 bg-white dark:bg-gray-800 text-sm table-fixed">
-                            <thead className="bg-gray-50 dark:bg-gray-700">
+                    <div className="hidden sm:block overflow-x-auto rounded-lg border border-border">
+                        {/* THEMED: Table Colors */}
+                        <table className="min-w-full divide-y divide-border bg-card text-sm table-fixed">
+                            <thead className="bg-muted">
                                 <tr>
-                                    <th className="px-2 py-3 text-left font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider w-24">Date</th>
-                                    <th className="px-2 py-3 text-left font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider col-title-details">Title/Details</th>
-                                    <th className="px-2 py-3 text-center font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider w-16">Value</th>
-                                    <th className="px-2 py-3 text-left font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider w-28">By</th>
-                                    <th className="px-2 py-3 text-center font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider w-32 col-status">Status</th>
+                                    <th className="px-2 py-3 text-left font-medium text-muted-foreground uppercase tracking-wider w-24">Date</th>
+                                    <th className="px-2 py-3 text-left font-medium text-muted-foreground uppercase tracking-wider col-title-details">Title/Details</th>
+                                    <th className="px-2 py-3 text-center font-medium text-muted-foreground uppercase tracking-wider w-16">Value</th>
+                                    <th className="px-2 py-3 text-left font-medium text-muted-foreground uppercase tracking-wider w-28">By</th>
+                                    <th className="px-2 py-3 text-center font-medium text-muted-foreground uppercase tracking-wider w-32 col-status">Status</th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                            <tbody className="divide-y divide-border">
                                 {displayedLog.map((event, idx) => (
                                     <tr 
                                         key={idx} 
                                         onClick={() => handleRowClick(event)}
-                                        className={`hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors ${event.event_type === 'demerit' && event.report_id ? 'cursor-pointer' : ''}`}
+                                        className={`hover:bg-accent/50 transition-colors ${event.event_type === 'demerit' && event.report_id ? 'cursor-pointer' : ''}`}
                                     >
-                                        {/* Date */}
-                                        <td className="px-2 py-2 whitespace-nowrap text-gray-900 dark:text-white truncate">
+                                        <td className="px-2 py-2 whitespace-nowrap text-foreground truncate">
                                             {formatDateTime(event.event_date, false)}
                                         </td>
                                         
-                                        {/* Title/Details - CONSTRAINED */}
-                                        <td className="px-2 py-2 text-gray-700 dark:text-gray-300 col-title-details">
-                                            <div className="font-medium text-gray-900 dark:text-white truncate max-w-[200px] sm:max-w-[300px] print:max-w-[250px]" title={event.title}>
+                                        <td className="px-2 py-2 text-card-foreground col-title-details">
+                                            <div className="font-medium text-foreground truncate max-w-[200px] sm:max-w-[300px] print:max-w-[250px]" title={event.title}>
                                                 {event.title}
                                             </div>
                                             {event.details && (
-                                                <div className="text-xs text-gray-500 truncate max-w-[200px] sm:max-w-[300px] print:max-w-[250px]" title={event.details}>
-                                                    {/* Double safeguard: Truncate by char count to force margin safety */}
+                                                <div className="text-xs text-muted-foreground truncate max-w-[200px] sm:max-w-[300px] print:max-w-[250px]" title={event.details}>
                                                     {truncateText(event.details, 70)}
                                                 </div>
                                             )}
                                         </td>
                                         
-                                        {/* Value */}
                                         <td className="px-2 py-2 text-center whitespace-nowrap">
                                             {event.event_type === 'demerit' 
-                                                ? <span className={`font-bold ${event.status === 'rejected' || event.status === 'pulled' || event.appeal_status === 'approved' ? 'line-through text-gray-400' : 'text-red-600'}`}>{event.demerits_issued}</span>
+                                                ? <span className={`font-bold ${event.status === 'rejected' || event.status === 'pulled' || event.appeal_status === 'approved' ? 'line-through text-muted-foreground' : 'text-destructive'}`}>{event.demerits_issued}</span>
                                                 : <span className="font-bold text-green-600">-{Math.abs(event.tour_change || 0)}</span>
                                             }
                                         </td>
                                         
-                                        {/* By */}
-                                        <td className="px-2 py-2 whitespace-nowrap text-gray-500 dark:text-gray-400 truncate" title={event.actor_name}>
+                                        <td className="px-2 py-2 whitespace-nowrap text-muted-foreground truncate" title={event.actor_name}>
                                             {formatActorShort(event.actor_name)}
                                         </td>
                                         
-                                        {/* Status */}
                                         <td className="px-2 py-2 text-center whitespace-nowrap col-status">
-                                            <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${event.event_type === 'served' ? 'bg-gray-100 text-gray-800' : getDisplayStatusColor(event)}`}>
+                                            <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${event.event_type === 'served' ? 'bg-muted text-muted-foreground' : getDisplayStatusColor(event)}`}>
                                                 {event.event_type === 'served' ? 'Logged' : (event.appeal_status === 'approved' ? 'Appeal Granted' : formatStatus(event.status))}
                                             </span>
                                         </td>
@@ -406,11 +410,11 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
 
 function StatBox({ label, value, highlight = false }: { label: string, value: number, highlight?: boolean }) {
   return (
-    <div className={`p-4 rounded-lg border ${highlight ? 'bg-indigo-50 border-indigo-200 dark:bg-indigo-900/20 dark:border-indigo-800' : 'bg-white border-gray-200 dark:bg-gray-800 dark:border-gray-700'}`}>
-      <p className={`text-xs font-medium uppercase ${highlight ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-500 dark:text-gray-400'}`}>
+    <div className={`p-4 rounded-lg border ${highlight ? 'bg-primary/10 border-primary/20' : 'bg-card border-border'}`}>
+      <p className={`text-xs font-medium uppercase ${highlight ? 'text-primary' : 'text-muted-foreground'}`}>
         {label}
       </p>
-      <p className={`text-2xl font-bold mt-1 ${highlight ? 'text-indigo-900 dark:text-indigo-100' : 'text-gray-900 dark:text-white'}`}>
+      <p className={`text-2xl font-bold mt-1 ${highlight ? 'text-foreground' : 'text-foreground'}`}>
         {value}
       </p>
     </div>

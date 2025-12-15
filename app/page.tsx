@@ -3,6 +3,11 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { getIncidents, IncidentReport } from './incidents/actions'
 
+// --- NEW IMPORTS ---
+import { StatCard } from './components/ui/StatCard' // Adjust path if needed
+import { StatusBadge } from './components/ui/StatusBadge' // Adjust path if needed
+
+// --- TYPES ---
 type DashboardItem = {
   id: string
   type: 'report' | 'incident'
@@ -63,10 +68,10 @@ export default async function Dashboard() {
   const role = profile?.role as any
   const role_level = role?.default_role_level || 0
   const groupName = role?.approval_group?.group_name || 'Personal Dashboard'
-  const groupId = role?.approval_group?.id || null; // <--- Group ID
+  const groupId = role?.approval_group?.id || null; 
 
   const isFaculty = role_level >= 50
-  const isTac = role_level >= 65 && role_level < 90; // TAC Only (Excludes Admin)
+  const isTac = role_level >= 65 && role_level < 90; 
 
   if (role_level === 10) redirect(`/ledger/${user.id}`);
 
@@ -109,7 +114,7 @@ export default async function Dashboard() {
       
       let isAction = false;
 
-      // A. Standard Approvals (Strict Group Match)
+      // A. Standard Approvals
       if (report.status === 'pending_approval' && report.current_approver_group_id !== null) {
           if (report.current_approver_group_id === groupId && report.submitted_by !== user.id) {
               isAction = true;
@@ -164,18 +169,20 @@ export default async function Dashboard() {
   const submitLabel = (role_level >= 50 && role_level < 65) ? 'Report Incident' : 'Submit New Report';
 
   return (
-    <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 animate-in fade-in duration-500">
+    <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 animate-in fade-in duration-500 bg-background text-foreground transition-colors">
        <div className="flex justify-between items-center mb-8">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Welcome, {profile?.first_name || user.email}</h1>
-          <p className="mt-2 text-lg text-gray-600 dark:text-gray-400">{groupName}</p>
+          <h1 className="text-3xl font-bold tracking-tight">
+            Welcome, {profile?.first_name || user.email}
+          </h1>
+          <p className="mt-2 text-lg text-muted-foreground">{groupName}</p>
         </div>
         
         <div className="flex gap-3">
           {(role_level >= 15) && (
             <Link 
                 href={submitLink} 
-                className="py-2 px-4 rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-colors"
+                className="py-2 px-4 rounded-md shadow-sm text-sm font-medium bg-primary text-primary-foreground hover:bg-primary/90 transition-colors"
             >
               {submitLabel}
             </Link>
@@ -184,10 +191,15 @@ export default async function Dashboard() {
       </div>
       
       {!isFaculty && cadetStats && (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="md:col-span-2"><div className="grid grid-cols-1 md:grid-cols-3 gap-4"><CadetStatsHeader stats={cadetStats} /></div></div>
-          <div className="bg-sky-300 dark:bg-indigo-900 rounded-lg shadow-sm flex overflow-hidden">
-            <Link href={`/ledger/${user.id}`} className="flex-1 flex items-center justify-center p-6 text-lg font-bold text-white hover:bg-sky-500 dark:hover:bg-indigo-600 transition-colors w-full h-full text-center">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+          <div className="md:col-span-2">
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <CadetStatsHeader stats={cadetStats} />
+            </div>
+          </div>
+          {/* View Full Record Button - Uses Secondary or Primary based on theme preference */}
+          <div className="bg-primary/10 border border-primary/20 rounded-lg shadow-sm flex overflow-hidden">
+            <Link href={`/ledger/${user.id}`} className="flex-1 flex items-center justify-center p-6 text-lg font-bold text-primary hover:bg-primary hover:text-primary-foreground transition-colors w-full h-full text-center">
                 View Full Record &rarr;
             </Link>
           </div>
@@ -242,23 +254,16 @@ export default async function Dashboard() {
   )
 }
 
-// ... (Helper Components CadetStatsHeader, StatCard, DashboardSection, ReportCard remain same as your current file) ...
+// --- SUB COMPONENTS ---
+
 function CadetStatsHeader({ stats }: { stats: CadetStats }) {
+  // Using the imported StatCard component which should handle semantic themes internally
   return (
     <>
       <StatCard title="Current Term Demerits" value={stats.term_demerits} />
       <StatCard title="Academic Year Demerits" value={stats.year_demerits} />
       <StatCard title="Current Tour Balance" value={stats.current_tour_balance} />
     </>
-  )
-}
-
-function StatCard({ title, value }: { title: string, value: string | number }) {
-  return (
-    <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm">
-      <h3 className="text-sm font-medium text-gray-500 dark:text-gray-400">{title}</h3>
-      <p className="text-3xl font-bold mt-2 text-gray-900 dark:text-white">{value}</p>
-    </div>
   )
 }
 
@@ -280,23 +285,24 @@ function DashboardSection({
   return (
     <div className="space-y-4 flex flex-col h-full">
       <div className="flex justify-between items-end">
-          <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100">
+          <h2 className="text-2xl font-semibold text-foreground">
             {viewAllHref ? (
-                <Link href={viewAllHref} className="hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors">
+                <Link href={viewAllHref} className="hover:text-primary transition-colors">
                     {title}
                 </Link>
             ) : title}
-            <span className="ml-2 text-lg text-gray-500 font-normal">({items?.length || 0})</span>
+            <span className="ml-2 text-lg text-muted-foreground font-normal">({items?.length || 0})</span>
           </h2>
           
           {viewAllHref && (
-            <Link href={viewAllHref} className="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:underline pb-1">
+            <Link href={viewAllHref} className="text-sm font-medium text-primary hover:underline pb-1">
                 View all &rarr;
             </Link>
           )}
       </div>
       
-      <div className="bg-white dark:bg-gray-800 p-4 rounded-lg shadow-sm space-y-3 h-96 overflow-y-auto flex-grow">
+      {/* Semantic Card Container */}
+      <div className="bg-card border border-border p-4 rounded-lg shadow-sm space-y-3 h-96 overflow-y-auto flex-grow">
         {items && items.length > 0 ? (
             items.map((item, idx) => (
                 <ReportCard 
@@ -307,7 +313,7 @@ function DashboardSection({
                 />
             ))
         ) : (
-            <p className="text-gray-500 dark:text-gray-400 p-4">{emptyMessage}</p>
+            <p className="text-muted-foreground p-4 text-center italic">{emptyMessage}</p>
         )}
       </div>
     </div>
@@ -316,61 +322,56 @@ function DashboardSection({
 
 function ReportCard({ report, showSubject, showSubmitter }: { report: any; showSubject?: boolean; showSubmitter?: boolean }) {
   
-  const getStatusColor = () => {
-    switch (report.status) {
-      case 'completed': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100'
-      case 'rejected': return 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-100'
-      case 'pending_approval': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100'
-      case 'needs_revision': return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100'
-      case 'pulled': return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100'
-      default: return 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-100'
-    }
-  }
-
   const formatName = (person: { first_name: string, last_name: string } | null) => person ? `${person.last_name}, ${person.first_name.charAt(0)}.` : 'N/A';
-  
-  const formatStatus = (status: string) => {
-    if (!status) return 'Unknown';
-    if (status === 'pulled') return 'Pulled';
-    return status.replace('_', ' ').replace(/\b\w/g, l => l.toUpperCase());
-  }
   
   const isIncident = report.type === 'incident';
   const title = report.title || report.offense_type?.offense_name || 'Report';
   const href = isIncident ? `/incidents/${report.id}` : `/report/${report.id}`;
 
   const getAppealBadge = (status: string) => {
+      // Mapping appeals to badges. Currently hardcoding colors, but could use <StatusBadge> if mapped.
       if (status === 'approved') {
-          return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200 ml-2">Appeal Granted</span>
+          return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary/20 text-primary ml-2">Appeal Granted</span>
       } else if (status === 'rejected_final') {
-          return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200 ml-2">Appeal Denied</span>
+          return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-destructive/20 text-destructive ml-2">Appeal Denied</span>
       } else {
-           return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 ml-2">Appeal In Progress</span>
+           return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-secondary text-secondary-foreground ml-2">Appeal In Progress</span>
       }
   }
+
+  // Incident reports get "Destructive" styling (Red/Orange). Standard reports get standard border.
+  const containerClasses = isIncident 
+    ? 'border-destructive/50 bg-destructive/5 hover:bg-destructive/10' 
+    : 'border-border bg-card hover:bg-muted/50';
 
   return (
     <Link 
       href={href} 
-      className={`block p-4 border rounded-md hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors ${isIncident ? 'border-orange-200 dark:border-orange-900 bg-orange-50 dark:bg-orange-900/10' : 'border-gray-200 dark:border-gray-700'}`}
+      className={`block p-4 border rounded-md transition-colors ${containerClasses}`}
     >
       <div className="flex justify-between items-center">
         <div className="truncate flex items-center flex-1 mr-2">
-             <span className={`font-medium ${report.status === 'pulled' ? 'text-gray-500 line-through' : 'text-indigo-600 dark:text-indigo-400'}`}>{title}</span>
-             {isIncident && <span className="ml-2 bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200 text-xs px-2 py-0.5 rounded font-bold">INCIDENT</span>}
+             <span className={`font-medium ${report.status === 'pulled' ? 'text-muted-foreground line-through' : 'text-primary'}`}>{title}</span>
+             
+             {isIncident && (
+                <span className="ml-2 bg-destructive text-destructive-foreground text-xs px-2 py-0.5 rounded font-bold">
+                    INCIDENT
+                </span>
+             )}
+             
              {report.appeal_status && getAppealBadge(report.appeal_status)}
         </div>
         
         {(!report.appeal_status || report.appeal_status === 'approved' || report.appeal_status === 'rejected_final') && (
-            <span className={`text-xs font-medium px-2 py-0.5 rounded-full flex-shrink-0 ${getStatusColor()}`}>
-            {formatStatus(report.status)}
-            </span>
+            // Replaced manual span with Semantic StatusBadge
+            <StatusBadge status={report.status} />
         )}
       </div>
-      <div className="mt-2 text-sm text-gray-500 dark:text-gray-400">
-        {showSubject && <p>Subject: <span className="font-medium text-gray-700 dark:text-gray-200">{formatName(report.subject)}</span></p>}
-        {showSubmitter && <p>Submitter: <span className="font-medium text-gray-700 dark:text-gray-200">{formatName(report.submitter)}</span></p>}
-        {report.status === 'pending_approval' && <p>Waiting for: <span className="font-medium text-gray-700 dark:text-gray-200">{report.group?.group_name || 'N/A'}</span></p>}
+      
+      <div className="mt-2 text-sm text-muted-foreground">
+        {showSubject && <p>Subject: <span className="font-medium text-foreground">{formatName(report.subject)}</span></p>}
+        {showSubmitter && <p>Submitter: <span className="font-medium text-foreground">{formatName(report.submitter)}</span></p>}
+        {report.status === 'pending_approval' && <p>Waiting for: <span className="font-medium text-foreground">{report.group?.group_name || 'N/A'}</span></p>}
       </div>
     </Link>
   )

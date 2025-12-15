@@ -35,17 +35,17 @@ const formatName = (person)=>{
     return `${person.last_name}, ${person.first_name}`;
 };
 const STATUS_COLORS = {
-    pending_approval: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
-    completed: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-    rejected: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
-    pulled: 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300'
+    pending_approval: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-200',
+    completed: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-200',
+    rejected: 'bg-destructive/10 text-destructive',
+    pulled: 'bg-muted text-muted-foreground'
 };
 const APPEAL_COLORS = {
-    approved: 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200',
-    rejected_final: 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-200',
-    pending_issuer: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
-    pending_chain: 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200',
-    pending_commandant: 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200'
+    approved: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-200',
+    rejected_final: 'bg-destructive/10 text-destructive',
+    pending_issuer: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-200',
+    pending_chain: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-200',
+    pending_commandant: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200'
 };
 function SubmittedReportsClient({ initialReports }) {
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
@@ -99,7 +99,7 @@ function SubmittedReportsClient({ initialReports }) {
     };
     const SortIcon = ({ column })=>{
         if (sortConfig.key !== column) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-            className: "text-gray-300 ml-1",
+            className: "text-muted-foreground/30 ml-1",
             children: "⇅"
         }, void 0, false, {
             fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -107,7 +107,7 @@ function SubmittedReportsClient({ initialReports }) {
             columnNumber: 43
         }, this);
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-            className: "text-indigo-600 dark:text-indigo-400 ml-1",
+            className: "text-primary ml-1",
             children: sortConfig.direction === 'asc' ? '↑' : '↓'
         }, void 0, false, {
             fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -198,7 +198,7 @@ function SubmittedReportsClient({ initialReports }) {
         className: "space-y-6",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm",
+                className: "bg-card p-4 rounded-lg border border-border shadow-sm",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "flex flex-col lg:flex-row gap-4 items-end",
                     children: [
@@ -206,7 +206,7 @@ function SubmittedReportsClient({ initialReports }) {
                             className: "w-full lg:w-1/3 relative",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                    className: "block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1",
+                                    className: "block text-xs font-bold text-muted-foreground uppercase mb-1",
                                     children: "Search My Reports"
                                 }, void 0, false, {
                                     fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -219,7 +219,7 @@ function SubmittedReportsClient({ initialReports }) {
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
-                                                className: "h-5 w-5 text-gray-400",
+                                                className: "h-5 w-5 text-muted-foreground",
                                                 xmlns: "http://www.w3.org/2000/svg",
                                                 viewBox: "0 0 20 20",
                                                 fill: "currentColor",
@@ -246,7 +246,7 @@ function SubmittedReportsClient({ initialReports }) {
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                             type: "text",
                                             placeholder: "Search...",
-                                            className: "block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm py-2 pl-10 pr-3 focus:ring-indigo-500 focus:border-indigo-500",
+                                            className: "input-base pl-10 pr-3",
                                             value: searchTerm,
                                             onChange: (e)=>setSearchTerm(e.target.value)
                                         }, void 0, false, {
@@ -273,7 +273,7 @@ function SubmittedReportsClient({ initialReports }) {
                                     className: "w-full sm:w-1/3",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                            className: "block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1",
+                                            className: "block text-xs font-bold text-muted-foreground uppercase mb-1",
                                             children: "Filter By"
                                         }, void 0, false, {
                                             fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -283,7 +283,7 @@ function SubmittedReportsClient({ initialReports }) {
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                             value: filterType,
                                             onChange: (e)=>handleFilterTypeChange(e.target.value),
-                                            className: "block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500",
+                                            className: "input-base",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                     value: "all",
@@ -354,7 +354,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                 className: "w-1/2",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                        className: "block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1",
+                                                        className: "block text-xs font-bold text-muted-foreground uppercase mb-1",
                                                         children: "From"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -365,7 +365,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                         type: "date",
                                                         value: startDate,
                                                         onChange: (e)=>setStartDate(e.target.value),
-                                                        className: "block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm py-2 px-3"
+                                                        className: "input-base"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
                                                         lineNumber: 172,
@@ -381,7 +381,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                 className: "w-1/2",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                        className: "block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1",
+                                                        className: "block text-xs font-bold text-muted-foreground uppercase mb-1",
                                                         children: "To"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -392,7 +392,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                         type: "date",
                                                         value: endDate,
                                                         onChange: (e)=>setEndDate(e.target.value),
-                                                        className: "block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm py-2 px-3"
+                                                        className: "input-base"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
                                                         lineNumber: 176,
@@ -412,7 +412,7 @@ function SubmittedReportsClient({ initialReports }) {
                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                className: `block text-xs font-bold uppercase mb-1 ${filterType === 'all' ? 'text-gray-300 dark:text-gray-600' : 'text-gray-500 dark:text-gray-400'}`,
+                                                className: `block text-xs font-bold uppercase mb-1 ${filterType === 'all' ? 'text-muted-foreground/50' : 'text-muted-foreground'}`,
                                                 children: filterType === 'all' ? 'Select Filter Type First' : 'Select Value'
                                             }, void 0, false, {
                                                 fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -423,7 +423,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                 value: filterValue,
                                                 onChange: (e)=>setFilterValue(e.target.value),
                                                 disabled: filterType === 'all',
-                                                className: "block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm py-2 px-3 disabled:opacity-50 disabled:cursor-not-allowed",
+                                                className: "input-base disabled:opacity-50",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         value: "",
@@ -500,19 +500,19 @@ function SubmittedReportsClient({ initialReports }) {
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700",
+                className: "bg-card shadow-sm rounded-lg overflow-hidden border border-border",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "overflow-x-auto",
                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                        className: "min-w-full divide-y divide-gray-200 dark:divide-gray-700",
+                        className: "min-w-full divide-y divide-border",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
-                                className: "bg-gray-50 dark:bg-gray-800",
+                                className: "bg-muted/50",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                             onClick: ()=>handleSort('status'),
-                                            className: "px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700",
+                                            className: "px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider cursor-pointer hover:text-foreground",
                                             children: [
                                                 "Status ",
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
@@ -520,7 +520,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
                                                     lineNumber: 208,
-                                                    columnNumber: 231
+                                                    columnNumber: 201
                                                 }, this)
                                             ]
                                         }, void 0, true, {
@@ -530,7 +530,7 @@ function SubmittedReportsClient({ initialReports }) {
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                             onClick: ()=>handleSort('appeal'),
-                                            className: "px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700",
+                                            className: "px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider cursor-pointer hover:text-foreground",
                                             children: [
                                                 "Appeal ",
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
@@ -538,7 +538,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
                                                     lineNumber: 209,
-                                                    columnNumber: 231
+                                                    columnNumber: 201
                                                 }, this)
                                             ]
                                         }, void 0, true, {
@@ -548,7 +548,7 @@ function SubmittedReportsClient({ initialReports }) {
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                             onClick: ()=>handleSort('subject'),
-                                            className: "px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700",
+                                            className: "px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider cursor-pointer hover:text-foreground",
                                             children: [
                                                 "Subject ",
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
@@ -556,7 +556,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
                                                     lineNumber: 210,
-                                                    columnNumber: 233
+                                                    columnNumber: 203
                                                 }, this)
                                             ]
                                         }, void 0, true, {
@@ -566,7 +566,7 @@ function SubmittedReportsClient({ initialReports }) {
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                             onClick: ()=>handleSort('offense'),
-                                            className: "px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700",
+                                            className: "px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider cursor-pointer hover:text-foreground",
                                             children: [
                                                 "Infraction ",
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
@@ -574,7 +574,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
                                                     lineNumber: 211,
-                                                    columnNumber: 236
+                                                    columnNumber: 206
                                                 }, this)
                                             ]
                                         }, void 0, true, {
@@ -584,7 +584,7 @@ function SubmittedReportsClient({ initialReports }) {
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                             onClick: ()=>handleSort('demerits'),
-                                            className: "px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700",
+                                            className: "px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider cursor-pointer hover:text-foreground",
                                             children: [
                                                 "Dem ",
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
@@ -592,7 +592,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
                                                     lineNumber: 212,
-                                                    columnNumber: 230
+                                                    columnNumber: 200
                                                 }, this)
                                             ]
                                         }, void 0, true, {
@@ -602,7 +602,7 @@ function SubmittedReportsClient({ initialReports }) {
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                             onClick: ()=>handleSort('date'),
-                                            className: "px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-400 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700",
+                                            className: "px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider cursor-pointer hover:text-foreground",
                                             children: [
                                                 "Date ",
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
@@ -610,7 +610,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
                                                     lineNumber: 213,
-                                                    columnNumber: 227
+                                                    columnNumber: 197
                                                 }, this)
                                             ]
                                         }, void 0, true, {
@@ -630,7 +630,7 @@ function SubmittedReportsClient({ initialReports }) {
                                 columnNumber: 13
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
-                                className: "bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700",
+                                className: "bg-card divide-y divide-border",
                                 children: processedReports.length > 0 ? processedReports.map((report)=>{
                                     const appealStatus = report.appeals?.[0]?.status;
                                     const appeal = report.appeals?.[0];
@@ -638,12 +638,12 @@ function SubmittedReportsClient({ initialReports }) {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                                 onClick: ()=>setExpandedId(expandedId === report.id ? null : report.id),
-                                                className: `cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors ${expandedId === report.id ? 'bg-gray-50 dark:bg-gray-700/50' : ''}`,
+                                                className: `cursor-pointer hover:bg-accent transition-colors ${expandedId === report.id ? 'bg-muted/50' : ''}`,
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                         className: "px-6 py-4 whitespace-nowrap",
                                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: `px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${STATUS_COLORS[report.status] || 'bg-gray-100 text-gray-800'}`,
+                                                            className: `px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${STATUS_COLORS[report.status] || 'bg-muted text-muted-foreground'}`,
                                                             children: report.status.replace('_', ' ')
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -658,14 +658,14 @@ function SubmittedReportsClient({ initialReports }) {
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                         className: "px-6 py-4 whitespace-nowrap",
                                                         children: appealStatus ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: `px-2 py-0.5 rounded text-xs font-medium ${APPEAL_COLORS[appealStatus] || 'bg-gray-100 text-gray-800'}`,
+                                                            className: `px-2 py-0.5 rounded text-xs font-medium ${APPEAL_COLORS[appealStatus] || 'bg-muted text-muted-foreground'}`,
                                                             children: appealStatus.replace(/_/g, ' ')
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
                                                             lineNumber: 233,
                                                             columnNumber: 28
                                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                            className: "text-gray-300",
+                                                            className: "text-muted-foreground",
                                                             children: "-"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -678,7 +678,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white",
+                                                        className: "px-6 py-4 whitespace-nowrap text-sm font-medium text-foreground",
                                                         children: formatName(report.subject)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -686,7 +686,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300",
+                                                        className: "px-6 py-4 whitespace-nowrap text-sm text-muted-foreground",
                                                         children: report.offense_type.offense_name
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -694,7 +694,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "px-6 py-4 whitespace-nowrap text-sm font-bold text-red-600 dark:text-red-400",
+                                                        className: "px-6 py-4 whitespace-nowrap text-sm font-bold text-destructive",
                                                         children: report.demerits_effective
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -702,7 +702,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                         columnNumber: 23
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                        className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400",
+                                                        className: "px-6 py-4 whitespace-nowrap text-sm text-muted-foreground",
                                                         children: new Date(report.created_at).toLocaleDateString()
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -716,7 +716,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                 columnNumber: 21
                                             }, this),
                                             expandedId === report.id && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                className: "bg-gray-50 dark:bg-gray-900/30 shadow-inner",
+                                                className: "bg-muted/30 shadow-inner",
                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                     colSpan: 7,
                                                     className: "px-6 py-6",
@@ -727,7 +727,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                                 className: "space-y-4",
                                                                 children: [
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                                                        className: "text-xs font-bold text-gray-500 uppercase tracking-wider",
+                                                                        className: "text-xs font-bold text-muted-foreground uppercase tracking-wider",
                                                                         children: "Report Details"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -735,12 +735,12 @@ function SubmittedReportsClient({ initialReports }) {
                                                                         columnNumber: 33
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 space-y-3",
+                                                                        className: "bg-card p-4 rounded-lg border border-border space-y-3",
                                                                         children: [
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                                 children: [
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                        className: "block text-xs text-gray-400",
+                                                                                        className: "block text-xs text-muted-foreground",
                                                                                         children: "Date of Offense"
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -748,7 +748,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                                                         columnNumber: 41
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                        className: "text-sm font-medium text-gray-900 dark:text-white",
+                                                                                        className: "text-sm font-medium text-foreground",
                                                                                         children: new Date(report.date_of_offense).toLocaleString()
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -764,7 +764,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                                 children: [
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                        className: "block text-xs text-gray-400",
+                                                                                        className: "block text-xs text-muted-foreground",
                                                                                         children: "Notes"
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -772,7 +772,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                                                         columnNumber: 41
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                                        className: "text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap mt-1",
+                                                                                        className: "text-sm text-foreground whitespace-pre-wrap mt-1",
                                                                                         children: report.notes || 'No notes provided.'
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -786,10 +786,10 @@ function SubmittedReportsClient({ initialReports }) {
                                                                                 columnNumber: 37
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                className: "pt-3 border-t border-gray-100 dark:border-gray-700",
+                                                                                className: "pt-3 border-t border-border",
                                                                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                                                                     href: `/report/${report.id}`,
-                                                                                    className: "text-indigo-600 dark:text-indigo-400 text-sm font-medium hover:underline",
+                                                                                    className: "text-primary text-sm font-medium hover:underline",
                                                                                     children: "View Full Report Page →"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -817,7 +817,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                                 className: "space-y-4",
                                                                 children: [
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                                                        className: "text-xs font-bold text-gray-500 uppercase tracking-wider",
+                                                                        className: "text-xs font-bold text-muted-foreground uppercase tracking-wider",
                                                                         children: "Approval Chain"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -825,9 +825,9 @@ function SubmittedReportsClient({ initialReports }) {
                                                                         columnNumber: 33
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 overflow-hidden",
+                                                                        className: "bg-card rounded-lg border border-border overflow-hidden",
                                                                         children: report.approval_log && report.approval_log.length > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
-                                                                            className: "divide-y divide-gray-100 dark:divide-gray-700",
+                                                                            className: "divide-y divide-border",
                                                                             children: report.approval_log.map((log, idx)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
                                                                                     className: "p-3 text-sm",
                                                                                     children: [
@@ -835,7 +835,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                                                             className: "flex justify-between",
                                                                                             children: [
                                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                                    className: "font-medium text-gray-900 dark:text-white",
+                                                                                                    className: "font-medium text-foreground",
                                                                                                     children: formatName(log.actor)
                                                                                                 }, void 0, false, {
                                                                                                     fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -843,7 +843,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                                                                     columnNumber: 57
                                                                                                 }, this),
                                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                                    className: "text-xs text-gray-500",
+                                                                                                    className: "text-xs text-muted-foreground",
                                                                                                     children: new Date(log.created_at).toLocaleDateString()
                                                                                                 }, void 0, false, {
                                                                                                     fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -860,7 +860,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                                                             className: "mt-1 flex items-center gap-2",
                                                                                             children: [
                                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                                    className: `px-1.5 py-0.5 rounded text-[10px] uppercase font-bold ${log.action.toLowerCase().includes('approve') ? 'bg-green-100 text-green-800' : log.action.toLowerCase().includes('reject') ? 'bg-red-100 text-red-800' : 'bg-gray-100 text-gray-800'}`,
+                                                                                                    className: `px-1.5 py-0.5 rounded text-[10px] uppercase font-bold ${log.action.toLowerCase().includes('approve') ? 'bg-green-100 text-green-800' : log.action.toLowerCase().includes('reject') ? 'bg-destructive/10 text-destructive' : 'bg-muted text-muted-foreground'}`,
                                                                                                     children: log.action
                                                                                                 }, void 0, false, {
                                                                                                     fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -868,7 +868,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                                                                     columnNumber: 57
                                                                                                 }, this),
                                                                                                 log.comment && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                                    className: "text-gray-600 dark:text-gray-400 italic",
+                                                                                                    className: "text-muted-foreground italic",
                                                                                                     children: [
                                                                                                         '"',
                                                                                                         log.comment,
@@ -896,7 +896,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                                             lineNumber: 273,
                                                                             columnNumber: 41
                                                                         }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                            className: "p-4 text-sm text-gray-400 italic",
+                                                                            className: "p-4 text-sm text-muted-foreground italic",
                                                                             children: "No logs available."
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -918,7 +918,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                                 className: "space-y-4",
                                                                 children: [
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                                                        className: "text-xs font-bold text-gray-500 uppercase tracking-wider",
+                                                                        className: "text-xs font-bold text-muted-foreground uppercase tracking-wider",
                                                                         children: "Appeal Case"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -926,12 +926,12 @@ function SubmittedReportsClient({ initialReports }) {
                                                                         columnNumber: 37
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                        className: "bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 space-y-3",
+                                                                        className: "bg-card p-4 rounded-lg border border-border space-y-3",
                                                                         children: [
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                                 children: [
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                        className: "block text-xs text-gray-400",
+                                                                                        className: "block text-xs text-muted-foreground",
                                                                                         children: "Current Status"
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -939,7 +939,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                                                         columnNumber: 45
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                        className: `inline-flex mt-1 px-2 py-0.5 rounded text-xs font-bold ${APPEAL_COLORS[appeal.status] || 'bg-gray-100'}`,
+                                                                                        className: `inline-flex mt-1 px-2 py-0.5 rounded text-xs font-bold ${APPEAL_COLORS[appeal.status] || 'bg-muted text-muted-foreground'}`,
                                                                                         children: appeal.status.replace(/_/g, ' ')
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -955,7 +955,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                                 children: [
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                        className: "block text-xs text-gray-400",
+                                                                                        className: "block text-xs text-muted-foreground",
                                                                                         children: "Justification"
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -963,7 +963,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                                                         columnNumber: 45
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                                        className: "text-sm text-gray-700 dark:text-gray-300 mt-1 italic",
+                                                                                        className: "text-sm text-foreground mt-1 italic",
                                                                                         children: [
                                                                                             '"',
                                                                                             appeal.justification,
@@ -981,10 +981,10 @@ function SubmittedReportsClient({ initialReports }) {
                                                                                 columnNumber: 41
                                                                             }, this),
                                                                             appeal.final_comment && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                className: "pt-2 border-t border-gray-100 dark:border-gray-700",
+                                                                                className: "pt-2 border-t border-border",
                                                                                 children: [
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                        className: "block text-xs text-gray-400",
+                                                                                        className: "block text-xs text-muted-foreground",
                                                                                         children: "Verdict Note"
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -992,7 +992,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                                                         columnNumber: 49
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                                        className: "text-sm text-gray-900 dark:text-white font-medium mt-1",
+                                                                                        className: "text-sm text-foreground font-medium mt-1",
                                                                                         children: appeal.final_comment
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -1017,7 +1017,7 @@ function SubmittedReportsClient({ initialReports }) {
                                                                 lineNumber: 300,
                                                                 columnNumber: 33
                                                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                className: "flex items-center justify-center h-full text-gray-400 text-sm italic bg-gray-50 dark:bg-gray-800/50 rounded-lg border border-dashed border-gray-200 dark:border-gray-700",
+                                                                className: "flex items-center justify-center h-full text-muted-foreground text-sm italic bg-muted/20 rounded-lg border border-dashed border-border",
                                                                 children: "No appeal filed."
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -1049,7 +1049,7 @@ function SubmittedReportsClient({ initialReports }) {
                                 }) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                         colSpan: 7,
-                                        className: "px-6 py-10 text-center text-sm text-gray-500 dark:text-gray-400",
+                                        className: "px-6 py-10 text-center text-sm text-muted-foreground",
                                         children: "No reports found."
                                     }, void 0, false, {
                                         fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",
@@ -1083,10 +1083,10 @@ function SubmittedReportsClient({ initialReports }) {
                 columnNumber: 7
             }, this),
             hasMore && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "flex flex-col sm:flex-row justify-center items-center gap-4 p-4 bg-gray-100 dark:bg-gray-800 rounded-lg border border-dashed border-gray-300 dark:border-gray-600",
+                className: "flex flex-col sm:flex-row justify-center items-center gap-4 p-4 bg-muted/20 rounded-lg border border-dashed border-border",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "flex items-center gap-2 text-sm text-gray-600 dark:text-gray-300",
+                        className: "flex items-center gap-2 text-sm text-muted-foreground",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                 children: "Load"
@@ -1098,7 +1098,7 @@ function SubmittedReportsClient({ initialReports }) {
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                 value: loadAmount,
                                 onChange: (e)=>setLoadAmount(Number(e.target.value)),
-                                className: "rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 py-1 pl-2 pr-8 text-sm",
+                                className: "rounded-md border-border bg-background py-1 pl-2 pr-8 text-sm focus:ring-primary focus:border-primary",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                         value: 50,
@@ -1146,7 +1146,7 @@ function SubmittedReportsClient({ initialReports }) {
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         onClick: handleLoadMore,
                         disabled: isLoadingMore,
-                        className: "px-6 py-2 bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-500 rounded-full shadow-sm text-indigo-600 dark:text-indigo-400 font-medium hover:bg-gray-50 dark:hover:bg-gray-600 transition-all disabled:opacity-50",
+                        className: "px-6 py-2 bg-card border border-border rounded-full shadow-sm text-primary font-medium hover:bg-accent transition-all disabled:opacity-50",
                         children: isLoadingMore ? 'Loading...' : 'Load More Reports'
                     }, void 0, false, {
                         fileName: "[project]/app/reports/submitted/SubmittedReportsClient.tsx",

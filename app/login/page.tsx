@@ -4,7 +4,7 @@ import { createClient } from '@/utils/supabase/client'
 import { Auth } from '@supabase/auth-ui-react'
 import { ThemeSupa } from '@supabase/auth-ui-shared'
 import { useEffect, useState } from 'react' 
-import { useTheme } from '@/app/components/ThemeProvider'
+import { useTheme } from '../components/ThemeProvider'
 
 export default function LoginPage() {
   const supabase = createClient()
@@ -16,21 +16,19 @@ export default function LoginPage() {
     const checkSession = async () => {
         const { data: { session } } = await supabase.auth.getSession()
         if (session) {
-            // User is already logged in, send them home
             window.location.replace('/')
         }
     }
     checkSession()
   }, [supabase])
 
-  // 2. Handle New Sign-Ins (Event Listener)
+  // 2. Handle New Sign-Ins
   useEffect(() => {
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       (event, session) => {
         if (event === 'SIGNED_IN' && session) {
           window.location.replace('/') 
         }
-        
         if (event === 'PASSWORD_RECOVERY') {
           window.location.replace('/update-password')
         }
@@ -42,47 +40,62 @@ export default function LoginPage() {
   }, [supabase])
 
   return (
-    <div style={{ width: '100%', maxWidth: '420px', margin: 'auto', paddingTop: '2rem' }} className="p-4">
-      
-      <Auth
-        supabaseClient={supabase}
-        appearance={{ 
-            theme: ThemeSupa,
-            style: {
-                anchor: { display: 'none' },
-                button: { borderRadius: '0.375rem' },
-                input: { borderRadius: '0.375rem' },
-            },
-            className: {
-                input: 'text-gray-900 dark:text-white bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600',
-                label: 'text-gray-700 dark:text-gray-300',
-            }
-        }}
-        theme={theme}
-        providers={[]} 
-      />
+    <div className="flex min-h-[80vh] items-center justify-center p-4 bg-background">
+      {/* Semantic Card Wrapper */}
+      <div className="w-full max-w-md bg-card border border-border rounded-lg shadow-md p-8 animate-in fade-in zoom-in-95 duration-300">
+        
+        <div className="mb-6 text-center">
+          <h1 className="text-2xl font-bold text-foreground">Sign In</h1>
+          <p className="text-sm text-muted-foreground mt-2">Sign in with your FUMA credentials to access the system.</p>
+        </div>
 
-      <div className="mt-4 text-center">
-        {!showForgotHelp ? (
-            <button 
-                onClick={() => setShowForgotHelp(true)}
-                className="text-sm text-gray-500 hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400 transition-colors hover:underline"
-            >
-                Forgot your password?
-            </button>
-        ) : (
-            <div className="p-4 bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 animate-in fade-in slide-in-from-top-2">
-                <p className="text-sm text-gray-700 dark:text-gray-300">
-                    Please contact <a href="mailto:it@fuma.org" className="text-indigo-600 hover:underline font-medium">it@fuma.org</a> for password assistance.
-                </p>
-                <button 
-                    onClick={() => setShowForgotHelp(false)}
-                    className="text-xs text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 mt-2 underline"
-                >
-                    Close
-                </button>
-            </div>
-        )}
+        <Auth
+          supabaseClient={supabase}
+          appearance={{ 
+              theme: ThemeSupa,
+              style: {
+                  anchor: { display: 'none' }, // Hiding default links to use custom logic below
+                  button: { borderRadius: 'var(--radius)' },
+                  input: { borderRadius: 'var(--radius)' },
+              },
+              className: {
+                  // SEMANTIC OVERRIDES:
+                  container: 'w-full gap-4',
+                  button: 'w-full bg-primary text-primary-foreground hover:bg-primary/90 border-0 transition-colors font-medium py-2',
+                  input: 'bg-background text-foreground border-input focus:border-primary focus:ring-primary placeholder:text-muted-foreground',
+                  label: 'text-foreground font-medium text-sm mb-1',
+                  loader: 'text-primary animate-spin',
+                  message: 'text-destructive text-sm mt-1',
+              }
+          }}
+          // We force 'dark' theme prop if it's a dark mode to help Supabase base styles, 
+          // but our className overrides above do the heavy lifting.
+          theme={theme?.includes('dark') ? 'dark' : 'default'}
+          providers={[]} 
+        />
+
+        <div className="mt-6 text-center border-t border-border pt-4">
+          {!showForgotHelp ? (
+              <button 
+                  onClick={() => setShowForgotHelp(true)}
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors hover:underline"
+              >
+                  Forgot your password?
+              </button>
+          ) : (
+              <div className="p-4 bg-muted/50 rounded-lg border border-border animate-in fade-in slide-in-from-top-2 text-left">
+                  <p className="text-sm text-foreground">
+                      Please contact <a href="mailto:it@fuma.org" className="text-primary hover:underline font-medium">it@fuma.org</a> for password assistance.
+                  </p>
+                  <button 
+                      onClick={() => setShowForgotHelp(false)}
+                      className="text-xs text-muted-foreground hover:text-foreground mt-2 underline"
+                  >
+                      Close
+                  </button>
+              </div>
+          )}
+        </div>
       </div>
     </div>
   )

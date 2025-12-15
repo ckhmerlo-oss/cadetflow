@@ -27,8 +27,11 @@ export default async function RootLayout({
   
   let canManage = false
   let roleLevel = 0
+  
+  // DEFAULT:
   let logoText = "CadetFlow";
-  let logoColor = "text-indigo-600 hover:text-indigo-700";
+  let logoColor = "text-primary hover:text-foreground";
+
   let isSiteAdmin = false;
   let hasSeenTour = false;
 
@@ -55,54 +58,68 @@ export default async function RootLayout({
     isSiteAdmin = profile?.is_site_admin || false;
     hasSeenTour = profile?.has_seen_tour || false;
 
-    // Dynamic Logo Logic
+    // --- Dynamic Role-Based Logos ---
+    // We keep specific colors for specific roles (like Band/Staff) to maintain identity,
+    // but update TAC to use semantic 'destructive' (Red) for better theme integration.
+
     if (roles?.role_name && roles.role_name.includes('Band Director')) {
-      logoText = "It's Just A Mango"
-      logoColor = "text-pink-500 hover:text-amber-400"
+      logoText = "John \"Don't Get Married\" Warren"
+      logoColor = "text-pink-500 hover:text-rose-700"
     } else if (roleLevel >= 60 || (roles?.role_name && roles.role_name.includes('TAC'))) {
       logoText = "TACFlow";
-      logoColor = "text-red-600 hover:text-red-700";
+      // Update TAC color logic too
+      logoColor = "text-destructive hover:text-foreground"; 
     } else if (company?.company_name === 'Battalion Staff') { 
       logoText = "StaffFlow";
-      logoColor = "text-yellow-600 hover:text-yellow-700";
+      logoColor = "text-yellow-500 hover:text-yellow-600"; // Kept Gold
     } else if (roleLevel == 50) {
       logoText = "TeacherFlow"
-      logoColor = "text-sky-400 hover:text-sky-500"
+      logoColor = "text-sky-500 hover:text-sky-600" // Kept Blue
     }
-
   }
   
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
-      <body className={`${inter.className}`}>
-        <ThemeProvider defaultTheme="dark">
-          <header className="bg-white dark:bg-gray-800 shadow-sm border-b border-gray-200 dark:border-gray-700">
-            <nav className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${inter.className} bg-background text-foreground`}>
+        {/* NOTE: Ensure your '@/app/components/ThemeProvider' file includes the 
+           themes={['light', 'dark', 'christmas', 'christmas-dark']} prop inside it 
+           to fix the sticky theme bug.
+        */}
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+          >
+          <header className="bg-card/80 backdrop-blur-md border-b border-border sticky top-0 z-50 transition-colors">
+            <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between items-center h-16">
                 
+                {/* Logo */}
                 <div className="flex-shrink-0">
                   <Link 
                     href="/" 
-                    className={`text-2xl font-bold ${logoColor} transition-colors`}
+                    className={`text-2xl font-bold tracking-tight transition-colors ${logoColor}`}
                   >
                     {logoText}
                   </Link>
                 </div>
                
+                {/* Menu */}
                 <div className="flex items-center">
                   <HeaderMenu 
                     isLoggedIn={!!user}
                     canManage={canManage}
                     showDailyReports={roleLevel >= 50}
                     isSiteAdmin={isSiteAdmin}
-                    roleLevel={roleLevel} // <--- Added this prop
+                    roleLevel={roleLevel}
                   />
                 </div>
               </div>
             </nav>
           </header>
 
-          <main>
+          <main className="min-h-screen">
             {user && (
               <OnboardingTour 
                 show={!hasSeenTour} 

@@ -84,7 +84,7 @@ async function ProbationPage() {
             className: "max-w-4xl mx-auto p-8 text-center",
             children: [
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                    className: "text-2xl font-bold text-red-600",
+                    className: "text-2xl font-bold text-destructive",
                     children: "Access Denied"
                 }, void 0, false, {
                     fileName: "[project]/app/manage/probation/page.tsx",
@@ -92,7 +92,7 @@ async function ProbationPage() {
                     columnNumber: 15
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                    className: "text-gray-600 mt-2",
+                    className: "text-muted-foreground mt-2",
                     children: "You must be a Faculty member or Officer to view the probation list."
                 }, void 0, false, {
                     fileName: "[project]/app/manage/probation/page.tsx",
@@ -101,7 +101,7 @@ async function ProbationPage() {
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
                     href: "/",
-                    className: "text-indigo-600 hover:underline mt-4 block",
+                    className: "text-primary hover:underline mt-4 block",
                     children: "Return Home"
                 }, void 0, false, {
                     fileName: "[project]/app/manage/probation/page.tsx",
@@ -124,11 +124,11 @@ async function ProbationPage() {
         className: "max-w-7xl mx-auto p-4 sm:p-6 lg:p-8",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "mb-6 flex items-center gap-2 text-sm text-gray-500 dark:text-gray-400 no-print",
+                className: "mb-6 flex items-center gap-2 text-sm text-muted-foreground no-print",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
                         href: "/manage",
-                        className: "hover:text-indigo-600 dark:hover:text-indigo-400",
+                        className: "hover:text-primary transition-colors",
                         children: "Manage"
                     }, void 0, false, {
                         fileName: "[project]/app/manage/probation/page.tsx",
@@ -143,7 +143,7 @@ async function ProbationPage() {
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                        className: "font-medium text-gray-900 dark:text-white",
+                        className: "font-medium text-foreground",
                         children: "Probation Management"
                     }, void 0, false, {
                         fileName: "[project]/app/manage/probation/page.tsx",
@@ -161,7 +161,7 @@ async function ProbationPage() {
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                            className: "text-3xl font-bold text-gray-900 dark:text-white",
+                            className: "text-3xl font-bold text-primary",
                             children: "Probation Management"
                         }, void 0, false, {
                             fileName: "[project]/app/manage/probation/page.tsx",
@@ -169,7 +169,7 @@ async function ProbationPage() {
                             columnNumber: 13
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                            className: "mt-1 text-sm text-gray-500 dark:text-gray-400",
+                            className: "mt-1 text-sm text-muted-foreground",
                             children: "Manage disciplinary and academic probation statuses."
                         }, void 0, false, {
                             fileName: "[project]/app/manage/probation/page.tsx",

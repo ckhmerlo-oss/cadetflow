@@ -1,11 +1,163 @@
-/* in app/globals.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  html.dark {
-    /* Use a lighter gray for better contrast */
-    @apply bg-gray-900 text-white;
+  /* ... Keep Classic Light ... */
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 221.2 83.2% 53.3%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96.1%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 221.2 83.2% 53.3%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 217.2 32.6% 17.5%;
+    --card-foreground: 210 40% 98%;
+    --popover: 217.2 32.6% 17.5%;
+    --popover-foreground: 210 40% 98%;
+    
+    /* UPDATED: Brighter Blue for better contrast */
+    --primary: 217.2 91.2% 70%; 
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    
+    /* UPDATED: Lighter Gray for better readability */
+    --muted-foreground: 215 20.2% 75%; 
+    
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 84.2% 60.2%; 
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+
+  /* ... Keep Christmas Light ... */
+  .christmas {
+    --background: 210 40% 98%;
+    --foreground: 165 40% 9%;
+    --card: 0 0% 100%;
+    --card-foreground: 165 40% 9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 165 40% 9%;
+    --primary: 355 75% 55%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 150 60% 35%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 210 20% 90%;
+    --muted-foreground: 165 20% 40%;
+    --accent: 150 60% 95%;
+    --accent-foreground: 165 40% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 150 30% 85%;
+    --input: 150 30% 85%;
+    --ring: 355 75% 55%;
+  }
+
+  .christmas-dark {
+    --background: 165 40% 9%;
+    --foreground: 0 0% 95%;
+    --card: 165 40% 12%;
+    --card-foreground: 0 0% 95%;
+    --popover: 165 40% 12%;
+    --popover-foreground: 0 0% 95%;
+
+    /* UPDATED: Brighter Holiday Red */
+    --primary: 355 90% 65%; 
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 45 90% 45%;
+    --secondary-foreground: 0 0% 10%;
+    --muted: 165 30% 20%;
+    
+    /* UPDATED: Much Brighter Muted Text (Silver/Mint) for menus */
+    --muted-foreground: 165 30% 80%; 
+
+    --accent: 165 30% 20%;
+    --accent-foreground: 0 0% 95%;
+    --destructive: 0 84.2% 60.2%; 
+    --destructive-foreground: 210 40% 98%;
+    --border: 45 60% 45%;
+    --input: 165 30% 20%;
+    --ring: 45 90% 45%;
+  }
+}
+@layer base {
+  * { @apply border-border; }
+  body { @apply bg-background text-foreground; }
+}
+
+@layer components {
+  /* Standard Form Input */
+  .input-base {
+    @apply block w-full rounded-md border-input bg-background text-foreground shadow-sm focus:border-primary focus:ring-primary sm:text-sm p-2;
+  }
+  
+  /* Standard Primary Button */
+  .btn-primary {
+    @apply flex items-center justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary disabled:opacity-50 disabled:cursor-not-allowed transition-colors;
+  }
+
+  /* Standard Card Container */
+  .card-base {
+    @apply bg-card border border-border rounded-lg shadow-sm overflow-hidden;
+  }
+}
+
+@layer utilities {
+  /* Animation Utilities for Modal Forms */
+  .animate-in {
+    animation-duration: 200ms;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1); /* Ease-out */
+    animation-fill-mode: forwards;
+  }
+  
+  .fade-in {
+    animation-name: fadeIn;
+  }
+  
+  .slide-in-from-bottom-2 {
+    --tw-enter-translate-y: 0.5rem; /* 2 tailwind units */
+    animation-name: slideInBottom;
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideInBottom {
+  from { 
+    opacity: 0;
+    transform: translateY(var(--tw-enter-translate-y)); 
+  }
+  to { 
+    opacity: 1;
+    transform: translateY(0); 
   }
 }

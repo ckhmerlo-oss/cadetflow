@@ -73,7 +73,7 @@ async function PendingPage() {
     if (!user) return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["redirect"])('/login');
     const { data, error } = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$reports$2f$pending$2f$actions$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["fetchPendingReports"])(0, 50);
     if (error) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-        className: "p-8 text-red-500",
+        className: "p-8 text-destructive",
         children: [
             "Error: ",
             error
@@ -87,7 +87,7 @@ async function PendingPage() {
         className: "max-w-7xl mx-auto p-4 sm:p-6 lg:p-8",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                className: "text-3xl font-bold text-gray-900 dark:text-white mb-6",
+                className: "text-3xl font-bold text-primary mb-6",
                 children: "Action Items (In-Progress)"
             }, void 0, false, {
                 fileName: "[project]/app/reports/pending/page.tsx",

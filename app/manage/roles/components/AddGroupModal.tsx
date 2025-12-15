@@ -80,28 +80,28 @@ export default function AddGroupModal({ isOpen, onClose, companyId, referenceGro
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm">
-      <div className="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-xl w-96 border dark:border-gray-700">
-        <h2 className="text-lg font-bold mb-2 text-gray-900 dark:text-white">
+    <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm">
+      <div className="bg-card p-6 rounded-lg shadow-xl w-96 border border-border">
+        <h2 className="text-lg font-bold mb-2 text-foreground">
             {getTitle()}
         </h2>
-        <p className="text-sm text-gray-500 mb-4">
+        <p className="text-sm text-muted-foreground mb-4">
           {getDescription()}
         </p>
         
         {/* TABS */}
-        <div className="flex border-b dark:border-gray-700 mb-4">
+        <div className="flex border-b border-border mb-4">
             <button 
                 type="button"
                 onClick={() => setTab('new')}
-                className={`flex-1 pb-2 text-sm font-medium ${tab === 'new' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-gray-500'}`}
+                className={`flex-1 pb-2 text-sm font-medium transition-colors ${tab === 'new' ? 'text-primary border-b-2 border-primary' : 'text-muted-foreground hover:text-foreground'}`}
             >
                 Create New
             </button>
             <button 
                 type="button"
                 onClick={() => setTab('existing')}
-                className={`flex-1 pb-2 text-sm font-medium ${tab === 'existing' ? 'text-indigo-600 border-b-2 border-indigo-600' : 'text-gray-500'}`}
+                className={`flex-1 pb-2 text-sm font-medium transition-colors ${tab === 'existing' ? 'text-primary border-b-2 border-primary' : 'text-muted-foreground hover:text-foreground'}`}
             >
                 Select Existing
             </button>
@@ -111,23 +111,23 @@ export default function AddGroupModal({ isOpen, onClose, companyId, referenceGro
           
           {tab === 'new' ? (
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Group Name</label>
+                <label className="block text-sm font-medium text-foreground mb-1">Group Name</label>
                 <input 
                   type="text" 
                   value={name} 
                   onChange={e => setName(e.target.value)}
                   placeholder={mode === 'genesis' ? "e.g. Squad Leaders" : "e.g. Commandant"}
-                  className="w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white p-2"
+                  className="w-full rounded-md border-input bg-background text-foreground p-2 border"
                   autoFocus
                 />
               </div>
           ) : (
               <div className="mb-4">
-                <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Select Group</label>
+                <label className="block text-sm font-medium text-foreground mb-1">Select Group</label>
                 <select 
                     value={selectedGroupId}
                     onChange={e => setSelectedGroupId(e.target.value)}
-                    className="w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white p-2"
+                    className="w-full rounded-md border-input bg-background text-foreground p-2 border"
                     disabled={loadingOptions}
                 >
                     <option value="">-- Choose Group --</option>
@@ -135,16 +135,16 @@ export default function AddGroupModal({ isOpen, onClose, companyId, referenceGro
                         <option key={opt.id} value={opt.id}>{opt.label}</option>
                     ))}
                 </select>
-                {loadingOptions && <p className="text-xs text-gray-500 mt-1">Loading list...</p>}
+                {loadingOptions && <p className="text-xs text-muted-foreground mt-1">Loading list...</p>}
               </div>
           )}
 
           <div className="flex justify-end gap-2">
-            <button type="button" onClick={onClose} className="px-3 py-1.5 text-sm text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded">Cancel</button>
+            <button type="button" onClick={onClose} className="px-3 py-1.5 text-sm text-muted-foreground hover:text-foreground hover:bg-accent rounded transition-colors">Cancel</button>
             <button 
               type="submit" 
               disabled={isSubmitting || (tab === 'new' ? !name.trim() : !selectedGroupId)}
-              className="px-3 py-1.5 text-sm bg-indigo-600 text-white rounded hover:bg-indigo-700 disabled:opacity-50"
+              className="px-3 py-1.5 text-sm bg-primary text-primary-foreground rounded hover:bg-primary/90 disabled:opacity-50 transition-colors"
             >
               {isSubmitting ? 'Saving...' : (tab === 'new' ? 'Create' : 'Link Group')}
             </button>

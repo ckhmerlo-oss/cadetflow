@@ -82,22 +82,22 @@ function SearchableSelect({ label, options, value, onChange, placeholder = 'Sele
         ref: containerRef,
         children: [
             label && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
+                className: "block text-sm font-medium text-foreground mb-1",
                 children: [
                     label,
                     " ",
                     required && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                        className: "text-red-500",
+                        className: "text-destructive",
                         children: "*"
                     }, void 0, false, {
                         fileName: "[project]/app/components/SearchableSelect.tsx",
-                        lineNumber: 79,
+                        lineNumber: 78,
                         columnNumber: 34
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/SearchableSelect.tsx",
-                lineNumber: 78,
+                lineNumber: 77,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -106,7 +106,7 @@ function SearchableSelect({ label, options, value, onChange, placeholder = 'Sele
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                         ref: inputRef,
                         type: "text",
-                        className: `block w-full rounded-md border bg-white dark:bg-gray-900 py-2 pl-3 pr-10 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:text-white ${error ? 'border-red-300 dark:border-red-700' : 'border-gray-300 dark:border-gray-600'} ${disabled ? 'bg-gray-100 dark:bg-gray-800 cursor-not-allowed' : ''}`,
+                        className: `block w-full rounded-md border bg-background py-2 pl-3 pr-10 text-sm shadow-sm focus:outline-none focus:ring-1 text-foreground placeholder:text-muted-foreground ${error ? 'border-destructive focus:border-destructive focus:ring-destructive' : 'border-input focus:border-primary focus:ring-primary'} ${disabled ? 'bg-muted opacity-50 cursor-not-allowed' : ''}`,
                         placeholder: placeholder,
                         value: search,
                         onChange: (e)=>{
@@ -118,7 +118,7 @@ function SearchableSelect({ label, options, value, onChange, placeholder = 'Sele
                         disabled: disabled
                     }, void 0, false, {
                         fileName: "[project]/app/components/SearchableSelect.tsx",
-                        lineNumber: 84,
+                        lineNumber: 83,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -127,7 +127,7 @@ function SearchableSelect({ label, options, value, onChange, placeholder = 'Sele
                             value && !disabled && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 type: "button",
                                 onClick: handleClear,
-                                className: "p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors",
+                                className: "p-1 text-muted-foreground hover:text-foreground rounded-full hover:bg-muted transition-colors",
                                 tabIndex: -1,
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                                     className: "h-4 w-4",
@@ -141,21 +141,21 @@ function SearchableSelect({ label, options, value, onChange, placeholder = 'Sele
                                         d: "M6 18L18 6M6 6l12 12"
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/SearchableSelect.tsx",
-                                        lineNumber: 109,
+                                        lineNumber: 110,
                                         columnNumber: 100
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/SearchableSelect.tsx",
-                                    lineNumber: 109,
+                                    lineNumber: 110,
                                     columnNumber: 21
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/components/SearchableSelect.tsx",
-                                lineNumber: 103,
+                                lineNumber: 104,
                                 columnNumber: 17
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "pointer-events-none text-gray-400",
+                                className: "pointer-events-none text-muted-foreground",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                                     className: "h-5 w-5",
                                     viewBox: "0 0 20 20",
@@ -167,54 +167,54 @@ function SearchableSelect({ label, options, value, onChange, placeholder = 'Sele
                                         clipRule: "evenodd"
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/SearchableSelect.tsx",
-                                        lineNumber: 115,
+                                        lineNumber: 116,
                                         columnNumber: 21
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/SearchableSelect.tsx",
-                                    lineNumber: 114,
+                                    lineNumber: 115,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/components/SearchableSelect.tsx",
-                                lineNumber: 113,
+                                lineNumber: 114,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/SearchableSelect.tsx",
-                        lineNumber: 101,
+                        lineNumber: 102,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/SearchableSelect.tsx",
-                lineNumber: 83,
+                lineNumber: 82,
                 columnNumber: 7
             }, this),
             isOpen && !disabled && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
-                className: "absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-gray-700 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm",
+                className: "absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-popover py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm border border-border animate-in fade-in zoom-in-95 duration-100",
                 children: filteredOptions.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                    className: "relative cursor-default select-none py-2 pl-3 pr-9 text-gray-500 dark:text-gray-300",
+                    className: "relative cursor-default select-none py-2 pl-3 pr-9 text-muted-foreground",
                     children: "No results found."
                 }, void 0, false, {
                     fileName: "[project]/app/components/SearchableSelect.tsx",
-                    lineNumber: 124,
+                    lineNumber: 125,
                     columnNumber: 13
                 }, this) : filteredOptions.map((option, index)=>{
                     const showGroupHeader = option.group && (index === 0 || option.group !== filteredOptions[index - 1].group);
                     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         children: [
                             showGroupHeader && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                className: "sticky top-0 z-10 bg-gray-100 dark:bg-gray-800 py-1 pl-2 pr-9 text-xs font-bold text-gray-500 dark:text-gray-400",
+                                className: "sticky top-0 z-10 bg-muted py-1 pl-2 pr-9 text-xs font-bold text-muted-foreground",
                                 children: option.group
                             }, void 0, false, {
                                 fileName: "[project]/app/components/SearchableSelect.tsx",
-                                lineNumber: 133,
+                                lineNumber: 134,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                className: `relative cursor-pointer select-none py-2 pr-9 text-gray-900 dark:text-white hover:bg-indigo-600 hover:text-white ${option.id === value ? 'bg-indigo-600 text-white' : ''} ${option.group ? 'pl-5' : 'pl-3'}`,
+                                className: `relative cursor-pointer select-none py-2 pr-9 transition-colors ${option.id === value ? 'bg-primary text-primary-foreground' : 'text-foreground hover:bg-accent hover:text-accent-foreground'} ${option.group ? 'pl-5' : 'pl-3'}`,
                                 onClick: ()=>{
                                     onChange(option.id);
                                     setSearch(option.label);
@@ -226,11 +226,11 @@ function SearchableSelect({ label, options, value, onChange, placeholder = 'Sele
                                         children: option.label
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/SearchableSelect.tsx",
-                                        lineNumber: 147,
+                                        lineNumber: 150,
                                         columnNumber: 21
                                     }, this),
                                     option.id === value && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "absolute inset-y-0 right-0 flex items-center pr-4 text-white",
+                                        className: "absolute inset-y-0 right-0 flex items-center pr-4 text-primary-foreground",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                                             className: "h-5 w-5",
                                             viewBox: "0 0 20 20",
@@ -242,35 +242,35 @@ function SearchableSelect({ label, options, value, onChange, placeholder = 'Sele
                                                 clipRule: "evenodd"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/SearchableSelect.tsx",
-                                                lineNumber: 153,
+                                                lineNumber: 156,
                                                 columnNumber: 29
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/SearchableSelect.tsx",
-                                            lineNumber: 152,
+                                            lineNumber: 155,
                                             columnNumber: 27
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/SearchableSelect.tsx",
-                                        lineNumber: 151,
+                                        lineNumber: 154,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/SearchableSelect.tsx",
-                                lineNumber: 137,
+                                lineNumber: 138,
                                 columnNumber: 19
                             }, this)
                         ]
                     }, option.id, true, {
                         fileName: "[project]/app/components/SearchableSelect.tsx",
-                        lineNumber: 131,
+                        lineNumber: 132,
                         columnNumber: 17
                     }, this);
                 })
             }, void 0, false, {
                 fileName: "[project]/app/components/SearchableSelect.tsx",
-                lineNumber: 122,
+                lineNumber: 123,
                 columnNumber: 9
             }, this)
         ]
@@ -330,63 +330,69 @@ function IncidentDetailsClient({ incident, userRoleLevel, facultyList, offenseTy
             ...o,
             label: `${o.label} (${o.demerits} Dem)`
         }));
+    // Helper for Status Badge Colors
+    const getStatusBadge = (status)=>{
+        if (status === 'pending') return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-200';
+        if (status === 'handled') return 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-200';
+        return 'bg-destructive/10 text-destructive';
+    };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "max-w-3xl mx-auto p-4 sm:p-6 lg:p-8",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                 href: "/incidents",
-                className: "text-gray-500 hover:text-indigo-600 mb-4 inline-block text-sm",
+                className: "text-muted-foreground hover:text-primary mb-4 inline-block text-sm transition-colors",
                 children: "← Back to Incidents"
             }, void 0, false, {
                 fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                lineNumber: 50,
+                lineNumber: 57,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "bg-white dark:bg-gray-800 shadow rounded-lg overflow-hidden mb-6 border border-gray-200 dark:border-gray-700",
+                className: "bg-card shadow-sm rounded-lg overflow-hidden mb-6 border border-border",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "p-6 border-b border-gray-200 dark:border-gray-700 flex justify-between items-start",
+                        className: "p-6 border-b border-border flex justify-between items-start",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                        className: "text-2xl font-bold text-gray-900 dark:text-white",
+                                        className: "text-2xl font-bold text-foreground",
                                         children: "Incident Report"
                                     }, void 0, false, {
                                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                        lineNumber: 56,
+                                        lineNumber: 63,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-sm text-gray-500 mt-1",
+                                        className: "text-sm text-muted-foreground mt-1",
                                         children: [
                                             "Submitted on ",
                                             new Date(incident.created_at).toLocaleDateString()
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                        lineNumber: 57,
+                                        lineNumber: 64,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                lineNumber: 55,
+                                lineNumber: 62,
                                 columnNumber: 14
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                className: `px-3 py-1 rounded-full text-xs font-bold uppercase ${incident.status === 'pending' ? 'bg-yellow-100 text-yellow-800' : incident.status === 'handled' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}`,
+                                className: `px-3 py-1 rounded-full text-xs font-bold uppercase ${getStatusBadge(incident.status)}`,
                                 children: incident.status
                             }, void 0, false, {
                                 fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                lineNumber: 59,
+                                lineNumber: 66,
                                 columnNumber: 14
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                        lineNumber: 54,
+                        lineNumber: 61,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -395,15 +401,15 @@ function IncidentDetailsClient({ incident, userRoleLevel, facultyList, offenseTy
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                        className: "text-xs font-bold text-gray-500 uppercase",
+                                        className: "text-xs font-bold text-muted-foreground uppercase",
                                         children: "Subject"
                                     }, void 0, false, {
                                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                        lineNumber: 70,
+                                        lineNumber: 73,
                                         columnNumber: 18
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-lg font-medium text-gray-900 dark:text-white",
+                                        className: "text-lg font-medium text-foreground",
                                         children: [
                                             incident.subject.last_name,
                                             ", ",
@@ -411,35 +417,35 @@ function IncidentDetailsClient({ incident, userRoleLevel, facultyList, offenseTy
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                        lineNumber: 71,
+                                        lineNumber: 74,
                                         columnNumber: 18
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-sm text-gray-500",
+                                        className: "text-sm text-muted-foreground",
                                         children: incident.subject.company?.company_name
                                     }, void 0, false, {
                                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                        lineNumber: 72,
+                                        lineNumber: 75,
                                         columnNumber: 18
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                lineNumber: 69,
+                                lineNumber: 72,
                                 columnNumber: 14
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                        className: "text-xs font-bold text-gray-500 uppercase",
+                                        className: "text-xs font-bold text-muted-foreground uppercase",
                                         children: "Reporter"
                                     }, void 0, false, {
                                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                        lineNumber: 75,
+                                        lineNumber: 78,
                                         columnNumber: 18
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-lg font-medium text-gray-900 dark:text-white",
+                                        className: "text-lg font-medium text-foreground",
                                         children: [
                                             incident.reporter.last_name,
                                             ", ",
@@ -447,118 +453,118 @@ function IncidentDetailsClient({ incident, userRoleLevel, facultyList, offenseTy
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                        lineNumber: 76,
+                                        lineNumber: 79,
                                         columnNumber: 18
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                lineNumber: 74,
+                                lineNumber: 77,
                                 columnNumber: 14
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                        className: "text-xs font-bold text-gray-500 uppercase",
+                                        className: "text-xs font-bold text-muted-foreground uppercase",
                                         children: "Time & Location"
                                     }, void 0, false, {
                                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                        lineNumber: 79,
+                                        lineNumber: 82,
                                         columnNumber: 18
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-gray-900 dark:text-white",
+                                        className: "text-foreground",
                                         children: new Date(incident.incident_time).toLocaleString()
                                     }, void 0, false, {
                                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                        lineNumber: 80,
+                                        lineNumber: 83,
                                         columnNumber: 18
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-gray-500",
+                                        className: "text-muted-foreground",
                                         children: incident.location
                                     }, void 0, false, {
                                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                        lineNumber: 81,
+                                        lineNumber: 84,
                                         columnNumber: 18
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                lineNumber: 78,
+                                lineNumber: 81,
                                 columnNumber: 14
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                        lineNumber: 68,
+                        lineNumber: 71,
                         columnNumber: 11
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "p-6 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50",
+                        className: "p-6 border-t border-border bg-muted/30",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                className: "text-xs font-bold text-gray-500 uppercase mb-2",
+                                className: "text-xs font-bold text-muted-foreground uppercase mb-2",
                                 children: "Description of Event"
                             }, void 0, false, {
                                 fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                lineNumber: 86,
+                                lineNumber: 89,
                                 columnNumber: 14
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "text-gray-800 dark:text-gray-200 whitespace-pre-wrap text-sm leading-relaxed",
+                                className: "text-foreground whitespace-pre-wrap text-sm leading-relaxed",
                                 children: incident.description
                             }, void 0, false, {
                                 fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                lineNumber: 87,
+                                lineNumber: 90,
                                 columnNumber: 14
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                        lineNumber: 85,
+                        lineNumber: 88,
                         columnNumber: 11
                     }, this),
                     incident.action_taken && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "p-6 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50",
+                        className: "p-6 border-t border-border bg-muted/30",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                className: "text-xs font-bold text-gray-500 uppercase mb-2",
+                                className: "text-xs font-bold text-muted-foreground uppercase mb-2",
                                 children: "Immediate Action Taken"
                             }, void 0, false, {
                                 fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                lineNumber: 94,
+                                lineNumber: 97,
                                 columnNumber: 17
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                className: "text-gray-800 dark:text-gray-200 text-sm italic",
+                                className: "text-foreground text-sm italic",
                                 children: incident.action_taken
                             }, void 0, false, {
                                 fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                lineNumber: 95,
+                                lineNumber: 98,
                                 columnNumber: 17
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                        lineNumber: 93,
+                        lineNumber: 96,
                         columnNumber: 15
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                lineNumber: 53,
+                lineNumber: 60,
                 columnNumber: 7
             }, this),
             incident.status !== 'pending' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "bg-white dark:bg-gray-800 shadow rounded-lg p-6 border border-gray-200 dark:border-gray-700 mb-6",
+                className: "bg-card shadow-sm rounded-lg p-6 border border-border mb-6",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                        className: "text-lg font-bold text-gray-900 dark:text-white mb-4",
+                        className: "text-lg font-bold text-foreground mb-4",
                         children: "Resolution Details"
                     }, void 0, false, {
                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                        lineNumber: 103,
+                        lineNumber: 106,
                         columnNumber: 15
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("dl", {
@@ -567,63 +573,63 @@ function IncidentDetailsClient({ incident, userRoleLevel, facultyList, offenseTy
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("dt", {
-                                        className: "text-gray-500",
+                                        className: "text-muted-foreground",
                                         children: "Resolved By"
                                     }, void 0, false, {
                                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                        lineNumber: 105,
+                                        lineNumber: 108,
                                         columnNumber: 24
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("dd", {
-                                        className: "font-medium dark:text-white",
+                                        className: "font-medium text-foreground",
                                         children: incident.resolver?.last_name || 'System'
                                     }, void 0, false, {
                                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                        lineNumber: 105,
-                                        columnNumber: 70
+                                        lineNumber: 108,
+                                        columnNumber: 78
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                lineNumber: 105,
+                                lineNumber: 108,
                                 columnNumber: 19
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("dt", {
-                                        className: "text-gray-500",
+                                        className: "text-muted-foreground",
                                         children: "Date"
                                     }, void 0, false, {
                                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                        lineNumber: 106,
+                                        lineNumber: 109,
                                         columnNumber: 24
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("dd", {
-                                        className: "font-medium dark:text-white",
+                                        className: "font-medium text-foreground",
                                         children: new Date(incident.resolved_at).toLocaleString()
                                     }, void 0, false, {
                                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                        lineNumber: 106,
-                                        columnNumber: 63
+                                        lineNumber: 109,
+                                        columnNumber: 71
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                lineNumber: 106,
+                                lineNumber: 109,
                                 columnNumber: 19
                             }, this),
                             incident.handler && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("dt", {
-                                        className: "text-gray-500",
+                                        className: "text-muted-foreground",
                                         children: "Handled By"
                                     }, void 0, false, {
                                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                        lineNumber: 107,
+                                        lineNumber: 110,
                                         columnNumber: 45
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("dd", {
-                                        className: "font-medium dark:text-white",
+                                        className: "font-medium text-foreground",
                                         children: [
                                             incident.handler.last_name,
                                             ", ",
@@ -631,61 +637,61 @@ function IncidentDetailsClient({ incident, userRoleLevel, facultyList, offenseTy
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                        lineNumber: 107,
-                                        columnNumber: 90
+                                        lineNumber: 110,
+                                        columnNumber: 98
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                lineNumber: 107,
+                                lineNumber: 110,
                                 columnNumber: 40
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "col-span-2",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("dt", {
-                                        className: "text-gray-500",
+                                        className: "text-muted-foreground",
                                         children: "Notes"
                                     }, void 0, false, {
                                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                        lineNumber: 108,
+                                        lineNumber: 111,
                                         columnNumber: 47
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("dd", {
-                                        className: "dark:text-white",
+                                        className: "text-foreground",
                                         children: incident.resolution_notes
                                     }, void 0, false, {
                                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                        lineNumber: 108,
-                                        columnNumber: 87
+                                        lineNumber: 111,
+                                        columnNumber: 95
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                lineNumber: 108,
+                                lineNumber: 111,
                                 columnNumber: 19
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                        lineNumber: 104,
+                        lineNumber: 107,
                         columnNumber: 15
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                lineNumber: 102,
+                lineNumber: 105,
                 columnNumber: 11
             }, this),
             incident.status === 'pending' && userRoleLevel >= 65 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "bg-white dark:bg-gray-800 shadow rounded-lg p-6 border border-gray-200 dark:border-gray-700",
+                className: "bg-card shadow-sm rounded-lg p-6 border border-border",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
-                        className: "text-lg font-bold text-gray-900 dark:text-white mb-4",
+                        className: "text-lg font-bold text-foreground mb-4",
                         children: "Process Incident"
                     }, void 0, false, {
                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                        lineNumber: 116,
+                        lineNumber: 119,
                         columnNumber: 15
                     }, this),
                     mode === 'view' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -697,33 +703,33 @@ function IncidentDetailsClient({ incident, userRoleLevel, facultyList, offenseTy
                                 children: "Mark as Handled"
                             }, void 0, false, {
                                 fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                lineNumber: 120,
+                                lineNumber: 123,
                                 columnNumber: 23
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 onClick: ()=>setMode('convert'),
-                                className: "flex-1 bg-red-600 hover:bg-red-700 text-white py-3 rounded-lg font-bold shadow transition-colors",
+                                className: "flex-1 bg-destructive hover:bg-destructive/90 text-destructive-foreground py-3 rounded-lg font-bold shadow transition-colors",
                                 children: "Convert to Demerits"
                             }, void 0, false, {
                                 fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                lineNumber: 123,
+                                lineNumber: 129,
                                 columnNumber: 23
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                        lineNumber: 119,
+                        lineNumber: 122,
                         columnNumber: 19
                     }, this),
                     mode === 'resolve' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "space-y-4 bg-green-50 dark:bg-green-900/10 p-4 rounded-lg border border-green-200 dark:border-green-800",
+                        className: "space-y-4 bg-green-50 dark:bg-green-900/10 p-4 rounded-lg border border-green-200 dark:border-green-800 animate-in fade-in slide-in-from-bottom-2",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
                                 className: "font-bold text-green-800 dark:text-green-300",
                                 children: "Resolve: No Further Action"
                             }, void 0, false, {
                                 fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                lineNumber: 131,
+                                lineNumber: 140,
                                 columnNumber: 23
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$SearchableSelect$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -733,18 +739,18 @@ function IncidentDetailsClient({ incident, userRoleLevel, facultyList, offenseTy
                                 onChange: setHandledBy
                             }, void 0, false, {
                                 fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                lineNumber: 132,
+                                lineNumber: 141,
                                 columnNumber: 23
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
                                 placeholder: "Resolution notes...",
-                                className: "w-full border rounded p-2 dark:bg-gray-900 dark:text-white",
+                                className: "w-full border border-input rounded p-2 bg-background text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary focus:border-primary",
                                 rows: 3,
                                 value: notes,
                                 onChange: (e)=>setNotes(e.target.value)
                             }, void 0, false, {
                                 fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                lineNumber: 133,
+                                lineNumber: 142,
                                 columnNumber: 23
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -752,90 +758,7 @@ function IncidentDetailsClient({ incident, userRoleLevel, facultyList, offenseTy
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         onClick: ()=>setMode('view'),
-                                        className: "text-gray-600 px-4",
-                                        children: "Cancel"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                        lineNumber: 135,
-                                        columnNumber: 27
-                                    }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        onClick: handleResolve,
-                                        disabled: loading || !notes,
-                                        className: "bg-green-600 text-white px-4 py-2 rounded font-bold hover:bg-green-700 disabled:opacity-50",
-                                        children: "Confirm"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                        lineNumber: 136,
-                                        columnNumber: 27
-                                    }, this)
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                lineNumber: 134,
-                                columnNumber: 23
-                            }, this)
-                        ]
-                    }, void 0, true, {
-                        fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                        lineNumber: 130,
-                        columnNumber: 19
-                    }, this),
-                    mode === 'convert' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "space-y-4 bg-red-50 dark:bg-red-900/10 p-4 rounded-lg border border-red-200 dark:border-red-800",
-                        children: [
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                className: "font-bold text-red-800 dark:text-red-300",
-                                children: "Escalate: Create Demerit Report"
-                            }, void 0, false, {
-                                fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                lineNumber: 143,
-                                columnNumber: 23
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "text-xs bg-white dark:bg-black/20 p-2 rounded text-red-600",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
-                                        children: "Note:"
-                                    }, void 0, false, {
-                                        fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                        lineNumber: 145,
-                                        columnNumber: 26
-                                    }, this),
-                                    " You must select an infraction and write a formal description. Original details will be linked but not copied."
-                                ]
-                            }, void 0, true, {
-                                fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                lineNumber: 144,
-                                columnNumber: 23
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$SearchableSelect$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                label: "Infraction",
-                                options: formattedOffenses,
-                                value: offenseId,
-                                onChange: setOffenseId
-                            }, void 0, false, {
-                                fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                lineNumber: 147,
-                                columnNumber: 23
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
-                                placeholder: "Official report description...",
-                                className: "w-full border rounded p-2 dark:bg-gray-900 dark:text-white",
-                                rows: 4,
-                                value: notes,
-                                onChange: (e)=>setNotes(e.target.value)
-                            }, void 0, false, {
-                                fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                                lineNumber: 148,
-                                columnNumber: 23
-                            }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex justify-end gap-2",
-                                children: [
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        onClick: ()=>setMode('view'),
-                                        className: "text-gray-600 px-4",
+                                        className: "text-muted-foreground hover:text-foreground px-4 transition-colors",
                                         children: "Cancel"
                                     }, void 0, false, {
                                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
@@ -843,10 +766,10 @@ function IncidentDetailsClient({ incident, userRoleLevel, facultyList, offenseTy
                                         columnNumber: 27
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        onClick: handleConvert,
-                                        disabled: loading || !notes || !offenseId,
-                                        className: "bg-red-600 text-white px-4 py-2 rounded font-bold hover:bg-red-700 disabled:opacity-50",
-                                        children: "Create Report"
+                                        onClick: handleResolve,
+                                        disabled: loading || !notes,
+                                        className: "bg-green-600 text-white px-4 py-2 rounded font-bold hover:bg-green-700 disabled:opacity-50",
+                                        children: "Confirm"
                                     }, void 0, false, {
                                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
                                         lineNumber: 151,
@@ -861,19 +784,102 @@ function IncidentDetailsClient({ incident, userRoleLevel, facultyList, offenseTy
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                        lineNumber: 142,
+                        lineNumber: 139,
+                        columnNumber: 19
+                    }, this),
+                    mode === 'convert' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "space-y-4 bg-destructive/5 p-4 rounded-lg border border-destructive/20 animate-in fade-in slide-in-from-bottom-2",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                className: "font-bold text-destructive",
+                                children: "Escalate: Create Demerit Report"
+                            }, void 0, false, {
+                                fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
+                                lineNumber: 158,
+                                columnNumber: 23
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "text-xs bg-background p-2 rounded text-destructive border border-destructive/20",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
+                                        children: "Note:"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
+                                        lineNumber: 160,
+                                        columnNumber: 26
+                                    }, this),
+                                    " You must select an infraction and write a formal description. Original details will be linked but not copied."
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
+                                lineNumber: 159,
+                                columnNumber: 23
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$SearchableSelect$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                                label: "Infraction",
+                                options: formattedOffenses,
+                                value: offenseId,
+                                onChange: setOffenseId
+                            }, void 0, false, {
+                                fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
+                                lineNumber: 162,
+                                columnNumber: 23
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
+                                placeholder: "Official report description...",
+                                className: "w-full border border-input rounded p-2 bg-background text-foreground placeholder:text-muted-foreground focus:ring-2 focus:ring-primary focus:border-primary",
+                                rows: 4,
+                                value: notes,
+                                onChange: (e)=>setNotes(e.target.value)
+                            }, void 0, false, {
+                                fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
+                                lineNumber: 163,
+                                columnNumber: 23
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "flex justify-end gap-2",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: ()=>setMode('view'),
+                                        className: "text-muted-foreground hover:text-foreground px-4 transition-colors",
+                                        children: "Cancel"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
+                                        lineNumber: 171,
+                                        columnNumber: 27
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                        onClick: handleConvert,
+                                        disabled: loading || !notes || !offenseId,
+                                        className: "bg-destructive text-destructive-foreground px-4 py-2 rounded font-bold hover:bg-destructive/90 disabled:opacity-50",
+                                        children: "Create Report"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
+                                        lineNumber: 172,
+                                        columnNumber: 27
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
+                                lineNumber: 170,
+                                columnNumber: 23
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
+                        lineNumber: 157,
                         columnNumber: 19
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-                lineNumber: 115,
+                lineNumber: 118,
                 columnNumber: 11
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/incidents/[id]/IncidentDetailsClient.tsx",
-        lineNumber: 49,
+        lineNumber: 56,
         columnNumber: 5
     }, this);
 }

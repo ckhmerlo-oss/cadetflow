@@ -166,22 +166,22 @@ function SearchableSelect({ label, options, value, onChange, placeholder = 'Sele
         ref: containerRef,
         children: [
             label && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                className: "block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1",
+                className: "block text-sm font-medium text-foreground mb-1",
                 children: [
                     label,
                     " ",
                     required && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                        className: "text-red-500",
+                        className: "text-destructive",
                         children: "*"
                     }, void 0, false, {
                         fileName: "[project]/app/components/SearchableSelect.tsx",
-                        lineNumber: 79,
+                        lineNumber: 78,
                         columnNumber: 34
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/SearchableSelect.tsx",
-                lineNumber: 78,
+                lineNumber: 77,
                 columnNumber: 9
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -190,7 +190,7 @@ function SearchableSelect({ label, options, value, onChange, placeholder = 'Sele
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                         ref: inputRef,
                         type: "text",
-                        className: `block w-full rounded-md border bg-white dark:bg-gray-900 py-2 pl-3 pr-10 text-sm shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:text-white ${error ? 'border-red-300 dark:border-red-700' : 'border-gray-300 dark:border-gray-600'} ${disabled ? 'bg-gray-100 dark:bg-gray-800 cursor-not-allowed' : ''}`,
+                        className: `block w-full rounded-md border bg-background py-2 pl-3 pr-10 text-sm shadow-sm focus:outline-none focus:ring-1 text-foreground placeholder:text-muted-foreground ${error ? 'border-destructive focus:border-destructive focus:ring-destructive' : 'border-input focus:border-primary focus:ring-primary'} ${disabled ? 'bg-muted opacity-50 cursor-not-allowed' : ''}`,
                         placeholder: placeholder,
                         value: search,
                         onChange: (e)=>{
@@ -202,7 +202,7 @@ function SearchableSelect({ label, options, value, onChange, placeholder = 'Sele
                         disabled: disabled
                     }, void 0, false, {
                         fileName: "[project]/app/components/SearchableSelect.tsx",
-                        lineNumber: 84,
+                        lineNumber: 83,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -211,7 +211,7 @@ function SearchableSelect({ label, options, value, onChange, placeholder = 'Sele
                             value && !disabled && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 type: "button",
                                 onClick: handleClear,
-                                className: "p-1 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors",
+                                className: "p-1 text-muted-foreground hover:text-foreground rounded-full hover:bg-muted transition-colors",
                                 tabIndex: -1,
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                                     className: "h-4 w-4",
@@ -225,21 +225,21 @@ function SearchableSelect({ label, options, value, onChange, placeholder = 'Sele
                                         d: "M6 18L18 6M6 6l12 12"
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/SearchableSelect.tsx",
-                                        lineNumber: 109,
+                                        lineNumber: 110,
                                         columnNumber: 100
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/SearchableSelect.tsx",
-                                    lineNumber: 109,
+                                    lineNumber: 110,
                                     columnNumber: 21
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/components/SearchableSelect.tsx",
-                                lineNumber: 103,
+                                lineNumber: 104,
                                 columnNumber: 17
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "pointer-events-none text-gray-400",
+                                className: "pointer-events-none text-muted-foreground",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                                     className: "h-5 w-5",
                                     viewBox: "0 0 20 20",
@@ -251,54 +251,54 @@ function SearchableSelect({ label, options, value, onChange, placeholder = 'Sele
                                         clipRule: "evenodd"
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/SearchableSelect.tsx",
-                                        lineNumber: 115,
+                                        lineNumber: 116,
                                         columnNumber: 21
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/SearchableSelect.tsx",
-                                    lineNumber: 114,
+                                    lineNumber: 115,
                                     columnNumber: 17
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/components/SearchableSelect.tsx",
-                                lineNumber: 113,
+                                lineNumber: 114,
                                 columnNumber: 13
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/components/SearchableSelect.tsx",
-                        lineNumber: 101,
+                        lineNumber: 102,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/components/SearchableSelect.tsx",
-                lineNumber: 83,
+                lineNumber: 82,
                 columnNumber: 7
             }, this),
             isOpen && !disabled && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
-                className: "absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-white dark:bg-gray-700 py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm",
+                className: "absolute z-50 mt-1 max-h-60 w-full overflow-auto rounded-md bg-popover py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm border border-border animate-in fade-in zoom-in-95 duration-100",
                 children: filteredOptions.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                    className: "relative cursor-default select-none py-2 pl-3 pr-9 text-gray-500 dark:text-gray-300",
+                    className: "relative cursor-default select-none py-2 pl-3 pr-9 text-muted-foreground",
                     children: "No results found."
                 }, void 0, false, {
                     fileName: "[project]/app/components/SearchableSelect.tsx",
-                    lineNumber: 124,
+                    lineNumber: 125,
                     columnNumber: 13
                 }, this) : filteredOptions.map((option, index)=>{
                     const showGroupHeader = option.group && (index === 0 || option.group !== filteredOptions[index - 1].group);
                     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         children: [
                             showGroupHeader && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                className: "sticky top-0 z-10 bg-gray-100 dark:bg-gray-800 py-1 pl-2 pr-9 text-xs font-bold text-gray-500 dark:text-gray-400",
+                                className: "sticky top-0 z-10 bg-muted py-1 pl-2 pr-9 text-xs font-bold text-muted-foreground",
                                 children: option.group
                             }, void 0, false, {
                                 fileName: "[project]/app/components/SearchableSelect.tsx",
-                                lineNumber: 133,
+                                lineNumber: 134,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
-                                className: `relative cursor-pointer select-none py-2 pr-9 text-gray-900 dark:text-white hover:bg-indigo-600 hover:text-white ${option.id === value ? 'bg-indigo-600 text-white' : ''} ${option.group ? 'pl-5' : 'pl-3'}`,
+                                className: `relative cursor-pointer select-none py-2 pr-9 transition-colors ${option.id === value ? 'bg-primary text-primary-foreground' : 'text-foreground hover:bg-accent hover:text-accent-foreground'} ${option.group ? 'pl-5' : 'pl-3'}`,
                                 onClick: ()=>{
                                     onChange(option.id);
                                     setSearch(option.label);
@@ -310,11 +310,11 @@ function SearchableSelect({ label, options, value, onChange, placeholder = 'Sele
                                         children: option.label
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/SearchableSelect.tsx",
-                                        lineNumber: 147,
+                                        lineNumber: 150,
                                         columnNumber: 21
                                     }, this),
                                     option.id === value && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "absolute inset-y-0 right-0 flex items-center pr-4 text-white",
+                                        className: "absolute inset-y-0 right-0 flex items-center pr-4 text-primary-foreground",
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
                                             className: "h-5 w-5",
                                             viewBox: "0 0 20 20",
@@ -326,35 +326,35 @@ function SearchableSelect({ label, options, value, onChange, placeholder = 'Sele
                                                 clipRule: "evenodd"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/components/SearchableSelect.tsx",
-                                                lineNumber: 153,
+                                                lineNumber: 156,
                                                 columnNumber: 29
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/SearchableSelect.tsx",
-                                            lineNumber: 152,
+                                            lineNumber: 155,
                                             columnNumber: 27
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/SearchableSelect.tsx",
-                                        lineNumber: 151,
+                                        lineNumber: 154,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/components/SearchableSelect.tsx",
-                                lineNumber: 137,
+                                lineNumber: 138,
                                 columnNumber: 19
                             }, this)
                         ]
                     }, option.id, true, {
                         fileName: "[project]/app/components/SearchableSelect.tsx",
-                        lineNumber: 131,
+                        lineNumber: 132,
                         columnNumber: 17
                     }, this);
                 })
             }, void 0, false, {
                 fileName: "[project]/app/components/SearchableSelect.tsx",
-                lineNumber: 122,
+                lineNumber: 123,
                 columnNumber: 9
             }, this)
         ]
@@ -444,10 +444,6 @@ function SportClient({ sport, currentUserId, permissions }) {
     };
     const handleAddEvent = async ()=>{
         setLoading(true);
-        // *** FIX: Timezone ***
-        // Convert the local datetime-local string to a UTC ISO string before sending.
-        // If user selects 6pm (18:00) locally, this becomes ~23:00 UTC (depending on TZ).
-        // This ensures it is saved as an absolute instant.
         const isoDate = new Date(newEvent.date).toISOString();
         const { error } = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$sports$2f$data$3a$8d15d4__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$text$2f$javascript$3e$__["addEvent"])(sport.id, {
             ...newEvent,
@@ -476,31 +472,31 @@ function SportClient({ sport, currentUserId, permissions }) {
         className: "space-y-6",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 flex flex-col md:flex-row justify-between items-start md:items-center gap-4",
+                className: "bg-card p-6 rounded-lg shadow-sm border border-border flex flex-col md:flex-row justify-between items-start md:items-center gap-4",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                                className: "text-3xl font-bold text-gray-900 dark:text-white",
+                                className: "text-3xl font-bold text-primary",
                                 children: sport.name
                             }, void 0, false, {
                                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                lineNumber: 98,
+                                lineNumber: 93,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                 className: "flex items-center gap-2 mt-1",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: `px-2 py-0.5 rounded text-xs font-bold uppercase ${sport.season === 'Fall' ? 'bg-orange-100 text-orange-800' : sport.season === 'Winter' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800'}`,
+                                        className: "px-2 py-0.5 rounded text-xs font-bold uppercase bg-muted text-muted-foreground border border-border",
                                         children: sport.season
                                     }, void 0, false, {
                                         fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                        lineNumber: 100,
+                                        lineNumber: 96,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "text-sm text-gray-500",
+                                        className: "text-sm text-muted-foreground",
                                         children: [
                                             sport.roster.length,
                                             " Athletes • ",
@@ -509,47 +505,47 @@ function SportClient({ sport, currentUserId, permissions }) {
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                        lineNumber: 107,
+                                        lineNumber: 99,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                lineNumber: 99,
+                                lineNumber: 94,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                        lineNumber: 97,
+                        lineNumber: 92,
                         columnNumber: 17
                     }, this),
                     !permissions.isCoach && permissions.isFaculty && sport.coaches.length === 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         onClick: handleClaimCoach,
                         disabled: loading,
-                        className: "bg-indigo-600 text-white px-4 py-2 rounded-md shadow hover:bg-indigo-700 font-medium transition-colors disabled:opacity-50",
+                        className: "btn-primary disabled:opacity-50",
                         children: loading ? 'Claiming...' : 'Claim Head Coach Position'
                     }, void 0, false, {
                         fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                        lineNumber: 111,
+                        lineNumber: 103,
                         columnNumber: 21
                     }, this),
                     permissions.isCoach && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "bg-indigo-50 dark:bg-indigo-900/30 text-indigo-700 dark:text-indigo-300 px-3 py-1 rounded text-sm font-bold border border-indigo-100 dark:border-indigo-800",
+                        className: "bg-primary/10 text-primary px-3 py-1 rounded text-sm font-bold border border-primary/20",
                         children: "You are a Coach"
                     }, void 0, false, {
                         fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                        lineNumber: 116,
+                        lineNumber: 108,
                         columnNumber: 21
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                lineNumber: 96,
+                lineNumber: 91,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "border-b border-gray-200 dark:border-gray-700",
+                className: "border-b border-border",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("nav", {
                     className: "-mb-px flex space-x-8",
                     children: [
@@ -558,119 +554,120 @@ function SportClient({ sport, currentUserId, permissions }) {
                         'staff'
                     ].map((tab)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                             onClick: ()=>setActiveTab(tab),
-                            className: `whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm capitalize ${activeTab === tab ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 hover:border-gray-300'}`,
+                            className: `whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm capitalize transition-colors ${activeTab === tab ? 'border-primary text-primary' : 'border-transparent text-muted-foreground hover:text-foreground hover:border-border'}`,
                             children: tab
                         }, tab, false, {
                             fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                            lineNumber: 126,
+                            lineNumber: 118,
                             columnNumber: 25
                         }, this))
                 }, void 0, false, {
                     fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                    lineNumber: 124,
+                    lineNumber: 116,
                     columnNumber: 17
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                lineNumber: 123,
+                lineNumber: 115,
                 columnNumber: 13
             }, this),
             activeTab === 'roster' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "bg-white dark:bg-gray-800 rounded-lg shadow overflow-hidden border border-gray-200 dark:border-gray-700",
+                className: "bg-card rounded-lg shadow-sm overflow-hidden border border-border",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "p-4 border-b border-gray-200 dark:border-gray-700 flex justify-between items-center bg-gray-50 dark:bg-gray-900/50",
+                        className: "p-4 border-b border-border flex justify-between items-center bg-muted/30",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                className: "font-bold text-gray-700 dark:text-gray-200",
+                                className: "font-bold text-foreground",
                                 children: "Active Roster"
                             }, void 0, false, {
                                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                lineNumber: 135,
+                                lineNumber: 137,
                                 columnNumber: 25
                             }, this),
                             permissions.isCoach && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 onClick: ()=>setIsAddCadetOpen(true),
-                                className: "text-sm bg-white dark:bg-gray-700 border border-gray-300 dark:border-gray-600 px-3 py-1.5 rounded hover:bg-gray-50 dark:hover:bg-gray-600",
+                                className: "text-sm bg-background border border-input px-3 py-1.5 rounded hover:bg-accent text-foreground transition-colors",
                                 children: "+ Add Athlete"
                             }, void 0, false, {
                                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                lineNumber: 137,
+                                lineNumber: 139,
                                 columnNumber: 29
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                        lineNumber: 134,
+                        lineNumber: 136,
                         columnNumber: 21
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                        className: "min-w-full divide-y divide-gray-200 dark:divide-gray-700",
+                        className: "min-w-full divide-y divide-border",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
-                                className: "bg-gray-50 dark:bg-gray-700/50",
+                                className: "bg-muted/50",
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                            className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase",
+                                            className: "px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase",
                                             children: "Cadet"
-                                        }, void 0, false, {
-                                            fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                            lineNumber: 143,
-                                            columnNumber: 33
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                            className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase",
-                                            children: "Grade"
-                                        }, void 0, false, {
-                                            fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                            lineNumber: 144,
-                                            columnNumber: 33
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                            className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase",
-                                            children: "Company"
                                         }, void 0, false, {
                                             fileName: "[project]/app/sports/[id]/SportClient.tsx",
                                             lineNumber: 145,
                                             columnNumber: 33
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
-                                            className: "px-6 py-3 text-center text-xs font-medium text-gray-500 uppercase",
-                                            children: "Tours"
+                                            className: "px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase",
+                                            children: "Grade"
                                         }, void 0, false, {
                                             fileName: "[project]/app/sports/[id]/SportClient.tsx",
                                             lineNumber: 146,
+                                            columnNumber: 33
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                            className: "px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase",
+                                            children: "Company"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/sports/[id]/SportClient.tsx",
+                                            lineNumber: 147,
+                                            columnNumber: 33
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                            className: "px-6 py-3 text-center text-xs font-medium text-muted-foreground uppercase",
+                                            children: "Tours"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/sports/[id]/SportClient.tsx",
+                                            lineNumber: 148,
                                             columnNumber: 33
                                         }, this),
                                         permissions.isCoach && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                             className: "px-6 py-3 text-right"
                                         }, void 0, false, {
                                             fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                            lineNumber: 147,
+                                            lineNumber: 149,
                                             columnNumber: 57
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                    lineNumber: 142,
+                                    lineNumber: 144,
                                     columnNumber: 29
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                lineNumber: 141,
+                                lineNumber: 143,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
-                                className: "bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700",
-                                children: sport.roster.length > 0 ? sport.roster.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                        className: c.current_tours > 0 ? 'bg-amber-50 dark:bg-amber-900/10' : '',
+                                className: "bg-card divide-y divide-border",
+                                children: sport.roster.length > 0 ? sport.roster.map((c)=>// FIX: Replaced bg-amber-50 with bg-destructive/10 for semantic highlighting
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                        className: c.current_tours > 0 ? 'bg-destructive/10' : 'hover:bg-accent transition-colors',
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                 className: "px-6 py-4 whitespace-nowrap",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "text-sm font-medium text-gray-900 dark:text-white",
+                                                        className: "text-sm font-medium text-foreground",
                                                         children: [
                                                             c.last_name,
                                                             ", ",
@@ -678,59 +675,59 @@ function SportClient({ sport, currentUserId, permissions }) {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                                        lineNumber: 154,
+                                                        lineNumber: 157,
                                                         columnNumber: 41
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "text-xs text-gray-500",
+                                                        className: "text-xs text-muted-foreground",
                                                         children: c.rank
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                                        lineNumber: 155,
+                                                        lineNumber: 158,
                                                         columnNumber: 41
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                                lineNumber: 153,
+                                                lineNumber: 156,
                                                 columnNumber: 37
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400",
+                                                className: "px-6 py-4 whitespace-nowrap text-sm text-muted-foreground",
                                                 children: c.grade_level
                                             }, void 0, false, {
                                                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                                lineNumber: 157,
+                                                lineNumber: 160,
                                                 columnNumber: 37
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                className: "px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400",
+                                                className: "px-6 py-4 whitespace-nowrap text-sm text-muted-foreground",
                                                 children: c.company || '-'
                                             }, void 0, false, {
                                                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                                lineNumber: 158,
+                                                lineNumber: 161,
                                                 columnNumber: 37
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                 className: "px-6 py-4 whitespace-nowrap text-center",
                                                 children: c.current_tours > 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                    className: "px-2 py-1 rounded text-xs font-bold bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200",
+                                                    className: "px-2 py-1 rounded text-xs font-bold bg-destructive text-destructive-foreground",
                                                     children: c.current_tours
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                                    lineNumber: 163,
+                                                    lineNumber: 166,
                                                     columnNumber: 45
                                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                    className: "text-gray-400",
+                                                    className: "text-muted-foreground",
                                                     children: "-"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                                    lineNumber: 167,
+                                                    lineNumber: 170,
                                                     columnNumber: 45
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                                lineNumber: 161,
+                                                lineNumber: 164,
                                                 columnNumber: 37
                                             }, this),
                                             permissions.isCoach && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -739,53 +736,53 @@ function SportClient({ sport, currentUserId, permissions }) {
                                                     onClick: ()=>{
                                                         if (confirm('Remove from roster?')) (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$sports$2f$data$3a$8cefac__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$text$2f$javascript$3e$__["removeFromRoster"])(c.id, sport.season);
                                                     },
-                                                    className: "text-red-600 hover:text-red-900 dark:hover:text-red-400",
+                                                    className: "text-destructive hover:text-destructive/80",
                                                     children: "Remove"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                                    lineNumber: 173,
+                                                    lineNumber: 176,
                                                     columnNumber: 45
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                                lineNumber: 172,
+                                                lineNumber: 175,
                                                 columnNumber: 41
                                             }, this)
                                         ]
                                     }, c.id, true, {
                                         fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                        lineNumber: 152,
+                                        lineNumber: 155,
                                         columnNumber: 33
                                     }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                         colSpan: 5,
-                                        className: "px-6 py-8 text-center text-gray-500",
+                                        className: "px-6 py-8 text-center text-muted-foreground",
                                         children: "No athletes assigned."
                                     }, void 0, false, {
                                         fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                        lineNumber: 178,
+                                        lineNumber: 181,
                                         columnNumber: 37
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                    lineNumber: 178,
+                                    lineNumber: 181,
                                     columnNumber: 33
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                lineNumber: 150,
+                                lineNumber: 152,
                                 columnNumber: 25
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                        lineNumber: 140,
+                        lineNumber: 142,
                         columnNumber: 21
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                lineNumber: 133,
+                lineNumber: 135,
                 columnNumber: 17
             }, this),
             activeTab === 'schedule' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -795,32 +792,32 @@ function SportClient({ sport, currentUserId, permissions }) {
                         className: "flex justify-between items-center",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                className: "font-bold text-gray-700 dark:text-gray-300",
+                                className: "font-bold text-foreground",
                                 children: "Upcoming Events"
                             }, void 0, false, {
                                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                lineNumber: 189,
+                                lineNumber: 192,
                                 columnNumber: 25
                             }, this),
                             permissions.isCoach && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 onClick: ()=>setIsAddEventOpen(true),
-                                className: "bg-indigo-600 text-white px-3 py-1.5 rounded text-sm hover:bg-indigo-700",
+                                className: "btn-primary px-3 py-1.5 text-sm",
                                 children: "+ New Event"
                             }, void 0, false, {
                                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                lineNumber: 191,
+                                lineNumber: 194,
                                 columnNumber: 29
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                        lineNumber: 188,
+                        lineNumber: 191,
                         columnNumber: 21
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "grid gap-4",
                         children: sport.events.length > 0 ? sport.events.map((e)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm flex justify-between items-start",
+                                className: "bg-card p-4 rounded-lg border border-border shadow-sm flex justify-between items-start",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         children: [
@@ -828,36 +825,36 @@ function SportClient({ sport, currentUserId, permissions }) {
                                                 className: "flex items-center gap-3",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                                        className: "font-bold text-lg text-gray-900 dark:text-white",
+                                                        className: "font-bold text-lg text-foreground",
                                                         children: e.title
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                                        lineNumber: 199,
+                                                        lineNumber: 202,
                                                         columnNumber: 41
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: `text-[10px] uppercase font-bold px-2 py-0.5 rounded ${e.is_home ? 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900 dark:text-indigo-200' : 'bg-gray-100 text-gray-600 dark:bg-gray-700 dark:text-gray-300'}`,
+                                                        className: `text-[10px] uppercase font-bold px-2 py-0.5 rounded ${e.is_home ? 'bg-primary/10 text-primary' : 'bg-muted text-muted-foreground'}`,
                                                         children: e.is_home ? 'Home' : 'Away'
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                                        lineNumber: 200,
+                                                        lineNumber: 203,
                                                         columnNumber: 41
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                                lineNumber: 198,
+                                                lineNumber: 201,
                                                 columnNumber: 37
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "flex items-center gap-4 mt-1 text-sm text-gray-600 dark:text-gray-400",
+                                                className: "flex items-center gap-4 mt-1 text-sm text-muted-foreground",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                         className: "flex items-center gap-1",
                                                         children: formatDate(e.date)
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                                        lineNumber: 205,
+                                                        lineNumber: 208,
                                                         columnNumber: 41
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -865,184 +862,184 @@ function SportClient({ sport, currentUserId, permissions }) {
                                                         children: e.location || 'TBD'
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                                        lineNumber: 208,
+                                                        lineNumber: 211,
                                                         columnNumber: 41
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                                lineNumber: 204,
+                                                lineNumber: 207,
                                                 columnNumber: 37
                                             }, this),
                                             e.notes && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: "text-sm text-gray-500 mt-2 bg-gray-50 dark:bg-gray-900 p-2 rounded",
+                                                className: "text-sm text-muted-foreground mt-2 bg-muted/30 p-2 rounded",
                                                 children: e.notes
                                             }, void 0, false, {
                                                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                                lineNumber: 212,
+                                                lineNumber: 215,
                                                 columnNumber: 49
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                        lineNumber: 197,
+                                        lineNumber: 200,
                                         columnNumber: 33
                                     }, this),
                                     permissions.isCoach && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         onClick: ()=>{
                                             if (confirm('Delete event?')) (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$sports$2f$data$3a$5f2f4a__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$text$2f$javascript$3e$__["removeEvent"])(e.id, sport.id);
                                         },
-                                        className: "text-red-500 hover:text-red-700 text-sm",
+                                        className: "text-destructive hover:text-destructive/80 text-sm",
                                         children: "×"
                                     }, void 0, false, {
                                         fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                        lineNumber: 215,
+                                        lineNumber: 218,
                                         columnNumber: 37
                                     }, this)
                                 ]
                             }, e.id, true, {
                                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                lineNumber: 196,
+                                lineNumber: 199,
                                 columnNumber: 29
                             }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                            className: "text-gray-500 italic",
+                            className: "text-muted-foreground italic",
                             children: "No events scheduled."
                         }, void 0, false, {
                             fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                            lineNumber: 219,
+                            lineNumber: 222,
                             columnNumber: 29
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                        lineNumber: 194,
+                        lineNumber: 197,
                         columnNumber: 21
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                lineNumber: 187,
+                lineNumber: 190,
                 columnNumber: 17
             }, this),
             activeTab === 'staff' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "bg-white dark:bg-gray-800 rounded-lg shadow border border-gray-200 dark:border-gray-700 p-6",
+                className: "bg-card rounded-lg shadow-sm border border-border p-6",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "flex justify-between items-center mb-4",
                         children: [
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                className: "font-bold text-lg text-gray-900 dark:text-white",
+                                className: "font-bold text-lg text-foreground",
                                 children: "Coaching Staff"
                             }, void 0, false, {
                                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                lineNumber: 229,
+                                lineNumber: 232,
                                 columnNumber: 25
                             }, this),
                             permissions.isCoach && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                 onClick: ()=>setIsAddCoachOpen(true),
-                                className: "text-sm text-indigo-600 hover:underline",
+                                className: "text-sm text-primary hover:underline",
                                 children: "+ Add Assistant"
                             }, void 0, false, {
                                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                lineNumber: 231,
+                                lineNumber: 234,
                                 columnNumber: 29
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                        lineNumber: 228,
+                        lineNumber: 231,
                         columnNumber: 21
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "grid gap-4 sm:grid-cols-2",
                         children: sport.coaches.map((c)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "flex items-center justify-between p-3 border rounded-md dark:border-gray-700 bg-gray-50 dark:bg-gray-900/50",
+                                className: "flex items-center justify-between p-3 border border-border rounded-md bg-muted/30",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "flex items-center gap-3",
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "w-10 h-10 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 font-bold",
+                                                className: "w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold",
                                                 children: c.name[0]
                                             }, void 0, false, {
                                                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                                lineNumber: 238,
+                                                lineNumber: 241,
                                                 columnNumber: 37
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                        className: "font-medium text-gray-900 dark:text-white",
+                                                        className: "font-medium text-foreground",
                                                         children: c.name
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                                        lineNumber: 242,
+                                                        lineNumber: 245,
                                                         columnNumber: 41
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                        className: "text-xs text-gray-500 uppercase",
+                                                        className: "text-xs text-muted-foreground uppercase",
                                                         children: c.role
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                                        lineNumber: 243,
+                                                        lineNumber: 246,
                                                         columnNumber: 41
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                                lineNumber: 241,
+                                                lineNumber: 244,
                                                 columnNumber: 37
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                        lineNumber: 237,
+                                        lineNumber: 240,
                                         columnNumber: 33
                                     }, this),
                                     permissions.isCoach && c.user_id !== currentUserId && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                         onClick: ()=>{
                                             if (confirm('Remove Coach?')) (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$sports$2f$data$3a$0f4b03__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$text$2f$javascript$3e$__["removeCoach"])(c.id, sport.id);
                                         },
-                                        className: "text-red-500 hover:text-red-700 text-xs",
+                                        className: "text-destructive hover:text-destructive/80 text-xs",
                                         children: "Remove"
                                     }, void 0, false, {
                                         fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                        lineNumber: 247,
+                                        lineNumber: 250,
                                         columnNumber: 37
                                     }, this)
                                 ]
                             }, c.id, true, {
                                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                lineNumber: 236,
+                                lineNumber: 239,
                                 columnNumber: 29
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                        lineNumber: 234,
+                        lineNumber: 237,
                         columnNumber: 21
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                lineNumber: 227,
+                lineNumber: 230,
                 columnNumber: 17
             }, this),
             isAddEventOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4",
+                className: "fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-50 p-4",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "bg-white dark:bg-gray-800 p-6 rounded-lg w-full max-w-md space-y-4",
+                    className: "bg-card p-6 rounded-lg w-full max-w-md space-y-4 border border-border shadow-lg",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                            className: "text-lg font-bold dark:text-white",
+                            className: "text-lg font-bold text-foreground",
                             children: "Create Event"
                         }, void 0, false, {
                             fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                            lineNumber: 259,
+                            lineNumber: 262,
                             columnNumber: 25
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                             type: "text",
                             placeholder: "Title",
-                            className: "w-full border rounded p-2 dark:bg-gray-900 dark:text-white dark:border-gray-600",
+                            className: "input-base",
                             value: newEvent.title,
                             onChange: (e)=>setNewEvent({
                                     ...newEvent,
@@ -1050,7 +1047,7 @@ function SportClient({ sport, currentUserId, permissions }) {
                                 })
                         }, void 0, false, {
                             fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                            lineNumber: 260,
+                            lineNumber: 263,
                             columnNumber: 25
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1058,7 +1055,7 @@ function SportClient({ sport, currentUserId, permissions }) {
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                     type: "datetime-local",
-                                    className: "w-full border rounded p-2 dark:bg-gray-900 dark:text-white dark:border-gray-600",
+                                    className: "input-base",
                                     value: newEvent.date,
                                     onChange: (e)=>setNewEvent({
                                             ...newEvent,
@@ -1066,11 +1063,11 @@ function SportClient({ sport, currentUserId, permissions }) {
                                         })
                                 }, void 0, false, {
                                     fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                    lineNumber: 262,
+                                    lineNumber: 265,
                                     columnNumber: 29
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                    className: "flex items-center gap-2 border px-3 rounded dark:border-gray-600 cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700",
+                                    className: "flex items-center gap-2 border border-input px-3 rounded cursor-pointer hover:bg-accent",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                             type: "checkbox",
@@ -1078,36 +1075,37 @@ function SportClient({ sport, currentUserId, permissions }) {
                                             onChange: (e)=>setNewEvent({
                                                     ...newEvent,
                                                     is_home: e.target.checked
-                                                })
+                                                }),
+                                            className: "rounded text-primary focus:ring-primary"
                                         }, void 0, false, {
                                             fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                            lineNumber: 264,
+                                            lineNumber: 267,
                                             columnNumber: 33
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "text-sm dark:text-white whitespace-nowrap",
+                                            className: "text-sm text-foreground whitespace-nowrap",
                                             children: "Home Game"
                                         }, void 0, false, {
                                             fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                            lineNumber: 265,
+                                            lineNumber: 268,
                                             columnNumber: 33
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                    lineNumber: 263,
+                                    lineNumber: 266,
                                     columnNumber: 29
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                            lineNumber: 261,
+                            lineNumber: 264,
                             columnNumber: 25
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                             type: "text",
                             placeholder: "Location",
-                            className: "w-full border rounded p-2 dark:bg-gray-900 dark:text-white dark:border-gray-600",
+                            className: "input-base",
                             value: newEvent.location,
                             onChange: (e)=>setNewEvent({
                                     ...newEvent,
@@ -1115,12 +1113,12 @@ function SportClient({ sport, currentUserId, permissions }) {
                                 })
                         }, void 0, false, {
                             fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                            lineNumber: 268,
+                            lineNumber: 271,
                             columnNumber: 25
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
                             placeholder: "Notes...",
-                            className: "w-full border rounded p-2 dark:bg-gray-900 dark:text-white dark:border-gray-600",
+                            className: "input-base",
                             rows: 2,
                             value: newEvent.notes,
                             onChange: (e)=>setNewEvent({
@@ -1129,7 +1127,7 @@ function SportClient({ sport, currentUserId, permissions }) {
                                 })
                         }, void 0, false, {
                             fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                            lineNumber: 269,
+                            lineNumber: 272,
                             columnNumber: 25
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1137,51 +1135,51 @@ function SportClient({ sport, currentUserId, permissions }) {
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     onClick: ()=>setIsAddEventOpen(false),
-                                    className: "px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded",
+                                    className: "px-4 py-2 text-muted-foreground hover:text-foreground hover:bg-accent rounded transition-colors",
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                    lineNumber: 271,
+                                    lineNumber: 274,
                                     columnNumber: 29
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     onClick: handleAddEvent,
                                     disabled: !newEvent.title || !newEvent.date || loading,
-                                    className: "px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 disabled:opacity-50",
+                                    className: "btn-primary",
                                     children: "Create"
                                 }, void 0, false, {
                                     fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                    lineNumber: 272,
+                                    lineNumber: 275,
                                     columnNumber: 29
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                            lineNumber: 270,
+                            lineNumber: 273,
                             columnNumber: 25
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                    lineNumber: 258,
+                    lineNumber: 261,
                     columnNumber: 21
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                lineNumber: 257,
+                lineNumber: 260,
                 columnNumber: 17
             }, this),
             isAddCadetOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4",
+                className: "fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-50 p-4",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "bg-white dark:bg-gray-800 p-6 rounded-lg w-full max-w-md",
+                    className: "bg-card p-6 rounded-lg w-full max-w-md border border-border shadow-lg",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                            className: "text-lg font-bold mb-4 dark:text-white",
+                            className: "text-lg font-bold mb-4 text-foreground",
                             children: "Add Athlete to Roster"
                         }, void 0, false, {
                             fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                            lineNumber: 283,
+                            lineNumber: 284,
                             columnNumber: 25
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$SearchableSelect$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1192,7 +1190,7 @@ function SportClient({ sport, currentUserId, permissions }) {
                             placeholder: "Search last name..."
                         }, void 0, false, {
                             fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                            lineNumber: 284,
+                            lineNumber: 285,
                             columnNumber: 25
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1200,51 +1198,51 @@ function SportClient({ sport, currentUserId, permissions }) {
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     onClick: ()=>setIsAddCadetOpen(false),
-                                    className: "px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded",
+                                    className: "px-4 py-2 text-muted-foreground hover:text-foreground hover:bg-accent rounded transition-colors",
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                    lineNumber: 286,
+                                    lineNumber: 287,
                                     columnNumber: 29
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     onClick: handleAddCadet,
                                     disabled: !selectedCadetId || loading,
-                                    className: "px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 disabled:opacity-50",
+                                    className: "btn-primary",
                                     children: "Add"
                                 }, void 0, false, {
                                     fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                    lineNumber: 287,
+                                    lineNumber: 288,
                                     columnNumber: 29
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                            lineNumber: 285,
+                            lineNumber: 286,
                             columnNumber: 25
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                    lineNumber: 282,
+                    lineNumber: 283,
                     columnNumber: 21
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                lineNumber: 281,
+                lineNumber: 282,
                 columnNumber: 17
             }, this),
             isAddCoachOpen && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4",
+                className: "fixed inset-0 bg-background/80 backdrop-blur-sm flex items-center justify-center z-50 p-4",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                    className: "bg-white dark:bg-gray-800 p-6 rounded-lg w-full max-w-md",
+                    className: "bg-card p-6 rounded-lg w-full max-w-md border border-border shadow-lg",
                     children: [
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                            className: "text-lg font-bold mb-4 dark:text-white",
+                            className: "text-lg font-bold mb-4 text-foreground",
                             children: "Add Assistant Coach"
                         }, void 0, false, {
                             fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                            lineNumber: 296,
+                            lineNumber: 297,
                             columnNumber: 25
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$SearchableSelect$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -1255,7 +1253,7 @@ function SportClient({ sport, currentUserId, permissions }) {
                             placeholder: "Search faculty..."
                         }, void 0, false, {
                             fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                            lineNumber: 297,
+                            lineNumber: 298,
                             columnNumber: 25
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1263,44 +1261,44 @@ function SportClient({ sport, currentUserId, permissions }) {
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     onClick: ()=>setIsAddCoachOpen(false),
-                                    className: "px-4 py-2 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded",
+                                    className: "px-4 py-2 text-muted-foreground hover:text-foreground hover:bg-accent rounded transition-colors",
                                     children: "Cancel"
                                 }, void 0, false, {
                                     fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                    lineNumber: 299,
+                                    lineNumber: 300,
                                     columnNumber: 29
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                     onClick: handleAddCoach,
                                     disabled: !selectedCoachId || loading,
-                                    className: "px-4 py-2 bg-indigo-600 text-white rounded hover:bg-indigo-700 disabled:opacity-50",
+                                    className: "btn-primary",
                                     children: "Add Coach"
                                 }, void 0, false, {
                                     fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                                    lineNumber: 300,
+                                    lineNumber: 301,
                                     columnNumber: 29
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                            lineNumber: 298,
+                            lineNumber: 299,
                             columnNumber: 25
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                    lineNumber: 295,
+                    lineNumber: 296,
                     columnNumber: 21
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/sports/[id]/SportClient.tsx",
-                lineNumber: 294,
+                lineNumber: 295,
                 columnNumber: 17
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/sports/[id]/SportClient.tsx",
-        lineNumber: 94,
+        lineNumber: 89,
         columnNumber: 9
     }, this);
 }

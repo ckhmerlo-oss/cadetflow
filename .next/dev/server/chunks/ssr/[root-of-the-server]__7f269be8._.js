@@ -98,7 +98,7 @@ async function ProfilePage({ params }) {
     let canEdit = false;
     if (isSiteAdmin || canManageAll) canEdit = true;
     else if (canManageOwn && profile.company_id && profile.company_id === viewerProfile?.company_id) canEdit = true;
-    // *** FIX: Fetch from the correct RPC ***
+    // Fetch Audit Log
     const { data: auditLog } = await supabase.rpc('get_cadet_audit_log', {
         p_cadet_id: profile.id
     });

@@ -16,8 +16,8 @@ export default async function SportsDashboardPage() {
 
   return (
     <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
-      <h1 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">Sports Management</h1>
-      <p className="text-gray-500 dark:text-gray-400 mb-8">Manage rosters, schedules, and coaching assignments.</p>
+      <h1 className="text-3xl font-bold text-primary mb-2">Sports Management</h1>
+      <p className="text-muted-foreground mb-8">Manage rosters, schedules, and coaching assignments.</p>
       
       <SportsDashboardClient 
         sports={sports}

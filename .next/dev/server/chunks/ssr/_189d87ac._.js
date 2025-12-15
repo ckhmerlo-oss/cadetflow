@@ -35,8 +35,8 @@ const formatName = (person)=>{
     return `${person.last_name}, ${person.first_name}`;
 };
 const STATUS_COLORS = {
-    pending_approval: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200',
-    needs_revision: 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200'
+    pending_approval: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-200',
+    needs_revision: 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-200'
 };
 function PendingReportsClient({ initialReports }) {
     const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
@@ -84,7 +84,7 @@ function PendingReportsClient({ initialReports }) {
     };
     const SortIcon = ({ column })=>{
         if (sortConfig.key !== column) return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-            className: "text-gray-300 ml-1",
+            className: "text-muted-foreground/30 ml-1",
             children: "⇅"
         }, void 0, false, {
             fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
@@ -92,7 +92,7 @@ function PendingReportsClient({ initialReports }) {
             columnNumber: 43
         }, this);
         return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-            className: "text-indigo-600 dark:text-indigo-400 ml-1",
+            className: "text-primary ml-1",
             children: sortConfig.direction === 'asc' ? '↑' : '↓'
         }, void 0, false, {
             fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
@@ -184,7 +184,7 @@ function PendingReportsClient({ initialReports }) {
         className: "space-y-6",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "bg-white dark:bg-gray-800 p-4 rounded-lg border border-gray-200 dark:border-gray-700 shadow-sm",
+                className: "bg-card p-4 rounded-lg border border-border shadow-sm",
                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                     className: "flex flex-col lg:flex-row gap-4 items-end",
                     children: [
@@ -192,7 +192,7 @@ function PendingReportsClient({ initialReports }) {
                             className: "w-full lg:w-1/3 relative",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                    className: "block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1",
+                                    className: "block text-xs font-bold text-muted-foreground uppercase mb-1",
                                     children: "Quick Search"
                                 }, void 0, false, {
                                     fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
@@ -205,7 +205,7 @@ function PendingReportsClient({ initialReports }) {
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
-                                                className: "h-5 w-5 text-gray-400",
+                                                className: "h-5 w-5 text-muted-foreground",
                                                 xmlns: "http://www.w3.org/2000/svg",
                                                 viewBox: "0 0 20 20",
                                                 fill: "currentColor",
@@ -232,7 +232,7 @@ function PendingReportsClient({ initialReports }) {
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                             type: "text",
                                             placeholder: "Search...",
-                                            className: "block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm py-2 pl-10 pr-3 focus:ring-indigo-500 focus:border-indigo-500",
+                                            className: "input-base pl-10 pr-3",
                                             value: searchTerm,
                                             onChange: (e)=>setSearchTerm(e.target.value)
                                         }, void 0, false, {
@@ -259,7 +259,7 @@ function PendingReportsClient({ initialReports }) {
                                     className: "w-full sm:w-1/3",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                            className: "block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1",
+                                            className: "block text-xs font-bold text-muted-foreground uppercase mb-1",
                                             children: "Filter By"
                                         }, void 0, false, {
                                             fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
@@ -269,7 +269,7 @@ function PendingReportsClient({ initialReports }) {
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
                                             value: filterType,
                                             onChange: (e)=>handleFilterTypeChange(e.target.value),
-                                            className: "block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm py-2 px-3 focus:ring-indigo-500 focus:border-indigo-500",
+                                            className: "input-base",
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                     value: "all",
@@ -332,7 +332,7 @@ function PendingReportsClient({ initialReports }) {
                                                 className: "w-1/2",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                        className: "block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1",
+                                                        className: "block text-xs font-bold text-muted-foreground uppercase mb-1",
                                                         children: "From"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
@@ -343,7 +343,7 @@ function PendingReportsClient({ initialReports }) {
                                                         type: "date",
                                                         value: startDate,
                                                         onChange: (e)=>setStartDate(e.target.value),
-                                                        className: "block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm py-2 px-3"
+                                                        className: "input-base"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
                                                         lineNumber: 158,
@@ -359,7 +359,7 @@ function PendingReportsClient({ initialReports }) {
                                                 className: "w-1/2",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                        className: "block text-xs font-bold text-gray-500 dark:text-gray-400 uppercase mb-1",
+                                                        className: "block text-xs font-bold text-muted-foreground uppercase mb-1",
                                                         children: "To"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
@@ -370,7 +370,7 @@ function PendingReportsClient({ initialReports }) {
                                                         type: "date",
                                                         value: endDate,
                                                         onChange: (e)=>setEndDate(e.target.value),
-                                                        className: "block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm py-2 px-3"
+                                                        className: "input-base"
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
                                                         lineNumber: 162,
@@ -390,7 +390,7 @@ function PendingReportsClient({ initialReports }) {
                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
-                                                className: `block text-xs font-bold uppercase mb-1 ${filterType === 'all' ? 'text-gray-300 dark:text-gray-600' : 'text-gray-500 dark:text-gray-400'}`,
+                                                className: `block text-xs font-bold uppercase mb-1 ${filterType === 'all' ? 'text-muted-foreground/50' : 'text-muted-foreground'}`,
                                                 children: filterType === 'all' ? 'Select Filter Type First' : 'Select Value'
                                             }, void 0, false, {
                                                 fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
@@ -401,7 +401,7 @@ function PendingReportsClient({ initialReports }) {
                                                 value: filterValue,
                                                 onChange: (e)=>setFilterValue(e.target.value),
                                                 disabled: filterType === 'all',
-                                                className: "block w-full rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white shadow-sm sm:text-sm py-2 px-3 disabled:opacity-50 disabled:cursor-not-allowed",
+                                                className: "input-base disabled:opacity-50",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
                                                         value: "",
@@ -470,20 +470,20 @@ function PendingReportsClient({ initialReports }) {
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                className: "bg-white dark:bg-gray-800 shadow-md rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700",
+                className: "bg-card shadow-md rounded-lg overflow-hidden border border-border",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "overflow-x-auto",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
-                            className: "min-w-full divide-y divide-gray-200 dark:divide-gray-700",
+                            className: "min-w-full divide-y divide-border",
                             children: [
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
-                                    className: "bg-gray-50 dark:bg-gray-800",
+                                    className: "bg-muted/50",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                         children: [
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                 onClick: ()=>handleSort('status'),
-                                                className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase cursor-pointer",
+                                                className: "px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase cursor-pointer hover:text-foreground",
                                                 children: [
                                                     "Status ",
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
@@ -491,7 +491,7 @@ function PendingReportsClient({ initialReports }) {
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
                                                         lineNumber: 193,
-                                                        columnNumber: 164
+                                                        columnNumber: 194
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
@@ -501,7 +501,7 @@ function PendingReportsClient({ initialReports }) {
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                 onClick: ()=>handleSort('waiting'),
-                                                className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase cursor-pointer",
+                                                className: "px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase cursor-pointer hover:text-foreground",
                                                 children: [
                                                     "Waiting On ",
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
@@ -509,7 +509,7 @@ function PendingReportsClient({ initialReports }) {
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
                                                         lineNumber: 195,
-                                                        columnNumber: 169
+                                                        columnNumber: 199
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
@@ -519,7 +519,7 @@ function PendingReportsClient({ initialReports }) {
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                 onClick: ()=>handleSort('subject'),
-                                                className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase cursor-pointer",
+                                                className: "px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase cursor-pointer hover:text-foreground",
                                                 children: [
                                                     "Subject ",
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
@@ -527,7 +527,7 @@ function PendingReportsClient({ initialReports }) {
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
                                                         lineNumber: 196,
-                                                        columnNumber: 166
+                                                        columnNumber: 196
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
@@ -537,7 +537,7 @@ function PendingReportsClient({ initialReports }) {
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                 onClick: ()=>handleSort('submitter'),
-                                                className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase cursor-pointer",
+                                                className: "px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase cursor-pointer hover:text-foreground",
                                                 children: [
                                                     "Submitter ",
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
@@ -545,7 +545,7 @@ function PendingReportsClient({ initialReports }) {
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
                                                         lineNumber: 197,
-                                                        columnNumber: 170
+                                                        columnNumber: 200
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
@@ -555,7 +555,7 @@ function PendingReportsClient({ initialReports }) {
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                 onClick: ()=>handleSort('offense'),
-                                                className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase cursor-pointer",
+                                                className: "px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase cursor-pointer hover:text-foreground",
                                                 children: [
                                                     "Infraction ",
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
@@ -563,7 +563,7 @@ function PendingReportsClient({ initialReports }) {
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
                                                         lineNumber: 198,
-                                                        columnNumber: 169
+                                                        columnNumber: 199
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
@@ -573,7 +573,7 @@ function PendingReportsClient({ initialReports }) {
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                 onClick: ()=>handleSort('demerits'),
-                                                className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase cursor-pointer",
+                                                className: "px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase cursor-pointer hover:text-foreground",
                                                 children: [
                                                     "Dem ",
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
@@ -581,7 +581,7 @@ function PendingReportsClient({ initialReports }) {
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
                                                         lineNumber: 199,
-                                                        columnNumber: 163
+                                                        columnNumber: 193
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
@@ -591,7 +591,7 @@ function PendingReportsClient({ initialReports }) {
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
                                                 onClick: ()=>handleSort('date'),
-                                                className: "px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase cursor-pointer",
+                                                className: "px-6 py-3 text-left text-xs font-medium text-muted-foreground uppercase cursor-pointer hover:text-foreground",
                                                 children: [
                                                     "Date ",
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(SortIcon, {
@@ -599,7 +599,7 @@ function PendingReportsClient({ initialReports }) {
                                                     }, void 0, false, {
                                                         fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
                                                         lineNumber: 200,
-                                                        columnNumber: 160
+                                                        columnNumber: 190
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
@@ -619,17 +619,17 @@ function PendingReportsClient({ initialReports }) {
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
-                                    className: "bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700",
+                                    className: "bg-card divide-y divide-border",
                                     children: processedReports.length > 0 ? processedReports.map((report)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"].Fragment, {
                                             children: [
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                                     onClick: ()=>setExpandedId(expandedId === report.id ? null : report.id),
-                                                    className: `cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-700/50 ${expandedId === report.id ? 'bg-gray-50 dark:bg-gray-700/50' : ''}`,
+                                                    className: `cursor-pointer hover:bg-accent transition-colors ${expandedId === report.id ? 'bg-muted/50' : ''}`,
                                                     children: [
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                             className: "px-6 py-4 whitespace-nowrap",
                                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                className: `px-2 py-0.5 rounded-full text-xs font-bold ${STATUS_COLORS[report.status] || 'bg-gray-100 text-gray-800'}`,
+                                                                className: `px-2 py-0.5 rounded-full text-xs font-bold ${STATUS_COLORS[report.status] || 'bg-muted text-muted-foreground'}`,
                                                                 children: report.status.replace('_', ' ')
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
@@ -642,7 +642,7 @@ function PendingReportsClient({ initialReports }) {
                                                             columnNumber: 33
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                            className: "px-6 py-4 whitespace-nowrap text-sm font-bold text-indigo-600 dark:text-indigo-400",
+                                                            className: "px-6 py-4 whitespace-nowrap text-sm font-bold text-primary",
                                                             children: getWaitingOn(report)
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
@@ -650,7 +650,7 @@ function PendingReportsClient({ initialReports }) {
                                                             columnNumber: 33
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                            className: "px-6 py-4 text-sm font-medium text-gray-900 dark:text-white",
+                                                            className: "px-6 py-4 text-sm font-medium text-foreground",
                                                             children: formatName(report.subject)
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
@@ -658,7 +658,7 @@ function PendingReportsClient({ initialReports }) {
                                                             columnNumber: 33
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                            className: "px-6 py-4 text-sm text-gray-500 dark:text-gray-300",
+                                                            className: "px-6 py-4 text-sm text-muted-foreground",
                                                             children: formatName(report.submitter)
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
@@ -666,7 +666,7 @@ function PendingReportsClient({ initialReports }) {
                                                             columnNumber: 33
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                            className: "px-6 py-4 text-sm text-gray-500 dark:text-gray-300",
+                                                            className: "px-6 py-4 text-sm text-muted-foreground",
                                                             children: report.offense_type.offense_name
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
@@ -674,7 +674,7 @@ function PendingReportsClient({ initialReports }) {
                                                             columnNumber: 33
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                            className: "px-6 py-4 text-sm font-bold text-red-600",
+                                                            className: "px-6 py-4 text-sm font-bold text-destructive",
                                                             children: report.demerits_effective
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
@@ -682,7 +682,7 @@ function PendingReportsClient({ initialReports }) {
                                                             columnNumber: 33
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
-                                                            className: "px-6 py-4 text-sm text-gray-500",
+                                                            className: "px-6 py-4 text-sm text-muted-foreground",
                                                             children: new Date(report.created_at).toLocaleDateString()
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
@@ -696,7 +696,7 @@ function PendingReportsClient({ initialReports }) {
                                                     columnNumber: 29
                                                 }, this),
                                                 expandedId === report.id && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
-                                                    className: "bg-gray-50 dark:bg-gray-900/30 shadow-inner",
+                                                    className: "bg-muted/30 shadow-inner",
                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                                         colSpan: 7,
                                                         className: "px-6 py-6",
@@ -707,7 +707,7 @@ function PendingReportsClient({ initialReports }) {
                                                                     className: "space-y-4",
                                                                     children: [
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                                                            className: "text-xs font-bold text-gray-500 uppercase",
+                                                                            className: "text-xs font-bold text-muted-foreground uppercase",
                                                                             children: "Report Details"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
@@ -715,17 +715,17 @@ function PendingReportsClient({ initialReports }) {
                                                                             columnNumber: 49
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                            className: "bg-white dark:bg-gray-800 p-4 rounded border border-gray-200 dark:border-gray-700",
+                                                                            className: "bg-card p-4 rounded border border-border",
                                                                             children: [
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                                    className: "text-sm text-gray-900 dark:text-white mb-2",
+                                                                                    className: "text-sm text-foreground mb-2",
                                                                                     children: [
                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("strong", {
                                                                                             children: "Date of Offense:"
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
                                                                                             lineNumber: 223,
-                                                                                            columnNumber: 111
+                                                                                            columnNumber: 97
                                                                                         }, this),
                                                                                         " ",
                                                                                         new Date(report.date_of_offense).toLocaleString()
@@ -736,7 +736,7 @@ function PendingReportsClient({ initialReports }) {
                                                                                     columnNumber: 53
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                                    className: "text-xs text-gray-500 mb-1",
+                                                                                    className: "text-xs text-muted-foreground mb-1",
                                                                                     children: "Notes:"
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
@@ -744,7 +744,7 @@ function PendingReportsClient({ initialReports }) {
                                                                                     columnNumber: 53
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                                    className: "text-sm text-gray-700 dark:text-gray-300 whitespace-pre-wrap",
+                                                                                    className: "text-sm text-foreground whitespace-pre-wrap",
                                                                                     children: report.notes || 'None'
                                                                                 }, void 0, false, {
                                                                                     fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
@@ -752,10 +752,10 @@ function PendingReportsClient({ initialReports }) {
                                                                                     columnNumber: 53
                                                                                 }, this),
                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                    className: "mt-4 pt-3 border-t border-gray-100 dark:border-gray-700",
+                                                                                    className: "mt-4 pt-3 border-t border-border",
                                                                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                                                                         href: `/report/${report.id}`,
-                                                                                        className: "text-indigo-600 text-sm font-medium hover:underline",
+                                                                                        className: "text-primary text-sm font-medium hover:underline",
                                                                                         children: "View Full Report →"
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
@@ -783,7 +783,7 @@ function PendingReportsClient({ initialReports }) {
                                                                     className: "space-y-4",
                                                                     children: [
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                                                            className: "text-xs font-bold text-gray-500 uppercase",
+                                                                            className: "text-xs font-bold text-muted-foreground uppercase",
                                                                             children: "Timeline"
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
@@ -791,12 +791,12 @@ function PendingReportsClient({ initialReports }) {
                                                                             columnNumber: 49
                                                                         }, this),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("ul", {
-                                                                            className: "bg-white dark:bg-gray-800 rounded border border-gray-200 dark:border-gray-700 divide-y divide-gray-100 dark:divide-gray-700",
+                                                                            className: "bg-card rounded border border-border divide-y divide-border",
                                                                             children: report.approval_log.map((log, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("li", {
                                                                                     className: "p-3 text-sm",
                                                                                     children: [
                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                                            className: "flex justify-between font-medium text-gray-900 dark:text-white",
+                                                                                            className: "flex justify-between font-medium text-foreground",
                                                                                             children: [
                                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                                                     children: formatName(log.actor)
@@ -806,7 +806,7 @@ function PendingReportsClient({ initialReports }) {
                                                                                                     columnNumber: 65
                                                                                                 }, this),
                                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                                                    className: "text-xs text-gray-500",
+                                                                                                    className: "text-xs text-muted-foreground",
                                                                                                     children: new Date(log.created_at).toLocaleDateString()
                                                                                                 }, void 0, false, {
                                                                                                     fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
@@ -820,7 +820,7 @@ function PendingReportsClient({ initialReports }) {
                                                                                             columnNumber: 61
                                                                                         }, this),
                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                                            className: "text-xs text-gray-600 mt-1",
+                                                                                            className: "text-xs text-muted-foreground mt-1",
                                                                                             children: [
                                                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                                                     className: "uppercase font-bold",
@@ -828,7 +828,7 @@ function PendingReportsClient({ initialReports }) {
                                                                                                 }, void 0, false, {
                                                                                                     fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
                                                                                                     lineNumber: 240,
-                                                                                                    columnNumber: 103
+                                                                                                    columnNumber: 111
                                                                                                 }, this),
                                                                                                 " ",
                                                                                                 log.comment && `- "${log.comment}"`
@@ -879,7 +879,7 @@ function PendingReportsClient({ initialReports }) {
                                         }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
                                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
                                             colSpan: 7,
-                                            className: "px-6 py-10 text-center text-gray-500",
+                                            className: "px-6 py-10 text-center text-muted-foreground",
                                             children: "No pending reports found."
                                         }, void 0, false, {
                                             fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
@@ -908,21 +908,21 @@ function PendingReportsClient({ initialReports }) {
                         columnNumber: 9
                     }, this),
                     hasMore && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "p-4 flex justify-center",
+                        className: "p-4 flex justify-center bg-muted/20 border-t border-border",
                         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                             onClick: handleLoadMore,
                             disabled: isLoadingMore,
-                            className: "px-6 py-2 bg-white border rounded-full shadow-sm text-indigo-600 text-sm font-medium",
+                            className: "px-6 py-2 bg-card border border-border rounded-full shadow-sm text-primary text-sm font-medium hover:bg-accent disabled:opacity-50",
                             children: isLoadingMore ? 'Loading...' : 'Load More'
                         }, void 0, false, {
                             fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
-                            lineNumber: 254,
-                            columnNumber: 62
+                            lineNumber: 256,
+                            columnNumber: 17
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/reports/pending/PendingReportsClient.tsx",
-                        lineNumber: 254,
-                        columnNumber: 21
+                        lineNumber: 255,
+                        columnNumber: 13
                     }, this)
                 ]
             }, void 0, true, {

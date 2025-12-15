@@ -16,7 +16,6 @@ const getInitialCompanyId = (companies: ChainVisualizerProps['initialCompanies']
     return alphaCompany?.id || companies[0]?.id || '';
 }
 
-// *** FIX IS HERE: Added viewerRoleLevel to the destructuring ***
 export default function ChainVisualizer({ initialCompanies, viewerRoleLevel }: ChainVisualizerProps) {
     
   const [selectedCompanyId, setSelectedCompanyId] = useState(() => getInitialCompanyId(initialCompanies));
@@ -166,33 +165,33 @@ export default function ChainVisualizer({ initialCompanies, viewerRoleLevel }: C
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-wrap items-center gap-4 bg-white dark:bg-gray-800 p-4 rounded-lg shadow z-10 relative">
-        <label className="font-medium text-gray-700 dark:text-gray-300">Select Company:</label>
+      <div className="flex flex-wrap items-center gap-4 bg-card border border-border p-4 rounded-lg shadow-sm z-10 relative">
+        <label className="font-medium text-foreground">Select Company:</label>
         <select 
           value={selectedCompanyId} 
           onChange={(e) => setSelectedCompanyId(e.target.value)}
-          className="rounded-md border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white p-2"
+          className="rounded-md border border-input bg-background text-foreground p-2"
         >
           {initialCompanies.map(c => <option key={c.id} value={c.id}>{c.company_name}</option>)}
           {initialCompanies.length === 0 && <option value="">No Companies Available</option>}
         </select>
-        <button onClick={fetchChain} className="ml-auto text-sm text-indigo-600 hover:underline dark:text-indigo-400">Refresh</button>
+        <button onClick={fetchChain} className="ml-auto text-sm text-primary hover:underline">Refresh</button>
       </div>
 
       <div 
-        className="overflow-x-auto bg-gray-50 dark:bg-gray-900/50 rounded-xl border dark:border-gray-700 flex flex-col"
+        className="overflow-x-auto bg-muted/20 rounded-xl border border-border flex flex-col"
         style={{ height: '700px' }}
       >
         {loading ? (
-          <div className="flex items-center justify-center h-full text-gray-500">Loading Chain...</div>
+          <div className="flex items-center justify-center h-full text-muted-foreground">Loading Chain...</div>
         ) : (
           <div className="flex flex-col min-w-max h-full p-8 relative">
             
             {/* HEADERS */}
             {columns.length > 0 && (
-                <div className="flex gap-24 mb-4 border-b dark:border-gray-700 pb-2">
+                <div className="flex gap-24 mb-4 border-b border-border pb-2">
                 {columns.map((_, colIndex) => (
-                    <div key={colIndex} className="w-64 text-center text-xs font-bold text-gray-400 uppercase tracking-wider">
+                    <div key={colIndex} className="w-64 text-center text-xs font-bold text-muted-foreground uppercase tracking-wider">
                     {colIndex === columns.length - 1 ? "Final Authority" : `Step ${columns.length - 1 - colIndex}`}
                     </div>
                 ))}
@@ -204,18 +203,18 @@ export default function ChainVisualizer({ initialCompanies, viewerRoleLevel }: C
               <svg className="absolute top-0 left-0 w-full h-full pointer-events-none z-0">
                 <defs>
                   <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-                    <polygon points="0 0, 10 3.5, 0 7" fill="#9CA3AF" />
+                    <polygon points="0 0, 10 3.5, 0 7" className="fill-muted-foreground" />
                   </marker>
                 </defs>
                 {connections.map(conn => (
                   <path 
                     key={conn.key} 
                     d={conn.path} 
-                    stroke="#9CA3AF" 
+                    stroke="currentColor" 
                     strokeWidth="2" 
                     fill="none" 
                     markerEnd="url(#arrowhead)"
-                    className="opacity-60 transition-all duration-300"
+                    className="opacity-40 text-muted-foreground transition-all duration-300"
                   />
                 ))}
               </svg>
@@ -240,7 +239,7 @@ export default function ChainVisualizer({ initialCompanies, viewerRoleLevel }: C
             
             {/* EMPTY STATE */}
             {!loading && columns.length === 0 && (
-                 <div className="absolute inset-0 flex flex-col items-center justify-center text-gray-500 gap-4 z-20">
+                 <div className="absolute inset-0 flex flex-col items-center justify-center text-muted-foreground gap-4 z-20">
                     <p>{initialCompanies.length === 0 
                         ? "Configuration error: No companies were loaded from the server."
                         : "No approval groups found for this company."}</p>
@@ -248,7 +247,7 @@ export default function ChainVisualizer({ initialCompanies, viewerRoleLevel }: C
                     {initialCompanies.length > 0 && selectedCompanyId && (
                         <button 
                             onClick={openGenesis}
-                            className="px-4 py-2 bg-indigo-600 text-white rounded-md shadow-sm hover:bg-indigo-700 transition-colors"
+                            className="px-4 py-2 bg-primary text-primary-foreground rounded-md shadow-sm hover:bg-primary/90 transition-colors"
                         >
                             + Create First Group
                         </button>

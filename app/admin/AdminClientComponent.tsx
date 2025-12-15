@@ -7,10 +7,10 @@ import GeneralSettingsTab from './tabs/GeneralSettingsTab'
 import InfractionsTab from './tabs/InfractionsTab'
 import RolesTab from './tabs/RolesTab'
 import CompaniesTab from './tabs/CompaniesTab' 
-import NotificationsTab from './tabs/NotificationsTab' // <--- NEW IMPORT
+import NotificationsTab from './tabs/NotificationsTab'
 
 // Lock Icon Helper
-const LockIcon = () => (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12 text-gray-400"><path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 0 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" /></svg>)
+const LockIcon = () => (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12 text-muted-foreground"><path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 0 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" /></svg>)
 
 export function AdminSettingsClient({ user }: { user: User }) {
   const supabase = createClient()
@@ -33,17 +33,32 @@ export function AdminSettingsClient({ user }: { user: User }) {
 
   if (!isVerified) {
     return (
-      <div className="flex min-h-[calc(100vh-64px)] items-center justify-center bg-gray-50 dark:bg-gray-900">
-        <div className="w-full max-w-md space-y-8 p-8 bg-white dark:bg-gray-800 shadow-lg rounded-xl">
+      <div className="flex min-h-[calc(100vh-64px)] items-center justify-center bg-background p-4">
+        <div className="w-full max-w-md space-y-8 p-8 bg-card border border-border shadow-lg rounded-xl animate-in fade-in zoom-in-95">
           <div className="flex flex-col items-center">
             <LockIcon />
-            <h2 className="mt-6 text-center text-2xl font-bold text-gray-900 dark:text-white">Admin Access</h2>
-            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">Verify password to continue.</p>
+            <h2 className="mt-6 text-center text-2xl font-bold text-foreground">Admin Access</h2>
+            <p className="mt-2 text-sm text-muted-foreground">Verify password to continue.</p>
           </div>
           <form className="space-y-6" onSubmit={handleVerifyPassword}>
-            <div><label className="block text-sm font-medium text-gray-700 dark:text-gray-300">Password</label><input type="password" required value={password} onChange={e => setPassword(e.target.value)} className="mt-1 block w-full rounded-md border-gray-300 dark:bg-gray-900 dark:border-gray-600 dark:text-white shadow-sm" /></div>
-            {authError && <p className="text-sm text-red-600">{authError}</p>}
-            <button type="submit" disabled={isLoading} className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 disabled:bg-gray-400">{isLoading ? 'Verifying...' : 'Unlock'}</button>
+            <div>
+              <label className="block text-sm font-medium text-foreground">Password</label>
+              <input 
+                type="password" 
+                required 
+                value={password} 
+                onChange={e => setPassword(e.target.value)} 
+                className="mt-1 block w-full rounded-md border-input bg-background text-foreground shadow-sm focus:border-primary focus:ring-primary" 
+              />
+            </div>
+            {authError && <p className="text-sm text-destructive">{authError}</p>}
+            <button 
+              type="submit" 
+              disabled={isLoading} 
+              className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-primary-foreground bg-primary hover:bg-primary/90 disabled:opacity-50 transition-colors"
+            >
+              {isLoading ? 'Verifying...' : 'Unlock'}
+            </button>
           </form>
         </div>
       </div>
@@ -51,52 +66,37 @@ export function AdminSettingsClient({ user }: { user: User }) {
   }
 
   return (
-    <div className="flex flex-col md:flex-row min-h-screen bg-gray-50 dark:bg-gray-900">
+    <div className="flex flex-col md:flex-row min-h-screen bg-background transition-colors">
       
       {/* SIDEBAR */}
-      <aside className="w-full md:w-64 bg-white dark:bg-gray-800 border-r dark:border-gray-700 md:min-h-screen flex-shrink-0">
-        <div className="p-6 border-b dark:border-gray-700">
-          <h1 className="text-xl font-bold text-gray-900 dark:text-white">Admin Settings</h1>
-          <p className="text-xs text-gray-500 mt-1">System Configuration</p>
+      <aside className="w-full md:w-64 bg-card border-r border-border md:min-h-screen flex-shrink-0">
+        <div className="p-6 border-b border-border">
+          <h1 className="text-xl font-bold text-foreground">Admin Settings</h1>
+          <p className="text-xs text-muted-foreground mt-1">System Configuration</p>
         </div>
         <nav className="p-4 space-y-2">
-          {/* ... Existing Buttons ... */}
-          <button 
-            onClick={() => setActiveTab('general')}
-            className={`w-full text-left px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'general' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-200' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'}`}
-          >
-            General
-          </button>
-          <button 
-            onClick={() => setActiveTab('infractions')}
-            className={`w-full text-left px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'infractions' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-200' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'}`}
-          >
-            Infractions & Demerits
-          </button>
-          <button 
-            onClick={() => setActiveTab('roles')}
-            className={`w-full text-left px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'roles' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-200' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'}`}
-          >
-            Roles & Hierarchy
-          </button>
-          <button 
-            onClick={() => setActiveTab('companies')}
-            className={`w-full text-left px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'companies' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-200' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'}`}
-          >
-            Companies & Units
-          </button>
-          {/* NEW TAB */}
-          <button 
-            onClick={() => setActiveTab('notifications')}
-            className={`w-full text-left px-4 py-2 rounded-md text-sm font-medium transition-colors ${activeTab === 'notifications' ? 'bg-indigo-50 text-indigo-700 dark:bg-indigo-900/50 dark:text-indigo-200' : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700'}`}
-          >
-            Notifications & Alerts
-          </button>
+          {['general', 'infractions', 'roles', 'companies', 'notifications'].map((tab) => (
+            <button 
+              key={tab}
+              onClick={() => setActiveTab(tab as any)}
+              className={`w-full text-left px-4 py-2 rounded-md text-sm font-medium transition-colors capitalize ${
+                activeTab === tab 
+                  ? 'bg-primary/10 text-primary' 
+                  : 'text-muted-foreground hover:bg-muted hover:text-foreground'
+              }`}
+            >
+              {tab === 'general' && 'General'}
+              {tab === 'infractions' && 'Infractions & Demerits'}
+              {tab === 'roles' && 'Roles & Hierarchy'}
+              {tab === 'companies' && 'Companies & Units'}
+              {tab === 'notifications' && 'Notifications & Alerts'}
+            </button>
+          ))}
         </nav>
       </aside>
 
       {/* MAIN CONTENT */}
-      <main className="flex-grow p-6 md:p-10 overflow-y-auto">
+      <main className="flex-grow p-6 md:p-10 overflow-y-auto bg-background/50">
         <div className="max-w-5xl mx-auto">
           {activeTab === 'general' && <GeneralSettingsTab />}
           {activeTab === 'infractions' && <InfractionsTab />}

@@ -182,8 +182,8 @@ export default function ManagePage() {
   }
 
   const SortIcon = ({ column }: { column: SortKey }) => {
-    if (sortConfig.key !== column) return <span className="text-gray-300 ml-1">⇅</span>
-    return <span className="text-indigo-600 dark:text-indigo-400 ml-1">{sortConfig.direction === 'asc' ? '↑' : '↓'}</span>
+    if (sortConfig.key !== column) return <span className="text-muted-foreground/30 ml-1">⇅</span>
+    return <span className="text-primary ml-1">{sortConfig.direction === 'asc' ? '↑' : '↓'}</span>
   }
 
   const handlePrintRoster = () => window.print()
@@ -264,7 +264,7 @@ export default function ManagePage() {
   }
 
   if (loading && unassigned.length === 0 && rosterData.length === 0) {
-    return <div className="max-w-7xl mx-auto p-8 text-center text-gray-500">Loading roster data...</div>
+    return <div className="max-w-7xl mx-auto p-8 text-center text-muted-foreground">Loading roster data...</div>
   }
 
   return (
@@ -281,20 +281,23 @@ export default function ManagePage() {
       <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 no-print">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Roster Management</h1>
-            <p className="text-gray-500 dark:text-gray-400 mt-1">Assign cadets to roles.</p>
+            <h1 className="text-3xl font-bold text-primary">Roster Management</h1>
+            <p className="text-muted-foreground mt-1">Assign cadets to roles.</p>
           </div>
 
           <div className="flex gap-3">
             {/* *** NEW: Link to Probation Page *** */}
             {canViewProbation && (
-                <Link href="/manage/probation" className="flex items-center gap-2 px-4 py-2 bg-red-50 dark:bg-red-950 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-100 rounded-md hover:bg-red-200 dark:hover:bg-red-800 transition-colors font-medium shadow-sm">
-                    <svg className="w-5 h-5 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
+                <Link 
+                  href="/manage/probation" 
+                  className="flex items-center gap-2 px-4 py-2 bg-destructive/5 text-destructive border border-destructive/20 rounded-md hover:bg-destructive/10 transition-colors font-medium shadow-sm"
+                >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" /></svg>
                     Manage Probation
                 </Link>
             )}
 
-            <Link href="/manage/roles" className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors font-medium shadow-sm">
+            <Link href="/manage/roles" className="btn-primary flex items-center gap-2">
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
                 </svg>
@@ -303,32 +306,41 @@ export default function ManagePage() {
           </div>
         </div>
         
-        {/* ... (Rest of the JSX remains exactly the same) ... */}
-        <div id="tour-roster-filters" className="mb-6 border-b border-gray-200 dark:border-gray-700 no-print">
+        {/* --- TABS --- */}
+        <div id="tour-roster-filters" className="mb-6 border-b border-border no-print">
           <nav className="-mb-px flex space-x-8" aria-label="Tabs">
-            <button onClick={() => setActiveTab('roster')} className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'roster' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`}>
+            <button 
+                onClick={() => setActiveTab('roster')} 
+                className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors ${activeTab === 'roster' ? 'border-primary text-primary' : 'border-transparent text-muted-foreground hover:text-foreground'}`}
+            >
               Cadet Roster
             </button>
             
             {isAdmin && (
-              <button onClick={() => setActiveTab('faculty')} className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'faculty' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`}>
+              <button 
+                onClick={() => setActiveTab('faculty')} 
+                className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors ${activeTab === 'faculty' ? 'border-primary text-primary' : 'border-transparent text-muted-foreground hover:text-foreground'}`}
+              >
                 Faculty & Staff
               </button>
             )}
 
-            <button onClick={() => setActiveTab('unassigned')} className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm ${activeTab === 'unassigned' ? 'border-indigo-500 text-indigo-600 dark:text-indigo-400' : 'border-transparent text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300'}`}>
+            <button 
+                onClick={() => setActiveTab('unassigned')} 
+                className={`whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm transition-colors ${activeTab === 'unassigned' ? 'border-primary text-primary' : 'border-transparent text-muted-foreground hover:text-foreground'}`}
+            >
               Unassigned 
               <span className="ml-1.5 inline-block py-0.5 px-2 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-200">{unassigned.length}</span>
             </button>
           </nav>
         </div>
         
-        {error && <div className="mb-6 p-4 text-center text-red-600 bg-red-50 rounded-lg border border-red-200">Error: {error}</div>}
+        {error && <div className="mb-6 p-4 text-center text-destructive bg-destructive/10 rounded-lg border border-destructive/20">Error: {error}</div>}
 
         {/* --- TAB 1: ROSTER --- */}
         <div id="printable-roster" className={activeTab === 'roster' ? '' : 'hidden'}>
           <div className="flex justify-end mb-4 no-print">
-            <button onClick={handlePrintRoster} className="text-sm text-gray-500 hover:text-gray-700 dark:hover:text-gray-300 underline">Print Roster</button>
+            <button onClick={handlePrintRoster} className="text-sm text-muted-foreground hover:text-primary underline">Print Roster</button>
           </div>
           <RosterClient initialData={rosterData} canEditProfiles={canEditProfiles} canManage={canManage} companies={companies} onReassign={handleReassign} variant="cadet" />
         </div>
@@ -347,43 +359,43 @@ export default function ManagePage() {
 
         {/* --- TAB 3: UNASSIGNED --- */}
         <div className={`no-print ${activeTab === 'unassigned' ? '' : 'hidden'}`}>
-           <div className="bg-white dark:bg-gray-800 shadow-sm border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
-            <div className="p-4 border-b border-gray-200 dark:border-gray-700 flex flex-col sm:flex-row justify-between items-center gap-4 bg-gray-50 dark:bg-gray-900/50">
+           <div className="bg-card shadow-sm border border-border rounded-lg overflow-hidden">
+            <div className="p-4 border-b border-border flex flex-col sm:flex-row justify-between items-center gap-4 bg-muted/30">
               <div className="flex items-center gap-2">
-                <input type="checkbox" className="rounded border-gray-300 dark:border-gray-600" checked={unassigned.length > 0 && selectedIds.size === unassigned.length} onChange={handleSelectAll} />
-                <span className="text-sm font-medium text-gray-700 dark:text-gray-300">{selectedIds.size} selected</span>
+                <input type="checkbox" className="rounded border-input text-primary focus:ring-primary" checked={unassigned.length > 0 && selectedIds.size === unassigned.length} onChange={handleSelectAll} />
+                <span className="text-sm font-medium text-foreground">{selectedIds.size} selected</span>
               </div>
               <div className="flex gap-2">
-                <button onClick={openModal} disabled={selectedIds.size === 0} className="px-4 py-2 bg-indigo-600 text-white rounded-md text-sm font-medium hover:bg-indigo-700 disabled:opacity-50 shadow-sm flex items-center gap-2"><span>Assign Selected...</span></button>
+                <button onClick={openModal} disabled={selectedIds.size === 0} className="px-4 py-2 bg-primary text-primary-foreground rounded-md text-sm font-medium hover:bg-primary/90 disabled:opacity-50 shadow-sm flex items-center gap-2"><span>Assign Selected...</span></button>
               </div>
             </div>
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
-                <thead className="bg-gray-50 dark:bg-gray-700/50">
+              <table className="min-w-full divide-y divide-border">
+                <thead className="bg-muted/50">
                   <tr>
                     <th scope="col" className="w-12 px-6 py-3"></th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('name')}>Name <SortIcon column="name"/></th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('created_at')}>Date Joined <SortIcon column="created_at"/></th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('company')}>Company <SortIcon column="company"/></th>
-                    <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-gray-600 dark:text-gray-300 uppercase tracking-wider cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600" onClick={() => handleSort('role')}>Role <SortIcon column="role"/></th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-muted-foreground uppercase tracking-wider cursor-pointer hover:bg-accent hover:text-foreground" onClick={() => handleSort('name')}>Name <SortIcon column="name"/></th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-muted-foreground uppercase tracking-wider cursor-pointer hover:bg-accent hover:text-foreground" onClick={() => handleSort('created_at')}>Date Joined <SortIcon column="created_at"/></th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-muted-foreground uppercase tracking-wider cursor-pointer hover:bg-accent hover:text-foreground" onClick={() => handleSort('company')}>Company <SortIcon column="company"/></th>
+                    <th scope="col" className="px-6 py-3 text-left text-xs font-bold text-muted-foreground uppercase tracking-wider cursor-pointer hover:bg-accent hover:text-foreground" onClick={() => handleSort('role')}>Role <SortIcon column="role"/></th>
                   </tr>
                 </thead>
-                <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
+                <tbody className="bg-card divide-y divide-border">
                   {sortedUnassigned.length > 0 ? sortedUnassigned.map(u => (
                     <tr 
                         key={u.user_id} 
                         onClick={() => { setSelectedIds(new Set([u.user_id])); openModal(); }} 
-                        className="hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors cursor-pointer"
+                        className="hover:bg-accent transition-colors cursor-pointer"
                     >
                       <td className="px-6 py-4 whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
-                        <input type="checkbox" className="rounded border-gray-300 dark:border-gray-600 h-4 w-4 text-indigo-600" checked={selectedIds.has(u.user_id)} onChange={() => handleSelectRow(u.user_id)} onClick={(e) => e.stopPropagation()} />
+                        <input type="checkbox" className="rounded border-input text-primary focus:ring-primary h-4 w-4" checked={selectedIds.has(u.user_id)} onChange={() => handleSelectRow(u.user_id)} onClick={(e) => e.stopPropagation()} />
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{u.last_name}, {u.first_name}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{new Date(u.created_at).toLocaleDateString()}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm">{u.company_name ? <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">{u.company_name}</span> : <span className="text-red-500 dark:text-red-400 text-xs italic">Unassigned</span>}</td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm">{u.role_name ? <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">{u.role_name}</span> : <span className="text-red-500 dark:text-red-400 text-xs italic">Unassigned</span>}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-foreground">{u.last_name}, {u.first_name}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground">{new Date(u.created_at).toLocaleDateString()}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm">{u.company_name ? <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">{u.company_name}</span> : <span className="text-destructive text-xs italic">Unassigned</span>}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm">{u.role_name ? <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">{u.role_name}</span> : <span className="text-destructive text-xs italic">Unassigned</span>}</td>
                     </tr>
-                  )) : <tr><td colSpan={5} className="px-6 py-10 text-center text-sm text-gray-500 dark:text-gray-400">No unassigned profiles found.</td></tr>}
+                  )) : <tr><td colSpan={5} className="px-6 py-10 text-center text-sm text-muted-foreground">No unassigned profiles found.</td></tr>}
                 </tbody>
               </table>
             </div>
@@ -396,38 +408,38 @@ export default function ManagePage() {
       {modalOpen && (
         <div className="fixed inset-0 z-50 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
           <div className="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
-            <div className="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" onClick={() => setModalOpen(false)}></div>
-            <div className="relative inline-block align-bottom bg-white dark:bg-gray-800 rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full">
-              <div className="bg-white dark:bg-gray-800 px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div className="fixed inset-0 bg-background/80 backdrop-blur-sm transition-opacity" onClick={() => setModalOpen(false)}></div>
+            <div className="relative inline-block align-bottom bg-card rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg w-full border border-border">
+              <div className="bg-card px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <div className="sm:flex sm:items-start mb-4">
                   <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                    <h3 className="text-lg leading-6 font-medium text-gray-900 dark:text-white" id="modal-title">
+                    <h3 className="text-lg leading-6 font-medium text-foreground" id="modal-title">
                         {getModalTitle()}
                     </h3>
-                    <div className="mt-2"><p className="text-sm text-gray-500 dark:text-gray-400">Assigning {selectedIds.size} users. Leave a field blank to keep it unchanged.</p></div>
+                    <div className="mt-2"><p className="text-sm text-muted-foreground">Assigning {selectedIds.size} users. Leave a field blank to keep it unchanged.</p></div>
                   </div>
                 </div>
                 <div className="space-y-4 px-4 sm:px-0">
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Company</label>
-                    <select value={targetCompanyId} onChange={(e) => setTargetCompanyId(e.target.value)} className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                    <label className="block text-sm font-medium text-foreground mb-1">Company</label>
+                    <select value={targetCompanyId} onChange={(e) => setTargetCompanyId(e.target.value)} className="input-base">
                       <option value="">-- No Change --</option>
                       {companies.map(c => <option key={c.id} value={c.id}>{c.company_name}</option>)}
                     </select>
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Role</label>
-                    <select value={targetRoleId} onChange={(e) => handleRoleChange(e.target.value)} className="block w-full pl-3 pr-10 py-2 text-base border-gray-300 dark:border-gray-600 dark:bg-gray-900 dark:text-white focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md">
+                    <label className="block text-sm font-medium text-foreground mb-1">Role</label>
+                    <select value={targetRoleId} onChange={(e) => handleRoleChange(e.target.value)} className="input-base">
                       <option value="">-- No Change --</option>
                       {availableRoles.map(r => <option key={r.id} value={r.id}>{r.role_name} (Lvl {r.default_role_level})</option>)}
                     </select>
-                    {targetCompanyId && <p className="mt-1 text-xs text-gray-500">Showing only roles available for this company (and global roles).</p>}
+                    {targetCompanyId && <p className="mt-1 text-xs text-muted-foreground">Showing only roles available for this company (and global roles).</p>}
                   </div>
                 </div>
               </div>
-              <div className="bg-gray-50 dark:bg-gray-700/30 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <button type="button" disabled={isSubmitting} onClick={handleSubmitAssignment} className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-indigo-600 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50">{isSubmitting ? 'Saving...' : 'Save Assignments'}</button>
-                <button type="button" onClick={() => setModalOpen(false)} className="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 dark:border-gray-600 shadow-sm px-4 py-2 bg-white dark:bg-gray-800 text-base font-medium text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Cancel</button>
+              <div className="bg-muted/30 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse border-t border-border">
+                <button type="button" disabled={isSubmitting} onClick={handleSubmitAssignment} className="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-primary text-base font-medium text-primary-foreground hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50">{isSubmitting ? 'Saving...' : 'Save Assignments'}</button>
+                <button type="button" onClick={() => setModalOpen(false)} className="mt-3 w-full inline-flex justify-center rounded-md border border-input shadow-sm px-4 py-2 bg-background text-base font-medium text-foreground hover:bg-accent focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">Cancel</button>
               </div>
             </div>
           </div>

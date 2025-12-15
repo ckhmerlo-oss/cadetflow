@@ -76,7 +76,7 @@ async function SportsDashboardPage() {
         className: "max-w-7xl mx-auto p-4 sm:p-6 lg:p-8",
         children: [
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
-                className: "text-3xl font-bold text-gray-900 dark:text-white mb-2",
+                className: "text-3xl font-bold text-primary mb-2",
                 children: "Sports Management"
             }, void 0, false, {
                 fileName: "[project]/app/sports/page.tsx",
@@ -84,7 +84,7 @@ async function SportsDashboardPage() {
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                className: "text-gray-500 dark:text-gray-400 mb-8",
+                className: "text-muted-foreground mb-8",
                 children: "Manage rosters, schedules, and coaching assignments."
             }, void 0, false, {
                 fileName: "[project]/app/sports/page.tsx",
