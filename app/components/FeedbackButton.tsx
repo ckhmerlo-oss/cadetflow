@@ -21,7 +21,7 @@ export default function FeedbackButton({ variant = 'icon' }: FeedbackButtonProps
   const [success, setSuccess] = useState(false)
 
   const handleOpen = () => {
-    setError(null); setSuccess(false); setContent(''); setFeedbackType('bug'); setModalOpen(true)
+    //setError(null); setSuccess(false); setContent(''); setFeedbackType('bug'); setModalOpen(true)
   }
 
   const handleClose = () => { setModalOpen(false) }

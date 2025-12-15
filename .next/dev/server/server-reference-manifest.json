@@ -2,20 +2,8 @@
   "node": {
     "00e4f1a0ba0cc7d8a046021ef05aa736acf6732c44": {
       "workers": {
-        "app/action-items/page": {
-          "moduleId": "[project]/.next-internal/server/app/action-items/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "getFacultyList",
-          "filename": "app/incidents/actions.ts"
-        },
         "app/incidents/[id]/page": {
           "moduleId": "[project]/.next-internal/server/app/incidents/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "getFacultyList",
-          "filename": "app/incidents/actions.ts"
-        },
-        "app/incidents/page": {
-          "moduleId": "[project]/.next-internal/server/app/incidents/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
           "exportedName": "getFacultyList",
           "filename": "app/incidents/actions.ts"
@@ -28,9 +16,7 @@
         }
       },
       "layer": {
-        "app/action-items/page": "rsc",
         "app/incidents/[id]/page": "rsc",
-        "app/incidents/page": "action-browser",
         "app/page": "rsc"
       },
       "filename": "app/incidents/actions.ts",
@@ -38,20 +24,8 @@
     },
     "406e64145935d3c85c96a65916dd8989009b3202e5": {
       "workers": {
-        "app/action-items/page": {
-          "moduleId": "[project]/.next-internal/server/app/action-items/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "getIncidents",
-          "filename": "app/incidents/actions.ts"
-        },
         "app/incidents/[id]/page": {
           "moduleId": "[project]/.next-internal/server/app/incidents/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "getIncidents",
-          "filename": "app/incidents/actions.ts"
-        },
-        "app/incidents/page": {
-          "moduleId": "[project]/.next-internal/server/app/incidents/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
           "exportedName": "getIncidents",
           "filename": "app/incidents/actions.ts"
@@ -64,9 +38,7 @@
         }
       },
       "layer": {
-        "app/action-items/page": "rsc",
         "app/incidents/[id]/page": "rsc",
-        "app/incidents/page": "rsc",
         "app/page": "rsc"
       },
       "filename": "app/incidents/actions.ts",
@@ -74,20 +46,8 @@
     },
     "408344156e4ed25a1fde2a16b1330b0e00502be22b": {
       "workers": {
-        "app/action-items/page": {
-          "moduleId": "[project]/.next-internal/server/app/action-items/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "getIncident",
-          "filename": "app/incidents/actions.ts"
-        },
         "app/incidents/[id]/page": {
           "moduleId": "[project]/.next-internal/server/app/incidents/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "getIncident",
-          "filename": "app/incidents/actions.ts"
-        },
-        "app/incidents/page": {
-          "moduleId": "[project]/.next-internal/server/app/incidents/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
           "exportedName": "getIncident",
           "filename": "app/incidents/actions.ts"
@@ -100,9 +60,7 @@
         }
       },
       "layer": {
-        "app/action-items/page": "rsc",
         "app/incidents/[id]/page": "rsc",
-        "app/incidents/page": "rsc",
         "app/page": "rsc"
       },
       "filename": "app/incidents/actions.ts",
@@ -110,26 +68,8 @@
     },
     "40ea4824ebb15e230302cbedc00d4d62f0c65d0aa6": {
       "workers": {
-        "app/action-items/page": {
-          "moduleId": "[project]/.next-internal/server/app/action-items/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "submitIncident",
-          "filename": "app/incidents/actions.ts"
-        },
         "app/incidents/[id]/page": {
           "moduleId": "[project]/.next-internal/server/app/incidents/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "submitIncident",
-          "filename": "app/incidents/actions.ts"
-        },
-        "app/incidents/create/page": {
-          "moduleId": "[project]/.next-internal/server/app/incidents/create/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "submitIncident",
-          "filename": "app/incidents/actions.ts"
-        },
-        "app/incidents/page": {
-          "moduleId": "[project]/.next-internal/server/app/incidents/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
           "exportedName": "submitIncident",
           "filename": "app/incidents/actions.ts"
@@ -142,10 +82,7 @@
         }
       },
       "layer": {
-        "app/action-items/page": "rsc",
         "app/incidents/[id]/page": "rsc",
-        "app/incidents/create/page": "action-browser",
-        "app/incidents/page": "rsc",
         "app/page": "rsc"
       },
       "filename": "app/incidents/actions.ts",
@@ -153,20 +90,8 @@
     },
     "7035c2aaaf1773684eb282a8a9910abbd39397ec48": {
       "workers": {
-        "app/action-items/page": {
-          "moduleId": "[project]/.next-internal/server/app/action-items/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "resolveAsHandled",
-          "filename": "app/incidents/actions.ts"
-        },
         "app/incidents/[id]/page": {
           "moduleId": "[project]/.next-internal/server/app/incidents/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "resolveAsHandled",
-          "filename": "app/incidents/actions.ts"
-        },
-        "app/incidents/page": {
-          "moduleId": "[project]/.next-internal/server/app/incidents/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
           "exportedName": "resolveAsHandled",
           "filename": "app/incidents/actions.ts"
@@ -179,9 +104,7 @@
         }
       },
       "layer": {
-        "app/action-items/page": "rsc",
         "app/incidents/[id]/page": "action-browser",
-        "app/incidents/page": "action-browser",
         "app/page": "rsc"
       },
       "filename": "app/incidents/actions.ts",
@@ -189,20 +112,8 @@
     },
     "7076eee2a0cf223033228c5b7d0ef86c0eebc0d9f7": {
       "workers": {
-        "app/action-items/page": {
-          "moduleId": "[project]/.next-internal/server/app/action-items/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "convertToDemerit",
-          "filename": "app/incidents/actions.ts"
-        },
         "app/incidents/[id]/page": {
           "moduleId": "[project]/.next-internal/server/app/incidents/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "convertToDemerit",
-          "filename": "app/incidents/actions.ts"
-        },
-        "app/incidents/page": {
-          "moduleId": "[project]/.next-internal/server/app/incidents/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
           "exportedName": "convertToDemerit",
           "filename": "app/incidents/actions.ts"
@@ -215,73 +126,11 @@
         }
       },
       "layer": {
-        "app/action-items/page": "rsc",
         "app/incidents/[id]/page": "action-browser",
-        "app/incidents/page": "action-browser",
         "app/page": "rsc"
       },
       "filename": "app/incidents/actions.ts",
       "exportedName": "convertToDemerit"
-    },
-    "601965a4035ba6a536f826c0aa7efe7c152e3c9d1f": {
-      "workers": {
-        "app/reports/pending/page": {
-          "moduleId": "[project]/.next-internal/server/app/reports/pending/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/reports/pending/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "fetchPendingReports",
-          "filename": "app/reports/pending/actions.ts"
-        }
-      },
-      "layer": {
-        "app/reports/pending/page": "action-browser"
-      },
-      "filename": "app/reports/pending/actions.ts",
-      "exportedName": "fetchPendingReports"
-    },
-    "601825c1ce798c77ae07c6930e3a294bdc9c1e2f2a": {
-      "workers": {
-        "app/report/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/report/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/report/[id]/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "pullReportAction",
-          "filename": "app/report/[id]/actions.ts"
-        }
-      },
-      "layer": {
-        "app/report/[id]/page": "action-browser"
-      },
-      "filename": "app/report/[id]/actions.ts",
-      "exportedName": "pullReportAction"
-    },
-    "603a47877742303afc33baf0bf80c9229af4e52ef8": {
-      "workers": {
-        "app/manage/page": {
-          "moduleId": "[project]/.next-internal/server/app/manage/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "bulkAssignCompany",
-          "filename": "app/manage/actions.ts"
-        }
-      },
-      "layer": {
-        "app/manage/page": "action-browser"
-      },
-      "filename": "app/manage/actions.ts",
-      "exportedName": "bulkAssignCompany"
-    },
-    "60532683f7b9907727bf29a27c70ffe98877d06a86": {
-      "workers": {
-        "app/manage/page": {
-          "moduleId": "[project]/.next-internal/server/app/manage/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "bulkAssignRole",
-          "filename": "app/manage/actions.ts"
-        }
-      },
-      "layer": {
-        "app/manage/page": "action-browser"
-      },
-      "filename": "app/manage/actions.ts",
-      "exportedName": "bulkAssignRole"
     },
     "00bbeb251e9c0d92f5c1d1ca0bd9f7292fb081a58d": {
       "workers": {
@@ -298,254 +147,23 @@
       "filename": "app/lib/server.ts",
       "exportedName": "triggerGreenSheetBlast"
     },
-    "00dc6738ea2cdae7f1ccc0e1f8d6b98c6212ede619": {
+    "601825c1ce798c77ae07c6930e3a294bdc9c1e2f2a": {
       "workers": {
-        "app/tours/page": {
-          "moduleId": "[project]/.next-internal/server/app/tours/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/tours/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/report/[id]/page": {
+          "moduleId": "[project]/.next-internal/server/app/report/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/report/[id]/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "getAllTourLogs",
-          "filename": "app/tours/actions.ts"
+          "exportedName": "pullReportAction",
+          "filename": "app/report/[id]/actions.ts"
         }
       },
       "layer": {
-        "app/tours/page": "rsc"
+        "app/report/[id]/page": "action-browser"
       },
-      "filename": "app/tours/actions.ts",
-      "exportedName": "getAllTourLogs"
-    },
-    "008fbc271881ddee72adfba1676c6cc41077ba8b77": {
-      "workers": {
-        "app/manage/probation/page": {
-          "moduleId": "[project]/.next-internal/server/app/manage/probation/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/probation/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "getAllCadetsForSelection",
-          "filename": "app/manage/probation/actions.ts"
-        }
-      },
-      "layer": {
-        "app/manage/probation/page": "rsc"
-      },
-      "filename": "app/manage/probation/actions.ts",
-      "exportedName": "getAllCadetsForSelection"
-    },
-    "00fdd36ebe821b6e761053b3c7bc8507c31cafecbf": {
-      "workers": {
-        "app/manage/probation/page": {
-          "moduleId": "[project]/.next-internal/server/app/manage/probation/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/probation/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "getProbationList",
-          "filename": "app/manage/probation/actions.ts"
-        }
-      },
-      "layer": {
-        "app/manage/probation/page": "rsc"
-      },
-      "filename": "app/manage/probation/actions.ts",
-      "exportedName": "getProbationList"
-    },
-    "70071ecd57b17bfb5f2dc2705ccda0a55905c97ca6": {
-      "workers": {
-        "app/manage/probation/page": {
-          "moduleId": "[project]/.next-internal/server/app/manage/probation/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/probation/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "updateCadetProbation",
-          "filename": "app/manage/probation/actions.ts"
-        }
-      },
-      "layer": {
-        "app/manage/probation/page": "action-browser"
-      },
-      "filename": "app/manage/probation/actions.ts",
-      "exportedName": "updateCadetProbation"
-    },
-    "40f822964e4558426439eaf89829b99701c5e902f5": {
-      "workers": {
-        "app/manage/roles/page": {
-          "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "getCompanyChain",
-          "filename": "app/manage/roles/actions.ts"
-        }
-      },
-      "layer": {
-        "app/manage/roles/page": "action-browser"
-      },
-      "filename": "app/manage/roles/actions.ts",
-      "exportedName": "getCompanyChain"
-    },
-    "4016bb68d9cf66d294d1ba16e7a69df06b10582128": {
-      "workers": {
-        "app/manage/roles/page": {
-          "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "deleteGroupAction",
-          "filename": "app/manage/roles/actions.ts"
-        }
-      },
-      "layer": {
-        "app/manage/roles/page": "action-browser"
-      },
-      "filename": "app/manage/roles/actions.ts",
-      "exportedName": "deleteGroupAction"
-    },
-    "78079b3c073a3793d07e63f99a88ba3a28fa1e70c4": {
-      "workers": {
-        "app/manage/roles/page": {
-          "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "createGroupAction",
-          "filename": "app/manage/roles/actions.ts"
-        }
-      },
-      "layer": {
-        "app/manage/roles/page": "action-browser"
-      },
-      "filename": "app/manage/roles/actions.ts",
-      "exportedName": "createGroupAction"
-    },
-    "781b8c91e00c51cec97ea6f3ef449d49978b40516a": {
-      "workers": {
-        "app/manage/roles/page": {
-          "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "createSubordinateGroupAction",
-          "filename": "app/manage/roles/actions.ts"
-        }
-      },
-      "layer": {
-        "app/manage/roles/page": "action-browser"
-      },
-      "filename": "app/manage/roles/actions.ts",
-      "exportedName": "createSubordinateGroupAction"
-    },
-    "00ae9ae6ba58b134ae0dcbb1048b635e73b23ee2bd": {
-      "workers": {
-        "app/manage/roles/page": {
-          "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "getAllApprovalGroups",
-          "filename": "app/manage/roles/actions.ts"
-        }
-      },
-      "layer": {
-        "app/manage/roles/page": "action-browser"
-      },
-      "filename": "app/manage/roles/actions.ts",
-      "exportedName": "getAllApprovalGroups"
-    },
-    "40d1742e2232c673b4b92bd7a1a01d3d91b6ef8390": {
-      "workers": {
-        "app/manage/roles/page": {
-          "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "getGroupRoles",
-          "filename": "app/manage/roles/actions.ts"
-        }
-      },
-      "layer": {
-        "app/manage/roles/page": "action-browser"
-      },
-      "filename": "app/manage/roles/actions.ts",
-      "exportedName": "getGroupRoles"
-    },
-    "40c44b7d62b9d33af21c6e0e829e12736ada41a06f": {
-      "workers": {
-        "app/manage/roles/page": {
-          "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "getCompanyRoles",
-          "filename": "app/manage/roles/actions.ts"
-        }
-      },
-      "layer": {
-        "app/manage/roles/page": "action-browser"
-      },
-      "filename": "app/manage/roles/actions.ts",
-      "exportedName": "getCompanyRoles"
-    },
-    "608d78a921def9249bf4f244e6cff42c63651c6157": {
-      "workers": {
-        "app/manage/roles/page": {
-          "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "assignRoleToGroupAction",
-          "filename": "app/manage/roles/actions.ts"
-        }
-      },
-      "layer": {
-        "app/manage/roles/page": "action-browser"
-      },
-      "filename": "app/manage/roles/actions.ts",
-      "exportedName": "assignRoleToGroupAction"
-    },
-    "4043f145d74fb551c0f220d4655fa7d3b096b01be1": {
-      "workers": {
-        "app/manage/roles/page": {
-          "moduleId": "[project]/.next-internal/server/app/manage/roles/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/manage/roles/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "unassignRoleAction",
-          "filename": "app/manage/roles/actions.ts"
-        }
-      },
-      "layer": {
-        "app/manage/roles/page": "action-browser"
-      },
-      "filename": "app/manage/roles/actions.ts",
-      "exportedName": "unassignRoleAction"
-    },
-    "60e5c7fb23ffb8c9c0e2856c0fd39d4c9a2aa7ebfd": {
-      "workers": {
-        "app/reports/history/page": {
-          "moduleId": "[project]/.next-internal/server/app/reports/history/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/reports/history/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "fetchReportHistory",
-          "filename": "app/reports/history/actions.ts"
-        }
-      },
-      "layer": {
-        "app/reports/history/page": "action-browser"
-      },
-      "filename": "app/reports/history/actions.ts",
-      "exportedName": "fetchReportHistory"
-    },
-    "602f956fc8255f8d77d4dae1b2d77c1cd1c5028578": {
-      "workers": {
-        "app/reports/submitted/page": {
-          "moduleId": "[project]/.next-internal/server/app/reports/submitted/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/reports/submitted/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "fetchSubmittedReports",
-          "filename": "app/reports/submitted/actions.ts"
-        }
-      },
-      "layer": {
-        "app/reports/submitted/page": "action-browser"
-      },
-      "filename": "app/reports/submitted/actions.ts",
-      "exportedName": "fetchSubmittedReports"
-    },
-    "40f919fd8d7486307a60549f7a4083a3a4a9d90a1a": {
-      "workers": {
-        "app/submit/page": {
-          "moduleId": "[project]/.next-internal/server/app/submit/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/submit/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "submitReport",
-          "filename": "app/submit/actions.ts"
-        }
-      },
-      "layer": {
-        "app/submit/page": "action-browser"
-      },
-      "filename": "app/submit/actions.ts",
-      "exportedName": "submitReport"
+      "filename": "app/report/[id]/actions.ts",
+      "exportedName": "pullReportAction"
     },
     "0056f82085b8a9696d7538953646288bff9ffd913c": {
       "workers": {
-        "app/sports/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "getGlobalUpcomingEvents",
-          "filename": "app/sports/actions.ts"
-        },
         "app/sports/page": {
           "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
@@ -554,7 +172,6 @@
         }
       },
       "layer": {
-        "app/sports/[id]/page": "rsc",
         "app/sports/page": "rsc"
       },
       "filename": "app/sports/actions.ts",
@@ -562,12 +179,6 @@
     },
     "4020939cefe5ed57a621e116e4fae7b42139699381": {
       "workers": {
-        "app/sports/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "claimHeadCoach",
-          "filename": "app/sports/actions.ts"
-        },
         "app/sports/page": {
           "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
@@ -576,7 +187,6 @@
         }
       },
       "layer": {
-        "app/sports/[id]/page": "action-browser",
         "app/sports/page": "rsc"
       },
       "filename": "app/sports/actions.ts",
@@ -584,12 +194,6 @@
     },
     "4054e673984498214f2c0017bd88e2e13ce72d3eee": {
       "workers": {
-        "app/sports/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "getSportDetail",
-          "filename": "app/sports/actions.ts"
-        },
         "app/sports/page": {
           "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
@@ -598,7 +202,6 @@
         }
       },
       "layer": {
-        "app/sports/[id]/page": "rsc",
         "app/sports/page": "rsc"
       },
       "filename": "app/sports/actions.ts",
@@ -606,12 +209,6 @@
     },
     "406da3cc3a7863d208c65296d2a20a9d8453b4070e": {
       "workers": {
-        "app/sports/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "searchCadets",
-          "filename": "app/sports/actions.ts"
-        },
         "app/sports/page": {
           "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
@@ -620,7 +217,6 @@
         }
       },
       "layer": {
-        "app/sports/[id]/page": "action-browser",
         "app/sports/page": "rsc"
       },
       "filename": "app/sports/actions.ts",
@@ -628,12 +224,6 @@
     },
     "408fdd430e78ed2c34877d73295eaadcfb25b907ca": {
       "workers": {
-        "app/sports/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "getSportsList",
-          "filename": "app/sports/actions.ts"
-        },
         "app/sports/page": {
           "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
@@ -642,7 +232,6 @@
         }
       },
       "layer": {
-        "app/sports/[id]/page": "rsc",
         "app/sports/page": "rsc"
       },
       "filename": "app/sports/actions.ts",
@@ -650,12 +239,6 @@
     },
     "40945801c6a903306bf62a35b89a8a584588570bbc": {
       "workers": {
-        "app/sports/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "getUnassignedCadets",
-          "filename": "app/sports/actions.ts"
-        },
         "app/sports/page": {
           "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
@@ -664,7 +247,6 @@
         }
       },
       "layer": {
-        "app/sports/[id]/page": "rsc",
         "app/sports/page": "rsc"
       },
       "filename": "app/sports/actions.ts",
@@ -672,12 +254,6 @@
     },
     "40eadd2b43fd360d4359d65c22f03ac48ffbe4b0e9": {
       "workers": {
-        "app/sports/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "searchFaculty",
-          "filename": "app/sports/actions.ts"
-        },
         "app/sports/page": {
           "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
@@ -686,7 +262,6 @@
         }
       },
       "layer": {
-        "app/sports/[id]/page": "action-browser",
         "app/sports/page": "rsc"
       },
       "filename": "app/sports/actions.ts",
@@ -694,12 +269,6 @@
     },
     "6060891285bef1542b3c8ef70074a0a73715b21da1": {
       "workers": {
-        "app/sports/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "removeCoach",
-          "filename": "app/sports/actions.ts"
-        },
         "app/sports/page": {
           "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
@@ -708,7 +277,6 @@
         }
       },
       "layer": {
-        "app/sports/[id]/page": "action-browser",
         "app/sports/page": "rsc"
       },
       "filename": "app/sports/actions.ts",
@@ -716,12 +284,6 @@
     },
     "6068b5e3a8a240c51dad114b9fc718ae2b8a54d71d": {
       "workers": {
-        "app/sports/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "removeEvent",
-          "filename": "app/sports/actions.ts"
-        },
         "app/sports/page": {
           "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
@@ -730,7 +292,6 @@
         }
       },
       "layer": {
-        "app/sports/[id]/page": "action-browser",
         "app/sports/page": "rsc"
       },
       "filename": "app/sports/actions.ts",
@@ -738,12 +299,6 @@
     },
     "60c86d0ef03983751c53ba7082803f97a5eb86c01e": {
       "workers": {
-        "app/sports/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "addEvent",
-          "filename": "app/sports/actions.ts"
-        },
         "app/sports/page": {
           "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
@@ -752,7 +307,6 @@
         }
       },
       "layer": {
-        "app/sports/[id]/page": "action-browser",
         "app/sports/page": "rsc"
       },
       "filename": "app/sports/actions.ts",
@@ -760,12 +314,6 @@
     },
     "60dc33324981360b154f2062090e84adbdad188b7a": {
       "workers": {
-        "app/sports/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "removeFromRoster",
-          "filename": "app/sports/actions.ts"
-        },
         "app/sports/page": {
           "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
@@ -774,7 +322,6 @@
         }
       },
       "layer": {
-        "app/sports/[id]/page": "action-browser",
         "app/sports/page": "rsc"
       },
       "filename": "app/sports/actions.ts",
@@ -782,12 +329,6 @@
     },
     "701e58f962f41130ecac5fe0e31518c93f33a2d7d4": {
       "workers": {
-        "app/sports/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "addToRoster",
-          "filename": "app/sports/actions.ts"
-        },
         "app/sports/page": {
           "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
@@ -796,7 +337,6 @@
         }
       },
       "layer": {
-        "app/sports/[id]/page": "action-browser",
         "app/sports/page": "rsc"
       },
       "filename": "app/sports/actions.ts",
@@ -804,12 +344,6 @@
     },
     "70301ed3650afacdc4e176b675b530fd7678292649": {
       "workers": {
-        "app/sports/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/sports/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "addAssistantCoach",
-          "filename": "app/sports/actions.ts"
-        },
         "app/sports/page": {
           "moduleId": "[project]/.next-internal/server/app/sports/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/sports/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
@@ -818,7 +352,6 @@
         }
       },
       "layer": {
-        "app/sports/[id]/page": "action-browser",
         "app/sports/page": "rsc"
       },
       "filename": "app/sports/actions.ts",
