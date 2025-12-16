@@ -61,6 +61,8 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$api$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__$3c$locals$3e$__ = __turbopack_context__.i("[project]/node_modules/next/dist/api/navigation.react-server.js [app-rsc] (ecmascript) <locals>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/components/navigation.react-server.js [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$profile$2f5b$id$5d2f$ProfileClient$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/profile/[id]/ProfileClient.tsx [app-rsc] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$options$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/lib/options.ts [app-rsc] (ecmascript)"); // Ensure this file exists from previous step!
+;
 ;
 ;
 ;
@@ -71,12 +73,14 @@ async function ProfilePage({ params }) {
     const { id } = resolvedParams;
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["redirect"])('/login');
-    // Fetch Viewer
+    // 1. FETCH DROPDOWNS (This was missing/failing)
+    const dropdowns = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$options$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getProfileDropdowns"])();
+    // 2. Fetch Viewer Profile
     const { data: viewerProfile } = await supabase.from('profiles').select(`id, company_id, is_site_admin, role:role_id (default_role_level, can_manage_all_rosters, can_manage_own_company_roster)`).eq('id', user.id).single();
-    // Fetch Profile
+    // 3. Fetch Target Profile
     const { data: profile, error } = await supabase.from('profiles').select(`*, company:companies(id, company_name), role:roles(id, role_name, default_role_level)`).eq('id', id).single();
     if (error || !profile) (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["notFound"])();
-    // Calculate Stats
+    // 4. Calculate Stats
     const { data: rawStats } = await supabase.rpc('get_cadet_ledger_stats', {
         p_cadet_id: profile.id
     }).single();
@@ -85,12 +89,11 @@ async function ProfilePage({ params }) {
         ...profile,
         term_demerits: stats?.term_demerits || 0,
         year_demerits: stats?.year_demerits || 0,
-        // Use the calculation function for accuracy, or fallback to cache
         current_tour_balance: profile.cached_tour_balance,
         is_on_probation: profile.probation_status !== 'None' && profile.probation_status !== null,
         conduct_status: (stats?.term_demerits || 0) >= 100 ? 'Unsatisfactory' : (stats?.term_demerits || 0) >= 60 ? 'Deficient' : 'Satisfactory'
     };
-    // Permissions
+    // 5. Permissions
     const viewerRole = viewerProfile?.role;
     const canManageAll = viewerRole?.can_manage_all_rosters || false;
     const canManageOwn = viewerRole?.can_manage_own_company_roster || false;
@@ -98,7 +101,7 @@ async function ProfilePage({ params }) {
     let canEdit = false;
     if (isSiteAdmin || canManageAll) canEdit = true;
     else if (canManageOwn && profile.company_id && profile.company_id === viewerProfile?.company_id) canEdit = true;
-    // Fetch Audit Log
+    // 6. Fetch Audit Log
     const { data: auditLog } = await supabase.rpc('get_cadet_audit_log', {
         p_cadet_id: profile.id
     });
@@ -108,15 +111,16 @@ async function ProfilePage({ params }) {
             profile: fullProfile,
             auditLog: auditLog || [],
             canEdit: canEdit,
-            viewerRoleLevel: viewerRole?.default_role_level || 0
+            viewerRoleLevel: viewerRole?.default_role_level || 0,
+            options: dropdowns
         }, void 0, false, {
             fileName: "[project]/app/profile/[id]/page.tsx",
-            lineNumber: 78,
+            lineNumber: 81,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/profile/[id]/page.tsx",
-        lineNumber: 77,
+        lineNumber: 80,
         columnNumber: 5
     }, this);
 }

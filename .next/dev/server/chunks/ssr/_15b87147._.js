@@ -1,0 +1,734 @@
+module.exports = [
+"[project]/app/band/data:18f1d8 [app-ssr] (ecmascript) <text/javascript>", ((__turbopack_context__) => {
+"use strict";
+
+/* __next_internal_action_entry_do_not_use__ [{"60f71f0f5c19887422ef7ef5d3521be80caa4b7f4c":"updateBandDetails"},"app/band/actions.ts",""] */ __turbopack_context__.s([
+    "updateBandDetails",
+    ()=>updateBandDetails
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$action$2d$client$2d$wrapper$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/build/webpack/loaders/next-flight-loader/action-client-wrapper.js [app-ssr] (ecmascript)");
+"use turbopack no side effects";
+;
+var updateBandDetails = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$action$2d$client$2d$wrapper$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["createServerReference"])("60f71f0f5c19887422ef7ef5d3521be80caa4b7f4c", __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$action$2d$client$2d$wrapper$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["callServer"], void 0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$action$2d$client$2d$wrapper$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["findSourceMapURL"], "updateBandDetails"); //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4vYWN0aW9ucy50cyJdLCJzb3VyY2VzQ29udGVudCI6WyIndXNlIHNlcnZlcidcclxuXHJcbmltcG9ydCB7IGNyZWF0ZUNsaWVudCB9IGZyb20gJ0AvdXRpbHMvc3VwYWJhc2Uvc2VydmVyJ1xyXG5pbXBvcnQgeyByZXZhbGlkYXRlUGF0aCB9IGZyb20gJ25leHQvY2FjaGUnXHJcblxyXG4vLyBVUERBVEVEIFRZUEUgREVGSU5JVElPTlxyXG5leHBvcnQgdHlwZSBCYW5kTWVtYmVyID0ge1xyXG4gIGlkOiBzdHJpbmdcclxuICBmaXJzdF9uYW1lOiBzdHJpbmdcclxuICBsYXN0X25hbWU6IHN0cmluZ1xyXG4gIGNhZGV0X3Jhbms6IHN0cmluZyB8IG51bGxcclxuICBncmFkZV9sZXZlbDogc3RyaW5nIHwgbnVsbFxyXG4gIHJvb21fbnVtYmVyOiBzdHJpbmcgfCBudWxsIC8vIDwtLSBBZGRlZFxyXG4gIGNhY2hlZF90b3VyX2JhbGFuY2U6IG51bWJlciAvLyA8LS0gQWRkZWRcclxuICBjb21wYW55OiB7IGNvbXBhbnlfbmFtZTogc3RyaW5nIH0gfCBudWxsXHJcbiAgZW1haWw6IHN0cmluZ1xyXG4gIC8vIE5ldyBSZWxhdGlvblxyXG4gIGJhbmRfZGV0YWlsczoge1xyXG4gICAgaW5zdHJ1bWVudDogc3RyaW5nIHwgbnVsbFxyXG4gICAgbGVhZGVyc2hpcF9yb2xlOiBzdHJpbmcgfCBudWxsXHJcbiAgICB0cmF2ZWxfbm90ZXM6IHN0cmluZyB8IG51bGxcclxuICB9IHwgbnVsbFxyXG59XHJcblxyXG5leHBvcnQgYXN5bmMgZnVuY3Rpb24gZ2V0QmFuZFJvc3RlcigpIHtcclxuICBjb25zdCBzdXBhYmFzZSA9IGNyZWF0ZUNsaWVudCgpXHJcbiAgXHJcbiAgLy8gVXBkYXRlZCBRdWVyeSB0byBmZXRjaCBiYW5kX2RldGFpbHMgYW5kIHJvb20vdG91cnNcclxuICBjb25zdCB7IGRhdGEsIGVycm9yIH0gPSBhd2FpdCBzdXBhYmFzZVxyXG4gICAgLmZyb20oJ3Byb2ZpbGVzJylcclxuICAgIC5zZWxlY3QoYFxyXG4gICAgICBpZCwgXHJcbiAgICAgIGZpcnN0X25hbWUsIFxyXG4gICAgICBsYXN0X25hbWUsIFxyXG4gICAgICBjYWRldF9yYW5rLCBcclxuICAgICAgZ3JhZGVfbGV2ZWwsXHJcbiAgICAgIHJvb21fbnVtYmVyLFxyXG4gICAgICBjYWNoZWRfdG91cl9iYWxhbmNlLFxyXG4gICAgICBlbWFpbCxcclxuICAgICAgY29tcGFueTpjb21wYW5pZXMoY29tcGFueV9uYW1lKSxcclxuICAgICAgYmFuZF9kZXRhaWxzKGluc3RydW1lbnQsIGxlYWRlcnNoaXBfcm9sZSwgdHJhdmVsX25vdGVzKVxyXG4gICAgYClcclxuICAgIC5lcSgnaXNfaW5fYmFuZCcsIHRydWUpXHJcbiAgICAub3JkZXIoJ2xhc3RfbmFtZScsIHsgYXNjZW5kaW5nOiB0cnVlIH0pXHJcblxyXG4gIGlmIChlcnJvcikge1xyXG4gICAgY29uc29sZS5lcnJvcignRXJyb3IgZmV0Y2hpbmcgYmFuZCByb3N0ZXI6JywgZXJyb3IpXHJcbiAgICByZXR1cm4gW11cclxuICB9XHJcblxyXG4gIC8vIE1hcCB0byBlbnN1cmUgY2xlYW4gdHlwZXMgKFN1cGFiYXNlIHJldHVybnMgYXJyYXlzIGZvciAxOjEgc29tZXRpbWVzKVxyXG4gIHJldHVybiBkYXRhLm1hcCgobTogYW55KSA9PiAoe1xyXG4gICAgLi4ubSxcclxuICAgIGNvbXBhbnk6IEFycmF5LmlzQXJyYXkobS5jb21wYW55KSA/IG0uY29tcGFueVswXSA6IG0uY29tcGFueSxcclxuICAgIC8vIEhhbmRsZSB0aGUgMToxIHJlbGF0aW9uIHJldHVybmluZyBhcyBhbiBhcnJheSBvciBvYmplY3RcclxuICAgIGJhbmRfZGV0YWlsczogQXJyYXkuaXNBcnJheShtLmJhbmRfZGV0YWlscykgXHJcbiAgICAgID8gKG0uYmFuZF9kZXRhaWxzWzBdIHx8IG51bGwpIFxyXG4gICAgICA6IChtLmJhbmRfZGV0YWlscyB8fCBudWxsKVxyXG4gIH0pKSBhcyBCYW5kTWVtYmVyW11cclxufVxyXG5cclxuLy8gTkVXIEFDVElPTjogVXBkYXRlIEJhbmQgRGV0YWlsc1xyXG5leHBvcnQgYXN5bmMgZnVuY3Rpb24gdXBkYXRlQmFuZERldGFpbHMoY2FkZXRJZDogc3RyaW5nLCBkZXRhaWxzOiB7IGluc3RydW1lbnQ6IHN0cmluZywgbGVhZGVyc2hpcF9yb2xlOiBzdHJpbmcsIHRyYXZlbF9ub3Rlczogc3RyaW5nIH0pIHtcclxuICBjb25zdCBzdXBhYmFzZSA9IGNyZWF0ZUNsaWVudCgpXHJcbiAgXHJcbiAgLy8gV2UgdXNlIFVQU0VSVCB0byBoYW5kbGUgYm90aCBJbnNlcnQgKGZpcnN0IHRpbWUpIGFuZCBVcGRhdGVcclxuICBjb25zdCB7IGVycm9yIH0gPSBhd2FpdCBzdXBhYmFzZVxyXG4gICAgLmZyb20oJ2JhbmRfZGV0YWlscycpXHJcbiAgICAudXBzZXJ0KHtcclxuICAgICAgY2FkZXRfaWQ6IGNhZGV0SWQsXHJcbiAgICAgIGluc3RydW1lbnQ6IGRldGFpbHMuaW5zdHJ1bWVudCxcclxuICAgICAgbGVhZGVyc2hpcF9yb2xlOiBkZXRhaWxzLmxlYWRlcnNoaXBfcm9sZSxcclxuICAgICAgdHJhdmVsX25vdGVzOiBkZXRhaWxzLnRyYXZlbF9ub3Rlc1xyXG4gICAgfSwgeyBvbkNvbmZsaWN0OiAnY2FkZXRfaWQnIH0pXHJcblxyXG4gIGlmIChlcnJvcikgcmV0dXJuIHsgc3VjY2VzczogZmFsc2UsIGVycm9yOiBlcnJvci5tZXNzYWdlIH1cclxuICBcclxuICByZXZhbGlkYXRlUGF0aCgnL2JhbmQnKVxyXG4gIHJldHVybiB7IHN1Y2Nlc3M6IHRydWUgfVxyXG59Il0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI4UkE4RHNCIn0=
+}),
+"[project]/app/band/components/EditBandMemberModal.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>EditBandMemberModal
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$band$2f$data$3a$18f1d8__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$text$2f$javascript$3e$__ = __turbopack_context__.i("[project]/app/band/data:18f1d8 [app-ssr] (ecmascript) <text/javascript>");
+'use client';
+;
+;
+;
+function EditBandMemberModal({ member, instrumentOptions, roleOptions, onClose, onSuccess }) {
+    const [loading, setLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [formData, setFormData] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])({
+        instrument: member.band_details?.instrument || '',
+        leadership_role: member.band_details?.leadership_role || '',
+        travel_notes: member.band_details?.travel_notes || ''
+    });
+    // Determine initial section based on current instrument (if any)
+    const initialSection = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>{
+        const found = instrumentOptions.find((opt)=>opt.value === member.band_details?.instrument);
+        return found?.group_name || '';
+    }, [
+        member.band_details?.instrument,
+        instrumentOptions
+    ]);
+    const [selectedSection, setSelectedSection] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(initialSection);
+    // 1. Get Unique Sections
+    const sections = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>{
+        const allGroups = instrumentOptions.map((opt)=>opt.group_name).filter(Boolean);
+        return [
+            ...new Set(allGroups)
+        ].sort();
+    }, [
+        instrumentOptions
+    ]);
+    // 2. Filter Instruments by Section
+    const filteredInstruments = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useMemo"])(()=>{
+        if (!selectedSection) return [];
+        return instrumentOptions.filter((opt)=>opt.group_name === selectedSection);
+    }, [
+        selectedSection,
+        instrumentOptions
+    ]);
+    const handleSubmit = async (e)=>{
+        e.preventDefault();
+        setLoading(true);
+        const result = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$band$2f$data$3a$18f1d8__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$text$2f$javascript$3e$__["updateBandDetails"])(member.id, formData);
+        setLoading(false);
+        if (result.success) {
+            onSuccess();
+            onClose();
+        } else {
+            alert('Error updating details');
+        }
+    };
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4",
+        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+            className: "bg-card border border-border w-full max-w-md rounded-lg shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-200",
+            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
+                onSubmit: handleSubmit,
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "px-6 py-4 border-b border-border bg-muted/30",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
+                                className: "text-lg font-bold text-foreground",
+                                children: "Edit Band Details"
+                            }, void 0, false, {
+                                fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+                                lineNumber: 74,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                className: "text-sm text-muted-foreground",
+                                children: [
+                                    member.first_name,
+                                    " ",
+                                    member.last_name
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+                                lineNumber: 75,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+                        lineNumber: 73,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "p-6 space-y-4",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                className: "grid grid-cols-2 gap-4",
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                className: "block text-xs font-bold text-muted-foreground uppercase mb-1",
+                                                children: "1. Section"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+                                                lineNumber: 83,
+                                                columnNumber: 21
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                                value: selectedSection,
+                                                onChange: (e)=>{
+                                                    setSelectedSection(e.target.value);
+                                                    setFormData({
+                                                        ...formData,
+                                                        instrument: ''
+                                                    }); // Reset instrument when section changes
+                                                },
+                                                className: "w-full p-2 rounded-md border border-input bg-background text-foreground text-sm",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                        value: "",
+                                                        children: "Select..."
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+                                                        lineNumber: 92,
+                                                        columnNumber: 25
+                                                    }, this),
+                                                    sections.map((sec)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                            value: sec,
+                                                            children: sec
+                                                        }, sec, false, {
+                                                            fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+                                                            lineNumber: 94,
+                                                            columnNumber: 29
+                                                        }, this))
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+                                                lineNumber: 84,
+                                                columnNumber: 21
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+                                        lineNumber: 82,
+                                        columnNumber: 17
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                                className: "block text-xs font-bold text-muted-foreground uppercase mb-1",
+                                                children: "2. Instrument"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+                                                lineNumber: 99,
+                                                columnNumber: 21
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                                value: formData.instrument,
+                                                onChange: (e)=>setFormData({
+                                                        ...formData,
+                                                        instrument: e.target.value
+                                                    }),
+                                                disabled: !selectedSection,
+                                                className: "w-full p-2 rounded-md border border-input bg-background text-foreground text-sm disabled:opacity-50",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                        value: "",
+                                                        children: "Select..."
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+                                                        lineNumber: 106,
+                                                        columnNumber: 25
+                                                    }, this),
+                                                    filteredInstruments.map((opt)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                            value: opt.value,
+                                                            children: opt.value
+                                                        }, opt.id, false, {
+                                                            fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+                                                            lineNumber: 108,
+                                                            columnNumber: 29
+                                                        }, this))
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+                                                lineNumber: 100,
+                                                columnNumber: 21
+                                            }, this)
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+                                        lineNumber: 98,
+                                        columnNumber: 17
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+                                lineNumber: 81,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                        className: "block text-sm font-medium text-foreground mb-1",
+                                        children: "Leadership Role"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+                                        lineNumber: 115,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
+                                        value: formData.leadership_role,
+                                        onChange: (e)=>setFormData({
+                                                ...formData,
+                                                leadership_role: e.target.value
+                                            }),
+                                        className: "w-full p-2 rounded-md border border-input bg-background text-foreground",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                value: "",
+                                                children: "None / Member"
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+                                                lineNumber: 121,
+                                                columnNumber: 17
+                                            }, this),
+                                            roleOptions.map((role)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
+                                                    value: role,
+                                                    children: role
+                                                }, role, false, {
+                                                    fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+                                                    lineNumber: 123,
+                                                    columnNumber: 21
+                                                }, this))
+                                        ]
+                                    }, void 0, true, {
+                                        fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+                                        lineNumber: 116,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+                                lineNumber: 114,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                children: [
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("label", {
+                                        className: "block text-sm font-medium text-foreground mb-1",
+                                        children: "Travel / Medical Notes"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+                                        lineNumber: 129,
+                                        columnNumber: 15
+                                    }, this),
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
+                                        rows: 3,
+                                        placeholder: "Allergies, bus preferences, etc.",
+                                        value: formData.travel_notes,
+                                        onChange: (e)=>setFormData({
+                                                ...formData,
+                                                travel_notes: e.target.value
+                                            }),
+                                        className: "w-full p-2 rounded-md border border-input bg-background text-foreground"
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+                                        lineNumber: 130,
+                                        columnNumber: 15
+                                    }, this)
+                                ]
+                            }, void 0, true, {
+                                fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+                                lineNumber: 128,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+                        lineNumber: 78,
+                        columnNumber: 11
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                        className: "px-6 py-4 border-t border-border bg-muted/30 flex justify-end gap-3",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                type: "button",
+                                onClick: onClose,
+                                disabled: loading,
+                                className: "px-4 py-2 text-sm font-medium text-muted-foreground hover:text-foreground",
+                                children: "Cancel"
+                            }, void 0, false, {
+                                fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+                                lineNumber: 141,
+                                columnNumber: 13
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                type: "submit",
+                                disabled: loading,
+                                className: "px-4 py-2 text-sm font-bold bg-primary text-primary-foreground rounded-md hover:bg-primary/90 disabled:opacity-50",
+                                children: loading ? 'Saving...' : 'Save Changes'
+                            }, void 0, false, {
+                                fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+                                lineNumber: 149,
+                                columnNumber: 13
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+                        lineNumber: 140,
+                        columnNumber: 11
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+                lineNumber: 72,
+                columnNumber: 9
+            }, this)
+        }, void 0, false, {
+            fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+            lineNumber: 71,
+            columnNumber: 7
+        }, this)
+    }, void 0, false, {
+        fileName: "[project]/app/band/components/EditBandMemberModal.tsx",
+        lineNumber: 70,
+        columnNumber: 5
+    }, this);
+}
+}),
+"[project]/app/band/BandDashboardClient.tsx [app-ssr] (ecmascript)", ((__turbopack_context__) => {
+"use strict";
+
+__turbopack_context__.s([
+    "default",
+    ()=>BandDashboardClient
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/client/app-dir/link.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$band$2f$components$2f$EditBandMemberModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/band/components/EditBandMemberModal.tsx [app-ssr] (ecmascript)");
+'use client';
+;
+;
+;
+;
+;
+function BandDashboardClient({ initialMembers, instrumentOptions, roleOptions }) {
+    // ... (Rest of component logic is exactly the same) ...
+    // ... (Pass props to EditBandMemberModal) ...
+    // Example of EditModal usage update:
+    /*
+    {editingMember && (
+        <EditBandMemberModal 
+            member={editingMember} 
+            instrumentOptions={instrumentOptions}
+            roleOptions={roleOptions}
+            onClose={() => setEditingMember(null)}
+            onSuccess={() => {
+                setEditingMember(null)
+                router.refresh()
+            }}
+        />
+    )}
+  */ // (Include the full file content if you need it, but it's largely unchanged except for types)
+    const router = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useRouter"])();
+    const [searchTerm, setSearchTerm] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    const [editingMember, setEditingMember] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(null);
+    const filteredMembers = initialMembers.filter((m)=>m.last_name.toLowerCase().includes(searchTerm.toLowerCase()) || m.first_name.toLowerCase().includes(searchTerm.toLowerCase()) || (m.band_details?.instrument || '').toLowerCase().includes(searchTerm.toLowerCase()));
+    return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+        className: "space-y-6",
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "flex flex-col sm:flex-row gap-4 justify-between items-center bg-card p-4 rounded-lg border border-border shadow-sm",
+                children: [
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                        type: "text",
+                        placeholder: "Search by name or instrument...",
+                        value: searchTerm,
+                        onChange: (e)=>setSearchTerm(e.target.value),
+                        className: "w-full sm:w-72 p-2 rounded-md border border-input bg-background text-foreground text-sm focus:ring-2 focus:ring-primary"
+                    }, void 0, false, {
+                        fileName: "[project]/app/band/BandDashboardClient.tsx",
+                        lineNumber: 53,
+                        columnNumber: 8
+                    }, this),
+                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                        onClick: ()=>window.print(),
+                        className: "flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground text-sm font-bold rounded-md hover:bg-primary/90 transition-colors",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("svg", {
+                                className: "w-4 h-4",
+                                fill: "none",
+                                stroke: "currentColor",
+                                viewBox: "0 0 24 24",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("path", {
+                                    strokeLinecap: "round",
+                                    strokeLinejoin: "round",
+                                    strokeWidth: 2,
+                                    d: "M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"
+                                }, void 0, false, {
+                                    fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                    lineNumber: 64,
+                                    columnNumber: 89
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                lineNumber: 64,
+                                columnNumber: 10
+                            }, this),
+                            "Print Roster"
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/band/BandDashboardClient.tsx",
+                        lineNumber: 60,
+                        columnNumber: 8
+                    }, this)
+                ]
+            }, void 0, true, {
+                fileName: "[project]/app/band/BandDashboardClient.tsx",
+                lineNumber: 52,
+                columnNumber: 6
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                className: "bg-card border border-border rounded-lg overflow-hidden shadow-sm",
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                    className: "overflow-x-auto",
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("table", {
+                        className: "min-w-full divide-y divide-border",
+                        children: [
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("thead", {
+                                className: "bg-muted/50",
+                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                            className: "px-6 py-3 text-left text-xs font-bold text-muted-foreground uppercase tracking-wider",
+                                            children: "Cadet"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                            lineNumber: 75,
+                                            columnNumber: 16
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                            className: "px-6 py-3 text-left text-xs font-bold text-muted-foreground uppercase tracking-wider",
+                                            children: "Instrument"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                            lineNumber: 76,
+                                            columnNumber: 16
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                            className: "px-6 py-3 text-left text-xs font-bold text-muted-foreground uppercase tracking-wider",
+                                            children: "Role"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                            lineNumber: 77,
+                                            columnNumber: 16
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                            className: "px-6 py-3 text-left text-xs font-bold text-muted-foreground uppercase tracking-wider",
+                                            children: "Room"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                            lineNumber: 78,
+                                            columnNumber: 16
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                            className: "px-6 py-3 text-center text-xs font-bold text-muted-foreground uppercase tracking-wider",
+                                            children: "Tours"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                            lineNumber: 79,
+                                            columnNumber: 16
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
+                                            className: "px-6 py-3 text-right text-xs font-bold text-muted-foreground uppercase tracking-wider",
+                                            children: "Actions"
+                                        }, void 0, false, {
+                                            fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                            lineNumber: 80,
+                                            columnNumber: 16
+                                        }, this)
+                                    ]
+                                }, void 0, true, {
+                                    fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                    lineNumber: 74,
+                                    columnNumber: 14
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                lineNumber: 73,
+                                columnNumber: 12
+                            }, this),
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
+                                className: "bg-card divide-y divide-border",
+                                children: filteredMembers.length > 0 ? filteredMembers.map((member)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                        className: "hover:bg-accent/50 transition-colors group",
+                                        children: [
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                className: "px-6 py-4 whitespace-nowrap",
+                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                    children: [
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "text-sm font-bold text-foreground",
+                                                            children: [
+                                                                member.last_name,
+                                                                ", ",
+                                                                member.first_name
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                                            lineNumber: 89,
+                                                            columnNumber: 24
+                                                        }, this),
+                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                            className: "text-xs text-muted-foreground",
+                                                            children: [
+                                                                member.cadet_rank,
+                                                                " • ",
+                                                                member.company?.company_name
+                                                            ]
+                                                        }, void 0, true, {
+                                                            fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                                            lineNumber: 90,
+                                                            columnNumber: 24
+                                                        }, this)
+                                                    ]
+                                                }, void 0, true, {
+                                                    fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                                    lineNumber: 88,
+                                                    columnNumber: 22
+                                                }, this)
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                                lineNumber: 87,
+                                                columnNumber: 20
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                className: "px-6 py-4 whitespace-nowrap text-sm text-foreground",
+                                                children: member.band_details?.instrument || /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: "opacity-50",
+                                                    children: "-"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                                    lineNumber: 94,
+                                                    columnNumber: 58
+                                                }, this)
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                                lineNumber: 93,
+                                                columnNumber: 20
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                className: "px-6 py-4 whitespace-nowrap text-sm text-primary font-medium",
+                                                children: member.band_details?.leadership_role || /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: "opacity-50 text-muted-foreground",
+                                                    children: "-"
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                                    lineNumber: 97,
+                                                    columnNumber: 63
+                                                }, this)
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                                lineNumber: 96,
+                                                columnNumber: 20
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                className: "px-6 py-4 whitespace-nowrap text-sm text-muted-foreground",
+                                                children: member.room_number || '-'
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                                lineNumber: 99,
+                                                columnNumber: 20
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                className: "px-6 py-4 whitespace-nowrap text-center",
+                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                                    className: `inline-flex items-center px-2 py-0.5 rounded text-xs font-bold ${member.cached_tour_balance > 0 ? 'bg-destructive/10 text-destructive' : 'bg-muted text-muted-foreground'}`,
+                                                    children: member.cached_tour_balance
+                                                }, void 0, false, {
+                                                    fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                                    lineNumber: 103,
+                                                    columnNumber: 24
+                                                }, this)
+                                            }, void 0, false, {
+                                                fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                                lineNumber: 102,
+                                                columnNumber: 20
+                                            }, this),
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                                className: "px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-4",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                                        onClick: ()=>setEditingMember(member),
+                                                        className: "text-primary hover:text-primary/80 transition-colors",
+                                                        children: "Edit Details"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                                        lineNumber: 108,
+                                                        columnNumber: 22
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                                                        href: `/profile/${member.id}`,
+                                                        className: "text-muted-foreground hover:text-foreground transition-colors",
+                                                        children: "Profile"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                                        lineNumber: 114,
+                                                        columnNumber: 22
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
+                                                fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                                lineNumber: 107,
+                                                columnNumber: 20
+                                            }, this)
+                                        ]
+                                    }, member.id, true, {
+                                        fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                        lineNumber: 86,
+                                        columnNumber: 18
+                                    }, this)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tr", {
+                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
+                                        colSpan: 6,
+                                        className: "px-6 py-12 text-center text-muted-foreground italic",
+                                        children: "No band members found."
+                                    }, void 0, false, {
+                                        fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                        lineNumber: 122,
+                                        columnNumber: 18
+                                    }, this)
+                                }, void 0, false, {
+                                    fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                    lineNumber: 121,
+                                    columnNumber: 16
+                                }, this)
+                            }, void 0, false, {
+                                fileName: "[project]/app/band/BandDashboardClient.tsx",
+                                lineNumber: 83,
+                                columnNumber: 12
+                            }, this)
+                        ]
+                    }, void 0, true, {
+                        fileName: "[project]/app/band/BandDashboardClient.tsx",
+                        lineNumber: 72,
+                        columnNumber: 10
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/app/band/BandDashboardClient.tsx",
+                    lineNumber: 71,
+                    columnNumber: 8
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/app/band/BandDashboardClient.tsx",
+                lineNumber: 70,
+                columnNumber: 6
+            }, this),
+            editingMember && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$band$2f$components$2f$EditBandMemberModal$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
+                member: editingMember,
+                instrumentOptions: instrumentOptions,
+                roleOptions: roleOptions,
+                onClose: ()=>setEditingMember(null),
+                onSuccess: ()=>{
+                    setEditingMember(null);
+                    router.refresh();
+                }
+            }, void 0, false, {
+                fileName: "[project]/app/band/BandDashboardClient.tsx",
+                lineNumber: 134,
+                columnNumber: 8
+            }, this)
+        ]
+    }, void 0, true, {
+        fileName: "[project]/app/band/BandDashboardClient.tsx",
+        lineNumber: 50,
+        columnNumber: 4
+    }, this);
+}
+}),
+"[project]/node_modules/next/dist/build/webpack/loaders/next-flight-loader/action-client-wrapper.js [app-ssr] (ecmascript)", ((__turbopack_context__, module, exports) => {
+"use strict";
+
+// This file must be bundled in the app's client layer, it shouldn't be directly
+// imported by the server.
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+0 && (module.exports = {
+    callServer: null,
+    createServerReference: null,
+    findSourceMapURL: null
+});
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: all[name]
+    });
+}
+_export(exports, {
+    callServer: function() {
+        return _appcallserver.callServer;
+    },
+    createServerReference: function() {
+        return _client.createServerReference;
+    },
+    findSourceMapURL: function() {
+        return _appfindsourcemapurl.findSourceMapURL;
+    }
+});
+const _appcallserver = __turbopack_context__.r("[project]/node_modules/next/dist/client/app-call-server.js [app-ssr] (ecmascript)");
+const _appfindsourcemapurl = __turbopack_context__.r("[project]/node_modules/next/dist/client/app-find-source-map-url.js [app-ssr] (ecmascript)");
+const _client = __turbopack_context__.r("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-server-dom-turbopack-client.js [app-ssr] (ecmascript)"); //# sourceMappingURL=action-client-wrapper.js.map
+}),
+];
+
+//# sourceMappingURL=_15b87147._.js.map

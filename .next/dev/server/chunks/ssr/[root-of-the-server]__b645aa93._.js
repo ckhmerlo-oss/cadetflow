@@ -229,15 +229,16 @@ async function RootLayout({ children }) {
     const { data: { user } } = await supabase.auth.getUser();
     let canManage = false;
     let roleLevel = 0;
-    // DEFAULT:
     let logoText = "CadetFlow";
     let logoColor = "text-primary hover:text-foreground";
     let isSiteAdmin = false;
     let hasSeenTour = false;
+    let isInBand = false; // <--- NEW VARIABLE
     if (user) {
         const { data: profile } = await supabase.from('profiles').select(`
         is_site_admin,
         has_seen_tour,
+        is_in_band,
         roles(can_manage_own_company_roster, can_manage_all_rosters, role_name, default_role_level),
         company:companies(company_name)
       `).eq('id', user.id).single();
@@ -249,12 +250,13 @@ async function RootLayout({ children }) {
         }
         isSiteAdmin = profile?.is_site_admin || false;
         hasSeenTour = profile?.has_seen_tour || false;
+        isInBand = profile?.is_in_band || false;
         // --- Dynamic Role-Based Logos ---
         // We keep specific colors for specific roles (like Band/Staff) to maintain identity,
         // but update TAC to use semantic 'destructive' (Red) for better theme integration.
         if (roles?.role_name && roles.role_name.includes('Band Director')) {
-            logoText = "John \"Don't Get Married\" Warren";
-            logoColor = "text-pink-500 hover:text-rose-700";
+            logoText = "Check Out The Band Page!";
+            logoColor = "text-lime-400 hover:text-lime-200";
         } else if (roleLevel >= 60 || roles?.role_name && roles.role_name.includes('TAC')) {
             logoText = "TACFlow";
             // Update TAC color logic too
@@ -309,7 +311,8 @@ async function RootLayout({ children }) {
                                                 canManage: canManage,
                                                 showDailyReports: roleLevel >= 50,
                                                 isSiteAdmin: isSiteAdmin,
-                                                roleLevel: roleLevel
+                                                roleLevel: roleLevel,
+                                                isInBand: isInBand
                                             }, void 0, false, {
                                                 fileName: "[project]/app/layout.tsx",
                                                 lineNumber: 110,
@@ -348,14 +351,14 @@ async function RootLayout({ children }) {
                                     userId: user.id
                                 }, void 0, false, {
                                     fileName: "[project]/app/layout.tsx",
-                                    lineNumber: 124,
+                                    lineNumber: 125,
                                     columnNumber: 15
                                 }, this),
                                 children
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/layout.tsx",
-                            lineNumber: 122,
+                            lineNumber: 123,
                             columnNumber: 11
                         }, this)
                     ]
@@ -366,12 +369,12 @@ async function RootLayout({ children }) {
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$vercel$2f$speed$2d$insights$2f$dist$2f$next$2f$index$2e$mjs__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["SpeedInsights"], {}, void 0, false, {
                     fileName: "[project]/app/layout.tsx",
-                    lineNumber: 136,
+                    lineNumber: 137,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f40$vercel$2f$analytics$2f$dist$2f$next$2f$index$2e$mjs__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["Analytics"], {}, void 0, false, {
                     fileName: "[project]/app/layout.tsx",
-                    lineNumber: 137,
+                    lineNumber: 138,
                     columnNumber: 9
                 }, this)
             ]

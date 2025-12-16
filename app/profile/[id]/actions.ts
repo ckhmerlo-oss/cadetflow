@@ -66,18 +66,25 @@ export async function updateCadetProfile(cadetId: string, formData: FormData) {
     return { error: 'You do not have permission to edit this profile.' }
   }
 
-  // 6. Prepare Updates
-  const updates: { [key: string]: any } = {
-    cadet_rank: formData.get('cadet_rank')?.toString() || null,
-    room_number: formData.get('room_number')?.toString() || null,
-    grade_level: formData.get('grade_level')?.toString() || null,
-    years_attended: parseInt(formData.get('years_attended')?.toString() || '0'),
-    probation_status: formData.get('probation_status')?.toString() || null,
-    sport_fall: formData.get('sport_fall')?.toString() || null,
-    sport_winter: formData.get('sport_winter')?.toString() || null,
-    sport_spring: formData.get('sport_spring')?.toString() || null,
-  }
-
+// 6. Prepare Updates (UPDATED)
+const updates: { [key: string]: any } = {
+  cadet_rank: formData.get('cadet_rank')?.toString() || null,
+  room_number: formData.get('room_number')?.toString() || null,
+  grade_level: formData.get('grade_level')?.toString() || null,
+  years_attended: parseInt(formData.get('years_attended')?.toString() || '0'),
+  probation_status: formData.get('probation_status')?.toString() || null,
+  sport_fall: formData.get('sport_fall')?.toString() || null,
+  sport_winter: formData.get('sport_winter')?.toString() || null,
+  sport_spring: formData.get('sport_spring')?.toString() || null,
+  
+  // NEW FIELDS
+  is_in_band: formData.get('is_in_band') === 'on' || formData.get('is_in_band') === 'true',
+  
+  // Parse JSON string back to array/object for the DB
+  extracurriculars: formData.get('extracurriculars') 
+    ? JSON.parse(formData.get('extracurriculars') as string) 
+    : []
+}
   // 7. SENSITIVE FIELD CHECK: Star Tours
   // Only specific high-level roles can modify this field
   const canManageStarTours = STAR_TOUR_AUTHORIZED_ROLES.includes(editorRole.role_name);

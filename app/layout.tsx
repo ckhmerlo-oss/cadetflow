@@ -27,13 +27,11 @@ export default async function RootLayout({
   
   let canManage = false
   let roleLevel = 0
-  
-  // DEFAULT:
   let logoText = "CadetFlow";
   let logoColor = "text-primary hover:text-foreground";
-
   let isSiteAdmin = false;
   let hasSeenTour = false;
+  let isInBand = false; // <--- NEW VARIABLE
 
   if (user) {
     const { data: profile } = await supabase
@@ -41,6 +39,7 @@ export default async function RootLayout({
       .select(`
         is_site_admin,
         has_seen_tour,
+        is_in_band,
         roles(can_manage_own_company_roster, can_manage_all_rosters, role_name, default_role_level),
         company:companies(company_name)
       `)
@@ -57,14 +56,15 @@ export default async function RootLayout({
     
     isSiteAdmin = profile?.is_site_admin || false;
     hasSeenTour = profile?.has_seen_tour || false;
+    isInBand = profile?.is_in_band || false;
 
     // --- Dynamic Role-Based Logos ---
     // We keep specific colors for specific roles (like Band/Staff) to maintain identity,
     // but update TAC to use semantic 'destructive' (Red) for better theme integration.
 
     if (roles?.role_name && roles.role_name.includes('Band Director')) {
-      logoText = "John \"Don't Get Married\" Warren"
-      logoColor = "text-pink-500 hover:text-rose-700"
+      logoText = "Check Out The Band Page!"
+      logoColor = "text-lime-400 hover:text-lime-200"
     } else if (roleLevel >= 60 || (roles?.role_name && roles.role_name.includes('TAC'))) {
       logoText = "TACFlow";
       // Update TAC color logic too
@@ -113,6 +113,7 @@ export default async function RootLayout({
                     showDailyReports={roleLevel >= 50}
                     isSiteAdmin={isSiteAdmin}
                     roleLevel={roleLevel}
+                    isInBand={isInBand}
                   />
                 </div>
               </div>

@@ -1,7 +1,11 @@
 {
-  "/incidents/[id]/page": "app/incidents/[id]/page.js",
+  "/band/page": "app/band/page.js",
+  "/ledger/[id]/page": "app/ledger/[id]/page.js",
+  "/login/page": "app/login/page.js",
+  "/manage/page": "app/manage/page.js",
   "/page": "app/page.js",
+  "/profile/[id]/page": "app/profile/[id]/page.js",
   "/report/[id]/page": "app/report/[id]/page.js",
-  "/reports/daily/page": "app/reports/daily/page.js",
+  "/sports/[id]/page": "app/sports/[id]/page.js",
   "/sports/page": "app/sports/page.js"
 }

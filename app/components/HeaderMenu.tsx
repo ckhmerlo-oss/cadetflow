@@ -12,7 +12,8 @@ type HeaderMenuProps = {
   showDailyReports: boolean
   isLoggedIn: boolean
   isSiteAdmin: boolean
-  roleLevel: number 
+  roleLevel: number
+  isInBand: boolean // <--- TYPE
 }
 
 // Icons
@@ -32,7 +33,7 @@ const UserIcon = () => (
   </svg>
 )
 
-export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, roleLevel }: HeaderMenuProps) {
+export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, isSiteAdmin, roleLevel, isInBand }: HeaderMenuProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
   const userMenuRef = useRef<HTMLDivElement>(null)
@@ -98,6 +99,13 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, is
              <Link href="/sports" id="nav-sports" className={navLinkClass}>
                 Sports
             </Link>
+        )}
+
+        {/* BAND LINK: Visible if in band OR faculty (roleLevel >= 50) */}
+        {(isInBand) && (
+           <Link href="/band" className={navLinkClass}>
+             Band
+           </Link>
         )}
 
         {roleLevel >= 50 && (
@@ -175,6 +183,13 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, is
             
             {isLoggedIn && (
                 <Link href="/sports" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted/50 hover:text-primary">Sports</Link>
+            )}
+            {/* Mobile Band Link */}
+            
+            {(isInBand || roleLevel >= 50) && (
+            <Link href="/band" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted/50 hover:text-primary">
+              Band Roster
+            </Link>
             )}
 
             {roleLevel >= 50 && ( 

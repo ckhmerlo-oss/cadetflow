@@ -4,10 +4,21 @@ import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/utils/supabase/client'
-import { CADET_RANKS, FALL_SPORTS, WINTER_SPORTS, SPRING_SPORTS, PROBATION_STATUSES } from '@/app/profile/constants'
+import SearchableSelect from '@/app/components/SearchableSelect' // <--- IMPORTED
 
-// Fallback if constants file isn't perfect
-const GRADE_LEVELS = ['7', '8', '9', '10', '11', '12', 'PG']
+// --- TYPES ---
+
+type AuditLogEntry = {
+  event_date: string
+  event_type: string
+  title: string
+  details: string
+  demerits_issued: number
+  tour_change: number
+  actor_name: string
+  status: string
+  report_id: string | null
+}
 
 type Profile = {
   id: string
@@ -26,40 +37,40 @@ type Profile = {
   current_tour_balance: number
   has_star_tours?: boolean
   conduct_status: string
-  // New fields
   probation_status?: string | null
   sport_fall?: string | null
   sport_winter?: string | null
   sport_spring?: string | null
   is_in_band?: boolean
-  extracurriculars?: string | null
+  extracurriculars?: string[] | null
   parent_name?: string
   parent_email?: string
   parent_phone?: string
 }
 
-type AuditLogEntry = {
-  event_date: string
-  event_type: string
-  title: string
-  details: string
-  demerits_issued: number
-  tour_change: number
-  actor_name: string
-  status: string
-  report_id: string | null
+type OptionsProps = {
+    ranks: string[]
+    grades: string[]
+    conduct: string[]
+    probation: string[]
+    extracurriculars: string[]
+    fallSports: string[]
+    winterSports: string[]
+    springSports: string[]
 }
 
 export default function ProfileClient({ 
   profile, 
   auditLog, 
   canEdit,
-  viewerRoleLevel 
+  viewerRoleLevel,
+  options
 }: { 
   profile: Profile
   auditLog: AuditLogEntry[]
   canEdit: boolean
   viewerRoleLevel: number
+  options: OptionsProps 
 }) {
   const supabase = createClient()
   const router = useRouter()
@@ -67,7 +78,7 @@ export default function ProfileClient({
   const [isEditing, setIsEditing] = useState(false)
   const [saving, setSaving] = useState(false)
   
-  // Initialize form with all profile fields
+  // Initialize form
   const [formData, setFormData] = useState({
     room_number: profile.room_number || '',
     grade_level: profile.grade_level || '',
@@ -75,18 +86,18 @@ export default function ProfileClient({
     sport_fall: profile.sport_fall || 'None',
     sport_winter: profile.sport_winter || 'None',
     sport_spring: profile.sport_spring || 'None',
-    extracurriculars: profile.extracurriculars || '',
+    extracurriculars: Array.isArray(profile.extracurriculars) ? profile.extracurriculars : [],
     is_in_band: profile.is_in_band || false,
     probation_status: profile.probation_status || 'None',
     has_star_tours: profile.has_star_tours || false,
     manual_tour_balance: profile.current_tour_balance
   })
 
-  // *** PERMISSION CHECK ***
-  // Only Commandant Staff (90+) can edit disciplinary fields (Probation, Tours, Star Status)
+  // Permission Checks
   const isCommandant = viewerRoleLevel >= 90;
   const isFaculty = viewerRoleLevel >= 50;
 
+  // Helpers
   const formatDate = (dateString: string) => new Date(dateString).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
 
   const getStatusColor = (status: string) => {
@@ -95,11 +106,30 @@ export default function ProfileClient({
       return 'bg-green-50 text-green-700 border-green-200 dark:bg-green-900/20 dark:text-green-300 dark:border-green-800'
   }
 
+  // UPDATED: Logic to add/remove activities
+  const addActivity = (activity: string) => {
+    if (!formData.extracurriculars.includes(activity)) {
+        setFormData(prev => ({ ...prev, extracurriculars: [...prev.extracurriculars, activity] }))
+    }
+  }
+
+  const removeActivity = (activity: string) => {
+    setFormData(prev => ({ ...prev, extracurriculars: prev.extracurriculars.filter(a => a !== activity) }))
+  }
+
+  const getSportIcon = (sportName: string | null | undefined) => {
+      const lower = (sportName || '').toLowerCase();
+      if (lower === 'none' || !lower) return <span className="text-xl font-bold opacity-30">-</span>
+      if (lower.includes('football')) return <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> 
+      if (lower.includes('basketball')) return <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+      if (lower.includes('baseball')) return <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
+      if (lower.includes('soccer')) return <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+      return <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
+  }
+
   const handleSave = async () => {
       setSaving(true)
       
-      // 1. Prepare Update Object
-      // We only include disciplinary fields if the user has permission to change them
       const updates: any = {
           room_number: formData.room_number,
           grade_level: formData.grade_level,
@@ -121,14 +151,12 @@ export default function ProfileClient({
           .update(updates)
           .eq('id', profile.id)
 
-      // 2. Update Tour Balance (via RPC if changed AND user has permission)
       if (isCommandant && formData.manual_tour_balance !== profile.current_tour_balance) {
-          const { error: tourError } = await supabase.rpc('set_tour_balance', {
+          await supabase.rpc('set_tour_balance', {
               p_cadet_id: profile.id,
               p_new_balance: formData.manual_tour_balance,
               p_comment: 'Manual adjustment via Profile'
           })
-          if (tourError) console.error("Tour update error:", tourError)
       }
       
       setSaving(false)
@@ -136,22 +164,16 @@ export default function ProfileClient({
       else { setIsEditing(false); router.refresh(); }
   }
 
-  const getSportIcon = (sportName: string | null | undefined) => {
-      const lower = (sportName || '').toLowerCase();
-      if (lower === 'none' || !lower) return <span className="text-xl font-bold opacity-30">-</span>
-      if (lower.includes('football')) return <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg> 
-      if (lower.includes('basketball')) return <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-      if (lower.includes('baseball')) return <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
-      if (lower.includes('soccer')) return <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
-      return <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" /></svg>
-  }
+  // PREPARE OPTIONS: Filter out already selected items so they don't appear in the dropdown
+  const availableActivities = options.extracurriculars
+    .filter(ex => !formData.extracurriculars.includes(ex))
+    .map(ex => ({ id: ex, label: ex }));
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500 pb-12">
       
       {/* --- IDENTITY HEADER --- */}
       <div className="bg-card shadow-sm border border-border rounded-xl overflow-hidden">
-        {/* Banner - Uses Primary color so it changes with themes (Blue/Red/etc) */}
         <div className="h-32 bg-primary"></div>
         
         <div className="px-6 pb-6 relative flex flex-col md:flex-row items-end md:items-center gap-6 -mt-12 md:-mt-16">
@@ -189,16 +211,26 @@ export default function ProfileClient({
             </div>
 
             <div className="flex gap-3 pb-2 w-full md:w-auto justify-center md:justify-end">
+                {canEdit && isEditing && (
+                    <button 
+                        onClick={handleSave} 
+                        disabled={saving} 
+                        className="px-4 py-2 rounded-md shadow-sm text-sm font-bold bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 transition-colors"
+                    >
+                        {saving ? 'Saving...' : 'Save Settings'}
+                    </button>
+                )}
                 {canEdit && (
                     <button 
                         onClick={() => setIsEditing(!isEditing)} 
+                        disabled={saving}
                         className={`px-4 py-2 rounded-md shadow-sm text-sm font-medium transition-colors ${
                             isEditing 
-                            ? 'bg-muted text-muted-foreground hover:bg-muted/80' 
+                            ? 'bg-muted text-muted-foreground hover:bg-muted/80 border border-border' 
                             : 'btn-primary'
                         }`}
                     >
-                        {isEditing ? 'Cancel Edit' : 'Edit Profile'}
+                        {isEditing ? 'Cancel' : 'Edit Profile'}
                     </button>
                 )}
             </div>
@@ -223,7 +255,7 @@ export default function ProfileClient({
                 <div className="p-3 bg-muted/30 rounded-lg border border-border">
                     <label className="text-xs font-bold uppercase text-muted-foreground block mb-1">Probation</label>
                     <select value={formData.probation_status} onChange={e => setFormData({...formData, probation_status: e.target.value})} className="input-base text-sm py-1">
-                        {PROBATION_STATUSES.map(s => <option key={s} value={s}>{s}</option>)}
+                        {options.probation.map(s => <option key={s} value={s}>{s}</option>)}
                     </select>
                 </div>
             ) : (
@@ -264,9 +296,9 @@ export default function ProfileClient({
                 
                 {isEditing ? (
                     <div className="space-y-2">
-                        <select value={formData.sport_fall || 'None'} onChange={e => setFormData({...formData, sport_fall: e.target.value})} className="input-base text-sm py-1">{FALL_SPORTS.map(s => <option key={s} value={s}>{s}</option>)}</select>
-                        <select value={formData.sport_winter || 'None'} onChange={e => setFormData({...formData, sport_winter: e.target.value})} className="input-base text-sm py-1">{WINTER_SPORTS.map(s => <option key={s} value={s}>{s}</option>)}</select>
-                        <select value={formData.sport_spring || 'None'} onChange={e => setFormData({...formData, sport_spring: e.target.value})} className="input-base text-sm py-1">{SPRING_SPORTS.map(s => <option key={s} value={s}>{s}</option>)}</select>
+                        <select value={formData.sport_fall || 'None'} onChange={e => setFormData({...formData, sport_fall: e.target.value})} className="input-base text-sm py-1">{options.fallSports.map(s => <option key={s} value={s}>{s}</option>)}</select>
+                        <select value={formData.sport_winter || 'None'} onChange={e => setFormData({...formData, sport_winter: e.target.value})} className="input-base text-sm py-1">{options.winterSports.map(s => <option key={s} value={s}>{s}</option>)}</select>
+                        <select value={formData.sport_spring || 'None'} onChange={e => setFormData({...formData, sport_spring: e.target.value})} className="input-base text-sm py-1">{options.springSports.map(s => <option key={s} value={s}>{s}</option>)}</select>
                     </div>
                 ) : (
                     <div className="space-y-3">
@@ -286,19 +318,59 @@ export default function ProfileClient({
                 )}
             </div>
 
-            {/* Extracurriculars */}
+            {/* Extracurriculars: Searchable Multi-Select */}
             <div className="mt-6 pt-6 border-t border-border">
                 <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-2">Extracurriculars</h3>
+                
                 {isEditing ? (
-                    <div className="space-y-2">
-                        <textarea value={formData.extracurriculars} onChange={e => setFormData({...formData, extracurriculars: e.target.value})} className="input-base text-sm" rows={2} placeholder="Clubs..." />
-                        <label className="flex items-center gap-2 text-sm text-foreground cursor-pointer bg-muted/30 p-2 rounded border border-border">
+                    <div className="space-y-4">
+                        {/* Band Toggle */}
+                        <label className="flex items-center gap-2 text-sm text-foreground cursor-pointer bg-muted/30 p-2 rounded border border-border hover:bg-muted/50 transition-colors">
                             <input type="checkbox" checked={formData.is_in_band} onChange={e => setFormData({...formData, is_in_band: e.target.checked})} className="rounded text-primary focus:ring-primary" />
-                            Band Member
+                            <span className="font-bold">Band Member</span>
                         </label>
+
+                        {/* Selected Tags */}
+                        {formData.extracurriculars.length > 0 && (
+                            <div className="flex flex-wrap gap-2">
+                                {formData.extracurriculars.map(activity => (
+                                    <span key={activity} className="inline-flex items-center gap-1 px-2.5 py-1 rounded-md text-xs font-medium bg-primary/10 text-primary border border-primary/20">
+                                        {activity}
+                                        <button 
+                                            onClick={() => removeActivity(activity)}
+                                            className="hover:text-destructive focus:outline-none ml-1"
+                                            title="Remove"
+                                        >
+                                            <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" /></svg>
+                                        </button>
+                                    </span>
+                                ))}
+                            </div>
+                        )}
+
+                        {/* Add New - Searchable Dropdown */}
+                        <SearchableSelect
+                            label=""
+                            placeholder="Add activity..."
+                            options={availableActivities}
+                            value=""
+                            onChange={(val) => {
+                                if (val) addActivity(val);
+                            }}
+                        />
                     </div>
                 ) : (
-                    <p className="text-sm text-foreground italic">{profile.extracurriculars || 'None recorded.'}</p>
+                    <div className="space-y-2">
+                        {formData.extracurriculars.length > 0 ? (
+                            <div className="flex flex-wrap gap-2">
+                                {formData.extracurriculars.map(ex => (
+                                    <span key={ex} className="inline-flex items-center px-2 py-1 rounded text-xs font-medium bg-secondary text-secondary-foreground">
+                                        {ex}
+                                    </span>
+                                ))}
+                            </div>
+                        ) : <p className="text-sm text-muted-foreground italic">None recorded.</p>}
+                    </div>
                 )}
             </div>
         </div>
@@ -308,10 +380,20 @@ export default function ProfileClient({
             <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-4">Details</h3>
             {isEditing ? (
                 <div className="space-y-3">
-                    <div><label className="text-xs font-medium text-muted-foreground">Rank</label><select value={formData.cadet_rank} onChange={e => setFormData({...formData, cadet_rank: e.target.value})} className="input-base text-sm py-1"><option value="">Select Rank</option>{CADET_RANKS.map(r => <option key={r} value={r}>{r}</option>)}</select></div>
+                    <div>
+                        <label className="text-xs font-medium text-muted-foreground">Rank</label>
+                        <select value={formData.cadet_rank} onChange={e => setFormData({...formData, cadet_rank: e.target.value})} className="input-base text-sm py-1">
+                            <option value="">Select Rank</option>
+                            {options.ranks.map(r => <option key={r} value={r}>{r}</option>)}
+                        </select>
+                    </div>
                     <div><label className="text-xs font-medium text-muted-foreground">Room</label><input type="text" value={formData.room_number} onChange={e => setFormData({...formData, room_number: e.target.value})} className="input-base text-sm py-1" /></div>
-                    <div><label className="text-xs font-medium text-muted-foreground">Grade</label><select value={formData.grade_level} onChange={e => setFormData({...formData, grade_level: e.target.value})} className="input-base text-sm py-1">{GRADE_LEVELS.map(g => <option key={g} value={g}>{g}</option>)}</select></div>
-                    <button onClick={handleSave} disabled={saving} className="w-full mt-4 py-2 bg-green-600 text-white rounded text-sm hover:bg-green-700 font-bold shadow transition-colors">{saving ? 'Saving...' : 'Save Changes'}</button>
+                    <div>
+                        <label className="text-xs font-medium text-muted-foreground">Grade</label>
+                        <select value={formData.grade_level} onChange={e => setFormData({...formData, grade_level: e.target.value})} className="input-base text-sm py-1">
+                            {options.grades.map(g => <option key={g} value={g}>{g}</option>)}
+                        </select>
+                    </div>
                 </div>
             ) : (
                 <div className="space-y-4">
