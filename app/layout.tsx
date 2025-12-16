@@ -5,7 +5,7 @@ import { createClient } from '@/utils/supabase/server'
 import { ThemeProvider } from '@/app/components/ThemeProvider'
 import HeaderMenu from '@/app/components/HeaderMenu'
 import OnboardingTour from '@/app/components/tour/OnboardingTour'
-
+import Snowfall from '@/app/components/Snowfall'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/next"
 
@@ -131,6 +131,7 @@ export default async function RootLayout({
                 userId={user.id}
               />
             )}
+            <Snowfall/>
             {children}
           </main>
         </ThemeProvider>

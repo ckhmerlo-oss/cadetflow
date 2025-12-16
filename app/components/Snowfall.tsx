@@ -4,11 +4,10 @@ import { useEffect, useRef, useState } from 'react'
 import { useTheme } from './ThemeProvider'
 
 export default function Snowfall() {
-  const { theme } = useTheme()
+  const { theme, snowEnabled } = useTheme() // <--- Get snowEnabled
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const [mounted, setMounted] = useState(false)
 
-  // Wait for mount to access window/theme safely
   useEffect(() => {
     setMounted(true)
   }, [])
@@ -16,8 +15,14 @@ export default function Snowfall() {
   useEffect(() => {
     if (!mounted || !canvasRef.current) return
     
-    // Only run on christmas themes
-    if (theme !== 'christmas' && theme !== 'christmas-dark') return
+    // Only run if theme is christmas-y AND snow is enabled
+    const isChristmas = theme === 'christmas' || theme === 'christmas-dark'
+    if (!isChristmas || !snowEnabled) {
+        // Ensure canvas is clear if we toggle off while staying on the page
+        const ctx = canvasRef.current.getContext('2d')
+        if (ctx) ctx.clearRect(0, 0, canvasRef.current.width, canvasRef.current.height)
+        return
+    }
 
     const canvas = canvasRef.current
     const ctx = canvas.getContext('2d')
@@ -32,7 +37,7 @@ export default function Snowfall() {
     }
 
     const createSnowflakes = () => {
-      const count = 100 // Number of snowflakes
+      const count = 100 
       snowflakes = []
       for (let i = 0; i < count; i++) {
         snowflakes.push({
@@ -48,9 +53,8 @@ export default function Snowfall() {
     const update = () => {
       ctx.clearRect(0, 0, canvas.width, canvas.height)
       
-      // White snow for dark themes, Icy Blue/Slate for light themes (so it shows up on white bg)
       if (theme === 'christmas') {
-          ctx.fillStyle = 'rgba(148, 163, 184, 0.6)' // Slate-400 with opacity
+          ctx.fillStyle = 'rgba(148, 163, 184, 0.6)' 
       } else {
           ctx.fillStyle = 'rgba(255, 255, 255, 0.8)' 
       }
@@ -63,7 +67,6 @@ export default function Snowfall() {
         flake.y += flake.speed
         flake.x += flake.wind
 
-        // Reset if it goes off screen
         if (flake.y > canvas.height) {
           flake.y = -flake.radius
           flake.x = Math.random() * canvas.width
@@ -76,7 +79,6 @@ export default function Snowfall() {
       animationFrameId = requestAnimationFrame(update)
     }
 
-    // Initialize
     resize()
     createSnowflakes()
     update()
@@ -89,14 +91,15 @@ export default function Snowfall() {
     return () => {
       cancelAnimationFrame(animationFrameId)
       window.removeEventListener('resize', resize)
-      // Clear canvas on cleanup
       if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height)
     }
-  }, [theme, mounted])
+  }, [theme, mounted, snowEnabled]) // <--- Dependency added
 
-  // Don't render anything if not mounted or not christmas
   if (!mounted) return null
-  if (theme !== 'christmas' && theme !== 'christmas-dark') return null
+  
+  // Don't render anything if conditions aren't met
+  const isChristmas = theme === 'christmas' || theme === 'christmas-dark'
+  if (!isChristmas || !snowEnabled) return null
 
   return (
     <canvas 
