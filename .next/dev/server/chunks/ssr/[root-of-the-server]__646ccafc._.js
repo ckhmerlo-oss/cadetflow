@@ -73,20 +73,38 @@ async function BandPage() {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
     const { data: { user } } = await supabase.auth.getUser();
     if (!user) (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["redirect"])('/login');
-    // 1. Fetch User's Profile for Permissions
+    // 1. Fetch User Profile & Band Details for Permissions
     const { data: userProfile } = await supabase.from('profiles').select(`
         is_site_admin, 
         is_in_band, 
         role:roles(role_name, default_role_level)
     `).eq('id', user.id).single();
+    // Fetch Band Details specifically to check for leadership role
+    const { data: bandDetails } = await supabase.from('band_details').select('leadership_role').eq('cadet_id', user.id).single();
     const roleName = userProfile?.role?.role_name;
     const roleLevel = userProfile?.role?.default_role_level || 0;
     const isSiteAdmin = userProfile?.is_site_admin || false;
     const isInBand = userProfile?.is_in_band || false;
+    // SECURITY CHECK: Access Page
     if (!isInBand && roleLevel < 50 && !isSiteAdmin) {
         (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["redirect"])('/');
     }
+    // DEFINITION: Senior Leadership Roles
+    // These roles (plus Band Director/Admin) can ADD/REMOVE cadets
+    const seniorLeadershipRoles = [
+        'Band Commander',
+        'Drum Major',
+        'Executive Officer',
+        'Brass Captain',
+        'Woodwind Captain',
+        'Drum Captain'
+    ];
+    const userLeadershipRole = bandDetails?.leadership_role || '';
     const canManageOptions = roleName === 'Band Director' || isSiteAdmin;
+    const canManageRoster = canManageOptions || // Directors/Admins
+    seniorLeadershipRoles.includes(userLeadershipRole) // Senior Cadets
+    ;
+    // 2. Fetch Data
     const [bandMembers, instruments, roles] = await Promise.all([
         (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$band$2f$actions$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getBandRoster"])(),
         (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$options$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getFullAppOptions"])('instrument'),
@@ -105,7 +123,7 @@ async function BandPage() {
                                 children: "Band"
                             }, void 0, false, {
                                 fileName: "[project]/app/band/page.tsx",
-                                lineNumber: 46,
+                                lineNumber: 72,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -113,13 +131,13 @@ async function BandPage() {
                                 children: "Manage roster, instruments, and travel details."
                             }, void 0, false, {
                                 fileName: "[project]/app/band/page.tsx",
-                                lineNumber: 49,
+                                lineNumber: 75,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/band/page.tsx",
-                        lineNumber: 45,
+                        lineNumber: 71,
                         columnNumber: 9
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -132,7 +150,7 @@ async function BandPage() {
                                     children: "Total"
                                 }, void 0, false, {
                                     fileName: "[project]/app/band/page.tsx",
-                                    lineNumber: 55,
+                                    lineNumber: 81,
                                     columnNumber: 17
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -140,40 +158,41 @@ async function BandPage() {
                                     children: bandMembers.length
                                 }, void 0, false, {
                                     fileName: "[project]/app/band/page.tsx",
-                                    lineNumber: 56,
+                                    lineNumber: 82,
                                     columnNumber: 17
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/band/page.tsx",
-                            lineNumber: 54,
+                            lineNumber: 80,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/band/page.tsx",
-                        lineNumber: 53,
+                        lineNumber: 79,
                         columnNumber: 9
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/band/page.tsx",
-                lineNumber: 44,
+                lineNumber: 70,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$band$2f$BandDashboardClient$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
                 initialMembers: bandMembers,
                 instrumentOptions: instruments,
                 roleOptions: roles,
-                canManageOptions: canManageOptions
+                canManageOptions: canManageOptions,
+                canManageRoster: canManageRoster
             }, void 0, false, {
                 fileName: "[project]/app/band/page.tsx",
-                lineNumber: 61,
+                lineNumber: 87,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/band/page.tsx",
-        lineNumber: 42,
+        lineNumber: 68,
         columnNumber: 5
     }, this);
 }

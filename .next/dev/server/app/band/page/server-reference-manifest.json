@@ -15,6 +15,36 @@
       "exportedName": "getBandRoster",
       "filename": "app/band/actions.ts"
     },
+    "40638b755d8b0919a51ace4fb3d872f5c68972a432": {
+      "workers": {
+        "app/band/page": {
+          "moduleId": "[project]/.next-internal/server/app/band/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/band/actions.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/app/lib/options.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "searchCadetCandidates",
+          "filename": "app/band/actions.ts"
+        }
+      },
+      "layer": {
+        "app/band/page": "action-browser"
+      },
+      "exportedName": "searchCadetCandidates",
+      "filename": "app/band/actions.ts"
+    },
+    "609a0841e364d7f8efffa2f3af871efe8524655038": {
+      "workers": {
+        "app/band/page": {
+          "moduleId": "[project]/.next-internal/server/app/band/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/band/actions.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/app/lib/options.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "setBandMembership",
+          "filename": "app/band/actions.ts"
+        }
+      },
+      "layer": {
+        "app/band/page": "action-browser"
+      },
+      "exportedName": "setBandMembership",
+      "filename": "app/band/actions.ts"
+    },
     "60f71f0f5c19887422ef7ef5d3521be80caa4b7f4c": {
       "workers": {
         "app/band/page": {

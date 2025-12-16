@@ -3,21 +3,24 @@
 import React, { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { BandMember } from './actions'
+import { BandMember, setBandMembership } from './actions' // Import remove action
 import EditBandMemberModal from './components/EditBandMemberModal'
 import BandOptionsEditor from './components/BandOptionsEditor'
+import AddCadetModal from './components/AddCadetModal' // Import Add Modal
 import { AppOption } from '@/app/lib/options'
 
 export default function BandDashboardClient({ 
   initialMembers, 
   instrumentOptions, 
   roleOptions,
-  canManageOptions
+  canManageOptions,
+  canManageRoster // <--- NEW PROP
 }: { 
   initialMembers: BandMember[], 
   instrumentOptions: AppOption[],
   roleOptions: string[],
-  canManageOptions: boolean
+  canManageOptions: boolean,
+  canManageRoster: boolean
 }) {
   const router = useRouter()
   
@@ -25,8 +28,10 @@ export default function BandDashboardClient({
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedSection, setSelectedSection] = useState('')
   const [expandedMemberId, setExpandedMemberId] = useState<string | null>(null)
+  
   const [editingMember, setEditingMember] = useState<BandMember | null>(null)
-  const [showOptionsEditor, setShowOptionsEditor] = useState(false) 
+  const [showOptionsEditor, setShowOptionsEditor] = useState(false)
+  const [showAddModal, setShowAddModal] = useState(false) // <--- Add Modal State
 
   // -- HELPERS --
   const instrumentToSectionMap = useMemo(() => {
@@ -60,6 +65,18 @@ export default function BandDashboardClient({
       setExpandedMemberId(prev => prev === id ? null : id)
   }
 
+  // REMOVE HANDLER
+  const handleRemoveMember = async (id: string, name: string) => {
+      if (!confirm(`Are you sure you want to remove ${name} from the Band roster?`)) return
+      
+      const res = await setBandMembership(id, false)
+      if (res.success) {
+          router.refresh()
+      } else {
+          alert('Error removing member: ' + res.error)
+      }
+  }
+
   return (
     <>
     <style jsx global>{`
@@ -73,11 +90,10 @@ export default function BandDashboardClient({
 
     <div className="space-y-6 animate-in fade-in duration-500">
       
-      {/* --- TOOLBAR (Hidden in Print) --- */}
+      {/* --- TOOLBAR --- */}
       <div className="flex flex-col md:flex-row gap-4 justify-between items-center bg-card p-4 rounded-lg border border-border shadow-sm print:hidden">
         
         <div className="flex flex-col sm:flex-row gap-2 w-full md:w-auto">
-            {/* Search */}
             <input 
                 type="text" 
                 placeholder="Search cadets..." 
@@ -86,7 +102,6 @@ export default function BandDashboardClient({
                 className="w-full sm:w-64 p-2 rounded-md border border-input bg-background text-foreground text-sm focus:ring-2 focus:ring-primary"
             />
 
-            {/* Section Filter */}
             <select 
                 value={selectedSection}
                 onChange={(e) => setSelectedSection(e.target.value)}
@@ -98,6 +113,19 @@ export default function BandDashboardClient({
         </div>
         
         <div className="flex gap-2 w-full md:w-auto justify-end">
+            
+            {/* ADD CADET BUTTON (Roster Mgmt) */}
+            {canManageRoster && (
+                <button 
+                    onClick={() => setShowAddModal(true)}
+                    className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white text-sm font-bold rounded-md hover:bg-green-700 transition-colors shadow-sm"
+                >
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" /></svg>
+                    Add Cadet
+                </button>
+            )}
+
+            {/* OPTIONS BUTTON (Director Only) */}
             {canManageOptions && (
                 <button 
                     onClick={() => setShowOptionsEditor(true)}
@@ -143,7 +171,6 @@ export default function BandDashboardClient({
 
                   return (
                     <React.Fragment key={member.id}>
-                        {/* MAIN ROW */}
                         <tr className={`hover:bg-accent/50 transition-colors group ${isExpanded ? 'bg-accent/30' : ''} no-break`}>
                             <td className="px-4 py-4 text-center cursor-pointer print:hidden" onClick={() => toggleRow(member.id)}>
                                 <svg className={`w-5 h-5 text-muted-foreground transition-transform ${isExpanded ? 'rotate-90' : ''}`} fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
@@ -180,7 +207,16 @@ export default function BandDashboardClient({
                                 </span>
                             </td>
 
-                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-4 print:hidden">
+                            <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2 print:hidden">
+                                {canManageRoster && (
+                                    <button 
+                                        onClick={() => handleRemoveMember(member.id, member.last_name)} 
+                                        className="text-destructive hover:text-destructive/80 transition-colors"
+                                        title="Remove from Band"
+                                    >
+                                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" /></svg>
+                                    </button>
+                                )}
                                 <button onClick={() => setEditingMember(member)} className="text-primary hover:text-primary/80 transition-colors">
                                     Edit
                                 </button>
@@ -190,7 +226,6 @@ export default function BandDashboardClient({
                             </td>
                         </tr>
 
-                        {/* EXPANDED ROW (DETAILS) */}
                         {isExpanded && (
                             <tr className="bg-muted/10 print:hidden">
                                 <td colSpan={8} className="px-6 py-4">
@@ -234,7 +269,7 @@ export default function BandDashboardClient({
         </div>
       </div>
 
-      {/* MODALS (Unchanged) */}
+      {/* MODALS */}
       {editingMember && (
         <EditBandMemberModal 
             member={editingMember} 
@@ -245,6 +280,13 @@ export default function BandDashboardClient({
                 setEditingMember(null)
                 router.refresh()
             }}
+        />
+      )}
+
+      {canManageRoster && showAddModal && (
+        <AddCadetModal 
+            onClose={() => setShowAddModal(false)}
+            onSuccess={() => router.refresh()}
         />
       )}
 

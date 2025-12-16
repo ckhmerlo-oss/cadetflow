@@ -3,6 +3,7 @@
 import { createClient } from '@/utils/supabase/server'
 import { revalidatePath } from 'next/cache'
 
+// ... (Keep existing types like BandMember) ...
 export type BandMember = {
   id: string
   first_name: string
@@ -21,6 +22,7 @@ export type BandMember = {
 }
 
 export async function getBandRoster() {
+  // ... (Keep existing implementation) ...
   const supabase = createClient()
   
   const { data, error } = await supabase
@@ -39,7 +41,7 @@ export async function getBandRoster() {
       role:roles!inner(default_role_level)
     `)
     .eq('is_in_band', true)
-    .lt('role.default_role_level', 50) // <--- FILTER: Only Role Level < 50 (Cadets)
+    .lt('role.default_role_level', 50) 
     .order('last_name', { ascending: true })
 
   if (error) {
@@ -47,7 +49,6 @@ export async function getBandRoster() {
     return []
   }
 
-  // Map to ensure clean types
   return data.map((m: any) => ({
     ...m,
     company: Array.isArray(m.company) ? m.company[0] : m.company,
@@ -57,9 +58,9 @@ export async function getBandRoster() {
   })) as BandMember[]
 }
 
+// ... (Keep updateBandDetails) ...
 export async function updateBandDetails(cadetId: string, details: { instrument: string, leadership_role: string, travel_notes: string }) {
   const supabase = createClient()
-  
   const { error } = await supabase
     .from('band_details')
     .upsert({
@@ -68,6 +69,47 @@ export async function updateBandDetails(cadetId: string, details: { instrument: 
       leadership_role: details.leadership_role,
       travel_notes: details.travel_notes
     }, { onConflict: 'cadet_id' })
+
+  if (error) return { success: false, error: error.message }
+  revalidatePath('/band')
+  return { success: true }
+}
+
+// --- NEW ACTIONS ---
+
+export async function searchCadetCandidates(query: string) {
+  const supabase = createClient()
+  
+  // Find cadets NOT in band, matching name
+  const { data, error } = await supabase
+    .from('profiles')
+    .select(`
+      id, first_name, last_name, cadet_rank, email,
+      company:companies(company_name),
+      role:roles!inner(default_role_level)
+    `)
+    .eq('is_in_band', false) // Must NOT be in band
+    .lt('role.default_role_level', 50) // Must be cadet
+    .or(`first_name.ilike.%${query}%,last_name.ilike.%${query}%`)
+    .limit(10)
+
+  if (error) return []
+  
+  return data.map((p: any) => ({
+    id: p.id,
+    name: `${p.last_name}, ${p.first_name}`,
+    rank: p.cadet_rank,
+    company: Array.isArray(p.company) ? p.company[0]?.company_name : p.company?.company_name
+  }))
+}
+
+export async function setBandMembership(cadetId: string, isInBand: boolean) {
+  const supabase = createClient()
+  
+  const { error } = await supabase
+    .from('profiles')
+    .update({ is_in_band: isInBand })
+    .eq('id', cadetId)
 
   if (error) return { success: false, error: error.message }
   

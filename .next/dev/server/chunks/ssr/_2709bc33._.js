@@ -2,9 +2,13 @@ module.exports = [
 "[project]/app/band/actions.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
-/* __next_internal_action_entry_do_not_use__ [{"002a5258267312a42220e5fa8c7547e20e0a6976ed":"getBandRoster","60f71f0f5c19887422ef7ef5d3521be80caa4b7f4c":"updateBandDetails"},"",""] */ __turbopack_context__.s([
+/* __next_internal_action_entry_do_not_use__ [{"002a5258267312a42220e5fa8c7547e20e0a6976ed":"getBandRoster","40638b755d8b0919a51ace4fb3d872f5c68972a432":"searchCadetCandidates","609a0841e364d7f8efffa2f3af871efe8524655038":"setBandMembership","60f71f0f5c19887422ef7ef5d3521be80caa4b7f4c":"updateBandDetails"},"",""] */ __turbopack_context__.s([
     "getBandRoster",
     ()=>getBandRoster,
+    "searchCadetCandidates",
+    ()=>searchCadetCandidates,
+    "setBandMembership",
+    ()=>setBandMembership,
     "updateBandDetails",
     ()=>updateBandDetails
 ]);
@@ -16,6 +20,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 ;
 ;
 async function getBandRoster() {
+    // ... (Keep existing implementation) ...
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
     const { data, error } = await supabase.from('profiles').select(`
       id, 
@@ -29,15 +34,13 @@ async function getBandRoster() {
       company:companies(company_name),
       band_details(instrument, leadership_role, travel_notes),
       role:roles!inner(default_role_level)
-    `).eq('is_in_band', true).lt('role.default_role_level', 50) // <--- FILTER: Only Role Level < 50 (Cadets)
-    .order('last_name', {
+    `).eq('is_in_band', true).lt('role.default_role_level', 50).order('last_name', {
         ascending: true
     });
     if (error) {
         console.error('Error fetching band roster:', error);
         return [];
     }
-    // Map to ensure clean types
     return data.map((m)=>({
             ...m,
             company: Array.isArray(m.company) ? m.company[0] : m.company,
@@ -63,13 +66,49 @@ async function updateBandDetails(cadetId, details) {
         success: true
     };
 }
+async function searchCadetCandidates(query) {
+    const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
+    // Find cadets NOT in band, matching name
+    const { data, error } = await supabase.from('profiles').select(`
+      id, first_name, last_name, cadet_rank, email,
+      company:companies(company_name),
+      role:roles!inner(default_role_level)
+    `).eq('is_in_band', false) // Must NOT be in band
+    .lt('role.default_role_level', 50) // Must be cadet
+    .or(`first_name.ilike.%${query}%,last_name.ilike.%${query}%`).limit(10);
+    if (error) return [];
+    return data.map((p)=>({
+            id: p.id,
+            name: `${p.last_name}, ${p.first_name}`,
+            rank: p.cadet_rank,
+            company: Array.isArray(p.company) ? p.company[0]?.company_name : p.company?.company_name
+        }));
+}
+async function setBandMembership(cadetId, isInBand) {
+    const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
+    const { error } = await supabase.from('profiles').update({
+        is_in_band: isInBand
+    }).eq('id', cadetId);
+    if (error) return {
+        success: false,
+        error: error.message
+    };
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$cache$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["revalidatePath"])('/band');
+    return {
+        success: true
+    };
+}
 ;
 (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$action$2d$validate$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["ensureServerEntryExports"])([
     getBandRoster,
-    updateBandDetails
+    updateBandDetails,
+    searchCadetCandidates,
+    setBandMembership
 ]);
 (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])(getBandRoster, "002a5258267312a42220e5fa8c7547e20e0a6976ed", null);
 (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])(updateBandDetails, "60f71f0f5c19887422ef7ef5d3521be80caa4b7f4c", null);
+(0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])(searchCadetCandidates, "40638b755d8b0919a51ace4fb3d872f5c68972a432", null);
+(0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$server$2d$reference$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["registerServerReference"])(setBandMembership, "609a0841e364d7f8efffa2f3af871efe8524655038", null);
 }),
 "[project]/app/lib/options.ts [app-rsc] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
@@ -162,6 +201,10 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$options$2e$ts_
 ;
 ;
 ;
+;
+;
+;
+;
 }),
 "[project]/.next-internal/server/app/band/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/band/actions.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/app/lib/options.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)", ((__turbopack_context__) => {
 "use strict";
@@ -173,10 +216,14 @@ __turbopack_context__.s([
     ()=>__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$options$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getProfileDropdowns"],
     "402d3ffc32185b509288c9f7306afee545f5d7a485",
     ()=>__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$options$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getSportOptions"],
+    "40638b755d8b0919a51ace4fb3d872f5c68972a432",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$band$2f$actions$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["searchCadetCandidates"],
     "409adbff3d4ad1b27172c3c20be93f9650b137f675",
     ()=>__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$options$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getFullAppOptions"],
     "40cac7acb9c250f9a55152b7b16bcd2ee687c3017f",
     ()=>__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$options$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getAppOptions"],
+    "609a0841e364d7f8efffa2f3af871efe8524655038",
+    ()=>__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$band$2f$actions$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["setBandMembership"],
     "60f71f0f5c19887422ef7ef5d3521be80caa4b7f4c",
     ()=>__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$band$2f$actions$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["updateBandDetails"]
 ]);

@@ -822,6 +822,10 @@ body {
   max-height: 15rem;
 }
 
+.max-h-\[300px\] {
+  max-height: 300px;
+}
+
 .max-h-\[80vh\] {
   max-height: 80vh;
 }
@@ -832,6 +836,10 @@ body {
 
 .max-h-\[90vh\] {
   max-height: 90vh;
+}
+
+.min-h-\[200px\] {
+  min-height: 200px;
 }
 
 .min-h-\[3rem\] {
@@ -1193,12 +1201,6 @@ body {
   --tw-space-x-reverse: 0;
   margin-right: calc(.75rem * var(--tw-space-x-reverse));
   margin-left: calc(.75rem * calc(1 - var(--tw-space-x-reverse)));
-}
-
-.space-x-4 > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-x-reverse: 0;
-  margin-right: calc(1rem * var(--tw-space-x-reverse));
-  margin-left: calc(1rem * calc(1 - var(--tw-space-x-reverse)));
 }
 
 .space-x-6 > :not([hidden]) ~ :not([hidden]) {
