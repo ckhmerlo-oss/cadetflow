@@ -17,7 +17,6 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 ;
 async function getBandRoster() {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
-    // Updated Query to fetch band_details and room/tours
     const { data, error } = await supabase.from('profiles').select(`
       id, 
       first_name, 
@@ -28,25 +27,25 @@ async function getBandRoster() {
       cached_tour_balance,
       email,
       company:companies(company_name),
-      band_details(instrument, leadership_role, travel_notes)
-    `).eq('is_in_band', true).order('last_name', {
+      band_details(instrument, leadership_role, travel_notes),
+      role:roles!inner(default_role_level)
+    `).eq('is_in_band', true).lt('role.default_role_level', 50) // <--- FILTER: Only Role Level < 50 (Cadets)
+    .order('last_name', {
         ascending: true
     });
     if (error) {
         console.error('Error fetching band roster:', error);
         return [];
     }
-    // Map to ensure clean types (Supabase returns arrays for 1:1 sometimes)
+    // Map to ensure clean types
     return data.map((m)=>({
             ...m,
             company: Array.isArray(m.company) ? m.company[0] : m.company,
-            // Handle the 1:1 relation returning as an array or object
             band_details: Array.isArray(m.band_details) ? m.band_details[0] || null : m.band_details || null
         }));
 }
 async function updateBandDetails(cadetId, details) {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
-    // We use UPSERT to handle both Insert (first time) and Update
     const { error } = await supabase.from('band_details').upsert({
         cadet_id: cadetId,
         instrument: details.instrument,
