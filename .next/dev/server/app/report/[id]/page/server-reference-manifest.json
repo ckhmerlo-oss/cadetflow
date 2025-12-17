@@ -14,6 +14,21 @@
       },
       "exportedName": "pullReportAction",
       "filename": "app/report/[id]/actions.ts"
+    },
+    "601988c3fb101e9d27b98c8bfc536938e860e50edc": {
+      "workers": {
+        "app/report/[id]/page": {
+          "moduleId": "[project]/.next-internal/server/app/report/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/report/[id]/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "resubmitReport",
+          "filename": "app/report/[id]/actions.ts"
+        }
+      },
+      "layer": {
+        "app/report/[id]/page": "action-browser"
+      },
+      "exportedName": "resubmitReport",
+      "filename": "app/report/[id]/actions.ts"
     }
   },
   "edge": {}

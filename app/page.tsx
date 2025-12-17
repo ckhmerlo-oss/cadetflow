@@ -3,10 +3,9 @@ import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { getIncidents, IncidentReport } from './incidents/actions'
 
-// --- NEW IMPORTS ---
-import { StatCard } from './components/ui/StatCard' 
+// --- IMPORTS ---
 import { StatusBadge } from './components/ui/StatusBadge' 
-import Snowfall from './components/Snowfall' // <--- IMPORTED SNOWFALL
+import Snowfall from './components/Snowfall' 
 
 // --- TYPES ---
 type DashboardItem = {
@@ -115,17 +114,14 @@ export default async function Dashboard() {
       
       let isAction = false;
 
-      // A. Standard Approvals
       if (report.status === 'pending_approval' && report.current_approver_group_id !== null) {
           if (report.current_approver_group_id === groupId && report.submitted_by !== user.id) {
               isAction = true;
           }
       }
       
-      // B. Revisions
       if (report.status === 'needs_revision' && report.submitted_by === user.id) isAction = true;
       
-      // C. Appeals
       if (report.appeal_status) {
           if (role_level >= 90 && report.appeal_status === 'pending_commandant') isAction = true;
           else if (report.subject_cadet_id === user.id && ['rejected_by_issuer', 'rejected_by_chain'].includes(report.appeal_status)) isAction = true;
@@ -149,7 +145,6 @@ export default async function Dashboard() {
       }
   })
 
-  // Add Incidents
   pendingIncidents.forEach((i) => {
       actionItems.push({
           id: i.id,
@@ -172,7 +167,6 @@ export default async function Dashboard() {
   return (
     <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 animate-in fade-in duration-500 bg-background text-foreground transition-colors relative">
        
-       {/* --- ADDED SNOWFALL HERE --- */}
        <Snowfall />
 
        <div className="flex justify-between items-center mb-8">
@@ -199,10 +193,12 @@ export default async function Dashboard() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
           <div className="md:col-span-2">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-              <CadetStatsHeader stats={cadetStats} />
+              {/* UPDATED: Semantic Stats */}
+              <StatCard title="Term Demerits" value={cadetStats.term_demerits} />
+              <StatCard title="Year Demerits" value={cadetStats.year_demerits} />
+              <StatCard title="Tours Owed" value={cadetStats.current_tour_balance} isHighlight />
             </div>
           </div>
-          {/* View Full Record Button - Uses Secondary or Primary based on theme preference */}
           <div className="bg-primary/10 border border-primary/20 rounded-lg shadow-sm flex overflow-hidden">
             <Link href={`/ledger/${user.id}`} className="flex-1 flex items-center justify-center p-6 text-lg font-bold text-primary hover:bg-primary hover:text-primary-foreground transition-colors w-full h-full text-center">
                 View Full Record &rarr;
@@ -259,17 +255,24 @@ export default async function Dashboard() {
   )
 }
 
-// --- SUB COMPONENTS ---
+// --- UPDATED SUB COMPONENTS ---
 
-function CadetStatsHeader({ stats }: { stats: CadetStats }) {
-  // Using the imported StatCard component which should handle semantic themes internally
-  return (
-    <>
-      <StatCard title="Current Term Demerits" value={stats.term_demerits} />
-      <StatCard title="Academic Year Demerits" value={stats.year_demerits} />
-      <StatCard title="Current Tour Balance" value={stats.current_tour_balance} />
-    </>
-  )
+// 1. Semantic Stat Card
+function StatCard({ title, value, isHighlight = false }: { title: string, value: number, isHighlight?: boolean }) {
+    return (
+        <div className={`p-4 rounded-lg shadow-sm border transition-colors ${
+            isHighlight 
+                ? 'bg-destructive/10 border-destructive/20 text-destructive' // Highlight is typically "Bad" (Red)
+                : 'bg-card border-border text-foreground'
+        }`}>
+            <p className="text-xs font-bold uppercase tracking-wider opacity-70">
+                {title}
+            </p>
+            <p className={`text-2xl font-bold mt-1 ${isHighlight ? 'text-destructive' : 'text-primary'}`}>
+                {value}
+            </p>
+        </div>
+    )
 }
 
 function DashboardSection({ 
@@ -306,7 +309,6 @@ function DashboardSection({
           )}
       </div>
       
-      {/* Semantic Card Container */}
       <div className="bg-card border border-border p-4 rounded-lg shadow-sm space-y-3 h-96 overflow-y-auto flex-grow">
         {items && items.length > 0 ? (
             items.map((item, idx) => (
@@ -334,7 +336,6 @@ function ReportCard({ report, showSubject, showSubmitter }: { report: any; showS
   const href = isIncident ? `/incidents/${report.id}` : `/report/${report.id}`;
 
   const getAppealBadge = (status: string) => {
-      // Mapping appeals to badges. Currently hardcoding colors, but could use <StatusBadge> if mapped.
       if (status === 'approved') {
           return <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary/20 text-primary ml-2">Appeal Granted</span>
       } else if (status === 'rejected_final') {
@@ -344,7 +345,6 @@ function ReportCard({ report, showSubject, showSubmitter }: { report: any; showS
       }
   }
 
-  // Incident reports get "Destructive" styling (Red/Orange). Standard reports get standard border.
   const containerClasses = isIncident 
     ? 'border-destructive/50 bg-destructive/5 hover:bg-destructive/10' 
     : 'border-border bg-card hover:bg-muted/50';
@@ -368,7 +368,6 @@ function ReportCard({ report, showSubject, showSubmitter }: { report: any; showS
         </div>
         
         {(!report.appeal_status || report.appeal_status === 'approved' || report.appeal_status === 'rejected_final') && (
-            // Replaced manual span with Semantic StatusBadge
             <StatusBadge status={report.status} />
         )}
       </div>

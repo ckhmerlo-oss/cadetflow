@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation'
 import { useState, useEffect, useMemo } from 'react'
 import { User } from '@supabase/supabase-js'
 import React from 'react' 
-import { pullReportAction } from './actions' 
+import { pullReportAction, resubmitReport } from './actions' 
 
 // ... (Types unchanged) ...
 type Report = {
@@ -177,30 +177,29 @@ export default function ReportDetailsClient({
   }
 
   async function handleResubmit(e: React.FormEvent) {
-    e.preventDefault(); setActionLoading(true);
+    e.preventDefault(); 
+    setActionLoading(true);
+    
+    // Construct ISO string
     const localDateTime = new Date(`${editableDate}T${editableTime}:00`);
     const fullTimestamp = localDateTime.toISOString();
     
-    const { error } = await supabase
-        .from('demerit_reports')
-        .update({
-            offense_type_id: editableOffenseId,
-            notes: editableNotes,
-            report_explanation: editableExplanation, 
-            date_of_offense: fullTimestamp, 
-            status: 'pending_approval' 
-        })
-        .eq('id', report.id);
+    // CALL SERVER ACTION (Replaces direct Supabase update)
+    const result = await resubmitReport(report.id, {
+        offenseTypeId: editableOffenseId,
+        notes: editableNotes,
+        reportExplanation: editableExplanation,
+        dateOfOffense: fullTimestamp
+    });
 
-    if (error) { alert(error.message); setActionLoading(false); }
-    else { 
-        await supabase.from('approval_log').insert({
-            report_id: report.id,
-            actor_id: user.id,
-            action: 'resubmitted',
-            comment: 'Report revised by submitter.'
-        });
-        router.push('/'); router.refresh(); 
+    if (result.error) { 
+        alert(result.error); 
+        setActionLoading(false); 
+    } else { 
+        // Success
+        setIsEditing(false); // Close edit mode
+        router.refresh();    // Refresh page data
+        // router.push('/')  // Optional: Redirect to dashboard if preferred
     }
   }
 

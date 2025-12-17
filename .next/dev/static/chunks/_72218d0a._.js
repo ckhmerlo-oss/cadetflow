@@ -276,6 +276,21 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }
 }),
+"[project]/app/submit/data:477e04 [app-client] (ecmascript) <text/javascript>", ((__turbopack_context__) => {
+"use strict";
+
+/* __next_internal_action_entry_do_not_use__ [{"40f919fd8d7486307a60549f7a4083a3a4a9d90a1a":"submitReport"},"app/submit/actions.ts",""] */ __turbopack_context__.s([
+    "submitReport",
+    ()=>submitReport
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$action$2d$client$2d$wrapper$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/build/webpack/loaders/next-flight-loader/action-client-wrapper.js [app-client] (ecmascript)");
+"use turbopack no side effects";
+;
+var submitReport = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$action$2d$client$2d$wrapper$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createServerReference"])("40f919fd8d7486307a60549f7a4083a3a4a9d90a1a", __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$action$2d$client$2d$wrapper$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["callServer"], void 0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$action$2d$client$2d$wrapper$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["findSourceMapURL"], "submitReport"); //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4vYWN0aW9ucy50cyJdLCJzb3VyY2VzQ29udGVudCI6WyIndXNlIHNlcnZlcidcclxuXHJcbmltcG9ydCB7IGNyZWF0ZUNsaWVudCB9IGZyb20gJ0AvdXRpbHMvc3VwYWJhc2Uvc2VydmVyJ1xyXG5pbXBvcnQgeyByZXZhbGlkYXRlUGF0aCB9IGZyb20gJ25leHQvY2FjaGUnXHJcblxyXG50eXBlIFN1Ym1pdFBheWxvYWQgPSB7XHJcbiAgY2FkZXRJZDogc3RyaW5nXHJcbiAgb2ZmZW5zZVR5cGVJZDogc3RyaW5nXHJcbiAgZGF0ZU9mT2ZmZW5zZTogc3RyaW5nXHJcbiAgdGltZU9mT2ZmZW5zZTogc3RyaW5nXHJcbiAgbm90ZXM6IHN0cmluZyAgICAgICBcclxuICBleHBsYW5hdGlvbjogc3RyaW5nIFxyXG59XHJcblxyXG5leHBvcnQgYXN5bmMgZnVuY3Rpb24gc3VibWl0UmVwb3J0KHBheWxvYWQ6IFN1Ym1pdFBheWxvYWQpIHtcclxuICBjb25zdCBzdXBhYmFzZSA9IGNyZWF0ZUNsaWVudCgpXHJcbiAgY29uc3QgeyBkYXRhOiB7IHVzZXIgfSB9ID0gYXdhaXQgc3VwYWJhc2UuYXV0aC5nZXRVc2VyKClcclxuICBpZiAoIXVzZXIpIHJldHVybiB7IGVycm9yOiAnVW5hdXRob3JpemVkJyB9XHJcblxyXG4gIC8vIDEuIEZldGNoIE9mZmVuc2UgRGV0YWlsc1xyXG4gIGNvbnN0IHsgZGF0YTogb2ZmZW5zZSB9ID0gYXdhaXQgc3VwYWJhc2VcclxuICAgIC5mcm9tKCdvZmZlbnNlX3R5cGVzJylcclxuICAgIC5zZWxlY3QoJ2RlbWVyaXRzJylcclxuICAgIC5lcSgnaWQnLCBwYXlsb2FkLm9mZmVuc2VUeXBlSWQpXHJcbiAgICAuc2luZ2xlKClcclxuXHJcbiAgaWYgKCFvZmZlbnNlKSByZXR1cm4geyBlcnJvcjogXCJJbnZhbGlkIE9mZmVuc2UgVHlwZS5cIiB9XHJcblxyXG4gIC8vIDIuIEZFVENIIEFQUFJPVkVSIENIQUlOXHJcbiAgLy8gU3RlcCBBOiBGaW5kIHRoZSBncm91cCB0aGUgVXNlciBiZWxvbmdzIHRvXHJcbiAgY29uc3QgeyBkYXRhOiB1c2VyUHJvZmlsZSB9ID0gYXdhaXQgc3VwYWJhc2VcclxuICAgIC5mcm9tKCdwcm9maWxlcycpXHJcbiAgICAuc2VsZWN0KCdyb2xlOnJvbGVfaWQgKGFwcHJvdmFsX2dyb3VwX2lkKScpXHJcbiAgICAuZXEoJ2lkJywgdXNlci5pZClcclxuICAgIC5zaW5nbGUoKVxyXG5cclxuICBjb25zdCBteUdyb3VwSWQgPSAodXNlclByb2ZpbGU/LnJvbGUgYXMgYW55KT8uYXBwcm92YWxfZ3JvdXBfaWRcclxuICBsZXQgdGFyZ2V0R3JvdXBJZCA9IG51bGxcclxuXHJcbiAgLy8gU3RlcCBCOiBGaW5kIHRoZSBcIk5leHQgQXBwcm92ZXJcIlxyXG4gIGlmIChteUdyb3VwSWQpIHtcclxuICAgIGNvbnN0IHsgZGF0YTogbXlHcm91cCB9ID0gYXdhaXQgc3VwYWJhc2VcclxuICAgICAgICAuZnJvbSgnYXBwcm92YWxfZ3JvdXBzJylcclxuICAgICAgICAuc2VsZWN0KCduZXh0X2FwcHJvdmVyX2dyb3VwX2lkJylcclxuICAgICAgICAuZXEoJ2lkJywgbXlHcm91cElkKVxyXG4gICAgICAgIC5zaW5nbGUoKVxyXG4gICAgXHJcbiAgICB0YXJnZXRHcm91cElkID0gbXlHcm91cD8ubmV4dF9hcHByb3Zlcl9ncm91cF9pZCB8fCBudWxsXHJcbiAgfVxyXG5cclxuICAvLyAzLiBERVRFUk1JTkUgU1RBVFVTIChGaXggZm9yIElzc3VlICMxKVxyXG4gIC8vIElmIHRoZSB1c2VyIGhhcyBhIGdyb3VwLCBidXQgdGhlcmUgaXMgTk8gbmV4dCBncm91cCwgdGhleSBhcmUgdGhlIEZpbmFsIEFwcHJvdmVyIChDb21tYW5kYW50KS5cclxuICAvLyBXZSBhdXRvLWFwcHJvdmUgdGhlIHJlcG9ydC5cclxuICBsZXQgc3RhdHVzID0gJ3BlbmRpbmdfYXBwcm92YWwnXHJcbiAgbGV0IGlzQXV0b0FwcHJvdmVkID0gZmFsc2VcclxuXHJcbiAgaWYgKG15R3JvdXBJZCAmJiAhdGFyZ2V0R3JvdXBJZCkge1xyXG4gICAgICBzdGF0dXMgPSAnY29tcGxldGVkJ1xyXG4gICAgICBpc0F1dG9BcHByb3ZlZCA9IHRydWVcclxuICB9XHJcblxyXG4gIC8vIDQuIElOU0VSVCBSRVBPUlRcclxuICBjb25zdCBjb21iaW5lZFN0cmluZyA9IGAke3BheWxvYWQuZGF0ZU9mT2ZmZW5zZX1UJHtwYXlsb2FkLnRpbWVPZk9mZmVuc2V9OjAwYFxyXG5cclxuICBjb25zdCB7IGRhdGE6IG5ld1JlcG9ydCwgZXJyb3I6IGluc2VydEVycm9yIH0gPSBhd2FpdCBzdXBhYmFzZVxyXG4gICAgLmZyb20oJ2RlbWVyaXRfcmVwb3J0cycpXHJcbiAgICAuaW5zZXJ0KHtcclxuICAgICAgc3ViamVjdF9jYWRldF9pZDogcGF5bG9hZC5jYWRldElkLFxyXG4gICAgICBzdWJtaXR0ZWRfYnk6IHVzZXIuaWQsXHJcbiAgICAgIG9mZmVuc2VfdHlwZV9pZDogcGF5bG9hZC5vZmZlbnNlVHlwZUlkLFxyXG4gICAgICBkYXRlX29mX29mZmVuc2U6IGNvbWJpbmVkU3RyaW5nLFxyXG4gICAgICBub3RlczogcGF5bG9hZC5ub3RlcywgICAgICAgICAgICAgICAgICAgIFxyXG4gICAgICByZXBvcnRfZXhwbGFuYXRpb246IHBheWxvYWQuZXhwbGFuYXRpb24sIFxyXG4gICAgICBkZW1lcml0c19lZmZlY3RpdmU6IG9mZmVuc2UuZGVtZXJpdHMsXHJcbiAgICAgIHN0YXR1czogc3RhdHVzLFxyXG4gICAgICBjdXJyZW50X2FwcHJvdmVyX2dyb3VwX2lkOiB0YXJnZXRHcm91cElkIFxyXG4gICAgfSlcclxuICAgIC5zZWxlY3QoJ2lkJylcclxuICAgIC5zaW5nbGUoKVxyXG5cclxuICBpZiAoaW5zZXJ0RXJyb3IgfHwgIW5ld1JlcG9ydCkge1xyXG4gICAgcmV0dXJuIHsgZXJyb3I6IGluc2VydEVycm9yPy5tZXNzYWdlIHx8IFwiRmFpbGVkIHRvIGNyZWF0ZSByZXBvcnRcIiB9XHJcbiAgfVxyXG5cclxuICAvLyA1LiBMT0dHSU5HXHJcbiAgLy8gSW5pdGlhbCBTdWJtaXNzaW9uIExvZ1xyXG4gIGF3YWl0IHN1cGFiYXNlLmZyb20oJ2FwcHJvdmFsX2xvZycpLmluc2VydCh7XHJcbiAgICAgIHJlcG9ydF9pZDogbmV3UmVwb3J0LmlkLFxyXG4gICAgICBhY3Rvcl9pZDogdXNlci5pZCxcclxuICAgICAgYWN0aW9uOiAnc3VibWl0dGVkJyxcclxuICAgICAgY29tbWVudDogJ1JlcG9ydCBjcmVhdGVkJyxcclxuICAgICAgY3JlYXRlZF9hdDogbmV3IERhdGUoKS50b0lTT1N0cmluZygpXHJcbiAgfSlcclxuXHJcbiAgLy8gSWYgYXV0by1hcHByb3ZlZCwgYWRkIGEgc2Vjb25kIGxvZyBlbnRyeVxyXG4gIGlmIChpc0F1dG9BcHByb3ZlZCkge1xyXG4gICAgICBhd2FpdCBzdXBhYmFzZS5mcm9tKCdhcHByb3ZhbF9sb2cnKS5pbnNlcnQoe1xyXG4gICAgICAgICAgcmVwb3J0X2lkOiBuZXdSZXBvcnQuaWQsXHJcbiAgICAgICAgICBhY3Rvcl9pZDogdXNlci5pZCxcclxuICAgICAgICAgIGFjdGlvbjogJ2FwcHJvdmVkJyxcclxuICAgICAgICAgIGNvbW1lbnQ6ICdBdXRvLWFwcHJvdmVkIChGaW5hbCBBdXRob3JpdHkpJyxcclxuICAgICAgICAgIGNyZWF0ZWRfYXQ6IG5ldyBEYXRlKERhdGUubm93KCkgKyAxMDAwKS50b0lTT1N0cmluZygpIC8vICsxIHNlYyB0byBlbnN1cmUgb3JkZXJcclxuICAgICAgfSlcclxuICB9XHJcblxyXG4gIHJldmFsaWRhdGVQYXRoKCcvJylcclxuICByZXR1cm4geyBzdWNjZXNzOiB0cnVlIH1cclxufSJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiMlJBY3NCIn0=
+if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
+    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
+}
+}),
 "[project]/app/submit/page.tsx [app-client] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
@@ -288,9 +303,11 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$client$
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$SearchableSelect$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/app/components/SearchableSelect.tsx [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$submit$2f$data$3a$477e04__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$text$2f$javascript$3e$__ = __turbopack_context__.i("[project]/app/submit/data:477e04 [app-client] (ecmascript) <text/javascript>"); // Import the server action
 ;
 var _s = __turbopack_context__.k.signature();
 'use client';
+;
 ;
 ;
 ;
@@ -417,7 +434,7 @@ function SubmitReport() {
         setLoading(true);
         setError(null);
         try {
-            const promises = validCadetIds.map((cadetId)=>submitReport({
+            const promises = validCadetIds.map((cadetId)=>(0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$submit$2f$data$3a$477e04__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$text$2f$javascript$3e$__["submitReport"])({
                     cadetId,
                     offenseTypeId,
                     dateOfOffense,
@@ -787,6 +804,40 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }
 }),
+"[project]/node_modules/next/dist/build/webpack/loaders/next-flight-loader/action-client-wrapper.js [app-client] (ecmascript)", ((__turbopack_context__, module, exports) => {
+"use strict";
+
+// This file must be bundled in the app's client layer, it shouldn't be directly
+// imported by the server.
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+0 && (module.exports = {
+    callServer: null,
+    createServerReference: null,
+    findSourceMapURL: null
+});
+function _export(target, all) {
+    for(var name in all)Object.defineProperty(target, name, {
+        enumerable: true,
+        get: all[name]
+    });
+}
+_export(exports, {
+    callServer: function() {
+        return _appcallserver.callServer;
+    },
+    createServerReference: function() {
+        return _client.createServerReference;
+    },
+    findSourceMapURL: function() {
+        return _appfindsourcemapurl.findSourceMapURL;
+    }
+});
+const _appcallserver = __turbopack_context__.r("[project]/node_modules/next/dist/client/app-call-server.js [app-client] (ecmascript)");
+const _appfindsourcemapurl = __turbopack_context__.r("[project]/node_modules/next/dist/client/app-find-source-map-url.js [app-client] (ecmascript)");
+const _client = __turbopack_context__.r("[project]/node_modules/next/dist/compiled/react-server-dom-turbopack/client.js [app-client] (ecmascript)"); //# sourceMappingURL=action-client-wrapper.js.map
+}),
 ]);
 
-//# sourceMappingURL=app_e6054c57._.js.map
+//# sourceMappingURL=_72218d0a._.js.map

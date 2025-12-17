@@ -1,3 +1,7 @@
 {
-  "/band/page": "app/band/page.js"
+  "/band/page": "app/band/page.js",
+  "/login/page": "app/login/page.js",
+  "/page": "app/page.js",
+  "/report/[id]/page": "app/report/[id]/page.js",
+  "/submit/page": "app/submit/page.js"
 }
