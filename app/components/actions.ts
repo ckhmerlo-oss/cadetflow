@@ -12,7 +12,6 @@ export async function submitFeedback(data: FeedbackData) {
   const supabase = createClient()
 
   // 1. Save to Database
-  // We insert the raw feedback first to ensure we capture it even if email fails.
   const { error: dbError } = await supabase
     .from('feedback')
     .insert({
@@ -27,10 +26,7 @@ export async function submitFeedback(data: FeedbackData) {
   }
 
   // 2. Trigger Email Notification via Supabase Edge Function
-  // We use the existing 'send_email' function you uploaded in index.ts
   try {
-    const functionUrl = `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/send_email`
-    
     const emailPayload = {
       type: 'alert',
       recipients: ['merlock@fuma.org'], // <--- REPLACE WITH YOUR EMAIL
@@ -47,26 +43,19 @@ export async function submitFeedback(data: FeedbackData) {
       `
     }
 
-    const response = await fetch(functionUrl, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        // We use the ANON key here because the Edge Function handles its own CORS and logic,
-        // but typically you authorize function calls with the Anon or Service key.
-        'Authorization': `Bearer ${process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY}`,
-      },
-      body: JSON.stringify(emailPayload),
+    // --- UPDATED: Use supabase.functions.invoke ---
+    const { error: funcError } = await supabase.functions.invoke('send-email', {
+      body: emailPayload,
     })
 
-    if (!response.ok) {
-        const resJson = await response.json()
-        console.error('Feedback Email Error:', resJson)
-        // We do NOT return false here, because the DB save was successful.
-        // We just log the email failure.
+    if (funcError) {
+      console.error('Feedback Email Invocation Error:', funcError)
+      // We don't fail the request here because the DB insert succeeded,
+      // but you will now see this error in your Next.js Server Terminal.
     }
 
-  } catch (emailError) {
-    console.error('Feedback Email Fetch Error:', emailError)
+  } catch (err) {
+    console.error('Unexpected Feedback Error:', err)
   }
 
   return { success: true }
