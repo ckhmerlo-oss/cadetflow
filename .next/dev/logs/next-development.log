@@ -1,22 +1,3627 @@
-[00:00:06.275] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-[00:00:07.002] Server  LOG      ✓ Ready in 5.3s
-[00:00:14.020] Server  LOG      ○ Compiling / ...
-[00:00:22.826] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:00:23.393] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:23.394] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
-[00:00:23.394] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","r":"","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1767530754491}
-[00:00:23.394] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:00:27.939] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1767530754494-6419339877926","route":"/","type":"FCP","value":13036},{"href":"http://localhost:3000/","id":"v3-1767530754494-3297742726716","route":"/","type":"TTFB","value":12716},{"attribution":{"eventTarget":"div.flex.justify-between.items-end>h2.text-2xl.font-semibold.text-foreground"},"href":"http://localhost:3000/","id":"v3-1767530754493-5376489725234","route":"/","type":"LCP","value":13036},{"attribution":{"eventTarget":"#nav-daily","eventType":"pointerdown"},"href":"http://localhost:3000/","id":"v3-1767530754493-7563647718677","route":"/","type":"FID","value":18}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:00:27.939] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/daily color: rgb(120, 120, 120) color: inherit {"dp":"/reports/daily","o":"http://localhost:3000/reports/daily","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1767530759022}
-[00:00:41.154] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1767530772242}
-[00:00:43.483] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/submit color: rgb(120, 120, 120) color: inherit {"dp":"/submit","o":"http://localhost:3000/submit","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1767530774590}
-[00:00:58.277] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1767530789373}
-[00:00:58.877] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/daily color: rgb(120, 120, 120) color: inherit {"dp":"/reports/daily","o":"http://localhost:3000/reports/daily","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1767530789979}
-[00:01:03.935] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/login color: rgb(120, 120, 120) color: inherit {"dp":"/login","o":"http://localhost:3000/login","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1767530795036}
-[00:01:10.065] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
-[00:01:10.404] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:01:10.404] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
-[00:01:10.404] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/","route":"/"}
-[00:01:10.404] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/ color: rgb(120, 120, 120) color: inherit {"dp":"/","o":"http://localhost:3000/","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1767530801508}
-[00:01:13.174] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/","id":"v3-1767530801500-5318661592104","route":"/","type":"FCP","value":1851},{"href":"http://localhost:3000/","id":"v3-1767530801500-5620584428997","route":"/","type":"TTFB","value":1520},{"attribution":{"eventTarget":"div.flex.justify-between.items-end>h2.text-2xl.font-semibold.text-foreground"},"href":"http://localhost:3000/","id":"v3-1767530801500-7531890301257","route":"/","type":"LCP","value":1851},{"attribution":{"eventTarget":"#nav-daily","eventType":"pointerdown"},"href":"http://localhost:3000/","id":"v3-1767530801500-1534682074310","route":"/","type":"FID","value":6}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
-[00:01:13.174] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/daily color: rgb(120, 120, 120) color: inherit {"dp":"/reports/daily","o":"http://localhost:3000/reports/daily","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1767530804270}
+[00:00:06.364] Server  WARN     ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+[00:00:06.929] Server  LOG      ✓ Ready in 5.5s
+[00:00:20.154] Server  LOG      ○ Compiling /reports/daily ...
+[00:00:27.748] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:00:29.384] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:29.384] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/reports/daily","route":"/reports/daily"}
+[00:00:29.384] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/daily color: rgb(120, 120, 120) color: inherit {"dp":"/reports/daily","o":"http://localhost:3000/reports/daily","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1767532036836}
+[00:00:29.384] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:00:38.014] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/reports/daily","id":"v3-1767532036839-7775050055822","route":"/reports/daily","type":"TTFB","value":1093365}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:00:49.378] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"html.christmas-dark>body.inter_5972bc34-module__OU16Qa__className.bg-background.text-foreground","eventType":"keydown"},"href":"http://localhost:3000/reports/daily","id":"v3-1767532036839-9514865004743","route":"/reports/daily","type":"INP","value":24}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:02:25.625] Server  LOG      ✓ Compiled in 354ms
+[00:02:29.313] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"#nav-feedback>svg.w-5.h-5>path","eventType":"click"},"href":"http://localhost:3000/reports/daily","id":"v3-1767532036839-9514865004743","route":"/reports/daily","type":"INP","value":40}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:10:59.882] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:10:59.887] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:10:59.891] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:10:59.896] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:10:59.904] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:10:59.909] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:10:59.914] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:10:59.918] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:10:59.923] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:10:59.927] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:10:59.931] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:10:59.936] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:10:59.942] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:10:59.946] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:10:59.950] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:10:59.954] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:10:59.961] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:10:59.965] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:10:59.969] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:10:59.972] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:10:59.977] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:10:59.981] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:10:59.985] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:10:59.989] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:10:59.995] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:10:59.998] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:00.002] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:00.006] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:00.013] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:00.016] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:00.019] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:00.023] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:00.028] Server  LOG      ✓ Compiled in 199ms
+[00:11:00.694] Browser ERROR   ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve './actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:11:20.857] Server  LOG      ✓ Compiled in 263ms
+[00:11:21.586] Browser ERROR   ./app/components/FeedbackButton.tsx:6:1
+Export submitFeedback doesn't exist in target module
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+The export submitFeedback was not found in module [project]/app/components/actions.ts [app-client] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+[00:11:21.586] Browser ERROR   ./app/components/FeedbackButton.tsx:6:1
+Export submitFeedback doesn't exist in target module
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from './actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+The export submitFeedback was not found in module [project]/app/components/actions.ts [app-ssr] (ecmascript).
+The module has no exports at all.
+All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+[00:11:22.553] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:22.556] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:22.625] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:22.627] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:22.630] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:22.634] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:22.637] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:22.639] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:22.643] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:22.646] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:22.650] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:22.652] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:22.655] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:22.658] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:22.663] Server  LOG      ✓ Compiled in 285ms
+[00:11:23.407] Browser ERROR   ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+https://nextjs.org/docs/messages/module-not-found
+[00:11:35.805] Server  ERROR    ⨯ ./app/components
+Module not found: Can't resolve './actions'
+server relative imports are not implemented yet. Please try an import relative to the file you are importing from.
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.806] Server  ERROR    ⨯ ./app/components
+Module not found: Can't resolve './actions'
+server relative imports are not implemented yet. Please try an import relative to the file you are importing from.
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.812] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.815] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.819] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.822] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.825] Server  ERROR    ⨯ ./app/components
+Module not found: Can't resolve './actions'
+server relative imports are not implemented yet. Please try an import relative to the file you are importing from.
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.826] Server  ERROR    ⨯ ./app/components
+Module not found: Can't resolve './actions'
+server relative imports are not implemented yet. Please try an import relative to the file you are importing from.
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.829] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.833] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.836] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.840] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.842] Server  ERROR    ⨯ ./app/components
+Module not found: Can't resolve './actions'
+server relative imports are not implemented yet. Please try an import relative to the file you are importing from.
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.843] Server  ERROR    ⨯ ./app/components
+Module not found: Can't resolve './actions'
+server relative imports are not implemented yet. Please try an import relative to the file you are importing from.
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.847] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.851] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.854] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.859] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.861] Server  ERROR    ⨯ ./app/components
+Module not found: Can't resolve './actions'
+server relative imports are not implemented yet. Please try an import relative to the file you are importing from.
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.862] Server  ERROR    ⨯ ./app/components
+Module not found: Can't resolve './actions'
+server relative imports are not implemented yet. Please try an import relative to the file you are importing from.
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.865] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.870] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.874] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.878] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.881] Server  ERROR    ⨯ ./app/components
+Module not found: Can't resolve './actions'
+server relative imports are not implemented yet. Please try an import relative to the file you are importing from.
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.881] Server  ERROR    ⨯ ./app/components
+Module not found: Can't resolve './actions'
+server relative imports are not implemented yet. Please try an import relative to the file you are importing from.
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.885] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.888] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.893] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.896] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.899] Server  ERROR    ⨯ ./app/components
+Module not found: Can't resolve './actions'
+server relative imports are not implemented yet. Please try an import relative to the file you are importing from.
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.900] Server  ERROR    ⨯ ./app/components
+Module not found: Can't resolve './actions'
+server relative imports are not implemented yet. Please try an import relative to the file you are importing from.
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.903] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.907] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.910] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.913] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.915] Server  ERROR    ⨯ ./app/components
+Module not found: Can't resolve './actions'
+server relative imports are not implemented yet. Please try an import relative to the file you are importing from.
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.916] Server  ERROR    ⨯ ./app/components
+Module not found: Can't resolve './actions'
+server relative imports are not implemented yet. Please try an import relative to the file you are importing from.
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.920] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.924] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.928] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.931] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.934] Server  ERROR    ⨯ ./app/components
+Module not found: Can't resolve './actions'
+server relative imports are not implemented yet. Please try an import relative to the file you are importing from.
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.934] Server  ERROR    ⨯ ./app/components
+Module not found: Can't resolve './actions'
+server relative imports are not implemented yet. Please try an import relative to the file you are importing from.
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.938] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.941] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.945] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.948] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:35.952] Server  LOG      ✓ Compiled in 149ms
+[00:11:36.682] Browser ERROR   ./app/components
+Module not found: Can't resolve './actions'
+server relative imports are not implemented yet. Please try an import relative to the file you are importing from.
+
+https://nextjs.org/docs/messages/module-not-found
+[00:11:36.682] Browser ERROR   ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve '/actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from '/actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:11:37.211] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.216] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.221] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.225] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.232] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.237] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.241] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.245] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.251] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.256] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.260] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.263] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.267] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.271] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.276] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.280] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.287] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.292] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.297] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.300] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.304] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.307] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.311] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.313] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.318] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.321] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.324] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.327] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.332] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.335] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.337] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.340] Server  ERROR    ⨯ ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:37.344] Server  LOG      ✓ Compiled in 164ms
+[00:11:38.061] Browser ERROR   ./app/components/FeedbackButton.tsx:6:1
+Module not found: Can't resolve 'actions'
+  4 | import { useState, useEffect } from 'react'
+  5 | import { createPortal } from 'react-dom' //
+> 6 | import { submitFeedback } from 'actions' // We will create this next
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  7 |
+  8 | type FeedbackButtonProps = {
+  9 |   variant?: 'icon' | 'text'
+
+Import traces:
+  Client Component Browser:
+    ./app/components/FeedbackButton.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Client Component Browser]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./app/components/FeedbackButton.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Client Component SSR]
+    ./app/components/HeaderMenu.tsx [Server Component]
+    ./app/layout.tsx [Server Component]
+
+https://nextjs.org/docs/messages/module-not-found
+[00:11:39.867] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:39.869] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:39.872] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:39.873] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:39.876] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:39.878] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:39.882] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:39.884] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:39.887] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:39.888] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:39.891] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:39.893] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:39.897] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:39.901] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:11:39.915] Server  LOG      ✓ Compiled in 157ms
+[00:11:40.725] Browser ERROR   ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+https://nextjs.org/docs/messages/module-not-found
+[00:21:18.021] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:21:18.024] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:21:18.027] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:21:18.029] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:21:18.032] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:21:18.034] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:21:18.036] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:21:18.038] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:21:18.043] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:21:18.045] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:21:18.047] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:21:18.049] Server  ERROR    ⨯ ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+
+
+https://nextjs.org/docs/messages/module-not-found
+
+
+[00:21:18.054] Server  LOG      ✓ Compiled in 185ms
+[00:21:18.931] Browser ERROR   ./app/components/actions.ts:4:1
+Module not found: Can't resolve 'resend'
+  2 |
+  3 | import { createClient } from '@/utils/supabase/server'
+> 4 | import { Resend } from 'resend'
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  5 |
+  6 | // Initialize Resend with your API key
+  7 | const resend = new Resend(process.env.RESEND_API_KEY)
+
+https://nextjs.org/docs/messages/module-not-found
+[00:21:32.991] Server  LOG      ✓ Compiled in 178ms
+[00:21:35.497] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:21:37.101] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:21:37.101] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/reports/daily","route":"/reports/daily"}
+[00:21:37.101] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/daily color: rgb(120, 120, 120) color: inherit {"dp":"/reports/daily","o":"http://localhost:3000/reports/daily","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1767533304652}
+[00:21:37.101] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:24:19.287] Server  LOG      ✓ Compiled in 231ms
+[00:24:20.390] Browser ERROR   Failed to fetch RSC payload for http://localhost:3000/reports/daily. Falling back to browser navigation. {}
+[00:24:21.233] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:24:21.720] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:24:21.720] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:24:21.720] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/reports/daily","route":"/reports/daily"}
+[00:24:21.720] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/daily color: rgb(120, 120, 120) color: inherit {"dp":"/reports/daily","o":"http://localhost:3000/reports/daily","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1767533470070}
+[00:24:22.663] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/reports/daily","id":"v3-1767533470069-9811202192725","route":"/reports/daily","type":"TTFB","value":1229}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:24:27.667] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"#nav-feedback>svg.w-5.h-5","eventType":"pointerdown"},"href":"http://localhost:3000/reports/daily","id":"v3-1767533470069-8371092034005","route":"/reports/daily","type":"INP","value":24}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:25:20.352] Server  LOG      ✓ Compiled in 183ms
+[00:25:21.742] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:25:23.181] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:25:23.181] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:25:23.181] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/reports/daily","route":"/reports/daily"}
+[00:25:23.181] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/daily color: rgb(120, 120, 120) color: inherit {"dp":"/reports/daily","o":"http://localhost:3000/reports/daily","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1767533530831}
+[00:25:24.369] Server  LOG      ✓ Compiled in 184ms
+[00:25:25.446] Browser INFO    %cDownload the React DevTools for a better development experience: https://react.dev/link/react-devtools font-weight:bold
+[00:25:26.043] Browser LOG     %c[Vercel Speed Insights]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:25:26.043] Browser LOG     %c[Vercel Web Analytics]%c Debug mode is enabled by default in development. No requests will be sent to the server. color: rgb(120, 120, 120) color: inherit
+[00:25:26.043] Browser LOG     %c[Vercel Web Analytics]%c Running queued event color: rgb(120, 120, 120) color: inherit pageview {"path":"/reports/daily","route":"/reports/daily"}
+[00:25:26.043] Browser LOG     %c[Vercel Web Analytics]%c [pageview] http://localhost:3000/reports/daily color: rgb(120, 120, 120) color: inherit {"dp":"/reports/daily","o":"http://localhost:3000/reports/daily","sdkn":"@vercel/analytics/next","sdkv":"1.5.0","sv":"0.1.3","ts":1767533534319}
+[00:25:28.752] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"href":"http://localhost:3000/reports/daily","id":"v3-1767533534304-5764974408193","route":"/reports/daily","type":"TTFB","value":541}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}
+[00:25:41.448] Server  ERROR   Feedback Email Error: {}
+[00:25:45.803] Browser LOG     %c[Vercel Speed Insights]%c [vitals] color: rgb(120, 120, 120) color: inherit {"metrics":[{"attribution":{"eventTarget":"#nav-feedback","eventType":"click"},"href":"http://localhost:3000/reports/daily","id":"v3-1767533534304-6017329002459","route":"/reports/daily","type":"INP","value":48}],"scriptVersion":"0.1.3","sdkName":"@vercel/speed-insights/next","sdkVersion":"1.2.0","speed":""}

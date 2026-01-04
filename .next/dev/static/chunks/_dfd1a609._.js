@@ -378,6 +378,21 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
     __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
 }
 }),
+"[project]/app/components/data:f13d16 [app-client] (ecmascript) <text/javascript>", ((__turbopack_context__) => {
+"use strict";
+
+/* __next_internal_action_entry_do_not_use__ [{"40051c0b86095af35cc3db8d7f26d35ce2872481a5":"submitFeedback"},"app/components/actions.ts",""] */ __turbopack_context__.s([
+    "submitFeedback",
+    ()=>submitFeedback
+]);
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$action$2d$client$2d$wrapper$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/build/webpack/loaders/next-flight-loader/action-client-wrapper.js [app-client] (ecmascript)");
+"use turbopack no side effects";
+;
+var submitFeedback = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$action$2d$client$2d$wrapper$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createServerReference"])("40051c0b86095af35cc3db8d7f26d35ce2872481a5", __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$action$2d$client$2d$wrapper$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["callServer"], void 0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$build$2f$webpack$2f$loaders$2f$next$2d$flight$2d$loader$2f$action$2d$client$2d$wrapper$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["findSourceMapURL"], "submitFeedback"); //# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4vYWN0aW9ucy50cyJdLCJzb3VyY2VzQ29udGVudCI6WyIndXNlIHNlcnZlcidcclxuXHJcbmltcG9ydCB7IGNyZWF0ZUNsaWVudCB9IGZyb20gJ0AvdXRpbHMvc3VwYWJhc2Uvc2VydmVyJ1xyXG5cclxudHlwZSBGZWVkYmFja0RhdGEgPSB7XHJcbiAgZmVlZGJhY2tUeXBlOiBzdHJpbmdcclxuICBwYWdlVXJsOiBzdHJpbmdcclxuICBjb250ZW50OiBzdHJpbmdcclxufVxyXG5cclxuZXhwb3J0IGFzeW5jIGZ1bmN0aW9uIHN1Ym1pdEZlZWRiYWNrKGRhdGE6IEZlZWRiYWNrRGF0YSkge1xyXG4gIGNvbnN0IHN1cGFiYXNlID0gY3JlYXRlQ2xpZW50KClcclxuXHJcbiAgLy8gMS4gU2F2ZSB0byBEYXRhYmFzZVxyXG4gIC8vIFdlIGluc2VydCB0aGUgcmF3IGZlZWRiYWNrIGZpcnN0IHRvIGVuc3VyZSB3ZSBjYXB0dXJlIGl0IGV2ZW4gaWYgZW1haWwgZmFpbHMuXHJcbiAgY29uc3QgeyBlcnJvcjogZGJFcnJvciB9ID0gYXdhaXQgc3VwYWJhc2VcclxuICAgIC5mcm9tKCdmZWVkYmFjaycpXHJcbiAgICAuaW5zZXJ0KHtcclxuICAgICAgZmVlZGJhY2tfdHlwZTogZGF0YS5mZWVkYmFja1R5cGUsXHJcbiAgICAgIHBhZ2VfdXJsOiBkYXRhLnBhZ2VVcmwsXHJcbiAgICAgIGNvbnRlbnQ6IGRhdGEuY29udGVudCxcclxuICAgIH0pXHJcblxyXG4gIGlmIChkYkVycm9yKSB7XHJcbiAgICBjb25zb2xlLmVycm9yKCdGZWVkYmFjayBEQiBFcnJvcjonLCBkYkVycm9yKVxyXG4gICAgcmV0dXJuIHsgc3VjY2VzczogZmFsc2UsIGVycm9yOiAnRmFpbGVkIHRvIHNhdmUgZmVlZGJhY2sgdG8gZGF0YWJhc2UuJyB9XHJcbiAgfVxyXG5cclxuICAvLyAyLiBUcmlnZ2VyIEVtYWlsIE5vdGlmaWNhdGlvbiB2aWEgU3VwYWJhc2UgRWRnZSBGdW5jdGlvblxyXG4gIC8vIFdlIHVzZSB0aGUgZXhpc3RpbmcgJ3NlbmRfZW1haWwnIGZ1bmN0aW9uIHlvdSB1cGxvYWRlZCBpbiBpbmRleC50c1xyXG4gIHRyeSB7XHJcbiAgICBjb25zdCBmdW5jdGlvblVybCA9IGAke3Byb2Nlc3MuZW52Lk5FWFRfUFVCTElDX1NVUEFCQVNFX1VSTH0vZnVuY3Rpb25zL3YxL3NlbmRfZW1haWxgXHJcbiAgICBcclxuICAgIGNvbnN0IGVtYWlsUGF5bG9hZCA9IHtcclxuICAgICAgdHlwZTogJ2FsZXJ0JyxcclxuICAgICAgcmVjaXBpZW50czogWydtZXJsb2NrQGZ1bWEub3JnJ10sIC8vIDwtLS0gUkVQTEFDRSBXSVRIIFlPVVIgRU1BSUxcclxuICAgICAgc3ViamVjdDogYFtDYWRldEZsb3cgRmVlZGJhY2tdICR7ZGF0YS5mZWVkYmFja1R5cGUudG9VcHBlckNhc2UoKX1gLFxyXG4gICAgICBodG1sQ29udGVudDogYFxyXG4gICAgICAgIDxoMj5OZXcgRmVlZGJhY2sgUmVjZWl2ZWQ8L2gyPlxyXG4gICAgICAgIDxwPjxzdHJvbmc+VHlwZTo8L3N0cm9uZz4gJHtkYXRhLmZlZWRiYWNrVHlwZX08L3A+XHJcbiAgICAgICAgPHA+PHN0cm9uZz5QYWdlOjwvc3Ryb25nPiAke2RhdGEucGFnZVVybH08L3A+XHJcbiAgICAgICAgPGhyIC8+XHJcbiAgICAgICAgPGgzPk1lc3NhZ2U6PC9oMz5cclxuICAgICAgICA8YmxvY2txdW90ZSBzdHlsZT1cImJhY2tncm91bmQ6ICNmOWY5Zjk7IGJvcmRlci1sZWZ0OiA1cHggc29saWQgI2NjYzsgbWFyZ2luOiAxLjVlbSAxMHB4OyBwYWRkaW5nOiAwLjVlbSAxMHB4O1wiPlxyXG4gICAgICAgICAgICAke2RhdGEuY29udGVudC5yZXBsYWNlKC9cXG4vZywgJzxici8+Jyl9XHJcbiAgICAgICAgPC9ibG9ja3F1b3RlPlxyXG4gICAgICBgXHJcbiAgICB9XHJcblxyXG4gICAgY29uc3QgcmVzcG9uc2UgPSBhd2FpdCBmZXRjaChmdW5jdGlvblVybCwge1xyXG4gICAgICBtZXRob2Q6ICdQT1NUJyxcclxuICAgICAgaGVhZGVyczoge1xyXG4gICAgICAgICdDb250ZW50LVR5cGUnOiAnYXBwbGljYXRpb24vanNvbicsXHJcbiAgICAgICAgLy8gV2UgdXNlIHRoZSBBTk9OIGtleSBoZXJlIGJlY2F1c2UgdGhlIEVkZ2UgRnVuY3Rpb24gaGFuZGxlcyBpdHMgb3duIENPUlMgYW5kIGxvZ2ljLFxyXG4gICAgICAgIC8vIGJ1dCB0eXBpY2FsbHkgeW91IGF1dGhvcml6ZSBmdW5jdGlvbiBjYWxscyB3aXRoIHRoZSBBbm9uIG9yIFNlcnZpY2Uga2V5LlxyXG4gICAgICAgICdBdXRob3JpemF0aW9uJzogYEJlYXJlciAke3Byb2Nlc3MuZW52Lk5FWFRfUFVCTElDX1NVUEFCQVNFX0FOT05fS0VZfWAsXHJcbiAgICAgIH0sXHJcbiAgICAgIGJvZHk6IEpTT04uc3RyaW5naWZ5KGVtYWlsUGF5bG9hZCksXHJcbiAgICB9KVxyXG5cclxuICAgIGlmICghcmVzcG9uc2Uub2spIHtcclxuICAgICAgICBjb25zdCByZXNKc29uID0gYXdhaXQgcmVzcG9uc2UuanNvbigpXHJcbiAgICAgICAgY29uc29sZS5lcnJvcignRmVlZGJhY2sgRW1haWwgRXJyb3I6JywgcmVzSnNvbilcclxuICAgICAgICAvLyBXZSBkbyBOT1QgcmV0dXJuIGZhbHNlIGhlcmUsIGJlY2F1c2UgdGhlIERCIHNhdmUgd2FzIHN1Y2Nlc3NmdWwuXHJcbiAgICAgICAgLy8gV2UganVzdCBsb2cgdGhlIGVtYWlsIGZhaWx1cmUuXHJcbiAgICB9XHJcblxyXG4gIH0gY2F0Y2ggKGVtYWlsRXJyb3IpIHtcclxuICAgIGNvbnNvbGUuZXJyb3IoJ0ZlZWRiYWNrIEVtYWlsIEZldGNoIEVycm9yOicsIGVtYWlsRXJyb3IpXHJcbiAgfVxyXG5cclxuICByZXR1cm4geyBzdWNjZXNzOiB0cnVlIH1cclxufSJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiaVNBVXNCIn0=
+if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelpers !== null) {
+    __turbopack_context__.k.registerExports(__turbopack_context__.m, globalThis.$RefreshHelpers$);
+}
+}),
 "[project]/app/components/FeedbackButton.tsx [app-client] (ecmascript)", ((__turbopack_context__) => {
 "use strict";
 
@@ -388,12 +403,8 @@ __turbopack_context__.s([
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/jsx-dev-runtime.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/navigation.js [app-client] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react/index.js [app-client] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2d$dom$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react-dom/index.js [app-client] (ecmascript)"); //
-(()=>{
-    const e = new Error("Cannot find module 'actions'");
-    e.code = 'MODULE_NOT_FOUND';
-    throw e;
-})();
+var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2d$dom$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/compiled/react-dom/index.js [app-client] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$data$3a$f13d16__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$text$2f$javascript$3e$__ = __turbopack_context__.i("[project]/app/components/data:f13d16 [app-client] (ecmascript) <text/javascript>");
 ;
 var _s = __turbopack_context__.k.signature();
 'use client';
@@ -404,15 +415,15 @@ var _s = __turbopack_context__.k.signature();
 function FeedbackButton({ variant = 'icon' }) {
     _s();
     const pathname = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$navigation$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["usePathname"])();
-    // Track if component is mounted for Portal safety
-    const [mounted, setMounted] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
+    const [mounted, setMounted] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false) // Required for Portal safety
+    ;
     const [modalOpen, setModalOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [feedbackType, setFeedbackType] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('bug');
     const [content, setContent] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
     const [isSubmitting, setIsSubmitting] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [error, setError] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(null);
     const [success, setSuccess] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
-    // Ensure we only render the portal on the client side
+    // Wait until client-side mount to enable Portals
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "FeedbackButton.useEffect": ()=>{
             setMounted(true);
@@ -433,8 +444,8 @@ function FeedbackButton({ variant = 'icon' }) {
         setIsSubmitting(true);
         setError(null);
         setSuccess(false);
-        // Call Server Action instead of direct Client insert
-        const result = await submitFeedback({
+        // Call the Server Action
+        const result = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$components$2f$data$3a$f13d16__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$text$2f$javascript$3e$__["submitFeedback"])({
             feedbackType,
             pageUrl: pathname,
             content
@@ -445,12 +456,13 @@ function FeedbackButton({ variant = 'icon' }) {
         } else {
             setSuccess(true);
             setContent('');
+            // Close automatically after 2 seconds
             setTimeout(()=>{
                 setModalOpen(false);
             }, 2000);
         }
     };
-    // The Modal JSX
+    // The Modal Component (rendered via Portal)
     const modalContent = modalOpen ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "relative z-[9999]",
         "aria-labelledby": "modal-title",
@@ -462,7 +474,7 @@ function FeedbackButton({ variant = 'icon' }) {
                 onClick: handleClose
             }, void 0, false, {
                 fileName: "[project]/app/components/FeedbackButton.tsx",
-                lineNumber: 65,
+                lineNumber: 64,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -483,7 +495,7 @@ function FeedbackButton({ variant = 'icon' }) {
                                             children: "Submit Feedback"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/FeedbackButton.tsx",
-                                            lineNumber: 73,
+                                            lineNumber: 72,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -496,7 +508,7 @@ function FeedbackButton({ variant = 'icon' }) {
                                                             children: "Feedback Type"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/components/FeedbackButton.tsx",
-                                                            lineNumber: 78,
+                                                            lineNumber: 79,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -519,7 +531,7 @@ function FeedbackButton({ variant = 'icon' }) {
                                                                                 className: "h-4 w-4 text-primary border-input focus:ring-primary"
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/components/FeedbackButton.tsx",
-                                                                                lineNumber: 83,
+                                                                                lineNumber: 84,
                                                                                 columnNumber: 31
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -527,29 +539,29 @@ function FeedbackButton({ variant = 'icon' }) {
                                                                                 children: type
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/components/FeedbackButton.tsx",
-                                                                                lineNumber: 84,
+                                                                                lineNumber: 85,
                                                                                 columnNumber: 31
                                                                             }, this)
                                                                         ]
                                                                     }, type, true, {
                                                                         fileName: "[project]/app/components/FeedbackButton.tsx",
-                                                                        lineNumber: 82,
+                                                                        lineNumber: 83,
                                                                         columnNumber: 29
                                                                     }, this))
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/components/FeedbackButton.tsx",
-                                                                lineNumber: 80,
+                                                                lineNumber: 81,
                                                                 columnNumber: 23
                                                             }, this)
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/components/FeedbackButton.tsx",
-                                                            lineNumber: 79,
+                                                            lineNumber: 80,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/components/FeedbackButton.tsx",
-                                                    lineNumber: 77,
+                                                    lineNumber: 78,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -560,7 +572,7 @@ function FeedbackButton({ variant = 'icon' }) {
                                                             children: "Details"
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/components/FeedbackButton.tsx",
-                                                            lineNumber: 91,
+                                                            lineNumber: 94,
                                                             columnNumber: 21
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("textarea", {
@@ -573,13 +585,13 @@ function FeedbackButton({ variant = 'icon' }) {
                                                             placeholder: "Please provide specific details..."
                                                         }, void 0, false, {
                                                             fileName: "[project]/app/components/FeedbackButton.tsx",
-                                                            lineNumber: 92,
+                                                            lineNumber: 95,
                                                             columnNumber: 21
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/app/components/FeedbackButton.tsx",
-                                                    lineNumber: 90,
+                                                    lineNumber: 93,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
@@ -591,40 +603,40 @@ function FeedbackButton({ variant = 'icon' }) {
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/components/FeedbackButton.tsx",
-                                    lineNumber: 72,
+                                    lineNumber: 71,
                                     columnNumber: 15
                                 }, this),
                                 success && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "px-6 py-2",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-sm text-green-600 dark:text-green-400",
-                                        children: "Thank you! Submitting feedback..."
+                                        className: "text-sm text-green-600 font-bold",
+                                        children: "Feedback sent successfully!"
                                     }, void 0, false, {
                                         fileName: "[project]/app/components/FeedbackButton.tsx",
-                                        lineNumber: 96,
+                                        lineNumber: 101,
                                         columnNumber: 54
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/FeedbackButton.tsx",
-                                    lineNumber: 96,
+                                    lineNumber: 101,
                                     columnNumber: 27
                                 }, this),
                                 error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "px-6 py-2",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                        className: "text-sm text-destructive",
+                                        className: "text-sm text-destructive font-bold",
                                         children: [
                                             "Error: ",
                                             error
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/components/FeedbackButton.tsx",
-                                        lineNumber: 97,
+                                        lineNumber: 102,
                                         columnNumber: 52
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/app/components/FeedbackButton.tsx",
-                                    lineNumber: 97,
+                                    lineNumber: 102,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -637,7 +649,7 @@ function FeedbackButton({ variant = 'icon' }) {
                                             children: isSubmitting ? 'Submitting...' : 'Submit Feedback'
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/FeedbackButton.tsx",
-                                            lineNumber: 99,
+                                            lineNumber: 106,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -647,40 +659,40 @@ function FeedbackButton({ variant = 'icon' }) {
                                             children: "Cancel"
                                         }, void 0, false, {
                                             fileName: "[project]/app/components/FeedbackButton.tsx",
-                                            lineNumber: 100,
+                                            lineNumber: 107,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/app/components/FeedbackButton.tsx",
-                                    lineNumber: 98,
+                                    lineNumber: 105,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/app/components/FeedbackButton.tsx",
-                            lineNumber: 71,
+                            lineNumber: 70,
                             columnNumber: 13
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/app/components/FeedbackButton.tsx",
-                        lineNumber: 70,
+                        lineNumber: 69,
                         columnNumber: 11
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/app/components/FeedbackButton.tsx",
-                    lineNumber: 69,
+                    lineNumber: 68,
                     columnNumber: 9
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/app/components/FeedbackButton.tsx",
-                lineNumber: 68,
+                lineNumber: 67,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/components/FeedbackButton.tsx",
-        lineNumber: 63,
+        lineNumber: 62,
         columnNumber: 5
     }, this) : null;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -702,17 +714,17 @@ function FeedbackButton({ variant = 'icon' }) {
                         d: "M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"
                     }, void 0, false, {
                         fileName: "[project]/app/components/FeedbackButton.tsx",
-                        lineNumber: 122,
+                        lineNumber: 129,
                         columnNumber: 13
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/app/components/FeedbackButton.tsx",
-                    lineNumber: 121,
+                    lineNumber: 128,
                     columnNumber: 11
                 }, this) : "Feedback"
             }, void 0, false, {
                 fileName: "[project]/app/components/FeedbackButton.tsx",
-                lineNumber: 111,
+                lineNumber: 118,
                 columnNumber: 7
             }, this),
             mounted && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2d$dom$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["createPortal"])(modalContent, document.body)
@@ -1857,4 +1869,4 @@ if (typeof globalThis.$RefreshHelpers$ === 'object' && globalThis.$RefreshHelper
 }),
 ]);
 
-//# sourceMappingURL=_0f31f886._.js.map
+//# sourceMappingURL=_dfd1a609._.js.map
