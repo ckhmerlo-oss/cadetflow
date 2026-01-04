@@ -2,12 +2,6 @@
   "node": {
     "00e4f1a0ba0cc7d8a046021ef05aa736acf6732c44": {
       "workers": {
-        "app/incidents/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/incidents/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "getFacultyList",
-          "filename": "app/incidents/actions.ts"
-        },
         "app/page": {
           "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
@@ -16,7 +10,6 @@
         }
       },
       "layer": {
-        "app/incidents/[id]/page": "rsc",
         "app/page": "rsc"
       },
       "filename": "app/incidents/actions.ts",
@@ -24,12 +17,6 @@
     },
     "406e64145935d3c85c96a65916dd8989009b3202e5": {
       "workers": {
-        "app/incidents/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/incidents/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "getIncidents",
-          "filename": "app/incidents/actions.ts"
-        },
         "app/page": {
           "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
@@ -38,7 +25,6 @@
         }
       },
       "layer": {
-        "app/incidents/[id]/page": "rsc",
         "app/page": "rsc"
       },
       "filename": "app/incidents/actions.ts",
@@ -46,12 +32,6 @@
     },
     "408344156e4ed25a1fde2a16b1330b0e00502be22b": {
       "workers": {
-        "app/incidents/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/incidents/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "getIncident",
-          "filename": "app/incidents/actions.ts"
-        },
         "app/page": {
           "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
@@ -60,7 +40,6 @@
         }
       },
       "layer": {
-        "app/incidents/[id]/page": "rsc",
         "app/page": "rsc"
       },
       "filename": "app/incidents/actions.ts",
@@ -68,12 +47,6 @@
     },
     "40ea4824ebb15e230302cbedc00d4d62f0c65d0aa6": {
       "workers": {
-        "app/incidents/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/incidents/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "submitIncident",
-          "filename": "app/incidents/actions.ts"
-        },
         "app/page": {
           "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
@@ -82,7 +55,6 @@
         }
       },
       "layer": {
-        "app/incidents/[id]/page": "rsc",
         "app/page": "rsc"
       },
       "filename": "app/incidents/actions.ts",
@@ -90,12 +62,6 @@
     },
     "7035c2aaaf1773684eb282a8a9910abbd39397ec48": {
       "workers": {
-        "app/incidents/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/incidents/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "resolveAsHandled",
-          "filename": "app/incidents/actions.ts"
-        },
         "app/page": {
           "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
@@ -104,7 +70,6 @@
         }
       },
       "layer": {
-        "app/incidents/[id]/page": "action-browser",
         "app/page": "rsc"
       },
       "filename": "app/incidents/actions.ts",
@@ -112,12 +77,6 @@
     },
     "7076eee2a0cf223033228c5b7d0ef86c0eebc0d9f7": {
       "workers": {
-        "app/incidents/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/incidents/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "convertToDemerit",
-          "filename": "app/incidents/actions.ts"
-        },
         "app/page": {
           "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
@@ -126,7 +85,6 @@
         }
       },
       "layer": {
-        "app/incidents/[id]/page": "action-browser",
         "app/page": "rsc"
       },
       "filename": "app/incidents/actions.ts",
@@ -207,35 +165,20 @@
       "filename": "app/reports/daily/actions.ts",
       "exportedName": "unpostReport"
     },
-    "601825c1ce798c77ae07c6930e3a294bdc9c1e2f2a": {
+    "40f919fd8d7486307a60549f7a4083a3a4a9d90a1a": {
       "workers": {
-        "app/report/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/report/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/report/[id]/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/submit/page": {
+          "moduleId": "[project]/.next-internal/server/app/submit/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/submit/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
-          "exportedName": "pullReportAction",
-          "filename": "app/report/[id]/actions.ts"
+          "exportedName": "submitReport",
+          "filename": "app/submit/actions.ts"
         }
       },
       "layer": {
-        "app/report/[id]/page": "action-browser"
+        "app/submit/page": "action-browser"
       },
-      "filename": "app/report/[id]/actions.ts",
-      "exportedName": "pullReportAction"
-    },
-    "601988c3fb101e9d27b98c8bfc536938e860e50edc": {
-      "workers": {
-        "app/report/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/report/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/report/[id]/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "resubmitReport",
-          "filename": "app/report/[id]/actions.ts"
-        }
-      },
-      "layer": {
-        "app/report/[id]/page": "action-browser"
-      },
-      "filename": "app/report/[id]/actions.ts",
-      "exportedName": "resubmitReport"
+      "filename": "app/submit/actions.ts",
+      "exportedName": "submitReport"
     }
   },
   "edge": {},

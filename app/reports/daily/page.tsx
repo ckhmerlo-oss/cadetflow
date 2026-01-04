@@ -122,10 +122,19 @@ export default function DailyReportsPage() {
   }
 
   const handleMarkSingle = async (e: React.MouseEvent, id: string) => {
-      e.stopPropagation() 
-      if(!confirm("Hide this report? It will be removed from the pending list.")) return
-      await markReportAsPosted(id)
-      fetchData()
+    e.stopPropagation() 
+    if(!confirm("Hide this report? It will be removed from the pending list.")) return
+    
+    // Capture the response
+    const res = await markReportAsPosted(id)
+    
+    if (res.success) {
+        // Only fetch if successful
+        fetchData()
+    } else {
+        // Alert the actual error from Supabase
+        alert(`Error: ${res.error}`)
+    }
   }
 
   const handleUnpost = async (e: React.MouseEvent, id: string) => {

@@ -54,7 +54,7 @@ __turbopack_context__.n(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$r
 
 __turbopack_context__.s([
     "default",
-    ()=>ReportDetailsPage
+    ()=>ReportPage
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/node_modules/next/dist/server/route-modules/app-page/vendored/rsc/react-jsx-dev-runtime.js [app-rsc] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/utils/supabase/server.ts [app-rsc] (ecmascript)");
@@ -65,122 +65,74 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$report$2f5b$id$5d2f$R
 ;
 ;
 ;
-async function getReportData(reportId, user) {
+async function ReportPage({ params }) {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
-    const [reportResult, logResult, appealResult] = await Promise.all([
-        supabase.from('demerit_reports').select(`
-        *, 
-        report_explanation, 
-        linked_incident_id, 
-        subject:subject_cadet_id ( first_name, last_name ), 
-        submitter:submitted_by ( first_name, last_name ), 
-        offense_type:offense_type_id ( * )
-      `).eq('id', reportId).single(),
-        supabase.from('approval_log').select('*, actor:actor_id(first_name, last_name)').eq('report_id', reportId).order('created_at', {
-            ascending: true
-        }),
-        supabase.from('appeals').select('id, status, justification, current_assignee_id, current_group_id, issuer_comment, chain_comment, final_comment').eq('report_id', reportId).maybeSingle()
-    ]);
-    if (reportResult.error) {
-        console.error('Report fetch error:', reportResult.error.message);
-        return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["notFound"])();
-    }
-    const report = reportResult.data;
-    const logs = logResult.data || [];
-    const appeal = appealResult.data || null;
-    // ... (Keep Offense / Escalation Logic) ...
-    let offenses = [];
-    if (report.submitted_by === user.id && report.status === 'needs_revision') {
-        const { data } = await supabase.from('offense_types').select('*').order('offense_group').order('offense_name');
-        if (data) offenses = data;
-    }
-    let escalationTarget = null;
-    if (appeal && [
-        'rejected_by_issuer',
-        'rejected_by_chain'
-    ].includes(appeal.status)) {
-        const { data } = await supabase.rpc('get_next_escalation_target', {
-            p_appeal_id: appeal.id
-        });
-        if (data) escalationTarget = data;
-    }
-    // Check Role
-    const { data: viewerProfile } = await supabase.from('profiles').select('role:role_id (default_role_level)').eq('id', user.id).single();
-    const viewerRoleLevel = viewerProfile?.role?.default_role_level || 0;
-    const isCommandantStaff = viewerRoleLevel >= 90;
-    const isStaff = viewerRoleLevel >= 50;
-    // --- VISIBILITY LOGIC ---
-    const isLinkedReport = !!report.linked_incident_id;
-    // If it is a Linked Incident (Teacher Source), ONLY Staff can see the narrative.
-    // If it is a Standard Report (Cadet Source), Everyone involved can see it.
-    const canViewNarrative = !isLinkedReport || isStaff;
-    // ------------------------
-    // ... (Keep Permission Logic) ...
-    let isApprover = false;
-    if (report.current_approver_group_id) {
-        const { data: isMember } = await supabase.rpc('is_member_of_approver_group', {
-            p_group_id: report.current_approver_group_id
-        });
-        isApprover = !!isMember;
-    }
-    let canActOnAppeal = false; // (Simplified check, keep your existing one)
-    if (appeal && user) {
-        if (appeal.status === 'pending_issuer' && appeal.current_assignee_id === user.id) canActOnAppeal = true;
-        else if ([
-            'pending_chain',
-            'pending_commandant'
-        ].includes(appeal.status)) {
-            if (appeal.status === 'pending_commandant' && isCommandantStaff) canActOnAppeal = true;
-            else if (appeal.current_group_id) {
-                const { data: hasPerm } = await supabase.rpc('is_member_of_approver_group', {
-                    p_group_id: appeal.current_group_id
-                });
-                if (hasPerm) canActOnAppeal = true;
-            }
-        }
-    }
-    const isSubmitter = report.submitted_by === user.id;
-    const isCompleted = report.status === 'completed';
-    const isPending = report.status === 'pending_approval';
-    const canPull = (isSubmitter || isCommandantStaff) && (isCompleted || isPending);
-    return {
-        report,
-        logs,
-        appeal,
-        offenses,
-        escalationTarget,
-        isStaff,
-        canViewNarrative,
-        permissions: {
-            isSubmitter,
-            isSubject: report.subject_cadet_id === user.id,
-            isApprover,
-            canActOnAppeal,
-            canPull
-        }
-    };
-}
-async function ReportDetailsPage({ params: paramsPromise }) {
-    const params = await paramsPromise;
-    const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
+    const { id } = await params;
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["redirect"])('/login');
-    if (!params.id || params.id === 'undefined' || params.id === 'null') return (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["notFound"])();
-    const data = await getReportData(params.id, user);
+    if (!user) (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["redirect"])('/login');
+    // 1. Fetch User Profile
+    const { data: rawProfile } = await supabase.from('profiles').select(`
+      id,
+      role:roles(
+        role_name,
+        default_role_level,
+        approval_group_id
+      )
+    `).eq('id', user.id).single();
+    if (!rawProfile) (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["redirect"])('/login');
+    // Flatten the role array if Supabase returns it as one
+    const userProfile = {
+        id: rawProfile.id,
+        role: Array.isArray(rawProfile.role) ? rawProfile.role[0] : rawProfile.role
+    };
+    // 2. Fetch Report
+    const { data: report, error } = await supabase.from('demerit_reports').select(`
+      *,
+      offense_type:offense_types(id, offense_name, demerits, offense_code, policy_category),
+      subject:subject_cadet_id(id, first_name, last_name, cadet_rank),
+      submitter:submitted_by(id, first_name, last_name)
+    `).eq('id', id).single();
+    if (error || !report) (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["notFound"])();
+    // 3. Fetch Logs
+    const { data: logs } = await supabase.from('approval_log').select('*, actor:actor_id(first_name, last_name)').eq('report_id', id).order('created_at', {
+        ascending: false
+    });
+    // 4. Fetch Appeal
+    const { data: appeal } = await supabase.from('appeals').select('*').eq('report_id', id).single();
+    // 5. Fetch Offense Types
+    const { data: offenses } = await supabase.from('offense_types').select('*').eq('is_active', true).order('policy_category').order('demerits');
+    // Calculate Permissions
+    const roleLevel = userProfile.role?.default_role_level || 0;
+    const isSubmitter = user.id === report.submitted_by;
+    const isSubject = user.id === report.subject_cadet_id;
+    const myGroupId = userProfile.role?.approval_group_id;
+    const isApprover = report.status === 'pending_approval' && report.current_approver_group_id === myGroupId;
+    let canActOnAppeal = false;
+    if (roleLevel >= 50 && appeal) {
+        if (appeal.status === 'pending_issuer' && isSubmitter) canActOnAppeal = true;
+        else if (appeal.status === 'pending_chain' && !isSubmitter && roleLevel >= 60) canActOnAppeal = true;
+        else if (appeal.status === 'pending_commandant' && roleLevel >= 90) canActOnAppeal = true;
+    }
+    const canPull = isSubmitter && report.status === 'pending_approval';
+    const permissions = {
+        isSubmitter,
+        isSubject,
+        isApprover,
+        canActOnAppeal,
+        canPull
+    };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$app$2f$report$2f5b$id$5d2f$ReportDetailsClient$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
         user: user,
-        initialReport: data.report,
-        initialLogs: data.logs,
-        initialAppeal: data.appeal,
-        offenses: data.offenses,
-        escalationTarget: data.escalationTarget,
-        permissions: data.permissions,
-        linkedIncidentId: data.report.linked_incident_id,
-        isStaff: data.isStaff,
-        canViewNarrative: data.canViewNarrative
+        initialReport: report,
+        initialLogs: logs || [],
+        initialAppeal: appeal,
+        offenses: offenses || [],
+        escalationTarget: null,
+        permissions: permissions,
+        userProfile: userProfile
     }, void 0, false, {
         fileName: "[project]/app/report/[id]/page.tsx",
-        lineNumber: 160,
+        lineNumber: 95,
         columnNumber: 5
     }, this);
 }
