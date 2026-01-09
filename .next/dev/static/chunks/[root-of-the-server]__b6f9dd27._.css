@@ -570,10 +570,6 @@ body {
   z-index: 50;
 }
 
-.z-\[100\] {
-  z-index: 100;
-}
-
 .z-\[9999\] {
   z-index: 9999;
 }
@@ -804,6 +800,10 @@ body {
 
 .h-8 {
   height: 2rem;
+}
+
+.h-9 {
+  height: 2.25rem;
 }
 
 .h-96 {
@@ -1435,6 +1435,11 @@ body {
   border-color: rgb(243 244 246 / var(--tw-border-opacity, 1));
 }
 
+.border-gray-200 {
+  --tw-border-opacity: 1;
+  border-color: rgb(229 231 235 / var(--tw-border-opacity, 1));
+}
+
 .border-gray-300 {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity, 1));
@@ -1619,6 +1624,10 @@ body {
 .bg-gray-50 {
   --tw-bg-opacity: 1;
   background-color: rgb(249 250 251 / var(--tw-bg-opacity, 1));
+}
+
+.bg-gray-500\/10 {
+  background-color: #6b72801a;
 }
 
 .bg-green-100 {
@@ -2868,6 +2877,25 @@ body {
   --tw-ring-offset-width: 2px;
 }
 
+.focus-visible\:outline-none:focus-visible {
+  outline-offset: 2px;
+  outline: 2px solid #0000;
+}
+
+.focus-visible\:ring-1:focus-visible {
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+}
+
+.focus-visible\:ring-ring:focus-visible {
+  --tw-ring-color: hsl(var(--ring));
+}
+
+.disabled\:pointer-events-none:disabled {
+  pointer-events: none;
+}
+
 .disabled\:cursor-not-allowed:disabled {
   cursor: not-allowed;
 }
@@ -2951,19 +2979,9 @@ body {
   border-color: rgb(22 101 52 / var(--tw-border-opacity, 1));
 }
 
-.dark\:border-green-900:is(.dark *) {
-  --tw-border-opacity: 1;
-  border-color: rgb(20 83 45 / var(--tw-border-opacity, 1));
-}
-
 .dark\:border-orange-800:is(.dark *) {
   --tw-border-opacity: 1;
   border-color: rgb(154 52 18 / var(--tw-border-opacity, 1));
-}
-
-.dark\:border-orange-900:is(.dark *) {
-  --tw-border-opacity: 1;
-  border-color: rgb(124 45 18 / var(--tw-border-opacity, 1));
 }
 
 .dark\:border-yellow-800:is(.dark *) {

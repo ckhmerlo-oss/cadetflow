@@ -14,7 +14,6 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist
 async function submitFeedback(data) {
     const supabase = (0, __TURBOPACK__imported__module__$5b$project$5d2f$utils$2f$supabase$2f$server$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["createClient"])();
     // 1. Save to Database
-    // We insert the raw feedback first to ensure we capture it even if email fails.
     const { error: dbError } = await supabase.from('feedback').insert({
         feedback_type: data.feedbackType,
         page_url: data.pageUrl,
@@ -28,9 +27,7 @@ async function submitFeedback(data) {
         };
     }
     // 2. Trigger Email Notification via Supabase Edge Function
-    // We use the existing 'send_email' function you uploaded in index.ts
     try {
-        const functionUrl = `${("TURBOPACK compile-time value", "https://ejzvpknayvkggswejgkm.supabase.co")}/functions/v1/send_email`;
         const emailPayload = {
             type: 'alert',
             recipients: [
@@ -48,24 +45,17 @@ async function submitFeedback(data) {
         </blockquote>
       `
         };
-        const response = await fetch(functionUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                // We use the ANON key here because the Edge Function handles its own CORS and logic,
-                // but typically you authorize function calls with the Anon or Service key.
-                'Authorization': `Bearer ${("TURBOPACK compile-time value", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVqenZwa25heXZrZ2dzd2VqZ2ttIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjE4Mzc1ODMsImV4cCI6MjA3NzQxMzU4M30.Bmf6dl5raXm1Y4Mrdctz6d8kfFOKkiCFmrm85YgKoJ8")}`
-            },
-            body: JSON.stringify(emailPayload)
+        // --- UPDATED: Use supabase.functions.invoke ---
+        const { error: funcError } = await supabase.functions.invoke('send-email', {
+            body: emailPayload
         });
-        if (!response.ok) {
-            const resJson = await response.json();
-            console.error('Feedback Email Error:', resJson);
-        // We do NOT return false here, because the DB save was successful.
-        // We just log the email failure.
+        if (funcError) {
+            console.error('Feedback Email Invocation Error:', funcError);
+        // We don't fail the request here because the DB insert succeeded,
+        // but you will now see this error in your Next.js Server Terminal.
         }
-    } catch (emailError) {
-        console.error('Feedback Email Fetch Error:', emailError);
+    } catch (err) {
+        console.error('Unexpected Feedback Error:', err);
     }
     return {
         success: true

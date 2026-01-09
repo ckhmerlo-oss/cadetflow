@@ -81,7 +81,7 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
       else if (appeal.status === 'pending_commandant' && roleLevel >= 90) canActOnAppeal = true;
   }
 
-  const canPull = isSubmitter && report.status === 'pending_approval';
+  const canPull = isSubmitter;
 
   const permissions = {
       isSubmitter,

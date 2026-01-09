@@ -1,12 +1,16 @@
 'use client'
 
+import { formatDateTime } from '@/app/lib/utils'
 import { createClient } from '@/utils/supabase/client'
 import { useRouter } from 'next/navigation'
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react' // Added useEffect
 import { User } from '@supabase/supabase-js'
 import React from 'react'
+// UPDATED: Path matches your submit/page.tsx
+import SearchableSelect, { SelectOption } from '@/app/components/SearchableSelect' 
+
 import { 
-  pullReportAction, 
+  pullReport, 
   approveReportAction, 
   rejectReportAction, 
   kickBackReportAction,
@@ -14,7 +18,7 @@ import {
   editAndApproveReport
 } from './actions'
 
-// ... (Types remain the same)
+// ... (Types)
 type Report = {
   id: string;
   status: string;
@@ -44,11 +48,14 @@ type Log = {
   actor: { first_name: string, last_name: string } | null; 
 };
 
+// UPDATED: Matched exactly to submit/page.tsx
 type OffenseType = {
   id: string;
-  offense_group: string;
   offense_name: string;
   demerits: number;
+  policy_category: number;
+  offense_group: string;
+  offense_code: string;
 }
 
 type Appeal = {
@@ -67,7 +74,8 @@ interface ReportDetailsClientProps {
   initialReport: Report;
   initialLogs: Log[];
   initialAppeal: Appeal | null;
-  offenses: OffenseType[];
+  // We keep this prop for type safety, but we will load data via useEffect to be safe
+  offenses?: OffenseType[]; 
   escalationTarget: string | null;
   linkedIncidentId?: string | null;
   isStaff?: boolean;
@@ -86,7 +94,6 @@ export default function ReportDetailsClient({
   initialReport,
   initialLogs,
   initialAppeal,
-  offenses,
   permissions,
   userProfile 
 }: ReportDetailsClientProps) {
@@ -99,6 +106,9 @@ export default function ReportDetailsClient({
   const [logs, setLogs] = useState<Log[]>(initialLogs)
   const [appeal, setAppeal] = useState<Appeal | null>(initialAppeal)
   
+  // NEW: Store offenses in state (Client Side Fetch)
+  const [offensesList, setOffensesList] = useState<OffenseType[]>([]) 
+
   const [isActionLoading, setActionLoading] = useState(false)
   const { isSubmitter, isSubject, isApprover, canActOnAppeal, canPull } = permissions
   
@@ -130,8 +140,48 @@ export default function ReportDetailsClient({
 
   const roleLevel = userProfile?.role?.default_role_level || 0
   const isCommandant = roleLevel >= 90;
+  
+  const userRole = userProfile?.role?.role_name || userProfile?.role?.name || '';
 
-  // --- ACTIONS (Unchanged Logic) ---
+  // --- NEW: FETCH OFFENSES (Matches submit/page.tsx logic) ---
+  useEffect(() => {
+    async function fetchOffenses() {
+      const { data } = await supabase
+        .from('offense_types')
+        .select('*')
+        .order('policy_category', { ascending: true })
+        .order('offense_group', { ascending: true })
+        .order('offense_code', { ascending: true })
+      
+      if (data) {
+        setOffensesList(data)
+      }
+    }
+    fetchOffenses()
+  }, []) // Runs once on mount
+  
+  useEffect(() => {
+    setReport(initialReport)
+  }, [initialReport])
+
+  useEffect(() => {
+    setLogs(initialLogs)
+  }, [initialLogs])
+
+  useEffect(() => {
+    setAppeal(initialAppeal)
+  }, [initialAppeal])
+
+  // --- PREPARE OFFENSE OPTIONS (Matches submit/page.tsx logic) ---
+  const offenseOptions: SelectOption[] = useMemo(() => {
+    return offensesList.map(o => ({
+        id: o.id,
+        label: `[${o.offense_code}] ${o.offense_name} (${o.demerits})`,
+        group: o.offense_group
+    }))
+  }, [offensesList])
+
+  // --- ACTIONS ---
   async function handleApprovalAction(action: 'approve' | 'reject' | 'kickback') {
     if (!confirm(`Are you sure you want to ${action}?`)) return;
     if ((action === 'reject' || action === 'kickback') && !comment) { alert("Comment required."); return; }
@@ -196,24 +246,45 @@ export default function ReportDetailsClient({
   async function handlePullReport() {
     if (!pullComment.trim()) { alert("A comment is required."); return; }
     setActionLoading(true);
-    const result = await pullReportAction(report.id, pullComment);
-    if (result?.error) { alert(`Error: ${result.error}`); setActionLoading(false); }
+    // REMINDER: Update your actions.ts pullReport function to accept (reportId, comment)
+    const result = await pullReport(report.id, pullComment);
+    if (result?.error) { alert(`Error : ${result.error}`); setActionLoading(false); }
     else { alert("Report pulled."); router.refresh(); setIsPullModalOpen(false); }
   }
 
-  const groupedOffenses = useMemo(() => {
-    return offenses.reduce((acc, o) => { (acc[o.offense_group] = acc[o.offense_group] || []).push(o); return acc; }, {} as Record<string, OffenseType[]>);
-  }, [offenses])
-
   const formatName = (person: { first_name: string, last_name: string } | null) => person ? `${person.last_name}, ${person.first_name.charAt(0)}.` : 'N/A';
-  const formatStatus = (status: string) => status === 'completed' ? 'Approved' : status === 'needs_revision' ? 'Revision Requested' : status.replace('_', ' ');
+  
+  // 1. Update Badge Text
+  const formatStatus = (status: string) => {
+    if (status === 'completed') return 'Approved';
+    if (status === 'needs_revision') return 'Revision Requested';
+    if (status === 'pulled') return 'Pulled'; // Clear indication it is void
+    return status.replace('_', ' ');
+  };
+  
   const formatAppealStatus = (status: string) => status.replace(/_/g, ' ');
+
+  // 2. Ensure badge color handles 'Pulled' (Gray/Neutral)
+  const getStatusColor = (status: string) => {
+      if (status === 'completed') return 'bg-green-500/10 text-green-600 border-green-200';
+      if (status === 'rejected') return 'bg-destructive/10 text-destructive border-destructive/20';
+      if (status === 'pulled') return 'bg-gray-500/10 text-gray-600 border-gray-200'; // Neutral gray for pulled
+      return 'bg-orange-500/10 text-orange-600 border-orange-200';
+  };
 
   const showActionBox = isApprover && report.status === 'pending_approval' && !isEditing && !isAppealing;
   const showRevisionBox = isSubmitter && report.status === 'needs_revision' && !isEditing;
-  const canAppeal = isSubject && report.status === 'completed' && !appeal && !isAppealing;
-  const canEscalate = isSubject && appeal && ['rejected_by_issuer', 'rejected_by_chain'].includes(appeal.status) && !isEscalating;
+  
+  // 3. LOCK EDITING: Ensure 'Pulled' is NOT in this logic
+  const canEdit = 
+    (isSubmitter && report.status === 'needs_revision') || // Only edit if explicitly asked for revision
+    (isApprover && report.status === 'pending_approval') ||
+    (userRole === 'Admin');
+    
+  // 4. Hide Pull Button if already pulled
+  const showPullButton = canPull && report.status !== 'pulled' && report.status !== 'completed';
 
+    
   return (
     <div className="max-w-4xl mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
 
@@ -235,12 +306,15 @@ export default function ReportDetailsClient({
               </div>
             </div>
             <div>
-               <label className="block text-sm font-medium text-foreground">Offense</label>
-               <select value={editableOffenseId} onChange={e => setEditableOffenseId(e.target.value)} required className="input-base w-full">
-                 {Object.entries(groupedOffenses).map(([group, opts]) => (
-                   <optgroup label={group} key={group}>{opts.map(o => <option key={o.id} value={o.id}>({o.demerits}) {o.offense_name}</option>)}</optgroup>
-                 ))}
-               </select>
+               {/* Searchable Select (State populated by useEffect) */}
+               <SearchableSelect
+                 label="Infraction"
+                 options={offenseOptions}
+                 value={editableOffenseId}
+                 onChange={setEditableOffenseId}
+                 placeholder="Search for an infraction..."
+                 required
+               />
             </div>
             <div>
                <label className="block text-sm font-medium text-foreground">Explanation</label>
@@ -263,23 +337,21 @@ export default function ReportDetailsClient({
       /* --- VIEW MODE --- */
       : (
         <div className="bg-card border border-border p-6 rounded-lg shadow-sm">
-          {/* Header */}
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-            <h1 className="text-2xl md:text-3xl font-bold text-foreground">{report.offense_type.offense_name}</h1>
-            <span className={`px-3 py-1 rounded-full text-sm font-medium border ${
-                report.status === 'completed' ? 'bg-green-500/10 text-green-600 dark:text-green-400 border-green-200 dark:border-green-900' :
-                report.status === 'rejected' ? 'bg-destructive/10 text-destructive border-destructive/20' :
-                'bg-orange-500/10 text-orange-600 dark:text-orange-400 border-orange-200 dark:border-orange-900'
-            }`}>
-              {formatStatus(report.status)}
-            </span>
+          {/* View Mode Header */}
+          <div className="flex flex-col md:flex-row justify-between ...">
+              <h1 className="text-2xl md:text-3xl font-bold text-foreground">{report.offense_type.offense_name}</h1>
+              
+              {/* Use the helper for dynamic classes */}
+              <span className={`px-3 py-1 rounded-full text-sm font-medium border ${getStatusColor(report.status)}`}>
+                  {formatStatus(report.status)}
+              </span>
           </div>
 
           {/* Details Grid */}
           <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6 border-t border-border pt-6">
             <div><h3 className="text-sm font-medium text-muted-foreground">Subject</h3><p className="mt-1 text-lg text-foreground">{formatName(report.subject)}</p></div>
             <div><h3 className="text-sm font-medium text-muted-foreground">Submitted By</h3><p className="mt-1 text-lg text-foreground">{formatName(report.submitter)}</p></div>
-            <div><h3 className="text-sm font-medium text-muted-foreground">Date & Time</h3><p className="mt-1 text-lg text-foreground">{new Date(report.date_of_offense).toLocaleString()}</p></div>
+            <div><h3 className="text-sm font-medium text-muted-foreground">Date & Time</h3><p className="mt-1 text-lg text-foreground">{formatDateTime(report.date_of_offense).toLocaleString()}</p></div>
             <div><h3 className="text-sm font-medium text-muted-foreground">Category</h3><p className="mt-1 text-lg text-foreground">Cat {report.offense_type.offense_code}</p></div>
             <div><h3 className="text-sm font-medium text-muted-foreground">Demerits</h3><p className="mt-1 text-lg font-bold text-destructive">{report.demerits_effective}</p></div>
           </div>
@@ -303,7 +375,6 @@ export default function ReportDetailsClient({
                           <p className="text-xs uppercase font-semibold text-muted-foreground">Cadet Justification</p>
                           <p className="text-sm text-foreground whitespace-pre-wrap">{appeal.justification}</p>
                       </div>
-                      {/* Only showing comments if they exist... logic simplified for brevity */}
                   </div>
               </div>
           )}
@@ -341,11 +412,14 @@ export default function ReportDetailsClient({
             </div>
           )}
 
-          {/* --- PULL BUTTON --- */}
-          {canPull && (
-              <div className="mt-8 border-t border-border pt-6">
-                  <button onClick={() => setIsPullModalOpen(true)} className="text-destructive hover:text-destructive/80 font-medium text-sm">Pull Report (Submitter Action)</button>
-              </div>
+          {/* PULL BUTTON: Use the local check */}
+          {showPullButton && (
+                <button 
+                  onClick={() => setIsPullModalOpen(true)}
+                  className="inline-flex items-center..."
+                >
+                  Pull Report
+                </button>
           )}
         </div>
       )}

@@ -113,7 +113,7 @@ async function ReportPage({ params }) {
         else if (appeal.status === 'pending_chain' && !isSubmitter && roleLevel >= 60) canActOnAppeal = true;
         else if (appeal.status === 'pending_commandant' && roleLevel >= 90) canActOnAppeal = true;
     }
-    const canPull = isSubmitter && report.status === 'pending_approval';
+    const canPull = isSubmitter;
     const permissions = {
         isSubmitter,
         isSubject,

@@ -1,4 +1,20 @@
 {
-  "node": {},
+  "node": {
+    "40051c0b86095af35cc3db8d7f26d35ce2872481a5": {
+      "workers": {
+        "app/ledger/[id]/page": {
+          "moduleId": "[project]/.next-internal/server/app/ledger/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/components/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "submitFeedback",
+          "filename": "app/components/actions.ts"
+        }
+      },
+      "layer": {
+        "app/ledger/[id]/page": "action-browser"
+      },
+      "exportedName": "submitFeedback",
+      "filename": "app/components/actions.ts"
+    }
+  },
   "edge": {}
 }

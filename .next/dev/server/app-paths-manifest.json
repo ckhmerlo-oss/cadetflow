@@ -1,3 +1,7 @@
 {
-  "/reports/daily/page": "app/reports/daily/page.js"
+  "/ledger/[id]/page": "app/ledger/[id]/page.js",
+  "/login/page": "app/login/page.js",
+  "/page": "app/page.js",
+  "/report/[id]/page": "app/report/[id]/page.js",
+  "/submit/page": "app/submit/page.js"
 }
