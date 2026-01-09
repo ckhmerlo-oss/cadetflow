@@ -63,8 +63,8 @@ export default async function RootLayout({
     // but update TAC to use semantic 'destructive' (Red) for better theme integration.
 
     if (roles?.role_name && roles.role_name.includes('Band Director')) {
-      logoText = "Check Out The Band Page!"
-      logoColor = "text-lime-400 hover:text-lime-200"
+      logoText = "Live From Fort Benning, Georgia"
+      logoColor = "text-orange-600 hover:text-orange-900"
     } else if (roleLevel >= 60 || (roles?.role_name && roles.role_name.includes('TAC'))) {
       logoText = "TACFlow";
       // Update TAC color logic too
