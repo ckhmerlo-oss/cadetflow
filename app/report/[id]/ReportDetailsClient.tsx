@@ -143,6 +143,12 @@ export default function ReportDetailsClient({
   
   const userRole = userProfile?.role?.role_name || userProfile?.role?.name || '';
 
+  // Define when the Appeal button should be visible
+  const showAppealButton = isSubject && report.status === 'completed' && !appeal && !isAppealing;
+
+  // Only show appeal actions if the user has permission and an appeal is active
+  const showAppealActionBox = canActOnAppeal && appeal && !isEditing && !isAppealing && !isEscalating;
+
   // --- NEW: FETCH OFFENSES (Matches submit/page.tsx logic) ---
   useEffect(() => {
     async function fetchOffenses() {
@@ -282,7 +288,7 @@ export default function ReportDetailsClient({
     (userRole === 'Admin');
     
   // 4. Hide Pull Button if already pulled
-  const showPullButton = canPull && report.status !== 'pulled' && report.status !== 'completed';
+  const showPullButton = canPull && report.status !== 'pulled';
 
     
   return (
@@ -359,6 +365,64 @@ export default function ReportDetailsClient({
           <div className="mt-6"><h3 className="text-sm font-medium text-muted-foreground">Green Sheet Summary</h3><div className="mt-1 p-3 bg-muted/50 rounded text-foreground text-sm border border-border">{report.notes || 'None'}</div></div>
           <div className="mt-6"><h3 className="text-sm font-medium text-muted-foreground">Detailed Narrative</h3><div className="mt-1 p-3 bg-muted/50 rounded text-foreground text-sm border border-border whitespace-pre-wrap">{report.report_explanation || 'None'}</div></div>
 
+          {/* --- APPEAL INTERFACE --- */}
+
+          {/* 1. Appeal Button */}
+          {showAppealButton && (
+            <div className="mt-8 border-t border-border pt-6">
+              <h3 className="text-lg font-medium text-foreground mb-4">Appeal</h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                If you believe this report is in error, you may submit an appeal. 
+                This will be escalated to your chain of command.
+              </p>
+              <button 
+                onClick={() => setIsAppealing(true)} 
+                className="py-2 px-4 bg-primary text-primary-foreground rounded hover:bg-primary/90"
+              >
+                Appeal this Report
+              </button>
+            </div>
+          )}
+
+          {/* 2. Appeal Form */}
+          {isAppealing && (
+            <div className="mt-8 bg-card border border-border p-6 rounded-lg shadow-sm">
+              <h3 className="text-lg font-bold text-foreground mb-4">Submit Appeal</h3>
+              <form onSubmit={handleSubmitAppeal} className="space-y-4">
+                <div>
+                  <label className="block text-sm font-medium text-foreground mb-1">
+                    Justification
+                  </label>
+                  <textarea 
+                    required
+                    value={appealJustification} 
+                    onChange={e => setAppealJustification(e.target.value)} 
+                    rows={5} 
+                    className="input-base w-full p-2 border rounded bg-background text-foreground"
+                    placeholder="Explain clearly why this report is incorrect or unjust..."
+                  />
+                </div>
+                
+                <div className="flex gap-4">
+                  <button 
+                    type="button" 
+                    onClick={() => setIsAppealing(false)} 
+                    disabled={isActionLoading}
+                    className="w-1/2 py-2 border border-input rounded-md text-foreground hover:bg-accent"
+                  >
+                    Cancel
+                  </button>
+                  <button 
+                    type="submit" 
+                    disabled={isActionLoading} 
+                    className="w-1/2 py-2 bg-primary text-primary-foreground rounded-md shadow hover:bg-primary/90 disabled:opacity-50"
+                  >
+                    {isActionLoading ? 'Submitting...' : 'Submit Appeal'}
+                  </button>
+                </div>
+              </form>
+            </div>
+          )}
           {/* --- APPEAL STATUS --- */}
           {appeal && (
               <div className="mt-6 space-y-4">
@@ -376,6 +440,93 @@ export default function ReportDetailsClient({
                           <p className="text-sm text-foreground whitespace-pre-wrap">{appeal.justification}</p>
                       </div>
                   </div>
+              </div>
+          )}
+
+          {/* --- APPEAL AUTHORITY ACTIONS --- */}
+          {showAppealActionBox && (
+              <div className="mt-8 border-t border-border pt-6 bg-primary/5 p-4 rounded-lg border-primary/20">
+                  <h3 className="text-lg font-bold text-foreground mb-4">Appeal Authority Actions</h3>
+                  
+                  {/* Input for Decision Comments */}
+                  <div className="mb-4">
+                      <label className="block text-sm font-medium text-foreground mb-1">Decision Comment / Reason</label>
+                      <textarea 
+                          value={appealComment} 
+                          onChange={e => setAppealComment(e.target.value)} 
+                          className="input-base w-full p-2 border rounded" 
+                          rows={3}
+                          placeholder="Required for Rejection or Granting..."
+                      />
+                  </div>
+
+                  <div className="flex flex-col sm:flex-row gap-3">
+                      <button 
+                          onClick={() => handleAppealAction('grant')} 
+                          disabled={isActionLoading} 
+                          className="flex-1 py-2 bg-green-600 text-white rounded hover:bg-green-700 disabled:opacity-50"
+                      >
+                          Grant Appeal
+                      </button>
+                      <button 
+                          onClick={() => handleAppealAction('reject')} 
+                          disabled={isActionLoading} 
+                          className="flex-1 py-2 bg-destructive text-destructive-foreground rounded hover:bg-destructive/90 disabled:opacity-50"
+                      >
+                          Reject Appeal
+                      </button>
+                      
+                      {/* Escalate Button - Toggles Escalation Mode */}
+                      <button 
+                          onClick={() => setIsEscalating(true)} 
+                          disabled={isActionLoading} 
+                          className="flex-1 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 disabled:opacity-50"
+                      >
+                          Escalate Appeal
+                      </button>
+                  </div>
+              </div>
+          )}
+
+          {/* --- ESCALATION FORM --- */}
+          {isEscalating && (
+              <div className="mt-8 bg-card border border-border p-6 rounded-lg shadow-sm">
+                  <h3 className="text-lg font-bold text-foreground mb-4">Escalate Appeal</h3>
+                  <p className="text-sm text-muted-foreground mb-4">
+                      You are escalating this appeal to the next level in the chain of command. 
+                      Please provide a justification for this escalation.
+                  </p>
+                  <form onSubmit={handleEscalate} className="space-y-4">
+                      <div>
+                          <label className="block text-sm font-medium text-foreground mb-1">Escalation Justification</label>
+                          {/* Note: We reuse appealJustification state as required by handleEscalate */}
+                          <textarea 
+                              required
+                              value={appealJustification} 
+                              onChange={e => setAppealJustification(e.target.value)} 
+                              rows={4} 
+                              className="input-base w-full p-2 border rounded"
+                              placeholder="Why is this being escalated?"
+                          />
+                      </div>
+                      <div className="flex gap-4">
+                          <button 
+                              type="button" 
+                              onClick={() => setIsEscalating(false)} 
+                              disabled={isActionLoading}
+                              className="w-1/2 py-2 border border-input rounded-md text-foreground hover:bg-accent"
+                          >
+                              Cancel
+                          </button>
+                          <button 
+                              type="submit" 
+                              disabled={isActionLoading} 
+                              className="w-1/2 py-2 bg-orange-500 text-white rounded-md shadow hover:bg-orange-600 disabled:opacity-50"
+                          >
+                              {isActionLoading ? 'Processing...' : 'Confirm Escalation'}
+                          </button>
+                      </div>
+                  </form>
               </div>
           )}
 
@@ -412,14 +563,17 @@ export default function ReportDetailsClient({
             </div>
           )}
 
-          {/* PULL BUTTON: Use the local check */}
+          {/* PULL BUTTON */}
           {showPullButton && (
-                <button 
-                  onClick={() => setIsPullModalOpen(true)}
-                  className="inline-flex items-center..."
-                >
-                  Pull Report
-                </button>
+            <div className="mt-8 border-t border-border pt-6">
+              <button 
+                onClick={() => setIsPullModalOpen(true)}
+                className="inline-flex items-center justify-center px-4 py-2 bg-slate-600 text-white font-medium rounded-md hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-slate-500 focus:ring-offset-2 transition-colors shadow-sm"
+              >
+                <span className="mr-2">↩</span> Pull Report
+              </button>
+              
+            </div>
           )}
         </div>
       )}
@@ -447,6 +601,9 @@ export default function ReportDetailsClient({
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-background/80 backdrop-blur-sm">
           <div className="bg-card p-6 rounded-lg shadow-xl max-w-lg w-full border border-border">
             <h2 className="text-2xl font-bold text-foreground">Pull Report</h2>
+            <p className="mt-2 text-sm text-muted-foreground">
+                This will retract the report, set demerits to zero, and remove it from the approval chain.
+              </p>
             <textarea
                 rows={3}
                 value={pullComment}

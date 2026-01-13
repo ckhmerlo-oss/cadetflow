@@ -163,18 +163,32 @@ export async function pullReport(reportId: string, comment: string) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return { success: false, error: 'Unauthorized' }
 
-  // 1. Check current status to prevent double-pulling
-  const { data: currentReport, error: fetchError } = await supabase
+  const { data: report } = await supabase
     .from('demerit_reports')
-    .select('status')
+    .select('submitted_by, status')
     .eq('id', reportId)
     .single()
 
-  if (fetchError || !currentReport) {
-      return { success: false, error: 'Report not found' }
-  }
+  if (!report) return { success: false, error: 'Report not found' }
+  
+  // Get User Role for Override
+  const { data: profile } = await supabase
+     .from('profiles')
+     .select('role:roles(default_role_level)')
+     .eq('id', user.id)
+     .single()
+     
+  const roleLevel = (profile?.role as any)?.default_role_level || 0
+  const isSubmitter = report.submitted_by === user.id
+  const isCommandant = roleLevel >= 90
 
-  if (currentReport.status === 'pulled') {
+  // Guard Clause
+  if (!isSubmitter && !isCommandant) {
+      return { success: false, error: 'Permission Denied: You cannot pull this report.' }
+  }
+  // ---------------------------------------------
+
+  if (report.status === 'pulled') {
       return { success: false, error: 'This report is already pulled.' }
   }
 
