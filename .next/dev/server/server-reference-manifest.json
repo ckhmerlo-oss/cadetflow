@@ -8,24 +8,6 @@
           "exportedName": "submitFeedback",
           "filename": "app/components/actions.ts"
         },
-        "app/incidents/create/page": {
-          "moduleId": "[project]/.next-internal/server/app/incidents/create/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/components/actions.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "submitFeedback",
-          "filename": "app/components/actions.ts"
-        },
-        "app/ledger/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/ledger/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/components/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "submitFeedback",
-          "filename": "app/components/actions.ts"
-        },
-        "app/login/page": {
-          "moduleId": "[project]/.next-internal/server/app/login/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/components/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "submitFeedback",
-          "filename": "app/components/actions.ts"
-        },
         "app/manage/page": {
           "moduleId": "[project]/.next-internal/server/app/manage/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/components/actions.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/app/manage/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
@@ -38,8 +20,8 @@
           "exportedName": "submitFeedback",
           "filename": "app/components/actions.ts"
         },
-        "app/profile/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/profile/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/components/actions.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/app/lib/options.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+        "app/submit/page": {
+          "moduleId": "[project]/.next-internal/server/app/submit/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/components/actions.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/app/submit/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
           "exportedName": "submitFeedback",
           "filename": "app/components/actions.ts"
@@ -47,12 +29,9 @@
       },
       "layer": {
         "app/admin/page": "action-browser",
-        "app/incidents/create/page": "action-browser",
-        "app/ledger/[id]/page": "action-browser",
-        "app/login/page": "action-browser",
         "app/manage/page": "action-browser",
         "app/page": "action-browser",
-        "app/profile/[id]/page": "action-browser"
+        "app/submit/page": "action-browser"
       },
       "filename": "app/components/actions.ts",
       "exportedName": "submitFeedback"
@@ -104,12 +83,6 @@
     },
     "40ea4824ebb15e230302cbedc00d4d62f0c65d0aa6": {
       "workers": {
-        "app/incidents/create/page": {
-          "moduleId": "[project]/.next-internal/server/app/incidents/create/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/components/actions.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "submitIncident",
-          "filename": "app/incidents/actions.ts"
-        },
         "app/page": {
           "moduleId": "[project]/.next-internal/server/app/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/components/actions.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/app/incidents/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
           "async": false,
@@ -118,7 +91,6 @@
         }
       },
       "layer": {
-        "app/incidents/create/page": "action-browser",
         "app/page": "rsc"
       },
       "filename": "app/incidents/actions.ts",
@@ -183,66 +155,6 @@
       },
       "filename": "app/manage/actions.ts",
       "exportedName": "bulkAssignRole"
-    },
-    "00764635eb9dddbdf1a11b0eb0832589f2b369c98c": {
-      "workers": {
-        "app/profile/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/profile/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/components/actions.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/app/lib/options.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "getProfileDropdowns",
-          "filename": "app/lib/options.ts"
-        }
-      },
-      "layer": {
-        "app/profile/[id]/page": "rsc"
-      },
-      "filename": "app/lib/options.ts",
-      "exportedName": "getProfileDropdowns"
-    },
-    "402d3ffc32185b509288c9f7306afee545f5d7a485": {
-      "workers": {
-        "app/profile/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/profile/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/components/actions.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/app/lib/options.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "getSportOptions",
-          "filename": "app/lib/options.ts"
-        }
-      },
-      "layer": {
-        "app/profile/[id]/page": "rsc"
-      },
-      "filename": "app/lib/options.ts",
-      "exportedName": "getSportOptions"
-    },
-    "409adbff3d4ad1b27172c3c20be93f9650b137f675": {
-      "workers": {
-        "app/profile/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/profile/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/components/actions.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/app/lib/options.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "getFullAppOptions",
-          "filename": "app/lib/options.ts"
-        }
-      },
-      "layer": {
-        "app/profile/[id]/page": "rsc"
-      },
-      "filename": "app/lib/options.ts",
-      "exportedName": "getFullAppOptions"
-    },
-    "40cac7acb9c250f9a55152b7b16bcd2ee687c3017f": {
-      "workers": {
-        "app/profile/[id]/page": {
-          "moduleId": "[project]/.next-internal/server/app/profile/[id]/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/components/actions.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/app/lib/options.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
-          "async": false,
-          "exportedName": "getAppOptions",
-          "filename": "app/lib/options.ts"
-        }
-      },
-      "layer": {
-        "app/profile/[id]/page": "rsc"
-      },
-      "filename": "app/lib/options.ts",
-      "exportedName": "getAppOptions"
     },
     "608e5914a99cd89e1d3e43764c86a13361e1288d2c": {
       "workers": {
@@ -408,6 +320,21 @@
       },
       "filename": "app/admin/actions.ts",
       "exportedName": "toggleUserArchiveStatus"
+    },
+    "40f919fd8d7486307a60549f7a4083a3a4a9d90a1a": {
+      "workers": {
+        "app/submit/page": {
+          "moduleId": "[project]/.next-internal/server/app/submit/page/actions.js { ACTIONS_MODULE0 => \"[project]/app/components/actions.ts [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/app/submit/actions.ts [app-rsc] (ecmascript)\" } [app-rsc] (server actions loader, ecmascript)",
+          "async": false,
+          "exportedName": "submitReport",
+          "filename": "app/submit/actions.ts"
+        }
+      },
+      "layer": {
+        "app/submit/page": "action-browser"
+      },
+      "filename": "app/submit/actions.ts",
+      "exportedName": "submitReport"
     }
   },
   "edge": {},

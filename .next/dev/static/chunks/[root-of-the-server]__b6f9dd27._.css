@@ -662,6 +662,10 @@ body {
   margin-bottom: 2rem;
 }
 
+.mb-\[1px\] {
+  margin-bottom: 1px;
+}
+
 .ml-1 {
   margin-left: .25rem;
 }
@@ -720,10 +724,6 @@ body {
 
 .mt-8 {
   margin-top: 2rem;
-}
-
-.mb-\[1px\] {
-  margin-bottom: 1px;
 }
 
 .line-clamp-1 {
@@ -810,16 +810,16 @@ body {
   height: 24rem;
 }
 
+.h-\[42px\] {
+  height: 42px;
+}
+
 .h-fit {
   height: fit-content;
 }
 
 .h-full {
   height: 100%;
-}
-
-.h-\[42px\] {
-  height: 42px;
 }
 
 .max-h-40 {
@@ -2265,6 +2265,11 @@ body {
   color: hsl(var(--muted-foreground) / .5);
 }
 
+.text-neutral-300 {
+  --tw-text-opacity: 1;
+  color: rgb(212 212 212 / var(--tw-text-opacity, 1));
+}
+
 .text-orange-600 {
   --tw-text-opacity: 1;
   color: rgb(234 88 12 / var(--tw-text-opacity, 1));
@@ -2278,11 +2283,6 @@ body {
 .text-orange-800 {
   --tw-text-opacity: 1;
   color: rgb(154 52 18 / var(--tw-text-opacity, 1));
-}
-
-.text-pink-400 {
-  --tw-text-opacity: 1;
-  color: rgb(244 114 182 / var(--tw-text-opacity, 1));
 }
 
 .text-primary {
@@ -2353,36 +2353,6 @@ body {
 .text-yellow-800 {
   --tw-text-opacity: 1;
   color: rgb(133 77 14 / var(--tw-text-opacity, 1));
-}
-
-.text-neutral-400 {
-  --tw-text-opacity: 1;
-  color: rgb(163 163 163 / var(--tw-text-opacity, 1));
-}
-
-.text-neutral-600 {
-  --tw-text-opacity: 1;
-  color: rgb(82 82 82 / var(--tw-text-opacity, 1));
-}
-
-.text-neutral-900 {
-  --tw-text-opacity: 1;
-  color: rgb(23 23 23 / var(--tw-text-opacity, 1));
-}
-
-.text-neutral-100 {
-  --tw-text-opacity: 1;
-  color: rgb(245 245 245 / var(--tw-text-opacity, 1));
-}
-
-.text-neutral-200 {
-  --tw-text-opacity: 1;
-  color: rgb(229 229 229 / var(--tw-text-opacity, 1));
-}
-
-.text-neutral-300 {
-  --tw-text-opacity: 1;
-  color: rgb(212 212 212 / var(--tw-text-opacity, 1));
 }
 
 .underline {
@@ -2814,6 +2784,11 @@ body {
   color: rgb(21 128 61 / var(--tw-text-opacity, 1));
 }
 
+.hover\:text-neutral-400:hover {
+  --tw-text-opacity: 1;
+  color: rgb(163 163 163 / var(--tw-text-opacity, 1));
+}
+
 .hover\:text-primary:hover {
   color: hsl(var(--primary));
 }
@@ -2824,11 +2799,6 @@ body {
 
 .hover\:text-primary\/80:hover {
   color: hsl(var(--primary) / .8);
-}
-
-.hover\:text-rose-400:hover {
-  --tw-text-opacity: 1;
-  color: rgb(251 113 133 / var(--tw-text-opacity, 1));
 }
 
 .hover\:text-sky-600:hover {
@@ -2844,11 +2814,6 @@ body {
 .hover\:text-yellow-700:hover {
   --tw-text-opacity: 1;
   color: rgb(161 98 7 / var(--tw-text-opacity, 1));
-}
-
-.hover\:text-neutral-400:hover {
-  --tw-text-opacity: 1;
-  color: rgb(163 163 163 / var(--tw-text-opacity, 1));
 }
 
 .hover\:underline:hover {

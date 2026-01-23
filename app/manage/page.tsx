@@ -30,8 +30,7 @@ export default function ManagePage() {
   // ... (All State setup remains exactly the same)
   const supabase = createClient()
   const router = useRouter()
-  
-  const [activeTab, setActiveTab] = useState<'roster' | 'faculty' | 'unassigned'>('roster')
+  const [activeTab, setActiveTab] = useState<'roster' | 'faculty' | 'unassigned' | 'archived'>('roster')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -40,7 +39,7 @@ export default function ManagePage() {
   const [unassigned, setUnassigned] = useState<UnassignedUser[]>([]) 
   const [rosterData, setRosterData] = useState<RosterCadet[]>([])
   const [facultyData, setFacultyData] = useState<RosterCadet[]>([]) 
-  
+  const [archivedData, setArchivedData] = useState<RosterCadet[]>([])
   const [canEditProfiles, setCanEditProfiles] = useState(false)
   const [canManage, setCanManage] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
@@ -237,6 +236,86 @@ export default function ManagePage() {
       return "Bulk Assignment";
   }
 
+  const handleExport = () => {
+    // 1. Determine which data to export based on the active tab
+    let dataToExport: any[] = [];
+    let filename = `roster_export_${new Date().toISOString().split('T')[0]}.csv`;
+
+    // Define columns for the CSV
+    // We'll map the raw data keys to nice Header Names
+    let headers: string[] = [];
+    let rowMapper: (item: any) => string[] = (item) => [];
+
+    if (activeTab === 'roster' || activeTab === 'faculty' || activeTab === 'archived') {
+        const sourceData = activeTab === 'roster' ? rosterData 
+                         : activeTab === 'faculty' ? facultyData 
+                         : archivedData;
+        
+        dataToExport = sourceData;
+        filename = `${activeTab}_export.csv`;
+        
+        headers = ['Last Name', 'First Name', 'Rank', 'Company', 'Role', 'Email', 'Grade', 'Room', 'Term Demerits', 'Year Demerits', 'Tour Balance'];
+        
+        rowMapper = (item: RosterCadet) => [
+            item.last_name,
+            item.first_name,
+            item.cadet_rank || '',
+            item.company_name || '',
+            item.role_name || '',
+            item.email || '',
+            item.grade_level || '',
+            item.room_number || '',
+            (item.term_demerits || 0).toString(),
+            (item.year_demerits || 0).toString(),
+            (item.current_tour_balance || 0).toString()
+        ];
+    } else if (activeTab === 'unassigned') {
+        dataToExport = unassigned;
+        filename = `unassigned_users.csv`;
+        
+        headers = ['Last Name', 'First Name', 'Date Joined', 'Pending Company', 'Pending Role'];
+        
+        rowMapper = (item: UnassignedUser) => [
+            item.last_name,
+            item.first_name,
+            new Date(item.created_at).toLocaleDateString(),
+            item.company_name || 'N/A',
+            item.role_name || 'N/A'
+        ];
+    }
+
+    if (dataToExport.length === 0) {
+        alert("No data to export in the current view.");
+        return;
+    }
+
+    // 2. Convert to CSV String
+    const csvContent = [
+        headers.join(','), // Header Row
+        ...dataToExport.map(item => 
+            rowMapper(item).map(field => {
+                // Escape special characters (commas, quotes)
+                const stringField = String(field || '');
+                if (stringField.includes(',') || stringField.includes('"') || stringField.includes('\n')) {
+                    return `"${stringField.replace(/"/g, '""')}"`;
+                }
+                return stringField;
+            }).join(',')
+        )
+    ].join('\n');
+
+    // 3. Trigger Download
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.setAttribute("href", url);
+    link.setAttribute("download", filename);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   const handleSubmitAssignment = async () => {
     if (!targetCompanyId && !targetRoleId) {
       alert("Please select at least a Company OR a Role to assign.")
@@ -267,6 +346,7 @@ export default function ManagePage() {
   if (loading && unassigned.length === 0 && rosterData.length === 0) {
     return <div className="max-w-7xl mx-auto p-8 text-center text-muted-foreground">Loading roster data...</div>
   }
+  
 
   return (
     <>
@@ -287,6 +367,17 @@ export default function ManagePage() {
           </div>
 
           <div className="flex gap-3">
+
+            {/* --- NEW EXPORT BUTTON --- */}
+             <button 
+                onClick={handleExport}
+                className="flex items-center gap-2 px-4 py-2 bg-background border border-input rounded-md hover:bg-accent transition-colors font-medium shadow-sm text-foreground"
+                title="Download current list as CSV"
+             >
+                <svg className="w-5 h-5 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" /></svg>
+                Export CSV
+             </button>
+
             {/* *** NEW: Link to Probation Page *** */}
             {canViewProbation && (
                 <Link 

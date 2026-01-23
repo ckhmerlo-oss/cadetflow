@@ -58,7 +58,6 @@ export default function SubmitReport() {
             .from('profiles')
             .select('role:role_id(default_role_level)')
             .eq('id', user.id)
-            .eq('archived', false)
             .single()
           
           const roleLevel = (profile?.role as any)?.default_role_level || 0;
@@ -77,7 +76,6 @@ export default function SubmitReport() {
       const { data: cadetsData } = await supabase.rpc('get_subordinates')
       if (cadetsData) {
         cadetsData.sort((a: CadetProfile, b: CadetProfile) => a.last_name.localeCompare(b.last_name))
-        .eq('archived', false)
         setCadets(cadetsData)
       }
 

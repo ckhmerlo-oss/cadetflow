@@ -94,7 +94,7 @@ async function submitReport(payload) {
     };
     // 2. FETCH APPROVER CHAIN
     // Step A: Find the group the User belongs to
-    const { data: userProfile } = await supabase.from('profiles').select('role:role_id (approval_group_id)').eq('id', user.id).single();
+    const { data: userProfile } = await supabase.from('profiles').select('role:role_id (approval_group_id)').eq('id', user.id).eq('archived', false).single();
     const myGroupId = userProfile?.role?.approval_group_id;
     let targetGroupId = null;
     // Step B: Find the "Next Approver"
