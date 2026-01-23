@@ -274,7 +274,7 @@ async function getFacultyList() {
             first_name, 
             last_name, 
             role:roles!inner(default_role_level, role_name)
-        `).gte('role.default_role_level', 50).order('last_name');
+        `).gte('role.default_role_level', 50).order('last_name').eq('archived', false);
     return data?.map((p)=>({
             id: p.id,
             // Label includes role to verify who is who

@@ -41,6 +41,7 @@ export async function getBandRoster() {
       role:roles!inner(default_role_level)
     `)
     .eq('is_in_band', true)
+    .eq('archived', false)
     .lt('role.default_role_level', 50) 
     .order('last_name', { ascending: true })
 
@@ -89,9 +90,10 @@ export async function searchCadetCandidates(query: string) {
       role:roles!inner(default_role_level)
     `)
     .eq('is_in_band', false) // Must NOT be in band
+    .eq('archived', false)
     .lt('role.default_role_level', 50) // Must be cadet
     .or(`first_name.ilike.%${query}%,last_name.ilike.%${query}%`)
-    .limit(10)
+    .eq('archived', false)
 
   if (error) return []
   
@@ -114,5 +116,45 @@ export async function setBandMembership(cadetId: string, isInBand: boolean) {
   if (error) return { success: false, error: error.message }
   
   revalidatePath('/band')
+  return { success: true }
+}
+
+export async function toggleUserArchiveStatus(targetUserId: string, setArchived: boolean) {
+  const supabase = createClient()
+  
+  // 1. Auth & Permission Check
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { error: "Unauthorized" }
+
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('role:role_id(default_role_level)')
+    .eq('id', user.id)
+    .single()
+  
+  const roleLevel = (profile?.role as any)?.default_role_level || 0
+  if (roleLevel < 90) return { error: "Permission Denied: Admins only." }
+
+  // 2. Prepare Updates
+  const updates: any = { archived: setArchived }
+  
+  // IF ARCHIVING: Unassign Company and Role so they don't block slots
+  if (setArchived) {
+      updates.company_id = null
+      updates.role_id = null
+  }
+
+  // 3. Execute Update
+  const { error } = await supabase
+    .from('profiles')
+    .update(updates)
+    .eq('id', targetUserId)
+
+  if (error) return { error: error.message }
+
+  // 4. Revalidate
+  revalidatePath('/admin')
+  revalidatePath('/roster') // Ensure public roster updates
+  
   return { success: true }
 }

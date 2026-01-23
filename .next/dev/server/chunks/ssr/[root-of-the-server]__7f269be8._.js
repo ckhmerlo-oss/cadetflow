@@ -76,9 +76,9 @@ async function ProfilePage({ params }) {
     // 1. FETCH DROPDOWNS (This was missing/failing)
     const dropdowns = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$app$2f$lib$2f$options$2e$ts__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["getProfileDropdowns"])();
     // 2. Fetch Viewer Profile
-    const { data: viewerProfile } = await supabase.from('profiles').select(`id, company_id, is_site_admin, role:role_id (default_role_level, can_manage_all_rosters, can_manage_own_company_roster)`).eq('id', user.id).single();
+    const { data: viewerProfile } = await supabase.from('profiles').select(`id, company_id, is_site_admin, role:role_id (default_role_level, can_manage_all_rosters, can_manage_own_company_roster)`).eq('id', user.id).eq('archived', false).single();
     // 3. Fetch Target Profile
-    const { data: profile, error } = await supabase.from('profiles').select(`*, company:companies(id, company_name), role:roles(id, role_name, default_role_level)`).eq('id', id).single();
+    const { data: profile, error } = await supabase.from('profiles').select(`*, company:companies(id, company_name), role:roles(id, role_name, default_role_level)`).eq('id', id).eq('archived', false).single();
     if (error || !profile) (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["notFound"])();
     // 4. Calculate Stats
     const { data: rawStats } = await supabase.rpc('get_cadet_ledger_stats', {
@@ -115,12 +115,12 @@ async function ProfilePage({ params }) {
             options: dropdowns
         }, void 0, false, {
             fileName: "[project]/app/profile/[id]/page.tsx",
-            lineNumber: 81,
+            lineNumber: 83,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/profile/[id]/page.tsx",
-        lineNumber: 80,
+        lineNumber: 82,
         columnNumber: 5
     }, this);
 }

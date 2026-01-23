@@ -59,7 +59,7 @@ export default function DailyReportsPage() {
     async function init() {
       const { data: { user } } = await supabase.auth.getUser()
       if (user) {
-        const { data: profile } = await supabase.from('profiles').select('roles:role_id ( role_name )').eq('id', user.id).single()
+        const { data: profile } = await supabase.from('profiles').select('roles:role_id ( role_name )').eq('id', user.id).eq('archived', false).single()
         if (profile && profile.roles) setUserRole((profile.roles as any).role_name || '');
       }
       fetchData()

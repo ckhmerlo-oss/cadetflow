@@ -13,6 +13,7 @@ export default async function IncidentsPage() {
     .from('profiles')
     .select('role:roles(default_role_level)')
     .eq('id', user.id)
+    .eq('archived', false)
     .single()
   
   const roleLevel = (profile?.role as any)?.default_role_level || 0

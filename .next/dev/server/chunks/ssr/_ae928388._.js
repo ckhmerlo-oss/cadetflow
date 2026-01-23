@@ -212,7 +212,7 @@ function LedgerPage({ params: paramsPromise }) {
                                         children: "Ledger"
                                     }, void 0, false, {
                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                        lineNumber: 207,
+                                        lineNumber: 209,
                                         columnNumber: 13
                                     }, this),
                                     cadetProfile && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -227,19 +227,19 @@ function LedgerPage({ params: paramsPromise }) {
                                                 children: cadetProfile.role?.role_name || 'Unassigned'
                                             }, void 0, false, {
                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                lineNumber: 210,
+                                                lineNumber: 212,
                                                 columnNumber: 70
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                        lineNumber: 209,
+                                        lineNumber: 211,
                                         columnNumber: 16
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                lineNumber: 205,
+                                lineNumber: 207,
                                 columnNumber: 11
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -256,7 +256,7 @@ function LedgerPage({ params: paramsPromise }) {
                                                 children: "All Terms"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                lineNumber: 220,
+                                                lineNumber: 222,
                                                 columnNumber: 17
                                             }, this),
                                             terms.map((term)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -265,13 +265,13 @@ function LedgerPage({ params: paramsPromise }) {
                                                     children: term.term_name
                                                 }, term.id, false, {
                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                    lineNumber: 221,
+                                                    lineNumber: 223,
                                                     columnNumber: 37
                                                 }, this))
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                        lineNumber: 218,
+                                        lineNumber: 220,
                                         columnNumber: 14
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("select", {
@@ -285,7 +285,7 @@ function LedgerPage({ params: paramsPromise }) {
                                                 children: "All Types"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                lineNumber: 226,
+                                                lineNumber: 228,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -294,7 +294,7 @@ function LedgerPage({ params: paramsPromise }) {
                                                 children: "Cat 1"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                lineNumber: 227,
+                                                lineNumber: 229,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -303,7 +303,7 @@ function LedgerPage({ params: paramsPromise }) {
                                                 children: "Cat 2"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                lineNumber: 228,
+                                                lineNumber: 230,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -312,7 +312,7 @@ function LedgerPage({ params: paramsPromise }) {
                                                 children: "Cat 3"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                lineNumber: 229,
+                                                lineNumber: 231,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("option", {
@@ -321,13 +321,13 @@ function LedgerPage({ params: paramsPromise }) {
                                                 children: "Tours Only"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                lineNumber: 230,
+                                                lineNumber: 232,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                        lineNumber: 224,
+                                        lineNumber: 226,
                                         columnNumber: 15
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -342,7 +342,7 @@ function LedgerPage({ params: paramsPromise }) {
                                                 children: "Cards"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                lineNumber: 235,
+                                                lineNumber: 237,
                                                 columnNumber: 17
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -353,13 +353,13 @@ function LedgerPage({ params: paramsPromise }) {
                                                 children: "List"
                                             }, void 0, false, {
                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                lineNumber: 243,
+                                                lineNumber: 245,
                                                 columnNumber: 17
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                        lineNumber: 234,
+                                        lineNumber: 236,
                                         columnNumber: 13
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -379,31 +379,31 @@ function LedgerPage({ params: paramsPromise }) {
                                                     className: "jsx-3c73b8e41c0cb82c"
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                    lineNumber: 254,
+                                                    lineNumber: 256,
                                                     columnNumber: 95
                                                 }, this)
                                             }, void 0, false, {
                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                lineNumber: 254,
+                                                lineNumber: 256,
                                                 columnNumber: 16
                                             }, this),
                                             "Print"
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                        lineNumber: 253,
+                                        lineNumber: 255,
                                         columnNumber: 13
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                lineNumber: 216,
+                                lineNumber: 218,
                                 columnNumber: 11
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                        lineNumber: 204,
+                        lineNumber: 206,
                         columnNumber: 9
                     }, this),
                     loading && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -411,7 +411,7 @@ function LedgerPage({ params: paramsPromise }) {
                         children: "Loading..."
                     }, void 0, false, {
                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                        lineNumber: 260,
+                        lineNumber: 262,
                         columnNumber: 21
                     }, this),
                     error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -419,7 +419,7 @@ function LedgerPage({ params: paramsPromise }) {
                         children: error
                     }, void 0, false, {
                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                        lineNumber: 261,
+                        lineNumber: 263,
                         columnNumber: 19
                     }, this),
                     !loading && !error && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
@@ -432,7 +432,7 @@ function LedgerPage({ params: paramsPromise }) {
                                         value: stats.term_demerits
                                     }, void 0, false, {
                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                        lineNumber: 267,
+                                        lineNumber: 269,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(StatBox, {
@@ -440,7 +440,7 @@ function LedgerPage({ params: paramsPromise }) {
                                         value: stats.year_demerits
                                     }, void 0, false, {
                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                        lineNumber: 268,
+                                        lineNumber: 270,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(StatBox, {
@@ -448,7 +448,7 @@ function LedgerPage({ params: paramsPromise }) {
                                         value: stats.total_tours_marched
                                     }, void 0, false, {
                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                        lineNumber: 269,
+                                        lineNumber: 271,
                                         columnNumber: 17
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(StatBox, {
@@ -457,13 +457,13 @@ function LedgerPage({ params: paramsPromise }) {
                                         highlight: true
                                     }, void 0, false, {
                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                        lineNumber: 270,
+                                        lineNumber: 272,
                                         columnNumber: 17
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                lineNumber: 266,
+                                lineNumber: 268,
                                 columnNumber: 15
                             }, this),
                             displayedLog.length === 0 ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -471,7 +471,7 @@ function LedgerPage({ params: paramsPromise }) {
                                 children: "No entries found for this filter."
                             }, void 0, false, {
                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                lineNumber: 275,
+                                lineNumber: 277,
                                 columnNumber: 17
                             }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Fragment"], {
                                 children: [
@@ -490,7 +490,7 @@ function LedgerPage({ params: paramsPromise }) {
                                                                 className: "jsx-3c73b8e41c0cb82c" + " " + "absolute left-5 top-5 -ml-px h-full w-0.5 bg-border"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                lineNumber: 284,
+                                                                lineNumber: 286,
                                                                 columnNumber: 69
                                                             }, this) : null,
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -505,17 +505,17 @@ function LedgerPage({ params: paramsPromise }) {
                                                                                 children: event.event_type === 'demerit' ? 'D' : 'T'
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                lineNumber: 288,
+                                                                                lineNumber: 290,
                                                                                 columnNumber: 37
                                                                             }, this)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                            lineNumber: 287,
+                                                                            lineNumber: 289,
                                                                             columnNumber: 33
                                                                         }, this)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                        lineNumber: 286,
+                                                                        lineNumber: 288,
                                                                         columnNumber: 33
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -535,7 +535,7 @@ function LedgerPage({ params: paramsPromise }) {
                                                                                                     children: event.title
                                                                                                 }, void 0, false, {
                                                                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                                    lineNumber: 298,
+                                                                                                    lineNumber: 300,
                                                                                                     columnNumber: 45
                                                                                                 }, this) : event.title,
                                                                                                 event.appeal_status === 'approved' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -543,7 +543,7 @@ function LedgerPage({ params: paramsPromise }) {
                                                                                                     children: "Appeal Granted"
                                                                                                 }, void 0, false, {
                                                                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                                    lineNumber: 303,
+                                                                                                    lineNumber: 305,
                                                                                                     columnNumber: 80
                                                                                                 }, this),
                                                                                                 [
@@ -555,18 +555,18 @@ function LedgerPage({ params: paramsPromise }) {
                                                                                                     children: "Appeal Pending"
                                                                                                 }, void 0, false, {
                                                                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                                    lineNumber: 304,
+                                                                                                    lineNumber: 306,
                                                                                                     columnNumber: 139
                                                                                                 }, this)
                                                                                             ]
                                                                                         }, void 0, true, {
                                                                                             fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                            lineNumber: 296,
+                                                                                            lineNumber: 298,
                                                                                             columnNumber: 41
                                                                                         }, this)
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                        lineNumber: 295,
+                                                                                        lineNumber: 297,
                                                                                         columnNumber: 37
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -574,13 +574,13 @@ function LedgerPage({ params: paramsPromise }) {
                                                                                         children: event.event_type === 'served' ? 'Completed' : formatStatus(event.status)
                                                                                     }, void 0, false, {
                                                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                        lineNumber: 307,
+                                                                                        lineNumber: 309,
                                                                                         columnNumber: 37
                                                                                     }, this)
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                lineNumber: 294,
+                                                                                lineNumber: 296,
                                                                                 columnNumber: 33
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -595,13 +595,13 @@ function LedgerPage({ params: paramsPromise }) {
                                                                                                 children: formatDateTime(event.date_of_offense)
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                                lineNumber: 313,
+                                                                                                lineNumber: 315,
                                                                                                 columnNumber: 112
                                                                                             }, this)
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                        lineNumber: 313,
+                                                                                        lineNumber: 315,
                                                                                         columnNumber: 97
                                                                                     }, this),
                                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -612,13 +612,13 @@ function LedgerPage({ params: paramsPromise }) {
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                        lineNumber: 314,
+                                                                                        lineNumber: 316,
                                                                                         columnNumber: 37
                                                                                     }, this)
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                lineNumber: 312,
+                                                                                lineNumber: 314,
                                                                                 columnNumber: 33
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -631,7 +631,7 @@ function LedgerPage({ params: paramsPromise }) {
                                                                                             children: "Demerits"
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                            lineNumber: 320,
+                                                                                            lineNumber: 322,
                                                                                             columnNumber: 41
                                                                                         }, this),
                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -639,13 +639,13 @@ function LedgerPage({ params: paramsPromise }) {
                                                                                             children: event.demerits_issued
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                            lineNumber: 321,
+                                                                                            lineNumber: 323,
                                                                                             columnNumber: 41
                                                                                         }, this)
                                                                                     ]
                                                                                 }, void 0, true, {
                                                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                    lineNumber: 319,
+                                                                                    lineNumber: 321,
                                                                                     columnNumber: 37
                                                                                 }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                                                     className: "jsx-3c73b8e41c0cb82c",
@@ -655,7 +655,7 @@ function LedgerPage({ params: paramsPromise }) {
                                                                                             children: "Tours Served"
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                            lineNumber: 325,
+                                                                                            lineNumber: 327,
                                                                                             columnNumber: 41
                                                                                         }, this),
                                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -663,18 +663,18 @@ function LedgerPage({ params: paramsPromise }) {
                                                                                             children: Math.abs(event.tour_change || 0)
                                                                                         }, void 0, false, {
                                                                                             fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                            lineNumber: 326,
+                                                                                            lineNumber: 328,
                                                                                             columnNumber: 41
                                                                                         }, this)
                                                                                     ]
                                                                                 }, void 0, true, {
                                                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                    lineNumber: 324,
+                                                                                    lineNumber: 326,
                                                                                     columnNumber: 37
                                                                                 }, this)
                                                                             }, void 0, false, {
                                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                lineNumber: 317,
+                                                                                lineNumber: 319,
                                                                                 columnNumber: 33
                                                                             }, this),
                                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -688,7 +688,7 @@ function LedgerPage({ params: paramsPromise }) {
                                                                                                 children: event.event_type === 'demerit' ? 'By:' : 'Logged By:'
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                                lineNumber: 332,
+                                                                                                lineNumber: 334,
                                                                                                 columnNumber: 68
                                                                                             }, this),
                                                                                             " ",
@@ -696,7 +696,7 @@ function LedgerPage({ params: paramsPromise }) {
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                        lineNumber: 332,
+                                                                                        lineNumber: 334,
                                                                                         columnNumber: 37
                                                                                     }, this),
                                                                                     event.details && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -708,7 +708,7 @@ function LedgerPage({ params: paramsPromise }) {
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                        lineNumber: 333,
+                                                                                        lineNumber: 335,
                                                                                         columnNumber: 55
                                                                                     }, this),
                                                                                     event.appeal_note && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -719,7 +719,7 @@ function LedgerPage({ params: paramsPromise }) {
                                                                                                 children: "Appeal Note:"
                                                                                             }, void 0, false, {
                                                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                                lineNumber: 334,
+                                                                                                lineNumber: 336,
                                                                                                 columnNumber: 131
                                                                                             }, this),
                                                                                             " ",
@@ -727,46 +727,46 @@ function LedgerPage({ params: paramsPromise }) {
                                                                                         ]
                                                                                     }, void 0, true, {
                                                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                        lineNumber: 334,
+                                                                                        lineNumber: 336,
                                                                                         columnNumber: 60
                                                                                     }, this)
                                                                                 ]
                                                                             }, void 0, true, {
                                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                                lineNumber: 331,
+                                                                                lineNumber: 333,
                                                                                 columnNumber: 33
                                                                             }, this)
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                        lineNumber: 293,
+                                                                        lineNumber: 295,
                                                                         columnNumber: 33
                                                                     }, this)
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                lineNumber: 285,
+                                                                lineNumber: 287,
                                                                 columnNumber: 29
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                        lineNumber: 283,
+                                                        lineNumber: 285,
                                                         columnNumber: 29
                                                     }, this)
                                                 }, eventIdx, false, {
                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                    lineNumber: 282,
+                                                    lineNumber: 284,
                                                     columnNumber: 25
                                                 }, this))
                                         }, void 0, false, {
                                             fileName: "[project]/app/ledger/[id]/page.tsx",
-                                            lineNumber: 280,
+                                            lineNumber: 282,
                                             columnNumber: 21
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                        lineNumber: 279,
+                                        lineNumber: 281,
                                         columnNumber: 17
                                     }, this),
                                     viewMode === 'list' && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -784,7 +784,7 @@ function LedgerPage({ params: paramsPromise }) {
                                                                 children: "Date"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                lineNumber: 351,
+                                                                lineNumber: 353,
                                                                 columnNumber: 37
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -792,7 +792,7 @@ function LedgerPage({ params: paramsPromise }) {
                                                                 children: "Title/Details"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                lineNumber: 352,
+                                                                lineNumber: 354,
                                                                 columnNumber: 37
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -800,7 +800,7 @@ function LedgerPage({ params: paramsPromise }) {
                                                                 children: "Value"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                lineNumber: 353,
+                                                                lineNumber: 355,
                                                                 columnNumber: 37
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -808,7 +808,7 @@ function LedgerPage({ params: paramsPromise }) {
                                                                 children: "By"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                lineNumber: 354,
+                                                                lineNumber: 356,
                                                                 columnNumber: 37
                                                             }, this),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("th", {
@@ -816,18 +816,18 @@ function LedgerPage({ params: paramsPromise }) {
                                                                 children: "Status"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                lineNumber: 355,
+                                                                lineNumber: 357,
                                                                 columnNumber: 37
                                                             }, this)
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                        lineNumber: 350,
+                                                        lineNumber: 352,
                                                         columnNumber: 33
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                    lineNumber: 349,
+                                                    lineNumber: 351,
                                                     columnNumber: 29
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("tbody", {
@@ -841,7 +841,7 @@ function LedgerPage({ params: paramsPromise }) {
                                                                     children: formatDateTime(event.event_date, false)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                    lineNumber: 365,
+                                                                    lineNumber: 367,
                                                                     columnNumber: 41
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -853,7 +853,7 @@ function LedgerPage({ params: paramsPromise }) {
                                                                             children: event.title
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                            lineNumber: 370,
+                                                                            lineNumber: 372,
                                                                             columnNumber: 45
                                                                         }, this),
                                                                         event.details && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -862,13 +862,13 @@ function LedgerPage({ params: paramsPromise }) {
                                                                             children: truncateText(event.details, 70)
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                            lineNumber: 374,
+                                                                            lineNumber: 376,
                                                                             columnNumber: 49
                                                                         }, this)
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                    lineNumber: 369,
+                                                                    lineNumber: 371,
                                                                     columnNumber: 41
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -878,7 +878,7 @@ function LedgerPage({ params: paramsPromise }) {
                                                                         children: event.demerits_issued
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                        lineNumber: 382,
+                                                                        lineNumber: 384,
                                                                         columnNumber: 51
                                                                     }, this) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                                         className: "jsx-3c73b8e41c0cb82c" + " " + "font-bold text-green-600",
@@ -888,12 +888,12 @@ function LedgerPage({ params: paramsPromise }) {
                                                                         ]
                                                                     }, void 0, true, {
                                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                        lineNumber: 383,
+                                                                        lineNumber: 385,
                                                                         columnNumber: 51
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                    lineNumber: 380,
+                                                                    lineNumber: 382,
                                                                     columnNumber: 41
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -902,7 +902,7 @@ function LedgerPage({ params: paramsPromise }) {
                                                                     children: formatActorShort(event.actor_name)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                    lineNumber: 387,
+                                                                    lineNumber: 389,
                                                                     columnNumber: 41
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("td", {
@@ -912,34 +912,34 @@ function LedgerPage({ params: paramsPromise }) {
                                                                         children: event.event_type === 'served' ? 'Logged' : event.appeal_status === 'approved' ? 'Appeal Granted' : formatStatus(event.status)
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                        lineNumber: 392,
+                                                                        lineNumber: 394,
                                                                         columnNumber: 45
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                                    lineNumber: 391,
+                                                                    lineNumber: 393,
                                                                     columnNumber: 41
                                                                 }, this)
                                                             ]
                                                         }, idx, true, {
                                                             fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                            lineNumber: 360,
+                                                            lineNumber: 362,
                                                             columnNumber: 37
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/app/ledger/[id]/page.tsx",
-                                                    lineNumber: 358,
+                                                    lineNumber: 360,
                                                     columnNumber: 29
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/app/ledger/[id]/page.tsx",
-                                            lineNumber: 348,
+                                            lineNumber: 350,
                                             columnNumber: 25
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/app/ledger/[id]/page.tsx",
-                                        lineNumber: 346,
+                                        lineNumber: 348,
                                         columnNumber: 21
                                     }, this)
                                 ]
@@ -949,7 +949,7 @@ function LedgerPage({ params: paramsPromise }) {
                 ]
             }, void 0, true, {
                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                lineNumber: 202,
+                lineNumber: 204,
                 columnNumber: 7
             }, this)
         ]
@@ -964,7 +964,7 @@ function StatBox({ label, value, highlight = false }) {
                 children: label
             }, void 0, false, {
                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                lineNumber: 414,
+                lineNumber: 416,
                 columnNumber: 7
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -972,13 +972,13 @@ function StatBox({ label, value, highlight = false }) {
                 children: value
             }, void 0, false, {
                 fileName: "[project]/app/ledger/[id]/page.tsx",
-                lineNumber: 417,
+                lineNumber: 419,
                 columnNumber: 7
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/app/ledger/[id]/page.tsx",
-        lineNumber: 413,
+        lineNumber: 415,
         columnNumber: 5
     }, this);
 }

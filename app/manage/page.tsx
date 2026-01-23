@@ -78,6 +78,7 @@ export default function ManagePage() {
            role:role_id (role_name, default_role_level, can_manage_all_rosters, can_manage_own_company_roster)
         `)
         .eq('id', user.id)
+        .eq('archived', false)
         .single()
       
       const roleData = viewerProfile?.role as any

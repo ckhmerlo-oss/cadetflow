@@ -9,6 +9,7 @@ import RolesTab from './tabs/RolesTab'
 import CompaniesTab from './tabs/CompaniesTab' 
 import NotificationsTab from './tabs/NotificationsTab'
 import OptionsTab from './tabs/OptionsTab' // <--- Import the new tab
+import ArchivedTab from './tabs/ArchivedTab'
 
 // Lock Icon Helper
 const LockIcon = () => (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-12 h-12 text-muted-foreground"><path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 0 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" /></svg>)
@@ -21,7 +22,7 @@ export function AdminSettingsClient({ user }: { user: User }) {
   const [isLoading, setIsLoading] = useState(false)
   
   // UPDATED Tab State
-  const [activeTab, setActiveTab] = useState<'general' | 'infractions' | 'roles' | 'companies' | 'notifications' | 'options'>('general')
+  const [activeTab, setActiveTab] = useState<'general' | 'infractions' | 'roles' | 'companies' | 'notifications' | 'options' | 'archived'>('general')
 
   const handleVerifyPassword = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -76,7 +77,7 @@ export function AdminSettingsClient({ user }: { user: User }) {
           <p className="text-xs text-muted-foreground mt-1">System Configuration</p>
         </div>
         <nav className="p-4 space-y-2">
-          {['general', 'infractions', 'roles', 'companies', 'notifications', 'options'].map((tab) => (
+          {['general', 'infractions', 'roles', 'companies', 'notifications', 'options', 'archived'].map((tab) => ( // <--- 3. ADD 'archived' TO ARRAY
             <button 
               key={tab}
               onClick={() => setActiveTab(tab as any)}
@@ -92,6 +93,7 @@ export function AdminSettingsClient({ user }: { user: User }) {
               {tab === 'companies' && 'Companies & Units'}
               {tab === 'notifications' && 'Notifications & Alerts'}
               {tab === 'options' && 'Cadet Options'}
+              {tab === 'archived' && 'Archived Users'}
             </button>
           ))}
         </nav>
@@ -106,6 +108,7 @@ export function AdminSettingsClient({ user }: { user: User }) {
           {activeTab === 'companies' && <CompaniesTab />} 
           {activeTab === 'notifications' && <NotificationsTab />} 
           {activeTab === 'options' && <OptionsTab />}
+          {activeTab === 'archived' && <ArchivedTab />} {/* <--- 4. RENDER */}
         </div>
       </main>
 

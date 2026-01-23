@@ -24,6 +24,7 @@ export async function getProbationList() {
       company:companies(company_name)
     `)
     .neq('probation_status', 'None') 
+    .eq('archived', false)
     .not('probation_status', 'is', null)
     .order('last_name', { ascending: true })
 
@@ -57,6 +58,7 @@ export async function getAllCadetsForSelection() {
       role:roles!inner(default_role_level)
     `)
     .lt('role.default_role_level', 50) // <--- CHANGED HERE
+    .eq('archived', false)
     .order('last_name')
 
   if (error) {
@@ -81,6 +83,7 @@ export async function updateCadetProbation(cadetId: string, status: string, note
   const { data: viewer } = await supabase
     .from('profiles')
     .select('role:role_id(default_role_level)')
+    .eq('archived', false)
     .eq('id', user.id)
     .single()
     
@@ -95,6 +98,7 @@ export async function updateCadetProbation(cadetId: string, status: string, note
       probation_notes: notes 
     })
     .eq('id', cadetId)
+    .eq('archived', false)
 
   if (error) return { error: error.message }
 

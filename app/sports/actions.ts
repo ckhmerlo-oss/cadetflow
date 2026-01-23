@@ -94,6 +94,7 @@ export async function getSportDetail(sportId: string): Promise<SportDetail | nul
     .from('profiles')
     .select('id, first_name, last_name, cadet_rank, grade_level, cached_tour_balance, company:companies(company_name)')
     .eq(targetCol, sport.name) 
+    .eq('archived', false)
     .order('last_name')
 
   if (rosterError) {
@@ -131,6 +132,7 @@ export async function searchCadets(query: string) {
         .select('id, first_name, last_name, company:companies(company_name), role:roles!inner(default_role_level)')
         .ilike('last_name', `${query}%`)
         .lt('role.default_role_level', 50) 
+        .eq('archived', false)
         //.limit(10)
     
     return data?.map((p: any) => ({
@@ -146,6 +148,7 @@ export async function searchFaculty(query: string) {
         .select('id, first_name, last_name, role:roles!inner(default_role_level)')
         .ilike('last_name', `${query}%`)
         .gte('role.default_role_level', 50)
+        .eq('archived', false)
         //.limit(10)
 
     return data?.map((p: any) => ({
@@ -184,7 +187,7 @@ export async function addToRoster(cadetId: string, sportName: string, season: st
     const supabase = createClient()
     const colMap = { 'Fall': 'sport_fall', 'Winter': 'sport_winter', 'Spring': 'sport_spring' }
     const targetCol = colMap[season as keyof typeof colMap]
-    const { error } = await supabase.from('profiles').update({ [targetCol]: sportName }).eq('id', cadetId)
+    const { error } = await supabase.from('profiles').update({ [targetCol]: sportName }).eq('id', cadetId).eq('archived', false)
     if (!error) revalidatePath(`/sports`) 
     return { error: error?.message }
 }
@@ -193,7 +196,7 @@ export async function removeFromRoster(cadetId: string, season: string) {
     const supabase = createClient()
     const colMap = { 'Fall': 'sport_fall', 'Winter': 'sport_winter', 'Spring': 'sport_spring' }
     const targetCol = colMap[season as keyof typeof colMap]
-    const { error } = await supabase.from('profiles').update({ [targetCol]: 'None' }).eq('id', cadetId)
+    const { error } = await supabase.from('profiles').update({ [targetCol]: 'None' }).eq('id', cadetId).eq('archived', false)
     if (!error) revalidatePath(`/sports`)
     return { error: error?.message }
 }
@@ -229,6 +232,7 @@ export async function getUnassignedCadets(season: string) {
         .select('id, first_name, last_name, cadet_rank, company:companies(company_name), role:roles!inner(default_role_level)')
         .or(`${targetCol}.is.null,${targetCol}.eq.None`)
         .lt('role.default_role_level', 50) 
+        .eq('archived', false)
         .order('last_name')
     
     return data || []

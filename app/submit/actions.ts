@@ -32,6 +32,7 @@ export async function submitReport(payload: SubmitPayload) {
     .from('profiles')
     .select('role:role_id (approval_group_id)')
     .eq('id', user.id)
+    .eq('archived', false)
     .single()
 
   const myGroupId = (userProfile?.role as any)?.approval_group_id

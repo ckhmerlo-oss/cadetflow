@@ -271,6 +271,7 @@ export async function getFacultyList() {
         `)
         .gte('role.default_role_level', 50)
         .order('last_name')
+        .eq('archived', false)
     
     return data?.map((p: any) => ({
         id: p.id,

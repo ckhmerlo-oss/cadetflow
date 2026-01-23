@@ -22,6 +22,7 @@ export async function approveReportAction(reportId: string) {
     .from('profiles')
     .select('id, role:roles(id, role_name, approval_group_id)') 
     .eq('id', user.id)
+    .eq('archived', false)
     .single()
 
   if (profileError || !userProfile) {
@@ -131,6 +132,7 @@ export async function kickBackReportAction(reportId: string, reason: string) {
     .from('profiles')
     .select('role:roles(approval_group_id)')
     .eq('id', user.id)
+    .eq('archived', false)
     .single()
     
   const myGroupId = (profile?.role as any)?.approval_group_id
@@ -176,6 +178,7 @@ export async function pullReport(reportId: string, comment: string) {
      .from('profiles')
      .select('role:roles(default_role_level)')
      .eq('id', user.id)
+     .eq('archived', false)
      .single()
      
   const roleLevel = (profile?.role as any)?.default_role_level || 0
@@ -238,6 +241,7 @@ export async function resubmitReport(reportId: string, payload: {
         .from('profiles')
         .select('role:roles(approval_group_id)')
         .eq('id', user.id)
+        .eq('archived', false)
         .single()
 
     const myGroupId = (userProfile?.role as any)?.approval_group_id
@@ -300,6 +304,7 @@ export async function editAndApproveReport(reportId: string, payload: {
         .from('profiles')
         .select('role:roles(default_role_level)')
         .eq('id', user.id)
+        .eq('archived', false)
         .single()
     
     const roleLevel = (profile?.role as any)?.default_role_level || 0

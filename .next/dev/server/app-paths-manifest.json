@@ -1,7 +1,9 @@
 {
-  "/_not-found/page": "app/_not-found/page.js",
+  "/admin/page": "app/admin/page.js",
+  "/incidents/create/page": "app/incidents/create/page.js",
   "/ledger/[id]/page": "app/ledger/[id]/page.js",
   "/login/page": "app/login/page.js",
+  "/manage/page": "app/manage/page.js",
   "/page": "app/page.js",
-  "/report/[id]/page": "app/report/[id]/page.js"
+  "/profile/[id]/page": "app/profile/[id]/page.js"
 }

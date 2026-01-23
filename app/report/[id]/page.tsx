@@ -21,6 +21,7 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
       )
     `)
     .eq('id', user.id)
+    .eq('archived', false)
     .single()
 
   if (!rawProfile) redirect('/login')

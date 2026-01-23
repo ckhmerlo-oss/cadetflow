@@ -21,6 +21,7 @@ async function getActorWithPermissions(supabase: any) {
       )
     `)
     .eq('id', user.id)
+    .eq('archived', false)
     .single()
 
   if (!profile || !profile.role) return null
@@ -64,6 +65,7 @@ export async function bulkAssignRole(userIds: string[], roleId: string) {
     .from('roles')
     .select('default_role_level, company_id')
     .eq('id', roleId)
+    .eq('archived', false)
     .single()
     
   if (!targetRole) return { error: "Role not found." }
@@ -90,6 +92,7 @@ export async function bulkAssignRole(userIds: string[], roleId: string) {
     const { data: targets } = await supabase
       .from('profiles')
       .select('id, company_id')
+      .eq('archived', false)
       .in('id', userIds)
 
     if (!targets) return { error: "Could not verify targets." }
@@ -110,6 +113,7 @@ export async function bulkAssignRole(userIds: string[], roleId: string) {
   const { error } = await supabase
     .from('profiles')
     .update({ role_id: roleId })
+    .eq('archived', false)
     .in('id', userIds)
 
   if (error) return { error: `Database Error: ${error.message}` }
@@ -138,6 +142,7 @@ export async function bulkAssignCompany(userIds: string[], companyId: string) {
      const { data: targets } = await supabase
        .from('profiles')
        .select('company_id')
+       .eq('archived', false)
        .in('id', userIds)
 
      if (!targets) return { error: "Could not verify targets." }
@@ -154,6 +159,7 @@ export async function bulkAssignCompany(userIds: string[], companyId: string) {
   const { error } = await supabase
     .from('profiles')
     .update({ company_id: companyId })
+    .eq('archived', false)
     .in('id', userIds)
 
   if (error) return { error: error.message }

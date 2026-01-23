@@ -38,6 +38,7 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
     .from('profiles')
     .select(`id, company_id, is_site_admin, role:role_id (default_role_level, can_manage_all_rosters, can_manage_own_company_roster)`)
     .eq('id', user.id)
+    .eq('archived', false)
     .single()
 
   // 3. Fetch Target Profile
@@ -45,9 +46,36 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
     .from('profiles')
     .select(`*, company:companies(id, company_name), role:roles(id, role_name, default_role_level)`)
     .eq('id', id)
+    .eq('archived', false)
     .single()
 
   if (error || !profile) notFound()
+
+  // --- NEW: ARCHIVE SECURITY CHECK ---
+  if (profile.archived) {
+    const { data: { user } } = await supabase.auth.getUser()
+    
+    // If not logged in, they definitely can't see it
+    if (!user) notFound() 
+
+    // Fetch Viewer's permissions
+    const { data: viewer } = await supabase
+      .from('profiles')
+      .select('role:roles(default_role_level)')
+      .eq('id', user.id)
+      .single()
+    
+    const viewerLevel = (viewer?.role as any)?.default_role_level || 0
+    
+    // RESTRICTION: Only Level 90+ (Admin/Commandant) can view archived profiles
+    if (viewerLevel < 90) {
+      // You can either return notFound() to pretend it doesn't exist
+      // OR return a specific "Archived" message. 
+      // notFound() is safer for privacy.
+      notFound()
+    }
+  }
+  // ------------------------------------
 
   // 4. Calculate Stats
   const { data: rawStats } = await supabase.rpc('get_cadet_ledger_stats', { p_cadet_id: profile.id }).single()

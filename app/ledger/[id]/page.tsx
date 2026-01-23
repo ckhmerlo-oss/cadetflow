@@ -92,6 +92,7 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
              }
          }
       }
+      
 
       const [logRes, statsRes, termsRes, profileRes] = await Promise.all([
         supabase.rpc('get_cadet_audit_log', { p_cadet_id: targetCadetId }),
@@ -113,6 +114,7 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
     }
     getData()
   }, [supabase, targetCadetId, router])
+  
 
   // --- DYNAMIC TITLE UPDATE ---
   useEffect(() => {

@@ -17,6 +17,7 @@ export default async function ProbationPage() {
   const { data: profile } = await supabase
     .from('profiles')
     .select('role:role_id(default_role_level)')
+    .eq('archived', false)
     .eq('id', user.id)
     .single()
 
