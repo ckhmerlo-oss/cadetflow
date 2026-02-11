@@ -78,7 +78,7 @@ async function ReportPage({ params }) {
         default_role_level,
         approval_group_id
       )
-    `).eq('id', user.id).single();
+    `).eq('id', user.id).eq('archived', false).single();
     if (!rawProfile) (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["redirect"])('/login');
     // Flatten the role array if Supabase returns it as one
     const userProfile = {
@@ -132,7 +132,7 @@ async function ReportPage({ params }) {
         userProfile: userProfile
     }, void 0, false, {
         fileName: "[project]/app/report/[id]/page.tsx",
-        lineNumber: 95,
+        lineNumber: 96,
         columnNumber: 5
     }, this);
 }

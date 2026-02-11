@@ -293,7 +293,7 @@ async function RootLayout({ children }) {
         // We keep specific colors for specific roles (like Band/Staff) to maintain identity,
         // but update TAC to use semantic 'destructive' (Red) for better theme integration.
         if (roles?.role_name && roles.role_name.includes('Band Director')) {
-            logoText = "I'm Tired Of This Grandpa";
+            logoText = "Miss You Guys <3";
             logoColor = "text-neutral-300 hover:text-neutral-400";
         } else if (roleLevel >= 60 || roles?.role_name && roles.role_name.includes('TAC')) {
             logoText = "TACFlow";

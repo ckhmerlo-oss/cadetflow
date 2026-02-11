@@ -104,7 +104,7 @@ async function approveReportAction(reportId) {
     console.log(`DEBUG: Attempting approval for Report ${reportId} by User ${user.id}`);
     // 2. Fetch User's Role & Group
     // FIX: Changed 'name' to 'role_name' in the select string
-    const { data: userProfile, error: profileError } = await supabase.from('profiles').select('id, role:roles(id, role_name, approval_group_id)').eq('id', user.id).single();
+    const { data: userProfile, error: profileError } = await supabase.from('profiles').select('id, role:roles(id, role_name, approval_group_id)').eq('id', user.id).eq('archived', false).single();
     if (profileError || !userProfile) {
         console.error("DEBUG: Could not fetch user profile/role", profileError);
         return {
@@ -193,7 +193,7 @@ async function kickBackReportAction(reportId, reason) {
         error: 'Unauthorized'
     };
     // Get user's group to mark who kicked it back
-    const { data: profile } = await supabase.from('profiles').select('role:roles(approval_group_id)').eq('id', user.id).single();
+    const { data: profile } = await supabase.from('profiles').select('role:roles(approval_group_id)').eq('id', user.id).eq('archived', false).single();
     const myGroupId = profile?.role?.approval_group_id;
     const { error } = await supabase.from('demerit_reports').update({
         status: 'needs_revision',
@@ -226,7 +226,7 @@ async function pullReport(reportId, comment) {
         error: 'Report not found'
     };
     // Get User Role for Override
-    const { data: profile } = await supabase.from('profiles').select('role:roles(default_role_level)').eq('id', user.id).single();
+    const { data: profile } = await supabase.from('profiles').select('role:roles(default_role_level)').eq('id', user.id).eq('archived', false).single();
     const roleLevel = profile?.role?.default_role_level || 0;
     const isSubmitter = report.submitted_by === user.id;
     const isCommandant = roleLevel >= 90;
@@ -278,7 +278,7 @@ async function resubmitReport(reportId, payload) {
         error: 'Unauthorized'
     };
     // Recalculate Approver Chain
-    const { data: userProfile } = await supabase.from('profiles').select('role:roles(approval_group_id)').eq('id', user.id).single();
+    const { data: userProfile } = await supabase.from('profiles').select('role:roles(approval_group_id)').eq('id', user.id).eq('archived', false).single();
     const myGroupId = userProfile?.role?.approval_group_id;
     let targetGroupId = null;
     if (myGroupId) {
@@ -319,7 +319,7 @@ async function editAndApproveReport(reportId, payload) {
         error: 'Unauthorized'
     };
     // Verify Permission
-    const { data: profile } = await supabase.from('profiles').select('role:roles(default_role_level)').eq('id', user.id).single();
+    const { data: profile } = await supabase.from('profiles').select('role:roles(default_role_level)').eq('id', user.id).eq('archived', false).single();
     const roleLevel = profile?.role?.default_role_level || 0;
     if (roleLevel < 90) return {
         error: 'Insufficient permissions'
