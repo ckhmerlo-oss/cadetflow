@@ -76,10 +76,21 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
   const isApprover = (report.status === 'pending_approval' && report.current_approver_group_id === myGroupId)
 
   let canActOnAppeal = false;
-  if (roleLevel >= 50 && appeal) { 
-      if (appeal.status === 'pending_issuer' && isSubmitter) canActOnAppeal = true;
-      else if (appeal.status === 'pending_chain' && !isSubmitter && roleLevel >= 60) canActOnAppeal = true;
-      else if (appeal.status === 'pending_commandant' && roleLevel >= 90) canActOnAppeal = true;
+  if (appeal) {
+      // 1. Direct Assignment Check (Fixes your issue)
+      if (appeal.current_assignee_id === user.id) {
+          canActOnAppeal = true;
+      } 
+      // 2. Group Assignment Check
+      else if (appeal.current_group_id && appeal.current_group_id === myGroupId) {
+          canActOnAppeal = true;
+      }
+      // 3. Fallback to Role/Status Based Checks
+      else if (roleLevel >= 50) { 
+          if (appeal.status === 'pending_issuer' && isSubmitter) canActOnAppeal = true;
+          else if (appeal.status === 'pending_chain' && !isSubmitter && roleLevel >= 60) canActOnAppeal = true;
+          else if (appeal.status === 'pending_commandant' && roleLevel >= 90) canActOnAppeal = true;
+      }
   }
 
   const canPull = isSubmitter || roleLevel >= 90;

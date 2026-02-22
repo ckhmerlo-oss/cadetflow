@@ -80,6 +80,23 @@ async function ProfilePage({ params }) {
     // 3. Fetch Target Profile
     const { data: profile, error } = await supabase.from('profiles').select(`*, company:companies(id, company_name), role:roles(id, role_name, default_role_level)`).eq('id', id).eq('archived', false).single();
     if (error || !profile) (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["notFound"])();
+    // --- NEW: ARCHIVE SECURITY CHECK ---
+    if (profile.archived) {
+        const { data: { user } } = await supabase.auth.getUser();
+        // If not logged in, they definitely can't see it
+        if (!user) (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["notFound"])();
+        // Fetch Viewer's permissions
+        const { data: viewer } = await supabase.from('profiles').select('role:roles(default_role_level)').eq('id', user.id).single();
+        const viewerLevel = viewer?.role?.default_role_level || 0;
+        // RESTRICTION: Only Level 90+ (Admin/Commandant) can view archived profiles
+        if (viewerLevel < 90) {
+            // You can either return notFound() to pretend it doesn't exist
+            // OR return a specific "Archived" message. 
+            // notFound() is safer for privacy.
+            (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$client$2f$components$2f$navigation$2e$react$2d$server$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["notFound"])();
+        }
+    }
+    // ------------------------------------
     // 4. Calculate Stats
     const { data: rawStats } = await supabase.rpc('get_cadet_ledger_stats', {
         p_cadet_id: profile.id
@@ -115,12 +132,12 @@ async function ProfilePage({ params }) {
             options: dropdowns
         }, void 0, false, {
             fileName: "[project]/app/profile/[id]/page.tsx",
-            lineNumber: 83,
+            lineNumber: 109,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/app/profile/[id]/page.tsx",
-        lineNumber: 82,
+        lineNumber: 108,
         columnNumber: 5
     }, this);
 }

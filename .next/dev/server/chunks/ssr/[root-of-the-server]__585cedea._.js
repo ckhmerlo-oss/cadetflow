@@ -108,10 +108,17 @@ async function ReportPage({ params }) {
     const myGroupId = userProfile.role?.approval_group_id;
     const isApprover = report.status === 'pending_approval' && report.current_approver_group_id === myGroupId;
     let canActOnAppeal = false;
-    if (roleLevel >= 50 && appeal) {
-        if (appeal.status === 'pending_issuer' && isSubmitter) canActOnAppeal = true;
-        else if (appeal.status === 'pending_chain' && !isSubmitter && roleLevel >= 60) canActOnAppeal = true;
-        else if (appeal.status === 'pending_commandant' && roleLevel >= 90) canActOnAppeal = true;
+    if (appeal) {
+        // 1. Direct Assignment Check (Fixes your issue)
+        if (appeal.current_assignee_id === user.id) {
+            canActOnAppeal = true;
+        } else if (appeal.current_group_id && appeal.current_group_id === myGroupId) {
+            canActOnAppeal = true;
+        } else if (roleLevel >= 50) {
+            if (appeal.status === 'pending_issuer' && isSubmitter) canActOnAppeal = true;
+            else if (appeal.status === 'pending_chain' && !isSubmitter && roleLevel >= 60) canActOnAppeal = true;
+            else if (appeal.status === 'pending_commandant' && roleLevel >= 90) canActOnAppeal = true;
+        }
     }
     const canPull = isSubmitter || roleLevel >= 90;
     const permissions = {
@@ -132,7 +139,7 @@ async function ReportPage({ params }) {
         userProfile: userProfile
     }, void 0, false, {
         fileName: "[project]/app/report/[id]/page.tsx",
-        lineNumber: 96,
+        lineNumber: 107,
         columnNumber: 5
     }, this);
 }
