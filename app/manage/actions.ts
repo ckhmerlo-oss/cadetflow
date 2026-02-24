@@ -65,7 +65,6 @@ export async function bulkAssignRole(userIds: string[], roleId: string) {
     .from('roles')
     .select('default_role_level, company_id')
     .eq('id', roleId)
-    .eq('archived', false)
     .single()
     
   if (!targetRole) return { error: "Role not found." }

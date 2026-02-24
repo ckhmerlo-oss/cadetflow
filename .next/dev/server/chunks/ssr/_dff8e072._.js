@@ -135,7 +135,7 @@ async function bulkAssignRole(userIds, roleId) {
         error: "Unauthorized"
     };
     // 1. FETCH TARGET ROLE DETAILS
-    const { data: targetRole } = await supabase.from('roles').select('default_role_level, company_id').eq('id', roleId).eq('archived', false).single();
+    const { data: targetRole } = await supabase.from('roles').select('default_role_level, company_id').eq('id', roleId).single();
     if (!targetRole) return {
         error: "Role not found."
     };
