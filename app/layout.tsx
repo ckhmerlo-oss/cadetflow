@@ -69,6 +69,10 @@ export default async function RootLayout({
       logoText = "TACFlow";
       // Update TAC color logic too
       logoColor = "text-destructive hover:text-foreground"; 
+    } else if (roleLevel >= 70 || (roles?.role_name && roles.role_name.includes('Band SDO'))) {
+      logoText = "Balls Fart";
+      // Update TAC color logic too
+      logoColor = "text-pink-400 hover:text-pink-700"; 
     } else if (roleLevel >= 100 || (roles?.role_name && roles.role_name.includes('Admin'))) {
       logoText = "Hi!";
       // Update TAC color logic too
