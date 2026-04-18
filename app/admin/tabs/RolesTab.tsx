@@ -93,16 +93,14 @@ export default function RolesTab() {
         <p><strong>Note:</strong> "Approval Group" links a role to the Chain of Command. You must select a Company first.</p>
       </div>
 
-      {/* UPDATED WRAPPER: overflow-x-auto handles the horizontal scroll */}
       <div className="card-base w-full overflow-x-auto">
-        {/* UPDATED TABLE: min-w-[900px] ensures columns don't squish out of view */}
         <table className="w-full min-w-[900px] divide-y divide-border">
           <thead className="bg-muted">
             <tr>
               <th className="px-4 py-3 text-left text-xs font-bold text-muted-foreground uppercase">Role Name</th>
               <th className="px-4 py-3 text-left text-xs font-bold text-muted-foreground uppercase">Company</th>
               <th className="px-4 py-3 text-left text-xs font-bold text-muted-foreground uppercase">Appr. Group</th>
-              <th className="px-4 py-3 text-left text-xs font-bold text-muted-foreground uppercase">Lvl</th>
+              <th className="px-4 py-3 text-left text-xs font-bold text-muted-foreground uppercase w-24">Lvl</th> {/* Added w-24 for slightly larger column */}
               <th className="px-4 py-3 text-left text-xs font-bold text-muted-foreground uppercase">Perms</th>
               <th className="px-4 py-3 text-right text-xs font-bold text-muted-foreground uppercase">Actions</th>
             </tr>
@@ -112,7 +110,15 @@ export default function RolesTab() {
             {/* CREATION ROW */}
             {isCreating && (
               <tr className="bg-primary/5">
-                <td className="px-4 py-4 align-top"><input placeholder="Role Name" className={inputClass} value={createForm.role_name || ''} onChange={e => setCreateForm({...createForm, role_name: e.target.value})} /></td>
+                <td className="px-4 py-4 align-top">
+                  <input 
+                    placeholder="Role Name" 
+                    maxLength={35} /* Limit input to 35 chars */
+                    className={inputClass} 
+                    value={createForm.role_name || ''} 
+                    onChange={e => setCreateForm({...createForm, role_name: e.target.value})} 
+                  />
+                </td>
                 <td className="px-4 py-4 align-top">
                     <select className={inputClass} value={createForm.company_id || ''} onChange={e => setCreateForm({...createForm, company_id: e.target.value || null, approval_group_id: ''})}>
                         <option value="">Global</option>
@@ -125,7 +131,14 @@ export default function RolesTab() {
                         {getGroupsForCompany(createForm.company_id).map(g => <option key={g.id} value={g.id}>{g.group_name}</option>)}
                     </select>
                 </td>
-                <td className="px-4 py-4 align-top"><input type="number" className={`w-12 ${inputClass}`} value={createForm.default_role_level} onChange={e => setCreateForm({...createForm, default_role_level: Number(e.target.value)})} /></td>
+                <td className="px-4 py-4 align-top">
+                  <input 
+                    type="number" 
+                    className={`w-20 ${inputClass}`} /* Increased from w-12 to w-20 */
+                    value={createForm.default_role_level} 
+                    onChange={e => setCreateForm({...createForm, default_role_level: Number(e.target.value)})} 
+                  />
+                </td>
                 <td className="px-4 py-4 align-top text-xs space-y-1">
                     <label className="flex items-center gap-1 text-foreground"><input type="checkbox" checked={createForm.can_manage_own_company_roster || false} onChange={e => handleCreateCheck('can_manage_own_company_roster', e.target.checked)}/> Own</label>
                     <label className="flex items-center gap-1 text-foreground"><input type="checkbox" checked={createForm.can_manage_all_rosters || false} onChange={e => handleCreateCheck('can_manage_all_rosters', e.target.checked)}/> All</label>
@@ -142,7 +155,14 @@ export default function RolesTab() {
               <tr key={role.id} className="hover:bg-muted/30 transition-colors">
                 {editingId === role.id ? (
                   <>
-                    <td className="px-4 py-4 align-top"><input className={inputClass} value={editForm.role_name || ''} onChange={e => setEditForm({...editForm, role_name: e.target.value})} /></td>
+                    <td className="px-4 py-4 align-top">
+                      <input 
+                        className={inputClass} 
+                        maxLength={35} /* Limit input to 35 chars */
+                        value={editForm.role_name || ''} 
+                        onChange={e => setEditForm({...editForm, role_name: e.target.value})} 
+                      />
+                    </td>
                     <td className="px-4 py-4 align-top">
                         <select className={inputClass} value={editForm.company_id || ''} onChange={e => setEditForm({...editForm, company_id: e.target.value || null, approval_group_id: ''})}>
                             <option value="">Global</option>
@@ -155,7 +175,14 @@ export default function RolesTab() {
                             {getGroupsForCompany(editForm.company_id).map(g => <option key={g.id} value={g.id}>{g.group_name}</option>)}
                         </select>
                     </td>
-                    <td className="px-4 py-4 align-top"><input type="number" className={`w-12 ${inputClass}`} value={editForm.default_role_level || 0} onChange={e => setEditForm({...editForm, default_role_level: Number(e.target.value)})} /></td>
+                    <td className="px-4 py-4 align-top">
+                      <input 
+                        type="number" 
+                        className={`w-20 ${inputClass}`} /* Increased from w-12 to w-20 */
+                        value={editForm.default_role_level || 0} 
+                        onChange={e => setEditForm({...editForm, default_role_level: Number(e.target.value)})} 
+                      />
+                    </td>
                     <td className="px-4 py-4 align-top text-xs space-y-1">
                         <label className="flex items-center gap-1 text-foreground"><input type="checkbox" checked={editForm.can_manage_own_company_roster || false} onChange={e => handleEditCheck('can_manage_own_company_roster', e.target.checked)}/> Own</label>
                         <label className="flex items-center gap-1 text-foreground"><input type="checkbox" checked={editForm.can_manage_all_rosters || false} onChange={e => handleEditCheck('can_manage_all_rosters', e.target.checked)}/> All</label>
@@ -167,7 +194,10 @@ export default function RolesTab() {
                   </>
                 ) : (
                   <>
-                    <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-foreground">{role.role_name}</td>
+                    <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-foreground" title={role.role_name}>
+                      {/* Truncate display text to 35 chars */}
+                      {role.role_name.length > 35 ? `${role.role_name.slice(0, 35)}...` : role.role_name}
+                    </td>
                     <td className="px-4 py-4 whitespace-nowrap text-sm text-muted-foreground">{companies.find(c => c.id === role.company_id)?.company_name || '-'}</td>
                     <td className="px-4 py-4 whitespace-nowrap text-sm text-muted-foreground">{approvalGroups.find(g => g.id === role.approval_group_id)?.group_name || '-'}</td>
                     <td className="px-4 py-4 whitespace-nowrap text-sm text-muted-foreground">{role.default_role_level}</td>
