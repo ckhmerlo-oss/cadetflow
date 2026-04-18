@@ -113,7 +113,7 @@ export default function RolesTab() {
                 <td className="px-4 py-4 align-top">
                   <input 
                     placeholder="Role Name" 
-                    maxLength={35} /* Limit input to 35 chars */
+                    maxLength={30} /* Limit input to 35 chars */
                     className={inputClass} 
                     value={createForm.role_name || ''} 
                     onChange={e => setCreateForm({...createForm, role_name: e.target.value})} 
@@ -134,7 +134,7 @@ export default function RolesTab() {
                 <td className="px-4 py-4 align-top">
                   <input 
                     type="number" 
-                    className={`w-20 ${inputClass}`} /* Increased from w-12 to w-20 */
+                    className={`w-24 ${inputClass}`} /* Increased from w-12 to w-20 */
                     value={createForm.default_role_level} 
                     onChange={e => setCreateForm({...createForm, default_role_level: Number(e.target.value)})} 
                   />
