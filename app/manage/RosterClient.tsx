@@ -66,6 +66,7 @@ export default function RosterClient({ initialData, canEditProfiles, companies, 
   const getCompanyAbbr = (name: string | null) => {
       if (!name) return '-';
       if (name === 'Battalion Staff') return 'BN';
+      if (name === 'Band Company') return 'BD';
       return name.charAt(0);
   }
 
