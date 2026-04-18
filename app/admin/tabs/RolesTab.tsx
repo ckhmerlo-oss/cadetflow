@@ -97,10 +97,12 @@ export default function RolesTab() {
         <table className="w-full min-w-[900px] divide-y divide-border">
           <thead className="bg-muted">
             <tr>
-              <th className="px-4 py-3 text-left text-xs font-bold text-muted-foreground uppercase">Role Name</th>
+              {/* Added max-w-[200px] for Role Name to enforce truncation boundaries */}
+              <th className="px-4 py-3 text-left text-xs font-bold text-muted-foreground uppercase max-w-[200px]">Role Name</th>
               <th className="px-4 py-3 text-left text-xs font-bold text-muted-foreground uppercase">Company</th>
               <th className="px-4 py-3 text-left text-xs font-bold text-muted-foreground uppercase">Appr. Group</th>
-              <th className="px-4 py-3 text-left text-xs font-bold text-muted-foreground uppercase w-24">Lvl</th> {/* Added w-24 for slightly larger column */}
+              {/* Changed w-24 to a hard min-w-[100px] to prevent crushing */}
+              <th className="px-4 py-3 text-left text-xs font-bold text-muted-foreground uppercase min-w-[100px]">Lvl</th>
               <th className="px-4 py-3 text-left text-xs font-bold text-muted-foreground uppercase">Perms</th>
               <th className="px-4 py-3 text-right text-xs font-bold text-muted-foreground uppercase">Actions</th>
             </tr>
@@ -110,10 +112,10 @@ export default function RolesTab() {
             {/* CREATION ROW */}
             {isCreating && (
               <tr className="bg-primary/5">
-                <td className="px-4 py-4 align-top">
+                <td className="px-4 py-4 align-top max-w-[200px]">
                   <input 
                     placeholder="Role Name" 
-                    maxLength={30} /* Limit input to 35 chars */
+                    maxLength={35}
                     className={inputClass} 
                     value={createForm.role_name || ''} 
                     onChange={e => setCreateForm({...createForm, role_name: e.target.value})} 
@@ -131,10 +133,10 @@ export default function RolesTab() {
                         {getGroupsForCompany(createForm.company_id).map(g => <option key={g.id} value={g.id}>{g.group_name}</option>)}
                     </select>
                 </td>
-                <td className="px-4 py-4 align-top">
+                <td className="px-4 py-4 align-top min-w-[100px]">
                   <input 
                     type="number" 
-                    className={`w-24 ${inputClass}`} /* Increased from w-12 to w-20 */
+                    className={`w-20 ${inputClass}`} 
                     value={createForm.default_role_level} 
                     onChange={e => setCreateForm({...createForm, default_role_level: Number(e.target.value)})} 
                   />
@@ -155,10 +157,10 @@ export default function RolesTab() {
               <tr key={role.id} className="hover:bg-muted/30 transition-colors">
                 {editingId === role.id ? (
                   <>
-                    <td className="px-4 py-4 align-top">
+                    <td className="px-4 py-4 align-top max-w-[200px]">
                       <input 
                         className={inputClass} 
-                        maxLength={35} /* Limit input to 35 chars */
+                        maxLength={35}
                         value={editForm.role_name || ''} 
                         onChange={e => setEditForm({...editForm, role_name: e.target.value})} 
                       />
@@ -175,10 +177,10 @@ export default function RolesTab() {
                             {getGroupsForCompany(editForm.company_id).map(g => <option key={g.id} value={g.id}>{g.group_name}</option>)}
                         </select>
                     </td>
-                    <td className="px-4 py-4 align-top">
+                    <td className="px-4 py-4 align-top min-w-[100px]">
                       <input 
                         type="number" 
-                        className={`w-20 ${inputClass}`} /* Increased from w-12 to w-20 */
+                        className={`w-20 ${inputClass}`} 
                         value={editForm.default_role_level || 0} 
                         onChange={e => setEditForm({...editForm, default_role_level: Number(e.target.value)})} 
                       />
@@ -194,13 +196,14 @@ export default function RolesTab() {
                   </>
                 ) : (
                   <>
-                    <td className="px-4 py-4 whitespace-nowrap text-sm font-medium text-foreground" title={role.role_name}>
-                      {/* Truncate display text to 35 chars */}
-                      {role.role_name.length > 35 ? `${role.role_name.slice(0, 35)}...` : role.role_name}
+                    {/* Added max-w-[200px] and truncate to handle long strings automatically via CSS */}
+                    <td className="px-4 py-4 text-sm font-medium text-foreground max-w-[200px] truncate" title={role.role_name}>
+                      {role.role_name}
                     </td>
                     <td className="px-4 py-4 whitespace-nowrap text-sm text-muted-foreground">{companies.find(c => c.id === role.company_id)?.company_name || '-'}</td>
                     <td className="px-4 py-4 whitespace-nowrap text-sm text-muted-foreground">{approvalGroups.find(g => g.id === role.approval_group_id)?.group_name || '-'}</td>
-                    <td className="px-4 py-4 whitespace-nowrap text-sm text-muted-foreground">{role.default_role_level}</td>
+                    {/* Enforced min-width on the data cell as well */}
+                    <td className="px-4 py-4 whitespace-nowrap text-sm text-muted-foreground min-w-[100px]">{role.default_role_level}</td>
                     <td className="px-4 py-4 text-xs text-muted-foreground">
                         {role.can_manage_all_rosters ? 'All' : role.can_manage_own_company_roster ? 'Own' : '-'}
                     </td>
