@@ -1,6 +1,4 @@
 {
-  "/ledger/[id]/page": "app/ledger/[id]/page.js",
-  "/login/page": "app/login/page.js",
-  "/manage/page": "app/manage/page.js",
+  "/admin/page": "app/admin/page.js",
   "/page": "app/page.js"
 }

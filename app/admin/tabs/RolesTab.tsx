@@ -93,8 +93,10 @@ export default function RolesTab() {
         <p><strong>Note:</strong> "Approval Group" links a role to the Chain of Command. You must select a Company first.</p>
       </div>
 
-      <div className="card-base">
-        <table className="min-w-full divide-y divide-border">
+      {/* UPDATED WRAPPER: overflow-x-auto handles the horizontal scroll */}
+      <div className="card-base w-full overflow-x-auto">
+        {/* UPDATED TABLE: min-w-[900px] ensures columns don't squish out of view */}
+        <table className="w-full min-w-[900px] divide-y divide-border">
           <thead className="bg-muted">
             <tr>
               <th className="px-4 py-3 text-left text-xs font-bold text-muted-foreground uppercase">Role Name</th>
