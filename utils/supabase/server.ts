@@ -1,14 +1,19 @@
-// in utils/supabase/server.ts
 import { createServerClient, type CookieOptions } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 
-export function createClient() {
-  // Define cookieStore ONCE, at the top.
-  const cookieStore = cookies()
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseKey =
+  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+
+export function createClient(
+  cookieStoreOverride?: Awaited<ReturnType<typeof cookies>>
+) {
+  const cookieStore = cookieStoreOverride ?? cookies()
 
   return createServerClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+    supabaseUrl!,
+    supabaseKey!,
     {
       cookies: {
         async get(name: string) {

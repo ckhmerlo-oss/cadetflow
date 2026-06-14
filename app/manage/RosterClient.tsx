@@ -17,6 +17,10 @@ export type RosterCadet = {
   first_name: string;
   last_name: string;
   cadet_rank: string | null;
+  staff_title?: string | null;
+  department?: string | null;
+  office_location?: string | null;
+  work_phone?: string | null;
   company_name: string | null;
   role_name: string | null;
   grade_level?: string | null;
@@ -79,6 +83,7 @@ export default function RosterClient({ initialData, canEditProfiles, companies, 
         item.first_name.toLowerCase().includes(lowerSearch) ||
         item.last_name.toLowerCase().includes(lowerSearch) ||
         (item.cadet_rank && item.cadet_rank.toLowerCase().includes(lowerSearch)) ||
+        (item.staff_title && item.staff_title.toLowerCase().includes(lowerSearch)) ||
         (item.role_name && item.role_name.toLowerCase().includes(lowerSearch)) ||
         (item.email && item.email.toLowerCase().includes(lowerSearch))
       );
@@ -305,8 +310,11 @@ export default function RosterClient({ initialData, canEditProfiles, companies, 
                             </div>
                           </div>
                         ) : (
-                          <div className="p-3 bg-card rounded border border-border text-sm">
-                            <p className="truncate text-foreground"><strong>Email:</strong> {person.email}</p>
+                          <div className="p-3 bg-card rounded border border-border text-sm space-y-1">
+                            <p className="truncate text-foreground"><strong>Title:</strong> {person.staff_title || person.cadet_rank || '—'}</p>
+                            <p className="truncate text-foreground"><strong>Department:</strong> {person.department || '—'}</p>
+                            <p className="truncate text-foreground"><strong>Office:</strong> {person.office_location || '—'}</p>
+                            <p className="truncate text-foreground"><strong>Email:</strong> {person.email || '—'}</p>
                           </div>
                         )}
                       </div>

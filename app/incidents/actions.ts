@@ -259,25 +259,29 @@ export async function convertToDemerit(incidentId: string, offenseTypeId: string
 // 3. UPDATED: Faculty List with Roles
 export async function getFacultyList() {
     const supabase = createClient()
-    
-    // Fetch everyone level 50+ (Faculty, TACs, Admin)
+
     const { data } = await supabase
         .from('profiles')
         .select(`
-            id, 
-            first_name, 
-            last_name, 
-            role:roles!inner(default_role_level, role_name)
+            id,
+            first_name,
+            last_name,
+            role:roles!inner(default_role_level, role_name),
+            staff_profiles!inner (staff_title, department)
         `)
         .gte('role.default_role_level', 50)
         .order('last_name')
         .eq('archived', false)
-    
-    return data?.map((p: any) => ({
+
+    return data?.map((p: any) => {
+      const staff = Array.isArray(p.staff_profiles) ? p.staff_profiles[0] : p.staff_profiles
+      const title = staff?.staff_title || p.role.role_name
+      const dept = staff?.department ? ` / ${staff.department}` : ''
+      return {
         id: p.id,
-        // Label includes role to verify who is who
-        label: `${p.last_name}, ${p.first_name} (${p.role.role_name})` 
-    })) || []
+        label: `${p.last_name}, ${p.first_name} (${title}${dept})`
+      }
+    }) || []
 }
 
 // NEW: Fetch Single Incident

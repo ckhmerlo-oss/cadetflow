@@ -39,9 +39,9 @@ export default async function RootLayout({
       .select(`
         is_site_admin,
         has_seen_tour,
-        is_in_band,
         roles(can_manage_own_company_roster, can_manage_all_rosters, role_name, default_role_level),
-        company:companies(company_name)
+        company:companies(company_name),
+        cadet_profiles(is_in_band)
       `)
       .eq('id', user.id)
       .single()
@@ -56,7 +56,10 @@ export default async function RootLayout({
     
     isSiteAdmin = profile?.is_site_admin || false;
     hasSeenTour = profile?.has_seen_tour || false;
-    isInBand = profile?.is_in_band || false;
+    const cadetDetails = Array.isArray((profile as any)?.cadet_profiles)
+      ? (profile as any).cadet_profiles[0]
+      : (profile as any)?.cadet_profiles
+    isInBand = cadetDetails?.is_in_band || false;
 
     // --- Dynamic Role-Based Logos ---
     // We keep specific colors for specific roles (like Band/Staff) to maintain identity,

@@ -1,6 +1,9 @@
 -- 01_setup.sql
 BEGIN;
 
+CREATE EXTENSION IF NOT EXISTS pgtap;
+SELECT plan(1);
+
 -- 0. FIX PERMISSIONS (Crucial for test runner)
 GRANT USAGE, CREATE ON SCHEMA public TO postgres;
 GRANT ALL ON ALL TABLES IN SCHEMA public TO postgres;
@@ -40,18 +43,24 @@ ON CONFLICT (id) DO NOTHING;
 INSERT INTO auth.users (id, email) VALUES ('00000000-0000-0000-0000-c4de70000001', 'testcadet@test.com') 
 ON CONFLICT (id) DO NOTHING;
 
-INSERT INTO public.profiles (id, first_name, last_name, role_id, total_demerits)
+INSERT INTO public.profiles (id, first_name, last_name, role_id)
 VALUES (
   '00000000-0000-0000-0000-c4de70000001', 
   'Test', 
   'Cadet', 
-  '00000000-0000-0000-0000-701e00000001',
-  0
+  '00000000-0000-0000-0000-701e00000001'
 )
-ON CONFLICT (id) DO UPDATE SET total_demerits = 0;
+ON CONFLICT (id) DO UPDATE SET first_name = EXCLUDED.first_name, role_id = EXCLUDED.role_id;
+
+UPDATE public.cadet_profiles
+SET total_demerits = 0
+WHERE profile_id = '00000000-0000-0000-0000-c4de70000001';
 
 -- Clean slate for runs
 DELETE FROM public.demerit_reports WHERE subject_cadet_id = '00000000-0000-0000-0000-c4de70000001';
 DELETE FROM public.tour_ledger WHERE cadet_id = '00000000-0000-0000-0000-c4de70000001';
+
+SELECT ok(true, 'setup fixtures prepared');
+SELECT * FROM finish();
 
 COMMIT;

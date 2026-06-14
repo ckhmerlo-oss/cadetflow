@@ -140,7 +140,11 @@ export default function ManagePage() {
       else setUnassigned(unassignedRes.data as UnassignedUser[])
 
       if (facultyRes.error) console.error("Error fetching faculty:", facultyRes.error.message)
-      else setFacultyData(facultyRes.data as RosterCadet[])
+      else setFacultyData((facultyRes.data as any[] || []).map((f) => ({
+        ...f,
+        cadet_rank: f.staff_title,
+        role_level: f.role_level,
+      })))
 
     } catch (err: any) {
       setError(err.message)

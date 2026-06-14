@@ -38,7 +38,7 @@ export default async function ReportPage({ params }: { params: Promise<{ id: str
     .select(`
       *,
       offense_type:offense_types(id, offense_name, demerits, offense_code, policy_category),
-      subject:subject_cadet_id(id, first_name, last_name, cadet_rank),
+      subject:subject_cadet_id(id, first_name, last_name, cadet_profiles(cadet_rank)),
       submitter:submitted_by(id, first_name, last_name)
     `)
     .eq('id', id)

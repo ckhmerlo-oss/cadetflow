@@ -10,16 +10,28 @@ export default function LoginPage() {
   const supabase = createClient()
   const { theme } = useTheme()
   const [showForgotHelp, setShowForgotHelp] = useState(false)
+  const [isMounted, setIsMounted] = useState(false)
+
+  useEffect(() => {
+    setIsMounted(true)
+  }, [])
 
   // 1. CHECK IF ALREADY LOGGED IN
   useEffect(() => {
+    let isActive = true
+
     const checkSession = async () => {
-        const { data: { session } } = await supabase.auth.getSession()
-        if (session) {
-            window.location.replace('/')
-        }
+        // Use getUser() instead of getSession() to avoid redirecting
+        // based on stale cached client session data.
+        const { data: { user } } = await supabase.auth.getUser()
+        if (isActive && user) window.location.replace('/')
     }
+
     checkSession()
+
+    return () => {
+      isActive = false
+    }
   }, [supabase])
 
   // 2. Handle New Sign-Ins
@@ -49,30 +61,34 @@ export default function LoginPage() {
           <p className="text-sm text-muted-foreground mt-2">Sign in with your FUMA credentials to access the system.</p>
         </div>
 
-        <Auth
-          supabaseClient={supabase}
-          appearance={{ 
-              theme: ThemeSupa,
-              style: {
-                  anchor: { display: 'none' }, // Hiding default links to use custom logic below
-                  button: { borderRadius: 'var(--radius)' },
-                  input: { borderRadius: 'var(--radius)' },
-              },
-              className: {
-                  // SEMANTIC OVERRIDES:
-                  container: 'w-full gap-4',
-                  button: 'w-full bg-primary text-primary-foreground hover:bg-primary/90 border-0 transition-colors font-medium py-2',
-                  input: 'bg-background text-foreground border-input focus:border-primary focus:ring-primary placeholder:text-muted-foreground',
-                  label: 'text-foreground font-medium text-sm mb-1',
-                  loader: 'text-primary animate-spin',
-                  message: 'text-destructive text-sm mt-1',
-              }
-          }}
-          // We force 'dark' theme prop if it's a dark mode to help Supabase base styles, 
-          // but our className overrides above do the heavy lifting.
-          theme={theme?.includes('dark') ? 'dark' : 'default'}
-          providers={[]} 
-        />
+        {isMounted ? (
+          <Auth
+            supabaseClient={supabase}
+            appearance={{ 
+                theme: ThemeSupa,
+                style: {
+                    anchor: { display: 'none' }, // Hiding default links to use custom logic below
+                    button: { borderRadius: 'var(--radius)' },
+                    input: { borderRadius: 'var(--radius)' },
+                },
+                className: {
+                    // SEMANTIC OVERRIDES:
+                    container: 'w-full gap-4',
+                    button: 'w-full bg-primary text-primary-foreground hover:bg-primary/90 border-0 transition-colors font-medium py-2',
+                    input: 'bg-background text-foreground border-input focus:border-primary focus:ring-primary placeholder:text-muted-foreground',
+                    label: 'text-foreground font-medium text-sm mb-1',
+                    loader: 'text-primary animate-spin',
+                    message: 'text-destructive text-sm mt-1',
+                }
+            }}
+            // We force 'dark' theme prop if it's a dark mode to help Supabase base styles, 
+            // but our className overrides above do the heavy lifting.
+            theme={theme?.includes('dark') ? 'dark' : 'default'}
+            providers={[]} 
+          />
+        ) : (
+          <div className="h-40 rounded-md border border-border bg-muted/30" />
+        )}
 
         <div className="mt-6 text-center border-t border-border pt-4">
           {!showForgotHelp ? (

@@ -92,8 +92,12 @@ export async function getSportDetail(sportId: string): Promise<SportDetail | nul
   // 2. Removed 'term_demerits' (does not exist on profiles table)
   const { data: roster, error: rosterError } = await supabase
     .from('profiles')
-    .select('id, first_name, last_name, cadet_rank, grade_level, cached_tour_balance, company:companies(company_name)')
-    .eq(targetCol, sport.name) 
+    .select(`
+      id, first_name, last_name,
+      company:companies(company_name),
+      cadet_profiles!inner (cadet_rank, grade_level, cached_tour_balance, sport_fall, sport_winter, sport_spring)
+    `)
+    .eq(`cadet_profiles.${targetCol}`, sport.name)
     .eq('archived', false)
     .order('last_name')
 
@@ -112,15 +116,18 @@ export async function getSportDetail(sportId: string): Promise<SportDetail | nul
         role: c.role 
     })) || [],
     events: events?.map((e: any) => ({...e, date: e.event_date})) || [],
-    roster: roster?.map((r: any) => ({
-        id: r.id, 
-        first_name: r.first_name, 
-        last_name: r.last_name, 
-        rank: r.cadet_rank || '', 
+    roster: roster?.map((r: any) => {
+      const details = Array.isArray(r.cadet_profiles) ? r.cadet_profiles[0] : r.cadet_profiles
+      return {
+        id: r.id,
+        first_name: r.first_name,
+        last_name: r.last_name,
+        rank: details?.cadet_rank || '',
         company: r.company?.company_name || 'Unassigned',
-        grade_level: r.grade_level || '-',
-        current_tours: r.cached_tour_balance || 0
-    })) || []
+        grade_level: details?.grade_level || '-',
+        current_tours: details?.cached_tour_balance || 0
+      }
+    }) || []
   }
 }
 
@@ -187,7 +194,7 @@ export async function addToRoster(cadetId: string, sportName: string, season: st
     const supabase = createClient()
     const colMap = { 'Fall': 'sport_fall', 'Winter': 'sport_winter', 'Spring': 'sport_spring' }
     const targetCol = colMap[season as keyof typeof colMap]
-    const { error } = await supabase.from('profiles').update({ [targetCol]: sportName }).eq('id', cadetId).eq('archived', false)
+    const { error } = await supabase.from('cadet_profiles').update({ [targetCol]: sportName }).eq('profile_id', cadetId)
     if (!error) revalidatePath(`/sports`) 
     return { error: error?.message }
 }
@@ -196,7 +203,7 @@ export async function removeFromRoster(cadetId: string, season: string) {
     const supabase = createClient()
     const colMap = { 'Fall': 'sport_fall', 'Winter': 'sport_winter', 'Spring': 'sport_spring' }
     const targetCol = colMap[season as keyof typeof colMap]
-    const { error } = await supabase.from('profiles').update({ [targetCol]: 'None' }).eq('id', cadetId).eq('archived', false)
+    const { error } = await supabase.from('cadet_profiles').update({ [targetCol]: 'None' }).eq('profile_id', cadetId)
     if (!error) revalidatePath(`/sports`)
     return { error: error?.message }
 }
@@ -229,11 +236,22 @@ export async function getUnassignedCadets(season: string) {
 
     const { data } = await supabase
         .from('profiles')
-        .select('id, first_name, last_name, cadet_rank, company:companies(company_name), role:roles!inner(default_role_level)')
-        .or(`${targetCol}.is.null,${targetCol}.eq.None`)
-        .lt('role.default_role_level', 50) 
+        .select(`
+          id, first_name, last_name,
+          company:companies(company_name),
+          role:roles!inner(default_role_level),
+          cadet_profiles!inner (cadet_rank, sport_fall, sport_winter, sport_spring)
+        `)
+        .or(`cadet_profiles.${targetCol}.is.null,cadet_profiles.${targetCol}.eq.None`)
+        .lt('role.default_role_level', 50)
         .eq('archived', false)
         .order('last_name')
     
-    return data || []
+    return data?.map((p: any) => {
+      const details = Array.isArray(p.cadet_profiles) ? p.cadet_profiles[0] : p.cadet_profiles
+      return {
+        ...p,
+        cadet_rank: details?.cadet_rank,
+      }
+    }) || []
 }

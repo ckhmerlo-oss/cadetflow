@@ -28,7 +28,7 @@ export async function getGreenSheetData(dateStr?: string) {
       demerits_effective,
       notes,
       posted_at,
-      subject:subject_cadet_id (first_name, last_name, cadet_rank, company:companies(company_name)),
+      subject:subject_cadet_id (first_name, last_name, cadet_profiles(cadet_rank), company:companies(company_name)),
       offense_type:offense_type_id (offense_name, policy_category),
       submitter:submitted_by (first_name, last_name)
     `)

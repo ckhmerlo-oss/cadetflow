@@ -13,19 +13,21 @@ export type ProbationRecord = {
   grade_level: string | null
 }
 
-// Fetch all cadets currently on probation
 export async function getProbationList() {
   const supabase = createClient()
-  
+
   const { data, error } = await supabase
     .from('profiles')
     .select(`
-      id, first_name, last_name, probation_status, probation_notes, grade_level,
-      company:companies(company_name)
+      id, first_name, last_name,
+      company:companies(company_name),
+      cadet_profiles!inner (
+        probation_status,
+        probation_notes,
+        grade_level
+      )
     `)
-    .neq('probation_status', 'None') 
     .eq('archived', false)
-    .not('probation_status', 'is', null)
     .order('last_name', { ascending: true })
 
   if (error) {
@@ -33,72 +35,76 @@ export async function getProbationList() {
     return []
   }
 
-  return data.map((p: any) => ({
-    id: p.id,
-    first_name: p.first_name,
-    last_name: p.last_name,
-    company_name: p.company?.company_name || 'Unassigned',
-    probation_status: p.probation_status,
-    probation_notes: p.probation_notes,
-    grade_level: p.grade_level
-  })) as ProbationRecord[]
+  return data
+    .map((p: any) => {
+      const details = Array.isArray(p.cadet_profiles) ? p.cadet_profiles[0] : p.cadet_profiles
+      if (!details || details.probation_status === 'None' || details.probation_status == null) {
+        return null
+      }
+      return {
+        id: p.id,
+        first_name: p.first_name,
+        last_name: p.last_name,
+        company_name: p.company?.company_name || 'Unassigned',
+        probation_status: details.probation_status,
+        probation_notes: details.probation_notes,
+        grade_level: details.grade_level,
+      }
+    })
+    .filter(Boolean) as ProbationRecord[]
 }
 
-// *** FIX: Changed filter from .eq 10 to .lt 50 to capture ALL student ranks ***
 export async function getAllCadetsForSelection() {
   const supabase = createClient()
-  
+
   const { data, error } = await supabase
     .from('profiles')
     .select(`
-      id, 
-      first_name, 
-      last_name, 
+      id, first_name, last_name,
       company:companies(company_name),
-      role:roles!inner(default_role_level)
+      role:roles!inner(default_role_level),
+      cadet_profiles!inner (probation_status)
     `)
-    .lt('role.default_role_level', 50) // <--- CHANGED HERE
+    .lt('role.default_role_level', 50)
     .eq('archived', false)
     .order('last_name')
 
   if (error) {
-      console.error('Error fetching cadet selection list:', error)
-      return []
+    console.error('Error fetching cadets:', error)
+    return []
   }
-  
+
   return data.map((p: any) => ({
     id: p.id,
-    label: `${p.last_name}, ${p.first_name} (${p.company?.company_name || 'N/A'})`
+    label: `${p.last_name}, ${p.first_name} (${p.company?.company_name || 'Unassigned'})`,
+    probation_status: (Array.isArray(p.cadet_profiles) ? p.cadet_profiles[0] : p.cadet_profiles)?.probation_status,
   }))
 }
 
-// Update probation status and notes
 export async function updateCadetProbation(cadetId: string, status: string, notes: string) {
   const supabase = createClient()
-  
-  // 1. Verify Permissions (TAC Officer / Role Level 65+)
+
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return { error: 'Unauthorized' }
 
   const { data: viewer } = await supabase
     .from('profiles')
-    .select('role:role_id(default_role_level)')
-    .eq('archived', false)
+    .select('role:roles(default_role_level)')
     .eq('id', user.id)
     .single()
-    
-  const level = (viewer?.role as any)?.default_role_level || 0
-  if (level < 65) return { error: 'Insufficient permissions (Level 65+ required)' }
 
-  // 2. Perform Update
+  const roleLevel = (viewer?.role as any)?.default_role_level || 0
+  if (roleLevel < 30) {
+    return { error: 'Permission Denied' }
+  }
+
   const { error } = await supabase
-    .from('profiles')
-    .update({ 
+    .from('cadet_profiles')
+    .update({
       probation_status: status,
-      probation_notes: notes 
+      probation_notes: notes,
     })
-    .eq('id', cadetId)
-    .eq('archived', false)
+    .eq('profile_id', cadetId)
 
   if (error) return { error: error.message }
 

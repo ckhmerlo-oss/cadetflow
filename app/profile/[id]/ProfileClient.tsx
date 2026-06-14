@@ -64,13 +64,15 @@ export default function ProfileClient({
   auditLog, 
   canEdit,
   viewerRoleLevel,
-  options
+  options,
+  isStaff = false,
 }: { 
   profile: Profile
   auditLog: AuditLogEntry[]
   canEdit: boolean
   viewerRoleLevel: number
-  options: OptionsProps 
+  options: OptionsProps
+  isStaff?: boolean
 }) {
   const supabase = createClient()
   const router = useRouter()
@@ -147,9 +149,9 @@ export default function ProfileClient({
       }
 
       const { error: profileError } = await supabase
-          .from('profiles')
+          .from('cadet_profiles')
           .update(updates)
-          .eq('id', profile.id)
+          .eq('profile_id', profile.id)
 
       if (isCommandant && formData.manual_tour_balance !== profile.current_tour_balance) {
           await supabase.rpc('set_tour_balance', {
@@ -185,9 +187,13 @@ export default function ProfileClient({
 
             <div className="flex-1 pb-2 text-center md:text-left">
                 <div className="flex items-center justify-center md:justify-start gap-3">
-                    <h1 className="text-3xl font-bold text-foreground">{profile.cadet_rank || 'Cadet'} {profile.last_name}, {profile.first_name}</h1>
+                    <h1 className="text-3xl font-bold text-foreground">
+                      {isStaff
+                        ? `${(profile as any).staff_title || profile.role?.role_name || 'Staff'} ${profile.last_name}, ${profile.first_name}`
+                        : `${profile.cadet_rank || 'Cadet'} ${profile.last_name}, ${profile.first_name}`}
+                    </h1>
                     {/* Band Badge */}
-                    {formData.is_in_band && (
+                    {!isStaff && formData.is_in_band && (
                         <span className="bg-yellow-100 text-yellow-800 border border-yellow-200 dark:bg-yellow-900/30 dark:text-yellow-200 dark:border-yellow-800 text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1 shadow-sm">
                             <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m9-6.032l-2-4.004V5.5a1 1 0 112 0v2.468z" /></svg>
                             BAND
@@ -238,6 +244,19 @@ export default function ProfileClient({
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+        {isStaff ? (
+          <div className="md:col-span-3 bg-card shadow-sm border border-border rounded-xl p-5">
+            <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider mb-4">Staff Details</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+              <div><span className="font-semibold">Title:</span> {(profile as any).staff_title || '—'}</div>
+              <div><span className="font-semibold">Department:</span> {(profile as any).department || '—'}</div>
+              <div><span className="font-semibold">Office:</span> {(profile as any).office_location || '—'}</div>
+              <div><span className="font-semibold">Work Phone:</span> {(profile as any).work_phone || '—'}</div>
+            </div>
+          </div>
+        ) : (
+        <>
         
         {/* --- 1. STATUS BOX --- */}
         <div className="bg-card shadow-sm border border-border rounded-xl p-5 flex flex-col gap-4">
@@ -405,9 +424,13 @@ export default function ProfileClient({
             )}
         </div>
 
+        </>
+        )}
+
       </div>
 
       {/* --- BOTTOM ROW --- */}
+      {!isStaff && (
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           
           {/* LEDGER */}
@@ -467,6 +490,7 @@ export default function ProfileClient({
           )}
 
       </div>
+      )}
 
     </div>
   )

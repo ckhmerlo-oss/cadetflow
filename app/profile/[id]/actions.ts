@@ -3,6 +3,7 @@
 import { createClient } from '@/utils/supabase/server'
 import { revalidatePath } from 'next/cache'
 import { STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
+import { updateCadetDetails, updateStaffDetails } from '@/app/lib/profile-queries'
 
 export async function updateCadetProfile(cadetId: string, formData: FormData) {
   const supabase = createClient()
@@ -95,7 +96,7 @@ const updates: { [key: string]: any } = {
     }
   }
 
-  const { error } = await supabase.from('profiles').update(updates).eq('id', cadetId)
+  const { error } = await updateCadetDetails(supabase, cadetId, updates)
 
   if (error) {
     console.error('Profile update error:', error.message)
@@ -104,6 +105,45 @@ const updates: { [key: string]: any } = {
 
   revalidatePath(`/profile/${cadetId}`)
   revalidatePath(`/reports/daily`)
+  return { success: true }
+}
+
+export async function updateStaffProfile(staffId: string, formData: FormData) {
+  const supabase = createClient()
+
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { error: 'Unauthorized' }
+
+  const { data: editor } = await supabase
+    .from('profiles')
+    .select(`
+      id,
+      role:role_id (default_role_level)
+    `)
+    .eq('id', user.id)
+    .single()
+
+  const editorLevel = (editor?.role as any)?.default_role_level || 0
+  if (editorLevel < 90) {
+    return { error: 'Permission Denied: Only administrators can edit staff profiles.' }
+  }
+
+  const updates = {
+    staff_title: formData.get('staff_title')?.toString() || null,
+    department: formData.get('department')?.toString() || null,
+    office_location: formData.get('office_location')?.toString() || null,
+    work_phone: formData.get('work_phone')?.toString() || null,
+    internal_notes: formData.get('internal_notes')?.toString() || null,
+  }
+
+  const { error } = await updateStaffDetails(supabase, staffId, updates)
+
+  if (error) {
+    console.error('Staff profile update error:', error.message)
+    return { error: `Update failed: ${error.message}` }
+  }
+
+  revalidatePath(`/profile/${staffId}`)
   return { success: true }
 }
 

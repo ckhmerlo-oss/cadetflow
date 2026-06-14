@@ -14,9 +14,9 @@ export default async function BandPage() {
   const { data: userProfile } = await supabase
     .from('profiles')
     .select(`
-        is_site_admin, 
-        is_in_band, 
-        role:roles(role_name, default_role_level)
+        is_site_admin,
+        role:roles(role_name, default_role_level),
+        cadet_profiles(is_in_band)
     `)
     .eq('id', user.id)
     .single()
@@ -31,7 +31,10 @@ export default async function BandPage() {
   const roleName = (userProfile?.role as any)?.role_name
   const roleLevel = (userProfile?.role as any)?.default_role_level || 0
   const isSiteAdmin = userProfile?.is_site_admin || false
-  const isInBand = userProfile?.is_in_band || false
+  const cadetDetails = Array.isArray((userProfile as any)?.cadet_profiles)
+    ? (userProfile as any).cadet_profiles[0]
+    : (userProfile as any)?.cadet_profiles
+  const isInBand = cadetDetails?.is_in_band || false
   
   // SECURITY CHECK: Access Page
   if (!isInBand && roleLevel < 50 && !isSiteAdmin) {
