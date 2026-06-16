@@ -4,12 +4,20 @@ import React, { useState, useEffect, useActionState } from 'react'
 import { createClient } from '@/utils/supabase/client'
 import { useFormStatus } from 'react-dom'
 import { adminResetPassword } from '../actions'
+import { setupSchoolYearTerms, archiveSchoolYear } from '@/app/oversight/actions'
 
-// Icons (Reused)
 const UploadIcon = () => (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6"><path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5m-13.5-9L12 3m0 0 4.5 4.5M12 3v13.5" /></svg>)
 const TrashIcon = () => (<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" d="m14.74 9-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 0 1-2.244 2.077H8.084a2.25 2.25 0 0 1-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 0 0-3.478-.397m-12.548 0A48.108 48.108 0 0 1 6.75 5.397m10.5-2.572V3.375c0-.621-.504-1.125-1.125-1.125H8.625c-.621 0-1.125.504-1.125 1.125v2.25" /></svg>)
 
-type AcademicTerm = { id: string; term_name: string; start_date: string; end_date: string; }
+type AcademicTerm = {
+  id: string
+  term_name: string
+  start_date: string
+  end_date: string
+  school_year: string
+  term_number: number
+  archived: boolean
+}
 type UploadResult = { successes: string[]; failures: { email: string; reason: string }[]; }
 
 function AdminSection({ title, children }: { title: string; children: React.ReactNode }) {
@@ -30,17 +38,29 @@ function ResetButton() {
   )
 }
 
+const defaultTermDates = () => {
+  const base = new Date()
+  return [0, 1, 2, 3, 4].map((i) => {
+    const start = new Date(base)
+    start.setDate(start.getDate() + i * 30)
+    const end = new Date(start)
+    end.setDate(end.getDate() + 29)
+    return {
+      name: `Term ${i + 1}`,
+      start: start.toISOString().slice(0, 10),
+      end: end.toISOString().slice(0, 10),
+    }
+  })
+}
+
 export default function GeneralSettingsTab() {
   const supabase = createClient()
   const [terms, setTerms] = useState<AcademicTerm[]>([])
   const [dataError, setDataError] = useState<string | null>(null)
   const [isLoadingData, setIsLoadingData] = useState(false)
+  const [schoolYear, setSchoolYear] = useState('2025-2026')
+  const [yearTerms, setYearTerms] = useState(defaultTermDates())
 
-  // Form States
-  const [newTermName, setNewTermName] = useState('')
-  const [newTermStart, setNewTermStart] = useState('')
-  const [newTermEnd, setNewTermEnd] = useState('')
-  
   const [csvFile, setCsvFile] = useState<File | null>(null)
   const [isUploading, setIsUploading] = useState(false)
   const [uploadResult, setUploadResult] = useState<UploadResult | null>(null)
@@ -58,21 +78,21 @@ export default function GeneralSettingsTab() {
     setIsLoadingData(false)
   }
 
-  const handleCreateTerm = async (e: React.FormEvent) => {
+  const handleSetupSchoolYear = async (e: React.FormEvent) => {
     e.preventDefault()
-    if (!newTermName || !newTermStart || !newTermEnd) return
     setIsLoadingData(true)
-    const { error } = await supabase.rpc('create_academic_term', { p_term_name: newTermName, p_start_date: newTermStart, p_end_date: newTermEnd })
-    if (error) setDataError(error.message)
-    else { setNewTermName(''); setNewTermStart(''); setNewTermEnd(''); fetchAdminData(); }
+    setDataError(null)
+    const { error } = await setupSchoolYearTerms(schoolYear, yearTerms)
+    if (error) setDataError(error)
+    else fetchAdminData()
     setIsLoadingData(false)
   }
 
-  const handleDeleteTerm = async (termId: string) => {
-    if (!window.confirm('Delete this term?')) return
+  const handleArchiveYear = async (year: string) => {
+    if (!window.confirm(`Archive school year ${year}? This clears active class schedules for that year.`)) return
     setIsLoadingData(true)
-    const { error } = await supabase.rpc('delete_academic_term', { p_term_id: termId })
-    if (error) setDataError(error.message)
+    const { error } = await archiveSchoolYear(year)
+    if (error) setDataError(error)
     else fetchAdminData()
     setIsLoadingData(false)
   }
@@ -94,37 +114,71 @@ export default function GeneralSettingsTab() {
     setIsUploading(false);
   };
 
-  // Helper class for inputs
-  const inputClass = "rounded-md border-input bg-background text-foreground shadow-sm focus:border-primary focus:ring-primary";
+  const inputClass = "rounded-md border-input bg-background text-foreground shadow-sm focus:border-primary focus:ring-primary w-full";
+
+  const activeYears = [...new Set(terms.filter(t => !t.archived).map(t => t.school_year))]
 
   return (
     <div className="space-y-8 animate-in fade-in duration-300">
       {dataError && <div className="p-4 text-destructive-foreground bg-destructive/10 border border-destructive/20 rounded-md">{dataError}</div>}
 
-      <AdminSection title="Manage Academic Terms">
-        <form onSubmit={handleCreateTerm} className="grid grid-cols-1 md:grid-cols-4 gap-4 p-4 bg-muted/20 rounded-lg border border-border">
-          <input type="text" placeholder="Name (e.g. Fall 2025)" value={newTermName} onChange={e=>setNewTermName(e.target.value)} className={inputClass} required />
-          <input type="date" value={newTermStart} onChange={e=>setNewTermStart(e.target.value)} className={inputClass} required />
-          <input type="date" value={newTermEnd} onChange={e=>setNewTermEnd(e.target.value)} className={inputClass} required />
-          <button type="submit" disabled={isLoadingData} className="py-2 px-4 bg-primary text-primary-foreground rounded hover:bg-primary/90 disabled:opacity-50">Add Term</button>
+      <AdminSection title="School Year Setup (5 Terms)">
+        <p className="text-sm text-muted-foreground">
+          Configure all 5 terms for a school year at once. Terms must not overlap. Archive a year when it ends.
+        </p>
+        <form onSubmit={handleSetupSchoolYear} className="space-y-4 p-4 bg-muted/20 rounded-lg border border-border">
+          <div>
+            <label className="text-sm font-medium">School Year</label>
+            <input type="text" value={schoolYear} onChange={e => setSchoolYear(e.target.value)} className={inputClass} placeholder="2025-2026" required />
+          </div>
+          {yearTerms.map((t, i) => (
+            <div key={i} className="grid grid-cols-1 md:grid-cols-4 gap-3">
+              <input type="text" value={t.name} onChange={e => {
+                const next = [...yearTerms]; next[i] = { ...next[i], name: e.target.value }; setYearTerms(next)
+              }} className={inputClass} required />
+              <input type="date" value={t.start} onChange={e => {
+                const next = [...yearTerms]; next[i] = { ...next[i], start: e.target.value }; setYearTerms(next)
+              }} className={inputClass} required />
+              <input type="date" value={t.end} onChange={e => {
+                const next = [...yearTerms]; next[i] = { ...next[i], end: e.target.value }; setYearTerms(next)
+              }} className={inputClass} required />
+              <span className="text-sm text-muted-foreground self-center">Term {i + 1}</span>
+            </div>
+          ))}
+          <button type="submit" disabled={isLoadingData} className="py-2 px-4 bg-primary text-primary-foreground rounded hover:bg-primary/90 disabled:opacity-50">
+            Save School Year Terms
+          </button>
         </form>
+
+        {activeYears.length > 0 && (
+          <div className="mt-4 flex flex-wrap gap-2">
+            {activeYears.map(y => (
+              <button key={y} onClick={() => handleArchiveYear(y)} className="text-sm px-3 py-1 border border-destructive/30 text-destructive rounded hover:bg-destructive/10">
+                Archive {y}
+              </button>
+            ))}
+          </div>
+        )}
+
         <div className="mt-4 overflow-x-auto border border-border rounded-lg">
             <table className="min-w-full divide-y divide-border">
                 <thead className="bg-muted">
                     <tr>
+                      <th className="px-6 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Year</th>
                       <th className="px-6 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Term</th>
                       <th className="px-6 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Start</th>
                       <th className="px-6 py-3 text-left text-xs font-medium uppercase text-muted-foreground">End</th>
-                      <th className="px-6 py-3"></th>
+                      <th className="px-6 py-3 text-left text-xs font-medium uppercase text-muted-foreground">Status</th>
                     </tr>
                 </thead>
                 <tbody className="bg-card divide-y divide-border">
                     {terms.map(t => (
                         <tr key={t.id}>
-                            <td className="px-6 py-4 text-sm font-medium text-foreground">{t.term_name}</td>
+                            <td className="px-6 py-4 text-sm text-muted-foreground">{t.school_year}</td>
+                            <td className="px-6 py-4 text-sm font-medium text-foreground">{t.term_name} (#{t.term_number})</td>
                             <td className="px-6 py-4 text-sm text-muted-foreground">{t.start_date}</td>
                             <td className="px-6 py-4 text-sm text-muted-foreground">{t.end_date}</td>
-                            <td className="px-6 py-4 text-right"><button onClick={() => handleDeleteTerm(t.id)} className="text-destructive hover:text-destructive/80"><TrashIcon /></button></td>
+                            <td className="px-6 py-4 text-sm">{t.archived ? 'Archived' : 'Active'}</td>
                         </tr>
                     ))}
                 </tbody>

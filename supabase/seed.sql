@@ -1,13 +1,73 @@
 -- Local development seed data
 -- Seeded login password for all users: password123
--- Users:
+--
+-- Core roster:
 --   commandant@test.email
 --   platoon@test.email
 --   squad@test.email
 --   cadet1@test.email
 --   cadet2@test.email
+--
+-- Day 02 Big-3 oversight fixtures:
+--   tac@test.email          Alpha Company TAC (Big-3 TAC)
+--   teacher1@test.email     Main-term teacher for cadet1 (Algebra II, Term 2)
+--   teacher2@test.email     Main-term teacher for cadet2 + seminar teacher for cadet1
+--   faculty@test.email        Voluntary faculty assignment testing
+--   coach1@test.email         Head coach, Varsity Lacrosse (cadet1 in-season coach)
+--   coach2@test.email         Head coach, Track & Field (cadet2 in-season coach)
 
 BEGIN;
+
+-- ---------------------------------------------------------------------------
+-- Reconcile with Day02 remote migration accounts (different UUIDs, same emails).
+-- Local seed owns canonical test emails and profile graph below.
+-- ---------------------------------------------------------------------------
+DELETE FROM auth.identities
+WHERE user_id IN (
+  SELECT id
+  FROM auth.users
+  WHERE email = ANY (ARRAY[
+    'cadet1@test.email',
+    'cadet2@test.email',
+    'tac@test.email',
+    'faculty@test.email',
+    'teacher1@test.email',
+    'teacher2@test.email',
+    'coach1@test.email',
+    'coach2@test.email'
+  ])
+);
+
+DELETE FROM auth.users
+WHERE email = ANY (ARRAY[
+  'cadet1@test.email',
+  'cadet2@test.email',
+  'tac@test.email',
+  'faculty@test.email',
+  'teacher1@test.email',
+  'teacher2@test.email',
+  'coach1@test.email',
+  'coach2@test.email'
+]);
+
+-- GoTrue requires empty strings (not NULL) on token columns for password login.
+UPDATE auth.users
+SET
+  confirmation_token = coalesce(confirmation_token, ''),
+  recovery_token = coalesce(recovery_token, ''),
+  email_change_token_new = coalesce(email_change_token_new, ''),
+  email_change = coalesce(email_change, ''),
+  email_change_token_current = coalesce(email_change_token_current, ''),
+  phone_change_token = coalesce(phone_change_token, ''),
+  reauthentication_token = coalesce(reauthentication_token, '')
+WHERE
+  confirmation_token IS NULL
+  OR recovery_token IS NULL
+  OR email_change_token_new IS NULL
+  OR email_change IS NULL
+  OR email_change_token_current IS NULL
+  OR phone_change_token IS NULL
+  OR reauthentication_token IS NULL;
 
 -- ---------------------------------------------------------------------------
 -- Auth users + identities
@@ -349,13 +409,13 @@ FROM (VALUES
   (
     '47bd1324-e8ea-4a4b-8d27-9c1592d71770'::uuid,
     'C/PVT', 'Warning', '10', 'None', 'A-105',
-    'None', 'None', 'None',
+    'None', 'Varsity Lacrosse', 'None',
     1, false, 2, 10
   ),
   (
     'fa677a4b-ce1a-4725-b70b-8d4afa328bbe'::uuid,
     'C/PVT', 'Good Standing', '10', 'None', 'A-106',
-    'None', 'None', 'None',
+    'None', 'Track & Field', 'None',
     1, false, 0, 0
   )
 ) AS v(
@@ -515,5 +575,290 @@ VALUES
   ('d0000000-0000-0000-0000-000000000005', 'da77b296-ad3e-489f-94c1-955242db224d', 'submitted', 'Report created', now() - interval '1 day'),
   ('d0000000-0000-0000-0000-000000000005', '02c82cc1-f3a6-4327-8c97-acb1ffbaf392', 'rejected', 'Warning given, no demerits necessary.', now())
 ON CONFLICT DO NOTHING;
+
+-- ---------------------------------------------------------------------------
+-- Day 02: School year terms, classes, sports coaches, oversight fixtures
+-- ---------------------------------------------------------------------------
+INSERT INTO public.approval_groups (id, group_name, company_id)
+VALUES ('b0000000-0000-0000-0000-000000000010', 'Alpha Company TAC', 'c0000000-0000-0000-0000-000000000001')
+ON CONFLICT (id) DO UPDATE SET group_name = EXCLUDED.group_name;
+
+INSERT INTO public.roles (id, role_name, default_role_level, company_id, approval_group_id, can_manage_own_company_roster)
+VALUES
+  ('a0000000-0000-0000-0000-000000000010', 'Alpha TAC Officer', 65, 'c0000000-0000-0000-0000-000000000001', 'b0000000-0000-0000-0000-000000000010', true),
+  ('a0000000-0000-0000-0000-000000000011', 'Faculty Teacher', 50, NULL, NULL, false)
+ON CONFLICT (id) DO UPDATE SET role_name = EXCLUDED.role_name;
+
+INSERT INTO auth.users (
+  id,
+  aud,
+  email,
+  encrypted_password,
+  role,
+  created_at,
+  updated_at,
+  email_confirmed_at,
+  instance_id,
+  last_sign_in_at,
+  email_change,
+  recovery_token,
+  confirmation_token,
+  email_change_token_new,
+  raw_app_meta_data,
+  raw_user_meta_data
+)
+VALUES
+  (
+    'f0000000-0000-0000-0000-000000000001',
+    'authenticated',
+    'tac@test.email',
+    '$2a$10$I2yqa/fBks6Ai/mPCiNit.00BDLcmDdLe2GVCKNCD6bpI4515ZKSq',
+    'authenticated',
+    now(),
+    now(),
+    now(),
+    '00000000-0000-0000-0000-000000000000',
+    now(),
+    '', '', '', '',
+    '{"provider":"email","providers":["email"]}'::jsonb,
+    '{"sub":"f0000000-0000-0000-0000-000000000001","email":"tac@test.email","email_verified":true,"phone_verified":false}'::jsonb
+  ),
+  (
+    'f0000000-0000-0000-0000-000000000002',
+    'authenticated',
+    'teacher1@test.email',
+    '$2a$10$I2yqa/fBks6Ai/mPCiNit.00BDLcmDdLe2GVCKNCD6bpI4515ZKSq',
+    'authenticated',
+    now(),
+    now(),
+    now(),
+    '00000000-0000-0000-0000-000000000000',
+    now(),
+    '', '', '', '',
+    '{"provider":"email","providers":["email"]}'::jsonb,
+    '{"sub":"f0000000-0000-0000-0000-000000000002","email":"teacher1@test.email","email_verified":true,"phone_verified":false}'::jsonb
+  ),
+  (
+    'f0000000-0000-0000-0000-000000000003',
+    'authenticated',
+    'teacher2@test.email',
+    '$2a$10$I2yqa/fBks6Ai/mPCiNit.00BDLcmDdLe2GVCKNCD6bpI4515ZKSq',
+    'authenticated',
+    now(),
+    now(),
+    now(),
+    '00000000-0000-0000-0000-000000000000',
+    now(),
+    '', '', '', '',
+    '{"provider":"email","providers":["email"]}'::jsonb,
+    '{"sub":"f0000000-0000-0000-0000-000000000003","email":"teacher2@test.email","email_verified":true,"phone_verified":false}'::jsonb
+  ),
+  (
+    'f0000000-0000-0000-0000-000000000004',
+    'authenticated',
+    'faculty@test.email',
+    '$2a$10$I2yqa/fBks6Ai/mPCiNit.00BDLcmDdLe2GVCKNCD6bpI4515ZKSq',
+    'authenticated',
+    now(),
+    now(),
+    now(),
+    '00000000-0000-0000-0000-000000000000',
+    now(),
+    '', '', '', '',
+    '{"provider":"email","providers":["email"]}'::jsonb,
+    '{"sub":"f0000000-0000-0000-0000-000000000004","email":"faculty@test.email","email_verified":true,"phone_verified":false}'::jsonb
+  ),
+  (
+    'f0000000-0000-0000-0000-000000000005',
+    'authenticated',
+    'coach1@test.email',
+    '$2a$10$I2yqa/fBks6Ai/mPCiNit.00BDLcmDdLe2GVCKNCD6bpI4515ZKSq',
+    'authenticated',
+    now(),
+    now(),
+    now(),
+    '00000000-0000-0000-0000-000000000000',
+    now(),
+    '', '', '', '',
+    '{"provider":"email","providers":["email"]}'::jsonb,
+    '{"sub":"f0000000-0000-0000-0000-000000000005","email":"coach1@test.email","email_verified":true,"phone_verified":false}'::jsonb
+  ),
+  (
+    'f0000000-0000-0000-0000-000000000006',
+    'authenticated',
+    'coach2@test.email',
+    '$2a$10$I2yqa/fBks6Ai/mPCiNit.00BDLcmDdLe2GVCKNCD6bpI4515ZKSq',
+    'authenticated',
+    now(),
+    now(),
+    now(),
+    '00000000-0000-0000-0000-000000000000',
+    now(),
+    '', '', '', '',
+    '{"provider":"email","providers":["email"]}'::jsonb,
+    '{"sub":"f0000000-0000-0000-0000-000000000006","email":"coach2@test.email","email_verified":true,"phone_verified":false}'::jsonb
+  )
+ON CONFLICT (id) DO UPDATE SET
+  email = EXCLUDED.email,
+  encrypted_password = EXCLUDED.encrypted_password,
+  email_confirmed_at = EXCLUDED.email_confirmed_at,
+  raw_app_meta_data = EXCLUDED.raw_app_meta_data,
+  raw_user_meta_data = EXCLUDED.raw_user_meta_data;
+
+INSERT INTO auth.identities (
+  id,
+  user_id,
+  provider_id,
+  provider,
+  identity_data,
+  created_at,
+  updated_at,
+  last_sign_in_at
+)
+VALUES
+  (
+    'f0000000-0000-0000-0000-000000000001',
+    'f0000000-0000-0000-0000-000000000001',
+    'f0000000-0000-0000-0000-000000000001',
+    'email',
+    '{"sub":"f0000000-0000-0000-0000-000000000001","email":"tac@test.email","email_verified":true,"phone_verified":false}'::jsonb,
+    now(),
+    now(),
+    now()
+  ),
+  (
+    'f0000000-0000-0000-0000-000000000002',
+    'f0000000-0000-0000-0000-000000000002',
+    'f0000000-0000-0000-0000-000000000002',
+    'email',
+    '{"sub":"f0000000-0000-0000-0000-000000000002","email":"teacher1@test.email","email_verified":true,"phone_verified":false}'::jsonb,
+    now(),
+    now(),
+    now()
+  ),
+  (
+    'f0000000-0000-0000-0000-000000000003',
+    'f0000000-0000-0000-0000-000000000003',
+    'f0000000-0000-0000-0000-000000000003',
+    'email',
+    '{"sub":"f0000000-0000-0000-0000-000000000003","email":"teacher2@test.email","email_verified":true,"phone_verified":false}'::jsonb,
+    now(),
+    now(),
+    now()
+  ),
+  (
+    'f0000000-0000-0000-0000-000000000004',
+    'f0000000-0000-0000-0000-000000000004',
+    'f0000000-0000-0000-0000-000000000004',
+    'email',
+    '{"sub":"f0000000-0000-0000-0000-000000000004","email":"faculty@test.email","email_verified":true,"phone_verified":false}'::jsonb,
+    now(),
+    now(),
+    now()
+  ),
+  (
+    'f0000000-0000-0000-0000-000000000005',
+    'f0000000-0000-0000-0000-000000000005',
+    'f0000000-0000-0000-0000-000000000005',
+    'email',
+    '{"sub":"f0000000-0000-0000-0000-000000000005","email":"coach1@test.email","email_verified":true,"phone_verified":false}'::jsonb,
+    now(),
+    now(),
+    now()
+  ),
+  (
+    'f0000000-0000-0000-0000-000000000006',
+    'f0000000-0000-0000-0000-000000000006',
+    'f0000000-0000-0000-0000-000000000006',
+    'email',
+    '{"sub":"f0000000-0000-0000-0000-000000000006","email":"coach2@test.email","email_verified":true,"phone_verified":false}'::jsonb,
+    now(),
+    now(),
+    now()
+  )
+ON CONFLICT (id) DO UPDATE SET
+  identity_data = EXCLUDED.identity_data,
+  updated_at = EXCLUDED.updated_at;
+
+INSERT INTO public.profiles (id, first_name, last_name, role_id, company_id)
+VALUES
+  ('f0000000-0000-0000-0000-000000000001', 'Alpha', 'TAC', 'a0000000-0000-0000-0000-000000000010', 'c0000000-0000-0000-0000-000000000001'),
+  ('f0000000-0000-0000-0000-000000000002', 'Alice', 'Teacher', 'a0000000-0000-0000-0000-000000000011', NULL),
+  ('f0000000-0000-0000-0000-000000000003', 'Bob', 'Teacher', 'a0000000-0000-0000-0000-000000000011', NULL),
+  ('f0000000-0000-0000-0000-000000000004', 'Carol', 'Faculty', 'a0000000-0000-0000-0000-000000000011', NULL),
+  ('f0000000-0000-0000-0000-000000000005', 'Dan', 'Coach', 'a0000000-0000-0000-0000-000000000011', NULL),
+  ('f0000000-0000-0000-0000-000000000006', 'Eve', 'Coach', 'a0000000-0000-0000-0000-000000000011', NULL)
+ON CONFLICT (id) DO UPDATE SET
+  first_name = EXCLUDED.first_name,
+  last_name = EXCLUDED.last_name,
+  company_id = EXCLUDED.company_id;
+
+UPDATE public.profiles SET role_id = 'a0000000-0000-0000-0000-000000000010' WHERE id = 'f0000000-0000-0000-0000-000000000001';
+UPDATE public.profiles SET role_id = 'a0000000-0000-0000-0000-000000000011' WHERE id IN (
+  'f0000000-0000-0000-0000-000000000002',
+  'f0000000-0000-0000-0000-000000000003',
+  'f0000000-0000-0000-0000-000000000004',
+  'f0000000-0000-0000-0000-000000000005',
+  'f0000000-0000-0000-0000-000000000006'
+);
+
+SELECT public.ensure_staff_profile('f0000000-0000-0000-0000-000000000001');
+SELECT public.ensure_staff_profile('f0000000-0000-0000-0000-000000000002');
+SELECT public.ensure_staff_profile('f0000000-0000-0000-0000-000000000003');
+SELECT public.ensure_staff_profile('f0000000-0000-0000-0000-000000000004');
+SELECT public.ensure_staff_profile('f0000000-0000-0000-0000-000000000005');
+SELECT public.ensure_staff_profile('f0000000-0000-0000-0000-000000000006');
+
+-- Replace remote Day02 migration term/class fixtures (different UUIDs, same school year).
+DELETE FROM public.cadet_class_enrollments WHERE school_year = '2025-2026';
+DELETE FROM public.class_sections WHERE school_year = '2025-2026';
+DELETE FROM public.academic_terms WHERE school_year = '2025-2026' AND archived = false;
+
+-- 5-term school year with Term 2 as the active main term
+INSERT INTO public.academic_terms (id, term_name, start_date, end_date, school_year, term_number, archived)
+VALUES
+  ('e0000000-0000-0000-0000-000000000001', 'Term 1', CURRENT_DATE - 120, CURRENT_DATE - 90, '2025-2026', 1, false),
+  ('e0000000-0000-0000-0000-000000000002', 'Term 2', CURRENT_DATE - 30, CURRENT_DATE + 30, '2025-2026', 2, false),
+  ('e0000000-0000-0000-0000-000000000003', 'Term 3', CURRENT_DATE + 31, CURRENT_DATE + 60, '2025-2026', 3, false),
+  ('e0000000-0000-0000-0000-000000000004', 'Term 4', CURRENT_DATE + 61, CURRENT_DATE + 90, '2025-2026', 4, false),
+  ('e0000000-0000-0000-0000-000000000005', 'Term 5', CURRENT_DATE + 91, CURRENT_DATE + 120, '2025-2026', 5, false)
+ON CONFLICT (id) DO UPDATE SET start_date = EXCLUDED.start_date, end_date = EXCLUDED.end_date;
+
+-- Main-term classes + seminar (seminar_a is active before Term 3 midpoint)
+INSERT INTO public.class_sections (id, teacher_id, school_year, term_number, seminar_period, course_name)
+VALUES
+  ('c0000000-0000-0000-0000-000000000100', 'f0000000-0000-0000-0000-000000000002', '2025-2026', 2, NULL, 'Algebra II'),
+  ('c0000000-0000-0000-0000-000000000101', 'f0000000-0000-0000-0000-000000000003', '2025-2026', 2, NULL, 'US History'),
+  ('c0000000-0000-0000-0000-000000000102', 'f0000000-0000-0000-0000-000000000003', '2025-2026', NULL, 'a', 'Leadership Seminar'),
+  ('c0000000-0000-0000-0000-000000000103', 'f0000000-0000-0000-0000-000000000002', '2025-2026', 1, NULL, 'Geometry')
+ON CONFLICT (id) DO UPDATE SET
+  teacher_id = EXCLUDED.teacher_id,
+  course_name = EXCLUDED.course_name,
+  term_number = EXCLUDED.term_number,
+  seminar_period = EXCLUDED.seminar_period,
+  archived = false;
+
+INSERT INTO public.cadet_class_enrollments (cadet_id, class_section_id, slot_type, school_year, assigned_by)
+VALUES
+  ('47bd1324-e8ea-4a4b-8d27-9c1592d71770', 'c0000000-0000-0000-0000-000000000100', 'term_2', '2025-2026', 'f0000000-0000-0000-0000-000000000002'),
+  ('47bd1324-e8ea-4a4b-8d27-9c1592d71770', 'c0000000-0000-0000-0000-000000000102', 'seminar_a', '2025-2026', 'f0000000-0000-0000-0000-000000000003'),
+  ('fa677a4b-ce1a-4725-b70b-8d4afa328bbe', 'c0000000-0000-0000-0000-000000000101', 'term_2', '2025-2026', 'f0000000-0000-0000-0000-000000000003')
+ON CONFLICT DO NOTHING;
+
+-- Spring coaches (June = Spring season for in-season coach Big-3)
+INSERT INTO public.sport_coaches (sport_id, coach_id, role)
+SELECT s.id, 'f0000000-0000-0000-0000-000000000005'::uuid, 'Head Coach'
+FROM public.sports s
+WHERE s.name = 'Varsity Lacrosse' AND s.season = 'Spring'
+ON CONFLICT (sport_id, coach_id) DO UPDATE SET role = EXCLUDED.role;
+
+INSERT INTO public.sport_coaches (sport_id, coach_id, role)
+SELECT s.id, 'f0000000-0000-0000-0000-000000000006'::uuid, 'Head Coach'
+FROM public.sports s
+WHERE s.name = 'Track & Field' AND s.season = 'Spring'
+ON CONFLICT (sport_id, coach_id) DO UPDATE SET role = EXCLUDED.role;
+
+SELECT public.sync_cadet_oversight('47bd1324-e8ea-4a4b-8d27-9c1592d71770', NULL);
+SELECT public.sync_cadet_oversight('fa677a4b-ce1a-4725-b70b-8d4afa328bbe', NULL);
 
 COMMIT;

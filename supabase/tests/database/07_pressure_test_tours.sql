@@ -31,9 +31,13 @@ BEGIN
   RAISE NOTICE '--- SETTING UP CHAOS ENV ---';
   
   -- Create Term
-  INSERT INTO public.academic_terms (id, term_name, start_date, end_date)
-  VALUES (v_term_id, 'Chaos Term', CURRENT_DATE - 30, CURRENT_DATE + 30)
-  ON CONFLICT (id) DO UPDATE SET start_date = CURRENT_DATE - 30, end_date = CURRENT_DATE + 30;
+  INSERT INTO public.academic_terms (id, term_name, start_date, end_date, school_year, term_number, archived)
+  VALUES (v_term_id, 'Chaos Term', CURRENT_DATE - 30, CURRENT_DATE + 30, '2097-2098', 1, false)
+  ON CONFLICT (id) DO UPDATE SET
+    start_date = CURRENT_DATE - 30,
+    end_date = CURRENT_DATE + 30,
+    school_year = EXCLUDED.school_year,
+    term_number = EXCLUDED.term_number;
 
   -- Create Offense Types
   INSERT INTO public.offense_types (id, offense_name, policy_category, demerits, offense_group, offense_code)

@@ -39,19 +39,26 @@ export default async function RootLayout({
       .select(`
         is_site_admin,
         has_seen_tour,
-        roles(can_manage_own_company_roster, can_manage_all_rosters, role_name, default_role_level),
+        role:roles(can_manage_own_company_roster, can_manage_all_rosters, role_name, default_role_level),
         company:companies(company_name),
         cadet_profiles(is_in_band)
       `)
       .eq('id', user.id)
       .single()
     
-    const roles = (profile as any)?.roles
-    const company = (profile as any)?.company 
+    const roleRaw = (profile as { role?: unknown })?.role
+    const role = Array.isArray(roleRaw) ? roleRaw[0] : roleRaw as {
+      default_role_level?: number
+      can_manage_own_company_roster?: boolean
+      can_manage_all_rosters?: boolean
+      role_name?: string
+    } | null | undefined
+    const company = (profile as { company?: { company_name?: string } | { company_name?: string }[] | null })?.company
+    const companyName = Array.isArray(company) ? company[0]?.company_name : company?.company_name
 
-    if (roles) {
-      roleLevel = roles.default_role_level || 0;
-      canManage = roles.can_manage_own_company_roster || roles.can_manage_all_rosters;
+    if (role) {
+      roleLevel = role.default_role_level || 0;
+      canManage = Boolean(role.can_manage_own_company_roster || role.can_manage_all_rosters);
     }
     
     isSiteAdmin = profile?.is_site_admin || false;
@@ -65,22 +72,22 @@ export default async function RootLayout({
     // We keep specific colors for specific roles (like Band/Staff) to maintain identity,
     // but update TAC to use semantic 'destructive' (Red) for better theme integration.
 
-    if (roles?.role_name && roles.role_name.includes('Band Director')) {
+    if (role?.role_name && role.role_name.includes('Band Director')) {
       logoText = "Now with 100% More Band!"
       logoColor = "text-green-400 hover:text-green-700"
-    } else if (roleLevel >= 60 || (roles?.role_name && roles.role_name.includes('TAC'))) {
+    } else if (roleLevel >= 60 || (role?.role_name && role.role_name.includes('TAC'))) {
       logoText = "TACFlow";
       // Update TAC color logic too
       logoColor = "text-destructive hover:text-foreground"; 
-    } else if (roleLevel >= 70 || (roles?.role_name && roles.role_name.includes('Band SDO'))) {
+    } else if (roleLevel >= 70 || (role?.role_name && role.role_name.includes('Band SDO'))) {
       logoText = "TACs rule SDOs Drool";
       // Update TAC color logic too
       logoColor = "text-pink-400 hover:text-pink-700"; 
-    } else if (roleLevel >= 100 || (roles?.role_name && roles.role_name.includes('Admin'))) {
+    } else if (roleLevel >= 100 || (role?.role_name && role.role_name.includes('Admin'))) {
       logoText = "Hi!";
       // Update TAC color logic too
       logoColor = "text-green-300 hover:text-green-500"; 
-    } else if (company?.company_name === 'Battalion Staff') { 
+    } else if (companyName === 'Battalion Staff') { 
       logoText = "StaffFlow";
       logoColor = "text-yellow-500 hover:text-yellow-600"; // Kept Gold
     } else if (roleLevel == 50) {

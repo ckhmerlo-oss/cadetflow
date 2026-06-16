@@ -3,6 +3,8 @@ import { notFound, redirect } from 'next/navigation'
 import ProfileClient from './ProfileClient'
 import { getProfileDropdowns } from '@/app/lib/options'
 import { getProfileById, isStaffRoleLevel } from '@/app/lib/profile-queries'
+import { getCadetSchedule } from '@/app/classes/actions'
+import { getCadetOversight } from '@/app/oversight/actions'
 
 type AuditLogEntry = {
   event_date: string
@@ -84,15 +86,32 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
   if (isSiteAdmin || canManageAll) canEdit = true
   else if (canManageOwn && profile.company_id && profile.company_id === viewerProfile?.company_id) canEdit = true
 
+  const viewerRoleLevel = viewerRole?.default_role_level || 0
+  let canEditSchedule = false
+  if (isSiteAdmin || canManageAll) canEditSchedule = true
+  else if (viewerRoleLevel >= 65 && canManageOwn && profile.company_id === viewerProfile?.company_id) canEditSchedule = true
+
+  let schedule: Array<Record<string, unknown>> = []
+  let oversight: Array<Record<string, unknown>> = []
+
+  if (!isStaff) {
+    schedule = (await getCadetSchedule(profile.id)) as Array<Record<string, unknown>>
+    oversight = (await getCadetOversight(profile.id)) as Array<Record<string, unknown>>
+  }
+
   return (
     <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
       <ProfileClient
         profile={fullProfile as any}
         auditLog={auditLog}
         canEdit={canEdit}
-        viewerRoleLevel={viewerRole?.default_role_level || 0}
+        viewerRoleLevel={viewerRoleLevel}
         options={dropdowns}
         isStaff={isStaff}
+        schedule={schedule as any}
+        oversight={oversight as any}
+        canEditSchedule={canEditSchedule}
+        currentUserId={user.id}
       />
     </div>
   )

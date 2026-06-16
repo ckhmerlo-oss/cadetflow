@@ -21,11 +21,11 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- 2. Create Test Term
-INSERT INTO public.academic_terms (id, term_name, start_date, end_date)
+INSERT INTO public.academic_terms (id, term_name, start_date, end_date, school_year, term_number, archived)
 VALUES 
-  ('00000000-0000-0000-0000-eeeeeeeeeeee', 'Test Term', CURRENT_DATE - 30, CURRENT_DATE + 30)
+  ('00000000-0000-0000-0000-eeeeeeeeeeee', 'Test Term', CURRENT_DATE - 30, CURRENT_DATE + 30, '2099-2100', 1, false)
 ON CONFLICT (id) DO UPDATE 
-SET start_date = CURRENT_DATE - 30, end_date = CURRENT_DATE + 30;
+SET start_date = CURRENT_DATE - 30, end_date = CURRENT_DATE + 30, school_year = EXCLUDED.school_year, term_number = EXCLUDED.term_number;
 
 -- 3. Create Test Offense Types
 INSERT INTO public.offense_types (id, offense_name, policy_category, demerits, offense_group, offense_code)
@@ -51,6 +51,8 @@ VALUES (
   '00000000-0000-0000-0000-701e00000001'
 )
 ON CONFLICT (id) DO UPDATE SET first_name = EXCLUDED.first_name, role_id = EXCLUDED.role_id;
+
+SELECT public.ensure_cadet_profile('00000000-0000-0000-0000-c4de70000001');
 
 UPDATE public.cadet_profiles
 SET total_demerits = 0

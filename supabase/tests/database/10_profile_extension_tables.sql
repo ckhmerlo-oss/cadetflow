@@ -30,9 +30,13 @@ ON CONFLICT (id) DO UPDATE SET role_id = EXCLUDED.role_id;
 SELECT public.ensure_cadet_profile('a1000000-0000-0000-0000-000000000001');
 SELECT public.ensure_staff_profile('a1000000-0000-0000-0000-000000000002');
 
-INSERT INTO public.academic_terms (id, term_name, start_date, end_date)
-VALUES ('c1000000-0000-0000-0000-000000000001', 'Extension Term', CURRENT_DATE - 30, CURRENT_DATE + 30)
-ON CONFLICT (id) DO NOTHING;
+INSERT INTO public.academic_terms (id, term_name, start_date, end_date, school_year, term_number, archived)
+VALUES ('c1000000-0000-0000-0000-000000000001', 'Extension Term', CURRENT_DATE - 30, CURRENT_DATE + 30, '2098-2099', 1, false)
+ON CONFLICT (id) DO UPDATE SET
+  start_date = EXCLUDED.start_date,
+  end_date = EXCLUDED.end_date,
+  school_year = EXCLUDED.school_year,
+  term_number = EXCLUDED.term_number;
 
 SELECT ok(
   EXISTS (SELECT 1 FROM public.cadet_profiles WHERE profile_id = 'a1000000-0000-0000-0000-000000000001'),

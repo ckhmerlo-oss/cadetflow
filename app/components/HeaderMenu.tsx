@@ -6,6 +6,7 @@ import { useRouter, usePathname } from 'next/navigation'
 import { createClient } from '@/utils/supabase/client'
 import ThemeToggleButton from './ThemeToggleButton'
 import FeedbackButton from './FeedbackButton'
+import NotificationBell from './NotificationBell'
 
 type HeaderMenuProps = {
   canManage: boolean
@@ -102,10 +103,22 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, is
         )}
 
         {/* BAND LINK: Visible if in band OR faculty (roleLevel >= 50) */}
-        {(isInBand) && (
+        {(isInBand || roleLevel >= 50) && (
            <Link href="/band" className={navLinkClass}>
              Band
            </Link>
+        )}
+
+        {roleLevel >= 50 && (
+             <Link href="/classes" id="nav-classes" className={navLinkClass}>
+                Classes
+            </Link>
+        )}
+
+        {roleLevel >= 50 && (
+             <Link href="/oversight" id="nav-oversight" className={navLinkClass}>
+                My Cadets
+            </Link>
         )}
 
         {roleLevel >= 50 && (
@@ -129,6 +142,7 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, is
         {isLoggedIn ? (
           <div className="flex items-center gap-2 ml-3">
              <FeedbackButton variant="icon" />
+             <NotificationBell />
              
              {/* USER MENU DROPDOWN */}
              <div className="relative" ref={userMenuRef}>
@@ -192,6 +206,14 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, is
             </Link>
             )}
 
+            {roleLevel >= 50 && (
+                <Link href="/classes" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted/50 hover:text-primary">Classes</Link>
+            )}
+
+            {roleLevel >= 50 && (
+                <Link href="/oversight" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted/50 hover:text-primary">My Cadets</Link>
+            )}
+
             {roleLevel >= 50 && ( 
                 <Link href="/incidents" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted/50 hover:text-primary">
                     Incidents
@@ -217,6 +239,9 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, is
 
                 <div className="px-3 py-2">
                     <FeedbackButton variant="text" />
+                </div>
+                <div className="px-3 py-2">
+                    <NotificationBell />
                 </div>
                 <button onClick={handleSignOut} className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-destructive hover:bg-muted/50">Sign out</button>
               </div>

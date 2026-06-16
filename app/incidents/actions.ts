@@ -59,7 +59,7 @@ export async function getIncidents(filter: 'pending' | 'resolved' | 'all' = 'pen
 
   const { data, error } = await query
   if (error) {
-      console.error('Error fetching incidents:', error)
+      console.error('Error fetching incidents:', error.message, error.details, error.hint, error.code)
       return []
   }
 

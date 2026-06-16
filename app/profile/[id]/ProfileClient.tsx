@@ -5,6 +5,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/utils/supabase/client'
 import SearchableSelect from '@/app/components/SearchableSelect' // <--- IMPORTED
+import CadetScheduleOversight from './CadetScheduleOversight'
 
 // --- TYPES ---
 
@@ -66,6 +67,10 @@ export default function ProfileClient({
   viewerRoleLevel,
   options,
   isStaff = false,
+  schedule = [],
+  oversight = [],
+  canEditSchedule = false,
+  currentUserId = '',
 }: { 
   profile: Profile
   auditLog: AuditLogEntry[]
@@ -73,6 +78,25 @@ export default function ProfileClient({
   viewerRoleLevel: number
   options: OptionsProps
   isStaff?: boolean
+  schedule?: Array<{
+    slot_type: string
+    section_id: string | null
+    course_name: string | null
+    teacher_first_name: string | null
+    teacher_last_name: string | null
+  }>
+  oversight?: Array<{
+    assignment_id: string
+    assignment_type: string
+    source: string
+    staff_id: string
+    staff_first_name: string
+    staff_last_name: string
+    course_name: string | null
+    is_self: boolean
+  }>
+  canEditSchedule?: boolean
+  currentUserId?: string
 }) {
   const supabase = createClient()
   const router = useRouter()
@@ -490,6 +514,17 @@ export default function ProfileClient({
           )}
 
       </div>
+      )}
+
+      {!isStaff && (isFaculty || canEditSchedule || currentUserId === profile.id || schedule.length > 0 || oversight.length > 0) && (
+        <CadetScheduleOversight
+          cadetId={profile.id}
+          schedule={schedule}
+          oversight={oversight}
+          canEditSchedule={canEditSchedule}
+          isFaculty={isFaculty}
+          currentUserId={currentUserId}
+        />
       )}
 
     </div>
