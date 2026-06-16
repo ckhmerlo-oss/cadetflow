@@ -1,5 +1,8 @@
 'use server'
 
+import { validatePolicyCategoryForRole } from '@/app/lib/categoryRestrictions.server'
+import { incidentSubmissionErrorMessage } from '@/app/lib/submissionPermissions'
+import { canSubmitIncidents } from '@/app/lib/submissionPermissions.server'
 import { createClient } from '@/utils/supabase/server'
 import { revalidatePath } from 'next/cache'
 
@@ -88,6 +91,19 @@ export async function submitIncident(payload: IncidentPayload) {
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return { error: 'Unauthorized' }
 
+    const { data: profile } = await supabase
+        .from('profiles')
+        .select('role:role_id(default_role_level)')
+        .eq('id', user.id)
+        .eq('archived', false)
+        .single()
+
+    const roleLevel =
+        (profile?.role as { default_role_level?: number } | null)?.default_role_level ?? 0
+
+    const allowed = await canSubmitIncidents(roleLevel)
+    if (!allowed) return { error: incidentSubmissionErrorMessage() }
+
     const rows = payload.cadetIds.map(cadetId => ({
         reporter_id: user.id,
         subject_cadet_id: cadetId,
@@ -151,6 +167,16 @@ export async function convertToDemerit(incidentId: string, offenseTypeId: string
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return { error: 'Unauthorized' }
 
+    const { data: converterProfile } = await supabase
+        .from('profiles')
+        .select('role:role_id(default_role_level)')
+        .eq('id', user.id)
+        .eq('archived', false)
+        .single()
+
+    const converterRoleLevel =
+        (converterProfile?.role as { default_role_level?: number } | null)?.default_role_level ?? 0
+
     // 1. Get Incident Data
     const { data: incident } = await supabase.from('incident_reports').select('*').eq('id', incidentId).single()
     if (!incident) return { error: "Incident not found" }
@@ -158,11 +184,17 @@ export async function convertToDemerit(incidentId: string, offenseTypeId: string
     // 2. Get Offense Details
     const { data: offense } = await supabase
         .from('offense_types')
-        .select('demerits')
+        .select('demerits, policy_category')
         .eq('id', offenseTypeId)
         .single()
     
     if (!offense) return { error: "Offense type not found" }
+
+    const categoryCheck = await validatePolicyCategoryForRole(
+        offense.policy_category,
+        converterRoleLevel
+    )
+    if (!categoryCheck.ok) return { error: categoryCheck.error }
 
     // 3. FETCH APPROVAL CHAIN (Double-Hop)
     const { data: userProfile } = await supabase

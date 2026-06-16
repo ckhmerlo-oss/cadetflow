@@ -1,6 +1,8 @@
 'use client'
 
 import { formatDateTime } from '@/app/lib/utils'
+import { formatOffenseCategoryLabel, formatOffenseOptionLabel } from '@/app/lib/blueBook'
+import { categoryRestrictionHelperText, filterOffensesByPolicy } from '@/app/lib/categoryRestrictions'
 import { createClient } from '@/utils/supabase/client'
 import { useRouter } from 'next/navigation'
 import { useState, useMemo, useEffect } from 'react' // Added useEffect
@@ -107,7 +109,8 @@ export default function ReportDetailsClient({
   const [appeal, setAppeal] = useState<Appeal | null>(initialAppeal)
   
   // NEW: Store offenses in state (Client Side Fetch)
-  const [offensesList, setOffensesList] = useState<OffenseType[]>([]) 
+  const [offensesList, setOffensesList] = useState<OffenseType[]>([])
+  const [allowedCategories, setAllowedCategories] = useState<number[]>([1, 2, 3])
 
   const [isActionLoading, setActionLoading] = useState(false)
   const { isSubmitter, isSubject, isApprover, canActOnAppeal, canPull } = permissions
@@ -162,9 +165,21 @@ export default function ReportDetailsClient({
       if (data) {
         setOffensesList(data)
       }
+
+      if (isCommandant) {
+        setAllowedCategories([1, 2, 3])
+        return
+      }
+
+      const { data: allowed } = await supabase.rpc('get_allowed_policy_categories', {
+        p_role_level: roleLevel,
+      })
+      setAllowedCategories(
+        (allowed as number[] | null)?.length ? (allowed as number[]) : [1]
+      )
     }
     fetchOffenses()
-  }, []) // Runs once on mount
+  }, [supabase, roleLevel, isCommandant])
   
   useEffect(() => {
     setReport(initialReport)
@@ -178,14 +193,21 @@ export default function ReportDetailsClient({
     setAppeal(initialAppeal)
   }, [initialAppeal])
 
+  const filteredOffensesList = useMemo(
+    () => (isCommandant ? offensesList : filterOffensesByPolicy(offensesList, allowedCategories)),
+    [offensesList, allowedCategories, isCommandant]
+  )
+
+  const restrictionNotice = isCommandant ? null : categoryRestrictionHelperText(allowedCategories)
+
   // --- PREPARE OFFENSE OPTIONS (Matches submit/page.tsx logic) ---
   const offenseOptions: SelectOption[] = useMemo(() => {
-    return offensesList.map(o => ({
+    return filteredOffensesList.map(o => ({
         id: o.id,
-        label: `[${o.offense_code}] ${o.offense_name} (${o.demerits})`,
+        label: formatOffenseOptionLabel(o.offense_name, o.offense_code, o.policy_category, o.demerits),
         group: o.offense_group
     }))
-  }, [offensesList])
+  }, [filteredOffensesList])
 
   // --- ACTIONS ---
   async function handleApprovalAction(action: 'approve' | 'reject' | 'kickback') {
@@ -312,7 +334,11 @@ export default function ReportDetailsClient({
               </div>
             </div>
             <div>
-               {/* Searchable Select (State populated by useEffect) */}
+               {restrictionNotice && (
+                 <p className="text-sm text-muted-foreground bg-muted/40 border border-border rounded-md px-3 py-2 mb-3">
+                   {restrictionNotice}
+                 </p>
+               )}
                <SearchableSelect
                  label="Infraction"
                  options={offenseOptions}
@@ -358,7 +384,7 @@ export default function ReportDetailsClient({
             <div><h3 className="text-sm font-medium text-muted-foreground">Subject</h3><p className="mt-1 text-lg text-foreground">{formatName(report.subject)}</p></div>
             <div><h3 className="text-sm font-medium text-muted-foreground">Submitted By</h3><p className="mt-1 text-lg text-foreground">{formatName(report.submitter)}</p></div>
             <div><h3 className="text-sm font-medium text-muted-foreground">Date & Time</h3><p className="mt-1 text-lg text-foreground">{formatDateTime(report.date_of_offense).toLocaleString()}</p></div>
-            <div><h3 className="text-sm font-medium text-muted-foreground">Category</h3><p className="mt-1 text-lg text-foreground">Cat {report.offense_type.offense_code}</p></div>
+            <div><h3 className="text-sm font-medium text-muted-foreground">Category</h3><p className="mt-1 text-lg text-foreground">{formatOffenseCategoryLabel(report.offense_type.offense_code, report.offense_type.policy_category, report.offense_type.demerits)}</p></div>
             <div><h3 className="text-sm font-medium text-muted-foreground">Demerits</h3><p className="mt-1 text-lg font-bold text-destructive">{report.demerits_effective}</p></div>
           </div>
 

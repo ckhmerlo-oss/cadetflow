@@ -1,3 +1,6 @@
+/** Set to true when Day 12.1 onboarding tour fixes and expansion are complete. */
+export const ONBOARDING_TOUR_ENABLED = false
+
 export type TourStep = {
   id: string;
   path: string;
@@ -34,7 +37,7 @@ export const TOUR_STEPS: TourStep[] = [
     path: '/ledger/::userId::',
     targetId: 'ledger-stats-grid',
     title: 'Current Standing',
-    content: 'Keep an eye on these numbers. Your "Current Tour Balance" tells you how many penalty tours you currently owe.',
+    content: 'Keep an eye on these numbers. "Penalty Tours Owed" tells you how many penalty tours you currently owe.',
     placement: 'bottom',
     shouldShow: (p) => p.roleLevel === 10
   },
@@ -73,7 +76,7 @@ export const TOUR_STEPS: TourStep[] = [
     path: '/',
     targetId: 'dashboard-submit-btn', 
     title: 'Submit Report',
-    content: 'Click here to file a new demerit report.',
+    content: 'Click here to file a new demerit report (stick).',
     placement: 'bottom',
     shouldShow: (p) => p.roleLevel >= 15,
     disableScroll: true

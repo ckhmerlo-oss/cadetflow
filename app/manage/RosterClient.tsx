@@ -2,6 +2,7 @@
 
 import React, { useState, useMemo } from 'react'
 import Link from 'next/link'
+import { CONDUCT_LEVELS, getConductLevelPillClass } from '@/app/lib/blueBook'
 
 // --- Type Definitions ---
 type RecentReport = {
@@ -48,7 +49,7 @@ type RosterClientProps = {
   canManage: boolean 
 }
 
-const CONDUCT_ORDER = ['Exemplary', 'Commendable', 'Satisfactory', 'Deficient', 'Unsatisfactory'];
+const CONDUCT_ORDER = [...CONDUCT_LEVELS]
 
 export default function RosterClient({ initialData, canEditProfiles, companies, onReassign, variant = 'cadet', canManage }: RosterClientProps) {
   const [openCadetId, setOpenCadetId] = useState<string | null>(null)
@@ -119,14 +120,7 @@ export default function RosterClient({ initialData, canEditProfiles, companies, 
   
   const getSortIndicator = (key: SortKey) => (sortConfig.key === key ? (sortConfig.direction === 'ascending' ? ' ▲' : ' ▼') : null);
 
-  const getConductColor = (status?: string) => {
-      if (!status) return 'bg-muted text-muted-foreground';
-      if (status === 'Exemplary') return 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200';
-      if (status === 'Commendable') return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-200';
-      if (status === 'Satisfactory') return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200';
-      if (status === 'Deficient') return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200';
-      return 'bg-destructive/10 text-destructive';
-  }
+  const getConductColor = (status?: string) => getConductLevelPillClass(status)
 
   const formatTimeAgo = (dateStr: string) => {
     const date = new Date(dateStr)
@@ -167,7 +161,7 @@ export default function RosterClient({ initialData, canEditProfiles, companies, 
               {uniqueGrades.map(g => <option key={String(g)} value={String(g)}>{String(g)}</option>)}
             </select>
             <select value={filterConduct} onChange={(e) => setFilterConduct(e.target.value)} className="w-full p-2 border border-input rounded-md bg-background text-foreground">
-              <option value="all">All Conduct</option>
+              <option value="all">All Conduct Levels</option>
               {CONDUCT_ORDER.map(c => <option key={c} value={c}>{c}</option>)}
             </select>
           </>
@@ -212,7 +206,7 @@ export default function RosterClient({ initialData, canEditProfiles, companies, 
                 <th scope="col" className="hidden xl:table-cell px-6 py-3 text-left text-xs font-bold text-muted-foreground uppercase tracking-wider cursor-pointer hover:text-foreground" onClick={() => requestSort('room_number')}>Room {getSortIndicator('room_number')}</th>
                 
                 {/* Conduct: Hidden on Mobile */}
-                <th scope="col" className="hidden md:table-cell px-6 py-3 text-left text-xs font-bold text-muted-foreground uppercase tracking-wider cursor-pointer hover:text-foreground" onClick={() => requestSort('conduct_status')}>Conduct {getSortIndicator('conduct_status')}</th>
+                <th scope="col" className="hidden md:table-cell px-6 py-3 text-left text-xs font-bold text-muted-foreground uppercase tracking-wider cursor-pointer hover:text-foreground" onClick={() => requestSort('conduct_status')}>Conduct Level {getSortIndicator('conduct_status')}</th>
               </>
             )}
             

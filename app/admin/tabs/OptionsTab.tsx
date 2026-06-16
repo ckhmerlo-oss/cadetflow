@@ -12,7 +12,7 @@ type Option = {
 const CATEGORIES = [
   { id: 'rank', label: 'Cadet Ranks' },
   { id: 'grade', label: 'Grade Levels' },
-  { id: 'conduct', label: 'Conduct Statuses' },
+  { id: 'conduct', label: 'Conduct Levels' },
   { id: 'probation', label: 'Probation Types' },
   { id: 'extracurricular', label: 'Extracurricular Activities' }
 ]

@@ -6,6 +6,7 @@ import Link from 'next/link'
 import { createClient } from '@/utils/supabase/client'
 import SearchableSelect from '@/app/components/SearchableSelect' // <--- IMPORTED
 import CadetScheduleOversight from './CadetScheduleOversight'
+import { getConductLevelBadgeClass } from '@/app/lib/blueBook'
 
 // --- TYPES ---
 
@@ -126,11 +127,7 @@ export default function ProfileClient({
   // Helpers
   const formatDate = (dateString: string) => new Date(dateString).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
 
-  const getStatusColor = (status: string) => {
-      if (status === 'Unsatisfactory') return 'bg-destructive/10 text-destructive border-destructive/20'
-      if (status === 'Deficient') return 'bg-orange-50 text-orange-700 border-orange-200 dark:bg-orange-900/20 dark:text-orange-300 dark:border-orange-800'
-      return 'bg-green-50 text-green-700 border-green-200 dark:bg-green-900/20 dark:text-green-300 dark:border-green-800'
-  }
+  const getStatusColor = (status: string) => getConductLevelBadgeClass(status)
 
   // UPDATED: Logic to add/remove activities
   const addActivity = (activity: string) => {
@@ -288,7 +285,7 @@ export default function ProfileClient({
             
             <div className={`p-3 rounded-lg border ${getStatusColor(profile.conduct_status)}`}>
                 <div className="flex justify-between items-center">
-                    <span className="text-xs font-bold uppercase opacity-75">Conduct</span>
+                    <span className="text-xs font-bold uppercase opacity-75">Conduct Level</span>
                     <span className="font-bold">{profile.conduct_status}</span>
                 </div>
             </div>
@@ -313,7 +310,7 @@ export default function ProfileClient({
             {/* Tours: ONLY Editable if isCommandant */}
             {isEditing && isCommandant ? (
                 <div className="p-3 bg-muted/30 rounded-lg border border-border">
-                    <label className="text-xs font-bold uppercase text-muted-foreground block mb-1">Tour Balance</label>
+                    <label className="text-xs font-bold uppercase text-muted-foreground block mb-1">Penalty Tours Owed</label>
                     <div className="flex gap-2">
                         <input type="number" value={formData.manual_tour_balance} onChange={e => setFormData({...formData, manual_tour_balance: Number(e.target.value)})} className="w-20 input-base text-sm py-1" />
                         <label className="flex items-center gap-2 text-sm text-foreground cursor-pointer">
@@ -324,7 +321,7 @@ export default function ProfileClient({
                 </div>
             ) : (
                 <div className="flex justify-between items-center p-3 bg-muted/50 rounded-lg border border-border">
-                    <span className="text-xs font-bold text-muted-foreground uppercase">Tours Owed</span>
+                    <span className="text-xs font-bold text-muted-foreground uppercase">Penalty Tours Owed</span>
                     <span className={`text-xl font-bold ${profile.current_tour_balance > 0 ? 'text-destructive' : 'text-foreground'}`}>
                         {profile.has_star_tours ? '*' : profile.current_tour_balance}
                     </span>

@@ -1,3 +1,5 @@
+import { getAllowedPolicyCategories } from '@/app/lib/categoryRestrictions.server'
+import { filterOffensesByPolicy } from '@/app/lib/categoryRestrictions'
 import { createClient } from '@/utils/supabase/server'
 import { getIncidents } from './actions'
 import IncidentsClient from './IncidentsClient'
@@ -25,15 +27,22 @@ export default async function IncidentsPage() {
   // Fetch Offense Types
   const { data: offenseTypes } = await supabase
     .from('offense_types')
-    .select('id, offense_name, offense_group, demerits') 
+    .select('id, offense_name, offense_group, demerits, policy_category') 
     .order('offense_group')
 
-  const formattedOffenses = offenseTypes?.map((o: any) => ({
+  const allowedCategories = roleLevel >= 90
+    ? [1, 2, 3]
+    : await getAllowedPolicyCategories(roleLevel)
+
+  const filteredOffenses = filterOffensesByPolicy(offenseTypes ?? [], allowedCategories)
+
+  const formattedOffenses = filteredOffenses.map((o: any) => ({
       id: o.id,
       label: o.offense_name,
       group: o.offense_group,
-      demerits: o.demerits
-  })) || []
+      demerits: o.demerits,
+      policy_category: o.policy_category,
+  }))
 
   return (
     <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
@@ -42,7 +51,7 @@ export default async function IncidentsPage() {
             <h1 className="text-3xl font-bold text-primary">Incident Reports</h1>
             <p className="text-muted-foreground">Track and triage behavioral incidents.</p>
           </div>
-          <Link href="/incidents/create" className="btn-primary font-bold">
+          <Link href="/submit?tab=incident" className="btn-primary font-bold">
             + New Incident
           </Link>
       </div>

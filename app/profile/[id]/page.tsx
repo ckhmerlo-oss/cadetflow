@@ -5,6 +5,7 @@ import { getProfileDropdowns } from '@/app/lib/options'
 import { getProfileById, isStaffRoleLevel } from '@/app/lib/profile-queries'
 import { getCadetSchedule } from '@/app/classes/actions'
 import { getCadetOversight } from '@/app/oversight/actions'
+import { calculateConductStatus } from '@/app/lib/blueBook'
 
 type AuditLogEntry = {
   event_date: string
@@ -65,12 +66,10 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
       year_demerits: stats?.year_demerits || 0,
       current_tour_balance: (profile as any).cached_tour_balance ?? 0,
       is_on_probation: (profile as any).probation_status !== 'None' && (profile as any).probation_status !== null,
-      conduct_status:
-        (stats?.term_demerits || 0) >= 100
-          ? 'Unsatisfactory'
-          : (stats?.term_demerits || 0) >= 60
-            ? 'Deficient'
-            : 'Satisfactory',
+      conduct_status: calculateConductStatus(
+        stats?.term_demerits || 0,
+        stats?.year_demerits || 0
+      ),
     }
 
     const { data: logData } = await supabase.rpc('get_cadet_audit_log', { p_cadet_id: profile.id })

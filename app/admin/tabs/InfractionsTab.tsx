@@ -2,26 +2,21 @@
 
 import { createClient } from '@/utils/supabase/client'
 import { useState, useEffect, useMemo } from 'react'
+import {
+  OFFENSE_CATEGORY_CONFIG,
+  getCategoryKeyFromCode,
+} from '@/app/lib/blueBook'
 
 type OffenseType = {
-  id: string;
-  offense_name: string;
-  policy_category: number;
-  demerits: number;
-  offense_code: string | null;
-  offense_group: string | null;
+  id: string
+  offense_name: string
+  policy_category: number
+  demerits: number
+  offense_code: string | null
+  offense_group: string | null
 }
 
-// CONFIG: Using opacity-based backgrounds to work on all themes (White, Dark, Christmas Green)
-const CATEGORY_CONFIG: Record<string, { code: string; label: string; demerits: number; policy_cat: number; color: string }> = {
-  '0':  { code: '0',  label: 'Cat 0',  demerits: 0,  policy_cat: 0, color: 'bg-muted text-muted-foreground border-border'},
-  '1':  { code: '1',  label: 'Cat 1',  demerits: 3,  policy_cat: 1, color: 'bg-green-500/10 text-green-600 dark:text-green-400 border-green-500/20' },
-  '2a': { code: '2a', label: 'Cat 2a', demerits: 6,  policy_cat: 2, color: 'bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 border-yellow-500/20' },
-  '2b': { code: '2b', label: 'Cat 2b', demerits: 10, policy_cat: 2, color: 'bg-orange-500/10 text-orange-600 dark:text-orange-400 border-orange-500/20' },
-  '3a': { code: '3a', label: 'Cat 3a', demerits: 15, policy_cat: 3, color: 'bg-red-500/10 text-red-600 dark:text-red-400 border-red-500/20' },
-  '3b': { code: '3b', label: 'Cat 3b', demerits: 25, policy_cat: 3, color: 'bg-red-500/20 text-red-700 dark:text-red-300 border-red-500/30' },
-  '3c': { code: '3c', label: 'Cat 3c', demerits: 35, policy_cat: 3, color: 'bg-destructive/20 text-destructive border-destructive/30' },
-}
+const CATEGORY_CONFIG = OFFENSE_CATEGORY_CONFIG
 
 type SortKey = 'category' | 'name' | 'group' | 'demerits'
 type SortDirection = 'asc' | 'desc'
@@ -87,11 +82,6 @@ export default function InfractionsTab() {
   const SortIcon = ({ column }: { column: SortKey }) => {
     if (sortConfig.key !== column) return <span className="text-muted-foreground/30 ml-1 text-[10px]">⇅</span>
     return <span className="text-primary ml-1 text-[10px]">{sortConfig.direction === 'asc' ? '▲' : '▼'}</span>
-  }
-
-  const getCategoryKeyFromCode = (code: string | null) => {
-    if (code && CATEGORY_CONFIG[code]) return code;
-    return '1';
   }
 
   // --- Handlers ---

@@ -1,0 +1,180 @@
+Blue Book 2025 v3.6 — Key Terms for CadetFlow Development
+Source: context/Blue Book - 2025 v.3.6.pdf
+Last reviewed: 2026-06-15
+
+Use this file when building features that touch discipline, conduct, reports, or
+cadet leadership. Internal DB codes (offense_code 1/2a/3b, policy_category 1-3)
+may differ from user-facing labels below.
+
+
+================================================================================
+DISCIPLINE TERMINOLOGY
+================================================================================
+
+Demerit Report (Stick)
+  - Official name: "Demerit Report"; cadets also call them "Sticks"
+  - Submitted to the Commandant's Office with brief offense + detailed narrative
+  - Consolidated daily on the "green sheet" (bulletin board + email, 24 hours)
+
+Green Sheet
+  - Daily published list of outstanding demerit reports
+  - UI label: "Green Sheet" (not "Daily Reports" in user-facing copy)
+
+Demerit Credits
+  - 15 credits per cadet at the start of each academic term
+  - Demerits within credits = no punishment tours required
+  - Each demerit over credits = one Penalty Tour
+  - Credits do NOT apply to Category III offenses
+
+Penalty Tour
+  - User-facing term for owed punishment tours (prefer over generic "Tour Balance")
+  - Display: "Penalty Tours Owed" or "Tours Owed"
+
+
+================================================================================
+OFFENSE CATEGORIES (Roman numerals in UI)
+================================================================================
+
+Display in UI: Category I, Category II, Category III
+Internal policy_category: 1, 2, 3
+Internal offense_code tiers (app-only granularity):
+
+  Code  policy_cat  Demerits   Blue Book basis
+  ----  ----------  --------   ----------------
+  0     0           0          App-only warnings (not in Blue Book)
+  1     1           3          Category I — fixed 3 demerits
+  2a    2           6          Category II — serious (6-dem tier)
+  2b    2           10         Category II — serious (10-dem tier)
+  3a    3           15         Category III — major (15+ demerits)
+  3b    3           25         Category III — operational tier
+  3c    3           35         Category III — operational tier
+
+Category I
+  - Minor offenses; 3 demerits each
+  - Tour credits may apply
+
+Category II
+  - Serious offenses; 6 or 10 demerits
+  - C.Q. violations may also require loss of leave
+  - Tour credits may apply
+
+Category III
+  - Major/very serious; 15+ demerits (Commandant may set case-by-case)
+  - Tour credits do NOT apply — immediate penalty tours
+  - Cadet must fill out a special report for TAC on day posted
+  - TAC recommends punishment to Commandant
+
+Offense subject groups (offense_group field — use Blue Book headings):
+  Appearance, Arms, Behavior in Class, Campus, Conduct, Room/Barracks,
+  When in Ranks, Attitude, Chapel, Study C.Q., Computers, Duty,
+  Equipment/Property, Hygiene, Infirmary, Leaves/Day Passes, Dining Hall,
+  Off Limits, Taps, Tobacco, Tribunal, Honor Code Violations
+
+
+================================================================================
+CONDUCT LEVELS
+================================================================================
+
+Term conduct resets to Exemplary each new academic term; year demerits do NOT reset.
+Displayed conduct = least commendable level from term OR year thresholds.
+
+  Level            Term demerits   Year demerits
+  ---------------  --------------  -------------
+  Exemplary        0–6             0–30
+  Commendable      7–18            31–90
+  Satisfactory     19–30           91–150
+  Deficient        31–42           151–210
+  Unsatisfactory   43+             211+
+
+UI label: "Conduct Level" (section title in Blue Book: "Conduct Levels")
+
+Counseling / action thresholds (term):
+  7+   Informal counseling (TAC); parent email
+  13+  Additional informal counseling; Conduct Expectations Agreement warning
+  19+  Conduct Expectations Agreement + parent conference
+  25+  Formal counseling; approaching Deficient
+  31+  Probation Letter (Deputy Commandant); leave suspended
+  37+  Behavioral Contract; CRB warning
+  43+  Unsatisfactory; Commandant's Review Board (CRB)
+  55+  Referral to Academy President (term) / 275+ (year)
+  67+  Tribunal threshold (term) / 335+ (year) — basis for dismissal
+
+Conduct Probation (Blue Book)
+  - Deficient or Unsatisfactory conduct with assigned probation letter
+
+
+================================================================================
+REPORT WORKFLOW & APPEALS
+================================================================================
+
+Submission routing (cadet-prepared reports):
+  Cadet officer/NCO → cadet chain of command → Company Commander → screening
+
+Category I & II appeals:
+  - Company Commander hears explanations at morning break
+  - Company TAC is appellate authority
+
+Category III:
+  - Company TAC recommends punishment to Commandant
+  - Commandant makes final decision
+
+Appeals (general):
+  - Route through chain of command
+  - Cadet may submit complaint directly to Company TAC if improperly treated
+
+
+================================================================================
+CHAIN OF COMMAND (Cadet organization)
+================================================================================
+
+Corps structure: Infantry Battalion
+  - Battalion Staff: Battalion CO, XO, CSM, S-1 through S-7, Adjutant
+  - Four Rifle Companies: A, B, C, D (Alpha, Bravo, Charlie, Delta)
+
+Company-level cadet roles (use these names in UI):
+  - Company Commander
+  - Company Executive Officer (XO)
+  - First Sergeant (1SG)
+  - Platoon Leader
+  - Platoon Sergeant
+  - Squad Leader
+
+Adult staff (not cadet chain):
+  - Commandant / Deputy Commandant / Commandant of Cadets
+  - Company TAC (not just "TAC Officer" when company-scoped)
+  - Commandant's Office (final authority for demerit reports)
+
+CadetFlow approval groups map to chain levels internally; prefer role titles
+in user-facing copy over abstract names like "Squad Staff" or "Co. Staff".
+
+Roles NOT in Blue Book leadership chain:
+  - Laundry Sergeant (remove or treat as app-specific if used)
+
+
+================================================================================
+PUNISHMENTS (reference)
+================================================================================
+
+Types: Verbal correction, Written warning, Incentive Training, Demerits,
+Extra duty tours, Restriction (loss of leave/day pass), Reduction in rank,
+Probation, Commandant's Review Board (CRB), Tribunal
+
+
+================================================================================
+CODE CONVENTIONS (CadetFlow)
+================================================================================
+
+Shared helpers: app/lib/blueBook.ts
+  - calculateConductStatus(term, year)
+  - formatPolicyCategory(n) → "Category I" / "Category II" / "Category III"
+  - OFFENSE_CATEGORY_CONFIG — admin tier labels aligned to Blue Book
+  - getConductLevelPillClass / getConductLevelBadgeClass — UI colors
+
+DB function calculate_conduct_status() must stay in sync with blueBook.ts thresholds.
+
+Do NOT hard-code conduct thresholds in page components — use shared helpers.
+
+Offense catalog:
+  - Migration: supabase/migrations/20260621000001_blue_book_offense_catalog.sql
+  - Regenerate: python scripts/generate_blue_book_offenses.py
+  - 131 offenses from Blue Book Section 4 (pp. 21–24); UUIDs are deterministic (uuid5)

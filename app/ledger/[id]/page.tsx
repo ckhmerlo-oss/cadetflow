@@ -226,9 +226,9 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
               <select value={filterType} onChange={(e) => setFilterType(e.target.value)}
                 className="block w-full sm:w-32 rounded-md border-input bg-background text-foreground shadow-sm sm:text-sm py-2 focus:ring-ring focus:border-ring">
                 <option value="all">All Types</option>
-                <option value="1">Cat 1</option>
-                <option value="2">Cat 2</option>
-                <option value="3">Cat 3</option>
+                <option value="1">Category I</option>
+                <option value="2">Category II</option>
+                <option value="3">Category III</option>
                 <option value="tours">Tours Only</option>
               </select>
 
@@ -269,7 +269,7 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
                 <StatBox label="Term Demerits" value={stats.term_demerits} />
                 <StatBox label="Year Demerits" value={stats.year_demerits} />
                 <StatBox label="Tours Marched" value={stats.total_tours_marched} />
-                <StatBox label="Tour Balance" value={stats.current_tour_balance} highlight />
+                <StatBox label="Penalty Tours Owed" value={stats.current_tour_balance} highlight />
               </div>
             )}
 

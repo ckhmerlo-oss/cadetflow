@@ -15,13 +15,7 @@ export const SPRING_SPORTS = [
   'None', 'Baseball', 'Varsity Lacrosse', 'Track & Field', 'Tennis', 'Golf', 'PG Basketball', 'PG Lacrosse', 
 ];
 
-export const CONDUCT_STATUSES = [
-  'Exemplary',
-  'Commendable',
-  'Satisfactory',
-  'Deficient',
-  'Unsatisfactory'
-];
+export { CONDUCT_LEVELS as CONDUCT_STATUSES } from '@/app/lib/blueBook';
 
 export const PROBATION_STATUSES = [
   'None',

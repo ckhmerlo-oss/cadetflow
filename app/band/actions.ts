@@ -12,7 +12,8 @@ export type BandMember = {
   room_number: string | null
   cached_tour_balance: number
   company: { company_name: string } | null
-  email: string
+  parent_email: string | null
+  phone_number: string | null
   band_details: {
     instrument: string | null
     leadership_role: string | null
@@ -29,7 +30,6 @@ export async function getBandRoster() {
       id,
       first_name,
       last_name,
-      email,
       company:companies(company_name),
       role:roles!inner(default_role_level),
       cadet_profiles!inner (
@@ -37,9 +37,11 @@ export async function getBandRoster() {
         grade_level,
         room_number,
         cached_tour_balance,
-        is_in_band
-      ),
-      band_details(instrument, leadership_role, travel_notes)
+        is_in_band,
+        parent_email,
+        phone_number,
+        band_details(instrument, leadership_role, travel_notes)
+      )
     `)
     .eq('cadet_profiles.is_in_band', true)
     .eq('archived', false)
@@ -47,12 +49,16 @@ export async function getBandRoster() {
     .order('last_name', { ascending: true })
 
   if (error) {
-    console.error('Error fetching band roster:', error)
+    console.error('Error fetching band roster:', error.message, error.details, error.hint, error.code)
     return []
   }
 
   return data.map((m: any) => {
     const details = Array.isArray(m.cadet_profiles) ? m.cadet_profiles[0] : m.cadet_profiles
+    const bandDetailsRaw = details?.band_details
+    const bandDetails = Array.isArray(bandDetailsRaw)
+      ? (bandDetailsRaw[0] || null)
+      : (bandDetailsRaw || null)
     return {
       id: m.id,
       first_name: m.first_name,
@@ -61,11 +67,10 @@ export async function getBandRoster() {
       grade_level: details?.grade_level ?? null,
       room_number: details?.room_number ?? null,
       cached_tour_balance: details?.cached_tour_balance ?? 0,
-      email: m.email,
+      parent_email: details?.parent_email ?? null,
+      phone_number: details?.phone_number ?? null,
       company: Array.isArray(m.company) ? m.company[0] : m.company,
-      band_details: Array.isArray(m.band_details)
-        ? (m.band_details[0] || null)
-        : (m.band_details || null),
+      band_details: bandDetails,
     }
   }) as BandMember[]
 }
@@ -92,7 +97,7 @@ export async function searchCadetCandidates(query: string) {
   const { data, error } = await supabase
     .from('profiles')
     .select(`
-      id, first_name, last_name, email,
+      id, first_name, last_name,
       company:companies(company_name),
       role:roles!inner(default_role_level),
       cadet_profiles!inner (cadet_rank, is_in_band)

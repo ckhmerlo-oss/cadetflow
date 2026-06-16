@@ -161,8 +161,8 @@ export default async function Dashboard() {
 
   const mySubmittedReports = allInvolvedReports.filter((report: any) => report.submitted_by === user.id) || []
 
-  const submitLink = (role_level >= 50 && role_level < 65) ? '/incidents/create' : '/submit';
-  const submitLabel = (role_level >= 50 && role_level < 65) ? 'Report Incident' : 'Submit New Report';
+  const submitLink = '/submit';
+  const submitLabel = 'Submit Report';
 
   return (
     <div className="max-w-7xl mx-auto p-4 sm:p-6 lg:p-8 animate-in fade-in duration-500 bg-background text-foreground transition-colors relative">

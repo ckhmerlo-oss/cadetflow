@@ -30,12 +30,28 @@ type CoachedSport = {
   enable_alerts: boolean
 }
 
+type OverrideFrequency = Frequency | 'inherit'
+
+type CadetOverrideState = {
+  cadet_id: string
+  first_name: string
+  last_name: string
+  expanded: boolean
+  categories: Record<string, { email: OverrideFrequency; inApp: OverrideFrequency }>
+}
+
+const EMPTY_CATEGORIES = (): Record<string, { email: OverrideFrequency; inApp: OverrideFrequency }> =>
+  Object.fromEntries(
+    PREFERENCE_CATEGORIES.map((c) => [c.key, { email: 'inherit' as OverrideFrequency, inApp: 'inherit' as OverrideFrequency }])
+  )
+
 export default function PreferencesPage() {
   const supabase = createClient()
   const router = useRouter()
 
   const [prefs, setPrefs] = useState<Preferences | null>(null)
   const [coachedSports, setCoachedSports] = useState<CoachedSport[]>([])
+  const [cadetOverrides, setCadetOverrides] = useState<CadetOverrideState[]>([])
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
 
@@ -76,10 +92,39 @@ export default function PreferencesPage() {
             id: s.id,
             sport_name: sport.name,
             season: sport.season,
-            enable_alerts: s.enable_alerts,
+            enable_alerts: s.enable_alerts ?? true,
           }
         }))
       }
+
+      const { data: oversightCadets } = await supabase.rpc('get_my_oversight_cadets')
+      const { data: overrideRows } = await supabase
+        .from('cadet_notification_preferences')
+        .select('cadet_id, category, email_frequency, in_app_frequency')
+        .eq('staff_id', user.id)
+
+      if (oversightCadets && oversightCadets.length > 0) {
+        const overrideMap = new Map<string, Record<string, { email: OverrideFrequency; inApp: OverrideFrequency }>>()
+        for (const row of overrideRows ?? []) {
+          if (!overrideMap.has(row.cadet_id)) overrideMap.set(row.cadet_id, EMPTY_CATEGORIES())
+          const cats = overrideMap.get(row.cadet_id)!
+          cats[row.category] = {
+            email: (row.email_frequency as OverrideFrequency) ?? 'inherit',
+            inApp: (row.in_app_frequency as OverrideFrequency) ?? 'inherit',
+          }
+        }
+
+        setCadetOverrides(
+          oversightCadets.map((c: { cadet_id: string; first_name: string; last_name: string }) => ({
+            cadet_id: c.cadet_id,
+            first_name: c.first_name,
+            last_name: c.last_name,
+            expanded: false,
+            categories: overrideMap.get(c.cadet_id) ?? EMPTY_CATEGORIES(),
+          }))
+        )
+      }
+
       setLoading(false)
     }
     load()
@@ -100,6 +145,38 @@ export default function PreferencesPage() {
         .from('sport_coaches')
         .update({ enable_alerts: s.enable_alerts })
         .eq('id', s.id)
+    }
+
+    if (user?.id) {
+      for (const cadet of cadetOverrides) {
+        for (const category of PREFERENCE_CATEGORIES) {
+          const override = cadet.categories[category.key]
+          if (!override) continue
+
+          const emailVal = override.email === 'inherit' ? null : override.email
+          const inAppVal = override.inApp === 'inherit' ? null : override.inApp
+
+          if (emailVal === null && inAppVal === null) {
+            await supabase
+              .from('cadet_notification_preferences')
+              .delete()
+              .eq('staff_id', user.id)
+              .eq('cadet_id', cadet.cadet_id)
+              .eq('category', category.key)
+          } else {
+            await supabase
+              .from('cadet_notification_preferences')
+              .upsert({
+                staff_id: user.id,
+                cadet_id: cadet.cadet_id,
+                category: category.key,
+                email_frequency: emailVal,
+                in_app_frequency: inAppVal,
+                updated_at: new Date().toISOString(),
+              })
+          }
+        }
+      }
     }
 
     setSaving(false)
@@ -193,6 +270,72 @@ export default function PreferencesPage() {
           </div>
         </div>
 
+        {cadetOverrides.length > 0 && (
+          <div className="bg-card p-6 rounded-lg shadow-sm border border-border space-y-4">
+            <h2 className="text-lg font-bold text-foreground border-b border-border pb-2">Oversight Cadet Alerts</h2>
+            <p className="text-sm text-muted-foreground -mt-2">
+              Override your global notification settings for individual cadets you oversee. &quot;Inherit&quot; uses your global preferences above.
+            </p>
+
+            <div className="space-y-3">
+              {cadetOverrides.map((cadet, cadetIdx) => (
+                <div key={cadet.cadet_id} className="border border-border rounded-lg overflow-hidden">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const next = [...cadetOverrides]
+                      next[cadetIdx].expanded = !next[cadetIdx].expanded
+                      setCadetOverrides(next)
+                    }}
+                    className="w-full flex items-center justify-between p-4 bg-muted/30 hover:bg-muted/50 text-left"
+                  >
+                    <span className="font-medium text-foreground">
+                      {cadet.last_name}, {cadet.first_name}
+                    </span>
+                    <span className="text-muted-foreground text-sm">{cadet.expanded ? '▲' : '▼'}</span>
+                  </button>
+
+                  {cadet.expanded && (
+                    <div className="p-4 space-y-4 border-t border-border">
+                      {PREFERENCE_CATEGORIES.map((category) => (
+                        <div key={category.key} className="space-y-2">
+                          <h4 className="text-sm font-medium text-foreground">{category.title}</h4>
+                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                            <OverrideFrequencySelect
+                              label="In-App"
+                              value={cadet.categories[category.key]?.inApp ?? 'inherit'}
+                              onChange={(v) => {
+                                const next = [...cadetOverrides]
+                                next[cadetIdx].categories[category.key] = {
+                                  ...next[cadetIdx].categories[category.key],
+                                  inApp: v,
+                                }
+                                setCadetOverrides(next)
+                              }}
+                            />
+                            <OverrideFrequencySelect
+                              label="Email"
+                              value={cadet.categories[category.key]?.email ?? 'inherit'}
+                              onChange={(v) => {
+                                const next = [...cadetOverrides]
+                                next[cadetIdx].categories[category.key] = {
+                                  ...next[cadetIdx].categories[category.key],
+                                  email: v,
+                                }
+                                setCadetOverrides(next)
+                              }}
+                            />
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {coachedSports.length > 0 && (
           <div className="bg-card p-6 rounded-lg shadow-sm border border-border space-y-4">
             <h2 className="text-lg font-bold text-foreground border-b border-border pb-2">Coaching Alerts</h2>
@@ -263,6 +406,32 @@ function CategoryRow({
         <FrequencySelect label="In-App" value={inAppValue} onChange={onInAppChange} />
         <FrequencySelect label="Email" value={emailValue} onChange={onEmailChange} />
       </div>
+    </div>
+  )
+}
+
+function OverrideFrequencySelect({
+  label,
+  value,
+  onChange,
+}: {
+  label: string
+  value: OverrideFrequency
+  onChange: (v: OverrideFrequency) => void
+}) {
+  return (
+    <div>
+      <label className="block text-xs font-medium text-muted-foreground mb-1">{label}</label>
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value as OverrideFrequency)}
+        className="input-base w-full"
+      >
+        <option value="inherit">Inherit Global</option>
+        <option value="immediate">Immediate</option>
+        <option value="digest">Digest Summary</option>
+        <option value="off">Don&apos;t Notify</option>
+      </select>
     </div>
   )
 }

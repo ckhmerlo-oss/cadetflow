@@ -444,23 +444,10 @@ WHERE id IN (
 );
 
 -- ---------------------------------------------------------------------------
--- Offense types
+-- Offense types — full Blue Book v3.6 catalog loaded by migration
+-- 20260621000001_blue_book_offense_catalog.sql
+-- Demo reports below reference catalog offenses by stable UUID.
 -- ---------------------------------------------------------------------------
-INSERT INTO public.offense_types (
-  id, offense_group, offense_name, offense_code, demerits, policy_category
-)
-VALUES
-  ('e0000000-0000-0000-0000-000000000001', 'Uniform', 'Dirty boots', 'U-101', 3, 1),
-  ('e0000000-0000-0000-0000-000000000002', 'Barracks', 'Messy room', 'B-201', 5, 1),
-  ('e0000000-0000-0000-0000-000000000003', 'Discipline', 'Disrespect to superior', 'D-301', 10, 3),
-  ('e0000000-0000-0000-0000-000000000004', 'Punctuality', 'Late for formation', 'P-102', 2, 1),
-  ('e0000000-0000-0000-0000-000000000005', 'Barracks', 'Minor room infraction', 'B-101', 1, 1)
-ON CONFLICT (id) DO UPDATE
-SET offense_group = EXCLUDED.offense_group,
-    offense_name = EXCLUDED.offense_name,
-    offense_code = EXCLUDED.offense_code,
-    demerits = EXCLUDED.demerits,
-    policy_category = EXCLUDED.policy_category;
 
 -- ---------------------------------------------------------------------------
 -- Reports + audit logs
@@ -482,6 +469,8 @@ WHERE id IN (
   'd0000000-0000-0000-0000-000000000004',
   'd0000000-0000-0000-0000-000000000005'
 );
+
+ALTER TABLE public.demerit_reports DISABLE TRIGGER trg_enforce_demerit_report_category;
 
 INSERT INTO public.demerit_reports (
   id,
@@ -505,7 +494,7 @@ VALUES
     'b0000000-0000-0000-0000-000000000002',
     now() - interval '5 day',
     'Cadet 1 had muddy boots during final formation.',
-    'e0000000-0000-0000-0000-000000000001',
+    'ed185f1c-fbc3-51df-a6b4-9ac6a17af619',
     NULL,
     false,
     3
@@ -518,23 +507,23 @@ VALUES
     'b0000000-0000-0000-0000-000000000001',
     now() - interval '4 day',
     'Cadet 2 room was not inspection-ready.',
-    'e0000000-0000-0000-0000-000000000002',
+    '9984e76d-78d4-5ec0-93a9-cc285f9aba3b',
     NULL,
     false,
-    5
+    3
   ),
   (
     'd0000000-0000-0000-0000-000000000003',
     '47bd1324-e8ea-4a4b-8d27-9c1592d71770',
-    '02c82cc1-f3a6-4327-8c97-acb1ffbaf392',
+    'b0c0e9df-1061-4721-b589-75780bc64f9c',
     'completed',
     NULL,
     now() - interval '3 day',
     'Cadet 1 was disrespectful to their Squad Leader.',
-    'e0000000-0000-0000-0000-000000000003',
+    '01162719-202f-5dbb-9eb0-660b77ffc3cf',
     NULL,
     false,
-    10
+    15
   ),
   (
     'd0000000-0000-0000-0000-000000000004',
@@ -544,10 +533,10 @@ VALUES
     NULL,
     now() - interval '2 day',
     'Cadet 1 was late for formation.',
-    'e0000000-0000-0000-0000-000000000004',
+    '5920e46a-2383-5d44-806b-466151884f10',
     'b0000000-0000-0000-0000-000000000002',
     false,
-    2
+    3
   ),
   (
     'd0000000-0000-0000-0000-000000000005',
@@ -557,10 +546,10 @@ VALUES
     NULL,
     now() - interval '1 day',
     'Dust on desk, warning issued only.',
-    'e0000000-0000-0000-0000-000000000005',
+    '4f59bb5a-9f4e-5743-9da4-a6987520d2bf',
     NULL,
     false,
-    1
+    3
   );
 
 INSERT INTO public.approval_log (report_id, actor_id, action, comment, created_at)
@@ -568,13 +557,15 @@ VALUES
   ('d0000000-0000-0000-0000-000000000001', 'da77b296-ad3e-489f-94c1-955242db224d', 'submitted', 'Report created', now() - interval '5 day'),
   ('d0000000-0000-0000-0000-000000000002', 'da77b296-ad3e-489f-94c1-955242db224d', 'submitted', 'Report created', now() - interval '4 day'),
   ('d0000000-0000-0000-0000-000000000002', '02c82cc1-f3a6-4327-8c97-acb1ffbaf392', 'approved', 'Forwarding to Commandant.', now() - interval '3 day'),
-  ('d0000000-0000-0000-0000-000000000003', '02c82cc1-f3a6-4327-8c97-acb1ffbaf392', 'submitted', 'Report created', now() - interval '3 day'),
+  ('d0000000-0000-0000-0000-000000000003', 'b0c0e9df-1061-4721-b589-75780bc64f9c', 'submitted', 'Category III report filed by Commandant', now() - interval '3 day'),
   ('d0000000-0000-0000-0000-000000000003', 'b0c0e9df-1061-4721-b589-75780bc64f9c', 'approved', 'Final approval. Demerits applied.', now() - interval '2 day'),
   ('d0000000-0000-0000-0000-000000000004', 'da77b296-ad3e-489f-94c1-955242db224d', 'submitted', 'Report created', now() - interval '2 day'),
   ('d0000000-0000-0000-0000-000000000004', '02c82cc1-f3a6-4327-8c97-acb1ffbaf392', 'needs_revision', 'Please add more details about the incident.', now() - interval '1 day'),
   ('d0000000-0000-0000-0000-000000000005', 'da77b296-ad3e-489f-94c1-955242db224d', 'submitted', 'Report created', now() - interval '1 day'),
   ('d0000000-0000-0000-0000-000000000005', '02c82cc1-f3a6-4327-8c97-acb1ffbaf392', 'rejected', 'Warning given, no demerits necessary.', now())
 ON CONFLICT DO NOTHING;
+
+ALTER TABLE public.demerit_reports ENABLE TRIGGER trg_enforce_demerit_report_category;
 
 -- ---------------------------------------------------------------------------
 -- Day 02: School year terms, classes, sports coaches, oversight fixtures
@@ -860,5 +851,118 @@ ON CONFLICT (sport_id, coach_id) DO UPDATE SET role = EXCLUDED.role;
 
 SELECT public.sync_cadet_oversight('47bd1324-e8ea-4a4b-8d27-9c1592d71770', NULL);
 SELECT public.sync_cadet_oversight('fa677a4b-ce1a-4725-b70b-8d4afa328bbe', NULL);
+
+-- ---------------------------------------------------------------------------
+-- Incident reports + in-app notifications (via trg_notify_on_incident_* triggers)
+-- Login as tac@test.email to see pending review alerts; teacher1@test.email /
+-- faculty@test.email / teacher2@test.email to see actioned outcomes.
+-- ---------------------------------------------------------------------------
+DELETE FROM public.user_notifications
+WHERE event_type IN ('incident.pending_review', 'incident.actioned')
+  AND (
+    idempotency_key LIKE 'incident.%:f1000000-0000-0000-0000-00000000000%'
+    OR metadata->>'incident_id' IN (
+      'f1000000-0000-0000-0000-000000000001',
+      'f1000000-0000-0000-0000-000000000002',
+      'f1000000-0000-0000-0000-000000000003',
+      'f1000000-0000-0000-0000-000000000004'
+    )
+  );
+
+DELETE FROM public.incident_reports
+WHERE id IN (
+  'f1000000-0000-0000-0000-000000000001',
+  'f1000000-0000-0000-0000-000000000002',
+  'f1000000-0000-0000-0000-000000000003',
+  'f1000000-0000-0000-0000-000000000004'
+);
+
+INSERT INTO public.user_preferences (user_id, in_app_new_report, in_app_status_change)
+SELECT id, 'immediate'::public.notification_frequency, 'immediate'::public.notification_frequency
+FROM public.profiles
+WHERE id IN (
+  'b0c0e9df-1061-4721-b589-75780bc64f9c',
+  'f0000000-0000-0000-0000-000000000001',
+  'f0000000-0000-0000-0000-000000000002',
+  'f0000000-0000-0000-0000-000000000003',
+  'f0000000-0000-0000-0000-000000000004'
+)
+ON CONFLICT (user_id) DO UPDATE
+SET in_app_new_report = EXCLUDED.in_app_new_report,
+    in_app_status_change = EXCLUDED.in_app_status_change;
+
+INSERT INTO public.incident_reports (
+  id,
+  reporter_id,
+  subject_cadet_id,
+  description,
+  location,
+  incident_time,
+  action_taken,
+  status,
+  created_at
+)
+VALUES
+  (
+    'f1000000-0000-0000-0000-000000000001',
+    'f0000000-0000-0000-0000-000000000002',
+    '47bd1324-e8ea-4a4b-8d27-9c1592d71770',
+    'Cadet Private1 was disruptive during Algebra II — talking over instruction and refusing to take a seat after two warnings.',
+    'Room 112',
+    now() - interval '2 day',
+    'Removed cadet to hallway; notified squad leader.',
+    'pending',
+    now() - interval '2 day'
+  ),
+  (
+    'f1000000-0000-0000-0000-000000000002',
+    'f0000000-0000-0000-0000-000000000004',
+    'fa677a4b-ce1a-4725-b70b-8d4afa328bbe',
+    'Cadet Private2 used a phone during study hall after being told to put it away.',
+    'Study Hall B',
+    now() - interval '1 day',
+    'Phone confiscated for the period.',
+    'pending',
+    now() - interval '1 day'
+  ),
+  (
+    'f1000000-0000-0000-0000-000000000003',
+    'f0000000-0000-0000-0000-000000000002',
+    '47bd1324-e8ea-4a4b-8d27-9c1592d71770',
+    'Cadet Private1 arrived to formation without cover and argued with the inspecting officer.',
+    'Parade Field',
+    now() - interval '5 day',
+    'Sent back to barracks to retrieve cover.',
+    'pending',
+    now() - interval '5 day'
+  ),
+  (
+    'f1000000-0000-0000-0000-000000000004',
+    'f0000000-0000-0000-0000-000000000003',
+    'fa677a4b-ce1a-4725-b70b-8d4afa328bbe',
+    'Cadet Private2 was disrespectful to a classmate during US History group work.',
+    'Room 204',
+    now() - interval '4 day',
+    'Separated students and documented statements.',
+    'pending',
+    now() - interval '4 day'
+  );
+
+UPDATE public.incident_reports
+SET
+  status = 'handled',
+  resolved_at = now() - interval '3 day',
+  resolved_by = 'f0000000-0000-0000-0000-000000000001',
+  handled_by_id = 'f0000000-0000-0000-0000-000000000001',
+  resolution_notes = 'Spoke with cadet and parent; cadet apologized to inspecting officer.'
+WHERE id = 'f1000000-0000-0000-0000-000000000003';
+
+UPDATE public.incident_reports
+SET
+  status = 'converted',
+  resolved_at = now() - interval '2 day',
+  resolved_by = 'f0000000-0000-0000-0000-000000000001',
+  resolution_notes = 'Converted to demerit report for disrespect.'
+WHERE id = 'f1000000-0000-0000-0000-000000000004';
 
 COMMIT;

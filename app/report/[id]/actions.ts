@@ -1,5 +1,6 @@
 'use server'
 
+import { validatePolicyCategoryForRole } from '@/app/lib/categoryRestrictions.server'
 import { createClient } from '@/utils/supabase/server'
 import { revalidatePath } from 'next/cache'
 
@@ -85,6 +86,26 @@ export async function resubmitReport(reportId: string, payload: {
     
     if (!user) return { error: 'Unauthorized' }
 
+    const { data: profile } = await supabase
+        .from('profiles')
+        .select('role:roles(default_role_level)')
+        .eq('id', user.id)
+        .eq('archived', false)
+        .single()
+
+    const roleLevel = (profile?.role as { default_role_level?: number } | null)?.default_role_level ?? 0
+
+    const { data: offense } = await supabase
+        .from('offense_types')
+        .select('policy_category')
+        .eq('id', payload.offenseTypeId)
+        .single()
+
+    if (!offense) return { error: 'Invalid Offense Type.' }
+
+    const categoryCheck = await validatePolicyCategoryForRole(offense.policy_category, roleLevel)
+    if (!categoryCheck.ok) return { error: categoryCheck.error }
+
     // Recalculate Approver Chain
     const { data: userProfile } = await supabase
         .from('profiles')
@@ -156,8 +177,10 @@ export async function editAndApproveReport(reportId: string, payload: {
         .eq('archived', false)
         .single()
     
-    const roleLevel = (profile?.role as any)?.default_role_level || 0
+    const roleLevel = (profile?.role as { default_role_level?: number } | null)?.default_role_level ?? 0
     if (roleLevel < 90) return { error: 'Insufficient permissions' }
+
+    // Commandant override: category restrictions bypassed at role >= 90 (DB trigger also skips)
 
     // Force Complete
     const { error: updateError } = await supabase

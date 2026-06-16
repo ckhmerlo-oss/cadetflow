@@ -1,5 +1,7 @@
 # Day 01 - RLS and Policy Hardening Baseline
 
+> **Status:** Implemented (2026-06-13). Remaining sign-off and deferred follow-ups are tracked in Days 3–13—not as new Day-01 work.
+
 ## Feature / Update Description
 Harden row-level security and authorization behavior for core disciplinary workflows, especially `demerit_reports` lifecycle actions that currently break or bypass strict policy assumptions.
 
@@ -27,7 +29,7 @@ All later features depend on trusted access control. If RLS and policy enforceme
 - [x] Add positive tests for authorized lifecycle actions by role.
 - [x] Validate audit entries for security-sensitive actions.
 - [x] Document known constraints and migration implications.
-- [ ] Sign-off criteria: core report lifecycle passes with RLS fully enabled in staging.
+- [ ] Sign-off criteria: core report lifecycle passes with RLS fully enabled in staging *(closes in Day 13–14 integrated smoke/UAT—not new Day-01 implementation)*.
 
 ## Live RLS Matrix (Audit Snapshot)
 
@@ -65,6 +67,16 @@ Source: Supabase MCP live catalog (`pg_class`, `pg_policies`) on 2026-06-13.
 - Live schema drift exists in some areas (`posted_at` in live DB vs historical `is_posted` migration lineage).
 - `notification_queue` is currently admin-scoped by policy, while app-level digest enqueue logic may run from non-admin request context; this should be reconciled in a follow-up hardening pass.
 - Parent-link schema is out of Day-01 scope because those tables are not yet present.
+
+## Deferred Follow-Ups (Routed to Later Days)
+
+| Item | Routed To |
+|---|---|
+| `notification_queue` write policy vs non-admin enqueue context | Day 03 (in-app/notification pipeline hardening) |
+| Parent-link table RLS and policies | Day 11 (parent invite/portal schema) + Day 13 (integration verification) |
+| `incident_reports` local migration provenance reconciliation | Day 13 (integration and schema cleanup) |
+| Staging sign-off for core report lifecycle under full RLS | Day 13–14 (integrated smoke + UAT) |
+| RLS for new tables introduced in Days 3–12 | Each feature day applies Day-01 patterns; Day 13 verifies full matrix |
 
 ## Staging Sign-Off Runbook
 

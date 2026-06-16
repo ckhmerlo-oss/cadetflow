@@ -9,6 +9,7 @@ import RolesTab from './tabs/RolesTab'
 import CompaniesTab from './tabs/CompaniesTab' 
 import NotificationsTab from './tabs/NotificationsTab'
 import OptionsTab from './tabs/OptionsTab' // <--- Import the new tab
+import CategoryRestrictionsTab from './tabs/CategoryRestrictionsTab'
 import ArchivedTab from './tabs/ArchivedTab'
 
 // Lock Icon Helper
@@ -22,7 +23,7 @@ export function AdminSettingsClient({ user }: { user: User }) {
   const [isLoading, setIsLoading] = useState(false)
   
   // UPDATED Tab State
-  const [activeTab, setActiveTab] = useState<'general' | 'infractions' | 'roles' | 'companies' | 'notifications' | 'options' | 'archived'>('general')
+  const [activeTab, setActiveTab] = useState<'general' | 'infractions' | 'roles' | 'companies' | 'notifications' | 'categories' | 'options' | 'archived'>('general')
 
   const handleVerifyPassword = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -77,7 +78,7 @@ export function AdminSettingsClient({ user }: { user: User }) {
           <p className="text-xs text-muted-foreground mt-1">System Configuration</p>
         </div>
         <nav className="p-4 space-y-2">
-          {['general', 'infractions', 'roles', 'companies', 'notifications', 'options', 'archived'].map((tab) => ( // <--- 3. ADD 'archived' TO ARRAY
+          {['general', 'infractions', 'roles', 'companies', 'notifications', 'categories', 'options', 'archived'].map((tab) => ( // <--- 3. ADD 'archived' TO ARRAY
             <button 
               key={tab}
               onClick={() => setActiveTab(tab as any)}
@@ -92,6 +93,7 @@ export function AdminSettingsClient({ user }: { user: User }) {
               {tab === 'roles' && 'Roles & Hierarchy'}
               {tab === 'companies' && 'Companies & Units'}
               {tab === 'notifications' && 'Notifications & Alerts'}
+              {tab === 'categories' && 'Submission Policy'}
               {tab === 'options' && 'Cadet Options'}
               {tab === 'archived' && 'Archived Users'}
             </button>
@@ -107,6 +109,7 @@ export function AdminSettingsClient({ user }: { user: User }) {
           {activeTab === 'roles' && <RolesTab />}
           {activeTab === 'companies' && <CompaniesTab />} 
           {activeTab === 'notifications' && <NotificationsTab />} 
+          {activeTab === 'categories' && <CategoryRestrictionsTab />}
           {activeTab === 'options' && <OptionsTab />}
           {activeTab === 'archived' && <ArchivedTab />} {/* <--- 4. RENDER */}
         </div>

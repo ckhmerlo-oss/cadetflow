@@ -5,6 +5,7 @@ import { createClient } from '@/utils/supabase/server'
 import { ThemeProvider } from '@/app/components/ThemeProvider'
 import HeaderMenu from '@/app/components/HeaderMenu'
 import OnboardingTour from '@/app/components/tour/OnboardingTour'
+import { ONBOARDING_TOUR_ENABLED } from '@/app/components/tour/TourConfig'
 import Snowfall from '@/app/components/Snowfall'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/next"
@@ -139,7 +140,7 @@ export default async function RootLayout({
           </header>
 
           <main className="min-h-screen">
-            {user && (
+            {user && ONBOARDING_TOUR_ENABLED && (
               <OnboardingTour 
                 show={!hasSeenTour} 
                 canManage={canManage}

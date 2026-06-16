@@ -235,10 +235,18 @@ export default function BandDashboardClient({
                                         <div>
                                             <h4 className="text-xs font-bold text-muted-foreground uppercase mb-2">Contact Info</h4>
                                             <div className="space-y-1">
-                                                <p className="text-foreground flex items-center gap-2">
+                                                {member.parent_email ? (
+                                                  <p className="text-foreground flex items-center gap-2">
                                                     <svg className="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                                                    {member.email}
-                                                </p>
+                                                    {member.parent_email}
+                                                  </p>
+                                                ) : null}
+                                                {member.phone_number ? (
+                                                  <p className="text-foreground">{member.phone_number}</p>
+                                                ) : null}
+                                                {!member.parent_email && !member.phone_number ? (
+                                                  <p className="text-muted-foreground italic">No contact on file</p>
+                                                ) : null}
                                                 <p className="text-muted-foreground">Grade: {member.grade_level || 'N/A'}</p>
                                             </div>
                                         </div>

@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { triggerGreenSheetBlast } from '@/app/lib/server' 
 import { getGreenSheetData, publishGreenSheet, markReportAsPosted, unpostReport, GreenSheetItem } from './actions'
+import { formatPolicyCategory } from '@/app/lib/blueBook'
 
 // --- TYPES ---
 type TourSheetCadet = {
@@ -238,8 +239,8 @@ export default function DailyReportsPage() {
       } catch (err) { alert('Failed to copy.'); }
   }
   const handleCopyGreenSheet = () => {
-      const rows = processedGreenSheet.map(r => `<tr><td style="border:1px solid #ddd;padding:8px;">${r.subject_name}</td><td style="border:1px solid #ddd;padding:8px;">${r.company_name||'-'}</td><td style="border:1px solid #ddd;padding:8px;">${r.offense_name}</td><td style="border:1px solid #ddd;padding:8px;">${r.policy_category}</td><td style="border:1px solid #ddd;padding:8px;">${r.demerits}</td><td style="border:1px solid #ddd;padding:8px;">${r.submitter_name}</td><td style="border:1px solid #ddd;padding:8px;">${formatDate(r.date_of_offense)}</td></tr>`).join('');
-      const html = `<h2>Green Sheet - ${viewDate ? new Date(viewDate).toLocaleDateString() : new Date().toLocaleDateString()}</h2><table style="border-collapse:collapse;width:100%;font-family:sans-serif;font-size:14px;"><thead><tr style="background-color:#f2f2f2;"><th style="border:1px solid #ddd;padding:8px;">Cadet</th><th style="border:1px solid #ddd;padding:8px;">Co</th><th style="border:1px solid #ddd;padding:8px;">Offense</th><th style="border:1px solid #ddd;padding:8px;">Cat</th><th style="border:1px solid #ddd;padding:8px;">Dem</th><th style="border:1px solid #ddd;padding:8px;">By</th><th style="border:1px solid #ddd;padding:8px;">Date</th></tr></thead><tbody>${rows}</tbody></table>`;
+      const rows = processedGreenSheet.map(r => `<tr><td style="border:1px solid #ddd;padding:8px;">${r.subject_name}</td><td style="border:1px solid #ddd;padding:8px;">${r.company_name||'-'}</td><td style="border:1px solid #ddd;padding:8px;">${r.offense_name}</td><td style="border:1px solid #ddd;padding:8px;">${formatPolicyCategory(r.policy_category)}</td><td style="border:1px solid #ddd;padding:8px;">${r.demerits}</td><td style="border:1px solid #ddd;padding:8px;">${r.submitter_name}</td><td style="border:1px solid #ddd;padding:8px;">${formatDate(r.date_of_offense)}</td></tr>`).join('');
+      const html = `<h2>Green Sheet - ${viewDate ? new Date(viewDate).toLocaleDateString() : new Date().toLocaleDateString()}</h2><table style="border-collapse:collapse;width:100%;font-family:sans-serif;font-size:14px;"><thead><tr style="background-color:#f2f2f2;"><th style="border:1px solid #ddd;padding:8px;">Cadet</th><th style="border:1px solid #ddd;padding:8px;">Co</th><th style="border:1px solid #ddd;padding:8px;">Offense</th><th style="border:1px solid #ddd;padding:8px;">Category</th><th style="border:1px solid #ddd;padding:8px;">Dem</th><th style="border:1px solid #ddd;padding:8px;">By</th><th style="border:1px solid #ddd;padding:8px;">Date</th></tr></thead><tbody>${rows}</tbody></table>`;
       copyToClipboard(html);
   }
   const handleCopyTourSheet = () => {
@@ -355,7 +356,7 @@ export default function DailyReportsPage() {
                         <th onClick={() => handleSort('subject')} className="p-2 text-left text-sm font-semibold text-foreground cursor-pointer">Cadet <SortIcon column="subject"/></th>
                         <th onClick={() => handleSort('company')} className="hidden md:table-cell p-2 text-left text-sm font-semibold text-foreground cursor-pointer">CO <SortIcon column="company"/></th>
                         <th onClick={() => handleSort('offense')} className="p-2 text-left text-sm font-semibold text-foreground cursor-pointer">Offense <SortIcon column="offense"/></th>
-                        <th onClick={() => handleSort('cat')} className="hidden lg:table-cell p-2 text-left text-sm font-semibold text-foreground cursor-pointer">Cat <SortIcon column="cat"/></th>
+                        <th onClick={() => handleSort('cat')} className="hidden lg:table-cell p-2 text-left text-sm font-semibold text-foreground cursor-pointer">Category <SortIcon column="cat"/></th>
                         <th onClick={() => handleSort('demerits')} className="p-2 text-left text-sm font-semibold text-foreground cursor-pointer">Dem <SortIcon column="demerits"/></th>
                         <th onClick={() => handleSort('submitter')} className="hidden md:table-cell p-2 text-left text-sm font-semibold text-foreground cursor-pointer">By <SortIcon column="submitter"/></th>
                         <th className="hidden lg:table-cell p-2 text-left text-sm font-semibold text-foreground col-notes">Notes</th>
@@ -369,7 +370,7 @@ export default function DailyReportsPage() {
                             <td className="p-2 text-sm font-medium text-foreground border border-border">{r.subject_name}</td>
                             <td className="hidden md:table-cell p-2 text-sm text-muted-foreground border border-border">{r.company_name || '-'}</td>
                             <td className="p-2 text-sm text-muted-foreground border border-border">{r.offense_name}</td>
-                            <td className="hidden lg:table-cell p-2 text-sm text-muted-foreground border border-border">{r.policy_category}</td>
+                            <td className="hidden lg:table-cell p-2 text-sm text-muted-foreground border border-border">{formatPolicyCategory(r.policy_category)}</td>
                             <td className="p-2 text-sm text-muted-foreground border border-border">{r.demerits}</td>
                             <td className="hidden md:table-cell p-2 text-sm text-muted-foreground border border-border">{r.submitter_name}</td>
                             <td className="hidden lg:table-cell p-2 text-sm text-muted-foreground border border-border truncate max-w-xs col-notes">{r.notes}</td>
@@ -392,7 +393,7 @@ export default function DailyReportsPage() {
             {/* --- TOUR SHEET --- */}
             <section className={`mt-6 bg-card p-4 rounded-lg shadow-sm border border-border printable-section ${activeTab === 'tour' ? 'print-active' : 'hidden no-print'}`}>
             <div className="flex flex-col md:flex-row justify-between items-start md:items-center no-print mb-4 gap-4">
-                <div><h2 className="text-2xl font-semibold text-foreground">Tour Sheet</h2><p className="text-sm text-muted-foreground">Active tour balances.</p></div>
+                <div><h2 className="text-2xl font-semibold text-foreground">Tour Sheet</h2><p className="text-sm text-muted-foreground">Active penalty tour balances.</p></div>
                 <div className="flex items-center gap-2">
                     <Link href="/tours" className="flex items-center gap-2 px-4 py-2 bg-card text-foreground border border-border text-sm font-bold rounded shadow-sm hover:bg-accent transition-colors">
                         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" /></svg> View Full Ledger

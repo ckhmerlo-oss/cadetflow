@@ -1,5 +1,6 @@
 'use server'
 
+import { validatePolicyCategoryForRole } from '@/app/lib/categoryRestrictions.server'
 import { createClient } from '@/utils/supabase/server'
 import { revalidatePath } from 'next/cache'
 
@@ -17,14 +18,26 @@ export async function submitReport(payload: SubmitPayload) {
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return { error: 'Unauthorized' }
 
+  const { data: profile } = await supabase
+    .from('profiles')
+    .select('role:role_id(default_role_level)')
+    .eq('id', user.id)
+    .eq('archived', false)
+    .single()
+
+  const roleLevel = (profile?.role as { default_role_level?: number } | null)?.default_role_level ?? 0
+
   // 1. Fetch Offense Details
   const { data: offense } = await supabase
     .from('offense_types')
-    .select('demerits')
+    .select('demerits, policy_category')
     .eq('id', payload.offenseTypeId)
     .single()
 
   if (!offense) return { error: "Invalid Offense Type." }
+
+  const categoryCheck = await validatePolicyCategoryForRole(offense.policy_category, roleLevel)
+  if (!categoryCheck.ok) return { error: categoryCheck.error }
 
   // 2. FETCH APPROVER CHAIN
   // Step A: Find the group the User belongs to
@@ -35,7 +48,7 @@ export async function submitReport(payload: SubmitPayload) {
     .eq('archived', false)
     .single()
 
-  const myGroupId = (userProfile?.role as any)?.approval_group_id
+  const myGroupId = (userProfile?.role as { approval_group_id?: string | null } | null)?.approval_group_id
   let targetGroupId = null
 
   // Step B: Find the "Next Approver"

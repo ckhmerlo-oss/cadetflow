@@ -258,7 +258,7 @@ export default function ManagePage() {
         dataToExport = sourceData;
         filename = `${activeTab}_export.csv`;
         
-        headers = ['Last Name', 'First Name', 'Rank', 'Company', 'Role', 'Email', 'Grade', 'Room', 'Term Demerits', 'Year Demerits', 'Tour Balance'];
+        headers = ['Last Name', 'First Name', 'Rank', 'Company', 'Role', 'Email', 'Grade', 'Room', 'Term Demerits', 'Year Demerits', 'Penalty Tours Owed'];
         
         rowMapper = (item: RosterCadet) => [
             item.last_name,

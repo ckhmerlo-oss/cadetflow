@@ -1,3 +1,5 @@
+import { getAllowedPolicyCategories } from '@/app/lib/categoryRestrictions.server'
+import { filterOffensesByPolicy } from '@/app/lib/categoryRestrictions'
 import { createClient } from '@/utils/supabase/server'
 import { getIncident, getFacultyList } from '../actions'
 import { notFound, redirect } from 'next/navigation'
@@ -31,10 +33,11 @@ export default async function IncidentDetailPage({ params }: { params: Promise<{
       
       const { data: offenses } = await supabase
         .from('offense_types')
-        .select('id, offense_name, demerits, offense_group') 
+        .select('id, offense_name, demerits, offense_group, policy_category') 
         .order('offense_group')
       
-      offenseTypes = offenses || []
+      const allowedCategories = await getAllowedPolicyCategories(roleLevel)
+      offenseTypes = filterOffensesByPolicy(offenses ?? [], allowedCategories)
   }
 
   return (

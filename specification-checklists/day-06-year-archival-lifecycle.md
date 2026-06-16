@@ -11,11 +11,14 @@ Year turnover is operationally critical. Without bulk archival and returner hand
 ### User View
 - Admin/TAC can archive cohorts in bulk with clear confirmations.
 - Archived data is hidden from default active views but remains historically accessible.
+- Admin-toggleable "Show Archived" filter option for roster (/manage) page reveals hidden profiles.
+- Returners can be reactivated without losing prior-year history or conduct snapshots (Day 07).
 
 ### Backend Perspective
 - Use soft-archive state transitions, not hard deletes.
 - Preserve relational integrity and year-bound historical references.
 - Add safeguards for accidental archive operations.
+- Clear or suppress active operational links on archive (assignments, in-app notifications, room occupancy in Day 09 hallway view, parent portal active links in Day 11).
 
 ## Completion Checklist
 
@@ -25,6 +28,6 @@ Year turnover is operationally critical. Without bulk archival and returner hand
 - [ ] Update active roster queries to exclude archived by default.
 - [ ] Add archive filters/toggles for authorized historical access.
 - [ ] Implement returner reactivation flow preserving history.
-- [ ] Add validation for dependencies (assignments, notifications, profiles).
+- [ ] Add validation for dependencies (assignments, notifications, profiles, room occupancy/hallway state, parent links, open special reports).
 - [ ] Add rollback/recovery procedure for mistaken archive operations.
-- [ ] Sign-off criteria: end-of-year archive simulation succeeds with no data loss.
+- [ ] Sign-off criteria: end-of-year archive simulation succeeds with no data loss; returner reactivation preserves history and restores active operational links.
