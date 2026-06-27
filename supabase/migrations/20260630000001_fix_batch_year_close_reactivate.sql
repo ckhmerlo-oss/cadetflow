@@ -36,6 +36,8 @@ $$;
 -- Green sheet posting — use posted_at as source of truth
 -- ---------------------------------------------------------------------------
 
+drop function if exists public.get_unposted_green_sheet();
+
 create or replace function public.get_unposted_green_sheet()
 returns table(
   report_id uuid,
