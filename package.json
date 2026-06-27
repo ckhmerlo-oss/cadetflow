@@ -7,8 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test:db": "supabase test db",
-    "test:db:reset": "supabase db reset && supabase test db"
+    "fix:auth": "psql postgresql://postgres:postgres@127.0.0.1:56322/postgres -f supabase/scripts/fix-auth-login.sql",
+    "test:db": "supabase test db && npm run fix:auth",
+    "test:db:reset": "supabase db reset && supabase test db && npm run fix:auth"
   },
   "dependencies": {
     "@supabase/auth-ui-react": "^0.4.7",

@@ -33,6 +33,7 @@ export default function CadetScheduleOversight({
   canEditSchedule,
   isFaculty,
   currentUserId,
+  isArchivedView = false,
 }: {
   cadetId: string
   schedule: ScheduleRow[]
@@ -40,6 +41,7 @@ export default function CadetScheduleOversight({
   canEditSchedule: boolean
   isFaculty: boolean
   currentUserId: string
+  isArchivedView?: boolean
 }) {
   const router = useRouter()
   const [loading, setLoading] = useState<string | null>(null)
@@ -167,7 +169,7 @@ export default function CadetScheduleOversight({
                     Seminar: {o.staff_last_name}, {o.staff_first_name}
                     {o.course_name ? ` (${o.course_name})` : ''}
                   </span>
-                  {o.is_self && (
+                  {o.is_self && !isArchivedView && (
                     <button
                       onClick={() => handleRemoveSecondary(o.assignment_id)}
                       disabled={loading === o.assignment_id}
@@ -181,7 +183,7 @@ export default function CadetScheduleOversight({
               {faculty.map((o) => (
                 <li key={o.assignment_id} className="text-sm flex justify-between items-center gap-2">
                   <span>Faculty: {o.staff_last_name}, {o.staff_first_name}</span>
-                  {(o.is_self || canEditSchedule) && (
+                  {(o.is_self || canEditSchedule) && !isArchivedView && (
                     <button
                       onClick={() => handleRemoveFaculty(o.assignment_id)}
                       disabled={loading === o.assignment_id}
@@ -196,7 +198,7 @@ export default function CadetScheduleOversight({
           </div>
         )}
 
-        {isFaculty && !faculty.some((f) => f.staff_id === currentUserId) && (
+        {isFaculty && !isArchivedView && !faculty.some((f) => f.staff_id === currentUserId) && (
           <button
             onClick={handleSelfAssign}
             disabled={loading === 'faculty'}

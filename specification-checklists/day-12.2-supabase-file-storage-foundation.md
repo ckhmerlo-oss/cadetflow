@@ -1,7 +1,7 @@
 # Day 12.2 - Supabase File Storage Foundation
 
 ## Feature / Update Description
-Establish a unified Supabase Storage layout and database metadata layer for user-uploaded files across CadetFlow: cadet profile photos, Special Report attachments (Day 10), parent portal documents (Day 11), and an extensible pattern for future modules (work order photos, move-in/out inspection images from Day 09, summary exports from Day 12). Day 12.3 profile overhaul consumes this foundation for avatar display and upload.
+Establish a unified Supabase Storage layout and database metadata layer for user-uploaded files across CadetFlow: cadet profile photos, Special Report attachments (Day 10), parent portal documents (Day 11), **work order evidence photos (Day 08)**, **move-in/out inspection images (Day 09)**, and summary exports from Day 12. Day 12.3 profile overhaul consumes this foundation for avatar display and upload.
 
 ## Why This Is Important
 CadetFlow currently has no first-class file storage. Profile pages show initials placeholders, Special Reports and parent travel flows cannot attach evidence, and each future feature would otherwise invent its own bucket paths and permission rules. A single storage contract with RLS-aligned metadata prevents duplication, enforces role-scoped access, and keeps sensitive narrative attachments (Day 10) from leaking via public URLs.
@@ -19,12 +19,12 @@ CadetFlow currently has no first-class file storage. Profile pages show initials
   - `cadet-avatars` — one active photo per cadet profile; optional thumbnail variant.
   - `special-report-files` — images and PDFs linked to Special Report records (Day 10).
   - `parent-documents` — travel requests, permission slips, and other parent-uploaded files (Day 11).
-  - `general-attachments` — reserved namespace for future modules (work orders, inspection photos, admin exports) without new bucket sprawl.
+  - `general-attachments` — work order photos (Day 08), move-in/out form and per-item inspection photos (Day 09), and admin exports (Day 12). Path examples: `work-order/{id}/`, `inspection/{form_id}/`, `inspection/{form_id}/{item_key}/`.
 - **Path convention:** `{bucket}/{owner_scope}/{entity_id}/{file_uuid}.{ext}` where `owner_scope` is e.g. `cadet/{profile_id}`, `report/{report_id}`, `parent/{parent_user_id}`.
 - **`file_assets` metadata table** (or equivalent) with:
   - `id`, `bucket`, `storage_path`, `original_filename`, `mime_type`, `byte_size`, `checksum` (optional)
-  - `entity_type` + `entity_id` (polymorphic link: `cadet_profile`, `special_report`, `parent_submission`, etc.)
-  - `purpose` enum (`avatar`, `evidence`, `travel_doc`, `other`)
+  - `entity_type` + `entity_id` (polymorphic link: `cadet_profile`, `special_report`, `parent_submission`, `work_order`, `room_move_in_form`, `room_move_out_form`, `room_inspection_item`, etc.)
+  - `purpose` enum (`avatar`, `evidence`, `travel_doc`, `inspection_photo`, `other`)
   - `uploaded_by`, `created_at`, `deleted_at` (soft delete)
   - `is_primary` flag for avatars (only one active primary per cadet)
 - **Profile linkage:** add `avatar_file_id` (FK → `file_assets`) on `cadet_profiles` (and optionally `profiles` for staff later).
@@ -46,7 +46,7 @@ CadetFlow currently has no first-class file storage. Profile pages show initials
 - [ ] `cadet-avatars`: cadet upload/replace own; TAC/admin upload for managed cadets; read scoped to viewers who can open the cadet profile.
 - [ ] `special-report-files`: submitter insert; read for submitter, subject cadet (if applicable), TAC, site admin, assigned oversight faculty (Day 02); no public read.
 - [ ] `parent-documents`: parent insert/read for own submissions linked to their cadet; TAC read for linked cadets; block cross-cadet access.
-- [ ] `general-attachments`: deny-by-default; placeholder policies or no client upload until a consuming epic enables them.
+- [ ] `general-attachments`: enable after Day 12.2 core RPCs — work order submit/triage (Day 08), inspection form/item upload (Day 09); read scoped to requester, company TAC, maintenance on forwarded orders, and inspection viewers per Day 09 RLS.
 - [ ] Grant INSERT + SELECT + UPDATE on buckets where upsert/replace is required (Supabase storage upsert needs all three).
 
 ### Upload and Lifecycle RPCs
@@ -65,7 +65,12 @@ CadetFlow currently has no first-class file storage. Profile pages show initials
 
 ### App Integration Hooks (API layer only — UI in Day 12.3 / consumer epics)
 - [ ] Shared `lib/fileStorage.ts` (or server module) for signed URL generation and upload orchestration.
-- [ ] Server action stubs or hooks documented for: profile avatar, Special Report attachment, parent document (implement UI in Days 10/11/12.3).
+- [ ] Server action stubs or hooks documented for: profile avatar, Special Report attachment, parent document, **work order evidence upload**, **inspection form/item photo upload** (UI scaffold in Day 09 — implement persistence in Days 08/09 when storage RPCs land).
+- [ ] Implement `uploadPendingInspectionPhotos` body: `request_file_upload` → client upload → `finalize_file_upload` for `entity_type` ∈ {`room_move_in_form`, `room_move_out_form`, `room_inspection_item`}; path `general-attachments/inspection/{form_id}/…`.
+- [ ] Implement `listInspectionFormAttachments` (or generic list-by-entity) for form view + work-order forward copy-by-reference.
+- [ ] Set `NEXT_PUBLIC_INSPECTION_PHOTO_UPLOAD=true` in staging after bucket policies verified.
+- [ ] Update Day 08 checklist dependency note: work order and forward attachments use Day 12.2 `general-attachments` bucket.
+- [ ] Update Day 09 checklist dependency note: move-in/out form and item photos use Day 12.2 `general-attachments` bucket; optional copy-by-reference onto linked work orders on TAC forward.
 - [ ] Update Day 10 checklist dependency note: attachment upload uses Day 12.2 `special-report-files` bucket.
 - [ ] Update Day 11 checklist dependency note: parent uploads use Day 12.2 `parent-documents` bucket.
 

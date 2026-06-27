@@ -40,7 +40,7 @@ These high-impact items were under-scoped or missing in the original docs and ar
    - Work orders, room status, and TAC hallway view were not represented in operational detail.
 
 7. **Historical Conduct Analytics**
-   - Conduct-level tracking needed to persist and query by prior terms, not only current term calculations.
+   - Conduct-level tracking needed to query by prior terms and school years via date-range aggregation over source records, not only current-term live calculations.
 
 8. **Summary Generation Workflow**
    - TAC-reviewed monthly/term summaries for parent communication were underspecified.
@@ -60,21 +60,24 @@ These high-impact items were under-scoped or missing in the original docs and ar
 
 The table below is dependency-aware and optimized for daily deliverables.
 
-| Day | Epic | Outcome |
-|---|---|---|
-| 1 | **RLS/Policy Hardening Baseline** | RLS-safe report paths and policy map established |
-| 2 | **Big-3 Assignment Engine** | Auto-managed core adult assignments + extra faculty links |
-| 3 | **Notification Event Model + In-App Foundation** | Event taxonomy and in-app inbox baseline |
-| 4 | **Email Expansion + Preference Controls** | End-to-end email events with user/per-cadet preferences |
-| 5 | **Role-Based Category Restrictions** | Cadet stick-category limits configurable by admin |
-| 6 | **Year Archival + Returner Lifecycle** | Bulk archive workflows for year/cadet states |
-| 7 | **Multi-Year Ledger/Profile Switching** | Year selector and historical conduct views |
-| 8 | **Work Orders Intake + TAC Triage** | Student submissions and TAC handling workflow |
-| 9 | **Room Status + Hallway View** | TAC hallway visualization and print-ready roster |
-| 10 | **Special Reports Module** | Submission, event linkage, review, summary, actioning |
-| 11 | **Parent Invite + Linked Parent Portal** | Secure invite flow and parent-scoped capabilities |
-| 12 | **Monthly/Term Summary Workflow** | Auto-generated summary drafts with TAC review/forward |
-| 13-15 | **Testing, UAT, Rollout** | Regression, verification, go/no-go, production launch |
+**Progress (2026-06-27):** Days 1–8 implemented in code. **Current epic: Day 9.** Days 10–12.4 not started. See `specification-checklists/README.md` for checklist status and Day 12 sub-epic order.
+
+| Day | Epic | Outcome | Status |
+|---|---|---|---|
+| 1 | **RLS/Policy Hardening Baseline** | RLS-safe report paths and policy map established | Done |
+| 2 | **Big-3 Assignment Engine** | Auto-managed core adult assignments + extra faculty links | Done |
+| 3 | **Notification Event Model + In-App Foundation** | Event taxonomy and in-app inbox baseline | Done |
+| 4 | **Email Expansion + Preference Controls** | End-to-end email events with user/per-cadet preferences | Done |
+| 5 | **Role-Based Category Restrictions** | Cadet stick-category limits configurable by admin | Done |
+| 6 | **Year Archival + Returner Lifecycle** | Bulk archive workflows for year/cadet states | Done |
+| 7 | **Multi-Year Ledger/Profile Switching** | Year selector and historical conduct views | Done |
+| 8 | **Work Orders Intake + TAC Triage** | Student submissions and TAC handling workflow | Done |
+| 9 | **Room Status + Hallway View** | TAC hallway visualization and print-ready roster | **Current** |
+| 10 | **Special Reports Module** | Submission, event linkage, review, summary, actioning | Not started |
+| 11 | **Parent Invite + Linked Parent Portal** | Secure invite flow and parent-scoped capabilities | Not started |
+| 12 | **Monthly/Term Summary Workflow** | Auto-generated summary drafts with TAC review/forward | Not started |
+| 12.1–12.4 | **Tour, storage, profile, TAC config** | Onboarding tour, file storage, profile UX, company policy | Not started |
+| 13-15 | **Testing, UAT, Rollout** | Regression, verification, go/no-go, production launch | Not started |
 
 ---
 
@@ -167,15 +170,18 @@ Each epic includes a daily definition of done. Daily completion means accepted c
 ### Epic 7 — Multi-Year Profile/Ledger Switching + Conduct History
 
 **Objective**
-- Enable historical navigation of cadet profile and ledger by school year/term.
+- Enable historical navigation and investigation of cadet profile and ledger by school year/term.
 
 **Build Targets**
-- Year selector in profile/ledger surfaces.
-- Term-end conduct snapshots stored and queryable.
+- School-year and term selectors in profile/ledger surfaces.
+- Server-side period query layer: conduct stats, filtered ledger, academic history, and roster conduct reports computed from source records joined to `academic_terms` bounds.
+- Remove Day 06 `cadet_conduct_snapshots` stub; no denormalized conduct store.
 
 **Acceptance**
-- Users can switch years on-the-fly for returners.
-- Conduct-level lists can be queried for non-current terms.
+- Users can switch years/terms on-the-fly for returners.
+- Conduct-level lists can be queried for non-current terms via period aggregation (e.g. prior-term Exemplary Conduct roster).
+- Current-term and historical views use the same aggregation rules; only date bounds differ.
+- Invariant reference: §3.4 Historical conduct queryability.
 
 ### Epic 8 — Work Orders Intake + TAC Triage
 
@@ -254,7 +260,7 @@ Each epic includes a daily definition of done. Daily completion means accepted c
 
 - RLS regression pass for report, assignment, parent, and archival flows.
 - Notification correctness pass (routing, dedupe, preference handling).
-- Historical-data integrity checks for year switch and conduct snapshots.
+- Historical-data integrity checks for year/term switch and date-ranged conduct queries.
 
 ### Day 14 — Role-Based UAT
 

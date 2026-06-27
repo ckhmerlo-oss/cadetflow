@@ -15,6 +15,10 @@ export const NOTIFICATION_EVENT_TYPES = {
   OVERSIGHT_CONDUCT_CHANGED: 'oversight.conduct_changed',
   INCIDENT_PENDING_REVIEW: 'incident.pending_review',
   INCIDENT_ACTIONED: 'incident.actioned',
+  WORKORDER_SUBMITTED: 'workorder.submitted',
+  WORKORDER_FORWARDED: 'workorder.forwarded',
+  WORKORDER_ASSIGNED: 'workorder.assigned',
+  WORKORDER_COMPLETED: 'workorder.completed',
 } as const
 
 export type NotificationEventType =

@@ -133,38 +133,3 @@ export async function setBandMembership(cadetId: string, isInBand: boolean) {
   revalidatePath('/band')
   return { success: true }
 }
-
-export async function toggleUserArchiveStatus(targetUserId: string, setArchived: boolean) {
-  const supabase = createClient()
-
-  const { data: { user } } = await supabase.auth.getUser()
-  if (!user) return { error: "Unauthorized" }
-
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('role:role_id(default_role_level)')
-    .eq('id', user.id)
-    .single()
-
-  const roleLevel = (profile?.role as any)?.default_role_level || 0
-  if (roleLevel < 90) return { error: "Permission Denied: Admins only." }
-
-  const updates: any = { archived: setArchived }
-
-  if (setArchived) {
-    updates.company_id = null
-    updates.role_id = null
-  }
-
-  const { error } = await supabase
-    .from('profiles')
-    .update(updates)
-    .eq('id', targetUserId)
-
-  if (error) return { error: error.message }
-
-  revalidatePath('/admin')
-  revalidatePath('/roster')
-
-  return { success: true }
-}

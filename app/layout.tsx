@@ -4,8 +4,10 @@ import Link from 'next/link'
 import { createClient } from '@/utils/supabase/server'
 import { ThemeProvider } from '@/app/components/ThemeProvider'
 import HeaderMenu from '@/app/components/HeaderMenu'
+import MaintenanceRouteGuard from '@/app/components/MaintenanceRouteGuard'
 import OnboardingTour from '@/app/components/tour/OnboardingTour'
 import { ONBOARDING_TOUR_ENABLED } from '@/app/components/tour/TourConfig'
+import { MAINTENANCE_HOME, shouldUseMaintenanceShell } from '@/app/lib/maintenanceAccess'
 import Snowfall from '@/app/components/Snowfall'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/next"
@@ -32,7 +34,10 @@ export default async function RootLayout({
   let logoColor = "text-primary hover:text-foreground";
   let isSiteAdmin = false;
   let hasSeenTour = false;
-  let isInBand = false; // <--- NEW VARIABLE
+  let isInBand = false;
+  let isMaintenanceManager = false;
+  let isMaintenanceOnlyNav = false;
+  let logoHref = '/';
 
   if (user) {
     const { data: profile } = await supabase
@@ -60,9 +65,11 @@ export default async function RootLayout({
     if (role) {
       roleLevel = role.default_role_level || 0;
       canManage = Boolean(role.can_manage_own_company_roster || role.can_manage_all_rosters);
+      isMaintenanceManager = Boolean(role.role_name && role.role_name.toLowerCase().includes('maintenance'));
     }
     
     isSiteAdmin = profile?.is_site_admin || false;
+    isMaintenanceOnlyNav = shouldUseMaintenanceShell(isMaintenanceManager, isSiteAdmin);
     hasSeenTour = profile?.has_seen_tour || false;
     const cadetDetails = Array.isArray((profile as any)?.cadet_profiles)
       ? (profile as any).cadet_profiles[0]
@@ -73,7 +80,11 @@ export default async function RootLayout({
     // We keep specific colors for specific roles (like Band/Staff) to maintain identity,
     // but update TAC to use semantic 'destructive' (Red) for better theme integration.
 
-    if (role?.role_name && role.role_name.includes('Band Director')) {
+    if (isMaintenanceOnlyNav) {
+      logoText = 'WorkFlow';
+      logoColor = 'text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300';
+      logoHref = MAINTENANCE_HOME;
+    } else if (role?.role_name && role.role_name.includes('Band Director')) {
       logoText = "Now with 100% More Band!"
       logoColor = "text-green-400 hover:text-green-700"
     } else if (roleLevel >= 60 || (role?.role_name && role.role_name.includes('TAC'))) {
@@ -110,14 +121,14 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
           >
-          <header className="bg-card/80 backdrop-blur-md border-b border-border sticky top-0 z-50 transition-colors">
+          <header className="no-print bg-card/80 backdrop-blur-md border-b border-border sticky top-0 z-50 transition-colors">
             <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
               <div className="flex justify-between items-center h-16">
                 
                 {/* Logo */}
                 <div className="flex-shrink-0">
                   <Link 
-                    href="/" 
+                    href={logoHref} 
                     className={`text-2xl font-bold tracking-tight transition-colors ${logoColor}`}
                   >
                     {logoText}
@@ -129,10 +140,13 @@ export default async function RootLayout({
                   <HeaderMenu 
                     isLoggedIn={!!user}
                     canManage={canManage}
-                    showDailyReports={roleLevel >= 50}
+                    showDailyReports={roleLevel >= 50 && !isMaintenanceOnlyNav}
+                    showClasses={roleLevel >= 50 && roleLevel < 65 && !isMaintenanceOnlyNav}
                     isSiteAdmin={isSiteAdmin}
                     roleLevel={roleLevel}
                     isInBand={isInBand}
+                    isMaintenanceManager={isMaintenanceManager}
+                    isMaintenanceOnlyNav={isMaintenanceOnlyNav}
                   />
                 </div>
               </div>
@@ -140,7 +154,7 @@ export default async function RootLayout({
           </header>
 
           <main className="min-h-screen">
-            {user && ONBOARDING_TOUR_ENABLED && (
+            {user && ONBOARDING_TOUR_ENABLED && !isMaintenanceOnlyNav && (
               <OnboardingTour 
                 show={!hasSeenTour} 
                 canManage={canManage}
@@ -151,7 +165,11 @@ export default async function RootLayout({
               />
             )}
             <Snowfall/>
-            {children}
+            {isMaintenanceOnlyNav ? (
+              <MaintenanceRouteGuard>{children}</MaintenanceRouteGuard>
+            ) : (
+              children
+            )}
           </main>
         </ThemeProvider>
         <SpeedInsights/>

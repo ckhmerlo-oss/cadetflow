@@ -21,6 +21,9 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- 2. Create Test Term
+DELETE FROM public.academic_terms
+WHERE school_year = '2099-2100' AND term_number = 1 AND archived = false;
+
 INSERT INTO public.academic_terms (id, term_name, start_date, end_date, school_year, term_number, archived)
 VALUES 
   ('00000000-0000-0000-0000-eeeeeeeeeeee', 'Test Term', CURRENT_DATE - 30, CURRENT_DATE + 30, '2099-2100', 1, false)

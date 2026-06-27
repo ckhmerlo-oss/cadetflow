@@ -31,7 +31,9 @@ export const CADET_PROFILE_SELECT = `
     parent_name,
     parent_email,
     parent_phone,
-    phone_number
+    phone_number,
+    graduated_at,
+    departure_classification
   )
 `
 
@@ -114,6 +116,8 @@ export type CadetDetails = {
   parent_email: string | null
   parent_phone: string | null
   phone_number: string | null
+  graduated_at: string | null
+  departure_classification: string | null
 }
 
 export type StaffProfileRow = {
@@ -175,6 +179,8 @@ export type FlatCadetProfile = {
   parent_email: string | null
   parent_phone: string | null
   phone_number: string | null
+  graduated_at: string | null
+  departure_classification: string | null
 }
 
 export type FlatStaffProfile = {
@@ -232,6 +238,8 @@ export function flattenCadetProfile(row: CadetProfileRow): FlatCadetProfile {
     parent_email: details?.parent_email ?? null,
     parent_phone: details?.parent_phone ?? null,
     phone_number: details?.phone_number ?? null,
+    graduated_at: details?.graduated_at ?? null,
+    departure_classification: details?.departure_classification ?? null,
   }
 }
 
@@ -263,31 +271,32 @@ export function isStaffRoleLevel(level: number | null | undefined): boolean {
 export async function getProfileById(supabase: SupabaseClient, id: string) {
   const { data: base, error: baseError } = await supabase
     .from('profiles')
-    .select('id, role:roles(default_role_level)')
+    .select('id, archived, role:roles(default_role_level)')
     .eq('id', id)
-    .eq('archived', false)
     .single()
 
   if (baseError || !base) return { data: null, error: baseError }
 
+  const isArchived = (base as { archived?: boolean }).archived === true
+  if (isArchived) {
+    const { data: canView } = await supabase.rpc('can_view_archived_cadet', { p_cadet_id: id })
+    if (!canView) return { data: null, error: { message: 'Not found' } as any, kind: 'cadet' as const }
+  } else {
+    // Active profiles only in default path — archived handled above
+  }
+
   const roleLevel = unwrapOne((base as any).role)?.default_role_level ?? 0
 
   if (isStaffRoleLevel(roleLevel)) {
-    const { data, error } = await supabase
-      .from('profiles')
-      .select(STAFF_PROFILE_SELECT)
-      .eq('id', id)
-      .eq('archived', false)
-      .single()
+    const q = supabase.from('profiles').select(STAFF_PROFILE_SELECT).eq('id', id)
+    if (!isArchived) q.eq('archived', false)
+    const { data, error } = await q.single()
     return { data: data ? flattenStaffProfile(data as unknown as StaffProfileRow) : null, error, kind: 'staff' as const }
   }
 
-  const { data, error } = await supabase
-    .from('profiles')
-    .select(CADET_PROFILE_SELECT)
-    .eq('id', id)
-    .eq('archived', false)
-    .single()
+  const q = supabase.from('profiles').select(CADET_PROFILE_SELECT).eq('id', id)
+  if (!isArchived) q.eq('archived', false)
+  const { data, error } = await q.single()
 
   return { data: data ? flattenCadetProfile(data as unknown as CadetProfileRow) : null, error, kind: 'cadet' as const }
 }

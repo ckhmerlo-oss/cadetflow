@@ -32,7 +32,7 @@ export default async function IncidentsPage() {
 
   const allowedCategories = roleLevel >= 90
     ? [1, 2, 3]
-    : await getAllowedPolicyCategories(roleLevel)
+    : (await getAllowedPolicyCategories(roleLevel)).categories
 
   const filteredOffenses = filterOffensesByPolicy(offenseTypes ?? [], allowedCategories)
 

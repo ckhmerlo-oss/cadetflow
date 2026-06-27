@@ -12,12 +12,13 @@ Parent engagement is a core operational requirement for communication and travel
 - TAC generates and sends unique invite links (email delivery via Day 04 when enabled).
 - Parent creates account and is linked to cadet.
 - Parent can submit travel requests/docs and view allowed cadet information (current-term and permitted historical conduct from Day 07).
-- Archived cadet links show historical read-only context or are suppressed per Day 06 policy.
+- **Archived cadets (Day 06 default):** Linked parents retain **read-only historical** conduct, profile context, and previously forwarded summaries. Travel requests and document uploads are **disabled** until the cadet is reactivated. New parent invites for archived-only cadets are blocked or clearly marked historical-only.
 
 ### Backend Perspective
 - Token-based invite lifecycle (issue, redeem, expire, revoke).
 - Parent-cadet linkage model with strict permission boundaries.
 - Parent role-specific query surfaces and upload handling.
+- **Day 06 integration:** On cadet archive, parent links remain but portal mutations are denied server-side; queries return historical conduct only. On reactivation, restore full linked-cadet actions.
 - Apply Day 01 RLS patterns to new parent-link, invite, and portal tables (Day 01 deferred follow-up).
 - Emit in-app notifications to TAC on invite redemption and key parent submissions (Day 03); email invites and confirmations (Day 04).
 
@@ -31,7 +32,8 @@ Parent engagement is a core operational requirement for communication and travel
 - [ ] Add travel request submission and document upload support.
 - [ ] Add RLS policies for parent-link and portal tables (Day 01 deferred follow-up).
 - [ ] Integrate historical conduct queries with Day 07 permission scoping.
-- [ ] Handle archived cadet linkage per Day 06 rules.
+- [ ] Handle archived cadet linkage per Day 06 rules (read-only historical; no travel/upload until reactivation).
+- [ ] Test parent portal after year-close simulation: historical conduct visible, mutations blocked.
 - [ ] Add in-app and email notifications for invite and submission events (Days 03–04).
 - [ ] Enforce parent role boundaries in all relevant queries/actions.
 - [ ] Add tests for invite expiry, invalid token, unauthorized access, and archive boundaries.

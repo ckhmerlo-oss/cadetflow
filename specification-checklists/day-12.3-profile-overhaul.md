@@ -21,6 +21,8 @@ The profile is the hub for cadet identity, discipline context, and staff interve
 - **Avatar upload:** cadet (own profile) or TAC/admin (managed cadets) can upload/replace photo via Day 12.2 flow; immediate preview after save.
 - **Layout:** two-column desktop (summary + details/tabs); single-column mobile with collapsible sections; reduce edit-mode clutter by grouping fields (Identity, Athletics, Contact, Commandant-only).
 - **Year/term context:** integrate Day 07 selector when available; conduct widget reflects selected term/year.
+- **Role history (Day 06):** section listing prior roles/companies from `cadet_profile_view.role_history`; TAC/Commandant/admin may delete entries (audited).
+- **Years attended:** display `cadet_profile_view.years_attended` in identity header.
 - **Staff profiles:** refreshed header and contact block; shared nav patterns; no conduct widget.
 - **Parent viewers (Day 11):** read-only profile slice — photo, conduct summary, permitted history — no edit controls or sensitive fields.
 - **Archived cadets (Day 06):** banner indicating archived state; read-only; historical year switch still works for authorized viewers.
@@ -59,7 +61,7 @@ The profile is the hub for cadet identity, discipline context, and staff interve
 - [ ] Redesign identity header: photo upload control (edit mode / permission gated), responsive layout fixes.
 - [ ] Reorganize stats: conduct card primary; term/year demerits and tour balance secondary row.
 - [ ] Add quick-action nav row (Ledger, Submit Report if self, Oversight link for assigned faculty, etc.).
-- [ ] Tabbed or anchored sections: Overview | Athletics & Activities | Schedule & Oversight | History (audit log).
+- [ ] Tabbed or anchored sections: Overview | Athletics & Activities | Schedule & Oversight | Role History | History (audit log).
 - [ ] Polish typography, spacing, and dark-mode consistency with design tokens (`bg-card`, `border-border`, semantic status colors).
 - [ ] Staff profile: apply header/nav polish without conduct widget.
 - [ ] Parent read-only view: hide edit, contact fields per Day 11 policy, show allowed conduct summary + photo.
@@ -78,8 +80,9 @@ The profile is the hub for cadet identity, discipline context, and staff interve
 
 ### Permissions and Archive
 - [ ] Avatar upload: cadet self, TAC/admin with roster manage scope only.
-- [ ] Archived cadet: read-only UI, no upload/edit; banner for viewers with level ≥ 90.
-- [ ] Verify profile page 404 rules unchanged for unauthorized archived access.
+- [ ] Archived cadet: read-only UI, no upload/edit; banner for all authorized viewers per Day 06 (`can_view_archived_cadet`), not admin-only.
+- [ ] Role history delete: TAC (own company), Commandant/admin (90+); audited.
+- [ ] Verify profile/ledger access for TAC/faculty on archived cadets matches Day 06 scope rules.
 
 ### Testing and Sign-Off
 - [ ] Visual regression pass: desktop and mobile for cadet, staff, TAC viewer, parent viewer.

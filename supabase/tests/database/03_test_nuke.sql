@@ -18,12 +18,15 @@ BEGIN
   v_tours := public.calculate_tours_for_new_report(v_cadet_id, 10, 3, v_test_date);
   PERFORM test_assert(v_tours = 10, 'Category 3 should assign full tours immediately');
 
-  -- Insert it into history
+  -- Insert it into history (Category III requires TAC authority)
+  PERFORM set_config('request.jwt.claim.sub', 'f0000000-0000-0000-0000-000000000001', true);
+  SET LOCAL row_security = off;
+
   INSERT INTO public.demerit_reports (
     subject_cadet_id, submitted_by, offense_type_id, demerits_effective, status, date_of_offense
   )
   VALUES (
-    v_cadet_id, v_cadet_id, v_cat3_id, 10, 'completed', v_test_date
+    v_cadet_id, 'f0000000-0000-0000-0000-000000000001', v_cat3_id, 10, 'completed', v_test_date
   );
 
   -- STEP 2: Subsequent Minor Offense (5 Demerits).

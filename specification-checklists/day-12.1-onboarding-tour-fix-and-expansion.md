@@ -65,7 +65,7 @@ The onboarding tour is the first-run experience for cadets, faculty, TAC, and ad
 - [ ] Note that archived cadets disappear from active operational views.
 
 ### Day 07 – Multi-Year History
-- [ ] Add ledger/profile steps: year/term switcher and historical conduct snapshots.
+- [ ] Add ledger/profile steps: year/term switcher and date-ranged historical conduct investigation.
 - [ ] Clarify read-only prior-year context for cadets vs staff.
 
 ### Day 08 – Work Orders

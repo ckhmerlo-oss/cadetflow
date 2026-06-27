@@ -45,13 +45,13 @@ BEGIN
   RAISE NOTICE '--- STARTING GREEN SHEET TEST ---';
 
   -- Create Report: Completed, NOT Posted
-  INSERT INTO public.demerit_reports (id, subject_cadet_id, submitted_by, offense_type_id, demerits_effective, status, is_posted, date_of_offense)
-  VALUES (v_report_unposted, v_cadet_id, v_admin_id, v_offense_id, 5, 'completed', false, now());
+  INSERT INTO public.demerit_reports (id, subject_cadet_id, submitted_by, offense_type_id, demerits_effective, status, posted_at, date_of_offense)
+  VALUES (v_report_unposted, v_cadet_id, v_admin_id, v_offense_id, 5, 'completed', NULL, now());
 
   -- 4. VERIFY DETECTION
   SELECT count(*) INTO v_count 
   FROM public.demerit_reports 
-  WHERE status = 'completed' AND is_posted = false AND id = v_report_unposted;
+  WHERE status = 'completed' AND posted_at IS NULL AND id = v_report_unposted;
   
   PERFORM test_assert(v_count = 1, 'Should find 1 unposted completed report');
 
@@ -64,7 +64,7 @@ BEGIN
 
   -- 6. VERIFY RESULT
   PERFORM test_assert(
-    (SELECT is_posted FROM public.demerit_reports WHERE id = v_report_unposted) = true,
+    (SELECT posted_at IS NOT NULL FROM public.demerit_reports WHERE id = v_report_unposted),
     'Report should now be marked as posted'
   );
 

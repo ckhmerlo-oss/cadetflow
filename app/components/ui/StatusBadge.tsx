@@ -2,7 +2,7 @@ import React from 'react'
 
 type StatusBadgeProps = {
   status: string
-  type?: 'report' | 'incident' | 'appeal'
+  type?: 'report' | 'incident' | 'appeal' | 'workorder'
 }
 
 export function StatusBadge({ status, type = 'report' }: StatusBadgeProps) {
@@ -15,6 +15,17 @@ export function StatusBadge({ status, type = 'report' }: StatusBadgeProps) {
   const getStyle = () => {
     // Incident Special Case
     if (type === 'incident') return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200'
+
+    if (type === 'workorder') {
+      switch (status) {
+        case 'completed': return 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-100'
+        case 'cancelled': return 'bg-muted text-muted-foreground'
+        case 'forwarded':
+        case 'assigned': return 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-100'
+        case 'tac_review': return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-100'
+        default: return 'bg-orange-100 text-orange-800 dark:bg-orange-900 dark:text-orange-200'
+      }
+    }
     
     // Appeal Special Cases
     if (type === 'appeal') {
@@ -34,7 +45,12 @@ export function StatusBadge({ status, type = 'report' }: StatusBadgeProps) {
     }
   }
 
-  const label = type === 'incident' ? 'INCIDENT' : type === 'appeal' ? formatStatus(status).replace('Rejected Final', 'Appeal Denied').replace('Approved', 'Appeal Granted') : formatStatus(status);
+  const label =
+    type === 'incident'
+      ? 'INCIDENT'
+      : type === 'appeal'
+        ? formatStatus(status).replace('Rejected Final', 'Appeal Denied').replace('Approved', 'Appeal Granted')
+        : formatStatus(status);
 
   return (
     <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium ${getStyle()}`}>

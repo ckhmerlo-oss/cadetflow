@@ -30,6 +30,8 @@ ON CONFLICT (id) DO UPDATE SET role_id = EXCLUDED.role_id;
 SELECT public.ensure_cadet_profile('a1000000-0000-0000-0000-000000000001');
 SELECT public.ensure_staff_profile('a1000000-0000-0000-0000-000000000002');
 
+DELETE FROM public.academic_terms;
+
 INSERT INTO public.academic_terms (id, term_name, start_date, end_date, school_year, term_number, archived)
 VALUES ('c1000000-0000-0000-0000-000000000001', 'Extension Term', CURRENT_DATE - 30, CURRENT_DATE + 30, '2098-2099', 1, false)
 ON CONFLICT (id) DO UPDATE SET
@@ -72,7 +74,9 @@ SELECT is(
 );
 
 SELECT is(
-  (SELECT current_tour_balance FROM public.get_cadet_ledger_stats('a1000000-0000-0000-0000-000000000001')),
+  (SELECT current_tour_balance FROM public._get_cadet_period_stats_core(
+    'a1000000-0000-0000-0000-000000000001', '2098-2099', 1::smallint
+  ) LIMIT 1),
   7,
   'get_cadet_ledger_stats reads cadet_profiles cache'
 );

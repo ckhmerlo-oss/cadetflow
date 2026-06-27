@@ -5,7 +5,14 @@ import { getProfileDropdowns } from '@/app/lib/options'
 import { getProfileById, isStaffRoleLevel } from '@/app/lib/profile-queries'
 import { getCadetSchedule } from '@/app/classes/actions'
 import { getCadetOversight } from '@/app/oversight/actions'
-import { calculateConductStatus } from '@/app/lib/blueBook'
+import {
+  getAcademicTermsForYears,
+  listCadetHistoricalYears,
+  getCadetPeriodStats,
+} from '@/app/lib/period-queries'
+import type { PeriodSelection } from '@/app/lib/period-types'
+import { buildDefaultPeriodSelection, selectableYears } from '@/app/lib/period-utils'
+import { canViewCadetHistory } from '@/app/lib/cadet-history-queries'
 
 type AuditLogEntry = {
   event_date: string
@@ -17,12 +24,6 @@ type AuditLogEntry = {
   actor_name: string
   status: string
   report_id: string | null
-}
-
-type CadetStats = {
-  term_demerits: number
-  year_demerits: number
-  current_tour_balance: number
 }
 
 export default async function ProfilePage({ params }: { params: Promise<{ id: string }> }) {
@@ -46,30 +47,36 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
 
   if (error || !profile) notFound()
 
-  if (profile.archived) {
-    const viewerLevel = (viewerProfile?.role as any)?.default_role_level || 0
-    if (viewerLevel < 90) notFound()
-  }
+  const isArchivedCadet = profile.archived === true
 
   const isStaff = kind === 'staff' || isStaffRoleLevel((profile.role as any)?.default_role_level)
 
   let fullProfile: Record<string, unknown> = { ...profile }
   let auditLog: AuditLogEntry[] = []
 
+  let historicalYears: string[] = []
+  let allTerms: Awaited<ReturnType<typeof getAcademicTermsForYears>> = []
+  let initialPeriod: PeriodSelection | null = null
+
   if (!isStaff) {
-    const { data: rawStats } = await supabase.rpc('get_cadet_ledger_stats', { p_cadet_id: profile.id }).single()
-    const stats = rawStats as CadetStats
+    historicalYears = await listCadetHistoricalYears(profile.id)
+    allTerms = await getAcademicTermsForYears(historicalYears)
+    historicalYears = selectableYears(allTerms, historicalYears)
+    initialPeriod = buildDefaultPeriodSelection(historicalYears, allTerms)
+
+    const periodValid = initialPeriod && allTerms.some((t) => t.school_year === initialPeriod!.schoolYear)
+    const periodStats = periodValid
+      ? await getCadetPeriodStats(profile.id, initialPeriod!.schoolYear, initialPeriod!.termNumber)
+      : null
 
     fullProfile = {
       ...profile,
-      term_demerits: stats?.term_demerits || 0,
-      year_demerits: stats?.year_demerits || 0,
-      current_tour_balance: (profile as any).cached_tour_balance ?? 0,
+      term_demerits: periodStats?.term_demerits || 0,
+      year_demerits: periodStats?.year_demerits || 0,
+      current_tour_balance: periodStats?.current_tour_balance ?? (profile as any).cached_tour_balance ?? 0,
       is_on_probation: (profile as any).probation_status !== 'None' && (profile as any).probation_status !== null,
-      conduct_status: calculateConductStatus(
-        stats?.term_demerits || 0,
-        stats?.year_demerits || 0
-      ),
+      conduct_status: periodStats?.conduct_status || 'Exemplary',
+      years_attended: (profile as any).years_attended ?? 0,
     }
 
     const { data: logData } = await supabase.rpc('get_cadet_audit_log', { p_cadet_id: profile.id })
@@ -82,18 +89,24 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
   const isSiteAdmin = viewerProfile?.is_site_admin || false
 
   let canEdit = false
-  if (isSiteAdmin || canManageAll) canEdit = true
-  else if (canManageOwn && profile.company_id && profile.company_id === viewerProfile?.company_id) canEdit = true
+  if (!isArchivedCadet) {
+    if (isSiteAdmin || canManageAll) canEdit = true
+    else if (canManageOwn && profile.company_id && profile.company_id === viewerProfile?.company_id) canEdit = true
+  }
 
   const viewerRoleLevel = viewerRole?.default_role_level || 0
   let canEditSchedule = false
-  if (isSiteAdmin || canManageAll) canEditSchedule = true
-  else if (viewerRoleLevel >= 65 && canManageOwn && profile.company_id === viewerProfile?.company_id) canEditSchedule = true
+  if (!isArchivedCadet) {
+    if (isSiteAdmin || canManageAll) canEditSchedule = true
+    else if (viewerRoleLevel >= 65 && canManageOwn && profile.company_id === viewerProfile?.company_id) canEditSchedule = true
+  }
 
   let schedule: Array<Record<string, unknown>> = []
   let oversight: Array<Record<string, unknown>> = []
+  let canViewHistory = false
 
   if (!isStaff) {
+    canViewHistory = await canViewCadetHistory(profile.id)
     schedule = (await getCadetSchedule(profile.id)) as Array<Record<string, unknown>>
     oversight = (await getCadetOversight(profile.id)) as Array<Record<string, unknown>>
   }
@@ -111,6 +124,11 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
         oversight={oversight as any}
         canEditSchedule={canEditSchedule}
         currentUserId={user.id}
+        isArchivedView={isArchivedCadet}
+        historicalYears={historicalYears}
+        allTerms={allTerms}
+        initialPeriod={initialPeriod}
+        canViewHistory={canViewHistory}
       />
     </div>
   )

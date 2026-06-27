@@ -112,7 +112,7 @@ PREPARE t1_cadet_approve AS
   SELECT public.handle_approval('70000000-0000-0000-0000-000000000001', 'cadet attempt');
 SELECT throws_ok(
   't1_cadet_approve',
-  'Permission denied: This report may have been actioned by someone else.',
+  '[handle_approval] Permission denied — not current approver for report',
   'Cadet cannot approve a report'
 );
 
@@ -122,7 +122,7 @@ PREPARE t2_wrong_group_approve AS
   SELECT public.handle_approval('70000000-0000-0000-0000-000000000001', 'wrong group attempt');
 SELECT throws_ok(
   't2_wrong_group_approve',
-  'Permission denied: This report may have been actioned by someone else.',
+  '[handle_approval] Permission denied — not current approver for report',
   'Non-current approver group cannot approve'
 );
 
@@ -209,7 +209,7 @@ PREPARE t6_non_submitter_pull AS
   SELECT public.pull_report('70000000-0000-0000-0000-000000000002', 'no authority');
 SELECT throws_ok(
   't6_non_submitter_pull',
-  'Permission Denied: Only the original issuer or Commandant Staff/Admins can pull this report.',
+  '[pull_report] Permission Denied — Only the original issuer or Commandant Staff/Admins can pull this report.',
   'Non-submitter non-command staff cannot pull'
 );
 

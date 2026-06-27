@@ -114,7 +114,7 @@
 @layer components {
   /* Standard Form Input */
   .input-base {
-    @apply block w-full rounded-md border-input bg-background text-foreground shadow-sm focus:border-primary focus:ring-primary sm:text-sm p-2;
+    @apply block w-full rounded-md border border-input bg-background text-foreground shadow-sm focus:border-primary focus:ring-primary sm:text-sm p-2;
   }
   
   /* Standard Primary Button */

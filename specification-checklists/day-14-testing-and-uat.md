@@ -21,7 +21,7 @@ The release must be reliable under real school workflows. UAT verifies correctne
 
 - [ ] Execute RLS regression suite (Day 01 baseline + Days 3–12 new tables) and resolve failures.
 - [ ] Execute notification correctness suite (routing, dedupe, preference handling, archive suppression).
-- [ ] Execute historical data suite (year switch, conduct snapshots, archived/returner cadets).
+- [ ] Execute historical data suite (year/term switch, date-ranged conduct queries, archived/returner cadets).
 - [ ] Execute role-boundary suite for cadet/faculty/TAC/admin/maintenance/parent.
 - [ ] Execute category restriction suite (Day 05 API and UI negative cases).
 - [ ] Execute work order lifecycle suite (student submit, TAC triage, maintenance portal, inspection auto-create).

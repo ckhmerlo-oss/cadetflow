@@ -257,7 +257,7 @@ export default function DailyReportsPage() {
         @media print {
           @page { margin: 0.25in; }
           body { background-color: white !important; color: black !important; }
-          header, .no-print, .printable-section:not(.print-active) { display: none !important; }
+          .no-print, .printable-section:not(.print-active) { display: none !important; }
           .printable-table th, .printable-table td { border: 1px solid #000; padding: 4px; font-size: 9pt; }
           .col-notes, .col-check, .col-actions { display: none !important; }
         }

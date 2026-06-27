@@ -241,42 +241,46 @@ export async function deleteAdminRoleAction(roleId: string) {
   return { success: true }
 }
 
-export async function toggleUserArchiveStatus(targetUserId: string, setArchived: boolean) {
+export async function toggleUserArchiveStatus(
+  targetUserId: string,
+  setArchived: boolean,
+  departureClassification?: 'non_return' | 'withdrawn' | 'suspended' | 'dismissal',
+) {
   const supabase = createServerClient()
   
-  // 1. Auth & Permission Check
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return { error: "Unauthorized" }
 
-  const { data: profile } = await supabase
-    .from('profiles')
-    .select('role:role_id(default_role_level)')
-    .eq('id', user.id)
-    .single()
-  
-  const roleLevel = (profile?.role as any)?.default_role_level || 0
-  if (roleLevel < 90) return { error: "Permission Denied: Admins only." }
-
-  // 2. Prepare Updates
-  const updates: any = { archived: setArchived }
-  
-  // IF ARCHIVING: Unassign Company and Role so they don't block slots
   if (setArchived) {
-      updates.company_id = null
-      updates.role_id = null
+    if (!departureClassification) {
+      return { error: 'Departure classification is required when archiving.' }
+    }
+    const { error } = await supabase.rpc('archive_cadet_profile', {
+      p_cadet_id: targetUserId,
+      p_reason: 'archived',
+      p_departure_classification: departureClassification,
+    })
+    if (error) return { error: error.message }
+  } else {
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role:role_id(default_role_level)')
+      .eq('id', user.id)
+      .single()
+    
+    const roleLevel = (profile?.role as any)?.default_role_level || 0
+    if (roleLevel < 90) return { error: "Permission Denied: Admins only." }
+
+    const { error } = await supabase
+      .from('profiles')
+      .update({ archived: false })
+      .eq('id', targetUserId)
+
+    if (error) return { error: error.message }
   }
 
-  // 3. Execute Update
-  const { error } = await supabase
-    .from('profiles')
-    .update(updates)
-    .eq('id', targetUserId)
-
-  if (error) return { error: error.message }
-
-  // 4. Revalidate
   revalidatePath('/admin')
-  revalidatePath('/roster') // Ensure public roster updates
+  revalidatePath('/manage')
   
   return { success: true }
 }

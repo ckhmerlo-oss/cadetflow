@@ -3,8 +3,77 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import type { ClassSection } from './types'
-import { createClassSection } from './actions'
+import { createClassSection, getClassSectionDetail } from './actions'
 import { slotLabel } from './constants'
+
+type RosterEntry = {
+  cadet_id: string
+  first_name: string
+  last_name: string
+  company_name: string | null
+}
+
+function ClassCard({
+  section,
+  slotLabelText,
+}: {
+  section: ClassSection
+  slotLabelText: string
+}) {
+  const [expanded, setExpanded] = useState(false)
+  const [roster, setRoster] = useState<RosterEntry[] | null>(null)
+  const [loadingRoster, setLoadingRoster] = useState(false)
+
+  const toggleRoster = async () => {
+    if (!expanded && roster === null) {
+      setLoadingRoster(true)
+      const detail = await getClassSectionDetail(section.section_id)
+      setRoster(detail?.roster ?? [])
+      setLoadingRoster(false)
+    }
+    setExpanded((prev) => !prev)
+  }
+
+  return (
+    <div className="bg-card border border-border rounded-xl p-5 hover:border-primary transition-colors">
+      <Link href={`/classes/${section.section_id}`} className="block">
+        <p className="text-xs font-bold uppercase text-muted-foreground">{slotLabelText}</p>
+        <h3 className="text-lg font-bold text-primary mt-1">{section.course_name}</h3>
+        <p className="text-sm text-muted-foreground mt-2">{section.roster_count} cadets</p>
+      </Link>
+      {section.roster_count > 0 && (
+        <div className="mt-3 pt-3 border-t border-border">
+          <button
+            type="button"
+            onClick={() => void toggleRoster()}
+            className="text-sm text-primary hover:underline font-medium"
+          >
+            {loadingRoster ? 'Loading roster…' : expanded ? 'Hide roster' : 'Show roster'}
+          </button>
+          {expanded && roster && (
+            <ul className="mt-2 space-y-1 text-sm">
+              {roster.length === 0 ? (
+                <li className="text-muted-foreground italic">No cadets enrolled.</li>
+              ) : (
+                roster.map((c) => (
+                  <li key={c.cadet_id} className="flex justify-between gap-2">
+                    <Link
+                      href={`/profile/${c.cadet_id}`}
+                      className="text-foreground hover:text-primary hover:underline"
+                    >
+                      {c.last_name}, {c.first_name}
+                    </Link>
+                    <span className="text-muted-foreground shrink-0">{c.company_name ?? '—'}</span>
+                  </li>
+                ))
+              )}
+            </ul>
+          )}
+        </div>
+      )}
+    </div>
+  )
+}
 
 export default function ClassesDashboardClient({ sections }: { sections: ClassSection[] }) {
   const [loading, setLoading] = useState(false)
@@ -84,15 +153,11 @@ export default function ClassesDashboardClient({ sections }: { sections: ClassSe
             <p className="text-muted-foreground col-span-full">No main term classes yet.</p>
           ) : (
             mainSections.map((s) => (
-              <Link
+              <ClassCard
                 key={s.section_id}
-                href={`/classes/${s.section_id}`}
-                className="bg-card border border-border rounded-xl p-5 hover:border-primary transition-colors"
-              >
-                <p className="text-xs font-bold uppercase text-muted-foreground">Term {s.term_number}</p>
-                <h3 className="text-lg font-bold text-primary mt-1">{s.course_name}</h3>
-                <p className="text-sm text-muted-foreground mt-2">{s.roster_count} cadets</p>
-              </Link>
+                section={s}
+                slotLabelText={`Term ${s.term_number}`}
+              />
             ))
           )}
         </div>
@@ -105,17 +170,11 @@ export default function ClassesDashboardClient({ sections }: { sections: ClassSe
             <p className="text-muted-foreground">No seminar classes yet.</p>
           ) : (
             seminarSections.map((s) => (
-              <Link
+              <ClassCard
                 key={s.section_id}
-                href={`/classes/${s.section_id}`}
-                className="bg-card border border-border rounded-xl p-5 hover:border-primary transition-colors"
-              >
-                <p className="text-xs font-bold uppercase text-muted-foreground">
-                  {slotLabel(`seminar_${s.seminar_period}`)}
-                </p>
-                <h3 className="text-lg font-bold text-primary mt-1">{s.course_name}</h3>
-                <p className="text-sm text-muted-foreground mt-2">{s.roster_count} cadets</p>
-              </Link>
+                section={s}
+                slotLabelText={slotLabel(`seminar_${s.seminar_period}`)}
+              />
             ))
           )}
         </div>

@@ -15,7 +15,7 @@ export default async function ClassesPage() {
     .single()
 
   const roleLevel = (profile?.role as { default_role_level?: number } | null)?.default_role_level ?? 0
-  if (roleLevel < 50) redirect('/')
+  if (roleLevel < 50 || roleLevel >= 65) redirect('/')
 
   const sections = await getTeacherClasses()
 

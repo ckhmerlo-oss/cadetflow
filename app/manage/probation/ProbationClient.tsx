@@ -63,7 +63,7 @@ export default function ProbationClient({
       <style jsx global>{`
         @media print {
           body { background-color: white !important; color: black !important; }
-          nav, header, .no-print { display: none !important; }
+          .no-print { display: none !important; }
           #probation-container { margin: 0; padding: 0; border: none !important; box-shadow: none !important; }
           table { width: 100%; border-collapse: collapse; }
           th, td { border: 1px solid #ddd; padding: 8px; font-size: 12px; color: black !important; }

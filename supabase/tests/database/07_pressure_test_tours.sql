@@ -30,7 +30,9 @@ BEGIN
   ----------------------------------------------------------------
   RAISE NOTICE '--- SETTING UP CHAOS ENV ---';
   
-  -- Create Term
+  -- Create Term (sole active term for deterministic tour math)
+  DELETE FROM public.academic_terms;
+
   INSERT INTO public.academic_terms (id, term_name, start_date, end_date, school_year, term_number, archived)
   VALUES (v_term_id, 'Chaos Term', CURRENT_DATE - 30, CURRENT_DATE + 30, '2097-2098', 1, false)
   ON CONFLICT (id) DO UPDATE SET
@@ -45,30 +47,36 @@ BEGIN
     (v_off_minor, 'Minor Infraction', 1, 2, 'Test', 'T1'),
     (v_off_major, 'Major Infraction', 1, 6, 'Test', 'T2'),
     (v_off_nuke,  'Nuclear Event',    3, 10, 'Test', 'T3')
-  ON CONFLICT (id) DO NOTHING;
+  ON CONFLICT (id) DO UPDATE SET
+    policy_category = EXCLUDED.policy_category,
+    demerits = EXCLUDED.demerits;
 
-  -- Create Role (Required for Profile)
+  -- Create Role (Required for Profile) — level 90 so Category III inserts pass enforcement
   INSERT INTO public.roles (id, role_name, default_role_level)
-  VALUES (v_role_id, 'Test Admin Role', 50)
-  ON CONFLICT (id) DO NOTHING;
+  VALUES (v_role_id, 'Test Admin Role', 90)
+  ON CONFLICT (id) DO UPDATE SET default_role_level = 90;
 
   -- FIX: Create Admin User & Profile (This was missing!)
   INSERT INTO auth.users (id, email) VALUES (v_admin_id, 'admin@test.com') ON CONFLICT (id) DO NOTHING;
   INSERT INTO public.profiles (id, first_name, last_name, role_id) 
   VALUES (v_admin_id, 'Chaos', 'Admin', v_role_id) 
-  ON CONFLICT (id) DO NOTHING;
+  ON CONFLICT (id) DO UPDATE SET role_id = EXCLUDED.role_id;
 
   -- Create Cadet User & Profile
   INSERT INTO auth.users (id, email) VALUES (v_cadet_id, 'chaos_cadet@test.com') ON CONFLICT (id) DO NOTHING;
-  -- Ensure cadet has a valid role_id (reusing admin role for simplicity, or create a cadet role)
   INSERT INTO public.profiles (id, first_name, last_name, role_id) 
-  VALUES (v_cadet_id, 'Chaos', 'Cadet', v_role_id) 
-  ON CONFLICT (id) DO NOTHING;
+  VALUES (v_cadet_id, 'Chaos', 'Cadet', '00000000-0000-0000-0000-701e00000001') 
+  ON CONFLICT (id) DO UPDATE SET role_id = EXCLUDED.role_id;
+  
+  PERFORM public.ensure_cadet_profile(v_cadet_id);
   
   -- WIPE HISTORY for the Cadet
   DELETE FROM public.appeals WHERE appealing_cadet_id = v_cadet_id;
   DELETE FROM public.tour_ledger WHERE cadet_id = v_cadet_id;
   DELETE FROM public.demerit_reports WHERE subject_cadet_id = v_cadet_id;
+
+  PERFORM set_config('request.jwt.claim.sub', 'f0000000-0000-0000-0000-000000000001', true);
+  SET LOCAL row_security = off;
 
   ----------------------------------------------------------------
   -- 2. PHASE 1: THE NOISE (Invalid Reports)

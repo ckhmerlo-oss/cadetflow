@@ -1,7 +1,7 @@
 BEGIN;
 
 CREATE EXTENSION IF NOT EXISTS pgtap;
-SELECT plan(13);
+SELECT plan(15);
 
 CREATE OR REPLACE FUNCTION public.mock_auth(user_id uuid) RETURNS void AS $$
 BEGIN
@@ -140,7 +140,7 @@ PREPARE day05_platoon_cat3_insert AS
   );
 SELECT throws_ok(
   'day05_platoon_cat3_insert',
-  'Category III Demerit Reports require Company TAC authority.',
+  '[enforce_demerit_report_category] Category III Demerit Reports require Company TAC authority.',
   'Platoon leader direct INSERT with Category III is blocked'
 );
 
@@ -207,7 +207,7 @@ PREPARE day05_platoon_cat3_update AS
   WHERE id = 'e5500000-0000-0000-0000-000000000002';
 SELECT throws_ok(
   'day05_platoon_cat3_update',
-  'Category III Demerit Reports require Company TAC authority.',
+  '[enforce_demerit_report_category] Category III Demerit Reports require Company TAC authority.',
   'Platoon leader UPDATE to Category III is blocked'
 );
 
@@ -260,6 +260,39 @@ PREPARE day05_platoon_cat2_insert AS
     'Allowed Category II after policy change'
   );
 SELECT lives_ok('day05_platoon_cat2_insert', 'Platoon leader can submit Category II after policy update');
+
+-- 12) Cadet (level 0) blocked on Category II direct INSERT
+SELECT public.mock_auth('e5300000-0000-0000-0000-000000000004');
+PREPARE day05_cadet_cat2_insert AS
+  INSERT INTO public.demerit_reports (
+    subject_cadet_id, submitted_by, offense_type_id, demerits_effective, status, date_of_offense, notes
+  ) VALUES (
+    'e5300000-0000-0000-0000-000000000004',
+    'e5300000-0000-0000-0000-000000000004',
+    'e5400000-0000-0000-0000-000000000002',
+    6, 'pending_approval', CURRENT_DATE, 'Cadet Category II attempt'
+  );
+SELECT throws_ok(
+  'day05_cadet_cat2_insert',
+  '[enforce_demerit_report_category] Category II Demerit Reports require Company TAC authority.',
+  'demerit category check → cadet level 0 blocked on Category II INSERT'
+);
+
+-- 13) Cadet blocked on Category III
+PREPARE day05_cadet_cat3_insert AS
+  INSERT INTO public.demerit_reports (
+    subject_cadet_id, submitted_by, offense_type_id, demerits_effective, status, date_of_offense, notes
+  ) VALUES (
+    'e5300000-0000-0000-0000-000000000004',
+    'e5300000-0000-0000-0000-000000000004',
+    'e5400000-0000-0000-0000-000000000003',
+    15, 'pending_approval', CURRENT_DATE, 'Cadet Category III attempt'
+  );
+SELECT throws_ok(
+  'day05_cadet_cat3_insert',
+  '[enforce_demerit_report_category] Category III Demerit Reports require Company TAC authority.',
+  'demerit category check → cadet level 0 blocked on Category III INSERT'
+);
 
 SELECT * FROM finish();
 ROLLBACK;

@@ -109,13 +109,17 @@ export async function bulkAssignRole(userIds: string[], roleId: string) {
   // We use the standard client because we assume the RLS policy (from 5_roster_permissions_and_rls.sql) 
   // correctly allows updates if (can_manage_own AND (target.company = my_company OR target.company IS NULL))
   
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from('profiles')
     .update({ role_id: roleId })
     .eq('archived', false)
     .in('id', userIds)
+    .select('id')
 
   if (error) return { error: `Database Error: ${error.message}` }
+  if (!data?.length) {
+    return { error: 'No active users were updated. Selected users may be archived.' }
+  }
 
   revalidatePath('/manage')
   revalidatePath('/roster')
@@ -155,13 +159,17 @@ export async function bulkAssignCompany(userIds: string[], companyId: string) {
   }
 
   // 2. EXECUTE
-  const { error } = await supabase
+  const { data, error } = await supabase
     .from('profiles')
     .update({ company_id: companyId })
     .eq('archived', false)
     .in('id', userIds)
+    .select('id')
 
   if (error) return { error: error.message }
+  if (!data?.length) {
+    return { error: 'No active users were updated. Selected users may be archived.' }
+  }
 
   revalidatePath('/manage')
   revalidatePath('/roster')

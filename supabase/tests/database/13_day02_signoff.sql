@@ -11,7 +11,7 @@ END;
 $$ LANGUAGE plpgsql;
 
 -- Avoid cross-test term collisions from other Day 02 tests
-DELETE FROM public.academic_terms WHERE school_year IN ('2099-2100', '2100-2101');
+DELETE FROM public.academic_terms;
 
 INSERT INTO public.companies (id, company_name)
 VALUES ('d1000000-0000-0000-0000-000000000001', 'Signoff Company')
@@ -57,7 +57,7 @@ SELECT public.ensure_staff_profile('d3000000-0000-0000-0000-000000000001');
 SELECT public.ensure_staff_profile('d3000000-0000-0000-0000-000000000003');
 SELECT public.ensure_cadet_profile('d3000000-0000-0000-0000-000000000002');
 
-DELETE FROM public.academic_terms WHERE school_year = '2088-2089';
+DELETE FROM public.academic_terms;
 
 INSERT INTO public.academic_terms (term_name, start_date, end_date, school_year, term_number, archived)
 VALUES

@@ -1,6 +1,7 @@
 // in app/admin/page.tsx
 import { createClient } from '@/utils/supabase/server';
 import { redirect } from 'next/navigation';
+import { Suspense } from 'react';
 import { AdminSettingsClient } from './AdminClientComponent';
 
 export default async function AdminPage() {
@@ -27,5 +28,9 @@ export default async function AdminPage() {
   }
 
   // Pass the user to the client component
-  return <AdminSettingsClient user={user} />;
+  return (
+    <Suspense fallback={<div className="p-8 text-muted-foreground">Loading admin settings…</div>}>
+      <AdminSettingsClient user={user} />
+    </Suspense>
+  );
 }

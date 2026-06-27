@@ -17,7 +17,7 @@ export type IncidentReport = {
   location: string
   incident_time: string
   action_taken: string | null
-  status: 'pending' | 'handled' | 'converted'
+  status: 'pending' | 'handled' | 'converted' | 'closed'
   resolved_at: string | null
   resolved_by: string | null
   resolution_notes: string | null

@@ -36,7 +36,7 @@ export default async function IncidentDetailPage({ params }: { params: Promise<{
         .select('id, offense_name, demerits, offense_group, policy_category') 
         .order('offense_group')
       
-      const allowedCategories = await getAllowedPolicyCategories(roleLevel)
+      const { categories: allowedCategories } = await getAllowedPolicyCategories(roleLevel)
       offenseTypes = filterOffensesByPolicy(offenses ?? [], allowedCategories)
   }
 

@@ -2,7 +2,8 @@
 
 import { createClient } from '@/utils/supabase/client'
 import type { User } from '@supabase/supabase-js'
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { useSearchParams } from 'next/navigation'
 import GeneralSettingsTab from './tabs/GeneralSettingsTab'
 import InfractionsTab from './tabs/InfractionsTab'
 import RolesTab from './tabs/RolesTab'
@@ -17,6 +18,7 @@ const LockIcon = () => (<svg xmlns="http://www.w3.org/2000/svg" fill="none" view
 
 export function AdminSettingsClient({ user }: { user: User }) {
   const supabase = createClient()
+  const searchParams = useSearchParams()
   const [isVerified, setIsVerified] = useState(false)
   const [password, setPassword] = useState('')
   const [authError, setAuthError] = useState<string | null>(null)
@@ -24,6 +26,13 @@ export function AdminSettingsClient({ user }: { user: User }) {
   
   // UPDATED Tab State
   const [activeTab, setActiveTab] = useState<'general' | 'infractions' | 'roles' | 'companies' | 'notifications' | 'categories' | 'options' | 'archived'>('general')
+
+  useEffect(() => {
+    const tab = searchParams.get('tab')
+    if (tab === 'archived') {
+      setActiveTab('archived')
+    }
+  }, [searchParams])
 
   const handleVerifyPassword = async (e: React.FormEvent) => {
     e.preventDefault()

@@ -8,6 +8,11 @@ import {
   testEmail,
   type IntendedRecipient,
 } from './emailTemplates'
+import {
+  isEdgeFunctionsUnavailable,
+  processEmailQueueDirect,
+  sendEmailDirect,
+} from './email/emailDirect.server'
 
 export type EmailQueueFailure = {
   queueId: string
@@ -92,6 +97,17 @@ export async function dispatchEmail(type: EmailType, payload: EmailPayload): Pro
 
     const data = await response.json().catch(() => ({}))
 
+    if (isEdgeFunctionsUnavailable(response, data)) {
+      const direct = await sendEmailDirect(getAdmin(), { type, ...payload })
+      if (!direct.success) {
+        const detail = [direct.error, direct.stage && `stage=${direct.stage}`, direct.errorCode && `code=${direct.errorCode}`]
+          .filter(Boolean)
+          .join(' · ')
+        return { success: false, error: detail || 'Email dispatch failed (direct fallback)' }
+      }
+      return { success: true, sent: direct.sentCount ?? payload.recipients.length }
+    }
+
     if (!response.ok || !data.success) {
       const detail = [data.error, data.stage && `stage=${data.stage}`, data.errorCode && `code=${data.errorCode}`]
         .filter(Boolean)
@@ -101,8 +117,16 @@ export async function dispatchEmail(type: EmailType, payload: EmailPayload): Pro
 
     return { success: true, sent: data.sentCount ?? payload.recipients.length }
   } catch (err) {
-    const message = err instanceof Error ? err.message : 'Unknown error'
-    return { success: false, error: message }
+    try {
+      const direct = await sendEmailDirect(getAdmin(), { type, ...payload })
+      if (direct.success) {
+        return { success: true, sent: direct.sentCount ?? payload.recipients.length }
+      }
+      return { success: false, error: direct.error ?? 'Email dispatch failed (direct fallback)' }
+    } catch {
+      const message = err instanceof Error ? err.message : 'Unknown error'
+      return { success: false, error: message }
+    }
   }
 }
 
@@ -309,6 +333,25 @@ export async function processEmailQueue(): Promise<ActionResponse> {
 
     const data = await response.json().catch(() => ({}))
     if (!response.ok) {
+      if (isEdgeFunctionsUnavailable(response, data)) {
+        try {
+          const direct = await processEmailQueueDirect(getAdmin())
+          return {
+            success: true,
+            processed: direct.processed,
+            sent: direct.sent,
+            failed: direct.failed,
+            failures: direct.failures,
+            message: `Processed ${direct.processed}, sent ${direct.sent}, failed ${direct.failed} (direct fallback — edge runtime unavailable)`,
+          }
+        } catch (directErr) {
+          const message = directErr instanceof Error ? directErr.message : 'Unknown error'
+          return {
+            success: false,
+            error: `Edge Functions unavailable and direct queue processing failed: ${message}. Run \`supabase start\` and ensure the edge runtime container is running.`,
+          }
+        }
+      }
       return { success: false, error: data.error ?? `Queue processing failed (${response.status})` }
     }
 
@@ -321,8 +364,50 @@ export async function processEmailQueue(): Promise<ActionResponse> {
       message: `Processed ${data.processed ?? 0}, sent ${data.sent ?? 0}, failed ${data.failed ?? 0}`,
     }
   } catch (err) {
-    const message = err instanceof Error ? err.message : 'Unknown error'
-    return { success: false, error: message }
+    try {
+      const direct = await processEmailQueueDirect(getAdmin())
+      return {
+        success: true,
+        processed: direct.processed,
+        sent: direct.sent,
+        failed: direct.failed,
+        failures: direct.failures,
+        message: `Processed ${direct.processed}, sent ${direct.sent}, failed ${direct.failed} (direct fallback)`,
+      }
+    } catch (directErr) {
+      const primary = err instanceof Error ? err.message : 'Unknown error'
+      const secondary = directErr instanceof Error ? directErr.message : 'Unknown error'
+      return {
+        success: false,
+        error: `Queue processing failed: ${primary}. Direct fallback also failed: ${secondary}`,
+      }
+    }
+  }
+}
+
+export async function drainEmailQueue(maxBatches = 10): Promise<ActionResponse> {
+  let totalProcessed = 0
+  let totalSent = 0
+  let totalFailed = 0
+  const allFailures: EmailQueueFailure[] = []
+
+  for (let i = 0; i < maxBatches; i++) {
+    const batch = await processEmailQueue()
+    if (!batch.success) return batch
+    totalProcessed += batch.processed ?? 0
+    totalSent += batch.sent ?? 0
+    totalFailed += batch.failed ?? 0
+    if (batch.failures?.length) allFailures.push(...batch.failures)
+    if ((batch.processed ?? 0) === 0) break
+  }
+
+  return {
+    success: true,
+    processed: totalProcessed,
+    sent: totalSent,
+    failed: totalFailed,
+    failures: allFailures,
+    message: `Processed ${totalProcessed}, sent ${totalSent}, failed ${totalFailed}`,
   }
 }
 

@@ -68,7 +68,7 @@ SELECT public.ensure_staff_profile('f4000000-0000-0000-0000-000000000002');
 SELECT public.ensure_cadet_profile('f4000000-0000-0000-0000-000000000003');
 
 -- School year with Term 2 as current
-DELETE FROM public.academic_terms WHERE school_year = '2099-2100';
+DELETE FROM public.academic_terms;
 
 INSERT INTO public.academic_terms (id, term_name, start_date, end_date, school_year, term_number, archived)
 VALUES
@@ -187,7 +187,8 @@ SELECT ok(
 SELECT public.mock_auth('f4000000-0000-0000-0000-000000000003');
 SELECT throws_ok(
   $$SELECT public.add_manual_oversight('f4000000-0000-0000-0000-000000000003', 'f4000000-0000-0000-0000-000000000003')$$,
-  'Permission denied',
+  'P0001',
+  '[add_manual_oversight] Permission denied — cadet cannot self-assign',
   'Cadet cannot self-assign as faculty'
 );
 

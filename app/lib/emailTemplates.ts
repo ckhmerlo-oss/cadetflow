@@ -134,6 +134,23 @@ export function parentInviteEmail(params: { cadetName: string; inviteLink: strin
   `)
 }
 
+export function moveInInviteEmail(params: {
+  cadetName: string
+  roomNumber: string
+  inviteLink: string
+}): string {
+  return wrapEmailHtml(`
+    <h2 style="margin:0 0 12px;">Move-in inspection form</h2>
+    <p>
+      Please complete the move-in room inspection for <strong>${escapeHtml(params.cadetName)}</strong>
+      (room <strong>${escapeHtml(params.roomNumber)}</strong>) before arrival.
+    </p>
+    <p style="margin:16px 0;">Create your parent account and fill out the checklist on your phone or computer.</p>
+    <a href="${escapeHtml(params.inviteLink)}" style="${BUTTON_STYLE}">Open move-in form</a>
+    <p style="margin-top:16px;font-size:13px;color:#6b7280;">This link is unique to you. Do not forward it.</p>
+  `)
+}
+
 export function parentSummaryEmail(params: { cadetName: string; summaryHtml: string }): string {
   return wrapEmailHtml(`
     <h2 style="margin:0 0 12px;">Cadet Summary: ${escapeHtml(params.cadetName)}</h2>

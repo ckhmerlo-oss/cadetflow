@@ -1,36 +1,66 @@
-# Day 10 - Special Reports (Affidavit Workflow)
-
-## Feature / Update Description
-Introduce Special Reports for cadets to submit witness/participant affidavits, with dedicated review, event assignment, summarization, and action workflow—distinct from standard stick submissions (Day 05 category rules do not apply).
-
-## Why This Is Important
-Special Reports capture narrative evidence and context not represented in standard stick submissions, improving decision quality and transparency. Sensitive narratives require strict access controls consistent with Day 01 RLS patterns.
-
-## General Implementation Approach
-
-### User View
-- Cadets can submit narrative Special Reports in a dedicated interface.
-- TAC/admin can review, cluster by event, summarize, and decide next actions (escalate, close, convert to incident/discipline record, reference).
-- Assigned oversight faculty (Day 02) receive in-app alerts when linked cadets submit or when review status changes, subject to preferences (Days 03–04).
-- Submitter and subject cadets receive status notifications on review outcomes.
-
-### Backend Perspective
-- Add Special Report entity with event linkage, review states, and action audit log.
-- Provide moderator review tooling and action log capture.
-- Integrate outcomes with existing incident/discipline records where appropriate.
-- Apply Day 01 RLS patterns for sensitive narrative access (cadet, TAC, admin, assigned faculty scopes).
-- Register Special Report events in the Day 03 canonical taxonomy for in-app and Day 04 email fan-out.
-- Respect Day 06 archive state (no new submissions or active review queues for archived cadets).
-
-## Completion Checklist
-
-- [ ] Define Special Report schema and status model.
-- [ ] Build cadet submission form with structured narrative fields.
-- [ ] Build TAC/admin review queue with event grouping controls.
-- [ ] Add report-to-event linking and summary notes.
-- [ ] Add action outcomes (escalate, close, convert, reference) and audit logs.
-- [ ] Add in-app and email notification hooks for submission and review status changes (Days 03–04).
-- [ ] Add RLS policies and access controls for sensitive narratives (Day 01 pattern).
-- [ ] Validate archive-state behavior for submitters, subjects, and review queues (Day 06).
-- [ ] Add tests for create/review/link/action lifecycle and unauthorized access.
-- [ ] Sign-off criteria: Special Reports can be submitted, reviewed, linked, summarized, and actioned with complete traceability; notifications and permissions behave correctly across roles.
+# Day 10 - Special Reports, Events, and Affidavit Workflow
+
+## Feature / Update Description
+Introduce **Special Reports** (cadet affidavits), **Events** (organizational containers for significant occurrences), and **Incident Reports** integration—distinct from Category 1 demerit sticks (Day 05).
+
+### Terminology
+
+| Entity | Submitter | Purpose | Year-close behavior (Day 06) |
+|--------|-----------|---------|------------------------------|
+| **Incident report** | Faculty / cadet leadership | Cat-I-out-of-scope behavior filing | Auto **closed** at year close (Day 06) |
+| **Special report** | Cadet | Witness/participant affidavit | Requires action; linked to events |
+| **Event** | TAC/admin | Groups incidents + special reports + attachments | **Carry forward** to next school year if still open |
+
+## Why This Is Important
+Special Reports capture narrative evidence not represented in standard sticks. Events give TAC/Commandant a workspace to understand and action significant occurrences with linked filings and files (Day 12.2).
+
+## General Implementation Approach
+
+### User View
+- Cadets submit Special Reports in a dedicated interface.
+- TAC/admin create and manage **Events**; link incident reports and special reports; attach files.
+- Review queues cluster by event; summarize and decide actions (escalate, close, convert, reference).
+- **Action-required notifications** (in-app + email, Days 03–04) on new/updated events and special reports requiring review → **Commandant**, **Deputy Commandant**, and **TAC of the submitting cadet's company**.
+
+### Backend Perspective
+
+#### Events schema (new)
+- `events`: id, title, summary, status (`open`, `under_review`, `closed`, `carried_forward`), school_year, created_by, created_at, updated_at
+- Optional: `carried_forward_from_school_year`, `carried_forward_at`
+- Junction: `event_incident_links`, `event_special_report_links` (or FK on child tables)
+- Attachments via Day 12.2 file storage (`event_attachments` or generic document refs)
+
+#### Special reports schema (new)
+- Narrative fields, review states, `event_id` FK, submitter cadet_id, audit log
+
+#### Incident reports (existing)
+- Keep `incident_reports` as faculty/leadership filings; optional `event_id` FK for event grouping
+- Day 06 closes pending incidents at year end — not carried forward
+
+#### Year-close integration (Day 06 pre-flight / Day 10 ownership)
+- **Open events** with status not terminal → **block** Close School Year until admin resolves or **carry forward** to next school year (sets `carried_forward_from_school_year`, remains actionable)
+- Open special reports linked to open events follow event carry-forward
+- Closeout reminders list open events as manual action (Day 06 Phase A)
+
+#### Notifications
+- `event.action_required` — Commandant, Deputy Commandant, company TAC (submitter's company)
+- `special_report.action_required` — same recipient rule
+- Register in Day 03/04 taxonomy
+
+#### Archive state (Day 06)
+- No new submissions for archived cadets
+- Read-only historical access per Day 06 profile rules
+
+## Completion Checklist
+
+- [ ] Define `events` schema and status model with carry-forward fields.
+- [ ] Define Special Report schema with `event_id` linkage.
+- [ ] Add optional `event_id` on `incident_reports` for grouping.
+- [ ] Build event create/review UI with incident + special report linking.
+- [ ] Build cadet special report submission form.
+- [ ] File attachments on events (Day 12.2).
+- [ ] Action-required email + in-app to Commandant, Deputy Commandant, submitter company TAC.
+- [ ] Carry-forward workflow for open events at year close; block close until resolved or carried.
+- [ ] RLS for sensitive narratives (Day 01 pattern).
+- [ ] Tests: lifecycle, notifications, year-close carry-forward, unauthorized access.
+- [ ] Sign-off: events group filings end-to-end; carry-forward survives year boundary.

@@ -82,9 +82,15 @@ serve(async (req) => {
       })
     }
 
-    const { data: authData } = await supabase.auth.admin.listUsers({ perPage: 1000 })
+    const userIds = [...new Set(pending.map((r) => r.user_id))]
+    const { data: emailRows, error: emailLookupError } = await supabase.rpc('get_auth_user_emails', {
+      p_user_ids: userIds,
+    })
+    if (emailLookupError) {
+      throw new Error(emailLookupError.message)
+    }
     const emailByUserId = new Map(
-      (authData?.users ?? []).map((u) => [u.id, u.email]).filter(([, e]) => e)
+      ((emailRows ?? []) as { user_id: string; email: string }[]).map((r) => [r.user_id, r.email])
     )
 
     let sent = 0

@@ -6,6 +6,7 @@ import { Suspense, useEffect, useMemo, useState } from 'react'
 import SubmitDemeritForm from './components/SubmitDemeritForm'
 import SubmitIncidentForm from './components/SubmitIncidentForm'
 import SubmitComingSoonTab from './components/SubmitComingSoonTab'
+import SubmitWorkOrderForm from './components/SubmitWorkOrderForm'
 
 type SubmitTab = 'demerit' | 'incident' | 'special' | 'damage'
 
@@ -28,16 +29,7 @@ const TAB_CONFIG: Array<{
       plannedDay: 'Day 10',
     },
   },
-  {
-    id: 'damage',
-    label: 'Damage / Work Order',
-    alwaysShow: true,
-    comingSoon: {
-      title: 'Damage / Work Order',
-      description: 'Submit barracks deficiencies and maintenance work requests.',
-      plannedDay: 'Day 8',
-    },
-  },
+  { id: 'damage', label: 'Damage / Work Order', alwaysShow: true },
 ]
 
 function SubmitHubContent() {
@@ -146,6 +138,8 @@ function SubmitHubContent() {
       {activeTab === 'incident' && canIncident && (
         <SubmitIncidentForm roleLevel={roleLevel} />
       )}
+
+      {activeTab === 'damage' && <SubmitWorkOrderForm roleLevel={roleLevel} />}
 
       {activeConfig?.comingSoon && (
         <SubmitComingSoonTab

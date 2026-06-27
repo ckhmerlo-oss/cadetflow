@@ -331,6 +331,9 @@ RESEND_API_KEY = "env(RESEND_API_KEY)"
 SITE_URL = "env(SITE_URL)"
 RESEND_FROM = "env(RESEND_FROM)"
 
+[functions.process-email-queue]
+verify_jwt = false
+
 [analytics]
 enabled = true
 port = 56327

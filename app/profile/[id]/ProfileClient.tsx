@@ -1,12 +1,14 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { createClient } from '@/utils/supabase/client'
 import SearchableSelect from '@/app/components/SearchableSelect' // <--- IMPORTED
 import CadetScheduleOversight from './CadetScheduleOversight'
 import { getConductLevelBadgeClass } from '@/app/lib/blueBook'
+import PeriodSelector from '@/app/components/PeriodSelector'
+import type { AcademicTermRow, PeriodSelection, CadetPeriodStats } from '@/app/lib/period-types'
 
 // --- TYPES ---
 
@@ -48,8 +50,12 @@ type Profile = {
   parent_name?: string
   parent_email?: string
   parent_phone?: string
+  graduated_at?: string | null
+  departure_classification?: string | null
+  years_attended?: number
 }
 
+import DepartureBadge from '@/app/components/DepartureBadge'
 type OptionsProps = {
     ranks: string[]
     grades: string[]
@@ -72,6 +78,11 @@ export default function ProfileClient({
   oversight = [],
   canEditSchedule = false,
   currentUserId = '',
+  isArchivedView = false,
+  historicalYears = [],
+  allTerms = [],
+  initialPeriod = null,
+  canViewHistory = false,
 }: { 
   profile: Profile
   auditLog: AuditLogEntry[]
@@ -98,9 +109,49 @@ export default function ProfileClient({
   }>
   canEditSchedule?: boolean
   currentUserId?: string
+  isArchivedView?: boolean
+  historicalYears?: string[]
+  allTerms?: AcademicTermRow[]
+  initialPeriod?: PeriodSelection | null
+  canViewHistory?: boolean
 }) {
   const supabase = createClient()
   const router = useRouter()
+
+  const [period, setPeriod] = useState<PeriodSelection | null>(initialPeriod)
+  const [periodStats, setPeriodStats] = useState({
+    term_demerits: profile.term_demerits,
+    year_demerits: profile.year_demerits,
+    conduct_status: profile.conduct_status,
+    current_tour_balance: profile.current_tour_balance,
+  })
+  const [periodLoading, setPeriodLoading] = useState(false)
+
+  useEffect(() => {
+    if (!period || isStaff) return
+    const activePeriod = period
+    let cancelled = false
+    async function load() {
+      setPeriodLoading(true)
+      const { data, error } = await supabase.rpc('get_cadet_period_stats', {
+        p_cadet_id: profile.id,
+        p_school_year: activePeriod.schoolYear,
+        p_term_number: activePeriod.termNumber,
+      }).single()
+      if (!cancelled && !error && data) {
+        const ps = data as CadetPeriodStats
+        setPeriodStats({
+          term_demerits: ps.term_demerits,
+          year_demerits: ps.year_demerits,
+          conduct_status: ps.conduct_status,
+          current_tour_balance: ps.current_tour_balance ?? profile.current_tour_balance,
+        })
+      }
+      if (!cancelled) setPeriodLoading(false)
+    }
+    void load()
+    return () => { cancelled = true }
+  }, [period, isStaff, profile.id, profile.current_tour_balance, supabase])
   
   const [isEditing, setIsEditing] = useState(false)
   const [saving, setSaving] = useState(false)
@@ -194,6 +245,11 @@ export default function ProfileClient({
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500 pb-12">
+      {isArchivedView && (
+        <div className="p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg text-sm text-amber-800 dark:text-amber-200">
+          This cadet is archived. Profile and ledger are read-only historical records.
+        </div>
+      )}
       
       {/* --- IDENTITY HEADER --- */}
       <div className="bg-card shadow-sm border border-border rounded-xl overflow-hidden">
@@ -219,6 +275,14 @@ export default function ProfileClient({
                             <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20"><path d="M18 3a1 1 0 00-1.196-.98l-10 2A1 1 0 006 5v9.114A4.369 4.369 0 005 14c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m9-6.032l-2-4.004V5.5a1 1 0 112 0v2.468z" /></svg>
                             BAND
                         </span>
+                    )}
+                    {!isStaff && profile.graduated_at && (
+                        <span className="bg-blue-100 text-blue-800 border border-blue-200 dark:bg-blue-900/30 dark:text-blue-200 dark:border-blue-800 text-xs font-bold px-2 py-1 rounded-full shadow-sm">
+                            GRADUATED
+                        </span>
+                    )}
+                    {!isStaff && isArchivedView && (
+                      <DepartureBadge classification={profile.departure_classification} />
                     )}
                 </div>
                 
@@ -282,12 +346,48 @@ export default function ProfileClient({
         {/* --- 1. STATUS BOX --- */}
         <div className="bg-card shadow-sm border border-border rounded-xl p-5 flex flex-col gap-4">
             <h3 className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Status</h3>
+
+            {period && historicalYears.length > 0 && (
+              <PeriodSelector
+                years={historicalYears}
+                terms={allTerms}
+                value={period}
+                onChange={setPeriod}
+                disabled={periodLoading}
+              />
+            )}
             
-            <div className={`p-3 rounded-lg border ${getStatusColor(profile.conduct_status)}`}>
+            <div className={`p-3 rounded-lg border ${getStatusColor(periodStats.conduct_status)}`}>
                 <div className="flex justify-between items-center">
                     <span className="text-xs font-bold uppercase opacity-75">Conduct Level</span>
-                    <span className="font-bold">{profile.conduct_status}</span>
+                    <span className="font-bold">{periodLoading ? '…' : periodStats.conduct_status}</span>
                 </div>
+            </div>
+
+            <div className="grid grid-cols-2 gap-2 text-sm">
+              <div className="p-2 rounded bg-muted/40">
+                <span className="text-xs text-muted-foreground block">Term Demerits</span>
+                <span className="font-bold">{periodStats.term_demerits}</span>
+              </div>
+              <div className="p-2 rounded bg-muted/40">
+                <span className="text-xs text-muted-foreground block">Year Demerits</span>
+                <span className="font-bold">{periodStats.year_demerits}</span>
+              </div>
+            </div>
+
+            {profile.years_attended != null && (
+              <p className="text-xs text-muted-foreground">Years completed: <span className="font-medium text-foreground">{profile.years_attended}</span></p>
+            )}
+
+            <div className="flex flex-col gap-1">
+              <Link href={`/ledger/${profile.id}`} className="text-sm text-primary hover:underline">
+                View full ledger →
+              </Link>
+              {canViewHistory && (
+                <Link href={`/profile/${profile.id}/history`} className="text-sm text-primary hover:underline">
+                  School history report →
+                </Link>
+              )}
             </div>
 
             {/* Probation: ONLY Editable if isCommandant */}
@@ -513,7 +613,7 @@ export default function ProfileClient({
       </div>
       )}
 
-      {!isStaff && (isFaculty || canEditSchedule || currentUserId === profile.id || schedule.length > 0 || oversight.length > 0) && (
+      {!isStaff && !isArchivedView && (
         <CadetScheduleOversight
           cadetId={profile.id}
           schedule={schedule}
@@ -521,6 +621,18 @@ export default function ProfileClient({
           canEditSchedule={canEditSchedule}
           isFaculty={isFaculty}
           currentUserId={currentUserId}
+          isArchivedView={isArchivedView}
+        />
+      )}
+      {!isStaff && isArchivedView && (schedule.length > 0 || oversight.length > 0) && (
+        <CadetScheduleOversight
+          cadetId={profile.id}
+          schedule={schedule}
+          oversight={oversight}
+          canEditSchedule={false}
+          isFaculty={false}
+          currentUserId={currentUserId}
+          isArchivedView={isArchivedView}
         />
       )}
 

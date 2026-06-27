@@ -2,6 +2,8 @@ import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { getIncidents, IncidentReport } from './incidents/actions'
+import { getMyWorkOrders, getViewerPersona } from './work-orders/actions'
+import { MAINTENANCE_HOME } from './lib/maintenanceAccess'
 
 // --- IMPORTS ---
 import { StatusBadge } from './components/ui/StatusBadge' 
@@ -32,6 +34,7 @@ type ReportWithNames = {
   id: string
   status: string
   created_at: string
+  date_of_offense?: string
   submitted_by: string
   subject: { first_name: string; last_name: string } | null
   submitter: { first_name: string; last_name: string } | null
@@ -39,6 +42,36 @@ type ReportWithNames = {
   offense_type?: { offense_name: string }
   title?: string
   appeal_status?: string | null
+}
+
+type SchoolYearBounds = { start: string; end: string }
+
+function reportInSchoolYear(
+  report: { date_of_offense?: string; created_at: string },
+  bounds: SchoolYearBounds | null,
+): boolean {
+  if (!bounds) return true
+  const offenseDate = report.date_of_offense ?? report.created_at.slice(0, 10)
+  return offenseDate >= bounds.start && offenseDate <= bounds.end
+}
+
+async function getActiveSchoolYearBounds(
+  supabase: ReturnType<typeof createClient>,
+): Promise<{ activeYear: string | null; bounds: SchoolYearBounds | null }> {
+  const { data: activeYear } = await supabase.rpc('get_active_school_year')
+  if (!activeYear) return { activeYear: null, bounds: null }
+
+  const { data: terms } = await supabase.rpc('get_school_year_terms', {
+    p_school_year: activeYear,
+  })
+  if (!terms?.length) return { activeYear, bounds: null }
+
+  const starts = terms.map((t: { start_date: string }) => t.start_date).sort()
+  const ends = terms.map((t: { end_date: string }) => t.end_date).sort()
+  return {
+    activeYear,
+    bounds: { start: starts[0], end: ends[ends.length - 1] },
+  }
 }
 
 export default async function Dashboard() {
@@ -65,6 +98,9 @@ export default async function Dashboard() {
 
   if (profile && profile.company_id === null && profile.first_name === 'New') return redirect('/onboarding')
 
+  const persona = await getViewerPersona()
+  if (persona?.isMaintenance && !persona.isAdmin) redirect(MAINTENANCE_HOME)
+
   const role = profile?.role as any
   const role_level = role?.default_role_level || 0
   const groupName = role?.approval_group?.group_name || 'Personal Dashboard'
@@ -74,6 +110,8 @@ export default async function Dashboard() {
   const isTac = role_level >= 65 && role_level < 90; 
 
   if (role_level === 10) redirect(`/ledger/${user.id}`);
+
+  const { bounds: activeYearBounds } = await getActiveSchoolYearBounds(supabase)
 
   const { data: rpcData } = await supabase.rpc('get_my_dashboard_reports')
   const allInvolvedReports = rpcData || [];
@@ -101,6 +139,27 @@ export default async function Dashboard() {
         offense_type: { offense_name: item.title },
         appeal_status: item.appeal_status 
     })) as ReportWithNames[] || [];
+
+    if (activeYearBounds && allCompletedReports.length > 0) {
+      const ids = allCompletedReports.map((report) => report.id)
+      const { data: offenseRows } = await supabase
+        .from('demerit_reports')
+        .select('id, date_of_offense')
+        .in('id', ids)
+      const offenseById = new Map(
+        (offenseRows ?? []).map((row: { id: string; date_of_offense: string }) => [row.id, row.date_of_offense]),
+      )
+      allCompletedReports = allCompletedReports
+        .map((report) => ({
+          ...report,
+          date_of_offense: offenseById.get(report.id) ?? report.created_at.slice(0, 10),
+        }))
+        .filter((report) => reportInSchoolYear(report, activeYearBounds))
+    } else if (activeYearBounds) {
+      allCompletedReports = allCompletedReports.filter((report) =>
+        reportInSchoolYear(report, activeYearBounds),
+      )
+    }
   } else {
     const { data: statsData } = await supabase.rpc('get_cadet_ledger_stats', { p_cadet_id: user.id }).single<CadetStats>()
     if (statsData) cadetStats = statsData;
@@ -159,7 +218,25 @@ export default async function Dashboard() {
 
   actionItems.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
 
-  const mySubmittedReports = allInvolvedReports.filter((report: any) => report.submitted_by === user.id) || []
+  let workOrderQueue: Awaited<ReturnType<typeof getMyWorkOrders>> = []
+  let workOrderViewHref = '/work-orders'
+  let workOrderSectionTitle = 'Work Orders'
+
+  if (role_level >= 15) {
+    workOrderQueue = await getMyWorkOrders('actionable')
+    const persona = await getViewerPersona()
+    if (persona?.isMaintenance && !persona.isAdmin) {
+      workOrderViewHref = '/work-orders'
+      workOrderSectionTitle = 'Maintenance Queue'
+    } else if (persona && persona.roleLevel < 65) {
+      workOrderSectionTitle = 'My Requests'
+    } else if (persona?.isTac) {
+      workOrderSectionTitle = 'Work Orders'
+    }
+  }
+
+  const mySubmittedReports = (allInvolvedReports.filter((report: any) => report.submitted_by === user.id) || [])
+    .filter((report: any) => reportInSchoolYear(report, activeYearBounds))
 
   const submitLink = '/submit';
   const submitLabel = 'Submit Report';
@@ -220,6 +297,14 @@ export default async function Dashboard() {
                 />
             </div>
         )}
+
+        {(role_level >= 15) && (
+            <WorkOrdersDashboardSection
+              title={workOrderSectionTitle}
+              orders={workOrderQueue}
+              viewAllHref={workOrderViewHref}
+            />
+        )}
         
         {isFaculty && (
             <DashboardSection 
@@ -231,7 +316,7 @@ export default async function Dashboard() {
             />
         )}
 
-        {(role_level >= 15) && (
+        {(role_level >= 15) && mySubmittedReports.length > 0 && (
             <DashboardSection 
                 title="Submitted Reports" 
                 items={mySubmittedReports} 
@@ -241,7 +326,7 @@ export default async function Dashboard() {
             />
         )}
 
-        {isFaculty && (
+        {isFaculty && allCompletedReports.length > 0 && (
             <DashboardSection 
                 title="Completed Archive" 
                 items={allCompletedReports} 
@@ -273,6 +358,66 @@ function StatCard({ title, value, isHighlight = false }: { title: string, value:
             </p>
         </div>
     )
+}
+
+function WorkOrdersDashboardSection({
+  title,
+  orders,
+  viewAllHref,
+}: {
+  title: string
+  orders: Array<{
+    id: string
+    created_at: string
+    status: string
+    description: string
+    barracks_room?: { room_number: string } | null
+    location?: string | null
+    requester?: { first_name: string; last_name: string }
+  }>
+  viewAllHref: string
+}) {
+  const displayLocation = (order: (typeof orders)[number]) =>
+    order.barracks_room?.room_number ?? order.location ?? 'Unknown'
+
+  return (
+    <div className="space-y-4 flex flex-col h-full">
+      <div className="flex justify-between items-end">
+        <h2 className="text-2xl font-semibold text-foreground">
+          <Link href={viewAllHref} className="hover:text-primary transition-colors">
+            {title}
+          </Link>
+          <span className="ml-2 text-lg text-muted-foreground font-normal">({orders.length})</span>
+        </h2>
+        <Link href={viewAllHref} className="text-sm font-medium text-primary hover:underline pb-1">
+          View all &rarr;
+        </Link>
+      </div>
+
+      <div className="bg-card border border-border p-4 rounded-lg shadow-sm space-y-3 h-96 overflow-y-auto flex-grow">
+        {orders.length > 0 ? (
+          orders.slice(0, 8).map((order) => (
+            <Link
+              key={order.id}
+              href={`/work-orders/${order.id}`}
+              className="block p-4 border border-border rounded-md bg-card hover:bg-muted/50 transition-colors"
+            >
+              <div className="flex justify-between items-center gap-2">
+                <span className="font-medium text-primary truncate">{displayLocation(order)}</span>
+                <StatusBadge status={order.status} type="workorder" />
+              </div>
+              <p className="mt-2 text-sm text-muted-foreground line-clamp-2">{order.description}</p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                {new Date(order.created_at).toLocaleDateString()}
+              </p>
+            </Link>
+          ))
+        ) : (
+          <p className="text-muted-foreground p-4 text-center italic">No work orders in your queue.</p>
+        )}
+      </div>
+    </div>
+  )
 }
 
 function DashboardSection({ 

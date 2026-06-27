@@ -58,8 +58,9 @@ All roadmap items and code changes in `Implementation.md` MUST comply with these
    - Returning cadets MUST retain historical records and support year-by-year view switching.
 
 4. **Historical conduct queryability**
-   - Conduct status MUST remain queryable by historical term and year, not only current term state.
-   - End-of-term conduct snapshots MUST be stored and referenceable later.
+   - Conduct status MUST remain queryable by historical term and school year, not only current term state.
+   - Historical conduct MUST be computed server-side via date-range aggregation over authoritative source records (`demerit_reports`, `academic_terms`, and related ledger tables)—not from denormalized snapshot copies.
+   - Parent-facing artifacts that require a fixed point-in-time record (e.g. forwarded summaries) MUST persist their generated payload in the summary document itself; live period queries reflect current source-record truth.
 
 ---
 

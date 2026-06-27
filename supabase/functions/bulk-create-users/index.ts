@@ -101,6 +101,64 @@ Deno.serve(async (req: Request) => {
         continue
       }
 
+      // Returner path: reactivate archived profile by email
+      let existingUserId: string | null = null
+      let page = 1
+      const normalizedEmail = record.email.toLowerCase()
+      while (page <= 20 && !existingUserId) {
+        const { data: listData } = await adminClient.auth.admin.listUsers({ page, perPage: 200 })
+        if (!listData?.users?.length) break
+        const matched = listData.users.find(
+          (u) => u.email?.toLowerCase() === normalizedEmail
+        )
+        if (matched) existingUserId = matched.id
+        if (listData.users.length < 200) break
+        page++
+      }
+
+      if (existingUserId) {
+        const { data: prof } = await adminClient
+          .from('profiles')
+          .select('archived')
+          .eq('id', existingUserId)
+          .maybeSingle()
+
+        if (prof?.archived) {
+          const { data: cp } = await adminClient
+            .from('cadet_profiles')
+            .select('years_attended')
+            .eq('profile_id', existingUserId)
+            .maybeSingle()
+
+          const { error: unarchiveErr } = await adminClient
+            .from('profiles')
+            .update({ archived: false })
+            .eq('id', existingUserId)
+
+          if (unarchiveErr) {
+            failures.push({ email: record.email, reason: unarchiveErr.message })
+            continue
+          }
+
+          if (cp) {
+            await adminClient
+              .from('cadet_profiles')
+              .update({
+                years_attended: (cp.years_attended ?? 0) + 1,
+                graduated_at: null,
+                departure_classification: null,
+              })
+              .eq('profile_id', existingUserId)
+          }
+
+          successes.push(`${record.email} (reactivated returner)`)
+          continue
+        }
+
+        failures.push({ email: record.email, reason: 'User already exists and is not archived.' })
+        continue
+      }
+
       const { data, error } = await adminClient.auth.admin.createUser({
         email: record.email,
         password: record.password || generatePassword(),

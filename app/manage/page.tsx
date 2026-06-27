@@ -1,12 +1,16 @@
 'use client'
 
 import { createClient } from '@/utils/supabase/client'
+import { buildLoginUrl } from '@/utils/auth-redirect'
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import RosterClient, { RosterCadet } from './RosterClient' 
 import { EDIT_AUTHORIZED_ROLES } from '@/app/profile/constants' 
 import { bulkAssignCompany, bulkAssignRole } from './actions'
+import PeriodSelector from '@/app/components/PeriodSelector'
+import type { AcademicTermRow, PeriodSelection } from '@/app/lib/period-types'
+import { buildDefaultPeriodSelection, isHistoricalPeriod, selectableTerms, selectableYears } from '@/app/lib/period-utils'
 
 // ... (Rest of imports and Types remain exactly the same)
 type Company = { id: string; company_name: string }
@@ -30,7 +34,7 @@ export default function ManagePage() {
   // ... (All State setup remains exactly the same)
   const supabase = createClient()
   const router = useRouter()
-  const [activeTab, setActiveTab] = useState<'roster' | 'faculty' | 'unassigned' | 'archived'>('roster')
+  const [activeTab, setActiveTab] = useState<'roster' | 'faculty' | 'unassigned'>('roster')
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
@@ -39,12 +43,17 @@ export default function ManagePage() {
   const [unassigned, setUnassigned] = useState<UnassignedUser[]>([]) 
   const [rosterData, setRosterData] = useState<RosterCadet[]>([])
   const [facultyData, setFacultyData] = useState<RosterCadet[]>([]) 
-  const [archivedData, setArchivedData] = useState<RosterCadet[]>([])
+  const [showArchived, setShowArchived] = useState(false)
   const [canEditProfiles, setCanEditProfiles] = useState(false)
   const [canManage, setCanManage] = useState(false)
   const [isAdmin, setIsAdmin] = useState(false)
   // *** NEW: State for Probation Access ***
   const [canViewProbation, setCanViewProbation] = useState(false)
+  const [roleLevel, setRoleLevel] = useState(0)
+
+  const [allTerms, setAllTerms] = useState<AcademicTermRow[]>([])
+  const [schoolYears, setSchoolYears] = useState<string[]>([])
+  const [period, setPeriod] = useState<PeriodSelection | null>(null)
 
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set())
   
@@ -65,8 +74,7 @@ export default function ManagePage() {
     try {
       const { data: { user } } = await supabase.auth.getUser()
       if (!user) {
-        setLoading(false)
-        setError("You must be logged in.")
+        router.replace(buildLoginUrl(window.location.pathname + window.location.search))
         return
       }
 
@@ -93,8 +101,8 @@ export default function ManagePage() {
           return;
       }
 
-      // *** UPDATE: Check Probation Permissions (Level 30+) ***
       setCanViewProbation(roleLevel >= 30);
+      setRoleLevel(roleLevel)
 
       const viewerCompanyName = (viewerProfile?.company as any)?.company_name
 
@@ -104,11 +112,23 @@ export default function ManagePage() {
       
       setCanManage(canManageAll || canManageOwn || isSiteAdmin)
 
-      const promises = [
+      const activePeriod = period
+      if (!activePeriod) {
+        setLoading(false)
+        return
+      }
+
+      const isHistorical = isHistoricalPeriod(activePeriod, allTerms)
+
+      const promises: PromiseLike<unknown>[] = [
         supabase.from('companies').select('*').order('company_name'),
         supabase.from('roles').select('*').order('default_role_level', { ascending: false }),
-        supabase.rpc('get_unassigned_users'), 
-        supabase.rpc('get_full_roster') 
+        supabase.rpc('get_unassigned_users'),
+        supabase.rpc('get_roster_for_period', {
+          p_school_year: activePeriod.schoolYear,
+          p_term_number: activePeriod.termNumber,
+          p_include_archived: showArchived,
+        }),
       ]
 
       if (isSiteAdmin) {
@@ -117,20 +137,26 @@ export default function ManagePage() {
 
       const results = await Promise.all(promises)
       
-      // ... (Rest of data handling remains exactly the same)
-      const companiesRes = results[0]
-      const rolesRes = results[1]
-      const unassignedRes = results[2]
-      const fullRosterRes = results[3]
-      const facultyRes = isSiteAdmin ? results[4] : { data: [], error: null }
+      const companiesRes = results[0] as { data: Company[] | null }
+      const rolesRes = results[1] as { data: Role[] | null }
+      const unassignedRes = results[2] as { data: UnassignedUser[] | null; error: { message: string } | null }
+      const fullRosterRes = results[3] as { data: RosterCadet[] | null; error: { message: string } | null }
+      const facultyRes = isSiteAdmin ? results[4] as { data: unknown[] | null; error: { message: string } | null } : { data: [], error: null }
 
       if (companiesRes.data) setCompanies(companiesRes.data)
       if (rolesRes.data) setRoles(rolesRes.data)
       
       if (fullRosterRes.error) console.error("Error fetching roster:", fullRosterRes.error.message)
       else {
-          let allCadets = fullRosterRes.data as RosterCadet[];
-          if (!canManageAll && canManageOwn && viewerCompanyName) {
+          let allCadets = (fullRosterRes.data as RosterCadet[]) || [];
+          if (!isHistorical) {
+            if (showArchived) {
+              allCadets = allCadets.filter((c: RosterCadet & { archived?: boolean }) => c.archived)
+            } else {
+              allCadets = allCadets.filter((c: RosterCadet & { archived?: boolean }) => !c.archived)
+            }
+          }
+          if (!canManageAll && canManageOwn && viewerCompanyName && !showArchived && !isHistorical) {
               allCadets = allCadets.filter(c => c.company_name === viewerCompanyName);
           }
           setRosterData(allCadets)
@@ -151,11 +177,29 @@ export default function ManagePage() {
     } finally {
       setLoading(false)
     }
+  }, [supabase, showArchived, period, allTerms])
+
+  useEffect(() => {
+    async function loadTerms() {
+      const { data } = await supabase
+        .from('academic_terms')
+        .select('id, term_name, school_year, term_number, start_date, end_date, archived')
+        .order('start_date', { ascending: false })
+      const allLoaded = (data ?? []) as AcademicTermRow[]
+      const terms = selectableTerms(allLoaded)
+      setAllTerms(terms)
+      const years = selectableYears(allLoaded)
+      setSchoolYears(years)
+      setPeriod((prev) => prev ?? buildDefaultPeriodSelection(years, terms))
+    }
+    void loadTerms()
   }, [supabase])
 
   useEffect(() => {
     fetchData()
   }, [fetchData])
+
+  const isHistoricalRoster = period ? isHistoricalPeriod(period, allTerms) : false
 
   // ... (All Helper functions like handleSort, handleSelectRow, etc. remain the same)
   const sortedUnassigned = useMemo(() => {
@@ -250,10 +294,8 @@ export default function ManagePage() {
     let headers: string[] = [];
     let rowMapper: (item: any) => string[] = (item) => [];
 
-    if (activeTab === 'roster' || activeTab === 'faculty' || activeTab === 'archived') {
-        const sourceData = activeTab === 'roster' ? rosterData 
-                         : activeTab === 'faculty' ? facultyData 
-                         : archivedData;
+    if (activeTab === 'roster' || activeTab === 'faculty') {
+        const sourceData = activeTab === 'roster' ? rosterData : facultyData;
         
         dataToExport = sourceData;
         filename = `${activeTab}_export.csv`;
@@ -357,7 +399,7 @@ export default function ManagePage() {
       <style jsx global>{`
         @media print {
           body { background-color: white !important; color: black !important; }
-          header, .no-print, div[aria-label="Tabs"] { display: none !important; }
+          .no-print, div[aria-label="Tabs"] { display: none !important; }
           #printable-roster { display: block !important; visibility: visible !important; }
           body > div, body > main { display: block !important; visibility: visible !important; }
         }
@@ -435,10 +477,46 @@ export default function ManagePage() {
 
         {/* --- TAB 1: ROSTER --- */}
         <div id="printable-roster" className={activeTab === 'roster' ? '' : 'hidden'}>
-          <div className="flex justify-end mb-4 no-print">
-            <button onClick={handlePrintRoster} className="text-sm text-muted-foreground hover:text-primary underline">Print Roster</button>
+          <div className="flex flex-col gap-3 mb-4 no-print">
+            {roleLevel >= 50 && period && (
+              <div>
+                <p className="text-xs font-medium text-muted-foreground mb-1">School period</p>
+                <PeriodSelector
+                  years={schoolYears}
+                  terms={allTerms}
+                  value={period}
+                  onChange={setPeriod}
+                  disabled={loading}
+                />
+              </div>
+            )}
+            <div className="flex justify-between items-center">
+            {(isAdmin || canManage) && !isHistoricalRoster && (
+              <label className="flex items-center gap-2 text-sm text-muted-foreground cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={showArchived}
+                  onChange={(e) => setShowArchived(e.target.checked)}
+                  className="rounded border-input"
+                />
+                Show archived cadets
+              </label>
+            )}
+            <button onClick={handlePrintRoster} className="text-sm text-muted-foreground hover:text-primary underline ml-auto">Print Roster</button>
+            </div>
           </div>
-          <RosterClient initialData={rosterData} canEditProfiles={canEditProfiles} canManage={canManage} companies={companies} onReassign={handleReassign} variant="cadet" />
+          {showArchived && !isHistoricalRoster && (
+            <p className="text-sm text-amber-600 mb-3 no-print">Viewing archived cadets (read-only).</p>
+          )}
+          <RosterClient
+            initialData={rosterData}
+            canEditProfiles={showArchived ? false : canEditProfiles}
+            canManage={canManage && !showArchived && !isHistoricalRoster}
+            companies={companies}
+            onReassign={handleReassign}
+            variant="cadet"
+            isHistoricalView={isHistoricalRoster}
+          />
         </div>
 
         {/* --- TAB 2: FACULTY --- */}
@@ -478,15 +556,19 @@ export default function ManagePage() {
                 </thead>
                 <tbody className="bg-card divide-y divide-border">
                   {sortedUnassigned.length > 0 ? sortedUnassigned.map(u => (
-                    <tr 
-                        key={u.user_id} 
-                        onClick={() => { setSelectedIds(new Set([u.user_id])); openModal(); }} 
+                    <tr
+                        key={u.user_id}
+                        onClick={() => handleSelectRow(u.user_id)}
                         className="hover:bg-accent transition-colors cursor-pointer"
                     >
                       <td className="px-6 py-4 whitespace-nowrap" onClick={(e) => e.stopPropagation()}>
                         <input type="checkbox" className="rounded border-input text-primary focus:ring-primary h-4 w-4" checked={selectedIds.has(u.user_id)} onChange={() => handleSelectRow(u.user_id)} onClick={(e) => e.stopPropagation()} />
                       </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-foreground">{u.last_name}, {u.first_name}</td>
+                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-foreground" onClick={(e) => e.stopPropagation()}>
+                        <Link href={`/profile/${u.user_id}`} className="text-primary hover:underline">
+                          {u.last_name}, {u.first_name}
+                        </Link>
+                      </td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-muted-foreground">{new Date(u.created_at).toLocaleDateString()}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm">{u.company_name ? <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200">{u.company_name}</span> : <span className="text-destructive text-xs italic">Unassigned</span>}</td>
                       <td className="px-6 py-4 whitespace-nowrap text-sm">{u.role_name ? <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-200">{u.role_name}</span> : <span className="text-destructive text-xs italic">Unassigned</span>}</td>

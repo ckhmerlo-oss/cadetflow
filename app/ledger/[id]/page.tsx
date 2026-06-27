@@ -1,10 +1,14 @@
 'use client'
 
 import { createClient } from '@/utils/supabase/client'
-import { useState, useEffect, useMemo } from 'react'
+import { buildLoginUrl } from '@/utils/auth-redirect'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
+import PeriodSelector from '@/app/components/PeriodSelector'
+import type { PeriodSelection, AcademicTermRow, CadetPeriodStats } from '@/app/lib/period-types'
+import { buildDefaultPeriodSelection, periodBoundsFromTerms, selectableTerms, selectableYears } from '@/app/lib/period-utils'
 
 // ... (Types remain the same) ...
 type AuditLogEvent = {
@@ -27,14 +31,8 @@ type LedgerStats = {
   term_demerits: number
   year_demerits: number
   total_tours_marched: number
-  current_tour_balance: number
-}
-
-type AcademicTerm = {
-  id: string
-  term_name: string
-  start_date: string
-  end_date: string
+  current_tour_balance: number | null
+  conduct_status?: string
 }
 
 type CadetProfile = {
@@ -52,26 +50,80 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
   // --- STATE ---
   const [fullLog, setFullLog] = useState<AuditLogEvent[]>([])
   const [stats, setStats] = useState<LedgerStats | null>(null)
-  const [terms, setTerms] = useState<AcademicTerm[]>([])
+  const [years, setYears] = useState<string[]>([])
+  const [allTerms, setAllTerms] = useState<AcademicTermRow[]>([])
+  const [period, setPeriod] = useState<PeriodSelection | null>(null)
   const [cadetProfile, setCadetProfile] = useState<CadetProfile | null>(null)
-  
-  const [selectedTermId, setSelectedTermId] = useState<string>('all')
-  const [filterType, setFilterType] = useState<string>('all') 
+
+  const [filterType, setFilterType] = useState<string>('all')
   const [viewMode, setViewMode] = useState<'cards' | 'list'>('cards')
 
   const [loading, setLoading] = useState(true)
+  const [periodLoading, setPeriodLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [isArchivedView, setIsArchivedView] = useState(false)
+
+  const loadPeriodData = useCallback(async (selection: PeriodSelection, terms: AcademicTermRow[]) => {
+    setPeriodLoading(true)
+    const bounds = periodBoundsFromTerms(terms, selection)
+    if (!bounds) {
+      setPeriodLoading(false)
+      return
+    }
+
+    const [statsRes, logRes] = await Promise.all([
+      supabase.rpc('get_cadet_period_stats', {
+        p_cadet_id: targetCadetId,
+        p_school_year: selection.schoolYear,
+        p_term_number: selection.termNumber,
+      }).single(),
+      supabase.rpc('get_cadet_ledger_for_period', {
+        p_cadet_id: targetCadetId,
+        p_start: bounds.start,
+        p_end: bounds.end,
+      }),
+    ])
+
+    if (statsRes.error) setError(statsRes.error.message)
+    else {
+      const ps = statsRes.data as CadetPeriodStats
+      setStats({
+        term_demerits: ps.term_demerits,
+        year_demerits: ps.year_demerits,
+        total_tours_marched: ps.total_tours_marched,
+        current_tour_balance: ps.current_tour_balance,
+        conduct_status: ps.conduct_status,
+      })
+    }
+
+    if (logRes.error) setError(logRes.error.message)
+    else setFullLog(logRes.data as AuditLogEvent[])
+
+    setPeriodLoading(false)
+  }, [supabase, targetCadetId])
 
   // --- DATA FETCHING (Unchanged) ---
   useEffect(() => {
     async function getData() {
       setLoading(true)
       const { data: { user } } = await supabase.auth.getUser()
-      if (!user) { setLoading(false); setError("You must be logged in."); return; }
+      if (!user) {
+        router.replace(buildLoginUrl(window.location.pathname + window.location.search))
+        return
+      }
+
+      const { data: targetProfile } = await supabase
+        .from('profiles')
+        .select('archived, company_id')
+        .eq('id', targetCadetId)
+        .single()
+
+      const targetArchived = targetProfile?.archived === true
+      setIsArchivedView(targetArchived)
 
       const { data: viewerProfile } = await supabase
         .from('profiles')
-        .select(`id, company_id, role:role_id (can_manage_all_rosters, can_manage_own_company_roster, role_name)`)
+        .select(`id, company_id, role:role_id (can_manage_all_rosters, can_manage_own_company_roster, role_name, default_role_level)`)
         .eq('id', user.id)
         .single()
         
@@ -79,9 +131,17 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
          const role = viewerProfile.role as any;
          const canManageAll = role?.can_manage_all_rosters || false;
          const canManageOwn = role?.can_manage_own_company_roster || false;
-         const isAdmin = role?.role_name === 'Admin';
+         const isAdmin = role?.role_name === 'Admin' || (role?.default_role_level ?? 0) >= 90;
 
          if (user.id !== targetCadetId && !isAdmin) {
+           if (targetArchived) {
+             const { data: canView } = await supabase.rpc('can_view_archived_cadet', { p_cadet_id: targetCadetId })
+             if (!canView) {
+               setError("Unauthorized: You cannot view this archived cadet's ledger.")
+               setLoading(false)
+               return
+             }
+           } else {
              const { data: target } = await supabase.from('profiles').select('company_id').eq('id', targetCadetId).single();
              if (!canManageAll && canManageOwn) {
                  if (target && target.company_id !== viewerProfile.company_id) {
@@ -90,30 +150,43 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
              } else if (!canManageAll && !canManageOwn) {
                  setError("Unauthorized."); setLoading(false); return;
              }
+           }
          }
       }
       
 
-      const [logRes, statsRes, termsRes, profileRes] = await Promise.all([
-        supabase.rpc('get_cadet_audit_log', { p_cadet_id: targetCadetId }),
-        supabase.rpc('get_cadet_ledger_stats', { p_cadet_id: targetCadetId }).single(),
-        supabase.from('academic_terms').select('*').order('start_date', { ascending: false }),
-        supabase.from('profiles').select('first_name, last_name, role:roles(role_name)').eq('id', targetCadetId).single()
+      const [yearsRes, termsRes, profileRes] = await Promise.all([
+        supabase.rpc('list_cadet_historical_years', { p_cadet_id: targetCadetId }),
+        supabase.from('academic_terms').select('id, term_name, school_year, term_number, start_date, end_date, archived').order('start_date', { ascending: false }),
+        supabase.from('profiles').select('first_name, last_name, role:roles(role_name)').eq('id', targetCadetId).single(),
       ])
 
-      if (logRes.error) setError(logRes.error.message)
-      else setFullLog(logRes.data as AuditLogEvent[])
+      const rawYears = (yearsRes.data as { school_year: string }[] | null)?.map((r) => r.school_year) ?? []
+      const termRows = selectableTerms((termsRes.data ?? []) as AcademicTermRow[])
+      const yearList = selectableYears(termRows, rawYears)
+      setYears(yearList)
+      setAllTerms(termRows)
+      if (profileRes.data) {
+        const raw = profileRes.data as { first_name: string; last_name: string; role: { role_name: string } | { role_name: string }[] | null }
+        const role = Array.isArray(raw.role) ? raw.role[0] : raw.role
+        setCadetProfile({ first_name: raw.first_name, last_name: raw.last_name, role: role ?? null })
+      }
 
-      if (statsRes.error) console.error("Error fetching stats:", statsRes.error.message)
-      else setStats(statsRes.data as LedgerStats)
-
-      if (termsRes.data) setTerms(termsRes.data as AcademicTerm[])
-      if (profileRes.data) setCadetProfile(profileRes.data as any)
+      const defaultPeriod = buildDefaultPeriodSelection(yearList, termRows)
+      if (defaultPeriod) {
+        setPeriod(defaultPeriod)
+        await loadPeriodData(defaultPeriod, termRows)
+      }
 
       setLoading(false)
     }
     getData()
-  }, [supabase, targetCadetId, router])
+  }, [supabase, targetCadetId, router, loadPeriodData])
+
+  const handlePeriodChange = (next: PeriodSelection) => {
+    setPeriod(next)
+    void loadPeriodData(next, allTerms)
+  }
   
 
   // --- DYNAMIC TITLE UPDATE ---
@@ -130,14 +203,7 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
 
   // --- FILTERING LOGIC ---
   const displayedLog = useMemo(() => {
-    let data = [...fullLog];
-
-    if (selectedTermId !== 'all') {
-        const term = terms.find(t => t.id === selectedTermId)
-        if (term) {
-            data = data.filter(event => event.event_date >= term.start_date && event.event_date <= term.end_date)
-        }
-    }
+    let data = [...fullLog]
 
     if (filterType !== 'all') {
         if (filterType === 'tours') {
@@ -148,8 +214,8 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
         }
     }
 
-    return data;
-  }, [fullLog, selectedTermId, filterType, terms])
+    return data
+  }, [fullLog, filterType])
 
   // --- HELPERS ---
   const formatStatus = (status: string) => { 
@@ -189,7 +255,7 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
       <style jsx global>{`
         @media print {
           body { background-color: white !important; color: black !important; }
-          header, .no-print { display: none !important; }
+          .no-print { display: none !important; }
           .print-container { padding: 0 !important; max-width: 100% !important; margin: 0 !important; }
           .print-card { box-shadow: none !important; border: 1px solid #ccc !important; break-inside: avoid; }
           table { width: 100% !important; border-collapse: collapse !important; font-size: 9pt !important; } 
@@ -202,8 +268,21 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
       `}</style>
 
       <div className="max-w-6xl mx-auto p-4 sm:p-6 lg:p-8 print-container">
+        {isArchivedView && (
+          <div className="mb-4 p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg text-sm text-amber-800 dark:text-amber-200 no-print">
+            This cadet is archived. Ledger is read-only historical record.
+          </div>
+        )}
         {/* HEADER */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
+        {cadetProfile && stats?.conduct_status && (
+          <div className="hidden print:flex print:justify-between print:items-start print:mb-4">
+            <h1 className="text-2xl font-bold text-foreground">
+              {cadetProfile.last_name}, {cadetProfile.first_name}
+            </h1>
+            <div className="text-xl font-bold text-foreground">{stats.conduct_status}</div>
+          </div>
+        )}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6 no-print">
           <div>
             {/* THEMED: Text Colors */}
             <h1 className="text-3xl font-bold text-foreground">Ledger</h1>
@@ -216,12 +295,15 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
           
           {/* CONTROLS */}
           <div className="flex flex-wrap gap-2 no-print w-full md:w-auto items-center">
-             {/* THEMED: Inputs / Selects */}
-             <select value={selectedTermId} onChange={(e) => setSelectedTermId(e.target.value)}
-                className="block w-full sm:w-40 rounded-md border-input bg-background text-foreground shadow-sm sm:text-sm py-2 focus:ring-ring focus:border-ring">
-                <option value="all">All Terms</option>
-                {terms.map(term => (<option key={term.id} value={term.id}>{term.term_name}</option>))}
-              </select>
+             {period && (
+               <PeriodSelector
+                 years={years}
+                 terms={allTerms}
+                 value={period}
+                 onChange={handlePeriodChange}
+                 disabled={periodLoading}
+               />
+             )}
 
               <select value={filterType} onChange={(e) => setFilterType(e.target.value)}
                 className="block w-full sm:w-32 rounded-md border-input bg-background text-foreground shadow-sm sm:text-sm py-2 focus:ring-ring focus:border-ring">
@@ -259,17 +341,28 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
           </div>
         </div>
 
-        {loading && <p className="text-muted-foreground">Loading...</p>}
+        {(loading || periodLoading) && <p className="text-muted-foreground">Loading...</p>}
         {error && <p className="text-destructive">{error}</p>}
 
-        {!loading && !error && (
+        {!loading && !periodLoading && !error && (
           <>
             {stats && (
-              <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8 print:mb-4 no-print-break">
+              <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8 print:mb-4 no-print-break">
+                {stats.conduct_status && (
+                  <div className="print:hidden">
+                    <StatBox label="Conduct" value={0} textValue={stats.conduct_status} />
+                  </div>
+                )}
                 <StatBox label="Term Demerits" value={stats.term_demerits} />
                 <StatBox label="Year Demerits" value={stats.year_demerits} />
                 <StatBox label="Tours Marched" value={stats.total_tours_marched} />
-                <StatBox label="Penalty Tours Owed" value={stats.current_tour_balance} highlight />
+                <StatBox
+                  label="Tours Owed"
+                  value={stats.current_tour_balance ?? 0}
+                  highlight
+                  muted={stats.current_tour_balance == null}
+                  textValue={stats.current_tour_balance == null ? '—' : undefined}
+                />
               </div>
             )}
 
@@ -410,14 +503,26 @@ export default function LedgerPage({ params: paramsPromise }: { params: Promise<
   )
 }
 
-function StatBox({ label, value, highlight = false }: { label: string, value: number, highlight?: boolean }) {
+function StatBox({
+  label,
+  value,
+  highlight = false,
+  muted = false,
+  textValue,
+}: {
+  label: string
+  value: number
+  highlight?: boolean
+  muted?: boolean
+  textValue?: string
+}) {
   return (
-    <div className={`p-4 rounded-lg border ${highlight ? 'bg-primary/10 border-primary/20' : 'bg-card border-border'}`}>
+    <div className={`p-4 rounded-lg border ${highlight ? 'bg-primary/10 border-primary/20' : 'bg-card border-border'} ${muted ? 'opacity-60' : ''}`}>
       <p className={`text-xs font-medium uppercase ${highlight ? 'text-primary' : 'text-muted-foreground'}`}>
         {label}
       </p>
-      <p className={`text-2xl font-bold mt-1 ${highlight ? 'text-foreground' : 'text-foreground'}`}>
-        {value}
+      <p className="text-2xl font-bold mt-1 text-foreground">
+        {textValue ?? value}
       </p>
     </div>
   )

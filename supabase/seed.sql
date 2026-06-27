@@ -13,8 +13,10 @@
 --   teacher1@test.email     Main-term teacher for cadet1 (Algebra II, Term 2)
 --   teacher2@test.email     Main-term teacher for cadet2 + seminar teacher for cadet1
 --   faculty@test.email        Voluntary faculty assignment testing
+--   maintenance@test.email    Maintenance Staff (WorkFlow portal)
 --   coach1@test.email         Head coach, Varsity Lacrosse (cadet1 in-season coach)
 --   coach2@test.email         Head coach, Track & Field (cadet2 in-season coach)
+--   admin@test.email          System Admin (level 105, force-archive)
 
 BEGIN;
 
@@ -34,7 +36,9 @@ WHERE user_id IN (
     'teacher1@test.email',
     'teacher2@test.email',
     'coach1@test.email',
-    'coach2@test.email'
+    'coach2@test.email',
+    'admin@test.email',
+    'maintenance@test.email'
   ])
 );
 
@@ -47,7 +51,9 @@ WHERE email = ANY (ARRAY[
   'teacher1@test.email',
   'teacher2@test.email',
   'coach1@test.email',
-  'coach2@test.email'
+  'coach2@test.email',
+  'admin@test.email',
+  'maintenance@test.email'
 ]);
 
 -- GoTrue requires empty strings (not NULL) on token columns for password login.
@@ -151,7 +157,7 @@ VALUES
     'cadet1@test.email',
     '$2a$10$chyFZ354TxGyWe61cj4xuekDSiZazQ1woNvNzU.CIUEzmWrleV4ye',
     'authenticated',
-    now(),
+    '2024-08-01 12:00:00+00',
     now(),
     now(),
     '00000000-0000-0000-0000-000000000000',
@@ -169,7 +175,7 @@ VALUES
     'cadet2@test.email',
     '$2a$10$3dkRXUxWh4sfGAOg9OqLH.BQN2WiryzH8x5lTKV2OI8QN9bzs4YbS',
     'authenticated',
-    now(),
+    '2025-08-15 12:00:00+00',
     now(),
     now(),
     '00000000-0000-0000-0000-000000000000',
@@ -295,6 +301,7 @@ INSERT INTO public.roles (
 )
 VALUES
   ('a0000000-0000-0000-0000-000000000001', 'Commandant', true, true, 'c0000000-0000-0000-0000-000000000002', 90, 'b0000000-0000-0000-0000-000000000001'),
+  ('a0000000-0000-0000-0000-000000000005', 'Admin', true, true, 'c0000000-0000-0000-0000-000000000002', 105, 'b0000000-0000-0000-0000-000000000001'),
   ('a0000000-0000-0000-0000-000000000002', 'Platoon Leader', false, true, 'c0000000-0000-0000-0000-000000000001', 20, 'b0000000-0000-0000-0000-000000000002'),
   ('a0000000-0000-0000-0000-000000000003', 'Squad Leader', false, true, 'c0000000-0000-0000-0000-000000000001', 10, 'b0000000-0000-0000-0000-000000000003'),
   ('a0000000-0000-0000-0000-000000000004', 'Cadet', false, false, 'c0000000-0000-0000-0000-000000000001', 0, NULL)
@@ -577,7 +584,8 @@ ON CONFLICT (id) DO UPDATE SET group_name = EXCLUDED.group_name;
 INSERT INTO public.roles (id, role_name, default_role_level, company_id, approval_group_id, can_manage_own_company_roster)
 VALUES
   ('a0000000-0000-0000-0000-000000000010', 'Alpha TAC Officer', 65, 'c0000000-0000-0000-0000-000000000001', 'b0000000-0000-0000-0000-000000000010', true),
-  ('a0000000-0000-0000-0000-000000000011', 'Faculty Teacher', 50, NULL, NULL, false)
+  ('a0000000-0000-0000-0000-000000000011', 'Faculty Teacher', 50, NULL, NULL, false),
+  ('a0000000-0000-0000-0000-000000000012', 'Maintenance Staff', 45, NULL, NULL, false)
 ON CONFLICT (id) DO UPDATE SET role_name = EXCLUDED.role_name;
 
 INSERT INTO auth.users (
@@ -688,6 +696,36 @@ VALUES
     '', '', '', '',
     '{"provider":"email","providers":["email"]}'::jsonb,
     '{"sub":"f0000000-0000-0000-0000-000000000006","email":"coach2@test.email","email_verified":true,"phone_verified":false}'::jsonb
+  ),
+  (
+    'f0000000-0000-0000-0000-000000000007',
+    'authenticated',
+    'admin@test.email',
+    '$2a$10$I2yqa/fBks6Ai/mPCiNit.00BDLcmDdLe2GVCKNCD6bpI4515ZKSq',
+    'authenticated',
+    now(),
+    now(),
+    now(),
+    '00000000-0000-0000-0000-000000000000',
+    now(),
+    '', '', '', '',
+    '{"provider":"email","providers":["email"]}'::jsonb,
+    '{"sub":"f0000000-0000-0000-0000-000000000007","email":"admin@test.email","email_verified":true,"phone_verified":false}'::jsonb
+  ),
+  (
+    'f0000000-0000-0000-0000-000000000008',
+    'authenticated',
+    'maintenance@test.email',
+    '$2a$10$I2yqa/fBks6Ai/mPCiNit.00BDLcmDdLe2GVCKNCD6bpI4515ZKSq',
+    'authenticated',
+    now(),
+    now(),
+    now(),
+    '00000000-0000-0000-0000-000000000000',
+    now(),
+    '', '', '', '',
+    '{"provider":"email","providers":["email"]}'::jsonb,
+    '{"sub":"f0000000-0000-0000-0000-000000000008","email":"maintenance@test.email","email_verified":true,"phone_verified":false}'::jsonb
   )
 ON CONFLICT (id) DO UPDATE SET
   email = EXCLUDED.email,
@@ -766,6 +804,26 @@ VALUES
     now(),
     now(),
     now()
+  ),
+  (
+    'f0000000-0000-0000-0000-000000000007',
+    'f0000000-0000-0000-0000-000000000007',
+    'f0000000-0000-0000-0000-000000000007',
+    'email',
+    '{"sub":"f0000000-0000-0000-0000-000000000007","email":"admin@test.email","email_verified":true,"phone_verified":false}'::jsonb,
+    now(),
+    now(),
+    now()
+  ),
+  (
+    'f0000000-0000-0000-0000-000000000008',
+    'f0000000-0000-0000-0000-000000000008',
+    'f0000000-0000-0000-0000-000000000008',
+    'email',
+    '{"sub":"f0000000-0000-0000-0000-000000000008","email":"maintenance@test.email","email_verified":true,"phone_verified":false}'::jsonb,
+    now(),
+    now(),
+    now()
   )
 ON CONFLICT (id) DO UPDATE SET
   identity_data = EXCLUDED.identity_data,
@@ -778,7 +836,9 @@ VALUES
   ('f0000000-0000-0000-0000-000000000003', 'Bob', 'Teacher', 'a0000000-0000-0000-0000-000000000011', NULL),
   ('f0000000-0000-0000-0000-000000000004', 'Carol', 'Faculty', 'a0000000-0000-0000-0000-000000000011', NULL),
   ('f0000000-0000-0000-0000-000000000005', 'Dan', 'Coach', 'a0000000-0000-0000-0000-000000000011', NULL),
-  ('f0000000-0000-0000-0000-000000000006', 'Eve', 'Coach', 'a0000000-0000-0000-0000-000000000011', NULL)
+  ('f0000000-0000-0000-0000-000000000006', 'Eve', 'Coach', 'a0000000-0000-0000-0000-000000000011', NULL),
+  ('f0000000-0000-0000-0000-000000000007', 'System', 'Admin', 'a0000000-0000-0000-0000-000000000005', 'c0000000-0000-0000-0000-000000000002'),
+  ('f0000000-0000-0000-0000-000000000008', 'Mike', 'Maintenance', 'a0000000-0000-0000-0000-000000000012', NULL)
 ON CONFLICT (id) DO UPDATE SET
   first_name = EXCLUDED.first_name,
   last_name = EXCLUDED.last_name,
@@ -792,6 +852,8 @@ UPDATE public.profiles SET role_id = 'a0000000-0000-0000-0000-000000000011' WHER
   'f0000000-0000-0000-0000-000000000005',
   'f0000000-0000-0000-0000-000000000006'
 );
+UPDATE public.profiles SET role_id = 'a0000000-0000-0000-0000-000000000005', is_site_admin = true WHERE id = 'f0000000-0000-0000-0000-000000000007';
+UPDATE public.profiles SET role_id = 'a0000000-0000-0000-0000-000000000012' WHERE id = 'f0000000-0000-0000-0000-000000000008';
 
 SELECT public.ensure_staff_profile('f0000000-0000-0000-0000-000000000001');
 SELECT public.ensure_staff_profile('f0000000-0000-0000-0000-000000000002');
@@ -799,11 +861,45 @@ SELECT public.ensure_staff_profile('f0000000-0000-0000-0000-000000000003');
 SELECT public.ensure_staff_profile('f0000000-0000-0000-0000-000000000004');
 SELECT public.ensure_staff_profile('f0000000-0000-0000-0000-000000000005');
 SELECT public.ensure_staff_profile('f0000000-0000-0000-0000-000000000006');
+SELECT public.ensure_staff_profile('f0000000-0000-0000-0000-000000000007');
+SELECT public.ensure_staff_profile('f0000000-0000-0000-0000-000000000008');
 
 -- Replace remote Day02 migration term/class fixtures (different UUIDs, same school year).
+-- Drop pgTAP / ad-hoc test school years outside the local config window (2024–2027).
+DELETE FROM public.cadet_class_enrollments
+WHERE school_year NOT IN ('2024-2025', '2025-2026', '2026-2027', '2027-2028');
+DELETE FROM public.class_sections
+WHERE school_year NOT IN ('2024-2025', '2025-2026', '2026-2027', '2027-2028');
+DELETE FROM public.academic_terms
+WHERE school_year NOT IN ('2024-2025', '2025-2026', '2026-2027', '2027-2028');
+
 DELETE FROM public.cadet_class_enrollments WHERE school_year = '2025-2026';
 DELETE FROM public.class_sections WHERE school_year = '2025-2026';
 DELETE FROM public.academic_terms WHERE school_year = '2025-2026' AND archived = false;
+
+-- Prior school year (archived) — cadet1 returner history only
+INSERT INTO public.academic_terms (id, term_name, start_date, end_date, school_year, term_number, archived)
+VALUES
+  ('e0000000-0000-0000-0000-000000000011', 'Term 1', '2024-08-15', '2024-10-15', '2024-2025', 1, true),
+  ('e0000000-0000-0000-0000-000000000012', 'Term 2', '2024-10-16', '2025-01-15', '2024-2025', 2, true),
+  ('e0000000-0000-0000-0000-000000000013', 'Term 3', '2025-01-16', '2025-03-15', '2024-2025', 3, true),
+  ('e0000000-0000-0000-0000-000000000014', 'Term 4', '2025-03-16', '2025-05-15', '2024-2025', 4, true),
+  ('e0000000-0000-0000-0000-000000000015', 'Term 5', '2025-05-16', '2025-06-15', '2024-2025', 5, true)
+ON CONFLICT (id) DO UPDATE SET start_date = EXCLUDED.start_date, end_date = EXCLUDED.end_date, archived = true;
+
+INSERT INTO public.class_sections (id, teacher_id, school_year, term_number, seminar_period, course_name, archived)
+VALUES
+  ('c0000000-0000-0000-0000-000000000110', 'f0000000-0000-0000-0000-000000000003', '2024-2025', 2, NULL, 'World History', true)
+ON CONFLICT (id) DO UPDATE SET
+  teacher_id = EXCLUDED.teacher_id,
+  course_name = EXCLUDED.course_name,
+  term_number = EXCLUDED.term_number,
+  archived = true;
+
+INSERT INTO public.cadet_class_enrollments (cadet_id, class_section_id, slot_type, school_year, assigned_by)
+VALUES
+  ('47bd1324-e8ea-4a4b-8d27-9c1592d71770', 'c0000000-0000-0000-0000-000000000110', 'term_2', '2024-2025', 'f0000000-0000-0000-0000-000000000003')
+ON CONFLICT DO NOTHING;
 
 -- 5-term school year with Term 2 as the active main term
 INSERT INTO public.academic_terms (id, term_name, start_date, end_date, school_year, term_number, archived)
@@ -813,6 +909,16 @@ VALUES
   ('e0000000-0000-0000-0000-000000000003', 'Term 3', CURRENT_DATE + 31, CURRENT_DATE + 60, '2025-2026', 3, false),
   ('e0000000-0000-0000-0000-000000000004', 'Term 4', CURRENT_DATE + 61, CURRENT_DATE + 90, '2025-2026', 4, false),
   ('e0000000-0000-0000-0000-000000000005', 'Term 5', CURRENT_DATE + 91, CURRENT_DATE + 120, '2025-2026', 5, false)
+ON CONFLICT (id) DO UPDATE SET start_date = EXCLUDED.start_date, end_date = EXCLUDED.end_date;
+
+-- Upcoming school year (future terms, not yet active)
+INSERT INTO public.academic_terms (id, term_name, start_date, end_date, school_year, term_number, archived)
+VALUES
+  ('e0000000-0000-0000-0000-000000000021', 'Term 1', CURRENT_DATE + 121, CURRENT_DATE + 150, '2026-2027', 1, false),
+  ('e0000000-0000-0000-0000-000000000022', 'Term 2', CURRENT_DATE + 151, CURRENT_DATE + 180, '2026-2027', 2, false),
+  ('e0000000-0000-0000-0000-000000000023', 'Term 3', CURRENT_DATE + 181, CURRENT_DATE + 210, '2026-2027', 3, false),
+  ('e0000000-0000-0000-0000-000000000024', 'Term 4', CURRENT_DATE + 211, CURRENT_DATE + 240, '2026-2027', 4, false),
+  ('e0000000-0000-0000-0000-000000000025', 'Term 5', CURRENT_DATE + 241, CURRENT_DATE + 270, '2026-2027', 5, false)
 ON CONFLICT (id) DO UPDATE SET start_date = EXCLUDED.start_date, end_date = EXCLUDED.end_date;
 
 -- Main-term classes + seminar (seminar_a is active before Term 3 midpoint)
@@ -964,5 +1070,228 @@ SET
   resolved_by = 'f0000000-0000-0000-0000-000000000001',
   resolution_notes = 'Converted to demerit report for disrespect.'
 WHERE id = 'f1000000-0000-0000-0000-000000000004';
+
+-- ---------------------------------------------------------------------------
+-- Day 08 work order fixtures (TAC queue + history samples)
+-- Login as tac@test.email / admin@test.email for queue; cadet1@test.email for My Requests.
+-- ---------------------------------------------------------------------------
+DELETE FROM public.work_order_audit_log
+WHERE work_order_id IN (
+  'f2000000-0000-0000-0000-000000000001',
+  'f2000000-0000-0000-0000-000000000002',
+  'f2000000-0000-0000-0000-000000000003',
+  'f2000000-0000-0000-0000-000000000004',
+  'f2000000-0000-0000-0000-000000000005'
+);
+
+DELETE FROM public.work_orders
+WHERE id IN (
+  'f2000000-0000-0000-0000-000000000001',
+  'f2000000-0000-0000-0000-000000000002',
+  'f2000000-0000-0000-0000-000000000003',
+  'f2000000-0000-0000-0000-000000000004',
+  'f2000000-0000-0000-0000-000000000005'
+);
+
+INSERT INTO public.work_orders (
+  id,
+  requester_id,
+  company_id,
+  barracks_room_id,
+  location,
+  issue_type,
+  issue_presets,
+  description,
+  priority,
+  status,
+  created_at
+)
+VALUES
+  (
+    'f2000000-0000-0000-0000-000000000001',
+    '47bd1324-e8ea-4a4b-8d27-9c1592d71770',
+    'c0000000-0000-0000-0000-000000000001',
+    (SELECT id FROM public.barracks_rooms WHERE room_number = 'A105' LIMIT 1),
+    NULL,
+    'barracks',
+    ARRAY['Broken lock', 'Lighting fixture'],
+    'Deadbolt sticks and the overhead light flickers after taps.',
+    'high',
+    'submitted',
+    now() - interval '2 day'
+  ),
+  (
+    'f2000000-0000-0000-0000-000000000002',
+    'fa677a4b-ce1a-4725-b70b-8d4afa328bbe',
+    'c0000000-0000-0000-0000-000000000001',
+    (SELECT id FROM public.barracks_rooms WHERE room_number = 'A110' LIMIT 1),
+    NULL,
+    'barracks',
+    ARRAY['HVAC / temperature'],
+    'Room runs hot even with the vent fully open.',
+    'normal',
+    'tac_review',
+    now() - interval '1 day'
+  ),
+  (
+    'f2000000-0000-0000-0000-000000000003',
+    '47bd1324-e8ea-4a4b-8d27-9c1592d71770',
+    'c0000000-0000-0000-0000-000000000001',
+    (SELECT id FROM public.barracks_rooms WHERE room_number = 'A105' LIMIT 1),
+    NULL,
+    'barracks',
+    ARRAY['Plumbing leak'],
+    'Slow drip under the sink; towel needed to keep floor dry.',
+    'normal',
+    'forwarded',
+    now() - interval '5 day'
+  ),
+  (
+    'f2000000-0000-0000-0000-000000000004',
+    'f0000000-0000-0000-0000-000000000004',
+    NULL,
+    NULL,
+    'Main gymnasium — east bleachers',
+    'other',
+    '{}',
+    'Loose handrail on the east bleacher section.',
+    'urgent',
+    'forwarded',
+    now() - interval '3 day'
+  ),
+  (
+    'f2000000-0000-0000-0000-000000000005',
+    'fa677a4b-ce1a-4725-b70b-8d4afa328bbe',
+    'c0000000-0000-0000-0000-000000000001',
+    (SELECT id FROM public.barracks_rooms WHERE room_number = 'A110' LIMIT 1),
+    NULL,
+    'barracks',
+    ARRAY['Window damage'],
+    'Cracked window pane replaced last month — closed out.',
+    'low',
+    'completed',
+    now() - interval '10 day'
+  );
+
+INSERT INTO public.work_order_audit_log (
+  work_order_id,
+  actor_id,
+  action,
+  old_status,
+  new_status,
+  comment,
+  created_at
+)
+VALUES
+  (
+    'f2000000-0000-0000-0000-000000000001',
+    '47bd1324-e8ea-4a4b-8d27-9c1592d71770',
+    'submitted',
+    NULL,
+    'submitted',
+    'Work order submitted for barracks room TAC review',
+    now() - interval '2 day'
+  ),
+  (
+    'f2000000-0000-0000-0000-000000000002',
+    'fa677a4b-ce1a-4725-b70b-8d4afa328bbe',
+    'submitted',
+    NULL,
+    'submitted',
+    'Work order submitted for barracks room TAC review',
+    now() - interval '1 day'
+  ),
+  (
+    'f2000000-0000-0000-0000-000000000002',
+    'f0000000-0000-0000-0000-000000000001',
+    'start_review',
+    'submitted',
+    'tac_review',
+    NULL,
+    now() - interval '20 hours'
+  ),
+  (
+    'f2000000-0000-0000-0000-000000000003',
+    '47bd1324-e8ea-4a4b-8d27-9c1592d71770',
+    'submitted',
+    NULL,
+    'submitted',
+    'Work order submitted for barracks room TAC review',
+    now() - interval '5 day'
+  ),
+  (
+    'f2000000-0000-0000-0000-000000000003',
+    'f0000000-0000-0000-0000-000000000001',
+    'forward',
+    'tac_review',
+    'forwarded',
+    'Forwarded to maintenance.',
+    now() - interval '4 day'
+  ),
+  (
+    'f2000000-0000-0000-0000-000000000004',
+    'f0000000-0000-0000-0000-000000000004',
+    'submitted_to_maintenance',
+    NULL,
+    'forwarded',
+    'Work order submitted directly to maintenance',
+    now() - interval '3 day'
+  ),
+  (
+    'f2000000-0000-0000-0000-000000000005',
+    'fa677a4b-ce1a-4725-b70b-8d4afa328bbe',
+    'submitted',
+    NULL,
+    'submitted',
+    'Work order submitted for barracks room TAC review',
+    now() - interval '10 day'
+  ),
+  (
+    'f2000000-0000-0000-0000-000000000005',
+    'f0000000-0000-0000-0000-000000000001',
+    'forward',
+    'submitted',
+    'forwarded',
+    NULL,
+    now() - interval '9 day'
+  ),
+  (
+    'f2000000-0000-0000-0000-000000000005',
+    'f0000000-0000-0000-0000-000000000001',
+    'complete',
+    'forwarded',
+    'completed',
+    'Window repair verified.',
+    now() - interval '7 day'
+  );
+
+-- GoTrue requires non-null token columns on every auth.users row (password login breaks otherwise).
+UPDATE auth.users
+SET
+  confirmation_token = coalesce(confirmation_token, ''),
+  recovery_token = coalesce(recovery_token, ''),
+  email_change_token_new = coalesce(email_change_token_new, ''),
+  email_change = coalesce(email_change, ''),
+  email_change_token_current = coalesce(email_change_token_current, ''),
+  phone_change_token = coalesce(phone_change_token, ''),
+  reauthentication_token = coalesce(reauthentication_token, '')
+WHERE
+  confirmation_token IS NULL
+  OR recovery_token IS NULL
+  OR email_change_token_new IS NULL
+  OR email_change IS NULL
+  OR email_change_token_current IS NULL
+  OR phone_change_token IS NULL
+  OR reauthentication_token IS NULL;
+
+-- Returner archive interval: cadet1 withdrew mid 2024-2025 Term 3, reactivated before 2025-2026
+INSERT INTO public.cadet_archive_intervals (cadet_id, started_at, ended_at, reason, departure_classification)
+VALUES (
+  '47bd1324-e8ea-4a4b-8d27-9c1592d71770',
+  '2025-01-20 12:00:00+00',
+  '2025-08-15 12:00:00+00',
+  'archived',
+  'withdrawn'
+);
 
 COMMIT;

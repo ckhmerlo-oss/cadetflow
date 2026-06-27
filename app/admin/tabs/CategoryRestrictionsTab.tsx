@@ -60,13 +60,14 @@ export default function CategoryRestrictionsTab() {
   useEffect(() => {
     async function load() {
       setLoading(true)
-      const [policy, log, incidentPolicy, incidentLog] = await Promise.all([
+      const [policyResult, log, incidentPolicy, incidentLog] = await Promise.all([
         getCategoryRestrictionPolicy(),
         getCategoryRestrictionPolicyLog(10),
         getIncidentSubmissionPolicy(),
         getIncidentSubmissionPolicyLog(10),
       ])
-      if (policy.length > 0) setBands(policy)
+      if (policyResult.error) setError(policyResult.error)
+      else if (policyResult.policy.length > 0) setBands(policyResult.policy)
       if (incidentPolicy.length > 0) setIncidentBands(incidentPolicy)
       setAuditLog(log as typeof auditLog)
       setIncidentAuditLog(incidentLog as typeof incidentAuditLog)

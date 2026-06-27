@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react'
 import Link from 'next/link'
 import { CONDUCT_LEVELS, getConductLevelPillClass } from '@/app/lib/blueBook'
+import DepartureBadge from '@/app/components/DepartureBadge'
 
 // --- Type Definitions ---
 type RecentReport = {
@@ -34,6 +35,9 @@ export type RosterCadet = {
   recent_reports?: RecentReport[] | null;
   email?: string; 
   role_level?: number;
+  archived?: boolean;
+  departure_classification?: string | null;
+  archived_as_of_period?: boolean;
 }
 
 type Company = { id: string; company_name: string }
@@ -46,12 +50,13 @@ type RosterClientProps = {
   companies: Company[] 
   onReassign: (cadetId: string) => void
   variant?: 'cadet' | 'faculty'
-  canManage: boolean 
+  canManage: boolean
+  isHistoricalView?: boolean
 }
 
 const CONDUCT_ORDER = [...CONDUCT_LEVELS]
 
-export default function RosterClient({ initialData, canEditProfiles, companies, onReassign, variant = 'cadet', canManage }: RosterClientProps) {
+export default function RosterClient({ initialData, canEditProfiles, companies, onReassign, variant = 'cadet', canManage, isHistoricalView = false }: RosterClientProps) {
   const [openCadetId, setOpenCadetId] = useState<string | null>(null)
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -145,6 +150,11 @@ export default function RosterClient({ initialData, canEditProfiles, companies, 
 
   return (
     <div className="bg-card shadow-sm border border-border rounded-lg overflow-hidden">
+      {isHistoricalView && variant === 'cadet' && (
+        <p className="text-xs text-amber-700 dark:text-amber-300 bg-amber-500/10 border-b border-amber-500/30 px-4 py-2">
+          Historical period — conduct and demerit totals reflect the selected term. Re-assign and other edits are disabled.
+        </p>
+      )}
       
       {/* Filters */}
       <div id="roster-controls" className="p-4 grid grid-cols-1 md:grid-cols-4 gap-4 border-b border-border no-print">
@@ -217,6 +227,9 @@ export default function RosterClient({ initialData, canEditProfiles, companies, 
         <tbody className="divide-y divide-border">
           {filteredAndSortedCadets.map((person) => {
             const isAdmin = variant === 'faculty' && (person.role_level || 0) >= 90;
+            const isMaintenanceStaff = variant === 'faculty' && Boolean(
+              person.role_name?.toLowerCase().includes('maintenance')
+            );
             
             return (
             <React.Fragment key={person.id}>
@@ -225,6 +238,7 @@ export default function RosterClient({ initialData, canEditProfiles, companies, 
                 className={`
                     hover:bg-accent cursor-pointer transition-colors
                     ${isAdmin ? 'bg-amber-50/50 dark:bg-amber-900/10 border-l-4 border-amber-400' : ''}
+                    ${isMaintenanceStaff ? 'bg-blue-50/50 dark:bg-blue-900/10 border-l-4 border-blue-400' : ''}
                     ${openCadetId === person.id ? 'bg-muted/50' : ''}
                 `}
               >
@@ -237,8 +251,24 @@ export default function RosterClient({ initialData, canEditProfiles, companies, 
 
                 {/* NAME */}
                 <td className="px-4 md:px-6 py-4 whitespace-nowrap text-sm font-medium text-foreground">
-                    {person.last_name}, {person.first_name}
-                    {isAdmin && <span className="ml-2 inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200 uppercase tracking-wide">Admin</span>}
+                    <span className="inline-flex flex-wrap items-center gap-1.5">
+                      {person.last_name}, {person.first_name}
+                      {variant === 'cadet' && (person.archived_as_of_period || person.archived) && (
+                        <DepartureBadge
+                          classification={person.departure_classification}
+                        />
+                      )}
+                      {isAdmin && (
+                        <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-amber-100 text-amber-800 dark:bg-amber-900 dark:text-amber-200 uppercase tracking-wide">
+                          Admin
+                        </span>
+                      )}
+                      {isMaintenanceStaff && !isAdmin && (
+                        <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-200 uppercase tracking-wide">
+                          Maintenance
+                        </span>
+                      )}
+                    </span>
                 </td>
 
                 {/* COMPANY (Abbr on Mobile) */}
