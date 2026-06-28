@@ -37,7 +37,15 @@ export async function getMoveInInvitePublic(token: string): Promise<MoveInInvite
   return data as MoveInInvitePublic
 }
 
-export async function redeemParentInvite(token: string) {
+export type RedeemParentInviteResult =
+  | { error: string }
+  | { success: true; form_id: string; cadet_id: string; room_id: string }
+
+export type CreateParentAccountResult =
+  | { error: string }
+  | { success: true; formId: string }
+
+export async function redeemParentInvite(token: string): Promise<RedeemParentInviteResult> {
   const supabase = createClient()
   const { data, error } = await supabase.rpc('redeem_parent_invite', {
     p_token: token,
@@ -52,7 +60,7 @@ export async function redeemParentInvite(token: string) {
 export async function createParentAccountAndRedeem(
   token: string,
   payload: { firstName: string; lastName: string; password: string }
-) {
+): Promise<CreateParentAccountResult> {
   const invite = await getMoveInInvitePublic(token)
   if (!invite) return { error: 'Invalid invite link.' }
   if (invite.revoked_at) return { error: 'This invite has been revoked.' }
@@ -102,7 +110,7 @@ export async function createParentAccountAndRedeem(
   if (signInError) return { error: 'Account created but sign-in failed. Try logging in.' }
 
   const redeem = await redeemParentInvite(token)
-  if (redeem.error) return { error: redeem.error }
+  if ('error' in redeem) return { error: redeem.error }
 
   revalidatePath(`/move-in/forms/${redeem.form_id}`)
   return { success: true, formId: redeem.form_id }

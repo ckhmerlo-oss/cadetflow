@@ -232,7 +232,7 @@ export default function RoomDetailClient({ detail, persona, invites = [] }: Room
     startTransition(async () => {
       const result = await compareInspectionForms(moveInId, moveOutId)
       if ('error' in result) {
-        setMessage(result.error)
+        setMessage(result.error ?? 'Request failed')
         setComparison([])
         return
       }

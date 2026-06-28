@@ -87,7 +87,9 @@ export default function ArchivedTab() {
       const { data: emails } = ids.length
         ? await supabase.from('profiles').select('id, email').in('id', ids)
         : { data: [] as { id: string; email: string }[] }
-      const emailMap = new Map((emails ?? []).map((e) => [e.id, e.email]))
+      const emailMap = new Map(
+        (emails ?? []).map((e: { id: string; email: string }) => [e.id, e.email])
+      )
       setArchivedUsers(archivedRes.data.map((p: any) => ({
         id: p.id,
         first_name: p.first_name,

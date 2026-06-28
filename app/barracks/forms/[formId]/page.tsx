@@ -28,13 +28,14 @@ export default async function InspectionFormPage({
 
   if (!data) notFound()
 
-  const canValidate =
+  const canValidate = Boolean(
     formType === 'move_in' &&
-    persona &&
-    (persona.canManage || persona.isAdmin) &&
-    data.form.submission_status === 'submitted'
+      persona &&
+      (persona.canManage || persona.isAdmin) &&
+      data.form.submission_status === 'submitted'
+  )
 
-  const canManage = persona && (persona.canManage || persona.isAdmin)
+  const canManage = Boolean(persona && (persona.canManage || persona.isAdmin))
 
   return (
     <div className="max-w-5xl mx-auto p-4 sm:p-6 lg:p-8">

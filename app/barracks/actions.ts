@@ -840,7 +840,7 @@ export async function listMoveInInvitesForRoom(roomId: string): Promise<MoveInIn
 export async function getCadetParentContact(cadetId: string) {
   const ctx = await getViewerContext()
   if (!ctx) return null
-  if (ctx.isMaintenance && ctx.roleLevel < 90 && !ctx.canManageAll) return null
+  if (ctx.isMaintenance && ctx.roleLevel < 90 && !ctx.isAdmin) return null
 
   const { data, error } = await ctx.supabase
     .from('cadet_profiles')

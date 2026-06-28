@@ -43,7 +43,7 @@ export default function MoveInInviteClient({
     startTransition(async () => {
       setError(null)
       const result = await redeemParentInvite(token)
-      if (result.error) {
+      if ('error' in result) {
         setError(result.error)
         return
       }
@@ -65,7 +65,7 @@ export default function MoveInInviteClient({
         lastName,
         password,
       })
-      if (result.error) {
+      if ('error' in result) {
         setError(result.error)
         return
       }

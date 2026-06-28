@@ -4,7 +4,7 @@ import { createClient } from '@/utils/supabase/client'
 import { getSafeRedirectPath, REDIRECT_PARAM } from '@/utils/auth-redirect'
 import { useSearchParams } from 'next/navigation'
 import { Suspense, useEffect, useMemo, useState } from 'react'
-import type { AuthError } from '@supabase/supabase-js'
+import type { AuthChangeEvent, AuthError, Session } from '@supabase/supabase-js'
 
 function formatAuthError(error: AuthError | null): string {
   if (!error) return ''
@@ -46,7 +46,7 @@ function LoginForm() {
   }, [supabase, redirectTo])
 
   useEffect(() => {
-    const { data: { subscription } } = supabase.auth.onAuthStateChange((event, session) => {
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((event: AuthChangeEvent, session: Session | null) => {
       if (event === 'SIGNED_IN' && session) {
         window.location.replace(redirectTo)
       }
