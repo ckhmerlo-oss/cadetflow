@@ -589,6 +589,18 @@ export type InspectionComparisonRow = {
   move_in_status: string | null
   move_out_status: string | null
   changed: boolean
+  degraded: boolean
+  move_out_item_id: string | null
+  work_order_id: string | null
+  default_responsible_cadet_id: string | null
+}
+
+export type InspectionComparisonResult = {
+  move_in_form_id: string
+  move_out_form_id: string
+  moving_cadet_id: string | null
+  moving_cadet_name: string | null
+  rows: InspectionComparisonRow[]
 }
 
 export async function compareInspectionForms(moveInFormId: string, moveOutFormId: string) {
@@ -605,7 +617,13 @@ export async function compareInspectionForms(moveInFormId: string, moveOutFormId
     return { error: formatRpcError('compare_room_inspection_forms', error) }
   }
 
-  return { rows: (data ?? []) as InspectionComparisonRow[] }
+  const payload = data as InspectionComparisonResult
+  return {
+    result: {
+      ...payload,
+      rows: payload.rows ?? [],
+    },
+  }
 }
 
 export async function saveInspectionForm(payload: {

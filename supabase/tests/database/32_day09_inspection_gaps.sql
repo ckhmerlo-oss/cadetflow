@@ -136,9 +136,11 @@ SELECT set_config(
 SELECT ok(
   EXISTS (
     SELECT 1
-    FROM jsonb_array_elements(public.compare_room_inspection_forms(
-      (SELECT latest_move_in_form_id FROM public.barracks_rooms WHERE room_number = 'A107' LIMIT 1),
-      current_setting('test.move_out_id')::uuid
+    FROM jsonb_array_elements(
+      public.compare_room_inspection_forms(
+        (SELECT latest_move_in_form_id FROM public.barracks_rooms WHERE room_number = 'A107' LIMIT 1),
+        current_setting('test.move_out_id')::uuid
+      ) -> 'rows'
     )) elem
     WHERE (elem ->> 'item_key') = 'desk_top_l'
       AND (elem ->> 'changed')::boolean = true
@@ -149,9 +151,11 @@ SELECT ok(
 SELECT ok(
   EXISTS (
     SELECT 1
-    FROM jsonb_array_elements(public.compare_room_inspection_forms(
-      (SELECT latest_move_in_form_id FROM public.barracks_rooms WHERE room_number = 'A107' LIMIT 1),
-      current_setting('test.move_out_id')::uuid
+    FROM jsonb_array_elements(
+      public.compare_room_inspection_forms(
+        (SELECT latest_move_in_form_id FROM public.barracks_rooms WHERE room_number = 'A107' LIMIT 1),
+        current_setting('test.move_out_id')::uuid
+      ) -> 'rows'
     )) elem
     WHERE (elem ->> 'item_key') = 'desk_top_r'
       AND (elem ->> 'changed')::boolean = false

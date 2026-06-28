@@ -17,6 +17,7 @@ import {
   type WorkOrderRecord,
   type WorkOrderViewerPersona,
 } from './actions'
+import { searchCompanyCadets } from '@/app/barracks/actions'
 
 function displayLocation(order: WorkOrderRecord) {
   if (order.barracks_room?.room_number) return order.barracks_room.room_number
@@ -198,6 +199,8 @@ export default function WorkOrdersClient({
   const [rowComment, setRowComment] = useState('')
   const [rowPriority, setRowPriority] = useState('normal')
   const [rowAssigneeId, setRowAssigneeId] = useState('')
+  const [rowResponsibleCadetId, setRowResponsibleCadetId] = useState('')
+  const [rowCadetOptions, setRowCadetOptions] = useState<{ id: string; label: string }[]>([])
   const [rowEditDescription, setRowEditDescription] = useState('')
   const [rowEditPresets, setRowEditPresets] = useState<string[]>([])
   const [rowEditNotes, setRowEditNotes] = useState('')
@@ -289,9 +292,17 @@ export default function WorkOrdersClient({
       if (order) {
         setRowPriority(order.priority)
         setRowAssigneeId(order.assigned_to_id ?? '')
+        setRowResponsibleCadetId(order.responsible_cadet_id ?? order.requester_id ?? '')
         setRowEditDescription(order.description)
         setRowEditPresets(order.issue_presets ?? [])
         setRowEditNotes(order.notes ?? '')
+        if (order.company_id) {
+          searchCompanyCadets('', order.company_id).then((cadets) =>
+            setRowCadetOptions(cadets.map((c) => ({ id: c.id, label: c.label })))
+          )
+        } else {
+          setRowCadetOptions([])
+        }
       }
       await loadHistory(orderId)
     }
@@ -352,13 +363,16 @@ export default function WorkOrdersClient({
   const runRowAction = async (
     orderId: string,
     action: string,
-    extra?: { priority?: string; assignedToId?: string }
+    extra?: { priority?: string; assignedToId?: string; responsibleCadetId?: string }
   ) => {
     setLoading(true)
     const result = await transitionWorkOrder(orderId, action, {
       comment: rowComment || undefined,
       priority: extra?.priority,
       assignedToId: extra?.assignedToId,
+      responsibleCadetId:
+        extra?.responsibleCadetId ??
+        (action === 'forward' ? rowResponsibleCadetId || undefined : undefined),
     })
     setLoading(false)
     if (result.error) {
@@ -979,6 +993,20 @@ export default function WorkOrdersClient({
                                                       >
                                                         Set priority
                                                       </button>
+                                                      {rowCadetOptions.length > 0 && (
+                                                        <div onClick={(e) => e.stopPropagation()}>
+                                                          <label className="block text-xs font-bold text-muted-foreground uppercase mb-1">
+                                                            Responsible cadet
+                                                          </label>
+                                                          <SearchableSelect
+                                                            label="Responsible cadet"
+                                                            options={rowCadetOptions}
+                                                            value={rowResponsibleCadetId}
+                                                            onChange={setRowResponsibleCadetId}
+                                                            placeholder="Assign responsibility"
+                                                          />
+                                                        </div>
+                                                      )}
                                                       <button
                                                         type="button"
                                                         disabled={loading}

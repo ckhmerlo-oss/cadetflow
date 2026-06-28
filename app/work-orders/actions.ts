@@ -20,10 +20,12 @@ export type WorkOrderRecord = {
   status: WorkOrderStatus
   notes: string | null
   assigned_to_id: string | null
+  responsible_cadet_id: string | null
   source_inspection_item_id: string | null
   source_inspection_form_id: string | null
   requester?: { first_name: string; last_name: string }
   assignee?: { first_name: string; last_name: string } | null
+  responsible_cadet?: { first_name: string; last_name: string } | null
   company?: { company_name: string } | null
   barracks_room?: { room_number: string; company_letter: string; floor: number } | null
 }
@@ -83,6 +85,7 @@ const WORK_ORDER_SELECT = `
   *,
   requester:profiles!requester_id(first_name, last_name),
   assignee:profiles!assigned_to_id(first_name, last_name),
+  responsible_cadet:profiles!responsible_cadet_id(first_name, last_name),
   company:companies(company_name),
   barracks_room:barracks_rooms(room_number, company_letter, floor)
 `
@@ -488,6 +491,7 @@ export async function transitionWorkOrder(
     comment?: string
     assignedToId?: string | null
     priority?: string | null
+    responsibleCadetId?: string | null
   }
 ) {
   const ctx = await getViewerContext()
@@ -499,6 +503,7 @@ export async function transitionWorkOrder(
     p_comment: options?.comment ?? null,
     p_assigned_to_id: options?.assignedToId ?? null,
     p_priority: options?.priority ?? null,
+    p_responsible_cadet_id: options?.responsibleCadetId ?? null,
   })
 
   if (error) return { error: formatRpcError('transition_work_order', error) }

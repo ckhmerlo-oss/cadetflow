@@ -42,6 +42,7 @@ export default function WorkOrderDetailsClient({
   emailHistory,
   permissions,
   maintenanceStaff,
+  companyCadets = [],
 }: {
   workOrder: WorkOrderRecord
   auditLog: WorkOrderAuditEntry[]
@@ -53,19 +54,29 @@ export default function WorkOrderDetailsClient({
     isRequester: boolean
   }
   maintenanceStaff: { id: string; label: string }[]
+  companyCadets?: { id: string; label: string }[]
 }) {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
   const [comment, setComment] = useState('')
   const [priority, setPriority] = useState(workOrder.priority)
   const [assigneeId, setAssigneeId] = useState(workOrder.assigned_to_id ?? '')
+  const [responsibleCadetId, setResponsibleCadetId] = useState(
+    workOrder.responsible_cadet_id ?? workOrder.requester_id ?? ''
+  )
 
-  const runAction = async (action: string, extra?: { assignedToId?: string; priority?: string }) => {
+  const runAction = async (
+    action: string,
+    extra?: { assignedToId?: string; priority?: string; responsibleCadetId?: string }
+  ) => {
     setLoading(true)
     const result = await transitionWorkOrder(workOrder.id, action, {
       comment: comment || undefined,
       assignedToId: extra?.assignedToId,
       priority: extra?.priority,
+      responsibleCadetId:
+        extra?.responsibleCadetId ??
+        (action === 'forward' ? responsibleCadetId || undefined : undefined),
     })
     setLoading(false)
 
@@ -130,6 +141,14 @@ export default function WorkOrderDetailsClient({
               <p className="text-foreground">{assigneeName}</p>
             ) : (
               <p className={notAssignedClass}>Not Assigned</p>
+            )}
+          </div>
+          <div>
+            <p className="text-muted-foreground">Responsible cadet</p>
+            {workOrder.responsible_cadet ? (
+              <p className="text-foreground">{formatName(workOrder.responsible_cadet)}</p>
+            ) : (
+              <p className={notAssignedClass}>Not assigned</p>
             )}
           </div>
         </div>
@@ -208,14 +227,25 @@ export default function WorkOrderDetailsClient({
               </button>
             )}
             {canForward && (
-              <button
-                type="button"
-                className="btn-primary text-sm"
-                disabled={loading}
-                onClick={() => runAction('forward')}
-              >
-                Forward to maintenance
-              </button>
+              <>
+                {companyCadets.length > 0 && (
+                  <SearchableSelect
+                    label="Responsible cadet"
+                    options={companyCadets}
+                    value={responsibleCadetId}
+                    onChange={setResponsibleCadetId}
+                    placeholder="Moving cadet (default for degraded items)"
+                  />
+                )}
+                <button
+                  type="button"
+                  className="btn-primary text-sm"
+                  disabled={loading}
+                  onClick={() => runAction('forward')}
+                >
+                  Forward to maintenance
+                </button>
+              </>
             )}
             {canCancel && (
               <button

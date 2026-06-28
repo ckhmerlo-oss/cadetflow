@@ -15,9 +15,11 @@ import {
   setBarracksRoomDisplayName,
   setBarracksRoomPurpose,
   type BarracksViewerPersona,
+  type InspectionComparisonResult,
   type MoveInInviteRow,
   type RoomDetailData,
 } from '../actions'
+import { transitionWorkOrder } from '@/app/work-orders/actions'
 import { formatRoomTitleLabel } from '../lib/hallway-layout'
 import { formatInspectionTimestamp } from '../lib/move-in-form-status'
 import { findPendingMoveInForBunk } from '../lib/move-in-pending'
@@ -115,13 +117,8 @@ export default function RoomDetailClient({ detail, persona, invites = [] }: Room
     cadet_name: string
     recipient_email: string
   } | null>(null)
-  const [comparison, setComparison] = useState<Array<{
-    item_key: string
-    item_label: string
-    move_in_status: string | null
-    move_out_status: string | null
-    changed: boolean
-  }> | null>(null)
+  const [comparison, setComparison] = useState<InspectionComparisonResult | null>(null)
+  const [responsibilityByWorkOrder, setResponsibilityByWorkOrder] = useState<Record<string, string>>({})
   const [editingName, setEditingName] = useState(false)
   const [nameDraft, setNameDraft] = useState('')
 
@@ -230,14 +227,48 @@ export default function RoomDetailClient({ detail, persona, invites = [] }: Room
       return
     }
     startTransition(async () => {
-      const result = await compareInspectionForms(moveInId, moveOutId)
-      if ('error' in result) {
-        setMessage(result.error ?? 'Request failed')
-        setComparison([])
+      const response = await compareInspectionForms(moveInId, moveOutId)
+      if ('error' in response) {
+        setMessage(response.error ?? 'Request failed')
+        setComparison(null)
         return
       }
-      setComparison(result.rows)
+      const result = response.result
+      setComparison(result)
+      const defaults: Record<string, string> = {}
+      for (const row of result.rows) {
+        if (row.work_order_id && row.default_responsible_cadet_id) {
+          defaults[row.work_order_id] = row.default_responsible_cadet_id
+        }
+      }
+      setResponsibilityByWorkOrder(defaults)
       setMessage(null)
+    })
+  }
+
+  const degradedWorkOrders =
+    comparison?.rows.filter((row) => row.degraded && row.work_order_id) ?? []
+
+  const handleForwardComparisonWorkOrders = () => {
+    if (degradedWorkOrders.length === 0) return
+    startTransition(async () => {
+      let failed = 0
+      for (const row of degradedWorkOrders) {
+        if (!row.work_order_id) continue
+        const responsibleCadetId =
+          responsibilityByWorkOrder[row.work_order_id] ?? row.default_responsible_cadet_id ?? undefined
+        const result = await transitionWorkOrder(row.work_order_id, 'forward', {
+          responsibleCadetId,
+          comment: 'Forwarded after move-in/move-out comparison',
+        })
+        if (result.error) failed += 1
+      }
+      if (failed > 0) {
+        setMessage(`${failed} work order(s) could not be forwarded. Check the work orders queue.`)
+      } else {
+        setMessage('Degraded items forwarded to maintenance with responsibility assigned.')
+      }
+      router.refresh()
     })
   }
 
@@ -527,25 +558,89 @@ export default function RoomDetailClient({ detail, persona, invites = [] }: Room
         </div>
 
         {comparison && (
-          <div className="mb-6 overflow-x-auto">
-            <table className="w-full text-sm border border-border">
-              <thead>
-                <tr className="bg-muted/50">
-                  <th className="p-2 text-left">Item</th>
-                  <th className="p-2 text-left">Move-in</th>
-                  <th className="p-2 text-left">Move-out</th>
-                </tr>
-              </thead>
-              <tbody>
-                {comparison.map((row) => (
-                  <tr key={row.item_key} className={row.changed ? 'bg-amber-500/10' : ''}>
-                    <td className="p-2 border-t border-border">{row.item_label}</td>
-                    <td className="p-2 border-t border-border">{row.move_in_status ?? '—'}</td>
-                    <td className="p-2 border-t border-border">{row.move_out_status ?? '—'}</td>
+          <div className="mb-6 space-y-3">
+            {comparison.moving_cadet_name && (
+              <p className="text-sm text-muted-foreground">
+                Moving cadet: <strong>{comparison.moving_cadet_name}</strong>
+                {' · '}
+                Items with degraded condition default responsibility to this cadet.
+              </p>
+            )}
+            <div className="overflow-x-auto">
+              <table className="w-full text-sm border border-border">
+                <thead>
+                  <tr className="bg-muted/50">
+                    <th className="p-2 text-left">Item</th>
+                    <th className="p-2 text-left">Move-in</th>
+                    <th className="p-2 text-left">Move-out</th>
+                    {canManage && !bunkOnlyView && (
+                      <th className="p-2 text-left">Responsible cadet</th>
+                    )}
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {comparison.rows.map((row) => (
+                    <tr
+                      key={row.item_key}
+                      className={
+                        row.degraded
+                          ? 'bg-red-500/10'
+                          : row.changed
+                            ? 'bg-amber-500/10'
+                            : ''
+                      }
+                    >
+                      <td className="p-2 border-t border-border">
+                        {row.item_label}
+                        {row.degraded && (
+                          <span className="ml-2 text-xs font-medium text-red-700 dark:text-red-300">
+                            Degraded
+                          </span>
+                        )}
+                      </td>
+                      <td className="p-2 border-t border-border">{row.move_in_status ?? '—'}</td>
+                      <td className="p-2 border-t border-border">{row.move_out_status ?? '—'}</td>
+                      {canManage && !bunkOnlyView && (
+                        <td className="p-2 border-t border-border min-w-[12rem]">
+                          {row.degraded && row.work_order_id ? (
+                            <SearchableSelect
+                              label="Responsible cadet"
+                              options={cadetOptions}
+                              value={
+                                responsibilityByWorkOrder[row.work_order_id] ??
+                                row.default_responsible_cadet_id ??
+                                ''
+                              }
+                              onChange={(id) =>
+                                setResponsibilityByWorkOrder((prev) => ({
+                                  ...prev,
+                                  [row.work_order_id!]: id,
+                                }))
+                              }
+                              placeholder="Assign responsibility"
+                              disabled={isPending}
+                            />
+                          ) : (
+                            <span className="text-muted-foreground">—</span>
+                          )}
+                        </td>
+                      )}
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            {canManage && !bunkOnlyView && degradedWorkOrders.length > 0 && (
+              <button
+                type="button"
+                disabled={isPending}
+                onClick={handleForwardComparisonWorkOrders}
+                className="btn-primary text-sm"
+              >
+                Forward {degradedWorkOrders.length} degraded item
+                {degradedWorkOrders.length === 1 ? '' : 's'} to maintenance
+              </button>
+            )}
           </div>
         )}
 

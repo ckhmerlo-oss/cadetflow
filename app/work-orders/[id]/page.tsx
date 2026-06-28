@@ -7,6 +7,7 @@ import {
   getWorkOrderNotificationHistory,
   getWorkOrderPermissions,
 } from '../actions'
+import { searchCompanyCadets } from '@/app/barracks/actions'
 import WorkOrderDetailsClient from './WorkOrderDetailsClient'
 
 export default async function WorkOrderDetailPage({
@@ -22,11 +23,12 @@ export default async function WorkOrderDetailPage({
   const workOrder = await getWorkOrder(id)
   if (!workOrder) notFound()
 
-  const [auditLog, emailHistory, permissions, maintenanceStaff] = await Promise.all([
+  const [auditLog, emailHistory, permissions, maintenanceStaff, companyCadets] = await Promise.all([
     getWorkOrderAuditLog(id),
     getWorkOrderNotificationHistory(id),
     getWorkOrderPermissions(workOrder),
     getMaintenanceStaffList(),
+    searchCompanyCadets('', workOrder.company_id),
   ])
 
   const canView =
@@ -43,6 +45,7 @@ export default async function WorkOrderDetailPage({
       emailHistory={emailHistory}
       permissions={permissions}
       maintenanceStaff={maintenanceStaff}
+      companyCadets={companyCadets.map((c) => ({ id: c.id, label: c.label }))}
     />
   )
 }
