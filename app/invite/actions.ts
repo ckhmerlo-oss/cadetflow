@@ -91,15 +91,21 @@ export async function createParentAccountAndRedeem(
   const userId = authData.user?.id
   if (!userId) return { error: 'Account creation failed.' }
 
-  await admin
-    .from('profiles')
-    .update({
+  const { error: profileError } = await admin.from('profiles').upsert(
+    {
+      id: userId,
       first_name: payload.firstName.trim(),
       last_name: payload.lastName.trim(),
       role_id: PARENT_ROLE_ID,
       company_id: null,
-    })
-    .eq('id', userId)
+    },
+    { onConflict: 'id' }
+  )
+
+  if (profileError) {
+    console.error('createParentAccountAndRedeem profile upsert:', profileError.message)
+    return { error: 'Account created but profile setup failed. Try signing in and continuing again.' }
+  }
 
   const supabase = createClient()
   const { error: signInError } = await supabase.auth.signInWithPassword({
