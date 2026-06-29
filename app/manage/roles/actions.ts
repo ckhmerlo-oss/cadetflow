@@ -35,7 +35,7 @@ async function requireAuth(supabase: SupabaseClient) {
 
 // --- FETCHING ---
 export async function getCompanyChain(companyId: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   
   const { data: companyGroups, error } = await supabase
     .from('approval_groups')
@@ -77,7 +77,7 @@ export async function getCompanyChain(companyId: string) {
 }
 
 export async function getGroupRoles(groupId: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase
     .from('roles')
     .select('id, role_name, default_role_level')
@@ -88,7 +88,7 @@ export async function getGroupRoles(groupId: string) {
 }
 
 export async function getAllApprovalGroups() {
-  const supabase = createClient()
+  const supabase = await createClient()
   try { await requireAuth(supabase) } catch (e) { return [] }
 
   const { data, error } = await supabase
@@ -117,7 +117,7 @@ export async function createGroupAction(
   childGroupIdToApprove?: string | null,
   existingGroupId?: string | null
 ) {
-  const supabase = createClient()
+  const supabase = await createClient()
   try { await requireAuth(supabase) } catch (e: any) { return { error: e.message } }
 
   let targetParentId = existingGroupId;
@@ -169,7 +169,7 @@ export async function createSubordinateGroupAction(
   parentGroupId: string,
   existingGroupId?: string | null
 ) {
-  const supabase = createClient()
+  const supabase = await createClient()
   try { await requireAuth(supabase) } catch (e: any) { return { error: e.message } }
 
   if (existingGroupId) {
@@ -200,7 +200,7 @@ export async function createSubordinateGroupAction(
 }
 
 export async function deleteGroupAction(groupId: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   try { await requireAuth(supabase) } catch (e: any) { return { error: e.message } }
 
   const { count } = await supabase
@@ -246,7 +246,7 @@ export async function deleteGroupAction(groupId: string) {
 
 // Action 1: Fetch Unassigned Roles for a Company
 export async function getCompanyRoles(companyId: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   
   // We want roles that are:
   // 1. Belonging to this company
@@ -266,7 +266,7 @@ export async function getCompanyRoles(companyId: string) {
 
 // Action 2: Link Role to Group
 export async function assignRoleToGroupAction(roleId: string, groupId: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   try { await requireAuth(supabase) } catch (e: any) { return { error: e.message } }
 
   const { error } = await supabase
@@ -281,7 +281,7 @@ export async function assignRoleToGroupAction(roleId: string, groupId: string) {
 
 // Action 3: Unlink Role from Group
 export async function unassignRoleAction(roleId: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   try { await requireAuth(supabase) } catch (e: any) { return { error: e.message } }
 
   const { error } = await supabase

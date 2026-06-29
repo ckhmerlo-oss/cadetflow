@@ -1,38 +1,54 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
-
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseKey =
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+import {
+  DEMO_ENV_COOKIE,
+  getSupabasePublicConfig,
+  resolveRequestHost,
+} from '@/app/lib/demoEnvironment'
 
 export function createClient(request: NextRequest) {
+  const host = resolveRequestHost(request.headers)
+  const config = getSupabasePublicConfig(host)
+
   let response = NextResponse.next({
     request: {
       headers: request.headers,
     },
   })
 
-  const supabase = createServerClient(
-    supabaseUrl!,
-    supabaseKey!,
-    {
-      cookies: {
-        getAll() {
-          return request.cookies.getAll()
-        },
-        setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
-          response = NextResponse.next({
-            request,
-          })
-          cookiesToSet.forEach(({ name, value, options }) => {
-            response.cookies.set(name, value, options)
-          })
-        },
+  if (config.isDemo) {
+    response.cookies.set(DEMO_ENV_COOKIE, 'demo', {
+      path: '/',
+      sameSite: 'lax',
+      secure: request.nextUrl.protocol === 'https:',
+    })
+  } else {
+    response.cookies.delete(DEMO_ENV_COOKIE)
+  }
+
+  const supabase = createServerClient(config.url, config.key, {
+    cookies: {
+      getAll() {
+        return request.cookies.getAll()
       },
-    }
-  )
+      setAll(cookiesToSet) {
+        cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
+        response = NextResponse.next({
+          request,
+        })
+        if (config.isDemo) {
+          response.cookies.set(DEMO_ENV_COOKIE, 'demo', {
+            path: '/',
+            sameSite: 'lax',
+            secure: request.nextUrl.protocol === 'https:',
+          })
+        }
+        cookiesToSet.forEach(({ name, value, options }) => {
+          response.cookies.set(name, value, options)
+        })
+      },
+    },
+  })
 
   return { supabase, response }
 }

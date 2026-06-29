@@ -22,16 +22,19 @@ export type IncidentReport = {
   resolved_by: string | null
   resolution_notes: string | null
   handled_by_id: string | null
+  event_id?: string | null
+  flagged_for_review?: boolean
   // Joins
   reporter: { first_name: string; last_name: string }
-  subject: { first_name: string; last_name: string; company?: { company_name: string } }
+  subject: { first_name: string; last_name: string; company?: { company_name: string }; company_id?: string | null }
   resolver?: { first_name: string; last_name: string }
   handler?: { first_name: string; last_name: string }
+  event?: { id: string; title: string; status: string } | null
 }
 
 // 1. UPDATED: Get Incidents with Company Filtering
 export async function getIncidents(filter: 'pending' | 'resolved' | 'all' = 'pending') {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return []
 
@@ -60,6 +63,11 @@ export async function getIncidents(filter: 'pending' | 'resolved' | 'all' = 'pen
   if (filter === 'pending') query = query.eq('status', 'pending')
   else if (filter === 'resolved') query = query.in('status', ['handled', 'converted'])
 
+  // Faculty (50-64) and cadet leaders (20-49): own submissions only
+  if (roleLevel >= 20 && roleLevel < 65) {
+    query = query.eq('reporter_id', user.id)
+  }
+
   const { data, error } = await query
   if (error) {
       console.error('Error fetching incidents:', error.message, error.details, error.hint, error.code)
@@ -77,6 +85,28 @@ export async function getIncidents(filter: 'pending' | 'resolved' | 'all' = 'pen
   return result as IncidentReport[]
 }
 
+export async function getUnlinkedIncidents() {
+  const incidents = await getIncidents('pending')
+  return incidents.filter((i) => !i.event_id)
+}
+
+export async function toggleIncidentFlag(incidentId: string) {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return { error: 'Unauthorized' }
+
+  const { data, error } = await supabase.rpc('toggle_incident_flag', {
+    p_incident_id: incidentId,
+  })
+
+  if (error) return { error: error.message }
+
+  revalidatePath('/incidents')
+  revalidatePath('/events')
+  revalidatePath('/')
+  return { success: true, flagged: data as boolean }
+}
+
 // ... (submitIncident, resolveAsHandled, convertToDemerit remain exactly the same) ...
 type IncidentPayload = {
     cadetIds: string[]
@@ -87,7 +117,7 @@ type IncidentPayload = {
 }
 
 export async function submitIncident(payload: IncidentPayload) {
-    const supabase = createClient()
+    const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return { error: 'Unauthorized' }
 
@@ -122,7 +152,7 @@ export async function submitIncident(payload: IncidentPayload) {
 }
 
 export async function resolveAsHandled(incidentId: string, notes: string, handledById: string) {
-    const supabase = createClient()
+    const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return { error: 'Unauthorized' }
 
@@ -163,7 +193,7 @@ export async function resolveAsHandled(incidentId: string, notes: string, handle
 // ... imports
 
 export async function convertToDemerit(incidentId: string, offenseTypeId: string, greenSheetSummary: string) {
-    const supabase = createClient()
+    const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return { error: 'Unauthorized' }
 
@@ -290,7 +320,7 @@ export async function convertToDemerit(incidentId: string, offenseTypeId: string
 
 // 3. UPDATED: Faculty List with Roles
 export async function getFacultyList() {
-    const supabase = createClient()
+    const supabase = await createClient()
 
     const { data } = await supabase
         .from('profiles')
@@ -318,7 +348,7 @@ export async function getFacultyList() {
 
 // NEW: Fetch Single Incident
 export async function getIncident(id: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase
     .from('incident_reports')
     .select(`
@@ -326,7 +356,8 @@ export async function getIncident(id: string) {
       reporter:profiles!reporter_id(first_name, last_name),
       subject:profiles!subject_cadet_id(first_name, last_name, company:companies(company_name)),
       resolver:profiles!resolved_by(first_name, last_name),
-      handler:profiles!handled_by_id(first_name, last_name)
+      handler:profiles!handled_by_id(first_name, last_name),
+      event:events(id, title, status)
     `)
     .eq('id', id)
     .single()

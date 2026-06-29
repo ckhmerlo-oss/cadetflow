@@ -25,7 +25,7 @@ import {
 } from '@/app/lib/period-utils'
 
 export async function listCadetHistoricalYears(cadetId: string): Promise<string[]> {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('list_cadet_historical_years', { p_cadet_id: cadetId })
   if (error) throw new Error(error.message)
   const years = (data as { school_year: string }[] | null)?.map((r) => r.school_year) ?? []
@@ -35,7 +35,7 @@ export async function listCadetHistoricalYears(cadetId: string): Promise<string[
 export async function getAcademicTermsForYears(schoolYears: string[]): Promise<AcademicTermRow[]> {
   const years = filterConfiguredYears(schoolYears)
   if (years.length === 0) return []
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase
     .from('academic_terms')
     .select('id, term_name, school_year, term_number, start_date, end_date, archived')
@@ -50,7 +50,7 @@ export async function getCadetPeriodStats(
   schoolYear: string | null,
   termNumber: number | null
 ): Promise<CadetPeriodStats | null> {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase
     .rpc('get_cadet_period_stats', {
       p_cadet_id: cadetId,
@@ -70,7 +70,7 @@ export async function getCadetLedgerForPeriod(
   startIso: string,
   endIso: string
 ): Promise<LedgerAuditEvent[]> {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('get_cadet_ledger_for_period', {
     p_cadet_id: cadetId,
     p_start: startIso,
@@ -85,7 +85,7 @@ export async function getCadetAcademicHistory(
   schoolYear?: string | null,
   termNumber?: number | null
 ): Promise<AcademicHistoryRow[]> {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('get_cadet_academic_history', {
     p_cadet_id: cadetId,
     p_school_year: schoolYear ?? null,
@@ -101,7 +101,7 @@ export async function listCadetsByConduct(
   conductLevel: string,
   includeArchived = false
 ): Promise<ConductReportRow[]> {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('list_cadets_by_conduct', {
     p_school_year: schoolYear,
     p_term_number: termNumber,
@@ -139,7 +139,7 @@ export async function getRosterForPeriod(
   termNumber: number | null,
   includeArchived: boolean
 ): Promise<RosterPeriodRow[]> {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('get_roster_for_period', {
     p_school_year: schoolYear,
     p_term_number: termNumber,

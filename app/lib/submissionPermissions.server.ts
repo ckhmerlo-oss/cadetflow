@@ -4,7 +4,7 @@ import type { SubmissionPermissionBand } from '@/app/lib/submissionPermissions'
 import { createClient } from '@/utils/supabase/server'
 
 export async function canSubmitIncidents(roleLevel?: number): Promise<boolean> {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('can_submit_incidents', {
     p_role_level: roleLevel ?? null,
   })
@@ -18,7 +18,7 @@ export async function canSubmitIncidents(roleLevel?: number): Promise<boolean> {
 }
 
 export async function canSubmitDemerits(roleLevel?: number): Promise<boolean> {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('can_submit_demerits', {
     p_role_level: roleLevel ?? null,
   })
@@ -32,7 +32,7 @@ export async function canSubmitDemerits(roleLevel?: number): Promise<boolean> {
 }
 
 export async function getIncidentSubmissionPolicy(): Promise<SubmissionPermissionBand[]> {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('get_incident_submission_policy')
 
   if (error || !data) {
@@ -48,7 +48,7 @@ export async function getIncidentSubmissionPolicy(): Promise<SubmissionPermissio
 export async function updateIncidentSubmissionPolicy(
   bands: SubmissionPermissionBand[]
 ): Promise<{ error?: string; policy?: SubmissionPermissionBand[] }> {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return { error: 'Unauthorized' }
 
@@ -82,7 +82,7 @@ export async function updateIncidentSubmissionPolicy(
 }
 
 export async function getIncidentSubmissionPolicyLog(limit = 10) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase
     .from('incident_submission_policy_log')
     .select('id, actor_id, action, old_policy, new_policy, created_at')

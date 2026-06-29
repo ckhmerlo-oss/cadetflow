@@ -9,7 +9,7 @@ export default async function HallwayPrintPage({
 }: {
   searchParams: Promise<{ company?: string }>
 }) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 

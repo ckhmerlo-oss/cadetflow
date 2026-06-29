@@ -13,7 +13,7 @@ export default async function InspectionFormPage({
   const { formId } = await params
   const { type } = await searchParams
 
-  const supabase = createClient()
+  const supabase = await createClient()
   const {
     data: { user },
   } = await supabase.auth.getUser()

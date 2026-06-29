@@ -37,7 +37,7 @@ export type GlobalEvent = {
 // --- DATA FETCHING ---
 
 export async function getSportsList(season?: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   let query = supabase.from('sports').select('id, name, season, is_active').order('name')
   
   if (season) query = query.eq('season', season)
@@ -49,7 +49,7 @@ export async function getSportsList(season?: string) {
 }
 
 export async function getGlobalUpcomingEvents() {
-    const supabase = createClient()
+    const supabase = await createClient()
     const { data } = await supabase
         .from('sport_events')
         .select('id, title, event_date, is_home, sport:sports(name)')
@@ -67,7 +67,7 @@ export async function getGlobalUpcomingEvents() {
 }
 
 export async function getSportDetail(sportId: string): Promise<SportDetail | null> {
-  const supabase = createClient()
+  const supabase = await createClient()
   
   const { data: sport } = await supabase.from('sports').select('*').eq('id', sportId).single()
   if (!sport) return null
@@ -133,7 +133,7 @@ export async function getSportDetail(sportId: string): Promise<SportDetail | nul
 
 // ... (Search functions unchanged) ...
 export async function searchCadets(query: string) {
-    const supabase = createClient()
+    const supabase = await createClient()
     const { data } = await supabase
         .from('profiles')
         .select('id, first_name, last_name, company:companies(company_name), role:roles!inner(default_role_level)')
@@ -149,7 +149,7 @@ export async function searchCadets(query: string) {
 }
 
 export async function searchFaculty(query: string) {
-    const supabase = createClient()
+    const supabase = await createClient()
     const { data } = await supabase
         .from('profiles')
         .select('id, first_name, last_name, role:roles!inner(default_role_level)')
@@ -166,7 +166,7 @@ export async function searchFaculty(query: string) {
 
 // ... (Other mutations unchanged) ...
 export async function claimHeadCoach(sportId: string) {
-    const supabase = createClient()
+    const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
     if (!user) return { error: 'Unauthorized' }
     const { count } = await supabase.from('sport_coaches').select('*', { count: 'exact', head: true }).eq('sport_id', sportId)
@@ -177,21 +177,21 @@ export async function claimHeadCoach(sportId: string) {
 }
 
 export async function addAssistantCoach(sportId: string, userId: string, role: string = 'Assistant Coach') {
-    const supabase = createClient()
+    const supabase = await createClient()
     const { error } = await supabase.from('sport_coaches').insert({ sport_id: sportId, coach_id: userId, role: role })
     if (!error) revalidatePath(`/sports/${sportId}`)
     return { error: error?.message }
 }
 
 export async function removeCoach(recordId: string, sportId: string) {
-    const supabase = createClient()
+    const supabase = await createClient()
     const { error } = await supabase.from('sport_coaches').delete().eq('id', recordId)
     if (!error) revalidatePath(`/sports/${sportId}`)
     return { error: error?.message }
 }
 
 export async function addToRoster(cadetId: string, sportName: string, season: string) {
-    const supabase = createClient()
+    const supabase = await createClient()
     const colMap = { 'Fall': 'sport_fall', 'Winter': 'sport_winter', 'Spring': 'sport_spring' }
     const targetCol = colMap[season as keyof typeof colMap]
     const { error } = await supabase.from('cadet_profiles').update({ [targetCol]: sportName }).eq('profile_id', cadetId)
@@ -200,7 +200,7 @@ export async function addToRoster(cadetId: string, sportName: string, season: st
 }
 
 export async function removeFromRoster(cadetId: string, season: string) {
-    const supabase = createClient()
+    const supabase = await createClient()
     const colMap = { 'Fall': 'sport_fall', 'Winter': 'sport_winter', 'Spring': 'sport_spring' }
     const targetCol = colMap[season as keyof typeof colMap]
     const { error } = await supabase.from('cadet_profiles').update({ [targetCol]: 'None' }).eq('profile_id', cadetId)
@@ -209,7 +209,7 @@ export async function removeFromRoster(cadetId: string, season: string) {
 }
 
 export async function addEvent(sportId: string, event: any) {
-    const supabase = createClient()
+    const supabase = await createClient()
     const { error } = await supabase.from('sport_events').insert({
         sport_id: sportId,
         title: event.title,
@@ -223,14 +223,14 @@ export async function addEvent(sportId: string, event: any) {
 }
 
 export async function removeEvent(eventId: string, sportId: string) {
-    const supabase = createClient()
+    const supabase = await createClient()
     const { error } = await supabase.from('sport_events').delete().eq('id', eventId)
     if (!error) revalidatePath(`/sports/${sportId}`)
     return { error: error?.message }
 }
 
 export async function getUnassignedCadets(season: string) {
-    const supabase = createClient()
+    const supabase = await createClient()
     const colMap = { 'Fall': 'sport_fall', 'Winter': 'sport_winter', 'Spring': 'sport_spring' }
     const targetCol = colMap[season as keyof typeof colMap]
 

@@ -55,7 +55,7 @@ export async function updateUserRole(userId: string, roleId: string | null) {
 }
 
 export async function bulkAssignRole(userIds: string[], roleId: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const actor = await getActorWithPermissions(supabase)
   
   if (!actor) return { error: "Unauthorized" }
@@ -127,7 +127,7 @@ export async function bulkAssignRole(userIds: string[], roleId: string) {
 }
 
 export async function bulkAssignCompany(userIds: string[], companyId: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const actor = await getActorWithPermissions(supabase)
   
   if (!actor) return { error: "Unauthorized" }

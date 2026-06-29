@@ -9,6 +9,7 @@ import {
   getSchoolYearTerms,
   getYearClosePreflight,
   getYearCloseReminderPreview,
+  carryForwardEvent,
   markCadetsGraduated,
   sendYearCloseReminders,
   setDepartureClassification,
@@ -128,6 +129,7 @@ export default function YearCloseWizard({
     emailError?: string
   } | null>(null)
   const [resolvingCadetId, setResolvingCadetId] = useState<string | null>(null)
+  const [carryingEventId, setCarryingEventId] = useState<string | null>(null)
 
   const configuredNextYears = [...new Set(
     allTerms.filter((t) => !t.archived).map((t) => t.school_year)
@@ -294,6 +296,20 @@ export default function YearCloseWizard({
     setError(null)
     const res = await setDepartureClassification(cadetId, classification)
     setResolvingCadetId(null)
+    if (res.error) setError(res.error)
+    else await loadPreflight()
+  }
+
+  const handleCarryForwardEvent = async (eventId: string) => {
+    const targetYear = nextSchoolYear || preflight?.next_school_year
+    if (!targetYear) {
+      setError('Configure the next school year before carrying events forward.')
+      return
+    }
+    setCarryingEventId(eventId)
+    setError(null)
+    const res = await carryForwardEvent(eventId, targetYear)
+    setCarryingEventId(null)
     if (res.error) setError(res.error)
     else await loadPreflight()
   }
@@ -737,6 +753,34 @@ export default function YearCloseWizard({
                         </li>
                       ))}
                     </ul>
+                  </div>
+                )}
+                {(preflight.items?.open_events?.length ?? 0) > 0 && (
+                  <div className="space-y-2">
+                    <p className="text-xs text-muted-foreground">Open events (close or carry forward before year close):</p>
+                    <ul className="space-y-2">
+                      {preflight.items!.open_events!.map((item) => (
+                        <li key={item.id} className="flex flex-wrap items-center gap-2 text-sm">
+                          <Link href={item.href} className="text-primary hover:underline">
+                            {item.label}
+                          </Link>
+                          <button
+                            type="button"
+                            disabled={loading || carryingEventId === item.id || !nextSchoolYear}
+                            onClick={() => handleCarryForwardEvent(item.id)}
+                            className="text-xs px-2 py-0.5 rounded border border-border hover:bg-accent disabled:opacity-50"
+                          >
+                            Carry forward
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
+                {(preflight.items?.open_special_reports?.length ?? 0) > 0 && (
+                  <div>
+                    <p className="text-xs text-muted-foreground">Open special reports:</p>
+                    <ItemLinkList items={preflight.items?.open_special_reports} />
                   </div>
                 )}
                 {(preflight.items?.uncleared_rooms?.length ?? 0) > 0 && (

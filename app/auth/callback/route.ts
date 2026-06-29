@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
   const next = requestUrl.searchParams.get('next') ?? '/'
 
   if (code) {
-    const supabase = createClient()
+    const supabase = await createClient()
     
     // Use the error-handling version
     try {

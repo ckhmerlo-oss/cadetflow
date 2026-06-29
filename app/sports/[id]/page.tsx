@@ -5,7 +5,7 @@ import SportClient from './SportClient'
 
 export default async function SportPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
-  const supabase = createClient()
+  const supabase = await createClient()
   
   const { data: { user } } = await supabase.auth.getUser()
   const detail = await getSportDetail(id)

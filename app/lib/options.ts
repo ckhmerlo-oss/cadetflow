@@ -12,7 +12,7 @@ export type AppOption = {
 
 // 1. Keep this for simple dropdowns (Profile Page) - Returns string[]
 export async function getAppOptions(category: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data } = await supabase
     .from('app_options')
     .select('value')
@@ -25,7 +25,7 @@ export async function getAppOptions(category: string) {
 
 // 2. NEW: Fetch full option objects (Band Page) - Returns AppOption[]
 export async function getFullAppOptions(category: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data } = await supabase
     .from('app_options')
     .select('*')
@@ -39,7 +39,7 @@ export async function getFullAppOptions(category: string) {
 
 // ... (Keep getSportOptions & getProfileDropdowns unchanged) ...
 export async function getSportOptions(season: string) {
-    const supabase = createClient()
+    const supabase = await createClient()
     const { data } = await supabase.from('sports').select('name').eq('season', season).eq('is_active', true).order('name')
     return ['None', ...(data || []).map((s: any) => s.name)]
 }

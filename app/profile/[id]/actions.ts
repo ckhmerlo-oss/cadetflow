@@ -6,7 +6,7 @@ import { STAR_TOUR_AUTHORIZED_ROLES } from '../constants'
 import { updateCadetDetails, updateStaffDetails } from '@/app/lib/profile-queries'
 
 export async function updateCadetProfile(cadetId: string, formData: FormData) {
-  const supabase = createClient()
+  const supabase = await createClient()
   
   // 1. Auth Check
   const { data: { user } } = await supabase.auth.getUser()
@@ -109,7 +109,7 @@ const updates: { [key: string]: any } = {
 }
 
 export async function updateStaffProfile(staffId: string, formData: FormData) {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return { error: 'Unauthorized' }
@@ -148,7 +148,7 @@ export async function updateStaffProfile(staffId: string, formData: FormData) {
 }
 
 export async function submitTourAdjustment(cadetId: string, amount: number, reason: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   
   // 1. Auth Check
   const { data: { user } } = await supabase.auth.getUser()

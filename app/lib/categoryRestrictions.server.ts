@@ -15,7 +15,7 @@ export type AllowedCategoriesResult = {
 export async function getAllowedPolicyCategories(
   roleLevel?: number
 ): Promise<AllowedCategoriesResult> {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('get_allowed_policy_categories', {
     p_role_level: roleLevel ?? null,
   })
@@ -64,7 +64,7 @@ export type CategoryRestrictionPolicyResult = {
 }
 
 export async function getCategoryRestrictionPolicy(): Promise<CategoryRestrictionPolicyResult> {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('get_category_restriction_policy')
 
   if (error || !data) {
@@ -88,7 +88,7 @@ export async function getCategoryRestrictionPolicy(): Promise<CategoryRestrictio
 export async function updateCategoryRestrictionPolicy(
   bands: CategoryRestrictionBand[]
 ): Promise<{ error?: string; policy?: CategoryRestrictionBand[] }> {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return { error: 'Unauthorized' }
 
@@ -124,7 +124,7 @@ export async function updateCategoryRestrictionPolicy(
 }
 
 export async function getCategoryRestrictionPolicyLog(limit = 10) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase
     .from('category_restriction_policy_log')
     .select('id, actor_id, action, old_policy, new_policy, created_at')

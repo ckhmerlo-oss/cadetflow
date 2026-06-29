@@ -8,6 +8,9 @@ import {
   redeemParentInvite,
   type MoveInInvitePublic,
 } from '@/app/invite/actions'
+import LegalAcceptanceCheckboxes, {
+  allLegalDocsAccepted,
+} from '@/app/components/LegalAcceptanceCheckboxes'
 
 type MoveInInviteClientProps = {
   token: string
@@ -28,6 +31,7 @@ export default function MoveInInviteClient({
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [password, setPassword] = useState('')
+  const [legalAccepted, setLegalAccepted] = useState<Record<string, boolean>>({})
 
   const emailMismatch =
     isLoggedIn &&
@@ -55,6 +59,10 @@ export default function MoveInInviteClient({
     e.preventDefault()
     if (!firstName.trim() || !lastName.trim() || password.length < 6) {
       setError('Enter your name and a password of at least 6 characters.')
+      return
+    }
+    if (!allLegalDocsAccepted(legalAccepted)) {
+      setError('Accept all legal agreements to continue.')
       return
     }
 
@@ -177,6 +185,11 @@ export default function MoveInInviteClient({
               required
             />
           </div>
+          <LegalAcceptanceCheckboxes
+            accepted={legalAccepted}
+            onChange={(key, checked) => setLegalAccepted((prev) => ({ ...prev, [key]: checked }))}
+            disabled={isPending}
+          />
           <button type="submit" disabled={isPending} className="btn-primary w-full min-h-[3rem]">
             {isPending ? 'Creating account...' : 'Create account & open form'}
           </button>

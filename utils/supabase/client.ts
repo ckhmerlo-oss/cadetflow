@@ -1,22 +1,27 @@
 import { createBrowserClient } from '@supabase/ssr'
+import { getSupabasePublicConfig, isDemoHost } from '@/app/lib/demoEnvironment'
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
-const supabaseKey =
-  process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY ??
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+const browserClients = new Map<string, ReturnType<typeof createBrowserClient>>()
 
-let browserClient: ReturnType<typeof createBrowserClient> | undefined
+function resolveBrowserHost(): string | null {
+  if (typeof window === 'undefined') return null
+  return window.location.hostname
+}
 
 export function createClient() {
-  if (!supabaseUrl || !supabaseKey) {
-    throw new Error(
-      'Missing Supabase configuration. Set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY in .env.local, then restart the dev server.'
-    )
+  const host = resolveBrowserHost()
+  const config = getSupabasePublicConfig(host)
+  const cacheKey = config.isDemo ? 'demo' : 'prod'
+
+  let client = browserClients.get(cacheKey)
+  if (!client) {
+    client = createBrowserClient(config.url, config.key)
+    browserClients.set(cacheKey, client)
   }
 
-  if (!browserClient) {
-    browserClient = createBrowserClient(supabaseUrl, supabaseKey)
-  }
+  return client
+}
 
-  return browserClient
+export function isBrowserDemoHost(): boolean {
+  return isDemoHost(resolveBrowserHost())
 }

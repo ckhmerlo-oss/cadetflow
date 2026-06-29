@@ -15,7 +15,7 @@ type UserProfile = {
 }
 
 export default async function RolesConfigurationPage() {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   // 1. Get User & Permissions
   const { data: { user } } = await supabase.auth.getUser()

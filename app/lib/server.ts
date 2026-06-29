@@ -1,7 +1,12 @@
 'use server'
 
 import { createClient } from '@/utils/supabase/server'
-import { createClient as createAdminClient } from '@supabase/supabase-js'
+import { createAdminClient, getRequestHost } from '@/utils/supabase/admin'
+import {
+  getSupabasePublicConfig,
+  getSupabaseServiceRoleKey,
+  resolveSiteUrl,
+} from '@/app/lib/demoEnvironment'
 import {
   alertEmail,
   greenSheetEmail,
@@ -47,13 +52,17 @@ interface EmailPayload {
   intendedRecipient?: IntendedRecipient
 }
 
-const getAdmin = () => createAdminClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-)
+async function getAdmin() {
+  return createAdminClient()
+}
+
+async function getFunctionsBaseUrl() {
+  const host = await getRequestHost()
+  return getSupabasePublicConfig(host).url
+}
 
 async function isUserArchived(userId: string): Promise<boolean> {
-  const admin = getAdmin()
+  const admin = await getAdmin()
   const { data } = await admin
     .from('profiles')
     .select('archived')
@@ -63,7 +72,7 @@ async function isUserArchived(userId: string): Promise<boolean> {
 }
 
 export async function dispatchEmail(type: EmailType, payload: EmailPayload): Promise<ActionResponse> {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   let settingKey = ''
   if (type === 'greensheet') settingKey = 'enable_email_blasts'
@@ -80,13 +89,15 @@ export async function dispatchEmail(type: EmailType, payload: EmailPayload): Pro
     }
   }
 
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+  const serviceKey = getSupabaseServiceRoleKey(await getRequestHost())
   if (!serviceKey) {
-    return { success: false, error: 'Missing SUPABASE_SERVICE_ROLE_KEY' }
+    return { success: false, error: 'Missing Supabase service role key' }
   }
 
+  const functionsBaseUrl = await getFunctionsBaseUrl()
+
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/send-email`, {
+    const response = await fetch(`${functionsBaseUrl}/functions/v1/send-email`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -98,7 +109,7 @@ export async function dispatchEmail(type: EmailType, payload: EmailPayload): Pro
     const data = await response.json().catch(() => ({}))
 
     if (isEdgeFunctionsUnavailable(response, data)) {
-      const direct = await sendEmailDirect(getAdmin(), { type, ...payload })
+      const direct = await sendEmailDirect(await getAdmin(), { type, ...payload })
       if (!direct.success) {
         const detail = [direct.error, direct.stage && `stage=${direct.stage}`, direct.errorCode && `code=${direct.errorCode}`]
           .filter(Boolean)
@@ -118,7 +129,7 @@ export async function dispatchEmail(type: EmailType, payload: EmailPayload): Pro
     return { success: true, sent: data.sentCount ?? payload.recipients.length }
   } catch (err) {
     try {
-      const direct = await sendEmailDirect(getAdmin(), { type, ...payload })
+      const direct = await sendEmailDirect(await getAdmin(), { type, ...payload })
       if (direct.success) {
         return { success: true, sent: direct.sentCount ?? payload.recipients.length }
       }
@@ -131,7 +142,7 @@ export async function dispatchEmail(type: EmailType, payload: EmailPayload): Pro
 }
 
 async function filterRecipientsByPreference(userIds: string[], category: string): Promise<string[]> {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('filter_users_by_email_preference', {
     p_user_ids: userIds,
     p_category: category,
@@ -144,7 +155,7 @@ async function sendToUsers(
   userIds: string[],
   buildEmail: (userId: string, email: string, profileName: string) => EmailPayload
 ): Promise<{ sent: number; lastError: string | null }> {
-  const admin = getAdmin()
+  const admin = await getAdmin()
   const { data: users } = await admin.auth.admin.listUsers()
   const { data: profiles } = await admin
     .from('profiles')
@@ -187,8 +198,8 @@ export async function sendTestEmail(recipientsStr: string, subject: string, body
 }
 
 export async function triggerGreenSheetBlast(): Promise<ActionResponse> {
-  const supabase = createClient()
-  const admin = getAdmin()
+  const supabase = await createClient()
+  const admin = await getAdmin()
 
   const { data: html, error: htmlError } = await supabase.rpc('generate_daily_email_html')
   if (htmlError || !html) return { success: false, error: 'Failed to generate report HTML' }
@@ -224,13 +235,16 @@ export async function triggerGreenSheetBlast(): Promise<ActionResponse> {
 }
 
 export async function triggerTourSheetAlert(): Promise<ActionResponse> {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data: debtors, error: dbError } = await supabase.rpc('get_tour_sheet_debtors')
   if (dbError) return { success: false, error: dbError.message }
   if (!debtors || debtors.length === 0) return { success: true, message: 'No one on the tour sheet.' }
 
   const debtorIds = debtors.map((d: { id: string }) => d.id)
   const authorizedIds = await filterRecipientsByPreference(debtorIds, 'tour_change')
+
+  const host = await getRequestHost()
+  const siteUrl = resolveSiteUrl(host)
 
   const { sent, lastError } = await sendToUsers(authorizedIds, (userId, email, profileName) => {
     const debtor = debtors.find((d: { id: string }) => d.id === userId)
@@ -240,7 +254,7 @@ export async function triggerTourSheetAlert(): Promise<ActionResponse> {
       htmlContent: alertEmail({
         subject: 'Tour Sheet Notification',
         message: `You currently have a balance of ${debtor?.balance ?? 0} Tours. You are required to march until this balance is cleared.`,
-        siteUrl: process.env.NEXT_PUBLIC_SITE_URL,
+        siteUrl,
       }),
       idempotencyKey: `tour-alert:${userId}:${new Date().toISOString().slice(0, 10)}`,
       intendedRecipient: { email, userId, profileName },
@@ -254,8 +268,10 @@ export async function triggerTourSheetAlert(): Promise<ActionResponse> {
 }
 
 export async function triggerActionItemAlert(): Promise<ActionResponse> {
-  const supabase = createClient()
-  const admin = getAdmin()
+  const supabase = await createClient()
+  const admin = await getAdmin()
+  const host = await getRequestHost()
+  const siteUrl = resolveSiteUrl(host)
 
   const { data: activeUsers, error: dbError } = await supabase.rpc('get_users_with_pending_actions')
   if (dbError) return { success: false, error: dbError.message }
@@ -299,8 +315,8 @@ export async function triggerActionItemAlert(): Promise<ActionResponse> {
       htmlContent: alertEmail({
         subject: 'Action Required',
         message: `You have pending items in your CadetFlow dashboard:\n• ${items.join('\n• ')}`,
-        linkUrl: process.env.NEXT_PUBLIC_SITE_URL,
-        siteUrl: process.env.NEXT_PUBLIC_SITE_URL,
+        linkUrl: siteUrl,
+        siteUrl,
       }),
       idempotencyKey: `action-items:${record.user_id}:${new Date().toISOString().slice(0, 10)}`,
       intendedRecipient: { email: user.email, userId: record.user_id, profileName },
@@ -315,12 +331,15 @@ export async function triggerActionItemAlert(): Promise<ActionResponse> {
 }
 
 export async function processEmailQueue(): Promise<ActionResponse> {
-  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
-  if (!serviceKey) return { success: false, error: 'Missing SUPABASE_SERVICE_ROLE_KEY' }
+  const host = await getRequestHost()
+  const serviceKey = getSupabaseServiceRoleKey(host)
+  if (!serviceKey) return { success: false, error: 'Missing Supabase service role key' }
+
+  const functionsBaseUrl = getSupabasePublicConfig(host).url
 
   try {
     const response = await fetch(
-      `${process.env.NEXT_PUBLIC_SUPABASE_URL}/functions/v1/process-email-queue`,
+      `${functionsBaseUrl}/functions/v1/process-email-queue`,
       {
         method: 'POST',
         headers: {
@@ -335,7 +354,7 @@ export async function processEmailQueue(): Promise<ActionResponse> {
     if (!response.ok) {
       if (isEdgeFunctionsUnavailable(response, data)) {
         try {
-          const direct = await processEmailQueueDirect(getAdmin())
+          const direct = await processEmailQueueDirect(await getAdmin())
           return {
             success: true,
             processed: direct.processed,
@@ -365,7 +384,7 @@ export async function processEmailQueue(): Promise<ActionResponse> {
     }
   } catch (err) {
     try {
-      const direct = await processEmailQueueDirect(getAdmin())
+      const direct = await processEmailQueueDirect(await getAdmin())
       return {
         success: true,
         processed: direct.processed,
@@ -412,7 +431,7 @@ export async function drainEmailQueue(maxBatches = 10): Promise<ActionResponse> 
 }
 
 export async function retryFailedEmailQueue(limit = 100): Promise<ActionResponse> {
-  const admin = getAdmin()
+  const admin = await getAdmin()
   const { data, error } = await admin.rpc('retry_failed_email_notifications', { p_limit: limit })
 
   if (error) {
@@ -442,7 +461,7 @@ export type DeliveryLogEntry = {
 }
 
 export async function getEmailDeliveryLog(): Promise<DeliveryLogEntry[]> {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase
     .from('email_delivery_log')
     .select('id, intended_email, actual_email, profile_name, subject, status, error_message, delivery_mode, created_at')

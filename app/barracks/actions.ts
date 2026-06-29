@@ -145,7 +145,7 @@ export type InspectionFormData = {
 }
 
 async function getViewerContext() {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return null
 
@@ -902,19 +902,17 @@ export async function createMoveInInvite(payload: {
     expires_at: string
   }
 
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ??
-    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
-  const inviteLink = `${siteUrl}/invite/move-in/${result.token}`
-
   const { sendEmailDirect } = await import('@/app/lib/email/emailDirect.server')
   const { moveInInviteEmail } = await import('@/app/lib/emailTemplates')
-  const { createClient: createAdminClient } = await import('@supabase/supabase-js')
+  const { createAdminClient } = await import('@/utils/supabase/admin')
+  const { resolveSiteUrl } = await import('@/app/lib/demoEnvironment')
+  const { getRequestHost } = await import('@/utils/supabase/admin')
 
-  const admin = createAdminClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  )
+  const host = await getRequestHost()
+  const siteUrl = resolveSiteUrl(host)
+  const inviteLink = `${siteUrl}/invite/move-in/${result.token}`
+
+  const admin = await createAdminClient()
 
   const emailResult = await sendEmailDirect(admin, {
     type: 'alert',
@@ -1024,19 +1022,17 @@ export async function resendMoveInInvite(payload: {
     expires_at: string
   }
 
-  const siteUrl =
-    process.env.NEXT_PUBLIC_SITE_URL ??
-    (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : 'http://localhost:3000')
-  const inviteLink = `${siteUrl}/invite/move-in/${result.token}`
-
   const { sendEmailDirect } = await import('@/app/lib/email/emailDirect.server')
   const { moveInInviteEmail } = await import('@/app/lib/emailTemplates')
-  const { createClient: createAdminClient } = await import('@supabase/supabase-js')
+  const { createAdminClient } = await import('@/utils/supabase/admin')
+  const { resolveSiteUrl } = await import('@/app/lib/demoEnvironment')
+  const { getRequestHost } = await import('@/utils/supabase/admin')
 
-  const admin = createAdminClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.SUPABASE_SERVICE_ROLE_KEY!
-  )
+  const host = await getRequestHost()
+  const siteUrl = resolveSiteUrl(host)
+  const inviteLink = `${siteUrl}/invite/move-in/${result.token}`
+
+  const admin = await createAdminClient()
 
   const emailResult = await sendEmailDirect(admin, {
     type: 'alert',

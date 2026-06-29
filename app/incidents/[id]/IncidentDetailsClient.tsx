@@ -78,6 +78,22 @@ export default function IncidentDetailsClient({
                  <h3 className="text-xs font-bold text-muted-foreground uppercase">Reporter</h3>
                  <p className="text-lg font-medium text-foreground">{incident.reporter.last_name}, {incident.reporter.first_name}</p>
              </div>
+             {incident.event && (
+               <div className="md:col-span-2">
+                 <h3 className="text-xs font-bold text-muted-foreground uppercase">Linked event</h3>
+                 <Link href={`/incidents?event=${incident.event.id}`} className="text-primary hover:underline font-medium">
+                   {incident.event.title}
+                 </Link>
+                 <span className="text-xs text-muted-foreground ml-2">({incident.event.status})</span>
+               </div>
+             )}
+             {userRoleLevel >= 65 && !incident.event && incident.status === 'pending' && (
+               <div className="md:col-span-2">
+                 <Link href="/incidents" className="text-sm text-primary hover:underline">
+                   Link to an event from the Events workspace →
+                 </Link>
+               </div>
+             )}
              <div>
                  <h3 className="text-xs font-bold text-muted-foreground uppercase">Time & Location</h3>
                  <p className="text-foreground">{new Date(incident.incident_time).toLocaleString()}</p>

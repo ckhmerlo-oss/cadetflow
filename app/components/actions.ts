@@ -9,7 +9,7 @@ type FeedbackData = {
 }
 
 export async function submitFeedback(data: FeedbackData) {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   // 1. Save to Database
   const { error: dbError } = await supabase

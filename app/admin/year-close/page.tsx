@@ -4,7 +4,7 @@ import YearCloseWizard from './YearCloseWizard'
 import { getSchoolYearTerms } from '@/app/oversight/actions'
 
 export default async function YearClosePage() {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 

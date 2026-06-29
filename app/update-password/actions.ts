@@ -6,7 +6,7 @@ import { revalidatePath } from 'next/cache'
 
 // This function will be called by your form
 export async function updatePassword(prevState: any, formData: FormData) {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const newPassword = formData.get('new-password') as string
   const confirmPassword = formData.get('confirm-password') as string

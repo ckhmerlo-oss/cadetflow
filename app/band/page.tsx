@@ -5,7 +5,7 @@ import BandDashboardClient from './BandDashboardClient'
 import { getFullAppOptions, getAppOptions } from '@/app/lib/options'
 
 export default async function BandPage() {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
   if (!user) redirect('/login')

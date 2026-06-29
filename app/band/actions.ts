@@ -22,7 +22,7 @@ export type BandMember = {
 }
 
 export async function getBandRoster() {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const { data, error } = await supabase
     .from('profiles')
@@ -76,7 +76,7 @@ export async function getBandRoster() {
 }
 
 export async function updateBandDetails(cadetId: string, details: { instrument: string, leadership_role: string, travel_notes: string }) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { error } = await supabase
     .from('band_details')
     .upsert({
@@ -92,7 +92,7 @@ export async function updateBandDetails(cadetId: string, details: { instrument: 
 }
 
 export async function searchCadetCandidates(query: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const { data, error } = await supabase
     .from('profiles')
@@ -121,7 +121,7 @@ export async function searchCadetCandidates(query: string) {
 }
 
 export async function setBandMembership(cadetId: string, isInBand: boolean) {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const { error } = await supabase
     .from('cadet_profiles')

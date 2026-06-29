@@ -6,6 +6,13 @@ import SearchableSelect from '@/app/components/SearchableSelect'
 
 type OffenseOption = { id: string, label: string, group: string, demerits: number }
 
+type FilterType = 'all' | 'date_range' | 'subject' | 'status'
+
+const formatName = (person: { first_name: string; last_name: string } | null | undefined) => {
+  if (!person?.last_name) return 'Unknown'
+  return `${person.last_name}, ${person.first_name}`
+}
+
 export default function IncidentsClient({ 
     incidents, 
     roleLevel, 
@@ -18,44 +25,96 @@ export default function IncidentsClient({
   const [activeTab, setActiveTab] = useState<'pending' | 'resolved'>('pending')
   const [loading, setLoading] = useState(false)
   
-  // Data
   const [faculty, setFaculty] = useState<{id: string, label: string}[]>([])
 
-  // Modal State
   const [selectedIncident, setSelectedIncident] = useState<IncidentReport | null>(null)
   const [modalMode, setModalMode] = useState<'view' | 'resolve' | 'convert'>('view')
   
-  // Form State
   const [resolutionNotes, setResolutionNotes] = useState('')
   const [selectedOffenseId, setSelectedOffenseId] = useState('')
   const [handledById, setHandledById] = useState('')
 
+  const [searchTerm, setSearchTerm] = useState('')
+  const [filterType, setFilterType] = useState<FilterType>('all')
+  const [filterValue, setFilterValue] = useState('')
+  const [startDate, setStartDate] = useState('')
+  const [endDate, setEndDate] = useState('')
+
   useEffect(() => {
-      // Load faculty list for "Handled By" dropdown
       getFacultyList().then(setFaculty)
   }, [])
 
-  // Auto-set "Handled By" to the reporter when opening resolve modal
   useEffect(() => {
       if (modalMode === 'resolve' && selectedIncident) {
           setHandledById('')
       }
   }, [modalMode, selectedIncident])
 
-  const filteredIncidents = incidents.filter(i => {
-      if (activeTab === 'pending') return i.status === 'pending'
-      return ['handled', 'converted'].includes(i.status)
-  })
+  const tabIncidents = useMemo(() => {
+    if (activeTab === 'pending') {
+      return incidents.filter((i) => i.status === 'pending')
+    }
+    return incidents.filter(
+      (i) =>
+        ['handled', 'converted'].includes(i.status) &&
+        !i.event_id
+    )
+  }, [incidents, activeTab])
 
-  // Format Offense Options to show Demerits
+  const uniqueSubjects = useMemo(
+    () => [...new Set(tabIncidents.map((i) => formatName(i.subject)))].sort(),
+    [tabIncidents]
+  )
+
+  const filteredIncidents = useMemo(() => {
+    let rows = tabIncidents
+
+    if (searchTerm.trim()) {
+      const q = searchTerm.toLowerCase()
+      rows = rows.filter(
+        (i) =>
+          formatName(i.subject).toLowerCase().includes(q) ||
+          formatName(i.reporter).toLowerCase().includes(q) ||
+          i.location.toLowerCase().includes(q) ||
+          i.description.toLowerCase().includes(q) ||
+          i.status.toLowerCase().includes(q)
+      )
+    }
+
+    if (filterType === 'subject' && filterValue) {
+      rows = rows.filter((i) => formatName(i.subject) === filterValue)
+    }
+
+    if (filterType === 'status' && filterValue) {
+      rows = rows.filter((i) => i.status === filterValue)
+    }
+
+    if (filterType === 'date_range') {
+      if (startDate) {
+        const start = new Date(startDate).getTime()
+        rows = rows.filter((i) => {
+          const d = activeTab === 'resolved' ? i.resolved_at ?? i.created_at : i.incident_time
+          return new Date(d).getTime() >= start
+        })
+      }
+      if (endDate) {
+        const end = new Date(endDate).getTime() + 86400000
+        rows = rows.filter((i) => {
+          const d = activeTab === 'resolved' ? i.resolved_at ?? i.created_at : i.incident_time
+          return new Date(d).getTime() < end
+        })
+      }
+    }
+
+    return rows
+  }, [tabIncidents, searchTerm, filterType, filterValue, startDate, endDate, activeTab])
+
   const richOffenseOptions = useMemo(() => {
       return offenseTypes.map(o => ({
           ...o,
           label: `${o.label} (${o.demerits} Dem)`
       }))
   }, [offenseTypes])
-
-  // --- ACTIONS ---
 
   const handleResolve = async () => {
       if (!selectedIncident || !handledById) return
@@ -78,7 +137,6 @@ export default function IncidentsClient({
   return (
     <div className="space-y-6">
         
-        {/* TABS */}
         <div className="flex border-b border-border">
             <button 
                 onClick={() => setActiveTab('pending')} 
@@ -98,11 +156,71 @@ export default function IncidentsClient({
                     : 'border-transparent text-muted-foreground hover:text-foreground'
                 }`}
             >
-                Resolved History
+                Resolved (no event)
             </button>
         </div>
 
-        {/* LIST */}
+        {activeTab === 'resolved' && (
+          <div className="bg-card border border-border rounded-lg p-4 space-y-3">
+            <input
+              type="search"
+              placeholder="Quick search..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="input-base text-sm w-full"
+            />
+            <div className="flex flex-wrap gap-2">
+              <select
+                value={filterType}
+                onChange={(e) => {
+                  setFilterType(e.target.value as FilterType)
+                  setFilterValue('')
+                  setStartDate('')
+                  setEndDate('')
+                }}
+                className="input-base text-sm"
+              >
+                <option value="all">All filters</option>
+                <option value="subject">Subject</option>
+                <option value="status">Status</option>
+                <option value="date_range">Date range</option>
+              </select>
+              {filterType === 'subject' && (
+                <select
+                  value={filterValue}
+                  onChange={(e) => setFilterValue(e.target.value)}
+                  className="input-base text-sm"
+                >
+                  <option value="">All subjects</option>
+                  {uniqueSubjects.map((name) => (
+                    <option key={name} value={name}>{name}</option>
+                  ))}
+                </select>
+              )}
+              {filterType === 'status' && (
+                <select
+                  value={filterValue}
+                  onChange={(e) => setFilterValue(e.target.value)}
+                  className="input-base text-sm"
+                >
+                  <option value="">All statuses</option>
+                  <option value="handled">Handled</option>
+                  <option value="converted">Converted</option>
+                </select>
+              )}
+              {filterType === 'date_range' && (
+                <>
+                  <input type="date" value={startDate} onChange={(e) => setStartDate(e.target.value)} className="input-base text-sm" />
+                  <input type="date" value={endDate} onChange={(e) => setEndDate(e.target.value)} className="input-base text-sm" />
+                </>
+              )}
+            </div>
+            <p className="text-xs text-muted-foreground">
+              {filteredIncidents.length} resolved incident{filteredIncidents.length === 1 ? '' : 's'} not filed under an event
+            </p>
+          </div>
+        )}
+
         <div className="bg-card border border-border shadow-sm rounded-lg overflow-hidden">
             <table className="min-w-full divide-y divide-border">
                 <thead className="bg-muted/50">
@@ -121,7 +239,9 @@ export default function IncidentsClient({
                             className="hover:bg-muted/50 cursor-pointer transition-colors" 
                             onClick={() => { setSelectedIncident(inc); setModalMode('view'); }}
                         >
-                            <td className="px-6 py-4 text-sm text-muted-foreground">{new Date(inc.incident_time).toLocaleDateString()}</td>
+                            <td className="px-6 py-4 text-sm text-muted-foreground">
+                              {new Date(activeTab === 'resolved' ? (inc.resolved_at ?? inc.incident_time) : inc.incident_time).toLocaleDateString()}
+                            </td>
                             <td className="px-6 py-4 text-sm font-medium text-foreground">{inc.subject.last_name}, {inc.subject.first_name}</td>
                             <td className="px-6 py-4 text-sm text-muted-foreground">{inc.reporter.last_name}, {inc.reporter.first_name}</td>
                             <td className="px-6 py-4 text-sm text-foreground truncate max-w-xs">{inc.description}</td>
@@ -150,12 +270,10 @@ export default function IncidentsClient({
             </table>
         </div>
 
-        {/* --- DETAILS MODAL --- */}
         {selectedIncident && (
             <div className="fixed inset-0 bg-background/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
                 <div className="bg-card border border-border rounded-lg shadow-lg max-w-2xl w-full p-6 space-y-4 max-h-[90vh] overflow-y-auto animate-in fade-in zoom-in-95 duration-200">
                     
-                    {/* Header */}
                     <div className="flex justify-between items-start">
                         <div>
                             <h2 className="text-xl font-bold text-foreground">Incident Report</h2>
@@ -164,7 +282,6 @@ export default function IncidentsClient({
                         <button onClick={() => setSelectedIncident(null)} className="text-muted-foreground hover:text-foreground text-2xl transition-colors">&times;</button>
                     </div>
 
-                    {/* Original Report */}
                     <div className="bg-muted/30 p-4 rounded border border-border space-y-3 text-sm">
                         <div className="grid grid-cols-2 gap-4">
                             <div><span className="font-bold text-muted-foreground">Subject:</span> <span className="text-foreground">{selectedIncident.subject.last_name}, {selectedIncident.subject.first_name}</span></div>
@@ -182,7 +299,6 @@ export default function IncidentsClient({
                         )}
                     </div>
 
-                    {/* --- ACTIONS AREA --- */}
                     {selectedIncident.status === 'pending' && roleLevel >= 65 && (
                         <div className="pt-4 border-t border-border">
                             {modalMode === 'view' && (
@@ -202,7 +318,6 @@ export default function IncidentsClient({
                                 </div>
                             )}
 
-                            {/* RESOLVE FORM (Updated with Handled By) */}
                             {modalMode === 'resolve' && (
                                 <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2">
                                     <h3 className="font-bold text-green-600 dark:text-green-500">Resolution: Handled Locally</h3>
@@ -227,14 +342,13 @@ export default function IncidentsClient({
                                 </div>
                             )}
 
-                            {/* CONVERT FORM (Updated with Warnings) */}
                             {modalMode === 'convert' && (
                                 <div className="space-y-4 animate-in fade-in slide-in-from-bottom-2">
                                     <h3 className="font-bold text-destructive">Escalate: Issue Demerits</h3>
                                     
                                     <div className="bg-yellow-50 dark:bg-yellow-900/20 text-yellow-800 dark:text-yellow-200 text-xs p-3 rounded border border-yellow-200 dark:border-yellow-900/50">
                                         <strong>Notice:</strong> Original incident notes will NOT be copied to the official report. 
-                                        Please write a fresh, professional summary below suitable for the cadet's permanent record.
+                                        Please write a fresh, professional summary below suitable for the cadet&apos;s permanent record.
                                     </div>
 
                                     <SearchableSelect label="Select Infraction" options={richOffenseOptions} value={selectedOffenseId} onChange={setSelectedOffenseId} placeholder="Search offense..." />
@@ -256,7 +370,6 @@ export default function IncidentsClient({
                         </div>
                     )}
 
-                    {/* HISTORY VIEW */}
                     {selectedIncident.status !== 'pending' && (
                         <div className="pt-4 border-t border-border text-sm bg-muted/30 p-3 rounded">
                             <p><span className="font-bold text-muted-foreground">Status:</span> <span className="uppercase font-medium text-foreground">{selectedIncident.status}</span></p>

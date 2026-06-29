@@ -6,7 +6,7 @@ import { revalidatePath } from 'next/cache'
 
 // --- 1. APPROVE ---
 export async function approveReportAction(reportId: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return { error: 'Unauthorized: No user session.' }
 
@@ -22,7 +22,7 @@ export async function approveReportAction(reportId: string) {
 
 // --- 2. REJECT ---
 export async function rejectReportAction(reportId: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return { error: 'Unauthorized' }
 
@@ -39,7 +39,7 @@ export async function rejectReportAction(reportId: string) {
 
 // --- 3. KICK BACK ---
 export async function kickBackReportAction(reportId: string, reason: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return { error: 'Unauthorized' }
   if (!reason?.trim()) return { error: 'A comment is required.' }
@@ -57,7 +57,7 @@ export async function kickBackReportAction(reportId: string, reason: string) {
 
 // --- 4. PULL (By Submitter) ---
 export async function pullReport(reportId: string, comment: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return { success: false, error: 'Unauthorized' }
@@ -81,7 +81,7 @@ export async function resubmitReport(reportId: string, payload: {
     reportExplanation: string,
     dateOfOffense: string
 }) {
-    const supabase = createClient()
+    const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
     
     if (!user) return { error: 'Unauthorized' }
@@ -164,7 +164,7 @@ export async function editAndApproveReport(reportId: string, payload: {
     reportExplanation: string,
     dateOfOffense: string
 }) {
-    const supabase = createClient()
+    const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
     
     if (!user) return { error: 'Unauthorized' }

@@ -10,6 +10,10 @@ import {
   listCadetHistoricalYears,
   getCadetPeriodStats,
 } from '@/app/lib/period-queries'
+import {
+  listCadetParentLinksForCadet,
+  listPortalInvitesForCadet,
+} from '@/app/lib/parent-queries'
 import type { PeriodSelection } from '@/app/lib/period-types'
 import { buildDefaultPeriodSelection, selectableYears } from '@/app/lib/period-utils'
 import { canViewCadetHistory } from '@/app/lib/cadet-history-queries'
@@ -27,7 +31,7 @@ type AuditLogEntry = {
 }
 
 export default async function ProfilePage({ params }: { params: Promise<{ id: string }> }) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const resolvedParams = await params
   const { id } = resolvedParams
 
@@ -104,11 +108,31 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
   let schedule: Array<Record<string, unknown>> = []
   let oversight: Array<Record<string, unknown>> = []
   let canViewHistory = false
+  let linkedParents: Awaited<ReturnType<typeof listCadetParentLinksForCadet>> = []
+  let portalInvites: Awaited<ReturnType<typeof listPortalInvitesForCadet>> = []
+  const canManagePortal =
+    !isStaff &&
+    viewerRoleLevel >= 65 &&
+    (isSiteAdmin ||
+      canManageAll ||
+      (canManageOwn && profile.company_id === viewerProfile?.company_id))
 
   if (!isStaff) {
     canViewHistory = await canViewCadetHistory(profile.id)
     schedule = (await getCadetSchedule(profile.id)) as Array<Record<string, unknown>>
     oversight = (await getCadetOversight(profile.id)) as Array<Record<string, unknown>>
+
+    if (viewerRoleLevel >= 50) {
+      try {
+        linkedParents = await listCadetParentLinksForCadet(profile.id)
+        if (canManagePortal) {
+          portalInvites = await listPortalInvitesForCadet(profile.id)
+        }
+      } catch {
+        linkedParents = []
+        portalInvites = []
+      }
+    }
   }
 
   return (
@@ -129,6 +153,9 @@ export default async function ProfilePage({ params }: { params: Promise<{ id: st
         allTerms={allTerms}
         initialPeriod={initialPeriod}
         canViewHistory={canViewHistory}
+        linkedParents={linkedParents}
+        portalInvites={portalInvites}
+        canManagePortal={canManagePortal}
       />
     </div>
   )

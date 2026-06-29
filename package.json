@@ -9,7 +9,11 @@
     "lint": "eslint",
     "fix:auth": "psql postgresql://postgres:postgres@127.0.0.1:56322/postgres -f supabase/scripts/fix-auth-login.sql",
     "test:db": "supabase test db && npm run fix:auth",
-    "test:db:reset": "supabase db reset && supabase test db && npm run fix:auth"
+    "test:db:reset": "supabase db reset && supabase test db && npm run fix:auth",
+    "demo:schema-rebuild": "psql \"%DEMO_DATABASE_URL%\" -f supabase/demo-schema-rebuild.sql",
+    "demo:wipe": "psql \"%DEMO_DATABASE_URL%\" -f supabase/demo-wipe.sql",
+    "demo:seed": "psql \"%DEMO_DATABASE_URL%\" -f supabase/demo-seed.sql",
+    "demo:reset": "npm run demo:wipe && npm run demo:seed"
   },
   "dependencies": {
     "@supabase/auth-ui-react": "^0.4.7",

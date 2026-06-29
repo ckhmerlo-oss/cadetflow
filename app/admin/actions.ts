@@ -1,7 +1,7 @@
 'use server'
 
 import { createClient as createServerClient } from '@/utils/supabase/server'
-import { createClient } from '@supabase/supabase-js'
+import { createAdminClient } from '@/utils/supabase/admin'
 import { revalidatePath } from 'next/cache'
 
 // --- EXISTING: Password Reset ---
@@ -18,7 +18,7 @@ export async function adminResetPassword(prevState: any, formData: FormData) {
   }
 
   try {
-    const supabase = createServerClient()
+    const supabase = await createServerClient()
     const { data: { user }, } = await supabase.auth.getUser()
     if (!user) throw new Error('Not authenticated')
 
@@ -35,10 +35,7 @@ export async function adminResetPassword(prevState: any, formData: FormData) {
     if (roleLevel < 90) throw new Error('Permission denied: Admin rights required.')
     
     // Create Admin Client for Auth operations
-    const supabaseAdmin = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!,
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
-    )
+    const supabaseAdmin = await createAdminClient()
 
     const { error } = await supabaseAdmin.auth.admin.updateUserById(userId, {
       password: newPassword,
@@ -55,7 +52,7 @@ export async function adminResetPassword(prevState: any, formData: FormData) {
 // --- NEW: Company Management ---
 
 export async function createCompanyAction(formData: FormData) {
-  const supabase = createServerClient()
+  const supabase = await createServerClient()
   const name = formData.get('name') as string
 
   if (!name.trim()) return { error: "Company Name is required" }
@@ -85,7 +82,7 @@ export async function createCompanyAction(formData: FormData) {
 }
 
 export async function deleteCompanyAction(companyId: string) {
-  const supabase = createServerClient()
+  const supabase = await createServerClient()
 
   // 1. Auth & Permission Check
   const { data: { user } } = await supabase.auth.getUser()
@@ -121,7 +118,7 @@ export async function deleteCompanyAction(companyId: string) {
 // --- UPDATED: Role Management Actions ---
 
 export async function createAdminRoleAction(formData: FormData) {
-  const supabase = createServerClient()
+  const supabase = await createServerClient()
   
   const roleName = formData.get('roleName') as string
   const defaultLevel = parseInt(formData.get('defaultLevel') as string) || 0
@@ -164,7 +161,7 @@ export async function createAdminRoleAction(formData: FormData) {
 }
 
 export async function updateAdminRoleAction(formData: FormData) {
-  const supabase = createServerClient()
+  const supabase = await createServerClient()
   
   const roleId = formData.get('roleId') as string
   const roleName = formData.get('roleName') as string
@@ -207,7 +204,7 @@ export async function updateAdminRoleAction(formData: FormData) {
 }
 
 export async function deleteAdminRoleAction(roleId: string) {
-  const supabase = createServerClient()
+  const supabase = await createServerClient()
 
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return { error: "Unauthorized" }
@@ -246,7 +243,7 @@ export async function toggleUserArchiveStatus(
   setArchived: boolean,
   departureClassification?: 'non_return' | 'withdrawn' | 'suspended' | 'dismissal',
 ) {
-  const supabase = createServerClient()
+  const supabase = await createServerClient()
   
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return { error: "Unauthorized" }

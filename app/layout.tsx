@@ -5,9 +5,14 @@ import { createClient } from '@/utils/supabase/server'
 import { ThemeProvider } from '@/app/components/ThemeProvider'
 import HeaderMenu from '@/app/components/HeaderMenu'
 import MaintenanceRouteGuard from '@/app/components/MaintenanceRouteGuard'
+import ParentRouteGuard from '@/app/components/ParentRouteGuard'
 import OnboardingTour from '@/app/components/tour/OnboardingTour'
 import { ONBOARDING_TOUR_ENABLED } from '@/app/components/tour/TourConfig'
 import { MAINTENANCE_HOME, shouldUseMaintenanceShell } from '@/app/lib/maintenanceAccess'
+import { PARENT_HOME, shouldUseParentShell } from '@/app/lib/parentAccess'
+import DemoBanner from '@/app/components/DemoBanner'
+import { DEMO_ENV_COOKIE, isDemoEnvironment, resolveRequestHost } from '@/app/lib/demoEnvironment'
+import { headers, cookies } from 'next/headers'
 import Snowfall from '@/app/components/Snowfall'
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { Analytics } from "@vercel/analytics/next"
@@ -24,8 +29,13 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
+  const headerStore = await headers()
+  const cookieStore = await cookies()
+  const host = resolveRequestHost(headerStore)
+  const demoCookie = cookieStore.get(DEMO_ENV_COOKIE)?.value === 'demo'
+  const showDemoBanner = isDemoEnvironment({ host, demoCookie })
 
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   
   let canManage = false
@@ -37,6 +47,7 @@ export default async function RootLayout({
   let isInBand = false;
   let isMaintenanceManager = false;
   let isMaintenanceOnlyNav = false;
+  let isParentOnlyNav = false;
   let logoHref = '/';
 
   if (user) {
@@ -70,6 +81,7 @@ export default async function RootLayout({
     
     isSiteAdmin = profile?.is_site_admin || false;
     isMaintenanceOnlyNav = shouldUseMaintenanceShell(isMaintenanceManager, isSiteAdmin);
+    isParentOnlyNav = shouldUseParentShell(role?.role_name, isSiteAdmin);
     hasSeenTour = profile?.has_seen_tour || false;
     const cadetDetails = Array.isArray((profile as any)?.cadet_profiles)
       ? (profile as any).cadet_profiles[0]
@@ -84,6 +96,10 @@ export default async function RootLayout({
       logoText = 'WorkFlow';
       logoColor = 'text-blue-600 dark:text-blue-400 hover:text-blue-500 dark:hover:text-blue-300';
       logoHref = MAINTENANCE_HOME;
+    } else if (isParentOnlyNav) {
+      logoText = 'CadetFlow Family';
+      logoColor = 'text-primary hover:text-foreground';
+      logoHref = PARENT_HOME;
     } else if (role?.role_name && role.role_name.includes('Band Director')) {
       logoText = "Now with 100% More Band!"
       logoColor = "text-green-400 hover:text-green-700"
@@ -147,14 +163,17 @@ export default async function RootLayout({
                     isInBand={isInBand}
                     isMaintenanceManager={isMaintenanceManager}
                     isMaintenanceOnlyNav={isMaintenanceOnlyNav}
+                    isParentOnlyNav={isParentOnlyNav}
                   />
                 </div>
               </div>
             </nav>
           </header>
 
+          {showDemoBanner && <DemoBanner />}
+
           <main className="min-h-screen">
-            {user && ONBOARDING_TOUR_ENABLED && !isMaintenanceOnlyNav && (
+            {user && ONBOARDING_TOUR_ENABLED && !isMaintenanceOnlyNav && !isParentOnlyNav && (
               <OnboardingTour 
                 show={!hasSeenTour} 
                 canManage={canManage}
@@ -167,6 +186,8 @@ export default async function RootLayout({
             <Snowfall/>
             {isMaintenanceOnlyNav ? (
               <MaintenanceRouteGuard>{children}</MaintenanceRouteGuard>
+            ) : isParentOnlyNav ? (
+              <ParentRouteGuard>{children}</ParentRouteGuard>
             ) : (
               children
             )}

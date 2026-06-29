@@ -2,8 +2,9 @@ import { createClient } from '@/utils/supabase/server'
 import Link from 'next/link'
 import { redirect } from 'next/navigation'
 import { getIncidents, IncidentReport } from './incidents/actions'
+import { getSpecialReportsForReview } from './special-reports/actions'
+import { getEvents } from './events/actions'
 import { getMyWorkOrders, getViewerPersona } from './work-orders/actions'
-import { MAINTENANCE_HOME } from './lib/maintenanceAccess'
 
 // --- IMPORTS ---
 import { StatusBadge } from './components/ui/StatusBadge' 
@@ -12,7 +13,7 @@ import Snowfall from './components/Snowfall'
 // --- TYPES ---
 type DashboardItem = {
   id: string
-  type: 'report' | 'incident'
+  type: 'report' | 'incident' | 'special_report' | 'event'
   status: string
   created_at: string
   subject: { first_name: string; last_name: string } | null
@@ -56,7 +57,7 @@ function reportInSchoolYear(
 }
 
 async function getActiveSchoolYearBounds(
-  supabase: ReturnType<typeof createClient>,
+  supabase: Awaited<ReturnType<typeof createClient>>,
 ): Promise<{ activeYear: string | null; bounds: SchoolYearBounds | null }> {
   const { data: activeYear } = await supabase.rpc('get_active_school_year')
   if (!activeYear) return { activeYear: null, bounds: null }
@@ -75,7 +76,7 @@ async function getActiveSchoolYearBounds(
 }
 
 export default async function Dashboard() {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return redirect('/login')
@@ -88,7 +89,8 @@ export default async function Dashboard() {
         last_name, 
         company_id, 
         role:role_id (
-            default_role_level, 
+            default_role_level,
+            role_name,
             can_manage_all_rosters, 
             approval_group:approval_group_id (id, group_name)
         )
@@ -98,18 +100,13 @@ export default async function Dashboard() {
 
   if (profile && profile.company_id === null && profile.first_name === 'New') return redirect('/onboarding')
 
-  const persona = await getViewerPersona()
-  if (persona?.isMaintenance && !persona.isAdmin) redirect(MAINTENANCE_HOME)
-
-  const role = profile?.role as any
+  const role = profile?.role as { default_role_level?: number; role_name?: string; approval_group?: { id?: string; group_name?: string } } | null
   const role_level = role?.default_role_level || 0
   const groupName = role?.approval_group?.group_name || 'Personal Dashboard'
   const groupId = role?.approval_group?.id || null; 
 
   const isFaculty = role_level >= 50
   const isTac = role_level >= 65 && role_level < 90; 
-
-  if (role_level === 10) redirect(`/ledger/${user.id}`);
 
   const { bounds: activeYearBounds } = await getActiveSchoolYearBounds(supabase)
 
@@ -118,8 +115,12 @@ export default async function Dashboard() {
 
   // 2. Fetch Incidents (TAC Only)
   let pendingIncidents: IncidentReport[] = []
-  if (isTac) {
+  let pendingSpecialReports: Awaited<ReturnType<typeof getSpecialReportsForReview>> = []
+  let openEvents: Awaited<ReturnType<typeof getEvents>> = []
+  if (role_level >= 65) {
       pendingIncidents = await getIncidents('pending')
+      pendingSpecialReports = (await getSpecialReportsForReview('pending')).filter((r) => !r.event_id)
+      openEvents = await getEvents('open')
   }
 
   let allPendingReports: ReportWithNames[] = [];
@@ -213,6 +214,29 @@ export default async function Dashboard() {
           subject: i.subject,
           title: 'Incident Report',
           reporter: i.reporter
+      })
+  })
+
+  pendingSpecialReports.forEach((sr) => {
+      actionItems.push({
+          id: sr.id,
+          type: 'special_report',
+          status: sr.status,
+          created_at: sr.created_at,
+          subject: sr.subject ?? null,
+          title: 'Special Report',
+          submitter: sr.submitter as { first_name: string; last_name: string } | undefined,
+      })
+  })
+
+  openEvents.slice(0, 5).forEach((ev) => {
+      actionItems.push({
+          id: ev.id,
+          type: 'event',
+          status: ev.status,
+          created_at: ev.updated_at,
+          subject: null,
+          title: ev.title,
       })
   })
 
@@ -477,8 +501,16 @@ function ReportCard({ report, showSubject, showSubmitter }: { report: any; showS
   const formatName = (person: { first_name: string, last_name: string } | null) => person ? `${person.last_name}, ${person.first_name.charAt(0)}.` : 'N/A';
   
   const isIncident = report.type === 'incident';
+  const isSpecialReport = report.type === 'special_report';
+  const isEvent = report.type === 'event';
   const title = report.title || report.offense_type?.offense_name || 'Report';
-  const href = isIncident ? `/incidents/${report.id}` : `/report/${report.id}`;
+  const href = isIncident
+    ? `/incidents?incident=${report.id}`
+    : isSpecialReport
+        ? `/incidents?report=${report.id}`
+      : isEvent
+        ? `/incidents?event=${report.id}`
+        : `/report/${report.id}`;
 
   const getAppealBadge = (status: string) => {
       if (status === 'approved') {
@@ -492,7 +524,11 @@ function ReportCard({ report, showSubject, showSubmitter }: { report: any; showS
 
   const containerClasses = isIncident 
     ? 'border-destructive/50 bg-destructive/5 hover:bg-destructive/10' 
-    : 'border-border bg-card hover:bg-muted/50';
+    : isSpecialReport
+      ? 'border-amber-500/40 bg-amber-500/5 hover:bg-amber-500/10'
+      : isEvent
+        ? 'border-primary/40 bg-primary/5 hover:bg-primary/10'
+        : 'border-border bg-card hover:bg-muted/50';
 
   return (
     <Link 
@@ -506,6 +542,18 @@ function ReportCard({ report, showSubject, showSubmitter }: { report: any; showS
              {isIncident && (
                 <span className="ml-2 bg-destructive text-destructive-foreground text-xs px-2 py-0.5 rounded font-bold">
                     INCIDENT
+                </span>
+             )}
+
+             {isSpecialReport && (
+                <span className="ml-2 bg-amber-600 text-white text-xs px-2 py-0.5 rounded font-bold">
+                    SPECIAL
+                </span>
+             )}
+
+             {isEvent && (
+                <span className="ml-2 bg-primary text-primary-foreground text-xs px-2 py-0.5 rounded font-bold">
+                    EVENT
                 </span>
              )}
              

@@ -4,7 +4,7 @@ import PendingReportsClient from './PendingReportsClient'
 import { fetchPendingReports } from './actions'
 
 export default async function PendingPage() {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return redirect('/login')
 

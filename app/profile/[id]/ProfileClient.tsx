@@ -56,6 +56,8 @@ type Profile = {
 }
 
 import DepartureBadge from '@/app/components/DepartureBadge'
+import ProfileParentSection from './ProfileParentSection'
+import type { CadetParentLinkRow, PortalInviteRow } from '@/app/lib/parent-queries'
 type OptionsProps = {
     ranks: string[]
     grades: string[]
@@ -83,6 +85,9 @@ export default function ProfileClient({
   allTerms = [],
   initialPeriod = null,
   canViewHistory = false,
+  linkedParents = [],
+  portalInvites = [],
+  canManagePortal = false,
 }: { 
   profile: Profile
   auditLog: AuditLogEntry[]
@@ -114,6 +119,9 @@ export default function ProfileClient({
   allTerms?: AcademicTermRow[]
   initialPeriod?: PeriodSelection | null
   canViewHistory?: boolean
+  linkedParents?: CadetParentLinkRow[]
+  portalInvites?: PortalInviteRow[]
+  canManagePortal?: boolean
 }) {
   const supabase = createClient()
   const router = useRouter()
@@ -582,28 +590,17 @@ export default function ProfileClient({
 
           {/* PARENT INFO (Faculty Only) */}
           {isFaculty ? (
-              <div className="bg-card shadow-sm border border-border rounded-xl overflow-hidden h-96 flex flex-col">
-                <div className="px-6 py-4 border-b border-border bg-yellow-50 dark:bg-yellow-900/10 flex justify-between items-center">
-                    <h3 className="text-sm font-bold text-yellow-800 dark:text-yellow-200 uppercase tracking-wider flex items-center gap-2">Parent / Guardian</h3>
-                    <span className="text-[10px] font-bold bg-yellow-200 text-yellow-800 px-2 py-0.5 rounded uppercase">Faculty Only</span>
-                </div>
-                <div className="p-6 flex-1 overflow-y-auto">
-                    <div className="space-y-6">
-                        <div>
-                            <p className="text-xs text-muted-foreground uppercase font-bold mb-1">Primary Contact</p>
-                            <p className="text-lg font-bold text-foreground">{profile.parent_name || 'Not Listed'}</p>
-                            <div className="mt-2 flex items-center gap-2 text-sm text-muted-foreground">
-                                <svg className="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
-                                {profile.parent_phone || '(---) --- ----'}
-                            </div>
-                            <div className="mt-1 flex items-center gap-2 text-sm text-muted-foreground">
-                                <svg className="w-4 h-4 text-muted-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
-                                {profile.parent_email || 'No Email'}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-              </div>
+              <ProfileParentSection
+                cadetId={profile.id}
+                cadetName={`${profile.first_name} ${profile.last_name}`}
+                parentName={profile.parent_name}
+                parentEmail={profile.parent_email}
+                parentPhone={profile.parent_phone}
+                isArchived={isArchivedView}
+                canManage={canManagePortal}
+                linkedParents={linkedParents}
+                portalInvites={portalInvites}
+              />
           ) : (
               <div className="bg-muted/10 border border-dashed border-border rounded-xl h-96 flex items-center justify-center text-muted-foreground text-sm">
                   Restricted Access

@@ -18,7 +18,7 @@ export type GreenSheetItem = {
 }
 
 export async function getGreenSheetData(dateStr?: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   
   let query = supabase
     .from('demerit_reports')
@@ -75,7 +75,7 @@ export async function getGreenSheetData(dateStr?: string) {
 }
 
 export async function publishGreenSheet(reportIds: string[]) {
-    const supabase = createClient()
+    const supabase = await createClient()
     const now = new Date().toISOString()
     const { error } = await supabase.from('demerit_reports').update({ posted_at: now }).in('id', reportIds)
     if (error) return { success: false, error: error.message }
@@ -84,7 +84,7 @@ export async function publishGreenSheet(reportIds: string[]) {
 }
 
 export async function markReportAsPosted(reportId: string) {
-    const supabase = createClient()
+    const supabase = await createClient()
     const now = new Date().toISOString()
     const { error } = await supabase.from('demerit_reports').update({ posted_at: now }).eq('id', reportId)
     if (error) return { success: false, error: error.message }
@@ -93,7 +93,7 @@ export async function markReportAsPosted(reportId: string) {
 }
 
 export async function unpostReport(reportId: string) {
-    const supabase = createClient()
+    const supabase = await createClient()
     const { error } = await supabase.from('demerit_reports').update({ posted_at: null }).eq('id', reportId)
     if (error) return { success: false, error: error.message }
     revalidatePath('/reports/daily')

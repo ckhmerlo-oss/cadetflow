@@ -5,7 +5,7 @@ import { revalidatePath } from 'next/cache'
 import type { ClassSection, ClassSectionDetail, ScheduleSlotOption } from './types'
 
 export async function getTeacherClasses(): Promise<ClassSection[]> {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('get_teacher_classes')
   if (error) {
     console.error('get_teacher_classes:', error.message)
@@ -15,7 +15,7 @@ export async function getTeacherClasses(): Promise<ClassSection[]> {
 }
 
 export async function getClassSectionDetail(sectionId: string): Promise<ClassSectionDetail | null> {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('get_class_section_detail', { p_section_id: sectionId })
   if (error || !data?.length) return null
 
@@ -54,7 +54,7 @@ export async function createClassSection(
   termNumber?: number | null,
   seminarPeriod?: 'a' | 'b' | null
 ) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('upsert_teacher_class_section', {
     p_section_id: null,
     p_course_name: courseName,
@@ -67,7 +67,7 @@ export async function createClassSection(
 }
 
 export async function updateClassSectionName(sectionId: string, courseName: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { error } = await supabase.rpc('upsert_teacher_class_section', {
     p_section_id: sectionId,
     p_course_name: courseName,
@@ -81,7 +81,7 @@ export async function updateClassSectionName(sectionId: string, courseName: stri
 }
 
 export async function addCadetToSection(sectionId: string, cadetId: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { error } = await supabase.rpc('add_cadet_to_class_section', {
     p_section_id: sectionId,
     p_cadet_id: cadetId,
@@ -94,7 +94,7 @@ export async function addCadetToSection(sectionId: string, cadetId: string) {
 }
 
 export async function removeCadetFromSection(sectionId: string, cadetId: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { error } = await supabase.rpc('remove_cadet_from_class_section', {
     p_section_id: sectionId,
     p_cadet_id: cadetId,
@@ -107,7 +107,7 @@ export async function removeCadetFromSection(sectionId: string, cadetId: string)
 }
 
 export async function searchCadetsForClass(query: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data } = await supabase
     .from('profiles')
     .select('id, first_name, last_name, role:roles!inner(default_role_level)')
@@ -123,7 +123,7 @@ export async function searchCadetsForClass(query: string) {
 }
 
 export async function getAvailableSectionsForSlot(slotType: string): Promise<ScheduleSlotOption[]> {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('get_available_sections_for_slot', {
     p_slot_type: slotType,
   })
@@ -132,7 +132,7 @@ export async function getAvailableSectionsForSlot(slotType: string): Promise<Sch
 }
 
 export async function setCadetScheduleSlot(cadetId: string, slotType: string, sectionId: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { error } = await supabase.rpc('set_cadet_schedule_slot', {
     p_cadet_id: cadetId,
     p_slot_type: slotType,
@@ -145,7 +145,7 @@ export async function setCadetScheduleSlot(cadetId: string, slotType: string, se
 }
 
 export async function clearCadetScheduleSlot(cadetId: string, slotType: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { error } = await supabase.rpc('clear_cadet_schedule_slot', {
     p_cadet_id: cadetId,
     p_slot_type: slotType,
@@ -157,7 +157,7 @@ export async function clearCadetScheduleSlot(cadetId: string, slotType: string) 
 }
 
 export async function getCadetSchedule(cadetId: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('get_cadet_schedule', { p_cadet_id: cadetId })
   if (error) return []
   return data ?? []

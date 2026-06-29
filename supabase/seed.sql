@@ -17,6 +17,10 @@
 --   coach1@test.email         Head coach, Varsity Lacrosse (cadet1 in-season coach)
 --   coach2@test.email         Head coach, Track & Field (cadet2 in-season coach)
 --   admin@test.email          System Admin (level 105, force-archive)
+--
+-- Day 11 parent portal fixtures:
+--   parent1@test.email        Linked to cadet1 — conduct history + travel requests
+--   parent2@test.email        Linked to cadet2
 
 BEGIN;
 
@@ -38,7 +42,9 @@ WHERE user_id IN (
     'coach1@test.email',
     'coach2@test.email',
     'admin@test.email',
-    'maintenance@test.email'
+    'maintenance@test.email',
+    'parent1@test.email',
+    'parent2@test.email'
   ])
 );
 
@@ -53,7 +59,9 @@ WHERE email = ANY (ARRAY[
   'coach1@test.email',
   'coach2@test.email',
   'admin@test.email',
-  'maintenance@test.email'
+  'maintenance@test.email',
+  'parent1@test.email',
+  'parent2@test.email'
 ]);
 
 -- GoTrue requires empty strings (not NULL) on token columns for password login.
@@ -971,7 +979,9 @@ WHERE event_type IN ('incident.pending_review', 'incident.actioned')
       'f1000000-0000-0000-0000-000000000001',
       'f1000000-0000-0000-0000-000000000002',
       'f1000000-0000-0000-0000-000000000003',
-      'f1000000-0000-0000-0000-000000000004'
+      'f1000000-0000-0000-0000-000000000004',
+      'f1000000-0000-0000-0000-000000000005',
+      'f1000000-0000-0000-0000-000000000006'
     )
   );
 
@@ -980,7 +990,9 @@ WHERE id IN (
   'f1000000-0000-0000-0000-000000000001',
   'f1000000-0000-0000-0000-000000000002',
   'f1000000-0000-0000-0000-000000000003',
-  'f1000000-0000-0000-0000-000000000004'
+  'f1000000-0000-0000-0000-000000000004',
+  'f1000000-0000-0000-0000-000000000005',
+  'f1000000-0000-0000-0000-000000000006'
 );
 
 INSERT INTO public.user_preferences (user_id, in_app_new_report, in_app_status_change)
@@ -1052,6 +1064,28 @@ VALUES
     'Separated students and documented statements.',
     'pending',
     now() - interval '4 day'
+  ),
+  (
+    'f1000000-0000-0000-0000-000000000005',
+    'f0000000-0000-0000-0000-000000000002',
+    'fa677a4b-ce1a-4725-b70b-8d4afa328bbe',
+    'Cadet Private2 left formation early without permission during company drill.',
+    'Parade Field — south end',
+    now() - interval '6 hours',
+    'Returned cadet to formation; documented with platoon sergeant.',
+    'pending',
+    now() - interval '6 hours'
+  ),
+  (
+    'f1000000-0000-0000-0000-000000000006',
+    'f0000000-0000-0000-0000-000000000004',
+    '47bd1324-e8ea-4a4b-8d27-9c1592d71770',
+    'Cadet Private1 ate food in the academic building hallway in violation of mess hall policy.',
+    'Academic Building — first floor',
+    now() - interval '8 day',
+    'Confiscated food; cadet cleaned the area.',
+    'pending',
+    now() - interval '8 day'
   );
 
 UPDATE public.incident_reports
@@ -1060,7 +1094,8 @@ SET
   resolved_at = now() - interval '3 day',
   resolved_by = 'f0000000-0000-0000-0000-000000000001',
   handled_by_id = 'f0000000-0000-0000-0000-000000000001',
-  resolution_notes = 'Spoke with cadet and parent; cadet apologized to inspecting officer.'
+  resolution_notes = 'Spoke with cadet and parent; cadet apologized to inspecting officer.',
+  event_id = NULL
 WHERE id = 'f1000000-0000-0000-0000-000000000003';
 
 UPDATE public.incident_reports
@@ -1068,8 +1103,26 @@ SET
   status = 'converted',
   resolved_at = now() - interval '2 day',
   resolved_by = 'f0000000-0000-0000-0000-000000000001',
-  resolution_notes = 'Converted to demerit report for disrespect.'
+  resolution_notes = 'Converted to demerit report for disrespect.',
+  event_id = NULL
 WHERE id = 'f1000000-0000-0000-0000-000000000004';
+
+UPDATE public.incident_reports
+SET
+  status = 'handled',
+  resolved_at = now() - interval '7 day',
+  resolved_by = 'f0000000-0000-0000-0000-000000000001',
+  handled_by_id = 'f0000000-0000-0000-0000-000000000002',
+  resolution_notes = 'Cadet mopped hallway; verbal warning logged with TAC.',
+  event_id = NULL,
+  flagged_for_review = false
+WHERE id = 'f1000000-0000-0000-0000-000000000006';
+
+UPDATE public.incident_reports
+SET
+  event_id = NULL,
+  flagged_for_review = true
+WHERE id = 'f1000000-0000-0000-0000-000000000002';
 
 -- ---------------------------------------------------------------------------
 -- Day 08 work order fixtures (TAC queue + history samples)
@@ -1284,6 +1337,355 @@ WHERE
   OR phone_change_token IS NULL
   OR reauthentication_token IS NULL;
 
+-- ---------------------------------------------------------------------------
+-- Day 10 events + special reports (via trg_notify_on_* triggers)
+-- Login as cadet1@test.email / cadet2@test.email for My Special Reports;
+-- tac@test.email / commandant@test.email for review queues and notifications.
+-- Re-runnable standalone script: supabase/scripts/seed-events-special-reports.sql
+-- ---------------------------------------------------------------------------
+DELETE FROM public.user_notifications
+WHERE event_type IN (
+    'special_report.action_required',
+    'special_report.reviewed',
+    'event.action_required',
+    'event.status_changed'
+  )
+  AND (
+    idempotency_key LIKE 'special_report.%:f3010000-0000-0000-0000-00000000000%'
+    OR idempotency_key LIKE 'event.%:f3000000-0000-0000-0000-00000000000%'
+    OR metadata->>'special_report_id' IN (
+      'f3010000-0000-0000-0000-000000000001',
+      'f3010000-0000-0000-0000-000000000002',
+      'f3010000-0000-0000-0000-000000000003',
+      'f3010000-0000-0000-0000-000000000004',
+      'f3010000-0000-0000-0000-000000000005',
+      'f3010000-0000-0000-0000-000000000006',
+      'f3010000-0000-0000-0000-000000000007',
+      'f3010000-0000-0000-0000-000000000008'
+    )
+    OR metadata->>'event_id' IN (
+      'f3000000-0000-0000-0000-000000000001',
+      'f3000000-0000-0000-0000-000000000002',
+      'f3000000-0000-0000-0000-000000000003',
+      'f3000000-0000-0000-0000-000000000004'
+    )
+  );
+
+DELETE FROM public.special_report_audit_log
+WHERE special_report_id IN (
+  'f3010000-0000-0000-0000-000000000001',
+  'f3010000-0000-0000-0000-000000000002',
+  'f3010000-0000-0000-0000-000000000003',
+  'f3010000-0000-0000-0000-000000000004',
+  'f3010000-0000-0000-0000-000000000005',
+  'f3010000-0000-0000-0000-000000000006',
+  'f3010000-0000-0000-0000-000000000007',
+  'f3010000-0000-0000-0000-000000000008'
+);
+
+DELETE FROM public.special_reports
+WHERE id IN (
+  'f3010000-0000-0000-0000-000000000001',
+  'f3010000-0000-0000-0000-000000000002',
+  'f3010000-0000-0000-0000-000000000003',
+  'f3010000-0000-0000-0000-000000000004',
+  'f3010000-0000-0000-0000-000000000005',
+  'f3010000-0000-0000-0000-000000000006',
+  'f3010000-0000-0000-0000-000000000007',
+  'f3010000-0000-0000-0000-000000000008'
+);
+
+UPDATE public.incident_reports
+SET event_id = NULL
+WHERE event_id IN (
+  'f3000000-0000-0000-0000-000000000001',
+  'f3000000-0000-0000-0000-000000000002',
+  'f3000000-0000-0000-0000-000000000003',
+  'f3000000-0000-0000-0000-000000000004'
+);
+
+DELETE FROM public.events
+WHERE id IN (
+  'f3000000-0000-0000-0000-000000000001',
+  'f3000000-0000-0000-0000-000000000002',
+  'f3000000-0000-0000-0000-000000000003',
+  'f3000000-0000-0000-0000-000000000004'
+);
+
+INSERT INTO public.user_preferences (user_id, in_app_new_report, in_app_status_change)
+SELECT id, 'immediate'::public.notification_frequency, 'immediate'::public.notification_frequency
+FROM public.profiles
+WHERE id IN (
+  'b0c0e9df-1061-4721-b589-75780bc64f9c',
+  'f0000000-0000-0000-0000-000000000001'
+)
+ON CONFLICT (user_id) DO UPDATE
+SET in_app_new_report = EXCLUDED.in_app_new_report,
+    in_app_status_change = EXCLUDED.in_app_status_change;
+
+INSERT INTO public.events (
+  id,
+  title,
+  summary,
+  status,
+  school_year,
+  created_by,
+  created_at,
+  updated_at,
+  closed_at,
+  closed_by
+)
+VALUES
+  (
+    'f3000000-0000-0000-0000-000000000001',
+    'Barracks Third Deck altercation',
+    'Multiple cadet affidavits and faculty incident reports grouped for Alpha Company command review.',
+    'under_review',
+    '2025-2026',
+    'f0000000-0000-0000-0000-000000000001',
+    now() - interval '3 day',
+    now() - interval '1 day',
+    NULL,
+    NULL
+  ),
+  (
+    'f3000000-0000-0000-0000-000000000002',
+    'Parade field cover dispute follow-up',
+    'Follow-up event linking cadet affidavit to the handled parade-field incident.',
+    'open',
+    '2025-2026',
+    'f0000000-0000-0000-0000-000000000001',
+    now() - interval '4 day',
+    now() - interval '4 day',
+    NULL,
+    NULL
+  ),
+  (
+    'f3000000-0000-0000-0000-000000000003',
+    'Study hall phone policy — February',
+    'Closed event after incident was converted to a demerit report; affidavit retained for record.',
+    'closed',
+    '2025-2026',
+    'f0000000-0000-0000-0000-000000000001',
+    now() - interval '14 day',
+    now() - interval '2 day',
+    now() - interval '2 day',
+    'f0000000-0000-0000-0000-000000000001'
+  ),
+  (
+    'f3000000-0000-0000-0000-000000000004',
+    'Mess hall conduct concern',
+    'TAC-created event awaiting linked filings after cadet tip.',
+    'open',
+    '2025-2026',
+    'f0000000-0000-0000-0000-000000000001',
+    now() - interval '6 hours',
+    now() - interval '6 hours',
+    NULL,
+    NULL
+  );
+
+INSERT INTO public.special_reports (
+  id,
+  submitter_cadet_id,
+  subject_cadet_id,
+  narrative,
+  location,
+  occurred_at,
+  involvement_type,
+  status,
+  event_id,
+  school_year,
+  created_at,
+  updated_at
+)
+VALUES
+  (
+    'f3010000-0000-0000-0000-000000000001',
+    '47bd1324-e8ea-4a4b-8d27-9c1592d71770',
+    'fa677a4b-ce1a-4725-b70b-8d4afa328bbe',
+    'I was walking to the latrine on Third Deck when I heard shouting from A105. Cadet Private2 pushed Cadet Private1 against the bunk frame after an argument about lights-out. I did not intervene but stayed within earshot until the squad leader arrived.',
+    'Barracks A — Third Deck hallway',
+    now() - interval '3 day 30 minutes',
+    'witness',
+    'submitted',
+    'f3000000-0000-0000-0000-000000000001',
+    '2025-2026',
+    now() - interval '3 day',
+    now() - interval '3 day'
+  ),
+  (
+    'f3010000-0000-0000-0000-000000000002',
+    'fa677a4b-ce1a-4725-b70b-8d4afa328bbe',
+    '47bd1324-e8ea-4a4b-8d27-9c1592d71770',
+    'Private1 kept the overhead light on after taps while I was trying to sleep. I asked him twice to turn it off and he refused. I admit I raised my voice and stepped toward his bunk, but I did not intend to fight.',
+    'Barracks A — Room A105',
+    now() - interval '3 day 45 minutes',
+    'participant',
+    'reviewed',
+    'f3000000-0000-0000-0000-000000000001',
+    '2025-2026',
+    now() - interval '2 day 20 hours',
+    now() - interval '1 day'
+  ),
+  (
+    'f3010000-0000-0000-0000-000000000003',
+    '47bd1324-e8ea-4a4b-8d27-9c1592d71770',
+    '47bd1324-e8ea-4a4b-8d27-9c1592d71770',
+    'During morning formation I realized my cover was still in my room. I asked to be dismissed to retrieve it and the inspecting officer told me to fall out immediately. I spoke back because I felt the instruction was unclear, which I now understand was disrespectful.',
+    'Parade Field — Alpha Company formation',
+    now() - interval '5 day 15 minutes',
+    'participant',
+    'submitted',
+    'f3000000-0000-0000-0000-000000000002',
+    '2025-2026',
+    now() - interval '4 day',
+    now() - interval '4 day'
+  ),
+  (
+    'f3010000-0000-0000-0000-000000000004',
+    'fa677a4b-ce1a-4725-b70b-8d4afa328bbe',
+    'fa677a4b-ce1a-4725-b70b-8d4afa328bbe',
+    'I used my phone during study hall to check a message from my parent. The proctor asked me to put it away and I did, but I was frustrated and made a comment under my breath. I understand why the incident report was filed.',
+    'Study Hall B',
+    now() - interval '4 day',
+    'participant',
+    'reviewed',
+    'f3000000-0000-0000-0000-000000000003',
+    '2025-2026',
+    now() - interval '4 day',
+    now() - interval '2 day'
+  ),
+  (
+    'f3010000-0000-0000-0000-000000000005',
+    'fa677a4b-ce1a-4725-b70b-8d4afa328bbe',
+    NULL,
+    'At dinner I saw two upperclassmen pressuring a new cadet to eat faster and make fun of how he cut his food. I did not know their names but they wore Bravo Company pins. I am submitting this in case leadership wants to follow up.',
+    'Cadet Mess — main serving line',
+    now() - interval '8 hours',
+    'witness',
+    'submitted',
+    NULL,
+    '2025-2026',
+    now() - interval '7 hours',
+    now() - interval '7 hours'
+  ),
+  (
+    'f3010000-0000-0000-0000-000000000006',
+    '47bd1324-e8ea-4a4b-8d27-9c1592d71770',
+    'fa677a4b-ce1a-4725-b70b-8d4afa328bbe',
+    'I heard cadets running in the barracks hallway after taps. By the time I looked out, they had gone back into their rooms. No names, but it was on Second Deck near the stairwell.',
+    'Barracks A — Second Deck',
+    now() - interval '10 day',
+    'witness',
+    'reviewed',
+    NULL,
+    '2025-2026',
+    now() - interval '10 day',
+    now() - interval '8 day'
+  ),
+  (
+    'f3010000-0000-0000-0000-000000000007',
+    'fa677a4b-ce1a-4725-b70b-8d4afa328bbe',
+    NULL,
+    'Submitted a report about a loud argument in the dayroom that turned out to be a misunderstanding between friends. No discipline action needed.',
+    'Barracks A — Dayroom',
+    now() - interval '12 day',
+    'witness',
+    'closed',
+    NULL,
+    '2025-2026',
+    now() - interval '12 day',
+    now() - interval '11 day'
+  ),
+  (
+    'f3010000-0000-0000-0000-000000000008',
+    '47bd1324-e8ea-4a4b-8d27-9c1592d71770',
+    '47bd1324-e8ea-4a4b-8d27-9c1592d71770',
+    'During PT I slipped on a wet patch near the track and scraped my knee. I want it on record in case the cut gets worse, though I did not see anyone cause it.',
+    'Track — east straightaway',
+    now() - interval '18 hours',
+    'participant',
+    'submitted',
+    NULL,
+    '2025-2026',
+    now() - interval '17 hours',
+    now() - interval '17 hours'
+  );
+
+UPDATE public.special_reports
+SET
+  reviewed_by = 'f0000000-0000-0000-0000-000000000001',
+  reviewed_at = now() - interval '1 day',
+  review_notes = 'Interview scheduled with both roommates; statements consistent with hallway witness account.'
+WHERE id = 'f3010000-0000-0000-0000-000000000002';
+
+UPDATE public.special_reports
+SET
+  reviewed_by = 'f0000000-0000-0000-0000-000000000001',
+  reviewed_at = now() - interval '2 day',
+  review_notes = 'Reviewed; incident converted to demerit report. No further action on affidavit.'
+WHERE id = 'f3010000-0000-0000-0000-000000000004';
+
+UPDATE public.special_reports
+SET
+  reviewed_by = 'f0000000-0000-0000-0000-000000000001',
+  reviewed_at = now() - interval '8 day',
+  review_notes = 'Reviewed; no further action required beyond verbal reminder about hallway noise.',
+  flagged_for_review = false
+WHERE id = 'f3010000-0000-0000-0000-000000000006';
+
+UPDATE public.special_reports
+SET
+  reviewed_by = 'f0000000-0000-0000-0000-000000000001',
+  reviewed_at = now() - interval '11 day',
+  review_notes = 'Closed — misunderstanding confirmed with both cadets present.',
+  flagged_for_review = false
+WHERE id = 'f3010000-0000-0000-0000-000000000007';
+
+UPDATE public.special_reports
+SET flagged_for_review = true
+WHERE id = 'f3010000-0000-0000-0000-000000000005';
+
+-- Incidents stay unfiled for inbox / resolved archive; only special reports link to events.
+
+INSERT INTO public.special_report_audit_log (
+  special_report_id,
+  actor_id,
+  action,
+  details,
+  created_at
+)
+VALUES
+  (
+    'f3010000-0000-0000-0000-000000000002',
+    'f0000000-0000-0000-0000-000000000001',
+    'status_change',
+    '{"from":"submitted","to":"reviewed","notes":"Interview scheduled with both roommates; statements consistent with hallway witness account."}'::jsonb,
+    now() - interval '1 day'
+  ),
+  (
+    'f3010000-0000-0000-0000-000000000004',
+    'f0000000-0000-0000-0000-000000000001',
+    'status_change',
+    '{"from":"submitted","to":"reviewed","notes":"Reviewed; incident converted to demerit report. No further action on affidavit."}'::jsonb,
+    now() - interval '2 day'
+  ),
+  (
+    'f3010000-0000-0000-0000-000000000006',
+    'f0000000-0000-0000-0000-000000000001',
+    'marked_reviewed',
+    '{"notes":"Reviewed; no further action required beyond verbal reminder about hallway noise."}'::jsonb,
+    now() - interval '8 day'
+  ),
+  (
+    'f3010000-0000-0000-0000-000000000007',
+    'f0000000-0000-0000-0000-000000000001',
+    'closed',
+    '{"notes":"Closed — misunderstanding confirmed with both cadets present."}'::jsonb,
+    now() - interval '11 day'
+  );
+
 -- Returner archive interval: cadet1 withdrew mid 2024-2025 Term 3, reactivated before 2025-2026
 INSERT INTO public.cadet_archive_intervals (cadet_id, started_at, ended_at, reason, departure_classification)
 VALUES (
@@ -1293,5 +1695,193 @@ VALUES (
   'archived',
   'withdrawn'
 );
+
+-- ---------------------------------------------------------------------------
+-- Day 11: Parent portal seed users (password123 for all)
+-- Login as parent1@test.email or parent2@test.email → /parent
+-- ---------------------------------------------------------------------------
+INSERT INTO auth.users (
+  id,
+  aud,
+  email,
+  encrypted_password,
+  role,
+  created_at,
+  updated_at,
+  email_confirmed_at,
+  instance_id,
+  last_sign_in_at,
+  email_change,
+  recovery_token,
+  confirmation_token,
+  email_change_token_new,
+  raw_app_meta_data,
+  raw_user_meta_data
+)
+VALUES
+  (
+    'f0000000-0000-0000-0000-000000000009',
+    'authenticated',
+    'parent1@test.email',
+    '$2a$10$I2yqa/fBks6Ai/mPCiNit.00BDLcmDdLe2GVCKNCD6bpI4515ZKSq',
+    'authenticated',
+    now(),
+    now(),
+    now(),
+    '00000000-0000-0000-0000-000000000000',
+    now(),
+    '', '', '', '',
+    '{"provider":"email","providers":["email"]}'::jsonb,
+    '{"sub":"f0000000-0000-0000-0000-000000000009","email":"parent1@test.email","email_verified":true,"phone_verified":false,"first_name":"Patricia","last_name":"Private1"}'::jsonb
+  ),
+  (
+    'f0000000-0000-0000-0000-00000000000a',
+    'authenticated',
+    'parent2@test.email',
+    '$2a$10$I2yqa/fBks6Ai/mPCiNit.00BDLcmDdLe2GVCKNCD6bpI4515ZKSq',
+    'authenticated',
+    now(),
+    now(),
+    now(),
+    '00000000-0000-0000-0000-000000000000',
+    now(),
+    '', '', '', '',
+    '{"provider":"email","providers":["email"]}'::jsonb,
+    '{"sub":"f0000000-0000-0000-0000-00000000000a","email":"parent2@test.email","email_verified":true,"phone_verified":false,"first_name":"Paul","last_name":"Private2"}'::jsonb
+  )
+ON CONFLICT (id) DO UPDATE SET
+  email = EXCLUDED.email,
+  encrypted_password = EXCLUDED.encrypted_password,
+  email_confirmed_at = EXCLUDED.email_confirmed_at,
+  raw_app_meta_data = EXCLUDED.raw_app_meta_data,
+  raw_user_meta_data = EXCLUDED.raw_user_meta_data;
+
+INSERT INTO auth.identities (
+  id,
+  user_id,
+  provider_id,
+  provider,
+  identity_data,
+  created_at,
+  updated_at,
+  last_sign_in_at
+)
+VALUES
+  (
+    'f0000000-0000-0000-0000-000000000009',
+    'f0000000-0000-0000-0000-000000000009',
+    'f0000000-0000-0000-0000-000000000009',
+    'email',
+    '{"sub":"f0000000-0000-0000-0000-000000000009","email":"parent1@test.email","email_verified":true,"phone_verified":false}'::jsonb,
+    now(),
+    now(),
+    now()
+  ),
+  (
+    'f0000000-0000-0000-0000-00000000000a',
+    'f0000000-0000-0000-0000-00000000000a',
+    'f0000000-0000-0000-0000-00000000000a',
+    'email',
+    '{"sub":"f0000000-0000-0000-0000-00000000000a","email":"parent2@test.email","email_verified":true,"phone_verified":false}'::jsonb,
+    now(),
+    now(),
+    now()
+  )
+ON CONFLICT (id) DO UPDATE SET
+  identity_data = EXCLUDED.identity_data,
+  updated_at = EXCLUDED.updated_at;
+
+INSERT INTO public.profiles (id, first_name, last_name, role_id, company_id)
+VALUES
+  ('f0000000-0000-0000-0000-000000000009', 'Patricia', 'Private1', 'e7110000-0000-0000-0000-000000000001', NULL),
+  ('f0000000-0000-0000-0000-00000000000a', 'Paul', 'Private2', 'e7110000-0000-0000-0000-000000000001', NULL)
+ON CONFLICT (id) DO UPDATE SET
+  first_name = EXCLUDED.first_name,
+  last_name = EXCLUDED.last_name,
+  role_id = EXCLUDED.role_id,
+  company_id = NULL;
+
+DELETE FROM public.staff_profiles
+WHERE profile_id IN (
+  'f0000000-0000-0000-0000-000000000009',
+  'f0000000-0000-0000-0000-00000000000a'
+);
+DELETE FROM public.cadet_profiles
+WHERE profile_id IN (
+  'f0000000-0000-0000-0000-000000000009',
+  'f0000000-0000-0000-0000-00000000000a'
+);
+
+UPDATE public.cadet_profiles
+SET
+  parent_name = 'Patricia Private1',
+  parent_email = 'parent1@test.email',
+  parent_phone = '(555) 101-2001'
+WHERE profile_id = '47bd1324-e8ea-4a4b-8d27-9c1592d71770';
+
+UPDATE public.cadet_profiles
+SET
+  parent_name = 'Paul Private2',
+  parent_email = 'parent2@test.email',
+  parent_phone = '(555) 101-2002'
+WHERE profile_id = 'fa677a4b-ce1a-4725-b70b-8d4afa328bbe';
+
+INSERT INTO public.cadet_parent_links (
+  cadet_profile_id,
+  parent_profile_id,
+  status,
+  created_by_id
+)
+VALUES
+  (
+    '47bd1324-e8ea-4a4b-8d27-9c1592d71770',
+    'f0000000-0000-0000-0000-000000000009',
+    'active',
+    'f0000000-0000-0000-0000-000000000001'
+  ),
+  (
+    'fa677a4b-ce1a-4725-b70b-8d4afa328bbe',
+    'f0000000-0000-0000-0000-00000000000a',
+    'active',
+    'f0000000-0000-0000-0000-000000000001'
+  )
+ON CONFLICT (cadet_profile_id, parent_profile_id) DO UPDATE SET
+  status = 'active';
+
+INSERT INTO public.user_legal_acceptances (user_id, doc_key, version, accepted_at)
+VALUES
+  ('f0000000-0000-0000-0000-000000000009', 'terms_of_service', '2026-06-01', now()),
+  ('f0000000-0000-0000-0000-000000000009', 'privacy_policy', '2026-06-01', now()),
+  ('f0000000-0000-0000-0000-000000000009', 'parent_portal_agreement', '2026-06-01', now()),
+  ('f0000000-0000-0000-0000-00000000000a', 'terms_of_service', '2026-06-01', now()),
+  ('f0000000-0000-0000-0000-00000000000a', 'privacy_policy', '2026-06-01', now()),
+  ('f0000000-0000-0000-0000-00000000000a', 'parent_portal_agreement', '2026-06-01', now())
+ON CONFLICT (user_id, doc_key, version) DO NOTHING;
+
+INSERT INTO public.parent_travel_requests (
+  id,
+  cadet_id,
+  parent_profile_id,
+  trip_type,
+  departure_at,
+  return_at,
+  destination,
+  notes,
+  status
+)
+VALUES (
+  'f1000000-0000-0000-0000-000000000001',
+  '47bd1324-e8ea-4a4b-8d27-9c1592d71770',
+  'f0000000-0000-0000-0000-000000000009',
+  'weekend',
+  now() + interval '14 days',
+  now() + interval '16 days',
+  'Richmond, VA',
+  'Family visit — seed fixture',
+  'submitted'
+)
+ON CONFLICT (id) DO UPDATE SET
+  status = EXCLUDED.status,
+  destination = EXCLUDED.destination;
 
 COMMIT;

@@ -52,7 +52,7 @@ export type BarracksRoomOption = {
 }
 
 async function getViewerContext() {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return null
 

@@ -18,6 +18,7 @@ type HeaderMenuProps = {
   isInBand: boolean
   isMaintenanceManager: boolean
   isMaintenanceOnlyNav?: boolean
+  isParentOnlyNav?: boolean
 }
 
 // Icons
@@ -37,7 +38,7 @@ const UserIcon = () => (
   </svg>
 )
 
-export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, showClasses, isSiteAdmin, roleLevel, isInBand, isMaintenanceManager, isMaintenanceOnlyNav = false }: HeaderMenuProps) {
+export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, showClasses, isSiteAdmin, roleLevel, isInBand, isMaintenanceManager, isMaintenanceOnlyNav = false, isParentOnlyNav = false }: HeaderMenuProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
   const userMenuRef = useRef<HTMLDivElement>(null)
@@ -117,6 +118,46 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, sh
   ) : (
     <Link href="/login" className="text-primary hover:text-primary/80 font-medium transition-colors">Login</Link>
   )
+
+  if (isParentOnlyNav) {
+    return (
+      <>
+        <div className="hidden md:flex items-center justify-end space-x-3">
+          <Link href="/parent" id="nav-parent-home" className={navLinkClass}>
+            My Cadet(s)
+          </Link>
+          <Link href="/preferences" id="nav-preferences" className={navLinkClass}>
+            Preferences
+          </Link>
+          {userMenuBlock}
+        </div>
+        <div className="-mr-2 flex md:hidden">
+          <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="bg-background inline-flex items-center justify-center p-2 rounded-md text-muted-foreground hover:text-primary hover:bg-muted/50 focus:outline-none ml-2">
+            {isMobileMenuOpen ? <CloseIcon /> : <HamburgerIcon />}
+          </button>
+        </div>
+        {isMobileMenuOpen && (
+          <div className="md:hidden absolute top-16 inset-x-0 z-50 bg-popover border-b border-border shadow-lg">
+            <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+              <Link href="/parent" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted/50 hover:text-primary">My Cadet(s)</Link>
+              <Link href="/preferences" className="block px-3 py-2 rounded-md text-base font-medium text-foreground hover:bg-muted/50 hover:text-primary">Preferences</Link>
+            </div>
+            {isLoggedIn && (
+              <div className="pt-4 pb-4 border-t border-border">
+                <div className="px-2 space-y-1">
+                  <div className="flex items-center justify-between px-3 py-2 rounded-md hover:bg-muted/50">
+                    <span className="text-base font-medium text-foreground">Theme</span>
+                    <ThemeToggleButton />
+                  </div>
+                  <button onClick={handleSignOut} className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-destructive hover:bg-muted/50">Sign out</button>
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+      </>
+    )
+  }
 
   if (isMaintenanceOnlyNav) {
     return (

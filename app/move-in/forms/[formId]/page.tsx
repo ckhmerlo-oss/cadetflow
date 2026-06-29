@@ -9,7 +9,7 @@ export default async function ExternalMoveInFormPage({
   params: Promise<{ formId: string }>
 }) {
   const { formId } = await params
-  const supabase = createClient()
+  const supabase = await createClient()
   const {
     data: { user },
   } = await supabase.auth.getUser()

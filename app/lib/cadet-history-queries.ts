@@ -92,7 +92,7 @@ export type CadetHistoryReport = {
 }
 
 export async function canViewCadetHistory(cadetId: string): Promise<boolean> {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('can_view_cadet_history', { p_cadet_id: cadetId })
   if (error) return false
   return data === true
@@ -103,7 +103,7 @@ export async function getCadetHistoryReport(
   period: PeriodSelection | null,
   fullCareer = false
 ): Promise<CadetHistoryReport> {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('get_cadet_history_report', {
     p_cadet_id: cadetId,
     p_school_year: fullCareer ? null : period?.schoolYear ?? null,

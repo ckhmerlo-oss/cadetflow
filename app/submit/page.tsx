@@ -5,7 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { Suspense, useEffect, useMemo, useState } from 'react'
 import SubmitDemeritForm from './components/SubmitDemeritForm'
 import SubmitIncidentForm from './components/SubmitIncidentForm'
-import SubmitComingSoonTab from './components/SubmitComingSoonTab'
+import SubmitSpecialReportForm from './components/SubmitSpecialReportForm'
 import SubmitWorkOrderForm from './components/SubmitWorkOrderForm'
 
 type SubmitTab = 'demerit' | 'incident' | 'special' | 'damage'
@@ -18,17 +18,7 @@ const TAB_CONFIG: Array<{
 }> = [
   { id: 'demerit', label: 'Demerit Report' },
   { id: 'incident', label: 'Incident Report' },
-  {
-    id: 'special',
-    label: 'Special Report',
-    alwaysShow: true,
-    comingSoon: {
-      title: 'Special Report',
-      description:
-        'Cadet affidavits and narrative special reports for Category III and other formal submissions.',
-      plannedDay: 'Day 10',
-    },
-  },
+  { id: 'special', label: 'Special Report', alwaysShow: true },
   { id: 'damage', label: 'Damage / Work Order', alwaysShow: true },
 ]
 
@@ -38,6 +28,7 @@ function SubmitHubContent() {
   const searchParams = useSearchParams()
 
   const [roleLevel, setRoleLevel] = useState<number | null>(null)
+  const [userId, setUserId] = useState<string | null>(null)
   const [canDemerit, setCanDemerit] = useState(false)
   const [canIncident, setCanIncident] = useState(false)
   const [loading, setLoading] = useState(true)
@@ -71,6 +62,7 @@ function SubmitHubContent() {
       ])
 
       setRoleLevel(level)
+      setUserId(user.id)
       setCanDemerit(Boolean(demeritAllowed))
       setCanIncident(Boolean(incidentAllowed))
       setLoading(false)
@@ -105,7 +97,7 @@ function SubmitHubContent() {
     )
   }
 
-  const activeConfig = TAB_CONFIG.find((t) => t.id === activeTab)
+  const isCadet = roleLevel < 50
 
   return (
     <div className="relative max-w-2xl mx-auto p-4 sm:p-6 lg:p-8">
@@ -141,12 +133,18 @@ function SubmitHubContent() {
 
       {activeTab === 'damage' && <SubmitWorkOrderForm roleLevel={roleLevel} />}
 
-      {activeConfig?.comingSoon && (
-        <SubmitComingSoonTab
-          title={activeConfig.comingSoon.title}
-          description={activeConfig.comingSoon.description}
-          plannedDay={activeConfig.comingSoon.plannedDay}
-        />
+      {activeTab === 'special' && isCadet && userId && (
+        <SubmitSpecialReportForm userId={userId} />
+      )}
+
+      {activeTab === 'special' && !isCadet && (
+        <div className="bg-card p-6 rounded-lg border border-border text-muted-foreground text-sm">
+          Special reports are submitted by cadets. Use the{' '}
+          <a href="/incidents" className="text-primary hover:underline">
+            Incidents
+          </a>{' '}
+          workspace to review and link cadet affidavits.
+        </div>
       )}
     </div>
   )

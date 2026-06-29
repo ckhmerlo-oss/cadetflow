@@ -4,7 +4,7 @@ import ReportHistoryClient from './ReportHistoryClient'
 import { fetchReportHistory } from './actions'
 
 export default async function ReportArchivePage() {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return redirect('/login')
 

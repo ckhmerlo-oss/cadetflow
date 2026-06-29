@@ -5,7 +5,7 @@ import { Suspense } from 'react';
 import { AdminSettingsClient } from './AdminClientComponent';
 
 export default async function AdminPage() {
-  const supabase = createClient();
+  const supabase = await createClient();
 
   const { data: { user } } = await supabase.auth.getUser();
   if (!user) {

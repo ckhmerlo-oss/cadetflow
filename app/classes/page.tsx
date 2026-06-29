@@ -4,7 +4,7 @@ import { getTeacherClasses } from './actions'
 import ClassesDashboardClient from './ClassesDashboardClient'
 
 export default async function ClassesPage() {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 

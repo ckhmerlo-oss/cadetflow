@@ -14,7 +14,7 @@ export type TourLogEntry = {
 }
 
 export async function getAllTourLogs() {
-  const supabase = createClient()
+  const supabase = await createClient()
   
   // Fetch all ledger entries
   const { data, error } = await supabase

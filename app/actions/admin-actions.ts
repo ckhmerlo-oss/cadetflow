@@ -4,7 +4,7 @@ import { createClient } from '@/utils/supabase/server'
 import { revalidatePath } from 'next/cache'
 
 export async function toggleUserArchiveStatus(targetUserId: string, setArchived: boolean) {
-  const supabase = createClient()
+  const supabase = await createClient()
   
   // 1. Check Permissions (Level 90+ only)
   const { data: { user } } = await supabase.auth.getUser()

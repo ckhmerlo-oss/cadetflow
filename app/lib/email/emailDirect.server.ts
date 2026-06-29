@@ -1,4 +1,6 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
+import { resolveSiteUrl } from '@/app/lib/demoEnvironment'
+import { getRequestHost } from '@/utils/supabase/admin'
 import {
   alertEmail,
   devModeBanner,
@@ -205,7 +207,8 @@ export async function processEmailQueueDirect(admin: SupabaseClient): Promise<{
   failed: number
   failures: DirectQueueFailure[]
 }> {
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? process.env.SITE_URL ?? ''
+  const host = await getRequestHost()
+  const siteUrl = resolveSiteUrl(host)
 
   const { data: rows, error: listError } = await admin.rpc('list_pending_email_notifications', {
     p_batch_size: 20,

@@ -34,7 +34,7 @@ export default async function WorkOrdersPage({
 }: {
   searchParams: Promise<{ tab?: string }>
 }) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 

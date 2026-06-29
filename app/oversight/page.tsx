@@ -4,7 +4,7 @@ import { getMyOversightCadets } from './actions'
 import OversightClient from './OversightClient'
 
 export default async function OversightPage() {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) redirect('/login')
 

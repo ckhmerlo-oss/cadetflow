@@ -4,7 +4,7 @@ import SubmittedReportsClient from './SubmittedReportsClient'
 import { fetchSubmittedReports } from './actions'
 
 export default async function SubmittedPage() {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return redirect('/login')
 

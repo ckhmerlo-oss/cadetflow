@@ -12,7 +12,7 @@ export default async function MoveInInvitePage({
   const invite = await getMoveInInvitePublic(token)
   if (!invite) notFound()
 
-  const supabase = createClient()
+  const supabase = await createClient()
   const {
     data: { user },
   } = await supabase.auth.getUser()

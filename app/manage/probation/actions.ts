@@ -14,7 +14,7 @@ export type ProbationRecord = {
 }
 
 export async function getProbationList() {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const { data, error } = await supabase
     .from('profiles')
@@ -55,7 +55,7 @@ export async function getProbationList() {
 }
 
 export async function getAllCadetsForSelection() {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const { data, error } = await supabase
     .from('profiles')
@@ -82,7 +82,7 @@ export async function getAllCadetsForSelection() {
 }
 
 export async function updateCadetProbation(cadetId: string, status: string, notes: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return { error: 'Unauthorized' }

@@ -31,7 +31,7 @@ export type ActionItemReport = {
 }
 
 export default async function ActionItemsPage() {
-  const supabase = createClient()
+  const supabase = await createClient()
 
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return redirect('/login')

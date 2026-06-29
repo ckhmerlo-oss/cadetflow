@@ -7,7 +7,7 @@ import { drainEmailQueue } from '@/app/lib/server'
 import type { OversightCadet, OversightEntry } from './types'
 
 export async function getCadetOversight(cadetId: string): Promise<OversightEntry[]> {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('get_cadet_oversight', { p_cadet_id: cadetId })
   if (error) {
     console.error('get_cadet_oversight:', error.message)
@@ -17,7 +17,7 @@ export async function getCadetOversight(cadetId: string): Promise<OversightEntry
 }
 
 export async function getMyOversightCadets(): Promise<OversightCadet[]> {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('get_my_oversight_cadets')
   if (error) {
     console.error('get_my_oversight_cadets:', error.message)
@@ -27,7 +27,7 @@ export async function getMyOversightCadets(): Promise<OversightCadet[]> {
 }
 
 export async function addManualFacultyAssignment(cadetId: string, staffId?: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
   if (!user) return { error: 'Unauthorized' }
 
@@ -42,7 +42,7 @@ export async function addManualFacultyAssignment(cadetId: string, staffId?: stri
 }
 
 export async function removeManualFacultyAssignment(assignmentId: string, cadetId: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { error } = await supabase.rpc('remove_manual_oversight', { p_assignment_id: assignmentId })
   if (error) return { error: error.message }
   revalidatePath(`/profile/${cadetId}`)
@@ -51,7 +51,7 @@ export async function removeManualFacultyAssignment(assignmentId: string, cadetI
 }
 
 export async function selfRemoveSecondaryAssignment(assignmentId: string, cadetId: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { error } = await supabase.rpc('self_remove_secondary_assignment', {
     p_assignment_id: assignmentId,
   })
@@ -65,7 +65,7 @@ export async function setupSchoolYearTerms(
   schoolYear: string,
   terms: { name: string; start: string; end: string }[]
 ) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { error } = await supabase.rpc('setup_school_year_terms', {
     p_school_year: schoolYear,
     p_term_names: terms.map((t) => t.name),
@@ -77,7 +77,7 @@ export async function setupSchoolYearTerms(
 }
 
 export async function getGraduationRoster() {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('get_full_roster', { p_include_archived: false })
   if (error) return { error: error.message, data: [] as GraduationRosterCadet[] }
   const cadets = (data ?? []) as GraduationRosterCadet[]
@@ -85,7 +85,7 @@ export async function getGraduationRoster() {
 }
 
 export async function markCadetsGraduated(cadetIds: string[]) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('mark_cadets_graduated', {
     p_cadet_ids: cadetIds,
   })
@@ -96,7 +96,7 @@ export async function markCadetsGraduated(cadetIds: string[]) {
 }
 
 export async function unmarkCadetsGraduated(cadetIds: string[]) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('unmark_cadets_graduated', {
     p_cadet_ids: cadetIds,
   })
@@ -119,7 +119,7 @@ export async function setupSchoolYearTermsForClose(
 }
 
 export async function archiveSchoolYear(schoolYear: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { error } = await supabase.rpc('archive_school_year', { p_school_year: schoolYear })
   if (error) return { error: error.message }
   return { success: true }
@@ -178,7 +178,7 @@ export type GraduationRosterCadet = {
 }
 
 export async function getYearClosePreflight(schoolYear: string, nextSchoolYear?: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('get_year_close_preflight', {
     p_school_year: schoolYear,
     p_next_school_year: nextSchoolYear ?? null,
@@ -188,7 +188,7 @@ export async function getYearClosePreflight(schoolYear: string, nextSchoolYear?:
 }
 
 export async function getYearCloseReminderPreview(schoolYear: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('get_year_close_reminder_preview', {
     p_school_year: schoolYear,
   })
@@ -197,7 +197,7 @@ export async function getYearCloseReminderPreview(schoolYear: string) {
 }
 
 export async function sendYearCloseReminders(schoolYear: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('send_year_close_reminders', {
     p_school_year: schoolYear,
   })
@@ -219,7 +219,7 @@ export async function sendYearCloseReminders(schoolYear: string) {
 }
 
 export async function setDepartureClassification(cadetId: string, classification: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { error } = await supabase.rpc('set_departure_classification', {
     p_cadet_id: cadetId,
     p_classification: classification,
@@ -231,12 +231,25 @@ export async function setDepartureClassification(cadetId: string, classification
   return { success: true }
 }
 
+export async function carryForwardEvent(eventId: string, nextSchoolYear: string) {
+  const supabase = await createClient()
+  const { error } = await supabase.rpc('carry_forward_event', {
+    p_event_id: eventId,
+    p_next_school_year: nextSchoolYear,
+  })
+  if (error) return { error: formatRpcError('carry_forward_event', error) }
+  revalidatePath('/admin/year-close')
+  revalidatePath('/events')
+  revalidatePath('/incidents')
+  return { success: true }
+}
+
 export async function closeSchoolYear(
   schoolYear: string,
   nextSchoolYear: string,
   force = false,
 ) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('close_school_year', {
     p_school_year: schoolYear,
     p_next_school_year: nextSchoolYear,
@@ -250,7 +263,7 @@ export async function closeSchoolYear(
 }
 
 export async function reactivateCadets(cadetIds: string[], companyId: string, roleId: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('reactivate_cadets', {
     p_cadet_ids: cadetIds,
     p_company_id: companyId,
@@ -273,7 +286,7 @@ export async function archiveCadetProfile(
   departureClassification: DepartureClassification,
   reason = 'archived',
 ) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { error } = await supabase.rpc('archive_cadet_profile', {
     p_cadet_id: cadetId,
     p_reason: reason,
@@ -287,7 +300,7 @@ export async function archiveCadetProfile(
 }
 
 export async function getSchoolYearTerms(schoolYear?: string) {
-  const supabase = createClient()
+  const supabase = await createClient()
   const { data, error } = await supabase.rpc('get_school_year_terms', {
     p_school_year: schoolYear ?? null,
   })
