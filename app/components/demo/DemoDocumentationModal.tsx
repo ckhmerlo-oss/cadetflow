@@ -214,23 +214,26 @@ export default function DemoDocumentationModal({ open, onClose }: DemoDocumentat
                     <TopicBadges topic={selectedTopic} />
                   </div>
                   <p className="text-sm text-muted-foreground">{selectedTopic.summary}</p>
-                  {selectedTopic.roleNote && (
-                    <p className="text-sm text-muted-foreground">
-                      <span className="font-medium text-foreground">Access: </span>
-                      {selectedTopic.roleNote}
-                    </p>
-                  )}
                 </div>
 
-                <div className="space-y-3 text-sm text-foreground leading-relaxed">
-                  {selectedTopic.body.map((paragraph, i) => (
-                    <p key={i}>{paragraph}</p>
+                <div className="space-y-6">
+                  {selectedTopic.sections.map((section) => (
+                    <section key={section.id} className="space-y-2">
+                      <h4 className="text-sm font-semibold text-foreground border-b border-border pb-1">
+                        {section.title}
+                      </h4>
+                      <ul className="space-y-2 text-sm text-foreground leading-relaxed list-disc pl-5">
+                        {section.items.map((item, i) => (
+                          <li key={i}>{item}</li>
+                        ))}
+                      </ul>
+                    </section>
                   ))}
                 </div>
 
                 {selectedTopic.relatedRoutes && selectedTopic.relatedRoutes.length > 0 && !selectedTopic.comingSoon && (
                   <div className="space-y-2">
-                    <h4 className="text-sm font-semibold text-foreground">Related routes</h4>
+                    <h4 className="text-sm font-semibold text-foreground">Go there in the app</h4>
                     <ul className="flex flex-wrap gap-2">
                       {selectedTopic.relatedRoutes.map((route) => (
                         <li key={route}>
@@ -244,32 +247,6 @@ export default function DemoDocumentationModal({ open, onClose }: DemoDocumentat
                         </li>
                       ))}
                     </ul>
-                  </div>
-                )}
-
-                {selectedTopic.settings && selectedTopic.settings.length > 0 && (
-                  <div className="space-y-2">
-                    <h4 className="text-sm font-semibold text-foreground">Settings & configuration</h4>
-                    <div className="overflow-hidden rounded-lg border border-border">
-                      <table className="w-full text-sm">
-                        <thead className="bg-muted/30">
-                          <tr>
-                            <th className="px-3 py-2 text-left font-medium text-foreground">Setting</th>
-                            <th className="px-3 py-2 text-left font-medium text-foreground">Where</th>
-                            <th className="px-3 py-2 text-left font-medium text-foreground">Effect</th>
-                          </tr>
-                        </thead>
-                        <tbody className="divide-y divide-border">
-                          {selectedTopic.settings.map((setting) => (
-                            <tr key={setting.label} className="bg-card">
-                              <td className="px-3 py-2 font-medium text-foreground">{setting.label}</td>
-                              <td className="px-3 py-2 text-muted-foreground">{setting.where}</td>
-                              <td className="px-3 py-2 text-muted-foreground">{setting.effect}</td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
                   </div>
                 )}
               </div>
