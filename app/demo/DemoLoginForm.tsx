@@ -143,7 +143,9 @@ export default function DemoLoginForm({ diagnostics }: DemoLoginFormProps) {
               <p className="mt-2 text-muted-foreground">
                 Common fixes: confirm <code className="rounded bg-muted px-1">DEMO_INTERNAL_PASSWORD=password123</code> on
                 Vercel, re-run <code className="rounded bg-muted px-1">demo-seed.sql</code> on the demo Supabase project,
-                and redeploy after changing env vars.
+                ensure Auth → Hooks → Custom access token has{' '}
+                <code className="rounded bg-muted px-1">public.custom_access_token_hook</code> deployed (migration{' '}
+                <code className="rounded bg-muted px-1">20260730000003</code>), and redeploy after changing env vars.
               </p>
             )}
           </div>
