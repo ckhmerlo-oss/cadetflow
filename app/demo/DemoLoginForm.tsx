@@ -126,6 +126,14 @@ export default function DemoLoginForm({ diagnostics }: DemoLoginFormProps) {
           <p className="text-sm text-muted-foreground mt-2 max-w-2xl mx-auto">
             Choose a role to explore the full system. All demo data resets nightly at midnight Eastern Time.
           </p>
+          <div
+            className="mt-4 mx-auto max-w-2xl rounded-lg border border-amber-500/40 bg-amber-500/5 px-4 py-3 text-sm text-foreground"
+            role="status"
+          >
+            <strong>Explore the demo</strong> — click the{' '}
+            <span className="font-semibold text-primary">?</span> icon in the header to browse features,
+            settings, and what&apos;s coming soon.
+          </div>
         </div>
 
         {(loginError || clientError) && (

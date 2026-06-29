@@ -164,6 +164,7 @@ export default async function RootLayout({
                     isMaintenanceManager={isMaintenanceManager}
                     isMaintenanceOnlyNav={isMaintenanceOnlyNav}
                     isParentOnlyNav={isParentOnlyNav}
+                    showDemoDocs={showDemoBanner}
                   />
                 </div>
               </div>

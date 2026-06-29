@@ -7,6 +7,7 @@ import { createClient } from '@/utils/supabase/client'
 import ThemeToggleButton from './ThemeToggleButton'
 import FeedbackButton from './FeedbackButton'
 import NotificationBell from './NotificationBell'
+import DemoHelpButton from './demo/DemoHelpButton'
 
 type HeaderMenuProps = {
   canManage: boolean
@@ -19,6 +20,7 @@ type HeaderMenuProps = {
   isMaintenanceManager: boolean
   isMaintenanceOnlyNav?: boolean
   isParentOnlyNav?: boolean
+  showDemoDocs?: boolean
 }
 
 // Icons
@@ -38,7 +40,7 @@ const UserIcon = () => (
   </svg>
 )
 
-export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, showClasses, isSiteAdmin, roleLevel, isInBand, isMaintenanceManager, isMaintenanceOnlyNav = false, isParentOnlyNav = false }: HeaderMenuProps) {
+export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, showClasses, isSiteAdmin, roleLevel, isInBand, isMaintenanceManager, isMaintenanceOnlyNav = false, isParentOnlyNav = false, showDemoDocs = false }: HeaderMenuProps) {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
   const userMenuRef = useRef<HTMLDivElement>(null)
@@ -72,10 +74,11 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, sh
     router.refresh()
   }
 
-  // Login Page View: Only Theme Toggle
+  // Login Page View: Theme toggle + highlighted demo docs
   if (isLoginPage) {
       return (
         <div className="flex items-center justify-end space-x-3">
+            {showDemoDocs && <DemoHelpButton highlighted />}
             <ThemeToggleButton />
         </div>
       )
@@ -114,6 +117,7 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, sh
           </div>
         )}
       </div>
+      {showDemoDocs && <DemoHelpButton />}
     </div>
   ) : (
     <Link href="/login" className="text-primary hover:text-primary/80 font-medium transition-colors">Login</Link>
@@ -149,6 +153,11 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, sh
                     <span className="text-base font-medium text-foreground">Theme</span>
                     <ThemeToggleButton />
                   </div>
+                  {showDemoDocs && (
+                    <div className="px-3 py-2">
+                      <DemoHelpButton variant="text" />
+                    </div>
+                  )}
                   <button onClick={handleSignOut} className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-destructive hover:bg-muted/50">Sign out</button>
                 </div>
               </div>
@@ -200,6 +209,11 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, sh
                   <div className="px-3 py-2">
                     <NotificationBell />
                   </div>
+                  {showDemoDocs && (
+                    <div className="px-3 py-2">
+                      <DemoHelpButton variant="text" />
+                    </div>
+                  )}
                   <button onClick={handleSignOut} className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-destructive hover:bg-muted/50">Sign out</button>
                 </div>
               </div>
@@ -323,6 +337,7 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, sh
                   </div>
                 )}
              </div>
+             {showDemoDocs && <DemoHelpButton />}
           </div>
         ) : (
              <Link href="/login" className="text-primary hover:text-primary/80 font-medium transition-colors">Login</Link>
@@ -409,6 +424,11 @@ export default function HeaderMenu({ isLoggedIn, canManage, showDailyReports, sh
                 <div className="px-3 py-2">
                     <NotificationBell />
                 </div>
+                {showDemoDocs && (
+                  <div className="px-3 py-2">
+                    <DemoHelpButton variant="text" />
+                  </div>
+                )}
                 <button onClick={handleSignOut} className="block w-full text-left px-3 py-2 rounded-md text-base font-medium text-destructive hover:bg-muted/50">Sign out</button>
               </div>
             </div>

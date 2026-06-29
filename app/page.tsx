@@ -123,14 +123,10 @@ export default async function Dashboard() {
       openEvents = await getEvents('open')
   }
 
-  let allPendingReports: ReportWithNames[] = [];
   let cadetStats: CadetStats | null = null; 
   let allCompletedReports: ReportWithNames[] = []; 
 
   if (isFaculty) { 
-    const { data: facultyData } = await supabase.rpc('get_all_pending_reports_for_faculty')
-    allPendingReports = facultyData?.map((item: any) => ({ ...item, subject: item.subject, submitter: item.submitter, group: item.group, offense_type: { offense_name: item.title } })) as ReportWithNames[] || [];
-
     const { data: completedData } = await supabase.rpc('get_all_completed_reports_for_faculty')
     allCompletedReports = completedData?.map((item: any) => ({ 
         ...item, 
@@ -327,16 +323,6 @@ export default async function Dashboard() {
               title={workOrderSectionTitle}
               orders={workOrderQueue}
               viewAllHref={workOrderViewHref}
-            />
-        )}
-        
-        {isFaculty && (
-            <DashboardSection 
-                title="All In-Progress Reports" 
-                items={allPendingReports} 
-                emptyMessage="No reports pending approval." 
-                showSubject 
-                viewAllHref="/reports/pending"
             />
         )}
 
