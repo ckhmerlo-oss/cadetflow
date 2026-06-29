@@ -1,12 +1,13 @@
 import { Suspense } from 'react'
 import { cookies, headers } from 'next/headers'
+import DemoLoginForm from '@/app/demo/DemoLoginForm'
+import { DEMO_SUPABASE_PROJECT_REF } from '@/app/demo/demoLoginErrors'
+import ProdLoginForm from '@/app/login/ProdLoginForm'
 import {
   DEMO_ENV_COOKIE,
   isDemoEnvironment,
   resolveRequestHost,
 } from '@/app/lib/demoEnvironment'
-import DemoLoginForm from '@/app/demo/DemoLoginForm'
-import ProdLoginForm from '@/app/login/ProdLoginForm'
 
 export const dynamic = 'force-dynamic'
 
@@ -25,9 +26,21 @@ export default async function LoginPage() {
   const demoCookie = cookieStore.get(DEMO_ENV_COOKIE)?.value === 'demo'
 
   if (isDemoEnvironment({ host, demoCookie })) {
+    const diagnostics = {
+      requestHost: host,
+      demoEnvironment: true,
+      demoSupabaseConfigured: Boolean(
+        process.env.NEXT_PUBLIC_SUPABASE_URL_DEMO &&
+          (process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY_DEMO ??
+            process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY_DEMO),
+      ),
+      demoPasswordConfigured: Boolean(process.env.DEMO_INTERNAL_PASSWORD),
+      expectedDemoRef: DEMO_SUPABASE_PROJECT_REF,
+    }
+
     return (
       <Suspense fallback={<LoginFallback />}>
-        <DemoLoginForm />
+        <DemoLoginForm diagnostics={diagnostics} />
       </Suspense>
     )
   }
